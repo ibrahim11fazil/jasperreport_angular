@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/account" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/authentication" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo1" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo3" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fileupload" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ldap" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/maward" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notification" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/registry" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/training" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/workflow" charset="UTF-8" />
+  </component>
+</project>
