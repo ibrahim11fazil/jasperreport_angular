@@ -35,7 +35,7 @@ public TokenStore tokenStore;
 
   @Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-		// TODO Auto-generated method stub
+	    //SET THE RESOURCE NAME IN THE DB
 		resources.resourceId("USER_ADMIN_RESOURCE").tokenStore(tokenStore);
 	}
 
