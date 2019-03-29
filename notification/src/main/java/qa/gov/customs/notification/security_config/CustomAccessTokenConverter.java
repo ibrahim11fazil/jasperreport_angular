@@ -19,7 +19,7 @@ import java.util.*;
 public class CustomAccessTokenConverter implements AccessTokenConverter, JwtAccessTokenConverterConfigurer {
 
     private boolean includeGrantType;
-    private UserAuthenticationConverter userTokenConverter =new CustomUserAuthenticationConvertor();
+    private UserAuthenticationConverter userTokenConverter =new CustomUserAuthenticationConverter();
 
     public void setUserTokenConverter(UserAuthenticationConverter userTokenConverter){
         this.userTokenConverter=userTokenConverter;

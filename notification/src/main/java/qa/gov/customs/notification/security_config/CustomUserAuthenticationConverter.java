@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CustomUserAuthenticationConvertor implements UserAuthenticationConverter {
+public class CustomUserAuthenticationConverter implements UserAuthenticationConverter {
 
     private final String EMAIL ="email";
     private Collection<? extends GrantedAuthority> defaultAuthorities;
