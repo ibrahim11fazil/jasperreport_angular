@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: sraj
+Build-Jdk: 11.0.2
+Implementation-Title: fileupload
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: qa.gov.customs
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/app/fileupload
+Created-By: Maven Integration for Eclipse
+

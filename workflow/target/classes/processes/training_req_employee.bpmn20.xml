@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
   <process id="training_req_employee" name="training_req_employee" isExecutable="true">
-    <documentation>Training Request by employee . should be approved by same Department Head ,
-Department Manager , Training Head of the organization</documentation>
+    <documentation>
+        Training Request by employee . should be approved by same Department Head ,
+Department Manager , Training Head of the organization
+    </documentation>
+
     <startEvent id="startTrainingRequestEvent" flowable:initiator="initiator"></startEvent>
-
-      <userTask id="emp-request-for-training" name="Emp Request"></userTask>
-
+    <userTask id="emp-request-for-training" name="Emp Request"></userTask>
     <userTask id="head-approval-stage" name="Head Approval"></userTask>
     <exclusiveGateway id="head-approval-gateway"></exclusiveGateway>
     <userTask id="manager-approval" name="Manager Approval"></userTask>
-
 
     <exclusiveGateway id="manager-approval-gateway"></exclusiveGateway>
 

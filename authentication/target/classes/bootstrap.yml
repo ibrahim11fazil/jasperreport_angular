@@ -59,3 +59,9 @@ management:
       enabled: true
 
 check-user-scopes: true
+
+#security:
+#  oauth2:
+#    client:
+#      clientId: USER_CLIENT_APP
+#      clientSecret: $2a$10$KnNfG.ib4vFzEioYsd24T.XzuNUNVPhzyceM0Wz7mHFW3l.lPnH9G

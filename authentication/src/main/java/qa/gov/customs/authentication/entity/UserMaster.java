@@ -87,6 +87,8 @@ public class UserMaster implements UserDetails {
         });
 
         return authorities;
+
+        //return null;
     }
 
     public String getPassword() {
