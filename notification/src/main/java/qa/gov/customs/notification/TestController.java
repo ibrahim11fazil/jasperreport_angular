@@ -1,9 +1,11 @@
 package qa.gov.customs.notification;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import qa.gov.customs.notification.model.TestModel;
 
 @RestController
 public class TestController {
@@ -20,6 +22,14 @@ public class TestController {
 	public String createUser1() {
 		return "success";
 	}
-	
+
+
+
+	//@PreAuthorize("hasPermission(#model,'can_create_user')")
+	@PreAuthorize("hasAnyAuthority('can_create_user')")
+	@RequestMapping(method = RequestMethod.POST ,path="/foo3")
+	public String createUser2(@RequestBody TestModel model ) {
+		return "success";
+	}
 
 }
