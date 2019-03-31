@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10949ac6-58c3-4d5a-b496-ffd23f39012a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/model/TestModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/auth-service.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/auth-service.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/META-INF/maven/qa.gov.customs/notification/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/META-INF/maven/qa.gov.customs/notification/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/NotificationApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/NotificationApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/ResourceServerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/ResourceServerConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/TestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/CustomAccessTokenConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/CustomAccessTokenConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/CustomPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/CustomPrincipal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/CustomUserAuthenticationConvertor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/WebMvcConfiguration$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/WebMvcConfiguration$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/WebMvcConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/notification/target/classes/qa/gov/customs/notification/security_config/WebMvcConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/security_config/CustomUserAuthenticationConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/security_config/CustomUserAuthenticationConverter.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -95,8 +83,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/security_config/CustomUserAuthenticationConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="50" selection-start-line="50" selection-end-line="50" />
+            <state relative-caret-position="213">
+              <caret line="43" column="86" selection-start-line="43" selection-start-column="86" selection-end-line="43" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -242,6 +230,7 @@
         <option value="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/model/TestModel.java" />
         <option value="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/security_config/CustomAccessTokenConverter.java" />
         <option value="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/TestController.java" />
+        <option value="$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/security_config/CustomUserAuthenticationConverter.java" />
       </list>
     </option>
   </component>
@@ -286,7 +275,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553970153688" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554006234766" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -401,15 +390,16 @@
       <updated>1553104788148</updated>
       <workItem from="1553104791998" duration="20620000" />
       <workItem from="1553488139594" duration="55258000" />
-      <workItem from="1554005182854" duration="263000" />
+      <workItem from="1554005182854" duration="328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76141000" />
+    <option name="totallyTimeSpent" value="76206000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="58" y="23" width="1280" height="749" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26655897" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -820,16 +810,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="22" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="22" />
-          <folding>
-            <element signature="e#149#150#0" expanded="true" />
-            <element signature="e#176#177#0" expanded="true" />
-            <element signature="e#216#217#0" expanded="true" />
-            <element signature="e#248#249#0" expanded="true" />
-            <element signature="e#275#276#0" expanded="true" />
-            <element signature="e#301#302#0" expanded="true" />
-            <element signature="e#336#337#0" expanded="true" />
-            <element signature="e#366#367#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -893,11 +873,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/notification/src/main/java/qa/gov/customs/notification/security_config/CustomUserAuthenticationConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        <state relative-caret-position="213">
+          <caret line="43" column="86" selection-start-line="43" selection-start-column="86" selection-end-line="43" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1021#1036#0" expanded="true" />
           </folding>
         </state>
       </provider>
