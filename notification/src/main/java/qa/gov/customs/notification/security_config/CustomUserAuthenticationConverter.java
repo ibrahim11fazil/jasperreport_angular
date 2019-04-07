@@ -41,7 +41,7 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
     }
 
 
-    private Collection<? extends GrantedAuthority> getAuthorities(Map<String,?> map){ 
+    private Collection<? extends GrantedAuthority> getAuthorities(Map<String,?> map){
         if(!map.containsKey(AUTHORITIES))
             return defaultAuthorities;
         Object authorities =map.get(AUTHORITIES);

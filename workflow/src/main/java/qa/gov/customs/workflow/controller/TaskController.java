@@ -3,10 +3,8 @@ package qa.gov.customs.workflow.controller;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import qa.gov.customs.workflow.model.UserTask;
 import qa.gov.customs.workflow.service.UserProcessService;
 
 import java.util.ArrayList;
@@ -34,6 +32,13 @@ public class TaskController {
         return dtos;
     }
 
+    @RequestMapping(value="/executeTask", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public UserTask getTasks(@RequestBody UserTask assignee) {
+        boolean tasks = myService.processTask(assignee.getTaskId(),assignee.getAssigne());
+        assignee.setStatus(tasks);
+        return assignee;
+    }
+
     static class TaskRepresentation {
 
         private String id;
@@ -56,7 +61,9 @@ public class TaskController {
         public void setName(String name) {
             this.name = name;
         }
-
     }
+
+
+
 
 }

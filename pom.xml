@@ -51,6 +51,7 @@
         <module>notification</module>
         <module>fileupload</module>
         <module>ldap</module>
+        <module>workflow-camuda</module>
     </modules>
 
 
