@@ -2,6 +2,8 @@ package qa.gov.customs.workflowcamuda.controller;
 
 
 import org.apache.catalina.User;
+import org.camunda.bpm.engine.history.HistoricDetail;
+import org.camunda.bpm.engine.history.UserOperationLogEntry;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -10,7 +12,6 @@ import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.service.DemoService;
 import qa.gov.customs.workflowcamuda.service.HodService;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,13 @@ public class HodController {
                 assignee.getAction(),assignee.getExecutionId());
         assignee.setStatus(tasks);
         return assignee;
+    }
+
+
+    @RequestMapping(value="/historyHod", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<HistoricDetail> getHistoryByProcessId(@RequestBody UserTaskModel assignee) {
+        return myService.getUserTaskByProcessId(assignee.getProcessId());
+        //return assignee;
     }
 
 

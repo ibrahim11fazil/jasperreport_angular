@@ -4,6 +4,7 @@ package qa.gov.customs.workflowcamuda.service;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.UserOperationLogEntry;
 import org.camunda.bpm.engine.runtime.Execution;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -59,23 +60,24 @@ public class HodService {
     @Transactional
     public boolean processTask(String taskId, String userId,String processId,String role,String action,String executionId) {
         try {
-            Map variables = new HashMap<String, Object>();
-            variables.put(role, action);
-
-            VariableMap variables1 =
-                    Variables.createVariables()
-                            .putValueTyped("string", Variables.stringValue(action));
-            Map<String, Object> vars = Collections.<String, Object>singletonMap("manger", action);
+//            Map variables = new HashMap<String, Object>();
+//            variables.put(role, action);
+//
+//            VariableMap variables1 =
+//                    Variables.createVariables()
+//                            .putValueTyped("string", Variables.stringValue(action));
+//            Map<String, Object> vars = Collections.<String, Object>singletonMap("manger", action);
             //runtimeService.setVariables(executionId,  vars);
-            //runtimeService.setVariable(executionId, role, action);
+            runtimeService.setVariable(executionId, role, action);
             //taskService.setVariable(taskId,role,action);
             //runtimeService.setVariable();
             //execution.setVariable('sum', sum)
-            //runtimeService.setVariablesLocal(executionId, variables);
+           // runtimeService.setVariablesLocal(executionId, variables);
             //runtimeService.setVariable(processId,"manger","action");
 
-            ProcessInstance newProcessInstance = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processId).singleResult();
-            runtimeService.setVariable(newProcessInstance.getId(), "manger", action);
+            //ProcessInstance newProcessInstance = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processId).singleResult();
+            //runtimeService.setVariable(executionId, "applicant.manageract ", action);
+
 
 
             taskService.complete(taskId,  null);
@@ -134,6 +136,7 @@ public class HodService {
                     .list().forEach(item2 -> {
 
                 System.out.println("task Id >>> " + item2.getTaskId() + " " + item2.getNewValue() );
+                System.out.println("task Id1 >>> " + item2.getTaskId() + " " + item2.getNewValue() );
 
             });
 
@@ -148,6 +151,18 @@ public class HodService {
 
 
 
+
+    }
+
+
+    public List<HistoricDetail> getUserTaskByProcessId(String processId){
+
+      //return  historyService.createUserOperationLogQuery().processDefinitionId(processId).list();
+       return historyService.createHistoricDetailQuery()
+                .variableUpdates()
+                .processInstanceId(processId)
+                .orderByVariableName().asc()
+                .list();
 
     }
 

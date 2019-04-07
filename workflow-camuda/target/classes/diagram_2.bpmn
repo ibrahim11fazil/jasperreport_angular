@@ -41,14 +41,14 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_07vq6tk" sourceRef="Task_1u97mgu" targetRef="ExclusiveGateway_14bmfn7" />
     <bpmn:sequenceFlow id="SequenceFlow_1xmnnby" sourceRef="ExclusiveGateway_14bmfn7" targetRef="Task_15m2rsr">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hod == 1}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hod == 'approved'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="EndEvent_1ov405o">
       <bpmn:incoming>SequenceFlow_0bdokfe</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0bdokfe" sourceRef="Task_15m2rsr" targetRef="EndEvent_1ov405o" />
     <bpmn:sequenceFlow id="SequenceFlow_1qfi1jj" sourceRef="ExclusiveGateway_14bmfn7" targetRef="Task_0oncuyo">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hod == 2}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hod == 'not approved'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Task_15m2rsr" name="Approved mail" camunda:expression="${beanService.acceptAction(applicant)}">
       <bpmn:incoming>SequenceFlow_1xmnnby</bpmn:incoming>

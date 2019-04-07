@@ -11,6 +11,7 @@ public class UserRequestModel implements Serializable {
     String processId;
     String processKey;
 
+
     public String getUserId() {
         return userId;
     }
@@ -58,4 +59,6 @@ public class UserRequestModel implements Serializable {
     public void setProcessKey(String processKey) {
         this.processKey = processKey;
     }
+
+
 }
