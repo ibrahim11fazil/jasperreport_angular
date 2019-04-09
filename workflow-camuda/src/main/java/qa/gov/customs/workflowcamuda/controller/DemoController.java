@@ -21,7 +21,6 @@ public class DemoController {
         myService.startProcess();
     }
 
-
     @RequestMapping(value="/tasks", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<TaskRepresentation> getTasks(@RequestParam String assignee) {
         List<Task> tasks = myService.getTasks(assignee);
@@ -43,20 +42,15 @@ public class DemoController {
     //TODO need to create Attachments and User TAble
     //TODO need to create a request Table for the processes by each user
 
-
-
     //TODO History of actions based on processId
     //TODO History of actions for a particular assigne   DONE
     //TODO Status based on the processId
-
 
     //TODO get the manager of a user -- BPMN
     //TODO yes or no flow in the -- BPMN
     //TODO yes,no,later flow in the BPMN
     //TODO Delegation
     //TODO claim,unclaim,reassign
-
-
 
 
 

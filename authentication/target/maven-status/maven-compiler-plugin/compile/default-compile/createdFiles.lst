@@ -1,0 +1,13 @@
+qa/gov/customs/authentication/repository/UserRepository.class
+qa/gov/customs/authentication/config/CustomOAuth2RequestFactory.class
+qa/gov/customs/authentication/config/OAuth2Configuration.class
+qa/gov/customs/authentication/entity/PermissionRole.class
+qa/gov/customs/authentication/config/CustomTokenEnhancer.class
+qa/gov/customs/authentication/service/CustomUserDetailsService.class
+qa/gov/customs/authentication/entity/Permission.class
+qa/gov/customs/authentication/entity/UserMaster.class
+qa/gov/customs/authentication/controller/UserController.class
+qa/gov/customs/authentication/config/WebSecurityConfiguration.class
+qa/gov/customs/authentication/entity/Role.class
+qa/gov/customs/authentication/AuthenticationApplication.class
+qa/gov/customs/authentication/entity/OauthClientDetails.class

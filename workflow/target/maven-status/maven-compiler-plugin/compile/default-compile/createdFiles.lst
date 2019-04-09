@@ -1,0 +1,7 @@
+qa/gov/customs/workflow/service/TrainingService.class
+qa/gov/customs/workflow/model/UserTask.class
+qa/gov/customs/workflow/WorkflowApplication.class
+qa/gov/customs/workflow/service/TrainingRequestService.class
+qa/gov/customs/workflow/controller/TaskController.class
+qa/gov/customs/workflow/controller/TaskController$TaskRepresentation.class
+qa/gov/customs/workflow/service/UserProcessService.class

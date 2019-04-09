@@ -1,0 +1,9 @@
+qa/gov/customs/notification/NotificationApplication.class
+qa/gov/customs/notification/TestController.class
+qa/gov/customs/notification/model/TestModel.class
+qa/gov/customs/notification/security_config/WebMvcConfiguration$1.class
+qa/gov/customs/notification/security_config/CustomUserAuthenticationConverter.class
+qa/gov/customs/notification/security_config/CustomPrincipal.class
+qa/gov/customs/notification/security_config/WebMvcConfiguration.class
+qa/gov/customs/notification/ResourceServerConfig.class
+qa/gov/customs/notification/security_config/CustomAccessTokenConverter.class

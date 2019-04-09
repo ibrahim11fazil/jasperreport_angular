@@ -1,0 +1,14 @@
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/entity/Role.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/service/CustomUserDetailsService.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/entity/OauthClientDetails.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/entity/RoleUser.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/entity/Permission.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/config/OAuth2Configuration.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/repository/UserRepository.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/config/WebSecurityConfiguration.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/entity/UserMaster.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/AuthenticationApplication.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/entity/PermissionRole.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/config/CustomOAuth2RequestFactory.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/config/CustomTokenEnhancer.java
+/Users/sraj/Documents/demoapp/app/authentication/src/main/java/qa/gov/customs/authentication/controller/UserController.java
