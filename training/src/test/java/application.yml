@@ -19,7 +19,7 @@ security:
       #grant-type: client_credentials
       #scope: server
 
-spring:
+spring: 
   application:
     name: training
   main:
