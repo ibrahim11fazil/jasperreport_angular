@@ -1,0 +1,16 @@
+@2019-Apr-14 08:01:06.663 INFO  [main] q.g.c.t.T.ActivityTest - Starting ActivityTest on Administrators-MacBook-Air.local with PID 8538 (started by Admin in /Users/Admin/Documents/training/Training/training_application/training)
+@2019-Apr-14 08:01:06.670 INFO  [main] q.g.c.t.T.ActivityTest - No active profile set, falling back to default profiles: default
+@2019-Apr-14 08:01:08.508 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+@2019-Apr-14 08:01:08.680 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 155ms. Found 1 repository interfaces.
+@2019-Apr-14 08:01:09.856 INFO  [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e41fb391] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+@2019-Apr-14 08:01:10.378 INFO  [main] c.z.h.HikariDataSource - HikariPool-1 - Starting...
+@2019-Apr-14 08:01:16.831 INFO  [main] c.z.h.HikariDataSource - HikariPool-1 - Start completed.
+@2019-Apr-14 08:01:22.055 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+@2019-Apr-14 08:01:24.627 INFO  [main] o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+@2019-Apr-14 08:01:24.763 WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+@2019-Apr-14 08:01:26.450 INFO  [main] o.s.b.a.e.w.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+@2019-Apr-14 08:01:26.604 INFO  [main] q.g.c.t.T.ActivityTest - Started ActivityTest in 40.624 seconds (JVM running for 42.303)
+@2019-Apr-14 08:01:27.927 INFO  [Thread-7] o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+@2019-Apr-14 08:01:27.933 INFO  [Thread-7] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+@2019-Apr-14 08:01:27.937 INFO  [Thread-7] c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated...
+@2019-Apr-14 08:01:29.129 INFO  [Thread-7] c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed.

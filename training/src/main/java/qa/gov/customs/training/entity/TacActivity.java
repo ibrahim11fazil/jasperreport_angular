@@ -8,8 +8,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,11 +24,14 @@ import javax.persistence.TemporalType;
 @Table(name = "TAC_ACTIVITY", schema = "CUST_TAC")
 public class TacActivity implements java.io.Serializable {
 
+	
 	private BigDecimal activityId;
 	private String userCreated;
 	private Date dateCreated;
 	private String userModified;
 	private Date dateModified;
+	private long active_flag;
+	
 	private String activityName;
 	private Set<TacActivityCourseLink> tacActivityCourseLinks = new HashSet<TacActivityCourseLink>(0);
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
@@ -53,8 +59,9 @@ public class TacActivity implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "ACTIVITY_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ACTIVITY_SEQ")
 	public BigDecimal getActivityId() {
 		return this.activityId;
 	}
@@ -127,5 +134,14 @@ public class TacActivity implements java.io.Serializable {
 	public void setTacCourseActivations(Set<TacCourseActivation> tacCourseActivations) {
 		this.tacCourseActivations = tacCourseActivations;
 	}
+
+	public long getActive_flag() {
+		return active_flag;
+	}
+
+	public void setActive_flag(long active_flag) {
+		this.active_flag = active_flag;
+	}
+	
 
 }
