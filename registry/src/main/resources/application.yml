@@ -13,7 +13,7 @@ security:
           YwIDAQAB
           -----END PUBLIC KEY-----
     client:
-      clientId: account-service
+      clientId: registry
       #clientSecret: password@2018
       #accessTokenUri: http://localhost:9001/oauth/token
       #grant-type: client_credentials
@@ -21,7 +21,7 @@ security:
 
 spring:
   application:
-    name: account-service
+    name: registry
   main:
     allow-bean-definition-overriding: true
 #spring:
