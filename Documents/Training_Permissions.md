@@ -3,7 +3,7 @@
 
    |  sno |  function  |  permission  | roles  | remark  |
    |---|---|---|---|---|
-   | 1  | createActivity()  | create_activity  | training_admin  |   |
+   | 1  | createActivity(Activity obj)  | create_activity  | train_admin,train  |   |
    | 2  |   |   |   |   |
    | 3  |   |   |   |   |
    | 4  |   |   |   |   |

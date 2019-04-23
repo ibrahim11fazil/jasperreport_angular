@@ -1,6 +1,6 @@
 debug: false
 server:
-  port: 9000
+  port: 9061
 
 spring:
   application:

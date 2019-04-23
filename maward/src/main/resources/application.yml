@@ -34,7 +34,7 @@ security:
 #      port: 27017
 
 server:
-  port: 6000
+  port: 9031
 
 feign:
   hystrix:
