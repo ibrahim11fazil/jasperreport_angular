@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <description>This service is for sso for all other services</description>
     <artifactId>authentication</artifactId>
     <dependencies>
 
@@ -113,7 +113,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>workflow</finalName>
+                    <finalName>authentication</finalName>
                 </configuration>
             </plugin>
         </plugins>

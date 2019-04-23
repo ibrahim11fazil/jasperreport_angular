@@ -1,5 +1,5 @@
 package qa.gov.customs.training.entity;
-// Generated Apr 10, 2019 10:27:46 AM by Hibernate Tools 4.3.1.Final
+// Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import java.math.BigDecimal;
 import java.sql.Blob;
@@ -76,6 +76,8 @@ public class TacInstructorMaster implements java.io.Serializable {
 	@Id
 
 	@Column(name = "INSTRUCTOR_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_INSTRUCTOR_SEQ")
 	public BigDecimal getInstructorId() {
 		return this.instructorId;
 	}

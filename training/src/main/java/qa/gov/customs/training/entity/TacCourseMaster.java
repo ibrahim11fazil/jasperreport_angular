@@ -1,5 +1,5 @@
 package qa.gov.customs.training.entity;
-// Generated Apr 10, 2019 10:27:46 AM by Hibernate Tools 4.3.1.Final
+// Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import java.math.BigDecimal;
 import java.sql.Clob;
@@ -9,10 +9,13 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +43,7 @@ public class TacCourseMaster implements java.io.Serializable {
 	private Date dateCreated;
 	private String userModified;
 	private Date dateModified;
+	private String coordinatorJobId;
 	private Set<TacCoursePrerequisites> tacCoursePrerequisiteses = new HashSet<TacCoursePrerequisites>(0);
 	private Set<TacCourseGuidelines> tacCourseGuidelineses = new HashSet<TacCourseGuidelines>(0);
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
@@ -61,10 +65,10 @@ public class TacCourseMaster implements java.io.Serializable {
 			BigDecimal duration, BigDecimal durationFlag, Clob objective, BigDecimal numberofhours,
 			BigDecimal activityId, String prerequisitesId, String subcourseFlag, BigDecimal locationType,
 			String courseStatus, String userCreated, Date dateCreated, String userModified, Date dateModified,
-			Set<TacCoursePrerequisites> tacCoursePrerequisiteses, Set<TacCourseGuidelines> tacCourseGuidelineses,
-			Set<TacCourseActivation> tacCourseActivations, Set<TacCourseAudience> tacCourseAudiences,
-			Set<TacActivityCourseLink> tacActivityCourseLinks, Set<TacCourseOutcome> tacCourseOutcomes,
-			Set<TacCourseDate> tacCourseDates) {
+			String coordinatorJobId, Set<TacCoursePrerequisites> tacCoursePrerequisiteses,
+			Set<TacCourseGuidelines> tacCourseGuidelineses, Set<TacCourseActivation> tacCourseActivations,
+			Set<TacCourseAudience> tacCourseAudiences, Set<TacActivityCourseLink> tacActivityCourseLinks,
+			Set<TacCourseOutcome> tacCourseOutcomes, Set<TacCourseDate> tacCourseDates) {
 		this.courseId = courseId;
 		this.tacCourseCategory = tacCourseCategory;
 		this.courseName = courseName;
@@ -81,6 +85,7 @@ public class TacCourseMaster implements java.io.Serializable {
 		this.dateCreated = dateCreated;
 		this.userModified = userModified;
 		this.dateModified = dateModified;
+		this.coordinatorJobId = coordinatorJobId;
 		this.tacCoursePrerequisiteses = tacCoursePrerequisiteses;
 		this.tacCourseGuidelineses = tacCourseGuidelineses;
 		this.tacCourseActivations = tacCourseActivations;
@@ -93,6 +98,8 @@ public class TacCourseMaster implements java.io.Serializable {
 	@Id
 
 	@Column(name = "COURSE_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_COURSE_SEQ")
 	public BigDecimal getCourseId() {
 		return this.courseId;
 	}
@@ -237,6 +244,15 @@ public class TacCourseMaster implements java.io.Serializable {
 
 	public void setDateModified(Date dateModified) {
 		this.dateModified = dateModified;
+	}
+
+	@Column(name = "COORDINATOR_JOB_ID", length = 20)
+	public String getCoordinatorJobId() {
+		return this.coordinatorJobId;
+	}
+
+	public void setCoordinatorJobId(String coordinatorJobId) {
+		this.coordinatorJobId = coordinatorJobId;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")

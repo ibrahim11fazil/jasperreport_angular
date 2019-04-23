@@ -1,5 +1,5 @@
 package qa.gov.customs.training.entity;
-// Generated Apr 10, 2019 10:27:46 AM by Hibernate Tools 4.3.1.Final
+// Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import java.math.BigDecimal;
 import java.sql.Clob;
@@ -27,13 +27,10 @@ public class TacCourseAttendees implements java.io.Serializable {
 	private BigDecimal attendanceId;
 	private TacCourseActivation tacCourseActivation;
 	private String jobId;
-	private String name;
-	private String department;
-	private String mobile;
-	private String jobTitle;
 	private BigDecimal courseStatus;
 	private BigDecimal attendancePercentage;
 	private Clob remark;
+	private BigDecimal certificateSerialNo;
 	private Set<TacCourseAttendence> tacCourseAttendences = new HashSet<TacCourseAttendence>(0);
 
 	public TacCourseAttendees() {
@@ -46,18 +43,15 @@ public class TacCourseAttendees implements java.io.Serializable {
 	}
 
 	public TacCourseAttendees(BigDecimal attendanceId, TacCourseActivation tacCourseActivation, String jobId,
-			String name, String department, String mobile, String jobTitle, BigDecimal courseStatus,
-			BigDecimal attendancePercentage, Clob remark, Set<TacCourseAttendence> tacCourseAttendences) {
+			BigDecimal courseStatus, BigDecimal attendancePercentage, Clob remark, BigDecimal certificateSerialNo,
+			Set<TacCourseAttendence> tacCourseAttendences) {
 		this.attendanceId = attendanceId;
 		this.tacCourseActivation = tacCourseActivation;
 		this.jobId = jobId;
-		this.name = name;
-		this.department = department;
-		this.mobile = mobile;
-		this.jobTitle = jobTitle;
 		this.courseStatus = courseStatus;
 		this.attendancePercentage = attendancePercentage;
 		this.remark = remark;
+		this.certificateSerialNo = certificateSerialNo;
 		this.tacCourseAttendences = tacCourseAttendences;
 	}
 
@@ -93,42 +87,6 @@ public class TacCourseAttendees implements java.io.Serializable {
 		this.jobId = jobId;
 	}
 
-	@Column(name = "NAME", length = 500)
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Column(name = "DEPARTMENT", length = 500)
-	public String getDepartment() {
-		return this.department;
-	}
-
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-	@Column(name = "MOBILE", length = 50)
-	public String getMobile() {
-		return this.mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	@Column(name = "JOB_TITLE", length = 500)
-	public String getJobTitle() {
-		return this.jobTitle;
-	}
-
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
-	}
-
 	@Column(name = "COURSE_STATUS", precision = 22, scale = 0)
 	public BigDecimal getCourseStatus() {
 		return this.courseStatus;
@@ -154,6 +112,15 @@ public class TacCourseAttendees implements java.io.Serializable {
 
 	public void setRemark(Clob remark) {
 		this.remark = remark;
+	}
+
+	@Column(name = "CERTIFICATE_SERIAL_NO", precision = 22, scale = 0)
+	public BigDecimal getCertificateSerialNo() {
+		return this.certificateSerialNo;
+	}
+
+	public void setCertificateSerialNo(BigDecimal certificateSerialNo) {
+		this.certificateSerialNo = certificateSerialNo;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseAttendees")
