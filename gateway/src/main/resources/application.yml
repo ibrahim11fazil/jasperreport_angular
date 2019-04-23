@@ -34,7 +34,7 @@ spring:
 #      port: 27017
 
 server:
-  port: 6050
+  port: 9000
 
 feign:
   hystrix:
