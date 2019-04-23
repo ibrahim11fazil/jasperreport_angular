@@ -34,8 +34,8 @@ spring:
 #      port: 27017
 
 server:
-  port: 6000
+  port: 6050
 
 feign:
   hystrix:
-    enabled: true
+    enabled: false

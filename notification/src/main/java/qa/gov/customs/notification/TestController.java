@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.notification.model.TestModel;
+import qa.gov.customs.notification.security_config.CustomPrincipal;
 
 @RestController
 public class TestController {
@@ -13,8 +14,9 @@ public class TestController {
 	//Issue with the role ...
 	@PreAuthorize("hasAnyAuthority('role_admin','role_user')")
 	@RequestMapping(method = RequestMethod.POST ,path="/foo")
-	public String createUser() {
-		return "success";
+	public String createUser(CustomPrincipal principal) {
+
+		return "success " + principal.getUsername() + " "+  principal.getEmail();
 	}
 
 	//Working

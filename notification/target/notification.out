@@ -1,0 +1,37 @@
+2019-04-21 10:48:47.136  INFO 34909 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$bb2d52f7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.4.RELEASE)
+
+2019-04-21 10:48:47.274  INFO 34909 --- [           main] q.g.c.n.NotificationApplication          : No active profile set, falling back to default profiles: default
+2019-04-21 10:48:48.370  INFO 34909 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=d60a3cf5-ed8d-3467-ae43-14ff2fc33e12
+2019-04-21 10:48:48.444  INFO 34909 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$37c11834] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-21 10:48:48.450  INFO 34909 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-21 10:48:48.454  INFO 34909 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@21d8bcbe' of type [org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-21 10:48:48.457  INFO 34909 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$5c95bae6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-21 10:48:48.461  INFO 34909 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-21 10:48:48.471  INFO 34909 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$bb2d52f7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-04-21 10:48:48.831  INFO 34909 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 6000 (http)
+2019-04-21 10:48:48.867  INFO 34909 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-04-21 10:48:48.868  INFO 34909 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-04-21 10:48:48.966  INFO 34909 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-04-21 10:48:48.967  INFO 34909 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1674 ms
+2019-04-21 10:48:49.665  INFO 34909 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: ef8471cb-9d71-4cf5-82f5-e71b347e3394
+
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.sun.xml.bind.v2.runtime.reflect.opt.Injector (jar:file:/Users/sraj/Documents/demoapp/app/notification/target/notification-1.0-SNAPSHOT.jar!/BOOT-INF/lib/jaxb-impl-2.3.0.1.jar!/) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int)
+WARNING: Please consider reporting this to the maintainers of com.sun.xml.bind.v2.runtime.reflect.opt.Injector
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2019-04-21 10:48:49.973  INFO 34909 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2d000e80, org.springframework.security.web.context.SecurityContextPersistenceFilter@45d6ef73, org.springframework.security.web.header.HeaderWriterFilter@408b87aa, org.springframework.security.web.authentication.logout.LogoutFilter@7ce4de34, org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter@3c904f1e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1f6d27cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@507d20bb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7cf283e1, org.springframework.security.web.session.SessionManagementFilter@a52ca2e, org.springframework.security.web.access.ExceptionTranslationFilter@2764c546, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@327c7bea]
+2019-04-21 10:48:50.163  INFO 34909 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-04-21 10:48:50.501  INFO 34909 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-04-21 10:48:50.686  INFO 34909 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 6000 (http) with context path ''
+2019-04-21 10:48:50.690  INFO 34909 --- [           main] q.g.c.n.NotificationApplication          : Started NotificationApplication in 9.361 seconds (JVM running for 10.064)

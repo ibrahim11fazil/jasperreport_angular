@@ -21,7 +21,7 @@ security:
 
 spring:
   application:
-    name: account-service
+    name: notification
   main:
     allow-bean-definition-overriding: true
 #spring:
