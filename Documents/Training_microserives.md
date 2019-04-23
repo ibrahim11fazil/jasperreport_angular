@@ -14,3 +14,13 @@
    | 9  | notification  | 9041  |   |   |
    | 10 | training  | 9051  |   |   |
    | 11 | workflow-camuda  | 9061  |   |   |
+   
+
+## Kafka and Zoo keeper ports 
+ 
+   TODO need to add 
+  
+## ELK stack port 
+
+   
+   
