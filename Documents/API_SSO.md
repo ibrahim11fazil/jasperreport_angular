@@ -42,6 +42,7 @@ SAMPLE (url is encoded)
 
 ## LOGIN_RESPONSE
 
+success
         
     {
      "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiVVNFUl9DTElFTlRfUkVTT1VSQ0UiLCJVU0VSX0FETUlOX1JFU09VUkNFIl0sInVzZXJfbmFtZSI6InVzZXIiLCJzY29wZSI6WyJyb2xlX3VzZXIiXSwiZXhwIjoxNTU2MzEzMjA0LCJhdXRob3JpdGllcyI6WyJjYW5fcmVhZF91c2VyIiwicm9sZV91c2VyIl0sImp0aSI6IjFjY2Q4MzdkLWE0ZTItNDJkZi1iYzg3LThlY2ZhMDgzMjc5OSIsImVtYWlsIjoidXNlckBnbWFpbC5jb20iLCJjbGllbnRfaWQiOiJVU0VSX0NMSUVOVF9BUFAifQ.CQvPv8I8LNcxkOqtY9AoZ_NqyoBcUYQWZH8cwdBU_x_rio9cvE-M8ped2gh_b05VFO5X87_ZAjYfN43k3GRqPU6eU-jysTapuesQ7SWslRxmnpayaZceHwm5UMYrSlG1HhpBKKgZcitYZb_5kcDl0WVdLlZwh4EQEZcy4VDS5ynvnjb1fPo6qDAIMGDWb4ZY2U1cAHnIX-F7GsRJ0RL0wbE92s1CxdeO4v92QM-IFl6W1I6QO0nJwAcYsbOraAYVtAZt6ZjwY1YpXU3GtvLvjzwDbc5iZtpdZS03Z7EM02KEv5UhjbYpokii978hJNgbOEBKUXe3XCVGHFObF70yAA",
@@ -52,3 +53,30 @@ SAMPLE (url is encoded)
      "email": "user@gmail.com",
      "jti": "1ccd837d-a4e2-42df-bc87-8ecfa0832799"
     }
+    
+failure 1 if header is  null
+    
+    {
+      "timestamp": "2019-04-23T10:03:39.517+0000",
+      "status": 401,
+      "error": "Unauthorized",
+      "message": "Unauthorized",
+      "path": "/oauth/token"
+    }
+    
+failure 2 bad user credentials
+
+    {
+      "error": "unauthorized",
+      "error_description": "Bad credentials"
+    }
+    
+failure 3 if not equals grant_type:password
+
+    {
+      "error": "invalid_scope",
+      "error_description": "Empty scope (either the client or the user is not allowed the requested scopes)"
+    }    
+    
+ 
+    
