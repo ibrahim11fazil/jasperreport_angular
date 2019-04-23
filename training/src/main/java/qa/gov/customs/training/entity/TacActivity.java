@@ -1,5 +1,5 @@
 package qa.gov.customs.training.entity;
-// Generated Apr 10, 2019 10:27:46 AM by Hibernate Tools 4.3.1.Final
+// Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,15 +24,13 @@ import javax.persistence.TemporalType;
 @Table(name = "TAC_ACTIVITY", schema = "CUST_TAC")
 public class TacActivity implements java.io.Serializable {
 
-	
 	private BigDecimal activityId;
 	private String userCreated;
 	private Date dateCreated;
 	private String userModified;
 	private Date dateModified;
-	private long active_flag;
-	
 	private String activityName;
+	private BigDecimal activeFlag;
 	private Set<TacActivityCourseLink> tacActivityCourseLinks = new HashSet<TacActivityCourseLink>(0);
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
 
@@ -46,19 +44,21 @@ public class TacActivity implements java.io.Serializable {
 	}
 
 	public TacActivity(BigDecimal activityId, String userCreated, Date dateCreated, String userModified,
-			Date dateModified, String activityName, Set<TacActivityCourseLink> tacActivityCourseLinks,
-			Set<TacCourseActivation> tacCourseActivations) {
+			Date dateModified, String activityName, BigDecimal activeFlag,
+			Set<TacActivityCourseLink> tacActivityCourseLinks, Set<TacCourseActivation> tacCourseActivations) {
 		this.activityId = activityId;
 		this.userCreated = userCreated;
 		this.dateCreated = dateCreated;
 		this.userModified = userModified;
 		this.dateModified = dateModified;
 		this.activityName = activityName;
+		this.activeFlag = activeFlag;
 		this.tacActivityCourseLinks = tacActivityCourseLinks;
 		this.tacCourseActivations = tacCourseActivations;
 	}
 
 	@Id
+
 	@Column(name = "ACTIVITY_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ACTIVITY_SEQ")
@@ -117,6 +117,15 @@ public class TacActivity implements java.io.Serializable {
 		this.activityName = activityName;
 	}
 
+	@Column(name = "ACTIVE_FLAG", precision = 22, scale = 0)
+	public BigDecimal getActiveFlag() {
+		return this.activeFlag;
+	}
+
+	public void setActiveFlag(BigDecimal activeFlag) {
+		this.activeFlag = activeFlag;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacActivity")
 	public Set<TacActivityCourseLink> getTacActivityCourseLinks() {
 		return this.tacActivityCourseLinks;
@@ -134,14 +143,5 @@ public class TacActivity implements java.io.Serializable {
 	public void setTacCourseActivations(Set<TacCourseActivation> tacCourseActivations) {
 		this.tacCourseActivations = tacCourseActivations;
 	}
-
-	public long getActive_flag() {
-		return active_flag;
-	}
-
-	public void setActive_flag(long active_flag) {
-		this.active_flag = active_flag;
-	}
-	
 
 }

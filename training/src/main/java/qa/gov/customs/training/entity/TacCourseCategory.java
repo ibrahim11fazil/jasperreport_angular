@@ -1,5 +1,6 @@
+
 package qa.gov.customs.training.entity;
-// Generated Apr 10, 2019 10:27:46 AM by Hibernate Tools 4.3.1.Final
+// Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
