@@ -32,6 +32,7 @@ public class CustomTokenEnhancer extends JwtAccessTokenConverter {
         }
         info.put("roles",roles);
         info.put("permissions",permissions);
+        //TODO need to get the User Details via proxy
        // info.put("permissions",userMaster.getRoles().get(0).getPermissions().toArray());
         DefaultOAuth2AccessToken customAccessToken = new DefaultOAuth2AccessToken(accessToken);
         customAccessToken.setAdditionalInformation(info);
