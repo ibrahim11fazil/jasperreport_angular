@@ -1,6 +1,7 @@
 package qa.gov.customs.training.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +21,25 @@ public class ActivityCourseController {
 	@PostMapping("/createActivity")
 	public ResponseType createActivity(@RequestBody TacActivity activity) {
 		TacActivity submitActivity=null;
+		Date date=new Date();
 
-		if (activity.getActivityId() != new BigDecimal(0)) {
+			activity.setUserCreated("Jayasree");
+			activity.setDateCreated(date);
     
 			submitActivity=activityCourseService.createActivity(activity);
-		}
+			
+		
 		ResponseType response = new ResponseType(201, "created", true, submitActivity);
 		return response;
 	}
+	@PostMapping("/deleteActivity")
+	public ResponseType deleteActivity(@RequestBody TacActivity activity)
+	{
+
+		if (activity.getActivityId() != new BigDecimal(0)) {
+			
+			
+	}
+		return null;
+}
 }
