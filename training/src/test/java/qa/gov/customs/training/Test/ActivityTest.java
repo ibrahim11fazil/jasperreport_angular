@@ -20,13 +20,13 @@
 //
 //public class ActivityTest {
 //
-//	
+//
 //	   @Autowired
 //	   ActivityRepository activityRepository;
-//	   
-//	   
+//
+//
 //	   @Test
-//	   //TODO Create an activity 
+//	   //TODO Create an activity
 //	   public void jpaTestCreateActivity()
 //	   {
 //		   Date date = new Date();
@@ -34,19 +34,19 @@
 //		   activity.setActivityName("TestCase1");
 //		   activity.setUserCreated("JayasreeTest");
 //		   activity.setDateCreated(date);
-//		   activity.setActive_flag(1);
-//		
-//		   
+//		   activity.setActiveFlag(1);
+//
+//
 //		   activityRepository.save(activity);
-//		   
+//
 ////		   Optional<TacActivity> activity1=activityRepository.findById(BigDecimal.valueOf(14));
 ////		   assertThat(activity1.isPresent()).isEqualTo(true);
 ////		   System.out.println(activity1.get().getActivityId());
 ////		   assertThat(activity1.get().getActivityId().equals(BigDecimal.valueOf(14))).isEqualTo(true);
-//		   
+//
 //	   }
 ////	   @Test
-////	   //TODO  Update an Activity 
+////	   //TODO  Update an Activity
 ////	   public void jpaTestUpdateActivity()
 ////	   {
 ////		   Optional<TacActivity> activity1=activityRepository.findById(BigDecimal.valueOf(10));
@@ -55,12 +55,12 @@
 ////		   Optional<TacActivity> activity2=activityRepository.findById(BigDecimal.valueOf(10));
 ////		   assertThat(activity2.isPresent()).isEqualTo(true);
 ////		   assertThat(activity2.get().getActivityName()=="UpdatedTest").isEqualTo(true);
-////		   
-////		   
+////
+////
 ////	   }
-////	   
-//	   
-////	   //TOOD Disable an activity 
+////
+//
+////	   //TOOD Disable an activity
 ////	   @Test
 ////	   public void jpaTestDisableActivity()
 ////	   {
@@ -70,11 +70,11 @@
 ////		   Optional<TacActivity> activity2=activityRepository.findById(BigDecimal.valueOf(10));
 ////		   assertThat(activity2.isPresent()).isEqualTo(true);
 ////		   assertThat(activity2.get().getAward_flag()==0).isEqualTo(true);
-////		   
+////
 ////	   }
-////	   
-//	   
-//	   
+////
+//
+//
 //
 ////	   @Test
 ////	   public void jpaTestGetAllActivity()
@@ -83,5 +83,5 @@
 ////		 System.out.println(activity);
 ////		   assertThat(activity!=null).isEqualTo(true);
 ////	    }
-//	   
+//
 //}

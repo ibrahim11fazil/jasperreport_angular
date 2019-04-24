@@ -20,7 +20,6 @@ public class ActivityCourseController {
 	@PostMapping("/createActivity")
 	public ResponseType createActivity(@RequestBody TacActivity activity) {
 		TacActivity submitActivity=null;
-
 		if (activity.getActivityId() != new BigDecimal(0)) {
     
 			submitActivity=activityCourseService.createActivity(activity);
