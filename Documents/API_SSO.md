@@ -39,6 +39,14 @@ SAMPLE (url is encoded)
     > Content-Length: 60
     | username=user&password=password%402018&grant_type=password&=
 
+curl 
+     
+    curl --request POST \
+      --url http://localhost:9001/oauth/token \
+      --header 'authorization: Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=' \
+      --header 'content-type: application/x-www-form-urlencoded' \
+      --cookie JSESSIONID=6DD4A12AB00DE0CAD002F96B0056BF4A \
+      --data 'username=user&password=password%402018&grant_type=password&='   
 
 ## LOGIN_RESPONSE
 

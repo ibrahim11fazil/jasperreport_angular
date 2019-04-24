@@ -52,6 +52,7 @@
         <module>fileupload</module>
         <module>ldap</module>
         <module>workflow-camuda</module>
+        <module>utils</module>
     </modules>
 
 

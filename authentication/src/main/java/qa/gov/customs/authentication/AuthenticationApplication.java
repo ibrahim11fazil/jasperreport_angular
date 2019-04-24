@@ -6,6 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import qa.gov.customs.utils.Constants;
 
 @SpringBootApplication
 @EnableResourceServer
@@ -14,7 +15,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 public class AuthenticationApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(AuthenticationApplication.class, args);
+        //TODO testing data
+        System.out.println(Constants.BAD_REQUEST);
     }
 
 }

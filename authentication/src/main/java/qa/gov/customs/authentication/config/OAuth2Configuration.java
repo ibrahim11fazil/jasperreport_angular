@@ -86,5 +86,12 @@ public class OAuth2Configuration extends  AuthorizationServerConfigurerAdapter {
                 .authenticationManager(authenticationManager).userDetailsService(userDetailsService);
         if(checkUserScopes)
             endpoints.requestFactory(requestFactory());
+
     }
+
+//    @Override
+//    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception
+//    {
+//        endpoints.exceptionTranslator(getWebResponseExceptionTranslator());
+//    }
 }

@@ -1,5 +1,5 @@
 
-## Training functions and permissions
+## Training functions and permis sions
 
    |  sno |  function  |  permission  | roles  | remark  |
    |---|---|---|---|---|

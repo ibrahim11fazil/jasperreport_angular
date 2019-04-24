@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./src/app/components/breadcrumb/breadcrumb.module","export":["Ng5BreadcrumbModule"]},{"from":"./src/app/components/breadcrumb/breadcrumb.component","export":["BreadcrumbComponent"]},{"from":"./src/app/components/breadcrumb/breadcrumb.service","export":["BreadcrumbService"]}]}]
