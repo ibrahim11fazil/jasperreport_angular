@@ -1,0 +1,7 @@
+version: '2.1'
+
+services:
+  account-service:
+    build: authentication
+    ports:
+      - 9001:9001
