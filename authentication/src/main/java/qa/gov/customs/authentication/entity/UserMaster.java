@@ -31,7 +31,6 @@ public class UserMaster implements UserDetails {
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})

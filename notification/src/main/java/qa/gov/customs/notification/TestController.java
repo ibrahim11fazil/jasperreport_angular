@@ -16,7 +16,7 @@ public class TestController {
 	@RequestMapping(method = RequestMethod.POST ,path="/foo")
 	public String createUser(CustomPrincipal principal) {
 
-		return "success " + principal.getUsername() + " "+  principal.getEmail();
+		return "success " + principal.getUsername() + " "+  principal.getEmail() + " " + principal.getCredentialsExpired() + " " + principal.getEnabled();
 	}
 
 	//Working

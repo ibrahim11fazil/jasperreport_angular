@@ -58,6 +58,7 @@ public class OAuth2Configuration extends  AuthorizationServerConfigurerAdapter {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
+    //TODO need to set a new key and set password in the system or config . doc should be updated
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter =new CustomTokenEnhancer();

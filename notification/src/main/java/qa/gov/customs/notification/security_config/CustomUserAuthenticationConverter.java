@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.util.StringUtils;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,6 +15,8 @@ import java.util.Map;
 public class CustomUserAuthenticationConverter implements UserAuthenticationConverter {
 
     private final String EMAIL ="email";
+    private final String ENABLED ="enabled";
+    private final String EXPIRED ="credentialsExpired";
     private Collection<? extends GrantedAuthority> defaultAuthorities;
 
     public void setDefaultAuthorities(String[] defaultAuthorities){
@@ -33,9 +36,18 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
 
     @Override
     public Authentication extractAuthentication(Map<String, ?> map) {
-        if(map.containsKey(USERNAME))
-            return  new UsernamePasswordAuthenticationToken(
-                    new CustomPrincipal(map.get(USERNAME).toString(),map.get(EMAIL).toString()),"N/A",getAuthorities(map));
+        if(map.containsKey(USERNAME)) {
+            BigInteger b =  map.get(ENABLED)!=null ?new BigInteger( map.get(ENABLED).toString()):new BigInteger("0");
+            BigInteger b1 =  map.get(EXPIRED)!=null ?new BigInteger( map.get(EXPIRED).toString()):new BigInteger("0");
+            return new UsernamePasswordAuthenticationToken(
+                    new CustomPrincipal(
+                            map.get(USERNAME).toString(),
+                            map.get(EMAIL).toString(),
+                            b,
+                            b1)
+                    , "N/A", getAuthorities(map));
+
+        }
 
         return null;
     }
