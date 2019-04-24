@@ -37,5 +37,7 @@ npm install -g @angular/cli
 npm install --prefix ./ui
 [ $? -eq 0 ] || exit 1
 
-npm run prod-build --prefix  ./ui
+pushd ui
+ng build
 [ $? -eq 0 ] || exit 1
+popd
