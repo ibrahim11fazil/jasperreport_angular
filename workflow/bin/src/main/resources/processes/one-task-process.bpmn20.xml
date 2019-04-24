@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema"
+             expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.flowable.org/processdef">
+
+    <process id="oneTaskProcess1" name="The One Task Process">
+        <startEvent id="theStart" />
+        <sequenceFlow id="flow3" sourceRef="theStart" targetRef="send-mail-task1" />
+        <serviceTask id="send-mail-task1" name="Service Task1" flowable:expression="#{trainingService.testService()}"></serviceTask>
+        <sequenceFlow id="flow1" sourceRef="send-mail-task1" targetRef="theTask" />
+        <userTask id="theTask" name="my task" flowable:assignee="sarath" />
+        <sequenceFlow id="flow4" sourceRef="theTask" targetRef="send-mail-task" />
+        <serviceTask id="send-mail-task" name="Service Task2" flowable:expression="#{trainingService.testService1()}"></serviceTask>
+        <sequenceFlow id="flow2" sourceRef="send-mail-task" targetRef="theTask1" />
+        <userTask id="theTask1" name="my task" flowable:assignee="sarath" />
+        <sequenceFlow id="flow443" sourceRef="theTask1" targetRef="send-mail-task222" />
+        <serviceTask id="send-mail-task222" name="Service Task2" flowable:expression="#{trainingService.testService2()}"></serviceTask>
+        <sequenceFlow id="flow44" sourceRef="send-mail-task222" targetRef="theEnd" />
+        <endEvent id="theEnd" />
+    </process>
+
+</definitions>
