@@ -1,5 +1,9 @@
 package qa.gov.customs.training.service;
 
-public class ActivityCourseService {
+import qa.gov.customs.training.entity.TacActivity;
+
+public interface ActivityCourseService {
+	
+	public TacActivity createActivity(TacActivity activity);
 
 }
