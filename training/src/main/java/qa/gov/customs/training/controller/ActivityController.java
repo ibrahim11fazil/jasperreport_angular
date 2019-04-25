@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import qa.gov.customs.training.entity.TacActivity;
 import qa.gov.customs.training.service.ActivityService;
+import qa.gov.customs.utils.MessageUtil;
 import qa.gov.customs.utils.models.ResponseType;
 
 @RestController
@@ -24,7 +25,7 @@ public class ActivityController {
     
 			submitActivity=activityService.createActivity(activity);
 		}
-		ResponseType response = new ResponseType(201, "created", true, submitActivity);
+		ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
 		return response;
 	}
 
