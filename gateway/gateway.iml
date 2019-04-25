@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <module version="4">
+=======
+<module type="JAVA_MODULE" version="4">
+  <component name="ExternalSystem" externalSystem="Maven" />
+>>>>>>> master
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration />
@@ -14,6 +19,7 @@
       </configuration>
     </facet>
   </component>
+<<<<<<< HEAD
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -88,4 +94,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.1.6.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.6.2" level="project" />
   </component>
+=======
+>>>>>>> master
 </module>

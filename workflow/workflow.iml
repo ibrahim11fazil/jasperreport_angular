@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <module version="4">
+=======
+<module type="JAVA_MODULE" version="4">
+  <component name="ExternalSystem" externalSystem="Maven" />
+>>>>>>> master
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration />
@@ -14,6 +19,7 @@
       </configuration>
     </facet>
   </component>
+<<<<<<< HEAD
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -201,4 +207,6 @@
     <orderEntry type="library" name="Maven: org.flowable:flowable-idm-spring:6.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.flowable:flowable-idm-engine-configurator:6.4.1" level="project" />
   </component>
+=======
+>>>>>>> master
 </module>
