@@ -12,10 +12,8 @@ public class ActivityCourseServiceImpl implements ActivityCourseService {
 	
 	@Override
 	public TacActivity createActivity(TacActivity tacActivity) {
-		
 	TacActivity activity=activityRepository.save(tacActivity);
 	return activity;
-		
 	}
 	
 

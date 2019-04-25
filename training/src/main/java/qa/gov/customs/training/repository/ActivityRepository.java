@@ -9,6 +9,6 @@ import qa.gov.customs.training.entity.TacActivity;
 
 public interface ActivityRepository extends JpaRepository<TacActivity,BigDecimal>{
 
-	void save(Optional<TacActivity> activity1);
+	//void save(Optional<TacActivity> activity);
 
 }

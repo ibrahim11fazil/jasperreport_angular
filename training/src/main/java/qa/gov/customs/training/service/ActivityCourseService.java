@@ -4,6 +4,6 @@ import qa.gov.customs.training.entity.TacActivity;
 
 public interface ActivityCourseService {
 	
-	public TacActivity createActivity(TacActivity activity);
+	 TacActivity createActivity(TacActivity activity);
 
 }
