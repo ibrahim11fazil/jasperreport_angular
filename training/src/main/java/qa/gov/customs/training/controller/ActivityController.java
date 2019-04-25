@@ -12,7 +12,7 @@ import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.utils.models.ResponseType;
 
 @RestController
-public class ActivityCourseController {
+public class ActivityController {
 
 	@Autowired
 	ActivityService activityService;
