@@ -1,4 +1,4 @@
-package qa.gov.customs.notification.security_config;
+package qa.gov.customs.notification.security;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.JwtAccessTokenConverterConfigurer;
 import org.springframework.security.core.Authentication;

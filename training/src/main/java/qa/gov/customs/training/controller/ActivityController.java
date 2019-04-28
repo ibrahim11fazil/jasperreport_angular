@@ -20,7 +20,7 @@ public class ActivityController {
 	@Autowired
 	ActivityService activityService;
 
-	//	@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
+	//	@PreAuthorize("hasAnyAuthority('sys_admin','role_user')")
 	@PostMapping("/create-activity")
 	public ResponseType createActivity(@RequestBody TacActivity activity) {
 		TacActivity submitActivity=null;

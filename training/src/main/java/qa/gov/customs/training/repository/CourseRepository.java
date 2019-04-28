@@ -12,5 +12,4 @@ import java.util.List;
 public interface CourseRepository extends PagingAndSortingRepository<TacCourseMaster, BigDecimal> {
 	@Query(value="select * from tac_coursemaster where activityId=:activityId",nativeQuery=true)
 	List<TacActivity> searchActivity(BigDecimal activityId);
-
 }
