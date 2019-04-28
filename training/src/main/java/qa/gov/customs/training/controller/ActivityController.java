@@ -21,7 +21,7 @@ public class ActivityController {
 	@Autowired
 	ActivityService activityService;
 
-	//	@PreAuthorize("hasAnyAuthority('sys_admin','role_user')")
+	//@PreAuthorize("hasAnyAuthority('sys_admin','role_user')")
 	@PostMapping("/create-activity")
 	public ResponseType createActivity(@RequestBody TacActivity activity) {
 		TacActivity submitActivity=null;
@@ -30,7 +30,7 @@ public class ActivityController {
 		return response;
 	}
 
-//	@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
+     //@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
 	//if course is not linked with activity, it can be deleted
 	@PostMapping("/remove-activity")
 	public ResponseType removeActivity(@RequestBody TacActivity activity) {
@@ -51,6 +51,5 @@ public class ActivityController {
 		activityList=activityService.listActivity();
 		ResponseType response = new ResponseType(Constants.SUCCESS, "", true,activityList);
 		return response;
-		
 	}
 }

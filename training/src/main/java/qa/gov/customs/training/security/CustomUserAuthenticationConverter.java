@@ -46,9 +46,7 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
                             b,
                             b1)
                     , "N/A", getAuthorities(map));
-
         }
-
         return null;
     }
 
