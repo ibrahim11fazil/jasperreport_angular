@@ -1,7 +1,6 @@
 package qa.gov.customs.training.controller;
 
-
-
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +38,20 @@ public class CourseController {
 	@PostMapping("/disable-course")
 	public ResponseType deleteCourse(@RequestBody TacCourseMaster course) {
 		Optional<TacCourseMaster> courses=null;
+		  TacCourseMaster courseDelete=null;
 		
 		
 		courses=courseService.getCourseById(course);
 		if(courses!=null)
 		{
-			
+		courses.get().setActiveFlag(new BigDecimal(0));
+      	
+		courseDelete=courseService.createAndUpdateCourse(course);
 		}
 		
-		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_DISABLED, true,courses);
+		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_DISABLED, true,courseDelete);
 		return response;
 	}
+
 
 }
