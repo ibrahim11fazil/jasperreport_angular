@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacActivity;
+import qa.gov.customs.training.entity.TacCourseMaster;
 import qa.gov.customs.training.repository.ActivityRepository;
 import qa.gov.customs.training.repository.CourseRepository;
 import qa.gov.customs.training.service.ActivityService;
@@ -24,9 +25,9 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public List<TacActivity> searchActivity(TacActivity activity) {
+	public List<TacCourseMaster> searchActivity(TacActivity activity) {
 		//List<TacActivity> activity1=activityRepository.searchActivity(activity.getActivityId());
-		List<TacActivity> activity1=courseRepository.searchActivity(activity.getActivityId());
+		List<TacCourseMaster> activity1=courseRepository.searchActivity(activity.getActivityId());
 		return activity1;
 	}
 

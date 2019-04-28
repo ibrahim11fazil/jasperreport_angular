@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import qa.gov.customs.training.entity.TacActivity;
+import qa.gov.customs.training.entity.TacCourseMaster;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.utils.Constants;
 import qa.gov.customs.utils.MessageUtil;
@@ -35,7 +36,7 @@ public class ActivityController {
 	//if course is not linked with activity, it can be deleted
 	@PostMapping("/remove-activity")
 	public ResponseType removeActivity(@RequestBody TacActivity activity) {
-		List<TacActivity> activityList=null;
+		List<TacCourseMaster> activityList=null;
 		if (activity.getActivityId() != new BigDecimal(0)) {
 			activityList=activityService.searchActivity(activity);
 			if (activityList==null)
