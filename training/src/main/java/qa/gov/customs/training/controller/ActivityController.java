@@ -48,5 +48,5 @@ public class ActivityController {
 	}
 		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.ACTIVITY_DELETED, true,null);
 		return response;
-}
+    }
 }
