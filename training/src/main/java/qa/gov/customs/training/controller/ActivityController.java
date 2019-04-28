@@ -36,20 +36,16 @@ public class ActivityController {
 	@PostMapping("/remove-activity")
 	public ResponseType removeActivity(@RequestBody TacActivity activity) {
 		List<TacActivity> activityList=null;
-		
 		if (activity.getActivityId() != new BigDecimal(0)) {
 			activityList=activityService.searchActivity(activity);
 			if (activityList==null)
-			{
-				activityService.deleteActivity(activity);
-				
-			}
-	}
+			{ activityService.deleteActivity(activity); } }
 		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.ACTIVITY_DELETED, true,null);
 		return response;
     }
-//	@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
-	//list all the activities
+
+     // @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
+	//  list all the activities
 	@PostMapping("/list-activity")
 	public ResponseType listActivity() {
 		List< TacActivity> activityList=null;
