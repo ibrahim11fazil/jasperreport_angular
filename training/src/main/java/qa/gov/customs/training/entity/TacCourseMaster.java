@@ -42,6 +42,9 @@ public class TacCourseMaster implements java.io.Serializable {
 	private String userCreated;
 	private Date dateCreated;
 	private String userModified;
+	private BigDecimal activeFlag;
+	
+
 	private Date dateModified;
 	private String coordinatorJobId;
 	private Set<TacCoursePrerequisites> tacCoursePrerequisiteses = new HashSet<TacCoursePrerequisites>(0);
@@ -144,7 +147,14 @@ public class TacCourseMaster implements java.io.Serializable {
 	public void setDurationFlag(BigDecimal durationFlag) {
 		this.durationFlag = durationFlag;
 	}
+	@Column(name = "ACTIVE_FLAG", precision = 22, scale = 0)
+	public BigDecimal getActiveFlag() {
+		return activeFlag;
+	}
 
+	public void setActiveFlag(BigDecimal activeFlag) {
+		this.activeFlag = activeFlag;
+	}
 	@Column(name = "OBJECTIVE")
 	public Clob getObjective() {
 		return this.objective;
@@ -208,7 +218,7 @@ public class TacCourseMaster implements java.io.Serializable {
 		this.courseStatus = courseStatus;
 	}
 
-	@Column(name = "USER_CREATED", nullable = false, length = 20)
+	@Column(name = "USER_CREATED", nullable = false, length = 20 , updatable=false)
 	public String getUserCreated() {
 		return this.userCreated;
 	}
@@ -218,7 +228,7 @@ public class TacCourseMaster implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATE_CREATED", nullable = false, length = 7)
+	@Column(name = "DATE_CREATED", nullable = false, length = 7, updatable=false)
 	public Date getDateCreated() {
 		return this.dateCreated;
 	}
