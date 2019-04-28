@@ -9,6 +9,7 @@ import qa.gov.customs.training.service.CourseService;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
@@ -58,7 +59,9 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public TacCourseMaster getCourseById(BigInteger integer) {
-        return null;
+    public Optional<TacCourseMaster> getCourseById(TacCourseMaster course) {
+    	Optional<TacCourseMaster> getCourse=null;
+    	getCourse=courseRepository.findById(course.getCourseId());
+        return getCourse;
     }
 }

@@ -4,6 +4,7 @@ package qa.gov.customs.training.service;
 import qa.gov.customs.training.entity.TacCourseMaster;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
@@ -14,5 +15,5 @@ public interface CourseService {
     BigInteger countCourses();
     BigInteger disableCountCourses();
     BigInteger enabledCountCourses();
-    TacCourseMaster getCourseById(BigInteger integer);
+   Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
 }
