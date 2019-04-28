@@ -46,7 +46,21 @@ public class ActivityController {
 			}
 	
 	}
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.ACTIVITY_DELETED, true,null);
+		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.ACTIVITY_DELETED, true,null);
 		return response;
+<<<<<<< HEAD
     }
+=======
+}
+//	@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
+	//list all the activities
+	@PostMapping("/list-activity")
+	public ResponseType listActivity() {
+		List< TacActivity> activityList=null;
+		activityList=activityService.listActivity();
+		ResponseType response = new ResponseType(Constants.SUCCESS, "", true,null);
+		return response;
+		
+	}
+>>>>>>> e4781b55e9ec4345f83b34a39bc034edecc35a49
 }

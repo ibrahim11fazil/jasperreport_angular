@@ -8,4 +8,5 @@ public interface ActivityService {
 	 TacActivity createActivity(TacActivity activity);
 	 List<TacActivity> searchActivity(TacActivity activity);
 	 void deleteActivity(TacActivity activity);
+	 List<TacActivity> listActivity();
 }

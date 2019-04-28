@@ -35,6 +35,13 @@ public class ActivityServiceImpl implements ActivityService {
 	
 	activityRepository.delete(activity);;
 	}
+
+	@Override
+	public List<TacActivity> listActivity() {
+		// TODO Auto-generated method stub
+		List<TacActivity> listActivity=activityRepository.findAll();
+		return null;
+	}
 	
 
 }
