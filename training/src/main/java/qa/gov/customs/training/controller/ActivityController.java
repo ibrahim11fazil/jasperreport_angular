@@ -21,17 +21,15 @@ public class ActivityController {
 	@Autowired
 	ActivityService activityService;
 
-	//	@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
+	//	@PreAuthorize("hasAnyAuthority('sys_admin','role_user')")
 	@PostMapping("/create-activity")
 	public ResponseType createActivity(@RequestBody TacActivity activity) {
 		TacActivity submitActivity=null;
-		
-    
-			submitActivity=activityService.createActivity(activity);
-		
+		submitActivity=activityService.createActivity(activity);
 		ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
 		return response;
 	}
+
 //	@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
 	//if course is not linked with activity, it can be deleted
 	@PostMapping("/remove-activity")
