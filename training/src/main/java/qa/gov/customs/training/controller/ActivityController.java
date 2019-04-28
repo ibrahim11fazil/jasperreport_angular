@@ -55,7 +55,7 @@ public class ActivityController {
 	public ResponseType listActivity() {
 		List< TacActivity> activityList=null;
 		activityList=activityService.listActivity();
-		ResponseType response = new ResponseType(Constants.SUCCESS, "", true,null);
+		ResponseType response = new ResponseType(Constants.SUCCESS, "", true,activityList);
 		return response;
 		
 	}

@@ -1,7 +1,9 @@
 package qa.gov.customs.training.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseMaster;
+import qa.gov.customs.training.repository.CourseRepository;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
 
@@ -10,10 +12,14 @@ import java.util.List;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
+	
+	@Autowired
+	CourseRepository courseRepository;
 
     @Override
     public TacCourseMaster createAndUpdateCourse(TacCourseMaster activity) {
-        return null;
+    	TacCourseMaster course=courseRepository.save(activity);
+        return course;
     }
 
     @Override
