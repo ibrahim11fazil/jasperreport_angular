@@ -63,6 +63,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.Oracle10gDialect
+
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS : false

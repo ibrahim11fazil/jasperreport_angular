@@ -9,6 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import qa.gov.customs.utils.models.ResponseException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 
 
@@ -22,8 +23,19 @@ public class ControllerExceptionAdvice extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) throws Exception {
         ResponseException responseException = new ResponseException(new Date(), ex.getMessage(), request.getDescription(true), false);
         ex.printStackTrace();
+        //TODO Log this exception
         return new ResponseEntity<>(responseException, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+//    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+//    public ResponseEntity<Object> handleSQLIntegrityConstraintViolationException(Exception ex, WebRequest request) throws Exception {
+//        ResponseException responseException = new ResponseException(new Date(), ex.getMessage(), request.getDescription(true), false);
+//        ex.printStackTrace();
+//        //TODO Log this exception
+//        return new ResponseEntity<>(responseException, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
+
+
 
 
 //    @ExceptionHandler(AuthenticationException.class)
