@@ -31,8 +31,9 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public TacCourseMaster linkCourseWithActivity(TacCourseMaster activity) {
-        return null;
+    public TacCourseMaster linkCourseWithActivity(TacCourseMaster course) {
+        TacCourseMaster courses= courseRepository.save(course);
+        return courses;
     }
 
     @Override
@@ -80,6 +81,13 @@ public class CourseServiceImpl  implements CourseService {
 	public BigInteger disableCountCourses() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Optional<TacCourseMaster> findById(TacCourseMaster course) {
+		Optional<TacCourseMaster> courses=null;
+		courses=courseRepository.findById(course.getCourseId());
+		return courses;
 	}
 
 }
