@@ -9,6 +9,8 @@
 
 debug: false
 server:
+  servlet:
+    context-path: /auth-service
   port: 9001
 
 spring:

@@ -1,3 +1,15 @@
+server:
+  port: 9041
+
+feign:
+  hystrix:
+    enabled: true
+spring:
+  application:
+    name: notification
+  main:
+    allow-bean-definition-overriding: true
+
 security:
   oauth2:
     resource:
@@ -13,29 +25,11 @@ security:
           YwIDAQAB
           -----END PUBLIC KEY-----
     client:
-      clientId: account-service
+      clientId: notification
       #clientSecret: password@2018
       #accessTokenUri: http://localhost:9001/oauth/token
       #grant-type: client_credentials
       #scope: server
 
-spring:
-  application:
-    name: notification
-  main:
-    allow-bean-definition-overriding: true
-#spring:
-#  data:
-#    mongodb:
-#      host: account-mongodb
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-#      database: piggymetrics
-#      port: 27017
 
-server:
-  port: 9041
-
-feign:
-  hystrix:
-    enabled: true
+#debug: true

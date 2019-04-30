@@ -30,6 +30,7 @@ public class CustomTokenEnhancer extends JwtAccessTokenConverter {
                 }
             });
         }
+       // info.put("sarath",121212);
         info.put("roles",roles);
         info.put("permissions",permissions);
         //TODO need to get the User Details via proxy
