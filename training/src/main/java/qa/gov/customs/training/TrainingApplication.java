@@ -13,11 +13,8 @@ import qa.gov.customs.utils.*;
 
 @SpringBootApplication
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-
-@EnableSpringDataWebSupport
-
+//@EnableSpringDataWebSupport
 @EnableDiscoveryClient
-
 //@ComponentScan(basePackages = {"qa.gov.customs.utils.config"})
 public class TrainingApplication {
 

@@ -14,28 +14,10 @@ security:
           -----END PUBLIC KEY-----
     client:
       clientId: training
-      #clientSecret: password@2018
-      #accessTokenUri: http://localhost:9001/oauth/token
-      #grant-type: client_credentials
-      #scope: server
-
-#spring:
-#  application:
-#    name: training
-#  main:
-#    allow-bean-definition-overriding: true
-#spring:
-#  data:
-#    mongodb:
-#      host: account-mongodb
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-#      database: sample
-#      port: 27017
 
 server:
-  servlet:
-    context-path: /training
+#  servlet:
+#    context-path: /training
   port: 9051
 
 feign:

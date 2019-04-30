@@ -35,32 +35,6 @@ public class ActivityController {
     }
 
 
-	@PostMapping("/create-activity")
-	public ResponseType createActivity(@RequestBody TacActivity activity) {
-		TacActivity submitActivity=null;
-
-		Date date=new Date();
-
-			activity.setUserCreated("Jayasree");
-			activity.setDateCreated(date);
-    
-			submitActivity=activityService.createActivity(activity);
-			
-		
-		ResponseType response = new ResponseType(201, "created", true, submitActivity);
-		return response;
-	}
-	@PostMapping("/deleteActivity")
-	public ResponseType deleteActivity(@RequestBody TacActivity activity)
-	{
-		TacActivity submitActivity=null;
-		if (activity.getActivityId() != new BigDecimal(0)) {
-			submitActivity=activityService.createActivity(activity);
-		}
-		ResponseType response = new ResponseType(201, "created", true, submitActivity);
-		return response;
-	}
-
 
     //@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //if course is not linked with activity, it can be deleted
