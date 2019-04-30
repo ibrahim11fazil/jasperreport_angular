@@ -1,4 +1,4 @@
-package qa.gov.customs.notification.security_config;
+package qa.gov.customs.training.security;
 
 
 import org.springframework.context.annotation.Bean;

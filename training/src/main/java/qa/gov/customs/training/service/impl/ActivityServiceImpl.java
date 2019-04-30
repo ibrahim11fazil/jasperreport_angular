@@ -1,6 +1,8 @@
 package qa.gov.customs.training.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,6 +27,11 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
+	public Optional<TacActivity>  findActivityById(BigDecimal activityId) {
+		return activityRepository.findById(activityId);
+	}
+
+	@Override
 	public List<TacCourseMaster> searchActivity(TacActivity activity) {
 		//List<TacActivity> activity1=activityRepository.searchActivity(activity.getActivityId());
 		List<TacCourseMaster> activity1=courseRepository.searchActivity(activity.getActivityId());
@@ -39,9 +46,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 	@Override
 	public List<TacActivity> listActivity() {
-		// TODO Auto-generated method stub
-		List<TacActivity> listActivity=activityRepository.findAll();
-		return null;
+		return activityRepository.findAll();
 	}
 	
 

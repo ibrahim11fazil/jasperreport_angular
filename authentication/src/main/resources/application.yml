@@ -1,12 +1,3 @@
-
-#  cloud:
-#    config:
-#      uri: http://config:8888
-#      fail-fast: true
-#      password: ${CONFIG_SERVICE_PASSWORD}
-#      username: user
-
-
 debug: false
 server:
   port: 9001
@@ -14,10 +5,12 @@ server:
 spring:
   application:
     name: authentication
+  main:
+    allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/xe
-    username: raj
-    password: 12345
+    url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
+    username: CUST_SSO
+    password: s504tst123
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -37,7 +30,6 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS : false
     time-zone: UTC
 
-
 logging:
   pattern:
     console: '@%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
@@ -53,10 +45,10 @@ logging:
           authentication: DEBUG
   file: logs/auth-service.log
 
-management:
-  endpoint:
-    flowable:
-      enabled: true
+#management:
+#  endpoint:
+#    flowable:
+#      enabled: true
 
 check-user-scopes: true
 
