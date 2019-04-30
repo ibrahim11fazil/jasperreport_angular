@@ -1,5 +1,11 @@
 package qa.gov.customs.training.controller;
 
+<<<<<<< HEAD
+import java.math.BigDecimal;
+import java.util.Date;
+
+=======
+>>>>>>> 617b9c73600ee57a5bdbb895e3ba4d69ad0ccf53
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +36,46 @@ public class ActivityController {
         return response;
     }
 
+<<<<<<< HEAD
+	@PostMapping("/create-activity")
+	public ResponseType createActivity(@RequestBody TacActivity activity) {
+		TacActivity submitActivity=null;
+
+		Date date=new Date();
+
+			activity.setUserCreated("Jayasree");
+			activity.setDateCreated(date);
+    
+			submitActivity=activityService.createActivity(activity);
+			
+		
+		ResponseType response = new ResponseType(201, "created", true, submitActivity);
+		return response;
+	}
+	@PostMapping("/deleteActivity")
+	public ResponseType deleteActivity(@RequestBody TacActivity activity)
+	{
+
+		if (activity.getActivityId() != new BigDecimal(0)) {
+			
+			
+	}
+		return null;
+}
+		if (activity.getActivityId() != new BigDecimal(0)) {
+    
+			submitActivity=activityService.createActivity(activity);
+		}
+		ResponseType response = new ResponseType(201, "created", true, submitActivity);
+		return response;
+	}
+
+	@PostMapping("/remove-activity")
+	public ResponseType removeActivity(@RequestBody TacActivity activity) {
+		return null;
+	}
+
+=======
     //@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //if course is not linked with activity, it can be deleted
     @PostMapping("/remove-activity")
@@ -54,4 +100,5 @@ public class ActivityController {
         ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activityList);
         return response;
     }
+>>>>>>> 617b9c73600ee57a5bdbb895e3ba4d69ad0ccf53
 }
