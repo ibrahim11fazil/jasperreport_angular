@@ -49,9 +49,10 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public BigInteger disableCountCourses() {
+    public BigInteger disabledCountCourses() {
         return null;
     }
+
 
     @Override
     public BigInteger enabledCountCourses() {

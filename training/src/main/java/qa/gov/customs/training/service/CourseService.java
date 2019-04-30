@@ -13,7 +13,7 @@ public interface CourseService {
     List<TacCourseMaster> listCourses();
     List<TacCourseMaster> listCourses(TacCourseMaster searchCriteria);
     BigInteger countCourses();
-    BigInteger disableCountCourses();
+    BigInteger disabledCountCourses();
     BigInteger enabledCountCourses();
    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
 }
