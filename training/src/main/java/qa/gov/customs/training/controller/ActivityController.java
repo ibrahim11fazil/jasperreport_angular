@@ -29,21 +29,21 @@ public class ActivityController {
 	public ResponseType createActivity(@RequestBody TacActivity activity, CustomPrincipal principal) {
 		TacActivity submitActivity=null;
 
-		//TODO: make the function generic
-        if(activity.getActivityId()==null){
-        	activity.setDateCreated(new Date());
-        	//TODO: need to update with JobId
-        	activity.setUserCreated(principal.getEmail());
-		}else{
-			Optional<TacActivity> activitySelected= activityService.findActivityById(activity.getActivityId());
-			//TODO: need to update with JobId
-			if(activitySelected.isPresent()) {
-				activity.setUserModified(principal.getEmail());
-				activity.setDateModified(new Date());
-				activity.setUserCreated(activitySelected.get().getUserCreated());
-				activity.setDateCreated(activitySelected.get().getDateCreated());
-			}
-		}
+//		//TODO: make the function generic
+//        if(activity.getActivityId()==null){
+//        	activity.setDateCreated(new Date());
+//        	//TODO: need to update with JobId
+//        	activity.setUserCreated(principal.getEmail());
+//		}else{
+//			Optional<TacActivity> activitySelected= activityService.findActivityById(activity.getActivityId());
+//			//TODO: need to update with JobId
+//			if(activitySelected.isPresent()) {
+//				activity.setUserModified(principal.getEmail());
+//				activity.setDateModified(new Date());
+//				activity.setUserCreated(activitySelected.get().getUserCreated());
+//				activity.setDateCreated(activitySelected.get().getDateCreated());
+//			}
+//		}
 
 		submitActivity=activityService.createActivity(activity);
 

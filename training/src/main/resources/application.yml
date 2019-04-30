@@ -63,6 +63,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.Oracle10gDialect
+      hibernate.max_fetch_depth: 1
 
   jackson:
     serialization:

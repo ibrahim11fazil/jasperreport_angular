@@ -2,6 +2,7 @@ package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import qa.gov.customs.training.config.Auditable;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,17 +15,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "TAC_ACTIVITY", schema = "CUST_TAC")
-public class TacActivity implements java.io.Serializable {
+public class TacActivity extends Auditable<String> implements java.io.Serializable {
 
 	private BigDecimal activityId;
-	private String userCreated;
-	private Date dateCreated;
-	private String userModified;
-	private Date dateModified;
+//	private String userCreated;
+//	private Date dateCreated;
+//	private String userModified;
+//	private Date dateModified;
 	private String activityName;
 	private BigDecimal activeFlag;
 	//private Set<TacActivityCourseLink> tacActivityCourseLinks = new HashSet<TacActivityCourseLink>(0);
-	//private Set<TacCourseMaster> tacCourseMasters =  new HashSet<TacCourseMaster>(0);
+	private Set<TacCourseMaster> tacCourseMasters =  new HashSet<TacCourseMaster>(0);
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
 
 	public TacActivity() {
@@ -48,7 +49,7 @@ public class TacActivity implements java.io.Serializable {
 		this.activityName = activityName;
 		this.activeFlag = activeFlag;
 		//this.tacActivityCourseLinks = tacActivityCourseLinks;
-		//this.tacCourseMasters = tacCourseMasters;
+		this.tacCourseMasters = tacCourseMasters;
 		this.tacCourseActivations = tacCourseActivations;
 	}
 
@@ -64,43 +65,43 @@ public class TacActivity implements java.io.Serializable {
 		this.activityId = activityId;
 	}
 
-	@Column(name = "USER_CREATED", nullable = false, length = 20)
-	public String getUserCreated() {
-		return this.userCreated;
-	}
-
-	public void setUserCreated(String userCreated) {
-		this.userCreated = userCreated;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATE_CREATED", nullable = false, length = 7)
-	public Date getDateCreated() {
-		return this.dateCreated;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	@Column(name = "USER_MODIFIED", length = 20)
-	public String getUserModified() {
-		return this.userModified;
-	}
-
-	public void setUserModified(String userModified) {
-		this.userModified = userModified;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATE_MODIFIED", length = 7)
-	public Date getDateModified() {
-		return this.dateModified;
-	}
-
-	public void setDateModified(Date dateModified) {
-		this.dateModified = dateModified;
-	}
+//	@Column(name = "USER_CREATED", nullable = false, length = 20)
+//	public String getUserCreated() {
+//		return this.userCreated;
+//	}
+//
+//	public void setUserCreated(String userCreated) {
+//		this.userCreated = userCreated;
+//	}
+//
+//	@Temporal(TemporalType.DATE)
+//	@Column(name = "DATE_CREATED", nullable = false, length = 7)
+//	public Date getDateCreated() {
+//		return this.dateCreated;
+//	}
+//
+//	public void setDateCreated(Date dateCreated) {
+//		this.dateCreated = dateCreated;
+//	}
+//
+//	@Column(name = "USER_MODIFIED", length = 20)
+//	public String getUserModified() {
+//		return this.userModified;
+//	}
+//
+//	public void setUserModified(String userModified) {
+//		this.userModified = userModified;
+//	}
+//
+//	@Temporal(TemporalType.DATE)
+//	@Column(name = "DATE_MODIFIED", length = 7)
+//	public Date getDateModified() {
+//		return this.dateModified;
+//	}
+//
+//	public void setDateModified(Date dateModified) {
+//		this.dateModified = dateModified;
+//	}
 
 	@Column(name = "ACTIVITY_NAME", length = 1000)
 	public String getActivityName() {
@@ -130,14 +131,14 @@ public class TacActivity implements java.io.Serializable {
 //	}
 
 
-//	@ManyToMany(mappedBy = "tacActivities",fetch =FetchType.EAGER)
-//	public Set<TacCourseMaster> getTacCourseMasters() {
-//		return tacCourseMasters;
-//	}
-//
-//	public void setTacCourseMasters(Set<TacCourseMaster> tacCourseMasters) {
-//		this.tacCourseMasters = tacCourseMasters;
-//	}
+	@ManyToMany(mappedBy = "tacActivities",fetch =FetchType.EAGER)
+	public Set<TacCourseMaster> getTacCourseMasters() {
+		return tacCourseMasters;
+	}
+
+	public void setTacCourseMasters(Set<TacCourseMaster> tacCourseMasters) {
+		this.tacCourseMasters = tacCourseMasters;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacActivity")
 	public Set<TacCourseActivation> getTacCourseActivations() {
