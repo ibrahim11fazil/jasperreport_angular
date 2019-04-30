@@ -11,14 +11,7 @@ import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacActivity;
 import qa.gov.customs.training.entity.TacCourseMaster;
 import qa.gov.customs.training.repository.ActivityRepository;
-<<<<<<< HEAD
-
-
-
-
-=======
 import qa.gov.customs.training.repository.CourseRepository;
->>>>>>> 617b9c73600ee57a5bdbb895e3ba4d69ad0ccf53
 import qa.gov.customs.training.service.ActivityService;
 
 @Service

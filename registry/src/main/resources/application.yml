@@ -1,19 +1,19 @@
-security:
-  oauth2:
-    resource:
-      jwt:
-        key-value:
-          -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnXaDQtFEcmUVf2DlcCi1
-          V8uPfDT54Z5RG1afpqbAgvor0V3SopLuKEBm8DUGwLume31k9GtUWnm9BjlIWDvK
-          Zogn22YyKWWeHVfy+1SHL3owtR4iaS43pVQTEuIBcGC//vCRd8aWByqv0U6zVWoe
-          ejG9MiDjyQztUuqi1wJQeDr6Th0m+kAWw7Xk44kd7vp+ZnzAsDJC4S5eS1Dbm8qx
-          xHe8C7HxuJAKvafxMjXZmIhocaCSHk/VroDOJYC+a7vl+gNY+qnM1Wr5CYNNkUKw
-          mQcrvWJogMeo05eegZBUF//Yhsv4FLDZO0HIvwB3qSKUWwzv4RF922jOYp/3f6Oi
-          YwIDAQAB
-          -----END PUBLIC KEY-----
-    client:
-      clientId: registry
+#security:
+#  oauth2:
+#    resource:
+#      jwt:
+#        key-value:
+#          -----BEGIN PUBLIC KEY-----
+#          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnXaDQtFEcmUVf2DlcCi1
+#          V8uPfDT54Z5RG1afpqbAgvor0V3SopLuKEBm8DUGwLume31k9GtUWnm9BjlIWDvK
+#          Zogn22YyKWWeHVfy+1SHL3owtR4iaS43pVQTEuIBcGC//vCRd8aWByqv0U6zVWoe
+#          ejG9MiDjyQztUuqi1wJQeDr6Th0m+kAWw7Xk44kd7vp+ZnzAsDJC4S5eS1Dbm8qx
+#          xHe8C7HxuJAKvafxMjXZmIhocaCSHk/VroDOJYC+a7vl+gNY+qnM1Wr5CYNNkUKw
+#          mQcrvWJogMeo05eegZBUF//Yhsv4FLDZO0HIvwB3qSKUWwzv4RF922jOYp/3f6Oi
+#          YwIDAQAB
+#          -----END PUBLIC KEY-----
+#    client:
+#      clientId: registry
       #clientSecret: password@2018
       #accessTokenUri: http://localhost:9001/oauth/token
       #grant-type: client_credentials
@@ -24,14 +24,6 @@ spring:
     name: registry
   main:
     allow-bean-definition-overriding: true
-#spring:
-#  data:
-#    mongodb:
-#      host: account-mongodb
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-#      database: piggymetrics
-#      port: 27017
 
 server:
   port: 8761
@@ -39,3 +31,12 @@ server:
 feign:
   hystrix:
     enabled: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    server:
+      waitTimeInMsWhenSyncEmpty: 0
