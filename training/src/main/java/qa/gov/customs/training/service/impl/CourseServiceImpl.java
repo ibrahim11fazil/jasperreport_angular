@@ -1,19 +1,26 @@
 package qa.gov.customs.training.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseMaster;
+import qa.gov.customs.training.repository.CourseRepository;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
+	
+	@Autowired
+	CourseRepository courseRepository;
 
     @Override
     public TacCourseMaster createAndUpdateCourse(TacCourseMaster activity) {
-        return null;
+    	TacCourseMaster course=courseRepository.save(activity);
+        return course;
     }
 
     @Override
@@ -52,7 +59,9 @@ public class CourseServiceImpl  implements CourseService {
     }
 
     @Override
-    public TacCourseMaster getCourseById(BigInteger integer) {
-        return null;
+    public Optional<TacCourseMaster> getCourseById(TacCourseMaster course) {
+    	Optional<TacCourseMaster> getCourse=null;
+    	getCourse=courseRepository.findById(course.getCourseId());
+        return getCourse;
     }
 }

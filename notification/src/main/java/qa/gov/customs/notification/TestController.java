@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.notification.model.TestModel;
-import qa.gov.customs.notification.security_config.CustomPrincipal;
+import qa.gov.customs.notification.security.CustomPrincipal;
+
 
 @RestController
 public class TestController {

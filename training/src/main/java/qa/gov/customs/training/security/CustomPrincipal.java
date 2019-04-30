@@ -1,4 +1,4 @@
-package qa.gov.customs.notification.security_config;
+package qa.gov.customs.training.security;
 
 import java.io.Serializable;
 import java.math.BigInteger;
