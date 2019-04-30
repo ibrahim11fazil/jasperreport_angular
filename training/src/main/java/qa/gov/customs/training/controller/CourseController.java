@@ -1,6 +1,8 @@
 package qa.gov.customs.training.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,7 @@ import qa.gov.customs.utils.MessageUtil;
 import qa.gov.customs.utils.models.ResponseType;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +22,8 @@ public class CourseController {
 
 	@Autowired
 	CourseService courseService;
+	
+
 
 	//	@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
 	//for creating and updating courses
@@ -51,6 +56,24 @@ public class CourseController {
 		courseList=courseService.getCourseById(course);
 		ResponseType response = new ResponseType(Constants.SUCCESS, "", true,courseList);
 		return response;
+	}
+	
+	@PostMapping("/link-course-with-activity")
+	public ResponseType linkCourseWithActivity() {
+		return null;
+		
+	}
+	
+	@PostMapping("/search-course")
+	public ResponseType searchCourse(@RequestBody TacCourseMaster course)
+	{
+		Pageable firstPageWithElements = PageRequest.of(course.offset,course.limit);
+		List<TacCourseMaster> courses=null;
+		courses=courseService.searchCourses(course,firstPageWithElements);
+		
+		ResponseType response = new ResponseType(Constants.SUCCESS, "", true,courses);
+		return response;
+		
 	}
 
 

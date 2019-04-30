@@ -34,7 +34,7 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	public List<TacCourseMaster> searchActivity(TacActivity activity) {
 		//List<TacActivity> activity1=activityRepository.searchActivity(activity.getActivityId());
-		List<TacCourseMaster> activity1=courseRepository.searchActivity(activity.getActivityId());
+		List<TacCourseMaster> activity1=courseRepository.findByActivityId(activity.getActivityId());
 		return activity1;
 	}
 

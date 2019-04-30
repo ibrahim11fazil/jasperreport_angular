@@ -6,14 +6,17 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+
 public interface CourseService {
-    TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
-    TacCourseMaster disableCourse(TacCourseMaster activity);
+    TacCourseMaster createAndUpdateCourse(TacCourseMaster course);//done
+    TacCourseMaster disableCourse(TacCourseMaster activity);//done
     TacCourseMaster linkCourseWithActivity(TacCourseMaster activity);
-    List<TacCourseMaster> listCourses();
-    List<TacCourseMaster> listCourses(TacCourseMaster searchCriteria);
-    BigInteger countCourses();
+    TacCourseMaster activateCourse(TacCourseMaster course);
+    List<TacCourseMaster> listCourses();//ajna
+    List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
+    BigInteger countCourses();//ajna
     BigInteger disableCountCourses();
     BigInteger enabledCountCourses();
-   Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
+   Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);//done
 }

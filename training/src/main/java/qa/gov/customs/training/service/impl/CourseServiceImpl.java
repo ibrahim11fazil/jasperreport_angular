@@ -1,10 +1,12 @@
 package qa.gov.customs.training.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseMaster;
 import qa.gov.customs.training.repository.CourseRepository;
-import qa.gov.customs.training.service.ActivityService;
+
 import qa.gov.customs.training.service.CourseService;
 
 import java.math.BigInteger;
@@ -38,10 +40,7 @@ public class CourseServiceImpl  implements CourseService {
         return null;
     }
 
-    @Override
-    public List<TacCourseMaster> listCourses(TacCourseMaster searchCriteria) {
-        return null;
-    }
+   
 
     @Override
     public BigInteger countCourses() {
@@ -64,4 +63,19 @@ public class CourseServiceImpl  implements CourseService {
     	getCourse=courseRepository.findById(course.getCourseId());
         return getCourse;
     }
+
+	@Override
+	public TacCourseMaster activateCourse(TacCourseMaster course) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
+		List<TacCourseMaster> courses=null;
+		courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+		
+		return courses;
+	}
+
 }

@@ -1,7 +1,7 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import qa.gov.customs.training.config.Auditable;
 
 import java.math.BigDecimal;
@@ -25,7 +25,7 @@ public class TacActivity extends Auditable<String> implements java.io.Serializab
 	private String activityName;
 	private BigDecimal activeFlag;
 	//private Set<TacActivityCourseLink> tacActivityCourseLinks = new HashSet<TacActivityCourseLink>(0);
-	private Set<TacCourseMaster> tacCourseMasters =  new HashSet<TacCourseMaster>(0);
+	//private Set<TacCourseMaster> tacCourseMasters =  new HashSet<TacCourseMaster>(0);
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
 
 	public TacActivity() {
@@ -49,7 +49,7 @@ public class TacActivity extends Auditable<String> implements java.io.Serializab
 		this.activityName = activityName;
 		this.activeFlag = activeFlag;
 		//this.tacActivityCourseLinks = tacActivityCourseLinks;
-		this.tacCourseMasters = tacCourseMasters;
+		//this.tacCourseMasters = tacCourseMasters;
 		this.tacCourseActivations = tacCourseActivations;
 	}
 
@@ -130,15 +130,15 @@ public class TacActivity extends Auditable<String> implements java.io.Serializab
 //		this.tacActivityCourseLinks = tacActivityCourseLinks;
 //	}
 
-
-	@ManyToMany(mappedBy = "tacActivities",fetch =FetchType.EAGER)
-	public Set<TacCourseMaster> getTacCourseMasters() {
-		return tacCourseMasters;
-	}
-
-	public void setTacCourseMasters(Set<TacCourseMaster> tacCourseMasters) {
-		this.tacCourseMasters = tacCourseMasters;
-	}
+//
+//	@ManyToMany(mappedBy = "tacActivities",fetch =FetchType.EAGER)
+//	public Set<TacCourseMaster> getTacCourseMasters() {
+//		return tacCourseMasters;
+//	}
+//
+//	public void setTacCourseMasters(Set<TacCourseMaster> tacCourseMasters) {
+//		this.tacCourseMasters = tacCourseMasters;
+//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacActivity")
 	public Set<TacCourseActivation> getTacCourseActivations() {

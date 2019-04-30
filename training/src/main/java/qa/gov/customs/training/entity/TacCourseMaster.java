@@ -31,8 +31,8 @@ public class TacCourseMaster implements java.io.Serializable {
 	private Date dateCreated;
 	private String userModified;
 	private BigDecimal activeFlag;
-	
-
+	public int offset;
+	public int limit;
 	private Date dateModified;
 	private String coordinatorJobId;
 
@@ -131,6 +131,22 @@ public class TacCourseMaster implements java.io.Serializable {
 
 	public void setDuration(BigDecimal duration) {
 		this.duration = duration;
+	}
+	@Transient
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+	@Transient
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 
 	@Column(name = "DURATION_FLAG", precision = 22, scale = 0)
