@@ -24,14 +24,11 @@ public class InstructorController {
 		ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
 		return response;*/
 		
-//		@PreAuthorize("hasAnyAuthority('sys_admin','role_user')")
+         //@PreAuthorize("hasAnyAuthority('sys_admin','role_user')")
 		@PostMapping("/create-instructor")
 		public ResponseType createInstructor(@RequestBody TacInstructorMaster instructor) {
 			TacInstructorMaster submitInstructor=null;
-			
-	    
 			submitInstructor=instructorService.createInstructor(instructor);
-			
 			ResponseType response = new ResponseType(201, MessageUtil.INSTRUCTOR_CREATED, true, submitInstructor);
 			return response;
 
