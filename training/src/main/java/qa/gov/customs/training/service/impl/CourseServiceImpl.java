@@ -47,10 +47,8 @@ public class CourseServiceImpl  implements CourseService {
         return null;
     }
 
-    @Override
-    public BigInteger disableCountCourses() {
-        return null;
-    }
+  
+
 
     @Override
     public BigInteger enabledCountCourses() {
@@ -76,6 +74,12 @@ public class CourseServiceImpl  implements CourseService {
 		courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
 		
 		return courses;
+	}
+
+	@Override
+	public BigInteger disableCountCourses() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

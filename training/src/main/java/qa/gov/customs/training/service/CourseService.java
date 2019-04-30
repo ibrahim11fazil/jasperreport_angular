@@ -12,11 +12,13 @@ public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);//done
     TacCourseMaster disableCourse(TacCourseMaster activity);//done
     TacCourseMaster linkCourseWithActivity(TacCourseMaster activity);
+
     TacCourseMaster activateCourse(TacCourseMaster course);
     List<TacCourseMaster> listCourses();//ajna
     List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
     BigInteger countCourses();//ajna
     BigInteger disableCountCourses();
+
     BigInteger enabledCountCourses();
    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);//done
 }

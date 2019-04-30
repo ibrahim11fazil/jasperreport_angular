@@ -2,15 +2,19 @@ package qa.gov.customs.training.repository;
 
 import java.math.BigDecimal;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.stereotype.Repository;
 
-
-import qa.gov.customs.training.entity.TacActivity;
+import qa.gov.customs.training.entity.TacInstructorMaster;
 
 @Repository
-public interface ActivityRepository extends JpaRepository<TacActivity,BigDecimal>{
-	//void save(Optional<TacActivity> activity);
+public interface InstructorRepository extends JpaRepository<TacInstructorMaster,BigDecimal>{
+
 }
+
+
+
+
+
+
+
