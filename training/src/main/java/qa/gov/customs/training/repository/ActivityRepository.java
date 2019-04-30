@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.stereotype.Repository;
 import qa.gov.customs.training.entity.TacActivity;
+
 @Repository
 public interface ActivityRepository extends JpaRepository<TacActivity,BigDecimal>{
-
-	void save(Optional<TacActivity> activity1);
-
+	//void save(Optional<TacActivity> activity);
 }

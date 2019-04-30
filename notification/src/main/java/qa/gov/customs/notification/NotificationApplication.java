@@ -8,9 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @SpringBootApplication
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class NotificationApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(NotificationApplication.class, args);
     }
-
 }

@@ -1,4 +1,4 @@
-package qa.gov.customs.training.Test;
+ package qa.gov.customs.training.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import qa.gov.customs.training.controller.ActivityCourseController;
+import qa.gov.customs.training.controller.ActivityController;
 import qa.gov.customs.training.entity.TacActivity;
 import qa.gov.customs.training.repository.ActivityRepository;
 
@@ -26,7 +26,7 @@ public class ActivityTest {
 	   @Autowired
 	   ActivityRepository activityRepository;
 	   @Autowired
-	   ActivityCourseController activityController;
+	   ActivityController activityController;
 	   
 	   
 	   @Test
@@ -49,8 +49,57 @@ public class ActivityTest {
 //		   assertThat(activity1.get().getActivityId().equals(BigDecimal.valueOf(14))).isEqualTo(true);
 		   
 	   }
+
+//package qa.gov.customs.training.Test;
+//
+//import static org.assertj.core.api.Assertions.assertThat;
+//
+//import java.math.BigDecimal;
+//import java.util.ArrayList;
+//import java.util.Date;
+//import java.util.Optional;
+//
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.context.junit4.SpringRunner;
+//import qa.gov.customs.training.entity.TacActivity;
+//import qa.gov.customs.training.repository.ActivityRepository;
+//
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//
+//public class ActivityTest {
+//
+//
+//	   @Autowired
+//	   ActivityRepository activityRepository;
+//
+//
+//	   @Test
+//	   //TODO Create an activity
+//	   public void jpaTestCreateActivity()
+//	   {
+//		   Date date = new Date();
+//		   TacActivity activity = new TacActivity();
+//		   activity.setActivityName("TestCase1");
+//		   activity.setUserCreated("JayasreeTest");
+//		   activity.setDateCreated(date);
+//		   activity.setActiveFlag(1);
+//
+//
+//		   activityRepository.save(activity);
+//
+////		   Optional<TacActivity> activity1=activityRepository.findById(BigDecimal.valueOf(14));
+////		   assertThat(activity1.isPresent()).isEqualTo(true);
+////		   System.out.println(activity1.get().getActivityId());
+////		   assertThat(activity1.get().getActivityId().equals(BigDecimal.valueOf(14))).isEqualTo(true);
+//
+//	   }
+
 ////	   @Test
-////	   //TODO  Update an Activity 
+////	   //TODO  Update an Activity
 ////	   public void jpaTestUpdateActivity()
 ////	   {
 ////		   Optional<TacActivity> activity1=activityRepository.findById(BigDecimal.valueOf(10));
@@ -59,12 +108,12 @@ public class ActivityTest {
 ////		   Optional<TacActivity> activity2=activityRepository.findById(BigDecimal.valueOf(10));
 ////		   assertThat(activity2.isPresent()).isEqualTo(true);
 ////		   assertThat(activity2.get().getActivityName()=="UpdatedTest").isEqualTo(true);
-////		   
-////		   
+////
+////
 ////	   }
-////	   
-//	   
-////	   //TOOD Disable an activity 
+////
+//
+////	   //TOOD Disable an activity
 ////	   @Test
 ////	   public void jpaTestDisableActivity()
 ////	   {
@@ -74,11 +123,11 @@ public class ActivityTest {
 ////		   Optional<TacActivity> activity2=activityRepository.findById(BigDecimal.valueOf(10));
 ////		   assertThat(activity2.isPresent()).isEqualTo(true);
 ////		   assertThat(activity2.get().getAward_flag()==0).isEqualTo(true);
-////		   
+////
 ////	   }
-////	   
-//	   
-//	   
+////
+//
+//
 //
 ////	   @Test
 ////	   public void jpaTestGetAllActivity()
@@ -87,5 +136,10 @@ public class ActivityTest {
 ////		 System.out.println(activity);
 ////		   assertThat(activity!=null).isEqualTo(true);
 ////	    }
+
 //	   
 }
+
+//
+//}
+
