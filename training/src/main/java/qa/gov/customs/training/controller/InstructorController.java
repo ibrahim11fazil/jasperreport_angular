@@ -1,3 +1,5 @@
+
+package qa.gov.customs.training.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,4 +35,5 @@ public class InstructorController {
 			ResponseType response = new ResponseType(201, MessageUtil.INSTRUCTOR_CREATED, true, submitInstructor);
 			return response;
 
+}
 }
