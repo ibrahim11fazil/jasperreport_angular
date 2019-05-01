@@ -11,14 +11,16 @@ import org.springframework.data.domain.Pageable;
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);//done
     TacCourseMaster disableCourse(TacCourseMaster activity);//done
-    TacCourseMaster linkCourseWithActivity(TacCourseMaster activity);
+    TacCourseMaster linkCourseWithActivity(TacCourseMaster course);
 
-    TacCourseMaster activateCourse(TacCourseMaster course);
+   TacCourseMaster activateCourse(TacCourseMaster course);
     List<TacCourseMaster> listCourses();//ajna
+
     List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
     long countCourses();//ajna
-    BigInteger disableCountCourses();
 
+    BigInteger disableCountCourses();
+    Optional<TacCourseMaster> findById(TacCourseMaster course);
     BigInteger enabledCountCourses();
    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);//done
 }
