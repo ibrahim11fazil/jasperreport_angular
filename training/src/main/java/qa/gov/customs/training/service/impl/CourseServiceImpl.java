@@ -43,8 +43,9 @@ public class CourseServiceImpl  implements CourseService {
    
 
     @Override
-    public BigInteger countCourses() {
-        return null;
+    public long countCourses() {
+     long countcourse= courseRepository.count();
+    return countcourse;
     }
 
   
@@ -72,8 +73,7 @@ public class CourseServiceImpl  implements CourseService {
 	public List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
 		List<TacCourseMaster> courses=null;
 		courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-		
-		return courses;
+				return courses;
 	}
 
 	@Override

@@ -75,6 +75,11 @@ public class CourseController {
 		return response;
 		
 	}
-
+	
+	@PostMapping("/count-course")
+	public ResponseType countCourse() {
+		return null;
+		
+	}
 
 }

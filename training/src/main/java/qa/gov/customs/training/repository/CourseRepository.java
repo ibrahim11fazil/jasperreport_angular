@@ -20,4 +20,5 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
 List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
 
+
 }
