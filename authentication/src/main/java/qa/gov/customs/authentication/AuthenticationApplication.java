@@ -10,7 +10,6 @@ import qa.gov.customs.utils.Constants;
 
 @SpringBootApplication
 @EnableResourceServer
-@EnableDiscoveryClient
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthenticationApplication {
 

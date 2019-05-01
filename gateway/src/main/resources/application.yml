@@ -23,27 +23,48 @@ hystrix:
 ribbon:
   ReadTimeout: 20000
   ConnectTimeout: 20000
-
+##service routing setting
+#  zuul.ignored-services=*
+#  zuul.sensitive-headers=Cookie,Set-Cookie
+#  zuul.ignored-headers=Access-Control-Allow-Credentials, Access-Control-Allow-Origin
 zuul:
   ignoredServices: '*'
+  #ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Authorization,Content-Type
   host:
-    connect-timeout-millis: 20000
-    socket-timeout-millis: 20000
+    connect-timeout-millis: 80000
+    socket-timeout-millis: 80000
 
   routes:
     auth-service:
+      sensitiveHeaders:
       path: /authentication/**
       url: http://localhost:9001
-      stripPrefix: false
-      sensitiveHeaders:
+      stripPrefix: true
 
     account-service:
       path: /training/**
       serviceId: training
-      stripPrefix: false
+      stripPrefix: true
       sensitiveHeaders:
 
 
 
+
+debug: true
+
+logging:
+  pattern:
+    console: '@%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    file: '@%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  level:
+    org:
+      springframework:
+        web: ERROR
+      hibernate: ERROR
+    qa:
+      gov:
+        customs:
+          gateway: DEBUG
+  file: logs/gateway.log
 
 
