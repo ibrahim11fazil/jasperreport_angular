@@ -13,14 +13,16 @@ public interface CourseService {
     TacCourseMaster disableCourse(TacCourseMaster activity);//done
     TacCourseMaster linkCourseWithActivity(TacCourseMaster course);
 
-   TacCourseMaster activateCourse(TacCourseMaster course);
+    TacCourseMaster activateCourse(TacCourseMaster course);
     List<TacCourseMaster> listCourses();//ajna
+   // List<TacCourseMaster> listCourses(Pageable firstPageWithElements);
 
     List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
-    long countCourses();//ajna
+    long countCourses();//ajna 
 
     BigInteger disableCountCourses();
     Optional<TacCourseMaster> findById(TacCourseMaster course);
     BigInteger enabledCountCourses();
    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);//done
+
 }

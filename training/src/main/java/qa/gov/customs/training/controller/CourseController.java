@@ -95,11 +95,29 @@ public class CourseController {
 		
 	}
 	
-	@GetMapping("/count-course")
+	/*@GetMapping("/count-course")
 	public long countCourse() {
 		long countcourse= courseService.countCourses();
 		return countcourse;
 
+	}*/
+	
+	@GetMapping("/count-course")
+	public ResponseType countCourse() {
+		long countcourse= courseService.countCourses();
+		ResponseType response = new ResponseType(Constants.SUCCESS,"", true,countcourse);
+		return response;
+
 	}
+	 // @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
+	@GetMapping("/list-courses")
+      public ResponseType listCourses() {
+        List<TacCourseMaster> coursesList = null;
+        coursesList = courseService.listCourses();
+        ResponseType response = new ResponseType(Constants.SUCCESS, "", true, coursesList);
+        return response;
+    }
+	
+	
 
 }

@@ -35,13 +35,7 @@ public class CourseServiceImpl  implements CourseService {
         TacCourseMaster courses= courseRepository.save(course);
         return courses;
     }
-
-    @Override
-    public List<TacCourseMaster> listCourses() {
-        return null;
-    }
-
-   
+ 
 
     @Override
     public long countCourses() {
@@ -89,5 +83,14 @@ public class CourseServiceImpl  implements CourseService {
 		courses=courseRepository.findById(course.getCourseId());
 		return courses;
 	}
+	
+	@Override
+	public List<TacCourseMaster> listCourses() {
+		List<TacCourseMaster> courseslist=null;
+		courseslist= (List<TacCourseMaster>) courseRepository.findAll();
+				return courseslist;
+	}
+
+	
 
 }
