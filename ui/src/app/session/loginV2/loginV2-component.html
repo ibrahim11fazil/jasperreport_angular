@@ -21,7 +21,7 @@
                      <form #form="ngForm" (ngSubmit)="login(form.value)" fxLayoutAlign="center start">
                      <div fxLayout="column" fxFlex.xs="100" fxFlex.sm="80" fxFlex.md="80" fxFlex.lg="70" fxFlex.xl="70" fxLayoutAlign="start">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input class="mrgn-t-none" matInput placeholder="E-Mail" type="text" name="email" required [(ngModel)]="email">
+                           <input class="mrgn-t-none" matInput placeholder="User ID" type="text" name="email" required [(ngModel)]="email">
                            <span matSuffix><i class="material-icons">verified_user</i></span>                              
                         </mat-form-field>
                         <mat-form-field class="full-wid mrgn-b-md">
@@ -38,30 +38,6 @@
                   </div>
                </mat-card>
             </div>
-            <!-- <div fxLayout="column" fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="38" fxFlex.lg="38" fxFlex.xl="38" fxHide.lt-md>
-               <div class="height-full full-wid">
-                  <div fxLayout="column" fxLayoutAlign="center center" class="height-full full-wid">
-                     <ngx-slick-carousel [config]="slideConfig"  class="carousel full-wid height-full" #slickModal="slick-carousel">
-                     <div ngxSlickItem *ngFor="let slide of sessionSlider" class="height-full full-wid">
-                        <div class="session-slider overlay-wrap height-full full-wid">
-                           <div class="slider-bg-img full-wid" [ngStyle] = "{'background-image' : 'url(' + slide.image + ')'}"></div>
-                           <div class="overlay-content" fxLayoutAlign="start end">
-                              <div class="content-wrap">
-                                 <div class="sec-title">
-                                    <h5 class="text-inverse">{{slide.name}}</h5>
-                                    <span class="text-inverse">{{slide.designation}}</span>
-                                 </div>
-                                 <div class="sec-content">
-                                    <p class="text-inverse">{{slide.content}}</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     </ngx-slick-carousel>
-                  </div>
-               </div>
-            </div> -->
          </div>
       </div>
    </div>

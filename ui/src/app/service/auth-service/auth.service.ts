@@ -4,20 +4,23 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL} from "../../app.constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-	user 		  : Observable<firebase.User>;
+	//user 		  : Observable<firebase.User>;
 	userData   : any;
-   isLoggedIn = false;
+    isLoggedIn = false;
 
-   constructor(private firebaseAuth : AngularFireAuth,
+   constructor(//private firebaseAuth : AngularFireAuth,
+               private http:HttpClient,
                private router : Router,
                private toastr : ToastrService) { 
-   	this.user = firebaseAuth.authState;
+   //	this.user = firebaseAuth.authState;
    }
 
    /*
@@ -39,48 +42,72 @@ export class AuthService {
     * signupUserProfile method save the user sign in data into local storage. 
     */
    signupUserProfile(value) {
-    	this.firebaseAuth
-   	.auth
-      .createUserWithEmailAndPassword(value.email, value.password)
-      .then(value => {
-        this.toastr.success('Successfully Signed Up!');
-        this.setLocalUserProfile(value);
-        this.router.navigate(['/']);
-      })
-      .catch(err => {
-         this.toastr.error(err.message);
-      });    
+    	// this.firebaseAuth
+   	// .auth
+      // .createUserWithEmailAndPassword(value.email, value.password)
+      // .then(value => {
+      //   this.toastr.success('Successfully Signed Up!');
+      //   this.setLocalUserProfile(value);
+      //   this.router.navigate(['/']);
+      // })
+      // .catch(err => {
+      //    this.toastr.error(err.message);
+      // });
+
+
    }
 
    /*
     * loginUser fuction used to login 
     */
    loginUser(value) {
-      this.firebaseAuth
-      .auth
-      .signInWithEmailAndPassword(value.email,value.password)
-      .then(value => {
-         this.setLocalUserProfile(value);
-         this.toastr.success('Successfully Logged In!');
-         this.router.navigate(['/']);
-      })
-      .catch(err => {
-         this.toastr.error(err.message);
-      });
+      // var headers = new Headers()
+      // headers.append('Content-Type', CONTENT_TYPE_FORM_URL_ENCODE);
+      // headers.append("Authorization", "Bearer " +  "VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=")
+      console.log("checkingsss");
+      let options = {
+         headers: new HttpHeaders()
+             .set('Content-Type', 'application/x-www-form-urlencoded')
+             .set('Authorization', 'Bearer ' +  'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
+      };
+
+      let body = new URLSearchParams()
+      body.set('username', value.email)
+      body.set('password', value.password)
+      body.set('grant_type', 'password')
+      console.log("checkingsss " + body.toString());
+
+      this.http.post(LOGIN_URL,body,options)
+          .subscribe(
+              response => {
+            console.log(response) },
+      error=>console.log(error)
+       );
+      // this.firebaseAuth
+      // .auth
+      // .signInWithEmailAndPassword(value.email,value.password)
+      // .then(value => {
+      //    this.setLocalUserProfile(value);
+      //    this.toastr.success('Successfully Logged In!');
+      //    this.router.navigate(['/']);
+      // })
+      // .catch(err => {
+      //    this.toastr.error(err.message);
+      // });
    }
 
    /*
     * resetPassword is used to reset your password
     */
    resetPassword(value) {
-      this.firebaseAuth.auth.sendPasswordResetEmail(value.email)
-         .then(value => {
-          	this.toastr.success("A password reset link has been sent to this email.");
-          	this.router.navigate(['/session/login']);
-         })
-         .catch(err => {
-            this.toastr.error(err.message);
-         });
+      // this.firebaseAuth.auth.sendPasswordResetEmail(value.email)
+      //    .then(value => {
+      //     	this.toastr.success("A password reset link has been sent to this email.");
+      //     	this.router.navigate(['/session/login']);
+      //    })
+      //    .catch(err => {
+      //       this.toastr.error(err.message);
+      //    });
    }
 
 
@@ -88,27 +115,27 @@ export class AuthService {
     * resetPasswordV2 is used to reset your password
     */
    resetPasswordV2(value) {
-      this.firebaseAuth.auth.sendPasswordResetEmail(value.email)
-         .then(value => {
-             this.toastr.success("A password reset link has been sent to this email.");
-             this.router.navigate(['/session/loginV2']);
-         })
-         .catch(err => {
-            this.toastr.error(err.message);
-         });
+      // this.firebaseAuth.auth.sendPasswordResetEmail(value.email)
+      //    .then(value => {
+      //        this.toastr.success("A password reset link has been sent to this email.");
+      //        this.router.navigate(['/session/loginV2']);
+      //    })
+      //    .catch(err => {
+      //       this.toastr.error(err.message);
+      //    });
    }
 
    /*
     * logOut function is used to sign out  
     */
    logOut() {
-      this.firebaseAuth
-      .auth
-      .signOut();
-      localStorage.removeItem("userProfile");
-      this.isLoggedIn = false;
-      this.toastr.success("Successfully logged out!");
-      this.router.navigate(['/session/loginV2']);
+      // this.firebaseAuth
+      // .auth
+      // .signOut();
+      // localStorage.removeItem("userProfile");
+      // this.isLoggedIn = false;
+      // this.toastr.success("Successfully logged out!");
+      // this.router.navigate(['/session/loginV2']);
    }   
 
    /*
