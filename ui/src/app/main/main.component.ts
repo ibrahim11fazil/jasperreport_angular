@@ -142,8 +142,8 @@ export class MainComponent implements OnInit, OnDestroy{
                public ecommerceService : EcommerceService,
                public coreService : CoreService,
                private routes :Router,
-               private activatedRoute: ActivatedRoute ) {   
-
+               private activatedRoute: ActivatedRoute ) {
+      this.layout = "rtl";   
       const browserLang: string = translate.getBrowserLang();
       translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
 
