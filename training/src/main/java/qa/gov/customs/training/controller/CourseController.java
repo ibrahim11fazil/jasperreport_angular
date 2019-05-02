@@ -3,6 +3,7 @@ package qa.gov.customs.training.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -94,9 +95,10 @@ public class CourseController {
 		
 	}
 	
-	@PostMapping("/count-course")
-	public ResponseType countCourse() {
-		return null;
+	@GetMapping("/count-course")
+	public long countCourse() {
+		long countcourse= courseService.countCourses();
+		return countcourse;
 
 	}
 
