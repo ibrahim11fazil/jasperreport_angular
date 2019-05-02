@@ -13,7 +13,7 @@ import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL} from "../../app.constants";
 export class AuthService {
 
 	//user 		  : Observable<firebase.User>;
-	userData   : any;
+	 userData   : any;
     isLoggedIn = false;
 
    constructor(//private firebaseAuth : AngularFireAuth,
@@ -61,40 +61,29 @@ export class AuthService {
     * loginUser fuction used to login 
     */
    loginUser(value) {
-      // var headers = new Headers()
-      // headers.append('Content-Type', CONTENT_TYPE_FORM_URL_ENCODE);
-      // headers.append("Authorization", "Bearer " +  "VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=")
-      console.log("checkingsss");
       let options = {
          headers: new HttpHeaders()
              .set('Content-Type', 'application/x-www-form-urlencoded')
              .set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
       };
-
       let body = new URLSearchParams()
       body.set('username', value.email)
       body.set('password', value.password)
       body.set('grant_type', 'password')
-      body.set('', "")
-      console.log("checkingsss " + body.toString());
-
+      body.set('', '')
       this.http.post(LOGIN_URL,body.toString(),options)
           .subscribe(
               response => {
-            console.log(response) },
-      error=>console.log(error)
+               console.log(response); 
+               this.setLocalUserProfile(value); 
+               this.toastr.success('Successfully Logged In!');
+               this.router.navigate(['/']);
+            },
+            error => {
+                  console.log(error); 
+                  this.toastr.error(error.message);
+            }
        );
-      // this.firebaseAuth
-      // .auth
-      // .signInWithEmailAndPassword(value.email,value.password)
-      // .then(value => {
-      //    this.setLocalUserProfile(value);
-      //    this.toastr.success('Successfully Logged In!');
-      //    this.router.navigate(['/']);
-      // })
-      // .catch(err => {
-      //    this.toastr.error(err.message);
-      // });
    }
 
    /*
@@ -130,6 +119,9 @@ export class AuthService {
     * logOut function is used to sign out  
     */
    logOut() {
+        localStorage.removeItem("userProfile");
+        this.toastr.success("Successfully logged out!");
+        this.router.navigate(['/session/loginV2']);
       // this.firebaseAuth
       // .auth
       // .signOut();
