@@ -15,8 +15,10 @@ public interface CourseService {
 
    TacCourseMaster activateCourse(TacCourseMaster course);
     List<TacCourseMaster> listCourses();//ajna
-    List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);//done
-    BigInteger countCourses();//ajna
+
+    List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
+    long countCourses();//ajna
+
     BigInteger disableCountCourses();
     Optional<TacCourseMaster> findById(TacCourseMaster course);
     BigInteger enabledCountCourses();

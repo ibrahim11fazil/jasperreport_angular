@@ -91,6 +91,13 @@ public class CourseController {
 		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courses);
 		return response;
 
+		
+	}
+	
+	@PostMapping("/count-course")
+	public ResponseType countCourse() {
+		return null;
+
 	}
 
 }
