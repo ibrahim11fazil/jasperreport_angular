@@ -14,6 +14,22 @@ export interface Menu {
   children?: ChildrenItems[];
 }
 
+const MENUITEM_ADMIN =[
+  {
+    state: 'horizontal',
+    name: 'Training',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'activity', name: 'activity' },
+      {state: 'course', name: 'New Course' },
+      {state: 'course', name: 'Link Courses'},
+      {state: 'course', name: 'Disable Courses'},
+      {state: 'course', name: 'Activate Courses'}, 
+    ]
+  }
+]
+
 const MENUITEMS = [
    {
     state: 'horizontal',
@@ -287,13 +303,13 @@ const MENUITEMS = [
     ]
   },
 
-
 ];
 
 @Injectable()
 export class MenuItems {
   getAll(): Menu[] {
-    return MENUITEMS;
+    //TODO get the user permissions and set menu role 
+    return MENUITEM_ADMIN;
   }
   add(menu:any) {
     MENUITEMS.push(menu);

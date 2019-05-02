@@ -18,7 +18,7 @@ const screenfull = require('screenfull');
 })
 export class HorizontalLayoutComponent implements OnInit{
 
-   root = 'ltr';
+   root = 'rtl';
    currentLang   = 'en';
    dark           : boolean;
    compactSidebar : boolean;
@@ -27,7 +27,7 @@ export class HorizontalLayoutComponent implements OnInit{
    isFullscreen   : boolean = false;
    showSettings   : boolean = false;
    header         : string;
-   layout         : any = 'ltr';
+   layout         : any = 'rtl';
    popupDeleteResponse : any;
 
    chatList : any [] = [
