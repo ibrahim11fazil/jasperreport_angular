@@ -17,6 +17,7 @@ import qa.gov.customs.utils.Constants;
 import qa.gov.customs.utils.MessageUtil;
 import qa.gov.customs.utils.models.ResponseType;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ActivityController {
 
     @PreAuthorize("hasAnyAuthority('create_activity')")
     @PostMapping("/create-activity")
-    public ResponseType createActivity(@RequestBody TacActivity activity) {
+    public ResponseType createActivity(@Valid @RequestBody TacActivity activity) {
         TacActivity submitActivity = null;
         submitActivity = activityService.createActivity(activity);
         ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
@@ -43,10 +44,19 @@ public class ActivityController {
     @PostMapping("/remove-activity")
     public ResponseType removeActivity(@RequestBody TacActivity activity) {
         List<TacCourseMaster> activityList = null;
+        if(activity==null || activity.getActivityId()==null){
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.ACTIVITY_DELETED_FAILED, false, null);
+            return response;
+        }
         if (activity.getActivityId() != new BigDecimal(0)) {
             activityList = activityService.searchActivity(activity);
-            if (activityList == null) {
-                activityService.deleteActivity(activity);
+            if (activityList.size()==0) {
+                try {
+                    activityService.deleteActivity(activity);
+                }catch (Exception e){
+                    ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.ACTIVITY_DELETED_FAILED, false, null);
+                    return response;
+                }
             }
         }
         ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.ACTIVITY_DELETED, true, null);
