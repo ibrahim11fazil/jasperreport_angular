@@ -4,7 +4,7 @@
    |---|---|---|---|---|---|
    | 1  | CREATE_ACTIVITY  | POST | /create-activity | CREATE_ACTIVITY_REQ   | CREATE_ACTIVITY_RES  |
    | 2  | REMOVE_ACTIVITY  | POST | /remove-activity | REMOVE_ACTIVITY_REQ   | REMOVE_ACTIVITY_RES  |
-
+   | 2  | LIST_ACTIVITY  | POST | /list-activity | LIST_ACTIVITY_REQ   | LIST_ACTIVITY_RES  |
 
 
 ## CREATE_ACTIVITY
@@ -49,7 +49,45 @@
 ## REMOVE_ACTIVITY_REQ
 
 
-
+{
+  "activityId":208  
+}
 
                   
-## REMOVE_ACTIVITY_RES            
+## REMOVE_ACTIVITY_RES   
+{
+    "code": 200,
+    "message": "Activity Deleted",
+    "status": true,
+    "count": 0,
+    "data": null
+}
+
+
+
+
+## LIST_ACTIVITY 
+  url: /list-activity
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+
+## LIST_ACTIVITY_RES
+
+{
+    "code": 200,
+    "message": "",
+    "status": true,
+    "count": 0,
+    "data": [
+        {
+            "userCreated": "Jayasree",
+            "dateCreated": "2019-04-11T08:38:28.000+0000",
+            "userModified": null,
+            "dateModified": null,
+            "activityId": 10,
+            "activityName": "TestCase",
+            "activeFlag": null,
+            "tacCourseActivations": []
+        }
+}
