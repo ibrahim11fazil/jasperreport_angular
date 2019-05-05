@@ -30,6 +30,7 @@ ribbon:
 zuul:
   ignoredServices: '*'
   #ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Authorization,Content-Type
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   host:
     connect-timeout-millis: 80000
     socket-timeout-millis: 80000

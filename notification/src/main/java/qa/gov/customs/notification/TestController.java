@@ -1,12 +1,11 @@
 package qa.gov.customs.notification;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.notification.model.TestModel;
 import qa.gov.customs.notification.security.CustomPrincipal;
+import qa.gov.customs.notification.service.EmailService;
 
 
 @RestController
@@ -33,6 +32,21 @@ public class TestController {
 	@RequestMapping(method = RequestMethod.POST ,path="/foo3")
 	public String createUser2(@RequestBody TestModel model ) {
 		return "success";
+	}
+
+
+	@Autowired
+	EmailService emailService;
+
+	@GetMapping("/sendemail")
+	public String sendEmail() {
+		try {
+			emailService.sendmail();
+		}catch (Exception e) {
+			e.printStackTrace();
+			//TODO log it
+		}
+		return "Email sent successfully";
 	}
 
 }
