@@ -43,7 +43,7 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	public void deleteActivity(TacActivity activity) {
 	
-	activityRepository.delete(activity);;
+	activityRepository.deleteById(activity.getActivityId());;
 	}
 
 	@Override
