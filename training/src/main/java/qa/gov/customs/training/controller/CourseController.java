@@ -3,6 +3,7 @@ package qa.gov.customs.training.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public class CourseController {
 
 	// @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
 	// for creating and updating courses
+	@PreAuthorize("hasAnyAuthority('create_update_course')")
 	@PostMapping("/create-course")
 	public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
 		TacCourseMaster courses = null;
@@ -41,8 +43,9 @@ public class CourseController {
 
 	// @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
 	// for creating and updating courses
+	@PreAuthorize("hasAnyAuthority('disable_course')")
 	@PostMapping("/disable-course")
-	public ResponseType deleteCourse(@RequestBody TacCourseMaster course) {
+	public ResponseType disableCourse(@RequestBody TacCourseMaster course) {
 		Optional<TacCourseMaster> courses = null;
 		TacCourseMaster courseDelete = null;
 		courses = courseService.getCourseById(course);
@@ -54,6 +57,7 @@ public class CourseController {
 		return response;
 	}
 
+	@PreAuthorize("hasAnyAuthority('get_course_by_id')")
 	@PostMapping("/get-courses-by-id")
 	public ResponseType getCourseById(@RequestBody TacCourseMaster course, CustomPrincipal principal) {
 		Optional<TacCourseMaster> courseList = null;
@@ -62,6 +66,7 @@ public class CourseController {
 		return response;
 	}
 
+	@PreAuthorize("hasAnyAuthority('link_course_with_activity')")
 	@PostMapping("/link-course-with-activity")
 	public ResponseType linkCourseWithActivity(@RequestBody TacCourseMaster course) {
 		TacCourseMaster linkCourse = null;
@@ -83,6 +88,7 @@ public class CourseController {
 
 	}
 
+	@PreAuthorize("hasAnyAuthority('search_course')")
 	@PostMapping("/search-course")
 	public ResponseType searchCourse(@RequestBody TacCourseMaster course) {
 		Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
@@ -101,7 +107,8 @@ public class CourseController {
 		return countcourse;
 
 	}*/
-	
+
+	@PreAuthorize("hasAnyAuthority('count_course')")
 	@GetMapping("/count-course")
 	public ResponseType countCourse() {
 		long countcourse= courseService.countCourses();
@@ -109,7 +116,8 @@ public class CourseController {
 		return response;
 
 	}
-	 // @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
+
+	@PreAuthorize("hasAnyAuthority('list_courses')")
 	@GetMapping("/list-courses")
       public ResponseType listCourses() {
         List<TacCourseMaster> coursesList = null;

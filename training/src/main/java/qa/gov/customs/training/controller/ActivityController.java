@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,9 +26,9 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    //@PreAuthorize("hasAnyAuthority('sys_admin','role_user')")
+    @PreAuthorize("hasAnyAuthority('create_activity')")
     @PostMapping("/create-activity")
-    public ResponseType createActivity(@RequestBody TacActivity activity, CustomPrincipal principal) {
+    public ResponseType createActivity(@RequestBody TacActivity activity) {
         TacActivity submitActivity = null;
         submitActivity = activityService.createActivity(activity);
         ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
@@ -38,6 +39,7 @@ public class ActivityController {
 
     //@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //if course is not linked with activity, it can be deleted
+    @PreAuthorize("hasAnyAuthority('remove_activity')")
     @PostMapping("/remove-activity")
     public ResponseType removeActivity(@RequestBody TacActivity activity) {
         List<TacCourseMaster> activityList = null;
@@ -53,6 +55,7 @@ public class ActivityController {
 
     // @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //  list all the activities
+    @PreAuthorize("hasAnyAuthority('list_activity')")
     @PostMapping("/list-activity")
     public ResponseType listActivity() {
         List<TacActivity> activityList = null;
