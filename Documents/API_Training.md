@@ -3,10 +3,11 @@
    |  SNO | API_NAME  | TYPE |  URL | REQUEST  | RESPONSE  |
    |---|---|---|---|---|---|
    | 1  | CREATE_ACTIVITY  | POST | /create-activity | CREATE_ACTIVITY_REQ   | CREATE_ACTIVITY_RES  |
+   | 2  | REMOVE_ACTIVITY  | POST | /remove-activity | REMOVE_ACTIVITY_REQ   | REMOVE_ACTIVITY_RES  |
 
 
 
-## LOGIN
+## CREATE_ACTIVITY
 
    url: /create-activity
    header: 
@@ -36,3 +37,19 @@
          "tacCourseActivations": []
        }
      }
+     
+
+## REMOVE_ACTIVITY     
+
+     url: /remove-activity
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+    
+## REMOVE_ACTIVITY_REQ
+
+
+
+
+                  
+## REMOVE_ACTIVITY_RES            
