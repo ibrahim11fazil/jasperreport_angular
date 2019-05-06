@@ -70,8 +70,15 @@ public class ActivityController {
     public ResponseType listActivity() {
         List<TacActivity> activityList = null;
         activityList = activityService.listActivity();
+        if(activityList!=null) {
         ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activityList);
         return response;
+        }
+        else
+        {
+        	ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false, null);
+            return response;
+        }
     }
 
 }
