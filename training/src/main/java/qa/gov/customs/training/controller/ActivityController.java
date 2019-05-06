@@ -31,9 +31,19 @@ public class ActivityController {
     @PostMapping("/create-activity")
     public ResponseType createActivity(@Valid @RequestBody TacActivity activity) {
         TacActivity submitActivity = null;
+        if(activity.getActivityId()!=new BigDecimal(0))
+        {
         submitActivity = activityService.createActivity(activity);
         ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
+        
         return response;
+        }
+        else
+        {
+        	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+            return response;
+        }
+        
     }
 
 

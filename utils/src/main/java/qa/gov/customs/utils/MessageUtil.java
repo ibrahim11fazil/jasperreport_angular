@@ -10,4 +10,5 @@ public class MessageUtil {
     public static String ACTIVITY_DELETED_FAILED="Activity Deleted Failed";
     public static String INSTRUCTOR_CREATED="Instructor Created";
     public static String NOT_FOUND="Resource Not Found";
+    public static String BAD_REQUEST="Bad Request";
 }
