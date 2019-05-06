@@ -34,15 +34,18 @@ public class ActivityController {
         if(activity.getActivityId()!=new BigDecimal(0))
         {
         submitActivity = activityService.createActivity(activity);
+        if(submitActivity!=null)
+        {
         ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
         
         return response;
         }
-        else
-        {
+        }
+        
         	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
             return response;
-        }
+        
+        
         
     }
 
