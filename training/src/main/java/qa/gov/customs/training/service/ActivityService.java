@@ -13,4 +13,5 @@ public interface ActivityService {
 	 List<TacCourseMaster> searchActivity(TacActivity activity);
 	 void deleteActivity(TacActivity activity);
 	 List<TacActivity> listActivity();
+	 List<TacActivity> searchActivityList(TacActivity activity);
 }
