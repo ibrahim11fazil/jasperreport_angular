@@ -36,9 +36,27 @@ public class CourseController {
 	@PostMapping("/create-course")
 	public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
 		TacCourseMaster courses = null;
+		if(course.getCourseId()!= new BigDecimal(0))
+		{
+			ResponseType searchResponse=searchCourse(course);
+			if(searchResponse.getData()==null)
+			{
 		courses = courseService.createAndUpdateCourse(course);
+		if(courses!=null)
+		{
 		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true, courses);
 		return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false, null);
+			return response;	
+		}
+		}
+		}
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false, null);
+		return response;
+		
 	}
 
 	// @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
@@ -93,12 +111,24 @@ public class CourseController {
 	public ResponseType searchCourse(@RequestBody TacCourseMaster course) {
 		Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
 		List<TacCourseMaster> courses = null;
+		if (course.getCourseName()!=null)
+		{
 		courses = courseService.searchCourses(course, firstPageWithElements);
+		if(courses!=null && !courses.isEmpty())
+		{
 
-		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courses);
+		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courses);
 		return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+		}
 
-		
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+		return response;
 	}
 	
 	/*@GetMapping("/count-course")
