@@ -33,12 +33,16 @@ public class ActivityController {
         TacActivity submitActivity = null;
         if(activity.getActivityId()!=new BigDecimal(0))
         {
+        	ResponseType searchResponse=searchActivity(activity);
+        	if(searchResponse.getData()==null)
+        	{        	
         submitActivity = activityService.createActivity(activity);
         if(submitActivity!=null)
         {
         ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
         
         return response;
+        }
         }
         }
         
@@ -95,14 +99,22 @@ public class ActivityController {
     }
     @PreAuthorize("hasAnyAuthority('search_activity')")
     @PostMapping("/search-activity")
-    public ResponseType searchActivity(TacActivity activity)
+    public ResponseType searchActivity(@RequestBody TacActivity activity)
     {
+    	
     	List<TacActivity> activityList=null;
-    	if(activity.getActivityId()!=new BigDecimal(0))
+    	if(activity.getActivityName()!=null)
         {
     	activityList=activityService.searchActivityList(activity);
-    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, false, activityList);
+    	if(activityList!=null && !activityList.isEmpty()) {
+    		
+    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, activityList);
         return response;
+    	}
+    	else { 	
+    		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+            return response;
+    	}
 		
         }
     	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
