@@ -38,7 +38,7 @@ public class CourseController {
 		TacCourseMaster courses = null;
 		if(course.getCourseId()!= new BigDecimal(0))
 		{
-			ResponseType searchResponse=searchCourse(course);
+			ResponseType searchResponse=getCourseByName(course);
 			if(searchResponse.getData()==null)
 			{
 		courses = courseService.createAndUpdateCourse(course);
@@ -156,6 +156,31 @@ public class CourseController {
         return response;
     }
 	
+	@PreAuthorize("hasAnyAuthority('get_course_by_name')")
+	@GetMapping("/get_course_by_name")
+	 public ResponseType getCourseByName(@RequestBody TacCourseMaster course)
+	 {
+	    	
+	    	List<TacCourseMaster> courseList=null;
+	    	if(course.getCourseName()!=null)
+	        {
+	    		courseList=courseService.getCourseByCourseName(course);
+	    	if(courseList!=null && !courseList.isEmpty()) {
+	    		
+	    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courseList);
+	        return response;
+	    	}
+	    	else { 	
+	    		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+	            return response;
+	    	}
+			
+	        }
+	    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+	        return response;
+	    
+	    	
+	    }
 	
 
 }

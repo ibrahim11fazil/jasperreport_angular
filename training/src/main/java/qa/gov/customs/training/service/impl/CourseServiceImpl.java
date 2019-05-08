@@ -91,6 +91,12 @@ public class CourseServiceImpl  implements CourseService {
 				return courseslist;
 	}
 
+	@Override
+	public List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course) {
+		List<TacCourseMaster> courseList=courseRepository.findByCourseName(course.getCourseName());
+		return courseList;
+	}
+
 	
 
 }

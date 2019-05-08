@@ -22,5 +22,6 @@ public interface CourseService {
     Optional<TacCourseMaster> findById(TacCourseMaster course);
     BigInteger enabledCountCourses();
    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);//done
+   List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course);
 
 }

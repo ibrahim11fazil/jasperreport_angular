@@ -1,7 +1,7 @@
 package qa.gov.customs.training.repository;
 
 
-import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -16,8 +16,9 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
 List<TacCourseMaster> findByActivityId(BigDecimal activityId);
 
 List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
+List<TacCourseMaster>findByCourseName(String courseName);
 
 
-//Page<TacCourseMaster> findAll(Pageable pageable);
+
 
 }
