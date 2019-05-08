@@ -36,11 +36,12 @@ public class TacInstructorMaster implements java.io.Serializable {
 	private String email;
 	private Blob photo;
 	private BigDecimal priority;
-	private Set<TacInstructorQualifications> tacInstructorQualificationses = new HashSet<TacInstructorQualifications>(
-			0);
-	private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
+	//Many to many
+	private Set<TacInstructorQualifications> tacInstructorQualificationses = new HashSet<TacInstructorQualifications>(0);
+	//Many to many
 	private Set<TacInstructorSubjects> tacInstructorSubjectses = new HashSet<TacInstructorSubjects>(0);
-
+	//Many to many with priority
+	private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
 	public TacInstructorMaster() {
 	}
 
@@ -77,7 +78,7 @@ public class TacInstructorMaster implements java.io.Serializable {
 
 	@Column(name = "INSTRUCTOR_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_INSTRUCTOR_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_INSTRUCTOR_SEQ",allocationSize = 1)
 	public BigDecimal getInstructorId() {
 		return this.instructorId;
 	}
