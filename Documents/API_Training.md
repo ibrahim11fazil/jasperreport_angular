@@ -55,26 +55,26 @@
 
                   
 ## REMOVE_ACTIVITY_RES   
-{
+    {
     "code": 200,
     "message": "Activity Deleted",
     "status": true,
     "count": 0,
     "data": null
-}
+    }
 
 
 
 
 ## LIST_ACTIVITY 
-  url: /list-activity
+    url: /list-activity
        header: 
             Content-Type:application/json
             Authorization: Bearer <Token>
 
 ## LIST_ACTIVITY_RES
 
-{
+    {
     "code": 200,
     "message": "",
     "status": true,
@@ -90,4 +90,33 @@
             "activeFlag": null,
             "tacCourseActivations": []
         }
-}
+        } 
+
+  ## SEARCH_ACTIVITY 
+     url: /search-activity
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+## SEARCH_ACTIVITY_REQ
+      {
+        "activityName":"TestCase1"
+       }
+
+## SEARCH_ACTIVITY_RES
+     {
+    "code": 200,
+    "message": "Resource Found",
+    "status": true,
+    "count": 0,
+    "data": [
+        {
+            "userCreated": "user@gmail.com",
+            "dateCreated": "2019-05-08T07:50:10.000+0000",
+            "userModified": "user@gmail.com",
+            "dateModified": "2019-05-08T07:50:10.000+0000",
+            "activityId": 408,
+            "activityName": "TestCase",
+            "activeFlag": null,
+            "tacCourseActivations": []
+        }]
+    }
