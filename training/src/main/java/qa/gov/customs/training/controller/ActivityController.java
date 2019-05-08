@@ -93,5 +93,22 @@ public class ActivityController {
             return response;
         }
     }
+    @PreAuthorize("hasAnyAuthority('search_activity')")
+    @PostMapping("/search-activity")
+    public ResponseType searchActivity(TacActivity activity)
+    {
+    	List<TacActivity> activityList=null;
+    	if(activity.getActivityId()!=new BigDecimal(0))
+        {
+    	activityList=activityService.searchActivityList(activity);
+    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, false, activityList);
+        return response;
+		
+        }
+    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+        return response;
+    
+    	
+    }
 
 }
