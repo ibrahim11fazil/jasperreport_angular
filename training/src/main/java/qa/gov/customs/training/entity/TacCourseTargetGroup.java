@@ -50,7 +50,7 @@ public class TacCourseTargetGroup implements java.io.Serializable {
 	@Id
 	@Column(name = "TARGET_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TARGET_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TARGET_SEQ",allocationSize = 1)
 
 	public BigDecimal getTargetId() {
 		return this.targetId;

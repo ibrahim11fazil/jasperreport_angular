@@ -42,7 +42,7 @@ public class TacCourseAudience implements java.io.Serializable {
 
 	@Column(name = "AUDIENCE_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_AUDIENCE_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_AUDIENCE_SEQ",allocationSize = 1)
 	public BigDecimal getAudienceId() {
 		return this.audienceId;
 	}

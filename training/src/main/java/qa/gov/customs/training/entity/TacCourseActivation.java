@@ -96,7 +96,7 @@ public class TacCourseActivation implements java.io.Serializable {
 
 	@Column(name = "ACTIVATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ACTIVATION_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ACTIVATION_SEQ",allocationSize = 1)
 	public BigDecimal getActivationId() {
 		return this.activationId;
 	}

@@ -47,7 +47,7 @@ public class TacCourseRoom implements java.io.Serializable {
 
 	@Column(name = "ROOM_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ROOM_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ROOM_SEQ",allocationSize = 1)
 	public BigDecimal getRoomId() {
 		return this.roomId;
 	}
