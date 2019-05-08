@@ -101,11 +101,11 @@ public class ActivityController {
     	if(activity.getActivityId()!=new BigDecimal(0))
         {
     	activityList=activityService.searchActivityList(activity);
-    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.BAD_REQUEST, false, activityList);
+    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, false, activityList);
         return response;
 		
         }
-    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FOUND, false, null);
+    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
         return response;
     
     	
