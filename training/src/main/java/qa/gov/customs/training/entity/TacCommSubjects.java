@@ -54,7 +54,7 @@ public class TacCommSubjects implements java.io.Serializable {
 
 	@Column(name = "SUBJECT_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_SUBJECT_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_SUBJECT_SEQ",allocationSize = 1)
 	public BigDecimal getSubjectId() {
 		return this.subjectId;
 	}

@@ -41,7 +41,7 @@ public class TacCourseOutcome implements java.io.Serializable {
 
 	@Column(name = "OUTCOME_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_OUTCOME_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_OUTCOME_SEQ",allocationSize = 1)
 	public BigDecimal getOutcomeId() {
 		return this.outcomeId;
 	}

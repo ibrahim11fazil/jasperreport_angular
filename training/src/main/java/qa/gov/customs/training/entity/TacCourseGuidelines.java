@@ -41,7 +41,7 @@ public class TacCourseGuidelines implements java.io.Serializable {
 
 	@Column(name = "GUIDELINE_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_GUIDELINES_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_GUIDELINES_SEQ",allocationSize = 1)
 	public BigDecimal getGuidelineId() {
 		return this.guidelineId;
 	}

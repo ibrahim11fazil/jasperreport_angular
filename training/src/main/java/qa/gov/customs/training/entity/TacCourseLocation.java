@@ -42,7 +42,7 @@ public class TacCourseLocation implements java.io.Serializable {
 
 	@Column(name = "LOCATION_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_LOCATION_SEQ")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_LOCATION_SEQ",allocationSize = 1)
 	public BigDecimal getLocationId() {
 		return this.locationId;
 	}
