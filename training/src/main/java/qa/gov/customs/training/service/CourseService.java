@@ -6,7 +6,9 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
@@ -14,7 +16,7 @@ public interface CourseService {
     TacCourseMaster linkCourseWithActivity(TacCourseMaster linkCourse);
 
     TacCourseMaster activateCourse(TacCourseMaster course);
-    List<TacCourseMaster> listCourses();
+    Slice<TacCourseMaster> listCourses();
    // List<TacCourseMaster> listCourses(Pageable firstPageWithElements);  
     List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
     long countCourses(); 

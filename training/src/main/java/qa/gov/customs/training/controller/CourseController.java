@@ -1,8 +1,10 @@
 package qa.gov.customs.training.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -176,6 +178,7 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('count_course')")
 	@GetMapping("/count-course")
 	public ResponseType countCourse() {
+		System.out.println("Inside count courses");
 		long countcourse = courseService.countCourses();
 		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, countcourse);
 		return response;
@@ -185,10 +188,18 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('list_courses')")
 	@GetMapping("/list-courses")
 	public ResponseType listCourses() {
-		List<TacCourseMaster> coursesList = null;
+		Slice<TacCourseMaster> coursesList = null;
 		coursesList = courseService.listCourses();
+		if(coursesList!=null)
+		{
 		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, coursesList);
 		return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", false, null);
+			return response;
+		}
 	}
 
 	@PreAuthorize("hasAnyAuthority('get_course_by_name')")

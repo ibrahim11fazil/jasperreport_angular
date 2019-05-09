@@ -1,8 +1,10 @@
 package qa.gov.customs.training.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseMaster;
 import qa.gov.customs.training.repository.CourseRepository;
@@ -85,9 +87,10 @@ public class CourseServiceImpl  implements CourseService {
 	}
 	
 	@Override
-	public List<TacCourseMaster> listCourses() {
-		List<TacCourseMaster> courseslist=null;
-		courseslist= (List<TacCourseMaster>) courseRepository.findAll();
+	public Slice<TacCourseMaster> listCourses() {
+		Pageable firstPageWithElements = PageRequest.of( 0,5);
+		Slice<TacCourseMaster> courseslist=null;
+		courseslist=  courseRepository.findAll(firstPageWithElements);
 				return courseslist;
 	}
 

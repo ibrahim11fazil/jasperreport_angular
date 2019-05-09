@@ -302,3 +302,120 @@
         "tacCourseDates": []
     }
      }
+## COUNT_COURSE 
+     url: /count-course
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+
+
+## COUNT_COURSE_RES
+    {
+    "code": 200,
+    "message": "",
+    "status": true,
+    "count": 0,
+    "data": 8
+}
+
+##LIST_COURSE
+
+     url: /list-course
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+## LIST_COURSE_RES
+    {
+    "code": 200,
+    "message": "",
+    "status": true,
+    "count": 0,
+    "data": {
+        "content": [
+            {
+                "userCreated": "user@gmail.com",
+                "dateCreated": "2019-05-09T09:31:31.000+0000",
+                "userModified": "user@gmail.com",
+                "dateModified": "2019-05-09T09:31:31.000+0000",
+                "courseId": 6,
+                "tacCourseCategory": null,
+                "courseName": "NewCourse2",
+                "duration": null,
+                "durationFlag": null,
+                "objective": null,
+                "numberofhours": null,
+                "activityId": null,
+                "prerequisitesId": null,
+                "subcourseFlag": null,
+                "locationType": null,
+                "courseStatus": null,
+                "activeFlag": null,
+                "offset": 0,
+                "limit": 0,
+                "coordinatorJobId": null,
+                "tacCoursePrerequisiteses": [],
+                "tacCourseGuidelineses": [],
+                "tacCourseActivations": [],
+                "tacCourseAudiences": [],
+                "tacActivities": [],
+                "tacCourseOutcomes": [],
+                "tacCourseDates": []
+            },
+            {
+                "userCreated": "user@gmail.com",
+                "dateCreated": "2019-05-09T09:56:09.000+0000",
+                "userModified": "user@gmail.com",
+                "dateModified": "2019-05-09T09:56:09.000+0000",
+                "courseId": 7,
+                "tacCourseCategory": null,
+                "courseName": "NewCourse3",
+                "duration": null,
+                "durationFlag": null,
+                "objective": null,
+                "numberofhours": null,
+                "activityId": null,
+                "prerequisitesId": null,
+                "subcourseFlag": null,
+                "locationType": null,
+                "courseStatus": null,
+                "activeFlag": null,
+                "offset": 0,
+                "limit": 0,
+                "coordinatorJobId": null,
+                "tacCoursePrerequisiteses": [],
+                "tacCourseGuidelineses": [],
+                "tacCourseActivations": [],
+                "tacCourseAudiences": [],
+                "tacActivities": [],
+                "tacCourseOutcomes": [],
+                "tacCourseDates": []
+            },
+        ],
+        "pageable": {
+            "sort": {
+                "sorted": false,
+                "unsorted": true,
+                "empty": true
+            },
+            "offset": 0,
+            "pageSize": 5,
+            "pageNumber": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "totalPages": 4,
+        "totalElements": 8,
+        "last": false,
+        "size": 2,
+        "number": 0,
+        "first": true,
+        "numberOfElements": 52,
+        "sort": {
+            "sorted": false,
+            "unsorted": true,
+            "empty": true
+        },
+        "empty": false
+    }
+}
+
