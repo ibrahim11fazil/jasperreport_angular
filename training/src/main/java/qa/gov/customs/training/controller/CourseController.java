@@ -19,8 +19,10 @@ import qa.gov.customs.utils.MessageUtil;
 import qa.gov.customs.utils.models.ResponseType;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class CourseController {
@@ -29,34 +31,29 @@ public class CourseController {
 	CourseService courseService;
 	@Autowired
 	ActivityService activityService;
-
-	// @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
 	// for creating and updating courses
 	@PreAuthorize("hasAnyAuthority('create_update_course')")
 	@PostMapping("/create-course")
 	public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
 		TacCourseMaster courses = null;
-		if(course.getCourseId()!= new BigDecimal(0))
-		{
-			ResponseType searchResponse=getCourseByName(course);
-			if(searchResponse.getData()==null)
-			{
-		courses = courseService.createAndUpdateCourse(course);
-		if(courses!=null)
-		{
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true, courses);
-		return response;
-		}
-		else
-		{
-			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false, null);
-			return response;	
-		}
-		}
+		if (course.getCourseId() != new BigDecimal(0)) {
+			ResponseType searchResponse = getCourseByName(course);
+			if (searchResponse.getData() == null) {
+				courses = courseService.createAndUpdateCourse(course);
+				if (courses != null) {
+					ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
+							courses);
+					return response;
+				} else {
+					ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false,
+							null);
+					return response;
+				}
+			}
 		}
 		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false, null);
 		return response;
-		
+
 	}
 
 	// @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
@@ -79,29 +76,56 @@ public class CourseController {
 	@PostMapping("/get-courses-by-id")
 	public ResponseType getCourseById(@RequestBody TacCourseMaster course, CustomPrincipal principal) {
 		Optional<TacCourseMaster> courseList = null;
-		courseList = courseService.getCourseById(course);
-		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseList);
+		if (course.getCourseId() != new BigDecimal(0)) {
+			courseList = courseService.getCourseById(course);
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseList);
+			return response;
+		}
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
 		return response;
 	}
 
 	@PreAuthorize("hasAnyAuthority('link_course_with_activity')")
 	@PostMapping("/link-course-with-activity")
 	public ResponseType linkCourseWithActivity(@RequestBody TacCourseMaster course) {
+		System.out.println(course.getCourseId());
+		System.out.println(course.getTacActivities());
 		TacCourseMaster linkCourse = null;
+		TacCourseMaster courselink = null;
+		Set<TacActivity> activities = new HashSet<TacActivity>();
 		if (course.getCourseId() != new BigDecimal(0)) {
-			if (courseService.findById(course) != null) {
+			linkCourse = courseService.findById(course);
+			if (linkCourse != null) {
+				System.out.println("inside link course not null");
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
+						System.out.println("inside for loop");
 						if (activityService.findActivityById(activity.getActivityId()) != null) {
-							linkCourse = courseService.linkCourseWithActivity(course);
+
+							activities.add(activity);
 						}
 					}
+					if (activities.size() > 0) {
+						linkCourse.setTacActivities(activities);
+						courselink = courseService.linkCourseWithActivity(linkCourse);
+						ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courselink);
+						return response;
+
+					}
+					ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+					return response;
+
 				}
+				ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+				return response;
+
 			}
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+			return response;
 
 		}
-		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, linkCourse);
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
 		return response;
 
 	}
@@ -111,76 +135,67 @@ public class CourseController {
 	public ResponseType searchCourse(@RequestBody TacCourseMaster course) {
 		Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
 		List<TacCourseMaster> courses = null;
-		if (course.getCourseName()!=null)
-		{
-		courses = courseService.searchCourses(course, firstPageWithElements);
-		if(courses!=null && !courses.isEmpty())
-		{
+		if (course.getCourseName() != null) {
+			courses = courseService.searchCourses(course, firstPageWithElements);
+			if (courses != null && !courses.isEmpty()) {
 
-		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courses);
-		return response;
-		}
-		else
-		{
-			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
-			return response;
-		}
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courses);
+				return response;
+			} else {
+				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+				return response;
+			}
 		}
 
 		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
 		return response;
 	}
-	
-	/*@GetMapping("/count-course")
-	public long countCourse() {
-		long countcourse= courseService.countCourses();
-		return countcourse;
 
-	}*/
+	/*
+	 * @GetMapping("/count-course") public long countCourse() { long countcourse=
+	 * courseService.countCourses(); return countcourse;
+	 * 
+	 * }
+	 */
 
 	@PreAuthorize("hasAnyAuthority('count_course')")
 	@GetMapping("/count-course")
 	public ResponseType countCourse() {
-		long countcourse= courseService.countCourses();
-		ResponseType response = new ResponseType(Constants.SUCCESS,"", true,countcourse);
+		long countcourse = courseService.countCourses();
+		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, countcourse);
 		return response;
 
 	}
 
 	@PreAuthorize("hasAnyAuthority('list_courses')")
 	@GetMapping("/list-courses")
-      public ResponseType listCourses() {
-        List<TacCourseMaster> coursesList = null;
-        coursesList = courseService.listCourses();
-        ResponseType response = new ResponseType(Constants.SUCCESS, "", true, coursesList);
-        return response;
-    }
-	
+	public ResponseType listCourses() {
+		List<TacCourseMaster> coursesList = null;
+		coursesList = courseService.listCourses();
+		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, coursesList);
+		return response;
+	}
+
 	@PreAuthorize("hasAnyAuthority('get_course_by_name')")
 	@GetMapping("/get_course_by_name")
-	 public ResponseType getCourseByName(@RequestBody TacCourseMaster course)
-	 {
-	    	
-	    	List<TacCourseMaster> courseList=null;
-	    	if(course.getCourseName()!=null)
-	        {
-	    		courseList=courseService.getCourseByCourseName(course);
-	    	if(courseList!=null && !courseList.isEmpty()) {
-	    		
-	    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courseList);
-	        return response;
-	    	}
-	    	else { 	
-	    		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
-	            return response;
-	    	}
-			
-	        }
-	    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-	        return response;
-	    
-	    	
-	    }
-	
+	public ResponseType getCourseByName(@RequestBody TacCourseMaster course) {
+
+		List<TacCourseMaster> courseList = null;
+		if (course.getCourseName() != null) {
+			courseList = courseService.getCourseByCourseName(course);
+			if (courseList != null && !courseList.isEmpty()) {
+
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courseList);
+				return response;
+			} else {
+				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+				return response;
+			}
+
+		}
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+		return response;
+
+	}
 
 }

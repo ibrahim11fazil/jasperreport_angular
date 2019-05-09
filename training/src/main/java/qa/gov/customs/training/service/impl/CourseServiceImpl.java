@@ -78,9 +78,9 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public Optional<TacCourseMaster> findById(TacCourseMaster course) {
-		Optional<TacCourseMaster> courses=null;
-		courses=courseRepository.findById(course.getCourseId());
+	public TacCourseMaster findById(TacCourseMaster course) {
+		TacCourseMaster courses=null;
+		courses=courseRepository.findByCourseId(course.getCourseId());
 		return courses;
 	}
 	

@@ -120,3 +120,96 @@
             "tacCourseActivations": []
         }]
     }
+
+ ## CREATE_COURSE 
+
+     url: /create-activity
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+
+## CREATE_COURSE_REQ
+## CREATE_COURSE_RES
+
+## LINK_COURSE_WITH_ACTIVITY 
+     url: /link-course-with-activity
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+## LINK_COURSE_WITH_ACTIVITY_REQ
+        
+        {
+      "courseId":4,
+      "courseName":"NewCourse",
+      "tacActivities":
+    [
+      {
+      "activityId":1,
+      "activityName":"Activity test"
+      
+      },
+      {
+       "activityId":2,
+      "activityName":"Activity test1"
+      }
+    ]
+    }
+
+## LINK_COURSE_WITH_ACTIVITY_RES
+
+     {
+    "code": 200,
+    "message": "",
+    "status": true,
+    "count": 0,
+    "data": {
+        "userCreated": "user@gmail.com",
+        "dateCreated": "2019-05-08T10:41:36.000+0000",
+        "userModified": "user@gmail.com",
+        "dateModified": "2019-05-09T07:18:25.390+0000",
+        "courseId": 4,
+        "tacCourseCategory": null,
+        "courseName": "NewCourse",
+        "duration": null,
+        "durationFlag": null,
+        "objective": null,
+        "numberofhours": null,
+        "activityId": null,
+        "prerequisitesId": null,
+        "subcourseFlag": null,
+        "locationType": null,
+        "courseStatus": null,
+        "activeFlag": null,
+        "offset": 0,
+        "limit": 0,
+        "coordinatorJobId": null,
+        "tacCoursePrerequisiteses": [],
+        "tacCourseGuidelineses": [],
+        "tacCourseActivations": [],
+        "tacCourseAudiences": [],
+        "tacActivities": [
+            {
+                "userCreated": "user@gmail.com",
+                "dateCreated": "2019-05-08T09:06:24.000+0000",
+                "userModified": "user@gmail.com",
+                "dateModified": "2019-05-08T09:06:24.000+0000",
+                "activityId": 2,
+                "activityName": "Activity test1",
+                "activeFlag": null,
+                "tacCourseActivations": []
+            },
+            {
+                "userCreated": "user@gmail.com",
+                "dateCreated": "2019-05-08T09:06:02.000+0000",
+                "userModified": "user@gmail.com",
+                "dateModified": "2019-05-08T09:06:02.000+0000",
+                "activityId": 1,
+                "activityName": "Activity test",
+                "activeFlag": null,
+                "tacCourseActivations": []
+            }
+        ],
+        "tacCourseOutcomes": [],
+        "tacCourseDates": []
+    }
+     }

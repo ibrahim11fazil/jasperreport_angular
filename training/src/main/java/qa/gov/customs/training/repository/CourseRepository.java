@@ -14,6 +14,7 @@ import java.util.List;
 public interface CourseRepository extends PagingAndSortingRepository<TacCourseMaster, BigDecimal> {
 
 List<TacCourseMaster> findByActivityId(BigDecimal activityId);
+TacCourseMaster findByCourseId(BigDecimal courseId);
 
 List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
 List<TacCourseMaster>findByCourseName(String courseName);
