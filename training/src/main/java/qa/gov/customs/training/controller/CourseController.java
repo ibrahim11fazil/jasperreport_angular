@@ -31,6 +31,7 @@ public class CourseController {
 	CourseService courseService;
 	@Autowired
 	ActivityService activityService;
+
 	// for creating and updating courses
 	@PreAuthorize("hasAnyAuthority('create_update_course')")
 	@PostMapping("/create-course")
@@ -56,20 +57,34 @@ public class CourseController {
 
 	}
 
-	// @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
 	// for creating and updating courses
 	@PreAuthorize("hasAnyAuthority('disable_course')")
 	@PostMapping("/disable-course")
 	public ResponseType disableCourse(@RequestBody TacCourseMaster course) {
+		System.out.println(course.getCourseName());
 		Optional<TacCourseMaster> courses = null;
 		TacCourseMaster courseDelete = null;
-		courses = courseService.getCourseById(course);
-		if (courses != null) {
-			courses.get().setActiveFlag(new BigDecimal(0));
-			courseDelete = courseService.createAndUpdateCourse(course);
+		if (course.getCourseId() != new BigDecimal(0)) {
+			courses = courseService.getCourseById(course);
+			System.out.println(courses);
+			
+			
+			if (courses.isPresent()) {
+				System.out.println("course present");
+				courses.get().setActiveFlag(new BigDecimal(0));
+				courseDelete = courseService.createAndUpdateCourse(courses.get());
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_DISABLED, true,
+						courseDelete);
+				return response;
+			}
+			System.out.println("course not present");
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, true,
+					null);
+			return response;
 		}
-		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_DISABLED, true, courseDelete);
+		ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, true, null);
 		return response;
+
 	}
 
 	@PreAuthorize("hasAnyAuthority('get_course_by_id')")

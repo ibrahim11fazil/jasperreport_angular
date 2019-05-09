@@ -14,6 +14,8 @@ public class MessageUtil {
     public static String BAD_REQUEST="Bad Request";
     public static String FAILED_COURSE="Course Creation Failed";
     public static String FAILED_ACTIVITY="Activity Creation Failed";
+    public static String FAILED_DISABLE="Failed to disable course";
+    
     
     public static String INSTRUCTOR_CREATION_FAILED="Instructor Creation failed";
 }

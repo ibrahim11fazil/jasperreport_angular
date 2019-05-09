@@ -129,7 +129,46 @@
             Authorization: Bearer <Token>
 
 ## CREATE_COURSE_REQ
+     {
+    "courseName":"NewCourse1"
+     }
 ## CREATE_COURSE_RES
+
+    {
+    "code": 201,
+    "message": "Course Created",
+    "status": true,
+    "count": 0,
+    "data": {
+        "userCreated": "user@gmail.com",
+        "dateCreated": "2019-05-09T07:29:06.347+0000",
+        "userModified": "user@gmail.com",
+        "dateModified": "2019-05-09T07:29:06.347+0000",
+        "courseId": 5,
+        "tacCourseCategory": null,
+        "courseName": "NewCourse1",
+        "duration": null,
+        "durationFlag": null,
+        "objective": null,
+        "numberofhours": null,
+        "activityId": null,
+        "prerequisitesId": null,
+        "subcourseFlag": null,
+        "locationType": null,
+        "courseStatus": null,
+        "activeFlag": null,
+        "offset": 0,
+        "limit": 0,
+        "coordinatorJobId": null,
+        "tacCoursePrerequisiteses": [],
+        "tacCourseGuidelineses": [],
+        "tacCourseActivations": [],
+        "tacCourseAudiences": [],
+        "tacActivities": [],
+        "tacCourseOutcomes": [],
+        "tacCourseDates": []
+    }
+}
 
 ## LINK_COURSE_WITH_ACTIVITY 
      url: /link-course-with-activity
@@ -209,6 +248,56 @@
                 "tacCourseActivations": []
             }
         ],
+        "tacCourseOutcomes": [],
+        "tacCourseDates": []
+    }
+     }
+
+## DISABLE_COURSE 
+     url: /disable-course
+       header: 
+            Content-Type:application/json
+            Authorization: Bearer <Token>
+
+## DISABLE_COURSE_REQ
+     {
+     "courseId":5,
+     "courseName":"NewCourse1"
+     }
+
+## DISABLE_COURSE_RES
+
+    {
+    "code": 200,
+    "message": "Course Disabled",
+    "status": true,
+    "count": 0,
+    "data": {
+        "userCreated": "user@gmail.com",
+        "dateCreated": "2019-05-09T07:29:06.000+0000",
+        "userModified": "user@gmail.com",
+        "dateModified": "2019-05-09T08:58:58.081+0000",
+        "courseId": 5,
+        "tacCourseCategory": null,
+        "courseName": "NewCourse1",
+        "duration": null,
+        "durationFlag": null,
+        "objective": null,
+        "numberofhours": null,
+        "activityId": null,
+        "prerequisitesId": null,
+        "subcourseFlag": null,
+        "locationType": null,
+        "courseStatus": null,
+        "activeFlag": 0,
+        "offset": 0,
+        "limit": 0,
+        "coordinatorJobId": null,
+        "tacCoursePrerequisiteses": [],
+        "tacCourseGuidelineses": [],
+        "tacCourseActivations": [],
+        "tacCourseAudiences": [],
+        "tacActivities": [],
         "tacCourseOutcomes": [],
         "tacCourseDates": []
     }
