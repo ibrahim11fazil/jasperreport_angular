@@ -377,6 +377,7 @@ export class MainComponent implements OnInit, OnDestroy{
             this.sidenav.close();
          }
       });
+      this.menuItems.update()
    }
 
    ngOnDestroy() {

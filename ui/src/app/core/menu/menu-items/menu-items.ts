@@ -28,7 +28,7 @@ const MENUITEM_ADMIN =[
       {state: 'course', name: 'Activate Courses'}, 
     ]
   }
-]
+];
 
 const MENUITEMS = [
    {
@@ -305,13 +305,69 @@ const MENUITEMS = [
 
 ];
 
+var m = 
+  {
+    state: 'horizontal',
+    name: 'Training',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'activity', name: 'activity' },
+      {state: 'course', name: 'New Course' },
+      {state: 'course', name: 'Link Courses'},
+      {state: 'course', name: 'Disable Courses'},
+      {state: 'course', name: 'Activate Courses'},
+    ]
+  };
+
+var dynamicMenu =[];
+
 @Injectable()
 export class MenuItems {
   getAll(): Menu[] {
+
+    //var rows: Menu[] = [];
+    //rows = m;
     //TODO get the user permissions and set menu role 
-    return MENUITEM_ADMIN;
+    //var test: ChildrenItems = {state: 'blank', name: 'SUB MENU1'};
+    //rows[0].children.push(test);
+    return dynamicMenu;
+    //const item = menu
+    //menu[0].children.push({state: 'blank', name: 'SUB MENU1'});
+    //let clientWithType = Object.assign(new Menu()[], menu)
+   // return item;
+    
+  // return MENUITEM_ADMIN;
+
+   //var menuDynamic = JSON.parse(JSON.stringify(MENUITEM_ADMIN));
+   //var item = {state: 'course1', name: 'Activate Courses1'}
+   //MENUITEM_ADMIN[0].children.push(item);
+   
+    //menuDynamic[0].children.push(item);
+    //console.log(menuDynamic[0]);
+    //const newMenu =<Array<Menu>> menuDynamic;
+    //const myObject: Array<Menu> = menuDynamic as Array<Menu>;
+    //var data = TypedJSON.parse(menuDynamic,Array<Menu>);
+
+    //data instanceof Array<Menu>; // true
+    //return MENUITEM_ADMIN;
+  
+  //  const menuUpdated = MENUITEM_ADMIN
+  //  try {
+  //   menuUpdated[0].children.push({state: 'blank', name: 'SUB MENU1'});
+  // }
+  // catch(e) {
+  //   console.log(e);
+  // }
+  //   return menuUpdated;
   }
   add(menu:any) {
-    MENUITEMS.push(menu);
+
+    //m.push(menu);
+  }
+
+  update(){
+    dynamicMenu.push(m);
+    dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
   }
 }
