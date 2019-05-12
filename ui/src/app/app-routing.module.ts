@@ -50,7 +50,8 @@ const appRoutes: Routes = [
          { path: 'courses', loadChildren : './courses/courses.module#CoursesModule'},
          { path: 'user-management', loadChildren : './user-management/user-management.module#UserManagementModule'},
          { path: 'crypto', loadChildren : './crypto/crypto.module#CryptoModule'},
-         { path: 'crm', loadChildren : './crm/crm.module#CrmModule'}
+         { path: 'crm', loadChildren : './crm/crm.module#CrmModule'},
+         { path: 'training', loadChildren : './training/training.module#TrainingModule'}
       ]
    }
 ]
