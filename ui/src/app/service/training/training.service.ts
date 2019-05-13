@@ -11,7 +11,7 @@ export class TrainingService {
 
   constructor(private httpClient:HttpClient) { }
 
-  saveActivity(activity:TacActivity):Observable<ResponseTacActivity>{
+  saveActivity(activity:TacActivity):Observable<Object>{
     return this.httpClient.post(CREATE_ACTIVITY,activity);
   }
 

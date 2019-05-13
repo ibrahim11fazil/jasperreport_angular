@@ -75,7 +75,7 @@ export class AuthService {
           .subscribe(
               response => {
                console.log(response); 
-               this.setLocalUserProfile(value); 
+               this.setLocalUserProfile(response);
                this.toastr.success('Successfully Logged In!');
                this.router.navigate(['/']);
             },
@@ -139,4 +139,16 @@ export class AuthService {
       this.getLocalStorageUser();
       this.isLoggedIn = true;
    }
+
+    getToken(){
+        this.userData = JSON.parse(localStorage.getItem("userProfile"));
+        if(this.userData) {
+            var json = this.userData;
+            console.log(JSON.stringify(json));
+            let body = JSON.parse(JSON.stringify(json));
+            return body.access_token;
+        } else {
+            return null;
+        }
+    }
 }

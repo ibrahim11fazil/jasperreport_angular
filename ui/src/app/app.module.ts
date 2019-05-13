@@ -29,7 +29,7 @@ import { MatSlideToggleModule,MatButtonModule, MatBadgeModule, MatCardModule, Ma
 import { RoutingModule } from "./app-routing.module";
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './service/auth-service/auth.service';
 import { PageTitleService } from './core/page-title/page-title.service';
 import { D3ChartService } from "./core/nvD3/nvD3.service";
@@ -44,6 +44,7 @@ import { HorizontalMenuItems } from './core/menu/horizontal-menu-items/horizonta
 import { WidgetComponentModule } from './widget-component/widget-component.module';
 import { HorizontalLayoutComponent } from './horizontal-layout/horizontal-layout.component';
 import { PagesModule } from './pages/pages.module';
+import {HttpInterceptorJwtauthService} from "./service/http/http-interceptor-jwtauth.service";
 
 export const firebaseConfig = {
 	apiKey				: "AIzaSyBO0CLP4fOA_kanqw1HQ2sDjEkyuK9lQ3o",
@@ -136,6 +137,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 			provide: PERFECT_SCROLLBAR_CONFIG,
 			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
 		},
+		{provide: HTTP_INTERCEPTORS,useClass:HttpInterceptorJwtauthService,multi:true},
 		AuthGuard
 	],
    schemas: [CUSTOM_ELEMENTS_SCHEMA]
