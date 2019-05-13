@@ -1,0 +1,34 @@
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+  <mat-card fxFlex="100%">
+    <div class="gene-card-title">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column">
+          <h4>Activity</h4>
+        </div> <span fxFlex></span>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+    <div class="gene-card-content">
+      <form [formGroup]="form" (ngSubmit)="saveActivity()">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+            <mat-form-field class="full-wid mrgn-b-md">
+              <input matInput placeholder="Activity Name" formControlName="activityName">
+            </mat-form-field>
+            <small class="gene-block" *ngIf="form.controls['activityName'].hasError('required') && form.controls['activityName'].touched"
+                   class="warn-text">
+              You must enter the activity Name
+            </small>
+          </div>
+
+        </div>
+
+        <div class="pad-wrap">
+          <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+          </mat-card-actions>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>
