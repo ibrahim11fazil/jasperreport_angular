@@ -313,10 +313,11 @@ var m =
     icon: 'book',
     children: [
       {state: 'welcome', name: 'Welcome' },
-      {state: 'course', name: 'New Course' },
-      {state: 'course', name: 'Link Courses'},
+      {state: 'activity', name: 'Activity' },
+      {state: 'create-course', name: 'Create Courses'},
       {state: 'course', name: 'Disable Courses'},
       {state: 'course', name: 'Activate Courses'},
+
     ]
   };
 

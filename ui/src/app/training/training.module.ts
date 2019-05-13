@@ -17,13 +17,15 @@ import { MatCardModule,
   MatInputModule,
   MatSlideToggleModule
 } from '@angular/material';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
 import { WelcomeComponent } from './welcome/welcome.component';
 import {TrainingRoutes} from "./training.routing";
+import { ActivityComponent } from './activity/activity.component';
+import { CreateCourseComponent } from './create-course/create-course.component';
 
 @NgModule({
-  declarations: [WelcomeComponent],
+  declarations: [WelcomeComponent, ActivityComponent, CreateCourseComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -40,6 +42,8 @@ import {TrainingRoutes} from "./training.routing";
     MatGridListModule,
     MatSlideToggleModule,
     MatListModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatMenuModule,
     RouterModule.forChild(TrainingRoutes),
     TranslateModule
