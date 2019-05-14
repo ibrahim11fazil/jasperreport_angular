@@ -28,7 +28,7 @@ export class MainComponent implements OnInit, OnDestroy{
    currentUrl            : any;
    root                  : any = 'ltr';
    layout                : any = 'ltr';
-   currentLang           : any = 'en';
+   currentLang           : any = 'en'; //en
    customizerIn          : boolean = false;
    showSettings          : boolean = false;
    chatpanelOpen         : boolean = false;
@@ -147,34 +147,34 @@ export class MainComponent implements OnInit, OnDestroy{
       const browserLang: string = translate.getBrowserLang();
       translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
 
-      this.tourService.initialize([{
-         anchorId: 'start.tour',
-         content: 'Welcome to Gene admin panel!',
-         placement: 'below',
-         title: 'Welcome to Gene',
-      },
-      {
-         anchorId: 'tour-search',
-         content: 'Enjoying Search box with sugestion and many more things',
-         placement: 'below',
-         title: 'Search Box',
-      },
-      {
-         anchorId: 'tour-full-screen',
-         content: 'By pressing this button you can switch to fullscreen mode.',
-         placement: 'below',
-         title: 'Full Screen',
-      },
-      {
-         anchorId: 'tour-ui',
-         content: 'Show your site stats with unique designed cards',
-         placement: 'below',
-         title: 'Stats Cards',
-      }]);
-
-      if(window.innerWidth>959){
-         this.tourService.start();
-      }
+      // this.tourService.initialize([{
+      //    anchorId: 'start.tour',
+      //    content: 'Welcome to Gene admin panel!',
+      //    placement: 'below',
+      //    title: 'Welcome to Gene',
+      // },
+      // {
+      //    anchorId: 'tour-search',
+      //    content: 'Enjoying Search box with sugestion and many more things',
+      //    placement: 'below',
+      //    title: 'Search Box',
+      // },
+      // {
+      //    anchorId: 'tour-full-screen',
+      //    content: 'By pressing this button you can switch to fullscreen mode.',
+      //    placement: 'below',
+      //    title: 'Full Screen',
+      // },
+      // {
+      //    anchorId: 'tour-ui',
+      //    content: 'Show your site stats with unique designed cards',
+      //    placement: 'below',
+      //    title: 'Stats Cards',
+      // }]);
+      //
+      // if(window.innerWidth>959){
+      //    this.tourService.start();
+      // }
 
       breadcrumbService.addFriendlyNameForRoute('/dashboard', 'Dashboard');
       breadcrumbService.addFriendlyNameForRoute('/dashboard/saas', 'SAAS');

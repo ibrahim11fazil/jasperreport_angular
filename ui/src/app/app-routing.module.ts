@@ -9,7 +9,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 const appRoutes: Routes = [
    {
       path: '',
-      redirectTo: 'icons',
+      redirectTo: 'training',
       pathMatch: 'full',
    },
    {	

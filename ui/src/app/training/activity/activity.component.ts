@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "ng2-validation";
 import {TrainingService} from "../../service/training/training.service";
 import {TacActivity} from "../../models/tac-activity";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -13,24 +14,48 @@ import {TacActivity} from "../../models/tac-activity";
 export class ActivityComponent implements OnInit {
 
   public form: FormGroup;
-  constructor(private fb: FormBuilder,private trainingService:TrainingService) { }
+  constructor(private fb: FormBuilder,private trainingService:TrainingService, private toastr : ToastrService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
       activityName: [null, Validators.compose([Validators.required])],
     });
   }
-  saveActivity(){
-    debugger
-    console.log(this.form.value.activityName);
 
-    //let activity = {"activityName":this.form.value.activityName}
-    //let obj = activity as TacActivity;
+  onSubmit(buttonType): void {
+    if(buttonType==="save") {
+      //console.log(buttonType)
+      this.saveActivity()
+    }
+    if(buttonType==="search"){
+      this.searchActivity()
+      //console.log(buttonType)
+    }
+
+  }
+
+  saveActivity(){
     let activity = new TacActivity(this.form.value.activityName,0);
     this.trainingService.saveActivity(activity).subscribe(
-        data=>console.log(data),
-        error=>console.log(error)
+        data=>this.successSaveActivity(data),
+        error=>{
+          console.log(error)
+          this.toastr.error(error.message);
+        }
     )
+  }
+
+  successSaveActivity(data){
+    if(data.status==true){
+      this.toastr.success(data.message);
+      this.form.reset();
+    }else{
+      this.toastr.error(data.message);
+    }
+  }
+
+  searchActivity(){
+    console.log("searching");
   }
 
 }

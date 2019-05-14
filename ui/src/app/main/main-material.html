@@ -6,14 +6,14 @@
    <mat-sidenav-container class="gene-container">
       <mat-sidenav #sidenav [(mode)]="coreService.sidenavMode" [(opened)]="coreService.sidenavOpen" class="sidebar-area">
       <div class="sidebar-panel gene-sidenav" fxLayout="column">
-         <mat-toolbar class="sidebar-logo">
-            <div class="gene-logo">
-               <a href="javascript:void(0)" [routerLink]="['/dashboard/saas']">
-                  <div class="logo-sign inline-block"><img src="assets/img/logo-sign.png" width="30" height="30"></div>
-                  <div class="logo-text inline-block"><img src="assets/img/logo-text.png" width="90" height="27"></div>
-               </a>
-            </div>
-         </mat-toolbar>
+         <!--<mat-toolbar class="sidebar-logo">-->
+            <!--<div class="gene-logo">-->
+               <!--<a href="javascript:void(0)" [routerLink]="['/dashboard/saas']">-->
+                  <!--&lt;!&ndash;<div class="logo-sign inline-block"><img src="assets/img/logo-sign.png" width="90" height="90"></div>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<div class="logo-text inline-block"><img src="assets/img/logo-text.png" width="90" height="27"></div>&ndash;&gt;-->
+               <!--</a>-->
+            <!--</div>-->
+         <!--</mat-toolbar>-->
          <perfect-scrollbar>
             <div class="sidebar-container">
                <div class="gene-user-thumb text-center">
@@ -200,41 +200,41 @@
          <div class="inner-container" fxLayout="row wrap">
             <div class="full-wid" fxFlex="100">
                <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
-               <ng-container>
-                  <tour-step-template>
-                     <ng-template let-step="step">
-                        <div (click)="$event.stopPropagation()" class="popover bs-popover-bottom">
-                           <div class="popover-header">
-                              {{step?.title}}
-                           </div>
-                           <div class="popover-body">
-                              <p class="tour-step-content">
-                                 {{step?.content}}
-                              </p>
-                           </div>
-                           <div class="tour-step-navigation">
-                              <button mat-icon-button [disabled]="!tourService.hasPrev(step)" (click)="tourService.prev()">
-                              <mat-icon>chevron_left</mat-icon>
-                              </button>
-                              <button mat-icon-button [disabled]="!tourService.hasNext(step)" (click)="tourService.next()">
-                              <mat-icon>chevron_right</mat-icon>
-                              </button>
-                              <button mat-button (click)="tourService.end()">End</button>
-                           </div>
-                        </div>
-                     </ng-template>
-                  </tour-step-template>
-               </ng-container> 
+               <!--<ng-container>-->
+                  <!--<tour-step-template>-->
+                     <!--<ng-template let-step="step">-->
+                        <!--<div (click)="$event.stopPropagation()" class="popover bs-popover-bottom">-->
+                           <!--<div class="popover-header">-->
+                              <!--{{step?.title}}-->
+                           <!--</div>-->
+                           <!--<div class="popover-body">-->
+                              <!--<p class="tour-step-content">-->
+                                 <!--{{step?.content}}-->
+                              <!--</p>-->
+                           <!--</div>-->
+                           <!--<div class="tour-step-navigation">-->
+                              <!--<button mat-icon-button [disabled]="!tourService.hasPrev(step)" (click)="tourService.prev()">-->
+                              <!--<mat-icon>chevron_left</mat-icon>-->
+                              <!--</button>-->
+                              <!--<button mat-icon-button [disabled]="!tourService.hasNext(step)" (click)="tourService.next()">-->
+                              <!--<mat-icon>chevron_right</mat-icon>-->
+                              <!--</button>-->
+                              <!--<button mat-button (click)="tourService.end()">End</button>-->
+                           <!--</div>-->
+                        <!--</div>-->
+                     <!--</ng-template>-->
+                  <!--</tour-step-template>-->
+               <!--</ng-container>-->
             </div>
             <div class="footer-wrap pad-t-none full-wid" fxFLex="100">
                <mat-card class="mrgn-b-none">
                   <div class="footer-card-content pad-t-xs" fxLayout="row wrap" fxLayoutAlign="space-between center">
                      <div class="mrgn-b-md">
-                        <div class="footer-logo mrgn-b-sm">
-                           <a href="javascript:void(0)" [routerLink]="['/dashboard/saas']">
-                              <div class="logo-sign inline-block"><img src="assets/img/logo.png" width="100" height="47"></div>
-                           </a>
-                        </div>
+                        <!--<div class="footer-logo mrgn-b-sm">-->
+                           <!--<a href="javascript:void(0)" [routerLink]="['/dashboard/saas']">-->
+                              <!--<div class="logo-sign inline-block"><img src="assets/img/logo.png" width="100" height="47"></div>-->
+                           <!--</a>-->
+                        <!--</div>-->
                         <div class="copyright-info">
                            <p class="mrgn-b-none">© Customs. All Rights Reserved</p>
                         </div>

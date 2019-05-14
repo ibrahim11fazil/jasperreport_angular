@@ -4,17 +4,17 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/m
 
 @Component({
   	selector: 'gene-app',
-   template:`<router-outlet></router-outlet>
-   			<ngx-loading-bar></ngx-loading-bar>`,
+   template:`<router-outlet></router-outlet>`,
    encapsulation: ViewEncapsulation.None
 })
-
+//<ngx-loading-bar></ngx-loading-bar>
 export class GeneAppComponent {
    constructor(translate: TranslateService) {
-      translate.addLangs(['en', 'fr', 'he', 'ru' , 'ar' , 'zh' ,'de' , 'es', 'ja', 'ko' , 'it' ,'hu']);
-      translate.setDefaultLang('en');
+      translate.addLangs(['en',  'ar']);
+      //translate.setDefaultLang('en');
+      translate.setDefaultLang('ar');
 
       const browserLang: string = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+      translate.use(browserLang.match(/en|ar/) ? browserLang : 'en');
    }
 }

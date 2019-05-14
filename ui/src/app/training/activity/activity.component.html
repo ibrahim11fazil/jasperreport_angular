@@ -9,7 +9,7 @@
       <mat-divider></mat-divider>
     </div>
     <div class="gene-card-content">
-      <form [formGroup]="form" (ngSubmit)="saveActivity()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
             <mat-form-field class="full-wid mrgn-b-md">
@@ -24,9 +24,11 @@
         </div>
 
         <div class="pad-wrap">
-          <mat-card-actions>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
-          </mat-card-actions>
+          <div fxLayout="row" fxLayoutAlign="start">
+            <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [disabled]="!form.valid">Submit</button>
+
+            <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit" >Search</button>
+          </div>
         </div>
       </form>
     </div>
