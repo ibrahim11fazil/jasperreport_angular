@@ -1,0 +1,36 @@
+{{searchText}}
+<div fxLayout="row wrap" fxLayoutAlign="start">
+  <div fxFlex="100">
+    <ngx-datatable #table
+                   class='material mrgn-all-md'
+                   [columns]="columns"
+                   [columnMode]="'force'"
+                   [headerHeight]="50"
+                   [footerHeight]="50"
+                   [rowHeight]="'auto'"
+                   [limit]="10"
+                   [rows]='rows'
+                   [count]="page.totalElements"
+                   [offset]="page.pageNumber"
+                   (page)='setPage($event)'>
+
+      <ngx-datatable-column min-width="50px">
+        <ng-template ngx-datatable-header-template>
+          <span>Id</span>
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.activityId}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column min-width="50px">
+        <ng-template ngx-datatable-header-template>
+          <span>Activity Name</span>
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.activityName}}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>
