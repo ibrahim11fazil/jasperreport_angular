@@ -4,7 +4,8 @@ import {CustomValidators} from "ng2-validation";
 import {TrainingService} from "../../service/training/training.service";
 import {TacActivity} from "../../models/tac-activity";
 import {ToastrService} from "ngx-toastr";
-
+import {PageTitleService} from "../../core/page-title/page-title.service";
+import {Page} from "../../models/paged-data";
 
 @Component({
   selector: 'ms-activity',
@@ -14,48 +15,54 @@ import {ToastrService} from "ngx-toastr";
 export class ActivityComponent implements OnInit {
 
   public form: FormGroup;
-  constructor(private fb: FormBuilder,private trainingService:TrainingService, private toastr : ToastrService) { }
+  constructor(private fb: FormBuilder,
+              private trainingService:TrainingService,
+              private toastr : ToastrService
+              ) {
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
       activityName: [null, Validators.compose([Validators.required])],
     });
+
   }
 
   onSubmit(buttonType): void {
     if(buttonType==="save") {
-      //console.log(buttonType)
       this.saveActivity()
     }
     if(buttonType==="search"){
       this.searchActivity()
-      //console.log(buttonType)
     }
 
   }
 
   saveActivity(){
-    let activity = new TacActivity(this.form.value.activityName,0);
+    let activity = new TacActivity(this.form.value.activityName,0)
     this.trainingService.saveActivity(activity).subscribe(
         data=>this.successSaveActivity(data),
         error=>{
           console.log(error)
-          this.toastr.error(error.message);
+          this.toastr.error(error.message)
         }
     )
   }
 
   successSaveActivity(data){
     if(data.status==true){
-      this.toastr.success(data.message);
-      this.form.reset();
+      this.toastr.success(data.message)
+      this.form.reset()
     }else{
-      this.toastr.error(data.message);
+      this.toastr.error(data.message)
     }
   }
 
   searchActivity(){
-    console.log("searching");
+    console.log("searching")
+    this.trainingService.changeActivitySearchMessage(this.form.value.activityName)
   }
+
+
 
 }

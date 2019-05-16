@@ -7,7 +7,7 @@ import { MatInputModule,
 			MatCardModule,
 			MatButtonModule,
 			MatIconModule,
-			MatDividerModule} from '@angular/material';
+			MatDividerModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { TablesRoutes } from './tables.routing';

@@ -26,7 +26,6 @@ export class FilterTableComponent implements OnInit {
       this.fetch((data) => {
          // cache our list
          this.temp = [...data];
-
          // push our inital complete list
          this.rows = data;
       });
@@ -42,11 +41,9 @@ export class FilterTableComponent implements OnInit {
    fetch(cb) {
       const req = new XMLHttpRequest();
       req.open('GET', `assets/data/company.json`);
-
       req.onload = () => {
          cb(JSON.parse(req.response));
       };
-
       req.send();
    }
 

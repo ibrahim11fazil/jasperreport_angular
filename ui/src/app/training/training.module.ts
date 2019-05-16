@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule} from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatCardModule,
   MatIconModule,
   MatButtonModule,
@@ -23,9 +24,10 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import {TrainingRoutes} from "./training.routing";
 import { ActivityComponent } from './activity/activity.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
+import { ActivityListComponent } from './activity-list/activity-list.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, ActivityComponent, CreateCourseComponent],
+  declarations: [WelcomeComponent, ActivityComponent, CreateCourseComponent, ActivityListComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -41,6 +43,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
     MatDividerModule,
     MatGridListModule,
     MatSlideToggleModule,
+    NgxDatatableModule,
     MatListModule,
     FormsModule,
     ReactiveFormsModule,

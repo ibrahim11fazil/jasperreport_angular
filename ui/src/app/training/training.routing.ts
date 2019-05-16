@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {WelcomeComponent} from "./welcome/welcome.component";
 import {ActivityComponent} from "./activity/activity.component";
 import {CreateCourseComponent} from "./create-course/create-course.component";
+import {ActivityListComponent} from "./activity-list/activity-list.component";
 
 
 export const TrainingRoutes: Routes = [
