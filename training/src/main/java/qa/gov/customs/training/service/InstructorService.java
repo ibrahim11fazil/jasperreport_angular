@@ -1,11 +1,13 @@
 package qa.gov.customs.training.service;
 
-import java.math.BigInteger;
+import java.util.List;
+
 
 import qa.gov.customs.training.entity.TacInstructorMaster;
 
 public interface InstructorService {
 
 	 TacInstructorMaster createInstructor(TacInstructorMaster instructor);
-	 BigInteger countInstructors();
+	 long countInstructors();
+	 List<TacInstructorMaster> searchinstructorName(TacInstructorMaster instructor);
 }
