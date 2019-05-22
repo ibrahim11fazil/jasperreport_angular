@@ -32,13 +32,14 @@ export class ActivityComponent implements OnInit {
     if(buttonType==="save") {
       this.saveActivity()
     }
-    if(buttonType==="search"){
+    else if(buttonType==="search"){
       this.searchActivity()
     }
 
   }
 
   saveActivity(){
+    debugger;
     let activity = new TacActivity(this.form.value.activityName,0)
     this.trainingService.saveActivity(activity).subscribe(
         data=>this.successSaveActivity(data),

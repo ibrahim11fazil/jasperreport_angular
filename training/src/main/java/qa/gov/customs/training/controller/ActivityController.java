@@ -30,6 +30,7 @@ public class ActivityController {
     @PreAuthorize("hasAnyAuthority('create_activity')")
     @PostMapping("/create-activity")
     public ResponseType createActivity(@Valid @RequestBody TacActivity activity) {
+    	System.out.println("create activity");
         TacActivity submitActivity = null;
         if(activity.getActivityId()!=new BigDecimal(0))
         {
@@ -65,6 +66,7 @@ public class ActivityController {
     @PreAuthorize("hasAnyAuthority('remove_activity')")
     @PostMapping("/remove-activity")
     public ResponseType removeActivity(@RequestBody TacActivity activity) {
+    	System.out.println("Remove Activity");
         List<TacCourseMaster> activityList = null;
         if(activity==null || activity.getActivityId()==null){
             ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.ACTIVITY_DELETED_FAILED, false, null);
@@ -91,6 +93,7 @@ public class ActivityController {
     @PostMapping("/list-activity")
     public ResponseType listActivity() {
         List<TacActivity> activityList = null;
+        System.out.println("no activity");
         activityList = activityService.listActivity();
         if(activityList!=null) {
         ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activityList);
@@ -106,7 +109,7 @@ public class ActivityController {
     @PostMapping("/search-activity")
     public ResponseType searchActivity(@RequestBody TacActivity activity)
     {
-    	
+    	System.out.println("list activity");
     	List<TacActivity> activityList=null;
     	if(activity.getActivityName()!=null)
         {

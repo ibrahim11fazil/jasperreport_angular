@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {TacActivity,ResponseTacActivity} from "../../models/tac-activity";
 import {Observable,of} from 'rxjs';
-import {CREATE_ACTIVITY, LIST_ACTIVITY} from "../../app.constants";
-import { Injectable } from '@angular/core';
+import {CREATE_ACTIVITY, LIST_ACTIVITY,DELETE_ACTIVITY} from "../../app.constants";
 import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -27,7 +26,9 @@ export class TrainingService {
   changeActivitySearchMessage(message: string) {
     this.messageSource.next(message)
   }
-
+  deleteActivity(activity:TacActivity):Observable<Object>{
+    return this.httpClient.post(DELETE_ACTIVITY,activity);
+  }
 
 }
 
