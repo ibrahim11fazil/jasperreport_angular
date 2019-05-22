@@ -44,6 +44,7 @@ zuul:
 
     account-service:
       path: /training/**
+     
       serviceId: training
       stripPrefix: true
       sensitiveHeaders:
