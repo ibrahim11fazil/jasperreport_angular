@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import qa.gov.customs.training.entity.TacActivity;
+import qa.gov.customs.training.entity.TacCourseAudience;
+import qa.gov.customs.training.entity.TacCourseGuidelines;
 import qa.gov.customs.training.entity.TacCourseMaster;
+import qa.gov.customs.training.entity.TacCourseOutcome;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
@@ -38,12 +41,49 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('create_update_course')")
 	@PostMapping("/create-course")
 	public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
+		System.out.println("inside controller");
+		
+		
 		TacCourseMaster courses = null;
+		TacCourseGuidelines guideline=null;
 		if (course.getCourseId() != new BigDecimal(0)) {
 			ResponseType searchResponse = getCourseByName(course);
 			if (searchResponse.getData() == null) {
 				courses = courseService.createAndUpdateCourse(course);
-				if (courses != null) {
+				if (courses != null) {				
+						if(courses.getTacCourseGuidelineses()!=null)
+						{
+							for(TacCourseGuidelines guidelines:course.getTacCourseGuidelineses())
+							{
+								System.out.println(guidelines.getDescription());
+						guidelines.setTacCourseMaster(courses);
+						guideline=courseService.createGuideline(guidelines);
+					
+						}
+					}
+						if(course.getTacCourseOutcomes()!=null)
+						{
+
+							for(TacCourseOutcome outcomes:course.getTacCourseOutcomes())
+							{
+								
+								outcomes.setTacCourseMaster(courses);
+						courseService.createOutcome(outcomes);
+						
+						}
+						}
+						if(course.getTacCourseAudiences()!=null)
+						{
+
+							for(TacCourseAudience audience:course.getTacCourseAudiences())
+							{
+								
+								audience.setTacCourseMaster(courses);
+						courseService.createAudience(audience);
+						
+						}
+						}
+						
 					ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
 							courses);
 					return response;
@@ -150,7 +190,9 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('search_course')")
 	@PostMapping("/search-course")
 	public ResponseType searchCourse(@RequestBody TacCourseMaster course) {
-		Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
+		System.out.println("search activity");
+		//Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
+		Pageable firstPageWithElements = PageRequest.of(0, 5);
 		List<TacCourseMaster> courses = null;
 		if (course.getCourseName() != null) {
 			courses = courseService.searchCourses(course, firstPageWithElements);
@@ -203,7 +245,7 @@ public class CourseController {
 	}
 
 	@PreAuthorize("hasAnyAuthority('get_course_by_name')")
-	@GetMapping("/get_course_by_name")
+	@PostMapping("/get_course_by_name")
 	public ResponseType getCourseByName(@RequestBody TacCourseMaster course) {
 
 		List<TacCourseMaster> courseList = null;

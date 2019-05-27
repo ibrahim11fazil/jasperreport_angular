@@ -15,7 +15,7 @@ export class ActivityListComponent implements OnInit {
   page = new Page();
   rows = new Array<TacActivity>();
   totalData:number;
-  //tData:Boolean;
+  tData:Boolean;
   constructor( private trainingService:TrainingService,
                private toastr : ToastrService) {
     this.fetch((data) => {
@@ -43,7 +43,7 @@ export class ActivityListComponent implements OnInit {
   }
   successSearch(data){
     console.log("success search");
-
+this.tData=true;
     debugger;
     if(data.status==true){
       this.rows=data.data;
@@ -84,13 +84,14 @@ DeleteRow(id)
 }
 successDelete(data)
 {
-//   let activity:TacActivity ={activityName:this.searchText,activityId:0}
-//   this.trainingService.listActivity(activity).subscribe(
-//     data => this.successSearch(data),
-//     error=>this.errorWhileSearching(error)
-// )
+  this.tData=false;
+  let activity:TacActivity ={activityName:this.searchText,activityId:0}
+  this.trainingService.listActivity(activity).subscribe(
+    data => this.successSearch(data),
+    error=>this.errorWhileSearching(error)
+)
 
-  this.toastr.error(data.message)
+  this.toastr.success(data.message)
 }
 
 

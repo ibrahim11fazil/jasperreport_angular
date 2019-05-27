@@ -1,7 +1,11 @@
 package qa.gov.customs.training.service;
 
 
+import qa.gov.customs.training.entity.TacCourseAudience;
+import qa.gov.customs.training.entity.TacCourseGuidelines;
 import qa.gov.customs.training.entity.TacCourseMaster;
+import qa.gov.customs.training.entity.TacCourseOutcome;
+
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +29,9 @@ public interface CourseService {
     BigInteger enabledCountCourses();
    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
    List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course);
+   TacCourseGuidelines createGuideline(TacCourseGuidelines guideline);
+  void createOutcome(TacCourseOutcome outcome);
+  void createAudience(TacCourseAudience audience);
 
 
 }
