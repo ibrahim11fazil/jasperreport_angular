@@ -6,9 +6,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
-import qa.gov.customs.training.entity.TacCourseMaster;
-import qa.gov.customs.training.repository.CourseRepository;
 
+import qa.gov.customs.training.entity.TacCourseAudience;
+import qa.gov.customs.training.entity.TacCourseGuidelines;
+import qa.gov.customs.training.entity.TacCourseMaster;
+import qa.gov.customs.training.entity.TacCourseOutcome;
+import qa.gov.customs.training.repository.AudienceRepository;
+import qa.gov.customs.training.repository.CourseRepository;
+import qa.gov.customs.training.repository.GuidelineRepository;
+import qa.gov.customs.training.repository.OutcomeRepository;
 import qa.gov.customs.training.service.CourseService;
 
 import java.math.BigInteger;
@@ -20,12 +26,18 @@ public class CourseServiceImpl  implements CourseService {
 	
 	@Autowired
 	CourseRepository courseRepository;
-
-    @Override
-    public TacCourseMaster createAndUpdateCourse(TacCourseMaster activity) {
-    	TacCourseMaster course=courseRepository.save(activity);
-        return course;
-    }
+	@Autowired
+	GuidelineRepository guidelineRepository;
+	@Autowired
+	OutcomeRepository outcomeRepository;
+	@Autowired
+	AudienceRepository audienceRepository;
+	  @Override
+	    public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
+	    	TacCourseMaster course1=courseRepository.save(course);
+	        return course1;
+	    }
+  
 
     @Override
     public TacCourseMaster disableCourse(TacCourseMaster activity) {
@@ -98,6 +110,25 @@ public class CourseServiceImpl  implements CourseService {
 	public List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course) {
 		List<TacCourseMaster> courseList=courseRepository.findByCourseName(course.getCourseName());
 		return courseList;
+	}
+
+	@Override
+	public TacCourseGuidelines createGuideline(TacCourseGuidelines guideline) {
+		// TODO Auto-generated method stub
+		TacCourseGuidelines guidelines=guidelineRepository.save(guideline);
+		return guidelines;
+	}
+
+	@Override
+	public void createOutcome(TacCourseOutcome outcome) {
+		// TODO Auto-generated method stub
+		outcomeRepository.save(outcome);
+	}
+
+	@Override
+	public void createAudience(TacCourseAudience audience) {
+		// TODO Auto-generated method stub
+		audienceRepository.save(audience);
 	}
 
 	

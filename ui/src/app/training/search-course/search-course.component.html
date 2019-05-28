@@ -1,0 +1,38 @@
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+  <mat-card fxFlex="100%">
+    <div class="gene-card-title">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column">
+          <h4>Course</h4>
+        </div> <span fxFlex></span>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+    <div class="gene-card-content">
+      <form [formGroup]="form" (ngSubmit)="SearchCourse(courseName)">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+            <mat-form-field class="full-wid mrgn-b-md">
+              <input matInput placeholder="Course Name" formControlName="courseName">
+            </mat-form-field>
+            <small class="gene-block" *ngIf="form.controls['courseName'].hasError('required') && form.controls['courseName'].touched"
+                   class="warn-text">
+              You must enter the course Name
+            </small>
+          </div>
+
+        </div>
+
+        <div class="pad-wrap">
+          <div fxLayout="row" fxLayoutAlign="start">
+            <button mat-raised-button color="primary" (click)="SearchCourse(courseName)" type="submit" [disabled]="!form.valid">Search</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+  </mat-card>
+</div>
+

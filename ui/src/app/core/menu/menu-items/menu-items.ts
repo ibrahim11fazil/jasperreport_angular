@@ -315,6 +315,7 @@ var m =
       {state: 'welcome', name: 'Welcome' },
       {state: 'activity', name: 'Activity' },
       {state: 'create-course', name: 'Create Courses'},
+      {state: 'search-course', name: 'Search Courses'},
       {state: 'course', name: 'Disable Courses'},
       {state: 'course', name: 'Activate Courses'},
 
