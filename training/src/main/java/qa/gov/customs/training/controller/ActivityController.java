@@ -74,6 +74,8 @@ public class ActivityController {
         }
         if (activity.getActivityId() != new BigDecimal(0)) {
             activityList = activityService.searchActivity(activity);
+            // search activity will check whether the activity is linked with course or not
+            // if the activity is not linked with course it will return '0' and can be deleted
             if (activityList.size()==0) {
                 try {
                     activityService.deleteActivity(activity);
