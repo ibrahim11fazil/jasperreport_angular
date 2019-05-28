@@ -19,7 +19,7 @@ List<TacCourseMaster> findByActivityId(BigDecimal activityId);
 
 TacCourseMaster findByCourseId(BigDecimal courseId);
 @Query(value="select * from Tac_Course_Master where lower(course_name) LIKE %:courseName% and active_flag=1 order by course_id",nativeQuery=true)
-Slice<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
+List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
 List<TacCourseMaster>findByCourseName(String courseName);
 

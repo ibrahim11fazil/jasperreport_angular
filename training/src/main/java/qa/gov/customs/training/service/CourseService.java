@@ -22,7 +22,7 @@ public interface CourseService {
     TacCourseMaster activateCourse(TacCourseMaster course);
     Slice<TacCourseMaster> listCourses();
    // List<TacCourseMaster> listCourses(Pageable firstPageWithElements);  
-    Slice<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
+    List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
     long countCourses(); 
     BigInteger disableCountCourses();
     TacCourseMaster findById(TacCourseMaster course);

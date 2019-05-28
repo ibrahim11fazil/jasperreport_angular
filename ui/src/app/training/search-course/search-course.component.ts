@@ -16,6 +16,7 @@ import { TacCourseMaster } from 'app/models/tac-course-master';
 export class SearchCourseComponent implements OnInit {
   rows = new Array<TacCourseMaster>();
     tData:Boolean;
+    searchText:String;
     page = new Page();
   public form: FormGroup;
   constructor(private fb: FormBuilder,
@@ -32,6 +33,7 @@ export class SearchCourseComponent implements OnInit {
   }
 SearchCourse()
 {
+  this.searchText=this.form.value.courseName;
   let course:TacCourseMaster ={courseId:0,tacCourseCategory:null,courseName:this.form.value.courseName,duration:0,objective:null,durationFlag:0,
     numberofhours:0,tacCourseGuidelineses:null,targetAudience:null,expectedResults:null}
     debugger;
@@ -54,5 +56,33 @@ successSearch(data){
 errorWhileSearching(error){
   console.log(error);
   this.toastr.error(error.message)
+}
+
+
+
+DeleteRow(id)
+{
+  debugger;
+ 
+  let course:TacCourseMaster =id;
+  console.log(course.courseName);
+  this.trainingService.deleteCourse(course).subscribe(
+    data => this.successDelete(data),
+    error=>this.errorWhileSearching(error)
+)
+
+}
+successDelete(data)
+{
+  this.tData=false;
+  let course:TacCourseMaster ={courseId:0,tacCourseCategory:null,courseName:this.searchText,duration:0,objective:null,durationFlag:0,
+    numberofhours:0,tacCourseGuidelineses:null,targetAudience:null,expectedResults:null}
+    debugger;
+  this.trainingService.searchCourse(course).subscribe(
+    data => this.successSearch(data),
+    error=>this.errorWhileSearching(error)
+  )
+
+  this.toastr.success(data.message)
 }
 }

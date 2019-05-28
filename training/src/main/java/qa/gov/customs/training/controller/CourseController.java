@@ -194,8 +194,8 @@ public class CourseController {
 		System.out.println("search activity");
 		System.out.println(course.getCourseName());
 		//Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
-		Pageable firstPageWithElements = PageRequest.of(0, 5);
-		Slice<TacCourseMaster> courses = null;
+		Pageable firstPageWithElements = PageRequest.of(0, 20);
+		List<TacCourseMaster> courses = null;
 		if (course.getCourseName() != null) {
 			courses = courseService.searchCourses(course, firstPageWithElements);
 			if (courses != null && !courses.isEmpty()) {

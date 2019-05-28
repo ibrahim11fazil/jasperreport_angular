@@ -79,8 +79,8 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public Slice<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
-		Slice<TacCourseMaster> courses=null;
+	public List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
+		List<TacCourseMaster> courses=null;
 		courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
 				return courses;
 	}
