@@ -49,6 +49,7 @@ public class CourseController {
 		if (course.getCourseId() != new BigDecimal(0)) {
 			ResponseType searchResponse = getCourseByName(course);
 			if (searchResponse.getData() == null) {
+				course.setActiveFlag(new BigDecimal(1));
 				courses = courseService.createAndUpdateCourse(course);
 				if (courses != null) {				
 						if(courses.getTacCourseGuidelineses()!=null)
@@ -191,9 +192,10 @@ public class CourseController {
 	@PostMapping("/search-course")
 	public ResponseType searchCourse(@RequestBody TacCourseMaster course) {
 		System.out.println("search activity");
+		System.out.println(course.getCourseName());
 		//Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
 		Pageable firstPageWithElements = PageRequest.of(0, 5);
-		List<TacCourseMaster> courses = null;
+		Slice<TacCourseMaster> courses = null;
 		if (course.getCourseName() != null) {
 			courses = courseService.searchCourses(course, firstPageWithElements);
 			if (courses != null && !courses.isEmpty()) {

@@ -46,7 +46,7 @@ import { WidgetComponentModule } from './widget-component/widget-component.modul
 import { HorizontalLayoutComponent } from './horizontal-layout/horizontal-layout.component';
 import { PagesModule } from './pages/pages.module';
 import {HttpInterceptorJwtauthService} from "./service/http/http-interceptor-jwtauth.service";
-import { SearchCourseComponent } from './src/app/training/search-course/search-course.component';
+
 
 export const firebaseConfig = {
 	apiKey				: "AIzaSyBO0CLP4fOA_kanqw1HQ2sDjEkyuK9lQ3o",
@@ -126,7 +126,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	declarations: [
 		GeneAppComponent, 
 		MainComponent, 
-		HorizontalLayoutComponent, SearchCourseComponent
+		HorizontalLayoutComponent
 	],
 	bootstrap: [GeneAppComponent],
 	providers: [

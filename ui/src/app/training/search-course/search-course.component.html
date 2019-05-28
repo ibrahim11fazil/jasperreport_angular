@@ -9,7 +9,7 @@
       <mat-divider></mat-divider>
     </div>
     <div class="gene-card-content">
-      <form [formGroup]="form" (ngSubmit)="SearchCourse(courseName)">
+      <form [formGroup]="form" (ngSubmit)="SearchCourse()">
         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
             <mat-form-field class="full-wid mrgn-b-md">
@@ -25,7 +25,7 @@
 
         <div class="pad-wrap">
           <div fxLayout="row" fxLayoutAlign="start">
-            <button mat-raised-button color="primary" (click)="SearchCourse(courseName)" type="submit" [disabled]="!form.valid">Search</button>
+            <button mat-raised-button color="primary" (click)="SearchCourse()" type="submit" [disabled]="!form.valid">Search</button>
 
           </div>
         </div>
@@ -34,5 +34,56 @@
 
 
   </mat-card>
-</div>
+  <!-- <div fxLayout="row wrap" fxLayoutAlign="start" > -->
+    <div fxFlex="100" *ngIf="tData">
+      <ngx-datatable #table
+                     class='material mrgn-all-md'
+                     [columns]="columns"
+                     [columnMode]="'force'"
+                     [headerHeight]="50"
+                     [footerHeight]="50"
+                     [rowHeight]="'auto'"
+                     [limit]="10"
+                     [rows]='rows'
+                     [count]="page.totalElements"
+                     [offset]="page.pageNumber"
+                     (page)='setPage($event)'
+                     >
+  
+        <ngx-datatable-column min-width="50px">
+          <ng-template ngx-datatable-header-template>
+            <span>Id</span>
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.courseId}}
+          </ng-template>
+        </ngx-datatable-column>
+  
+        <ngx-datatable-column min-width="50px">
+          <ng-template ngx-datatable-header-template>
+            <span>Activity Name</span>
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.courseName}}
+          </ng-template>
+        </ngx-datatable-column>
+  
+        <ngx-datatable-column min-width="50px" >
+          <ng-template ngx-datatable-header-template>
+            <span>Delete</span>
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+  
+            <button mat-raised-button color="primary" class="m-1" (click)="DeleteRow(row)">Disable</button>
+    
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+  
+  
+<!-- </div> -->
+
+
 

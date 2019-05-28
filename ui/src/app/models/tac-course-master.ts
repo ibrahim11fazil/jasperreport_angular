@@ -22,7 +22,7 @@ export class TacCourseMaster {
         this.tacCourseCategory=tacCourseCategory;
         this.courseName=courseName;
         this.duration=duration;
-        this.objective=objective;
+        //this.objective=objective;
         this.numberofhours=numberofhours;
         this.durationFlag=durationFlag;
         this.tacCourseGuidelineses=tacCourseGuidelineses;

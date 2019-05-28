@@ -3,6 +3,7 @@ package qa.gov.customs.training.repository;
 
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -17,8 +18,8 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
 List<TacCourseMaster> findByActivityId(BigDecimal activityId);
 
 TacCourseMaster findByCourseId(BigDecimal courseId);
-@Query(value="select * from Tac_Course_Master where lower(course_name) LIKE %:courseName% order by course_id",nativeQuery=true)
-List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
+@Query(value="select * from Tac_Course_Master where lower(course_name) LIKE %:courseName% and active_flag=1 order by course_id",nativeQuery=true)
+Slice<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
 List<TacCourseMaster>findByCourseName(String courseName);
 

@@ -14,7 +14,9 @@ import { TacCourseMaster } from 'app/models/tac-course-master';
   styleUrls: ['./search-course.component.scss']
 })
 export class SearchCourseComponent implements OnInit {
-
+  rows = new Array<TacCourseMaster>();
+    tData:Boolean;
+    page = new Page();
   public form: FormGroup;
   constructor(private fb: FormBuilder,
               private trainingService:TrainingService,
@@ -22,20 +24,29 @@ export class SearchCourseComponent implements OnInit {
               ) {}
 
   ngOnInit() {
+    this.form = this.fb.group({
+      courseName: [null, Validators.compose([Validators.required])],
+    }
+    )
+     
   }
-SearchCourse(courseName)
+SearchCourse()
 {
-  let course:TacCourseMaster ={courseId:0,tacCourseCategory:null,courseName:courseName,duration:0,objective:"",durationFlag:0,
+  let course:TacCourseMaster ={courseId:0,tacCourseCategory:null,courseName:this.form.value.courseName,duration:0,objective:null,durationFlag:0,
     numberofhours:0,tacCourseGuidelineses:null,targetAudience:null,expectedResults:null}
+    debugger;
   this.trainingService.searchCourse(course).subscribe(
     data => this.successSearch(data),
     error=>this.errorWhileSearching(error)
   )
 }
 successSearch(data){
-  if(data.status==true){
-    this.toastr.success(data.message)
-    this.form.reset()
+  // if(data.status==true){
+    // this.toastr.success(data.message)
+    // this.form.reset()
+    this.tData=true;
+    if(data.status==true){
+      this.rows=data.data;
   }else{
     this.toastr.error(data.message)
   }
