@@ -17,6 +17,7 @@ public class Constants {
     public static int SERVER_ERROR = 500;
     public static int SUCCESS = 200;
     public static int CREATED = 201;
+    public static int RESOURCE_FOUND = 405;
 
 
 

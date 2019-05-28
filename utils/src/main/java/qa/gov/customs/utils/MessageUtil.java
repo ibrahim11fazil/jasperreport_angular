@@ -16,7 +16,8 @@ public class MessageUtil {
     public static String FAILED_COURSE="Course Creation Failed";
     public static String FAILED_ACTIVITY="Activity Creation Failed";
     public static String FAILED_DISABLE="Failed to disable course";
-   
-    
+    public static String NO_DATA_FOUND="No data Found";
+    public static String INSTRUCTOR_DELETED="Instructor Deleted";
+    public static String INSTRUCTOR_DELETED_FAILED= "Failed to delete instructor";  
     public static String INSTRUCTOR_CREATION_FAILED="Instructor Creation failed";
 }
