@@ -5,82 +5,104 @@
             <div fxLayout="column">
                <h4>COURSE DEFINITION</h4>
             </div>
-            <span fxFlex></span> 
+            <span fxFlex></span>
          </div>
          <mat-divider></mat-divider>
       </div>
       <div class="gene-card-content">
          <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
-                  <div fxLayout="column">
-   
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <mat-form-field class="full-wid mrgn-b-lg">
-                              <input matInput placeholder="Course Name"  formControlName="courseName" required>
-                           </mat-form-field>
-                        </div>
-                       
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <mat-form-field class="full-wid mrgn-b-lg"> 
-                              <input matInput placeholder="Course Period" formControlName="duration" >
-                           </mat-form-field>
-                        </div>
+            <div fxLayout="column">
 
-                     
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <mat-form-field class="full-wid mrgn-b-lg ">
-                              <input matInput placeholder="Objective"  >
-                           </mat-form-field>
-                        </div>
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                       
-                          <mat-form-field>
-                            <mat-select placeholder="Categories" [(ngModel)]="selectedValue" name="food">
-                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                            {{food.viewValue}}
-                            </mat-option>
-                            </mat-select>
-                         </mat-form-field>
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-lg">
+                     <input matInput placeholder="Course Name" formControlName="courseName" required>
+                  </mat-form-field>
+               </div>
 
-                       </div>
-                       <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <mat-form-field class="full-wid mrgn-b-lg ">
-                              <input matInput placeholder="Expected Result" formControlName="results" >
-          
+               <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                   
-                           </mat-form-field>
-                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                              <button mat-raised-button color="primary"  (click)="onSubmit('addTextArea')" type="submit"><h3>+</h3> </button>
-                              </div>
-                        </div>
-                       </div>
-                       <!-- //formControlName="description" -->
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <mat-form-field class="full-wid mrgn-b-lg ">
-                             <input matInput placeholder="Training Guidelines" formControlName="description" >
-                          </mat-form-field>
-                          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <button mat-raised-button color="primary"  (click)="onSubmit('addTextArea')" type="submit"><h3>+</h3> </button>
-                           </div>
-                       </div>
-                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                        <mat-form-field class="full-wid mrgn-b-lg ">
-                           <input matInput placeholder="Target Audience">
-                        </mat-form-field>
-                     </div>
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                      <mat-form-field class="full-wid mrgn-b-lg ">
-                         <input matInput placeholder="No of hours" formControlName="numberofhours">
-                      </mat-form-field>
-                   </div>
-                    
-                     <div fxLayout="row" fxLayoutAlign="start">
-                        <button mat-raised-button color="primary" (click)="onSubmit('createCourse')"  type="submit" >Save </button>
-                     </div>
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                     <mat-form-field class="full-wid mrgn-b-md">
+                        <input matInput placeholder="Course Period" formControlName="duration">
+                     </mat-form-field>
                   </div>
-               </form>
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                     <mat-form-field class="full-wid mrgn-b-md">
+                        <mat-select placeholder="Categories" [(ngModel)]="selectedValue" name="food">
+                           <mat-option *ngFor="let food of foods" [value]="food.value">
+                              {{food.viewValue}}
+                           </mat-option>
+                        </mat-select>
+                     </mat-form-field>
+                  </div>
+               </div>
 
-         
-        </div>
-     </mat-card>
-  </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-lg ">
+                     <input matInput placeholder="Objective">
+                  </mat-form-field>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <mat-select placeholder="Categories" [(ngModel)]="selectedValue" name="food">
+                        <mat-option *ngFor="let food of foods" [value]="food.value">
+                           {{food.viewValue}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+               </div>
+               
+               <div formArrayName="expectedResultsOptions">
+               <div *ngFor="let ff of form.get('expectedResultsOptions').controls; let in=index"  fxLayout="row wrap" fxLayoutAlign="space-between center">
+                     <div [formGroupName]="in">
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <mat-form-field class="full-wid mrgn-b-lg">
+                        <input matInput placeholder="Expected Result" formControlName="result">
+                     </mat-form-field>
+                  </div>
+
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <button class="mrgn-all-xs" mat-icon-button (click)="removeMoreExpectedResultsTextarea(in)" type="button">
+                        <mat-icon>delete</mat-icon>
+                  </button>
+                  </div>
+                  </div>
+               </div>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <button mat-raised-button color="primary" (click)="addMoreExpectedResultsTextarea()" type="button"> Add More (Expected Results)
+                     </button>
+               </div>
+
+               <!-- //formControlName="description" -->
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-lg ">
+                     <input matInput placeholder="Training Guidelines" formControlName="description">
+                  </mat-form-field>
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <button mat-raised-button color="primary" (click)="onSubmit('addTextArea')" type="submit">+
+                     </button>
+                  </div>
+               </div>
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-lg ">
+                     <input matInput placeholder="Target Audience">
+                  </mat-form-field>
+               </div>
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-lg ">
+                     <input matInput placeholder="No of hours" formControlName="numberofhours">
+                  </mat-form-field>
+               </div>
+               <div fxLayout="row" fxLayoutAlign="start">
+                  <button mat-raised-button color="primary" (click)="onSubmit('createCourse')" type="submit">Save
+                  </button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </mat-card>
+</div>
