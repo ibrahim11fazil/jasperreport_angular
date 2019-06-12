@@ -30,7 +30,7 @@ public class TacCourseTargetGroup implements java.io.Serializable {
 	private String positionCode;
 	private String orgUnitCode;
 	private String empGroupCode;
-	private Set<TacCourseAudience> tacCourseAudiences = new HashSet<TacCourseAudience>(0);
+	//private Set<TacCourseAudience> tacCourseAudiences = new HashSet<TacCourseAudience>(0);
 
 	public TacCourseTargetGroup() {
 	}
@@ -47,7 +47,7 @@ public class TacCourseTargetGroup implements java.io.Serializable {
 		this.positionCode = positionCode;
 		this.orgUnitCode = orgUnitCode;
 		this.empGroupCode = empGroupCode;
-		this.tacCourseAudiences = tacCourseAudiences;
+		//this.tacCourseAudiences = tacCourseAudiences;
 	}
 
 	@Id
@@ -108,13 +108,13 @@ public class TacCourseTargetGroup implements java.io.Serializable {
 		this.empGroupCode = empGroupCode;
 	}
 	//@JsonManagedReference
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseTargetGroup")
-	public Set<TacCourseAudience> getTacCourseAudiences() {
-		return this.tacCourseAudiences;
-	}
-
-	public void setTacCourseAudiences(Set<TacCourseAudience> tacCourseAudiences) {
-		this.tacCourseAudiences = tacCourseAudiences;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseTargetGroup")
+//	public Set<TacCourseAudience> getTacCourseAudiences() {
+//		return this.tacCourseAudiences;
+//	}
+//
+//	public void setTacCourseAudiences(Set<TacCourseAudience> tacCourseAudiences) {
+//		this.tacCourseAudiences = tacCourseAudiences;
+//	}
 
 }

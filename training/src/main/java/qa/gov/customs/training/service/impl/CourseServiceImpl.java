@@ -7,14 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
-import qa.gov.customs.training.entity.TacCourseAudience;
-import qa.gov.customs.training.entity.TacCourseGuidelines;
-import qa.gov.customs.training.entity.TacCourseMaster;
-import qa.gov.customs.training.entity.TacCourseOutcome;
-import qa.gov.customs.training.repository.AudienceRepository;
-import qa.gov.customs.training.repository.CourseRepository;
-import qa.gov.customs.training.repository.GuidelineRepository;
-import qa.gov.customs.training.repository.OutcomeRepository;
+import qa.gov.customs.training.entity.*;
+import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 
 import java.math.BigInteger;
@@ -32,6 +26,13 @@ public class CourseServiceImpl  implements CourseService {
 	OutcomeRepository outcomeRepository;
 	@Autowired
 	AudienceRepository audienceRepository;
+
+	@Autowired
+	CourseCategoryRepository courseCategoryRepository;
+
+	@Autowired
+	CourseTargetGroupRepository courseTargetGroupRepository;
+
 	  @Override
 	    public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
 	    	TacCourseMaster course1=courseRepository.save(course);
@@ -110,6 +111,16 @@ public class CourseServiceImpl  implements CourseService {
 	public List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course) {
 		List<TacCourseMaster> courseList=courseRepository.findByCourseName(course.getCourseName());
 		return courseList;
+	}
+
+	@Override
+	public List<TacCourseCategory> findCourseCategories() {
+		return courseCategoryRepository.findAll();
+	}
+
+	@Override
+	public List<TacCourseTargetGroup> findCourseTargetGroups() {
+		return courseTargetGroupRepository.findAll();
 	}
 
 	@Override

@@ -56,6 +56,8 @@ export class CreateCourseComponent implements OnInit {
       duration: [null, Validators.compose([Validators.required])],
       description: [null, Validators.compose([Validators.required])],
       expectedResultsOptions: this.fb.array([]),
+      tacCourseGuidelinesesOptions:this.fb.array([]),
+      targetAudienceOptions:this.fb.array([]),
       numberofhours: [null, Validators.compose([Validators.required])],
     });
     this.patch()
@@ -67,13 +69,15 @@ export class CreateCourseComponent implements OnInit {
   }
 
   patch() {
-    if (this.tacCourseMaster.expectedResults == null) {
-      this.tacCourseMaster.expectedResults.push({ result: "" });
-    }
+    // if (this.tacCourseMaster.expectedResults == null) {
+    //   this.tacCourseMaster.expectedResults.push({ result: "" });
+    // }
     const control = this.getControlOfAddMore('expectedResultsOptions');
     this.tacCourseMaster.expectedResults.forEach(x => {
       control.push(this.patchValues(x.outcomeId, x.result))
     })
+
+
   }
 
   patchValues(outcomeId, result) {

@@ -24,7 +24,7 @@ public class TacCourseCategory implements java.io.Serializable {
 
 	private BigDecimal categoryId;
 	private String description;
-	private Set<TacCourseMaster> tacCourseMasters = new HashSet<TacCourseMaster>(0);
+	//private Set<TacCourseMaster> tacCourseMasters = new HashSet<TacCourseMaster>(0);
 
 	public TacCourseCategory() {
 	}
@@ -33,10 +33,10 @@ public class TacCourseCategory implements java.io.Serializable {
 		this.categoryId = categoryId;
 	}
 
-	public TacCourseCategory(BigDecimal categoryId, String description, Set<TacCourseMaster> tacCourseMasters) {
+	public TacCourseCategory(BigDecimal categoryId, String description) {
 		this.categoryId = categoryId;
 		this.description = description;
-		this.tacCourseMasters = tacCourseMasters;
+		//this.tacCourseMasters = tacCourseMasters;
 	}
 
 	@Id
@@ -61,13 +61,13 @@ public class TacCourseCategory implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseCategory")
-	public Set<TacCourseMaster> getTacCourseMasters() {
-		return this.tacCourseMasters;
-	}
-
-	public void setTacCourseMasters(Set<TacCourseMaster> tacCourseMasters) {
-		this.tacCourseMasters = tacCourseMasters;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseCategory")
+//	public Set<TacCourseMaster> getTacCourseMasters() {
+//		return this.tacCourseMasters;
+//	}
+//
+//	public void setTacCourseMasters(Set<TacCourseMaster> tacCourseMasters) {
+//		this.tacCourseMasters = tacCourseMasters;
+//	}
 
 }

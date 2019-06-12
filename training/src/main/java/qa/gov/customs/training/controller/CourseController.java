@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import qa.gov.customs.training.entity.TacActivity;
-import qa.gov.customs.training.entity.TacCourseAudience;
-import qa.gov.customs.training.entity.TacCourseGuidelines;
-import qa.gov.customs.training.entity.TacCourseMaster;
-import qa.gov.customs.training.entity.TacCourseOutcome;
+import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
@@ -267,5 +263,41 @@ public class CourseController {
 		return response;
 
 	}
+
+
+	//@PreAuthorize("hasAnyAuthority('count_course')"),
+	//NOTE: Its a general method no need for authority
+	@GetMapping("/get-all-course-categories")
+	public ResponseType getAllCourseCategories() {
+		List<TacCourseCategory> categories = null;
+		categories = courseService.findCourseCategories();
+			if (categories != null && !categories.isEmpty()) {
+
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, categories);
+				return response;
+			} else {
+				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+				return response;
+			}
+
+	}
+
+	//@PreAuthorize("hasAnyAuthority('count_course')"),
+	//NOTE: Its a general method no need for authority
+	@GetMapping("/get-all-course-target-groups")
+	public ResponseType getAllCourseTargetGroups() {
+		List<TacCourseTargetGroup> categories = null;
+		categories = courseService.findCourseTargetGroups();
+		if (categories != null && !categories.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, categories);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+	}
+
+
 
 }
