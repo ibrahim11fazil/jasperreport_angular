@@ -8,6 +8,8 @@ import { Page } from "../../models/paged-data";
 import { TacCourseMaster } from 'app/models/tac-course-master';
 import { TrainingGuidelines } from 'app/models/training-guidelines';
 import { ExpectedResults } from 'app/models/expected-results';
+import { Categories } from 'app/models/categories';
+import { TargetAudience } from 'app/models/target-audience';
 
 @Component({
   selector: 'ms-create-course',
@@ -21,12 +23,22 @@ export class CreateCourseComponent implements OnInit {
   dropdownSettings = {};
   selectedValue: String;
   textAreasList: any = [];
+  courseCategories:Categories[] = [];
+  targetAudiences:TargetAudience[]=[]
   tacCourseMaster: TacCourseMaster;
   foods = [
     { value: 'Security-0', viewValue: 'Security' },
     { value: 'Auditing-1', viewValue: 'Auditing' },
     { value: 'Custom-2', viewValue: 'Custom' }
   ];
+ 
+  courseDurationFlag = [
+    { value: '1', viewValue: 'YEAR' },
+    { value: '2', viewValue: 'MONTH' },
+    { value: '3', viewValue: 'DAY' },
+    { value: '4', viewValue: 'HOUR' }
+  ];
+
   //  guidelines=[];
   //  outcomes=[];
   public form: FormGroup;
@@ -53,14 +65,46 @@ export class CreateCourseComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       courseName: [null, Validators.compose([Validators.required])],
+      coursecourseDurationFlagSelect:[null, Validators.compose([Validators.required])],
       duration: [null, Validators.compose([Validators.required])],
       description: [null, Validators.compose([Validators.required])],
       expectedResultsOptions: this.fb.array([]),
       tacCourseGuidelinesesOptions:this.fb.array([]),
       targetAudienceOptions:this.fb.array([]),
+      courseCategoriesSelect:[null, Validators.compose([Validators.required])],
       numberofhours: [null, Validators.compose([Validators.required])],
     });
     this.patch()
+    this.formSetup()
+  }
+
+
+  formSetup(){
+    this.trainingService.getAllCourseCategories().subscribe(
+      data => {
+        debugger
+        var expectedResults = <Categories[]>data.data
+        this.courseCategories=data.data
+        console.log(this.courseCategories)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    )
+
+    this.trainingService.getAllCourseTargetGroups().subscribe(
+      data => {
+        debugger
+        var expectedResults = <TargetAudience[]>data.data
+        this.targetAudiences=data.data
+        console.log(this.targetAudiences)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    )
   }
 
   getControlOfAddMore(name): FormArray {
@@ -86,7 +130,6 @@ export class CreateCourseComponent implements OnInit {
     this.tacCourseMaster.targetAudience.forEach(x => {
       controltargetAudienceOptions.push(this.patchValuesTragetAudience(x.targetId, x.targentName))
     })
-
   }
 
   patchValues(outcomeId, result) {
@@ -109,7 +152,6 @@ export class CreateCourseComponent implements OnInit {
       targentName: [targentName]
     })
   }
-
   
   addMoreExpectedResultsTextarea() {
     const control = this.getControlOfAddMore('expectedResultsOptions');
@@ -157,7 +199,7 @@ export class CreateCourseComponent implements OnInit {
     var expectedResults = <ExpectedResults[]>expectedResultsOptions.value
     this.tacCourseMaster.expectedResults = expectedResults
     expectedResults.forEach(i => console.log(i.result))
-
+    const expectedtacCourseGuidelinesesOptionsOptions = this.getControlOfAddMore('targetAudienceOptions');
     debugger;
     let guidelines = [];
     //let outcomes=[];

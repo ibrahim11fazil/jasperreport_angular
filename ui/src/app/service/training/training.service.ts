@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET } from "../../app.constants";
 import { BehaviorSubject } from 'rxjs';
 import { TacCourseMaster } from 'app/models/tac-course-master';
 @Injectable({
@@ -39,6 +39,13 @@ export class TrainingService {
   }
   searchCourse(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(SEARCH_COURSE, course);
+  }
+  
+  getAllCourseCategories(): Observable<Object> {
+    return this.httpClient.get(GET_ALL_COURSE_CATEGORIES);
+  }
+  getAllCourseTargetGroups(): Observable<Object> {
+    return this.httpClient.get(GET_ALL_COURSE_TARGET);
   }
 }
 
