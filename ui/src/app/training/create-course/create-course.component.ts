@@ -189,24 +189,30 @@ export class CreateCourseComponent implements OnInit {
     }
     else if (buttonType === "addMoreExpectedResultsTextarea") {
       console.log("sample1")
-      //this.addTextarea()
-      //this.addMoreExpectedResultsTextarea()
     }
   }
 
   createCourse() {
+    let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null)
+
     const expectedResultsOptions = this.getControlOfAddMore('expectedResultsOptions');
     var expectedResults = <ExpectedResults[]>expectedResultsOptions.value
     this.tacCourseMaster.expectedResults = expectedResults
-    expectedResults.forEach(i => console.log(i.result))
-    const expectedtacCourseGuidelinesesOptionsOptions = this.getControlOfAddMore('targetAudienceOptions');
-    debugger;
-    let guidelines = [];
-    //let outcomes=[];
-    guidelines.push(new TrainingGuidelines(this.form.value.description))
-    //outcomes.push(new ExpectedResults(this.form.value.result))
+    
+    const courseGuidelinesesOptions = this.getControlOfAddMore('tacCourseGuidelinesesOptions');
+    var expectedGuidelinesesResults = <TrainingGuidelines[]>courseGuidelinesesOptions.value
+    this.tacCourseMaster.tacCourseGuidelineses = expectedGuidelinesesResults
+   
+    const targetAudienceOptions = this.getControlOfAddMore('targetAudienceOptions');
+    var expectedCourseGuidelineses = <TargetAudience[]>targetAudienceOptions.value
+    this.tacCourseMaster.targetAudience=expectedCourseGuidelineses
 
-    //let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,guidelines,null,outcomes)
+    this.tacCourseMaster.tacCourseCategory=this.form.value.courseCategoriesSelect
+    courseMaster.tacCourseCategory=this.tacCourseMaster.tacCourseCategory
+    courseMaster.expectedResults=this.tacCourseMaster.expectedResults
+    courseMaster.tacCourseGuidelineses= this.tacCourseMaster.tacCourseGuidelineses
+    courseMaster.expectedResults=this.tacCourseMaster.expectedResults
+
     this.trainingService.saveCourse(this.tacCourseMaster).subscribe(
       data => this.successSaveCourse(data),
       error => {
@@ -215,6 +221,7 @@ export class CreateCourseComponent implements OnInit {
       }
     )
   }
+  
   successSaveCourse(data) {
     if (data.status == true) {
       this.toastr.success(data.message)
