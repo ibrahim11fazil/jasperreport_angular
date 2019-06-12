@@ -57,8 +57,8 @@ export class CreateCourseComponent implements OnInit {
         numberofhours: 0,
         durationFlag: 0,
         tacCourseGuidelineses: [],
-        targetAudience: [],
-        expectedResults: []
+        tacCourseAudiences: [],
+        tacCourseOutcomes: []
       }
   }
 
@@ -82,7 +82,6 @@ export class CreateCourseComponent implements OnInit {
   formSetup(){
     this.trainingService.getAllCourseCategories().subscribe(
       data => {
-        debugger
         var expectedResults = <Categories[]>data.data
         this.courseCategories=data.data
         console.log(this.courseCategories)
@@ -95,7 +94,6 @@ export class CreateCourseComponent implements OnInit {
 
     this.trainingService.getAllCourseTargetGroups().subscribe(
       data => {
-        debugger
         var expectedResults = <TargetAudience[]>data.data
         this.targetAudiences=data.data
         console.log(this.targetAudiences)
@@ -117,7 +115,7 @@ export class CreateCourseComponent implements OnInit {
     //   this.tacCourseMaster.expectedResults.push({ result: "" });
     // }
     const controlexpectedResults = this.getControlOfAddMore('expectedResultsOptions');
-    this.tacCourseMaster.expectedResults.forEach(x => {
+    this.tacCourseMaster.tacCourseOutcomes.forEach(x => {
       controlexpectedResults.push(this.patchValues(x.outcomeId, x.result))
     })
 
@@ -127,7 +125,7 @@ export class CreateCourseComponent implements OnInit {
     })
 
     const controltargetAudienceOptions = this.getControlOfAddMore('targetAudienceOptions');
-    this.tacCourseMaster.targetAudience.forEach(x => {
+    this.tacCourseMaster.tacCourseAudiences.forEach(x => {
       controltargetAudienceOptions.push(this.patchValuesTragetAudience(x.targetId, x.targentName))
     })
   }
@@ -197,7 +195,7 @@ export class CreateCourseComponent implements OnInit {
 
     const expectedResultsOptions = this.getControlOfAddMore('expectedResultsOptions');
     var expectedResults = <ExpectedResults[]>expectedResultsOptions.value
-    this.tacCourseMaster.expectedResults = expectedResults
+    this.tacCourseMaster.tacCourseOutcomes = expectedResults
     
     const courseGuidelinesesOptions = this.getControlOfAddMore('tacCourseGuidelinesesOptions');
     var expectedGuidelinesesResults = <TrainingGuidelines[]>courseGuidelinesesOptions.value
@@ -205,14 +203,15 @@ export class CreateCourseComponent implements OnInit {
    
     const targetAudienceOptions = this.getControlOfAddMore('targetAudienceOptions');
     var targetAudienceResults = <TargetAudience[]>targetAudienceOptions.value
-    this.tacCourseMaster.targetAudience=targetAudienceResults
+    this.tacCourseMaster.tacCourseAudiences=targetAudienceResults
     this.tacCourseMaster.tacCourseCategory=this.form.value.courseCategoriesSelect
     courseMaster.tacCourseCategory=this.tacCourseMaster.tacCourseCategory
-    courseMaster.expectedResults=this.tacCourseMaster.expectedResults
+    courseMaster.tacCourseOutcomes=this.tacCourseMaster.tacCourseOutcomes
     courseMaster.tacCourseGuidelineses= this.tacCourseMaster.tacCourseGuidelineses
-    courseMaster.expectedResults=this.tacCourseMaster.expectedResults
-    courseMaster.targetAudience = this.tacCourseMaster.targetAudience
-
+    courseMaster.tacCourseOutcomes=this.tacCourseMaster.tacCourseOutcomes
+    courseMaster.tacCourseAudiences = this.tacCourseMaster.tacCourseAudiences
+    debugger
+    console.log(JSON.stringify(courseMaster));
     this.trainingService.saveCourse(courseMaster).subscribe(
       data => this.successSaveCourse(data),
       error => {

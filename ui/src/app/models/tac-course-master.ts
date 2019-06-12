@@ -14,8 +14,8 @@ export class TacCourseMaster {
 	public  durationFlag:Number
 	public  numberofhours:Number
     public tacCourseGuidelineses:TrainingGuidelines[];
-    public targetAudience:TargetAudience[];
-    public expectedResults:ExpectedResults[];
+    public tacCourseAudiences:TargetAudience[];
+    public tacCourseOutcomes:ExpectedResults[];
     constructor(courseId:Number,tacCourseCategory:Categories,courseName:String,duration:Number,objective:String,durationFlag:Number,
         numberofhours:Number,tacCourseGuidelineses:TrainingGuidelines[],targetAudience:TargetAudience[],expectedResults:ExpectedResults[]) {
         this.courseId=courseId;
@@ -26,8 +26,8 @@ export class TacCourseMaster {
         this.numberofhours=numberofhours;
         this.durationFlag=durationFlag;
         this.tacCourseGuidelineses=tacCourseGuidelineses;
-        this.targetAudience=targetAudience;
-         this.expectedResults=expectedResults;
+        this.tacCourseAudiences=targetAudience;
+         this.tacCourseOutcomes=expectedResults;
     }
 }
     export interface ResponseTacCourseMaster {
