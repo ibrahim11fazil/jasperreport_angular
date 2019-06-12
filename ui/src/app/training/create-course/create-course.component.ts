@@ -72,11 +72,20 @@ export class CreateCourseComponent implements OnInit {
     // if (this.tacCourseMaster.expectedResults == null) {
     //   this.tacCourseMaster.expectedResults.push({ result: "" });
     // }
-    const control = this.getControlOfAddMore('expectedResultsOptions');
+    const controlexpectedResults = this.getControlOfAddMore('expectedResultsOptions');
     this.tacCourseMaster.expectedResults.forEach(x => {
-      control.push(this.patchValues(x.outcomeId, x.result))
+      controlexpectedResults.push(this.patchValues(x.outcomeId, x.result))
     })
 
+    const controlCourseGuideLines = this.getControlOfAddMore('tacCourseGuidelinesesOptions');
+    this.tacCourseMaster.tacCourseGuidelineses.forEach(x => {
+      controlCourseGuideLines.push(this.patchValuesGuideLines(x.guidelineId, x.description))
+    })
+
+    const controltargetAudienceOptions = this.getControlOfAddMore('targetAudienceOptions');
+    this.tacCourseMaster.targetAudience.forEach(x => {
+      controltargetAudienceOptions.push(this.patchValuesTragetAudience(x.targetId, x.targentName))
+    })
 
   }
 
@@ -87,6 +96,21 @@ export class CreateCourseComponent implements OnInit {
     })
   }
 
+  patchValuesGuideLines(guidelineId, description) {
+    return this.fb.group({
+      guidelineId: [guidelineId],
+      description: [description]
+    })
+  }
+
+  patchValuesTragetAudience(targetId, targentName) {
+    return this.fb.group({
+      targetId: [targetId],
+      targentName: [targentName]
+    })
+  }
+
+  
   addMoreExpectedResultsTextarea() {
     const control = this.getControlOfAddMore('expectedResultsOptions');
     control.push(this.patchValues(0, ""))
@@ -94,6 +118,26 @@ export class CreateCourseComponent implements OnInit {
 
   removeMoreExpectedResultsTextarea(i) {
     const control = this.getControlOfAddMore('expectedResultsOptions');
+    control.removeAt(i)
+  }
+
+  addMoretargetAudienceTextarea() {
+    const control = this.getControlOfAddMore('targetAudienceOptions');
+    control.push(this.patchValuesTragetAudience(0, ""))
+  }
+
+  removeMoretargetAudienceTextarea(i) {
+    const control = this.getControlOfAddMore('targetAudienceOptions');
+    control.removeAt(i)
+  }
+
+  addMoreCourseGuideLinesTextarea() {
+    const control = this.getControlOfAddMore('tacCourseGuidelinesesOptions');
+    control.push(this.patchValuesGuideLines(0, ""))
+  }
+
+  removeMoreCourseGuideLinesTextarea(i) {
+    const control = this.getControlOfAddMore('tacCourseGuidelinesesOptions');
     control.removeAt(i)
   }
 
