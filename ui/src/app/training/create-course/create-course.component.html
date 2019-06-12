@@ -56,11 +56,22 @@
                   </mat-form-field>
                </div>
 
+               <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                           <h5>Expected Results</h5>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                           <button class="mrgn-all-xs" mat-icon-button (click)="addMoreExpectedResultsTextarea()" type="button">
+                                 <mat-icon>add</mat-icon>
+                           </button>   
+                     </div>
+               </div> 
+
                <div formArrayName="expectedResultsOptions">
                   <div *ngFor="let ff of form.get('expectedResultsOptions').controls; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
-                     <div [formGroupName]="in">
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                       
                            <mat-form-field class="full-wid mrgn-b-lg">
                               <input matInput placeholder="Expected Result" formControlName="result">
                            </mat-form-field>
@@ -73,20 +84,27 @@
                            </button>
                         </div>
                      </div>
-                  </div>
-               </div>
+                 </div>
 
-               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                  <button mat-raised-button color="primary" (click)="addMoreExpectedResultsTextarea()" type="button">
-                     Add More (Expected Results)
-                  </button>
-               </div>
+               
+
+
+               <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                           <h5>Training Guidelines</h5>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                           <button class="mrgn-all-xs" mat-icon-button (click)="addMoreCourseGuideLinesTextarea()" type="button">
+                                 <mat-icon>add</mat-icon>
+                           </button>   
+                     </div>
+               </div>  
 
                <div formArrayName="tacCourseGuidelinesesOptions">
                   <div *ngFor="let ff of form.get('tacCourseGuidelinesesOptions').controls; let in=index"
                      fxLayout="row wrap" fxLayoutAlign="space-between center">
-                     <div [formGroupName]="in">
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                      
                            <mat-form-field class="full-wid mrgn-b-lg">
                               <input matInput placeholder="Course Guidelines" formControlName="description">
                            </mat-form-field>
@@ -99,43 +117,44 @@
                            </button>
                         </div>
                      </div>
-                  </div>
                </div>
+             
 
-               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                  <button mat-raised-button color="primary" (click)="addMoreCourseGuideLinesTextarea()" type="button">
-                     Add More (Training Guidelines)
-                  </button>
-               </div>
 
-         
-
+                  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                              <h5>Targeted Audiences</h5>
+                        </div>
+                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                              <button class="mrgn-all-xs" mat-icon-button (click)="addMoretargetAudienceTextarea()" type="button">
+                                    <mat-icon>add</mat-icon>
+                              </button>   
+                        </div>
+                  </div>  
+                  
+ 
+                  
                   <div formArrayName="targetAudienceOptions">
                      <div *ngFor="let ff of form.get('targetAudienceOptions').controls; let in=index"
                         fxLayout="row wrap" fxLayoutAlign="space-between center">
-                        <div [formGroupName]="in">
-                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                  <mat-select placeholder="Target Audience" matInput formControlName="targetId">
                                        <mat-option *ngFor="let item of targetAudiences" [value]="item.targetId">
                                           {{item.targentName}}
                                        </mat-option>
                                  </mat-select>
-                           </div>
-                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        </div>
+                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                               <button class="mrgn-all-xs" mat-icon-button (click)="removeMoretargetAudienceTextarea(in)"
                                  type="button">
                                  <mat-icon>delete</mat-icon>
                               </button>
-                           </div>
                         </div>
                      </div>
                   </div>
+                  
    
-                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                     <button mat-raised-button color="primary" (click)="addMoretargetAudienceTextarea()" type="button">
-                        Add More (Training Guidelines)
-                     </button>
-                  </div>
+                  
 
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
