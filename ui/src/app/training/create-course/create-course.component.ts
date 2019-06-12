@@ -204,16 +204,16 @@ export class CreateCourseComponent implements OnInit {
     this.tacCourseMaster.tacCourseGuidelineses = expectedGuidelinesesResults
    
     const targetAudienceOptions = this.getControlOfAddMore('targetAudienceOptions');
-    var expectedCourseGuidelineses = <TargetAudience[]>targetAudienceOptions.value
-    this.tacCourseMaster.targetAudience=expectedCourseGuidelineses
-
+    var targetAudienceResults = <TargetAudience[]>targetAudienceOptions.value
+    this.tacCourseMaster.targetAudience=targetAudienceResults
     this.tacCourseMaster.tacCourseCategory=this.form.value.courseCategoriesSelect
     courseMaster.tacCourseCategory=this.tacCourseMaster.tacCourseCategory
     courseMaster.expectedResults=this.tacCourseMaster.expectedResults
     courseMaster.tacCourseGuidelineses= this.tacCourseMaster.tacCourseGuidelineses
     courseMaster.expectedResults=this.tacCourseMaster.expectedResults
+    courseMaster.targetAudience = this.tacCourseMaster.targetAudience
 
-    this.trainingService.saveCourse(this.tacCourseMaster).subscribe(
+    this.trainingService.saveCourse(courseMaster).subscribe(
       data => this.successSaveCourse(data),
       error => {
         console.log(error)
@@ -221,7 +221,7 @@ export class CreateCourseComponent implements OnInit {
       }
     )
   }
-  
+
   successSaveCourse(data) {
     if (data.status == true) {
       this.toastr.success(data.message)
