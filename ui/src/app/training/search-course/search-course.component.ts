@@ -35,7 +35,7 @@ SearchCourse()
 {
   this.searchText=this.form.value.courseName;
   let course:TacCourseMaster ={courseId:0,tacCourseCategory:null,courseName:this.form.value.courseName,duration:0,objective:null,durationFlag:0,
-    numberofhours:0,tacCourseGuidelineses:null,targetAudience:null,expectedResults:null}
+    numberofhours:0,tacCourseGuidelineses:null,tacCourseAudiences:null,tacCourseOutcomes:null}
     debugger;
   this.trainingService.searchCourse(course).subscribe(
     data => this.successSearch(data),
