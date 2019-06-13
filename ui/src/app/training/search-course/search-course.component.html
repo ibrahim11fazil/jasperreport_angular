@@ -73,11 +73,18 @@
             <span>Delete</span>
           </ng-template>
           <ng-template let-row="row" ngx-datatable-cell-template>
-  
             <button mat-raised-button color="primary" class="m-1" (click)="DeleteRow(row)">Disable</button>
-    
           </ng-template>
         </ngx-datatable-column>
+
+        <ngx-datatable-column min-width="50px" >
+            <ng-template ngx-datatable-header-template>
+              <span>Update</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-raised-button color="primary" class="m-1" (click)="DeleteRow(row)">Disable</button>
+            </ng-template>
+          </ngx-datatable-column>
       </ngx-datatable>
     </div>
   </div>

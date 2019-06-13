@@ -75,8 +75,17 @@ DeleteRow(id)
 successDelete(data)
 {
   this.tData=false;
-  let course:TacCourseMaster ={courseId:0,tacCourseCategory:null,courseName:this.searchText,duration:0,objective:null,durationFlag:0,
-    numberofhours:0,tacCourseGuidelineses:null,targetAudience:null,expectedResults:null}
+  let course:TacCourseMaster ={
+    courseId:0,
+    tacCourseCategory:null,
+    courseName:this.searchText,
+    duration:0,
+    objective:null,
+    durationFlag:0,
+    numberofhours:0,
+    tacCourseGuidelineses:null,
+    tacCourseAudiences:null,
+    tacCourseOutcomes:null}
     debugger;
   this.trainingService.searchCourse(course).subscribe(
     data => this.successSearch(data),

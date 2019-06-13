@@ -199,13 +199,13 @@ export class CreateCourseComponent implements OnInit {
     var targetAudienceResults = <TargetAudience[]>targetAudienceOptions.value
     this.tacCourseMaster.tacCourseAudiences=targetAudienceResults
     
-    let categorySelected  = new Categories("")
+    let categorySelected = new Categories("")
     categorySelected.categoryId = <Number>this.form.value.courseCategoriesSelect
-    this.tacCourseMaster.tacCourseCategory=categorySelected
-    courseMaster.tacCourseCategory= categorySelected
-    courseMaster.tacCourseOutcomes=this.tacCourseMaster.tacCourseOutcomes
-    courseMaster.tacCourseGuidelineses= this.tacCourseMaster.tacCourseGuidelineses
-    courseMaster.tacCourseOutcomes=this.tacCourseMaster.tacCourseOutcomes
+    this.tacCourseMaster.tacCourseCategory = categorySelected
+    courseMaster.tacCourseCategory = categorySelected
+    courseMaster.tacCourseOutcomes = this.tacCourseMaster.tacCourseOutcomes
+    courseMaster.tacCourseGuidelineses = this.tacCourseMaster.tacCourseGuidelineses
+    courseMaster.tacCourseOutcomes = this.tacCourseMaster.tacCourseOutcomes
     courseMaster.tacCourseAudiences = this.tacCourseMaster.tacCourseAudiences
     debugger
     console.log(JSON.stringify(courseMaster));

@@ -16,7 +16,6 @@ public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
     TacCourseMaster disableCourse(TacCourseMaster activity);
     TacCourseMaster linkCourseWithActivity(TacCourseMaster linkCourse);
-
     TacCourseMaster activateCourse(TacCourseMaster course);
     Slice<TacCourseMaster> listCourses();
    // List<TacCourseMaster> listCourses(Pageable firstPageWithElements);  
@@ -25,14 +24,11 @@ public interface CourseService {
     BigInteger disableCountCourses();
     TacCourseMaster findById(BigDecimal id);
     BigInteger enabledCountCourses();
-   Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
-   List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course);
-
+    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
+    List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course);
     List<TacCourseCategory> findCourseCategories();
     List<TacCourseTargetGroup> findCourseTargetGroups();
     TacCourseGuidelines createGuideline(TacCourseGuidelines guideline);
     void createOutcome(TacCourseOutcome outcome);
     void createAudience(TacCourseAudience audience);
-
-
 }
