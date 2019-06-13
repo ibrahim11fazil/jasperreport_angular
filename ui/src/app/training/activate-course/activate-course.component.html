@@ -1,0 +1,134 @@
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+    <mat-card fxFlex="100%">
+        <div class="gene-card-title">
+            <div fxLayout="row" fxLayoutAlign="start center">
+               <div fxLayout="column">
+                  <h4>ACTIVATE COURSE</h4>
+               </div>
+               <span fxFlex></span>
+            </div>
+            <mat-divider></mat-divider>
+         </div>
+         <div class="gene-card-content">
+            <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+                <div fxLayout="column">
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                              <mat-select placeholder="Course Name" matInput >
+                                    <mat-option  >
+                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    </mat-option>
+                                 </mat-select>
+                        </mat-form-field>
+                     </div>
+
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                             
+                    <textarea matInput placeholder="Category" [readonly]="!editable" ></textarea> 
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Belongs To" formControlName="belongs to">
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                              <mat-select placeholder="Course Date" matInput >
+                                    <mat-option  >
+                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    </mat-option>
+                                 </mat-select>
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                              <mat-select placeholder="Location" matInput >
+                                    <mat-option  >
+                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    </mat-option>
+                                 </mat-select>
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                              <mat-select placeholder="Training Hall" matInput >
+                                    <mat-option  >
+                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    </mat-option>
+                                 </mat-select>
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                              <mat-select placeholder="Instructor" matInput >
+                                    <mat-option  >
+                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    </mat-option>
+                                 </mat-select>
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                              <mat-select placeholder="Training Co-ordinator" matInput >
+                                    <mat-option  >
+                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    </mat-option>
+                                 </mat-select>
+                        </mat-form-field>
+                     </div>
+                     <div fxLayout="column">
+                        <h4>ESTIMATED COST</h4>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Instructor Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Buffet Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Internal Transport Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Ticket Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Hospitality Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Gift Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Hall Reservation Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Belongs Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Translation Cost" >
+                        </mat-form-field>
+                     </div>
+                     <div fxLayout="row" fxLayoutAlign="start">
+                        <button mat-raised-button color="primary" type="submit">Save
+                        </button>
+                     </div>
+
+                     </div></form></div></mat-card></div>

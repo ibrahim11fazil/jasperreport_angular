@@ -48,6 +48,7 @@ import { PagesModule } from './pages/pages.module';
 import {HttpInterceptorJwtauthService} from "./service/http/http-interceptor-jwtauth.service";
 
 
+
 export const firebaseConfig = {
 	apiKey				: "AIzaSyBO0CLP4fOA_kanqw1HQ2sDjEkyuK9lQ3o",
 	authDomain			: "gene-ccf5f.firebaseapp.comm",

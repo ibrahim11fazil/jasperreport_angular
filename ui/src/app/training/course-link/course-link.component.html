@@ -1,0 +1,122 @@
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+    <mat-card fxFlex="100%">
+        <div class="gene-card-title">
+            <div fxLayout="row" fxLayoutAlign="start center">
+               <div fxLayout="column">
+                  <h4>LINK COURSE</h4>
+               </div>
+               <span fxFlex></span>
+            </div>
+            <mat-divider></mat-divider>
+         </div>
+         <div class="gene-card-content">
+            <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+                <div fxLayout="column">
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                              <mat-select placeholder="Activity Type" matInput formControlName="courseCategoriesSelect">
+                                    <mat-option  >
+                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    </mat-option>
+                                 </mat-select>
+                           <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+                        </mat-form-field>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                           <mat-form-field class="full-wid mrgn-b-lg">
+                                 <mat-select placeholder="Courses" matInput formControlName="courseCategoriesSelect">
+                                       <mat-option  >
+                                          <!-- {{item.description}} [value]="item.categoryId" -->
+                                       </mat-option>
+                                    </mat-select>
+                              <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+                           </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                              <mat-form-field class="full-wid mrgn-b-lg">
+                                   
+                          <textarea matInput placeholder="Course Category" [readonly]="!editable" ></textarea> 
+                              </mat-form-field>
+                           </div>
+                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                 <mat-form-field class="full-wid mrgn-b-lg">
+                                       <mat-select placeholder="Location" matInput formControlName="courseCategoriesSelect">
+                                             <mat-option  >
+                                                <!-- {{item.description}} [value]="item.categoryId" -->
+                                             </mat-option>
+                                          </mat-select>
+                                    <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+                                 </mat-form-field>
+                              </div>
+                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                    <mat-form-field class="full-wid mrgn-b-lg">
+                                         
+                                <textarea matInput placeholder="Course Duration" [readonly]="!editable" ></textarea> 
+                                    </mat-form-field>
+                                 </div>
+                                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                       <mat-form-field class="full-wid mrgn-b-lg">
+                                            
+                                   <textarea matInput placeholder="Objective" [readonly]="!editable" ></textarea> 
+                                       </mat-form-field>
+                                    </div>
+                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                          <mat-form-field class="full-wid mrgn-b-lg">
+                                               
+                                      <textarea matInput placeholder="Expected Result" [readonly]="!editable" ></textarea> 
+                                          </mat-form-field>
+                                       </div>
+                                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                             <mat-form-field class="full-wid mrgn-b-lg">
+                                                  
+                                         <textarea matInput placeholder="Guidelines" [readonly]="!editable" ></textarea> 
+                                             </mat-form-field>
+                                          </div>
+                                          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                <mat-form-field class="full-wid mrgn-b-lg">
+                                                     
+                                            <textarea matInput placeholder="Audience" [readonly]="!editable" ></textarea> 
+                                                </mat-form-field>
+                                             </div>
+
+                                             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                             <mat-form-field>
+                                                   <input matInput [matDatepicker]="myDatepicker" placeholder="Choose a date">
+                                                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                                                   <mat-datepicker #myDatepicker></mat-datepicker>
+                                                </mat-form-field>
+                                                </div>
+                                                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                      <mat-form-field class="full-wid mrgn-b-lg">
+                                                           
+                                                  <textarea matInput placeholder="No of Hours" [readonly]="!editable" ></textarea> 
+                                                      </mat-form-field>
+                                                   </div>
+                                                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                         <mat-form-field class="full-wid mrgn-b-lg">
+                                                               <mat-select placeholder="Prerequisites" matInput formControlName="courseCategoriesSelect">
+                                                                     <mat-option  >
+                                                                        <!-- {{item.description}} [value]="item.categoryId" -->
+                                                                     </mat-option>
+                                                                  </mat-select>
+                                                            <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+                                                         </mat-form-field>
+                                                      </div>
+                                                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                            <mat-form-field class="full-wid mrgn-b-lg">
+                                                                  <mat-select placeholder="SubCourses" matInput formControlName="courseCategoriesSelect">
+                                                                        <mat-option  >
+                                                                           <!-- {{item.description}} [value]="item.categoryId" -->
+                                                                        </mat-option>
+                                                                     </mat-select>
+                                                               <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+                                                            </mat-form-field>
+                                                         </div>
+                                                         <div fxLayout="row" fxLayoutAlign="start">
+                                                               <button mat-raised-button color="primary" type="submit">Save
+                                                               </button>
+                                                            </div>
+
+
+                     </div>
+                     </form></div></mat-card></div>

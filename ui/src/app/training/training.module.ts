@@ -13,6 +13,7 @@ import { MatCardModule,
   MatPaginatorModule,
   MatTabsModule,
   MatChipsModule,
+  MatDatepickerModule,
   MatFormFieldModule,
   MatExpansionModule,
   MatInputModule,
@@ -27,9 +28,11 @@ import { ActivityComponent } from './activity/activity.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { ActivityListComponent } from './activity-list/activity-list.component';
 import { SearchCourseComponent } from './search-course/search-course.component';
+import {CourseLinkComponent} from './course-link/course-link.component';
+import { ActivateCourseComponent } from './activate-course/activate-course.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, ActivityComponent, CreateCourseComponent, ActivityListComponent, SearchCourseComponent],
+  declarations: [WelcomeComponent, ActivityComponent, CreateCourseComponent, ActivityListComponent, SearchCourseComponent,CourseLinkComponent, ActivateCourseComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -47,6 +50,7 @@ import { SearchCourseComponent } from './search-course/search-course.component';
     MatSlideToggleModule,
     NgxDatatableModule,
     MatListModule,
+    MatDatepickerModule,
   MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
