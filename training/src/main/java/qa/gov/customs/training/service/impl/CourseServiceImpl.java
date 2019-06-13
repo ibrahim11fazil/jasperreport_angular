@@ -11,6 +11,7 @@ import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,8 @@ public class CourseServiceImpl  implements CourseService {
 
 	  @Override
 	    public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
-	    	TacCourseMaster course1=courseRepository.save(course);
-	        return course1;
+	    	TacCourseMaster courseInserted=courseRepository.save(course);
+	        return courseInserted;
 	    }
   
 
@@ -93,9 +94,9 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public TacCourseMaster findById(TacCourseMaster course) {
+	public TacCourseMaster findById(BigDecimal id) {
 		TacCourseMaster courses=null;
-		courses=courseRepository.findByCourseId(course.getCourseId());
+		courses=courseRepository.findByCourseId(id);
 		return courses;
 	}
 	

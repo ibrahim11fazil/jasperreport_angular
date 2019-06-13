@@ -204,8 +204,11 @@ export class CreateCourseComponent implements OnInit {
     const targetAudienceOptions = this.getControlOfAddMore('targetAudienceOptions');
     var targetAudienceResults = <TargetAudience[]>targetAudienceOptions.value
     this.tacCourseMaster.tacCourseAudiences=targetAudienceResults
-    this.tacCourseMaster.tacCourseCategory=this.form.value.courseCategoriesSelect
-    courseMaster.tacCourseCategory=this.tacCourseMaster.tacCourseCategory
+    
+    let categorySelected  = new Categories("")
+    categorySelected.categoryId = <Number>this.form.value.courseCategoriesSelect
+    this.tacCourseMaster.tacCourseCategory=categorySelected
+    courseMaster.tacCourseCategory= categorySelected
     courseMaster.tacCourseOutcomes=this.tacCourseMaster.tacCourseOutcomes
     courseMaster.tacCourseGuidelineses= this.tacCourseMaster.tacCourseGuidelineses
     courseMaster.tacCourseOutcomes=this.tacCourseMaster.tacCourseOutcomes

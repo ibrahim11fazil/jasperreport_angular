@@ -3,6 +3,7 @@ package qa.gov.customs.training.service;
 
 import qa.gov.customs.training.entity.*;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ public interface CourseService {
     List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
     long countCourses(); 
     BigInteger disableCountCourses();
-    TacCourseMaster findById(TacCourseMaster course);
+    TacCourseMaster findById(BigDecimal id);
     BigInteger enabledCountCourses();
    Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
    List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course);

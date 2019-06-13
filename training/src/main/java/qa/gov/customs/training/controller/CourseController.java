@@ -1,5 +1,7 @@
 package qa.gov.customs.training.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,8 @@ import java.util.Set;
 @RestController
 public class CourseController {
 
+	private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
+
 	@Autowired
 	CourseService courseService;
 	@Autowired
@@ -37,62 +41,75 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('create_update_course')")
 	@PostMapping("/create-course")
 	public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
-		System.out.println("inside controller");
-		
-		
-		TacCourseMaster courses = null;
-		TacCourseGuidelines guideline=null;
+		logger.info("Create course starting ");
 		if (course.getCourseId() != new BigDecimal(0)) {
-			ResponseType searchResponse = getCourseByName(course);
-			if (searchResponse.getData() == null) {
-				course.setActiveFlag(new BigDecimal(1));
-				courses = courseService.createAndUpdateCourse(course);
-				if (courses != null) {				
-						if(courses.getTacCourseGuidelineses()!=null)
-						{
-							for(TacCourseGuidelines guidelines:course.getTacCourseGuidelineses())
-							{
-								System.out.println(guidelines.getDescription());
-						guidelines.setTacCourseMaster(courses);
-						guideline=courseService.createGuideline(guidelines);
-					
-						}
-					}
-						if(course.getTacCourseOutcomes()!=null)
-						{
-
-							for(TacCourseOutcome outcomes:course.getTacCourseOutcomes())
-							{
-								
-								outcomes.setTacCourseMaster(courses);
-						courseService.createOutcome(outcomes);
-						
-						}
-						}
-						if(course.getTacCourseAudiences()!=null)
-						{
-
-							for(TacCourseAudience audience:course.getTacCourseAudiences())
-							{
-								
-								audience.setTacCourseMaster(courses);
-						courseService.createAudience(audience);
-						
-						}
-						}
-						
-					ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
-							courses);
-					return response;
-				} else {
-					ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false,
-							null);
-					return response;
-				}
-			}
+			course.setActiveFlag(new BigDecimal(0));
+			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
+					courseInserted);
+			return response;
+		}else{
+			TacCourseMaster courseExisting = courseService.findById(course.getCourseId());
+			course.setActiveFlag(courseExisting.getActiveFlag());
+			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
+					courseInserted);
+			return response;
 		}
-		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false, null);
-		return response;
+
+//		TacCourseMaster courses = null;
+//		TacCourseGuidelines guideline=null;
+//		if (course.getCourseId() != new BigDecimal(0)) {
+//			ResponseType searchResponse = getCourseByName(course);
+//			if (searchResponse.getData() == null) {
+//				course.setActiveFlag(new BigDecimal(1));
+//				courses = courseService.createAndUpdateCourse(course);
+//				if (courses != null) {
+//						if(courses.getTacCourseGuidelineses()!=null)
+//						{
+//							for(TacCourseGuidelines guidelines:course.getTacCourseGuidelineses())
+//							{
+//								logger.info(guidelines.getDescription());
+//								guidelines.setTacCourseMaster(courses);
+//								guideline=courseService.createGuideline(guidelines);
+//
+//						}
+//					}
+//						if(course.getTacCourseOutcomes()!=null)
+//						{
+//
+//							for(TacCourseOutcome outcomes:course.getTacCourseOutcomes())
+//							{
+//
+//								outcomes.setTacCourseMaster(courses);
+//						courseService.createOutcome(outcomes);
+//
+//						}
+//						}
+//						if(course.getTacCourseAudiences()!=null)
+//						{
+//
+//							for(TacCourseAudience audience:course.getTacCourseAudiences())
+//							{
+//
+//								audience.setTacCourseMaster(courses);
+//						courseService.createAudience(audience);
+//
+//						}
+//						}
+//
+//					ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
+//							courses);
+//					return response;
+//				} else {
+//					ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false,
+//							null);
+//					return response;
+//				}
+//			}
+//		}
+//		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false, null);
+//		return response;
 
 	}
 
@@ -100,23 +117,23 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('disable_course')")
 	@PostMapping("/disable-course")
 	public ResponseType disableCourse(@RequestBody TacCourseMaster course) {
-		System.out.println(course.getCourseName());
+		logger.info(course.getCourseName());
 		Optional<TacCourseMaster> courses = null;
 		TacCourseMaster courseDelete = null;
 		if (course.getCourseId() != new BigDecimal(0)) {
 			courses = courseService.getCourseById(course);
-			System.out.println(courses);
+			logger.info(courses.toString());
 			
 			
 			if (courses.isPresent()) {
-				System.out.println("course present");
+				logger.info("course present");
 				courses.get().setActiveFlag(new BigDecimal(0));
 				courseDelete = courseService.createAndUpdateCourse(courses.get());
 				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_DISABLED, true,
 						courseDelete);
 				return response;
 			}
-			System.out.println("course not present");
+			logger.info("course not present");
 			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, true,
 					null);
 			return response;
@@ -142,19 +159,19 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('link_course_with_activity')")
 	@PostMapping("/link-course-with-activity")
 	public ResponseType linkCourseWithActivity(@RequestBody TacCourseMaster course) {
-		System.out.println(course.getCourseId());
-		System.out.println(course.getTacActivities());
+		logger.info(course.getCourseId().toString());
+		logger.info(course.getTacActivities().toString());
 		TacCourseMaster linkCourse = null;
 		TacCourseMaster courselink = null;
 		Set<TacActivity> activities = new HashSet<TacActivity>();
 		if (course.getCourseId() != new BigDecimal(0)) {
-			linkCourse = courseService.findById(course);
+			linkCourse = courseService.findById(course.getCourseId());
 			if (linkCourse != null) {
-				System.out.println("inside link course not null");
+				logger.info("inside link course not null");
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
-						System.out.println("inside for loop");
+						logger.info("inside for loop");
 						if (activityService.findActivityById(activity.getActivityId()) != null) {
 
 							activities.add(activity);
@@ -187,8 +204,8 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('search_course')")
 	@PostMapping("/search-course")
 	public ResponseType searchCourse(@RequestBody TacCourseMaster course) {
-		System.out.println("search activity");
-		System.out.println(course.getCourseName());
+		logger.info("search activity");
+		logger.info(course.getCourseName());
 		//Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
 		Pageable firstPageWithElements = PageRequest.of(0, 20);
 		List<TacCourseMaster> courses = null;
@@ -218,7 +235,7 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('count_course')")
 	@GetMapping("/count-course")
 	public ResponseType countCourse() {
-		System.out.println("Inside count courses");
+		logger.info("Inside count courses");
 		long countcourse = courseService.countCourses();
 		ResponseType response = new ResponseType(Constants.SUCCESS, "", true, countcourse);
 		return response;

@@ -249,8 +249,9 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	public void setTacCoursePrerequisiteses(Set<TacCoursePrerequisites> tacCoursePrerequisiteses) {
 		this.tacCoursePrerequisiteses = tacCoursePrerequisiteses;
 	}
-	@JsonManagedReference
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+
+	//@JsonManagedReference
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseGuidelines> getTacCourseGuidelineses() {
 		return this.tacCourseGuidelineses;
 	}
@@ -259,7 +260,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseGuidelineses = tacCourseGuidelineses;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;
 	}
@@ -268,7 +269,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseActivations = tacCourseActivations;
 	}
 	//@JsonManagedReference
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseAudience> getTacCourseAudiences() {
 		return this.tacCourseAudiences;
 	}
@@ -298,7 +299,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacActivities = tacActivities;
 	}
 	@JsonManagedReference
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseOutcome> getTacCourseOutcomes() {
 		return this.tacCourseOutcomes;
 	}
@@ -307,7 +308,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseOutcomes = tacCourseOutcomes;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseDate> getTacCourseDates() {
 		return this.tacCourseDates;
 	}
