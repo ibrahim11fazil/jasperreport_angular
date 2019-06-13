@@ -6,3 +6,10 @@ constructor(description:String) {
     this.description=description;
 }
 }
+
+export interface ResponseCategories{
+    status: Boolean;
+    code:number;
+    message:String;
+    data: Categories[];
+}

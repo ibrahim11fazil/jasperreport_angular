@@ -8,8 +8,8 @@ import { Page } from "../../models/paged-data";
 import { TacCourseMaster } from 'app/models/tac-course-master';
 import { TrainingGuidelines } from 'app/models/training-guidelines';
 import { ExpectedResults } from 'app/models/expected-results';
-import { Categories } from 'app/models/categories';
-import { TargetAudience } from 'app/models/target-audience';
+import { Categories, ResponseCategories } from 'app/models/categories';
+import { TargetAudience, ResponseTargetAudiences } from 'app/models/target-audience';
 
 @Component({
   selector: 'ms-create-course',
@@ -26,11 +26,6 @@ export class CreateCourseComponent implements OnInit {
   courseCategories:Categories[] = [];
   targetAudiences:TargetAudience[]=[]
   tacCourseMaster: TacCourseMaster;
-  foods = [
-    { value: 'Security-0', viewValue: 'Security' },
-    { value: 'Auditing-1', viewValue: 'Auditing' },
-    { value: 'Custom-2', viewValue: 'Custom' }
-  ];
  
   courseDurationFlag = [
     { value: '1', viewValue: 'YEAR' },
@@ -39,8 +34,6 @@ export class CreateCourseComponent implements OnInit {
     { value: '4', viewValue: 'HOUR' }
   ];
 
-  //  guidelines=[];
-  //  outcomes=[];
   public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
@@ -82,8 +75,8 @@ export class CreateCourseComponent implements OnInit {
   formSetup(){
     this.trainingService.getAllCourseCategories().subscribe(
       data => {
-        var expectedResults = <Categories[]>data.data
-        this.courseCategories=data.data
+        var response = <ResponseCategories> data
+        this.courseCategories=response.data
         console.log(this.courseCategories)
       },
       error => {
@@ -94,8 +87,8 @@ export class CreateCourseComponent implements OnInit {
 
     this.trainingService.getAllCourseTargetGroups().subscribe(
       data => {
-        var expectedResults = <TargetAudience[]>data.data
-        this.targetAudiences=data.data
+        var expectedResults = <ResponseTargetAudiences>data
+        this.targetAudiences=expectedResults.data
         console.log(this.targetAudiences)
       },
       error => {
@@ -126,7 +119,7 @@ export class CreateCourseComponent implements OnInit {
 
     const controltargetAudienceOptions = this.getControlOfAddMore('targetAudienceOptions');
     this.tacCourseMaster.tacCourseAudiences.forEach(x => {
-      controltargetAudienceOptions.push(this.patchValuesTragetAudience(x.targetId, x.targentName))
+      controltargetAudienceOptions.push(this.patchValuesTragetAudience(x.targetId, x.targentName,x.audienceId))
     })
   }
 
@@ -144,9 +137,10 @@ export class CreateCourseComponent implements OnInit {
     })
   }
 
-  patchValuesTragetAudience(targetId, targentName) {
+  patchValuesTragetAudience(targetId, targentName,audienceId) {
     return this.fb.group({
       targetId: [targetId],
+      audienceId:[audienceId],
       targentName: [targentName]
     })
   }
@@ -163,7 +157,7 @@ export class CreateCourseComponent implements OnInit {
 
   addMoretargetAudienceTextarea() {
     const control = this.getControlOfAddMore('targetAudienceOptions');
-    control.push(this.patchValuesTragetAudience(0, ""))
+    control.push(this.patchValuesTragetAudience(0, "",0))
   }
 
   removeMoretargetAudienceTextarea(i) {
@@ -184,10 +178,10 @@ export class CreateCourseComponent implements OnInit {
   onSubmit(buttonType): void {
     if (buttonType === "createCourse") {
       this.createCourse()
+    }else{
+      this.toastr.error("Invalid Action")
     }
-    else if (buttonType === "addMoreExpectedResultsTextarea") {
-      console.log("sample1")
-    }
+
   }
 
   createCourse() {
@@ -196,7 +190,7 @@ export class CreateCourseComponent implements OnInit {
     const expectedResultsOptions = this.getControlOfAddMore('expectedResultsOptions');
     var expectedResults = <ExpectedResults[]>expectedResultsOptions.value
     this.tacCourseMaster.tacCourseOutcomes = expectedResults
-    
+  
     const courseGuidelinesesOptions = this.getControlOfAddMore('tacCourseGuidelinesesOptions');
     var expectedGuidelinesesResults = <TrainingGuidelines[]>courseGuidelinesesOptions.value
     this.tacCourseMaster.tacCourseGuidelineses = expectedGuidelinesesResults

@@ -42,15 +42,18 @@ public class CourseController {
 	@PostMapping("/create-course")
 	public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
 		logger.info("Create course starting ");
-		if (course.getCourseId() != new BigDecimal(0)) {
+		if (course.getCourseId().equals(new BigDecimal(0))) {
 			course.setActiveFlag(new BigDecimal(0));
 			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+			//course.getTacCourseAudiences().forEach(i -> i.courseInserted);
 			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
 					courseInserted);
 			return response;
-		}else{
+		} else {
 			TacCourseMaster courseExisting = courseService.findById(course.getCourseId());
 			course.setActiveFlag(courseExisting.getActiveFlag());
+			course.setDateCreated(courseExisting.getDateCreated());
+			course.setUserCreated(courseExisting.getUserCreated());
 			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
 			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
 					courseInserted);
