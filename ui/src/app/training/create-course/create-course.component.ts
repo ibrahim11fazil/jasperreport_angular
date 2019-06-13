@@ -10,6 +10,7 @@ import { TrainingGuidelines } from 'app/models/training-guidelines';
 import { ExpectedResults } from 'app/models/expected-results';
 import { Categories, ResponseCategories } from 'app/models/categories';
 import { TargetAudience, ResponseTargetAudiences } from 'app/models/target-audience';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ms-create-course',
@@ -33,11 +34,12 @@ export class CreateCourseComponent implements OnInit {
     { value: '3', viewValue: 'DAY' },
     { value: '4', viewValue: 'HOUR' }
   ];
-
+  param:any;
   public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute
   ) {
 
     this.tacCourseMaster =
@@ -69,7 +71,22 @@ export class CreateCourseComponent implements OnInit {
     });
     this.patch()
     this.formSetup()
+    this.loadDataFromParam();
   }
+
+  loadDataFromParam(){
+    //console.log(this.param);
+    this.activatedRoute.params.subscribe(params => {
+      if(params['id']){
+          this.param = params['id'];
+      }
+     });  
+      if(this.param!='' && this.param!=undefined){
+        console.log(this.param);
+        //TODO load data from db
+      }
+  }
+
 
 
   formSetup(){

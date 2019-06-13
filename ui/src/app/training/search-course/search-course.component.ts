@@ -7,7 +7,7 @@ import { ToastrService } from "ngx-toastr";
 import { PageTitleService } from "../../core/page-title/page-title.service";
 import { Page } from "../../models/paged-data"
 import { TacCourseMaster, ITacCourseMasterList, ITacCourseList, Course } from 'app/models/tac-course-master';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ms-search-course',
@@ -24,7 +24,8 @@ export class SearchCourseComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
-    private router:Router
+    private router:Router,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
