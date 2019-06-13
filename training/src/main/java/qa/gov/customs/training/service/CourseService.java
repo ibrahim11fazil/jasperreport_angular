@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import qa.gov.customs.training.models.Course;
 
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
@@ -19,7 +20,8 @@ public interface CourseService {
     TacCourseMaster activateCourse(TacCourseMaster course);
     Slice<TacCourseMaster> listCourses();
    // List<TacCourseMaster> listCourses(Pageable firstPageWithElements);  
-    List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
+    //List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
+    List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements);
     long countCourses(); 
     BigInteger disableCountCourses();
     TacCourseMaster findById(BigDecimal id);

@@ -28,6 +28,10 @@ export const TrainingRoutes: Routes = [
                 component: CreateCourseComponent
             },
             {
+                path: 'create-course/:id',
+                component: CreateCourseComponent
+            },
+            {
                 path: 'search-course',
                 component: SearchCourseComponent
             }

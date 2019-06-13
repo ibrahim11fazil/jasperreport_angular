@@ -9,7 +9,7 @@
       <mat-divider></mat-divider>
     </div>
     <div class="gene-card-content">
-      <form [formGroup]="form" (ngSubmit)="SearchCourse()">
+      <form [formGroup]="form" (ngSubmit)="searchCourse()">
         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
             <mat-form-field class="full-wid mrgn-b-md">
@@ -25,7 +25,7 @@
 
         <div class="pad-wrap">
           <div fxLayout="row" fxLayoutAlign="start">
-            <button mat-raised-button color="primary" (click)="SearchCourse()" type="submit" [disabled]="!form.valid">Search</button>
+            <button mat-raised-button color="primary"  type="submit" [disabled]="!form.valid">Search</button>
 
           </div>
         </div>
@@ -34,8 +34,7 @@
 
 
   </mat-card>
-  <!-- <div fxLayout="row wrap" fxLayoutAlign="start" > -->
-    <div fxFlex="100" *ngIf="tData">
+  <div fxFlex="100" >
       <ngx-datatable #table
                      class='material mrgn-all-md'
                      [columns]="columns"
@@ -73,7 +72,7 @@
             <span>Delete</span>
           </ng-template>
           <ng-template let-row="row" ngx-datatable-cell-template>
-            <button mat-raised-button color="primary" class="m-1" (click)="DeleteRow(row)">Disable</button>
+            <button mat-raised-button color="primary" class="m-1" (click)="deleteRow(row)">Disable</button>
           </ng-template>
         </ngx-datatable-column>
 
@@ -82,15 +81,14 @@
               <span>Update</span>
             </ng-template>
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-raised-button color="primary" class="m-1" (click)="DeleteRow(row)">Disable</button>
+              <button mat-raised-button color="primary" class="m-1"  (click)="updateRow(row)" >Update</button>
             </ng-template>
-          </ngx-datatable-column>
+        </ngx-datatable-column>
       </ngx-datatable>
     </div>
-  </div>
   
   
-<!-- </div> -->
+ </div>
 
 
 

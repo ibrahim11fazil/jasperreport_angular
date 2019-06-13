@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 
 import qa.gov.customs.training.entity.TacCourseMaster;
+import qa.gov.customs.training.models.Course;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,6 +23,10 @@ TacCourseMaster findByCourseId(BigDecimal courseId);
 List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
 List<TacCourseMaster>findByCourseName(String courseName);
+
+
+@Query(value="select COURSE_ID,COURSE_NAME from Tac_Course_Master where lower(course_name) LIKE %:courseName% and active_flag=1 order by course_id",nativeQuery=true)
+List<Object[]> findIdAndNameByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
 
 

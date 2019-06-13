@@ -8,11 +8,13 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import qa.gov.customs.training.entity.*;
+import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -90,10 +92,17 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
-		List<TacCourseMaster> courses=null;
-		courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-				return courses;
+	public List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
+		//courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+		List<Object[]> objects =   courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+		List<Course> courses=new ArrayList<>();
+		for (Object[] o :objects) {
+			Course course = new Course();
+			course.setCourseId((BigDecimal)o[0]);
+			course.setCourseName((String)o[1]);
+			courses.add(course);
+		}
+		return courses;
 	}
 
 	@Override

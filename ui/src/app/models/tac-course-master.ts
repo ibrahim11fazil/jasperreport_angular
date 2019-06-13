@@ -38,11 +38,24 @@ export class TacCourseMaster {
     }
     
     
-    export interface ITacActivityList {
+    export interface ITacCourseMasterList {
         status: Boolean;
         code:number;
         message:String;
         data: TacCourseMaster[];
+        count:number;
+    }
+
+    export interface Course{
+         courseId:Number
+         tacCourseCategory:Categories;
+    }
+
+    export interface ITacCourseList {
+        status: Boolean;
+        code:number;
+        message:String;
+        data: Course[];
         count:number;
     }
     

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import qa.gov.customs.training.entity.*;
+import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
@@ -211,7 +212,7 @@ public class CourseController {
 		logger.info(course.getCourseName());
 		//Pageable firstPageWithElements = PageRequest.of(course.offset, course.limit);
 		Pageable firstPageWithElements = PageRequest.of(0, 20);
-		List<TacCourseMaster> courses = null;
+		List<Course> courses = null;
 		if (course.getCourseName() != null) {
 			courses = courseService.searchCourses(course, firstPageWithElements);
 			if (courses != null && !courses.isEmpty()) {
@@ -223,7 +224,6 @@ public class CourseController {
 				return response;
 			}
 		}
-
 		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
 		return response;
 	}
