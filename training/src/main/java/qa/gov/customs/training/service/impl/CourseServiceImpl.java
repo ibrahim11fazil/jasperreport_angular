@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
@@ -34,12 +35,20 @@ public class CourseServiceImpl  implements CourseService {
 	@Autowired
 	CourseTargetGroupRepository courseTargetGroupRepository;
 
-	  @Override
-	    public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
+	 @Override
+	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
+	  	    Set<TacCourseAudience> targetedAudiences=   course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
+		    course.setTacCourseAudiences(null);
 	    	TacCourseMaster courseInserted=courseRepository.save(course);
-	        return courseInserted;
-	    }
-  
+	    	if(!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences!=null){
+				targetedAudiences.forEach( item -> {
+					item.setTacCourseMaster(courseInserted);
+					item.setTacCourseTargetGroup(courseTargetGroupRepository.findById(item.getTargetId()).get());
+					audienceRepository.save(item);
+				});
+			}
+	        return courseRepository.findByCourseId(courseInserted.getCourseId());
+	 }
 
     @Override
     public TacCourseMaster disableCourse(TacCourseMaster activity) {

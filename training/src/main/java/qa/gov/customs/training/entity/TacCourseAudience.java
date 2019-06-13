@@ -2,18 +2,10 @@ package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -23,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "TAC_COURSE_AUDIENCE", schema = "CUST_TAC")
 public class TacCourseAudience implements java.io.Serializable {
 
+	private BigDecimal targetId;
 	private BigDecimal audienceId;
 	private TacCourseMaster tacCourseMaster;
 	private TacCourseTargetGroup tacCourseTargetGroup;
@@ -74,4 +67,12 @@ public class TacCourseAudience implements java.io.Serializable {
 		this.tacCourseTargetGroup = tacCourseTargetGroup;
 	}
 
+	@Transient
+	public BigDecimal getTargetId() {
+		return targetId;
+	}
+
+	public void setTargetId(BigDecimal targetId) {
+		this.targetId = targetId;
+	}
 }
