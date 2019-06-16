@@ -4,7 +4,7 @@ import { FormBuilder, Validators,FormGroup } from '@angular/forms';
 import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { ITacCourseMasterList, TacCourseMaster } from 'app/models/tac-course-master';
+import { ITacCourseMasterList, TacCourseMaster, Course } from 'app/models/tac-course-master';
 
 
 @Component({
@@ -46,8 +46,7 @@ public form: FormGroup;
     ),
     this.trainingService.getAllCourseList().subscribe(
       data => {
-        var response = <ITacCourseMasterList> data
-        this.courseList=response.data
+        var response = <Course> data
         console.log(this.courseList)
       },
       error => {
@@ -57,6 +56,9 @@ public form: FormGroup;
     )
 
 }
+
+getCourseDetails(courseName)
+{}
 
 
 
