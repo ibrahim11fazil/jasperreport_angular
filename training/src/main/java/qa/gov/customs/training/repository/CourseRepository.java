@@ -31,4 +31,7 @@ List<TacCourseMaster>findByCourseName(String courseName);
 List<Object[]> findIdAndNameByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
 
+@Query(value="select COURSE_ID,COURSE_NAME from Tac_Course_Master where  and active_flag=1 order by course_id",nativeQuery=true)
+List<Object[]> findAllCourses();
+
 }

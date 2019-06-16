@@ -14,19 +14,19 @@
                 <div fxLayout="column">
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Activity Type" matInput formControlName="courseCategoriesSelect">
-                                    <mat-option  >
-                                       <!-- {{item.description}} [value]="item.categoryId" -->
-                                    </mat-option>
+                              <mat-select placeholder="Activity Type" matInput formControlName="activitySelect">
+                                    <mat-option *ngFor="let item of activityList" [value]="item.activityId" >
+                                          {{item.activityName}} 
+                                           </mat-option>
                                  </mat-select>
                            <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
-                                 <mat-select placeholder="Courses" matInput formControlName="courseCategoriesSelect">
-                                       <mat-option  >
-                                          <!-- {{item.description}} [value]="item.categoryId" -->
+                                 <mat-select placeholder="Courses" matInput >
+                                       <mat-option *ngFor="let item of courseList" [value]="item.courseId" >
+                                      {{item.courseName}} 
                                        </mat-option>
                                     </mat-select>
                               <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
@@ -40,7 +40,7 @@
                            </div>
                            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                  <mat-form-field class="full-wid mrgn-b-lg">
-                                       <mat-select placeholder="Location" matInput formControlName="courseCategoriesSelect">
+                                       <mat-select placeholder="Location" matInput >
                                              <mat-option  >
                                                 <!-- {{item.description}} [value]="item.categoryId" -->
                                              </mat-option>
@@ -94,7 +94,7 @@
                                                    </div>
                                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                          <mat-form-field class="full-wid mrgn-b-lg">
-                                                               <mat-select placeholder="Prerequisites" matInput formControlName="courseCategoriesSelect">
+                                                               <mat-select placeholder="Prerequisites" matInput >
                                                                      <mat-option  >
                                                                         <!-- {{item.description}} [value]="item.categoryId" -->
                                                                      </mat-option>
@@ -104,7 +104,7 @@
                                                       </div>
                                                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                             <mat-form-field class="full-wid mrgn-b-lg">
-                                                                  <mat-select placeholder="SubCourses" matInput formControlName="courseCategoriesSelect">
+                                                                  <mat-select placeholder="SubCourses" matInput >
                                                                         <mat-option  >
                                                                            <!-- {{item.description}} [value]="item.categoryId" -->
                                                                         </mat-option>

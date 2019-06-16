@@ -275,7 +275,7 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('list_courses')")
 	@GetMapping("/list-courses")
 	public ResponseType listCourses() {
-		Slice<TacCourseMaster> coursesList = null;
+		List<Course> coursesList = null;
 		coursesList = courseService.listCourses();
 		if(coursesList!=null)
 		{
