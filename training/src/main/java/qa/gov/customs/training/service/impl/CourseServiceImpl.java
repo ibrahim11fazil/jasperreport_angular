@@ -12,6 +12,7 @@ import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class CourseServiceImpl  implements CourseService {
 
 	 @Override
 	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
-	  	    Set<TacCourseAudience> targetedAudiences=   course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
+	  	    Set<TacCourseAudience> targetedAudiences= course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
 		    course.setTacCourseAudiences(null);
 	    	TacCourseMaster courseInserted=courseRepository.save(course);
 	    	if(!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences!=null){
@@ -58,10 +59,13 @@ public class CourseServiceImpl  implements CourseService {
 	         return courseCreated;
 	 }
 
-    @Override
-    public TacCourseMaster disableCourse(TacCourseMaster activity) {
-        return null;
-    }
+	@Transactional
+	@Override
+	public BigDecimal enableOrDisableCourse(BigDecimal courseId,BigDecimal id) {
+		 courseRepository.enableOrDisableCourse(courseId,id);
+		 return new BigDecimal(1);
+	}
+
 
     @Override
     public TacCourseMaster linkCourseWithActivity(TacCourseMaster course) {
@@ -71,13 +75,9 @@ public class CourseServiceImpl  implements CourseService {
  
 
     @Override
-    public long countCourses() {
-     long countcourse= courseRepository.count();
-    return countcourse;
+    public long countCourses() { long countCourses= courseRepository.count();
+    return countCourses;
     }
-
-  
-
 
     @Override
     public BigInteger enabledCountCourses() {
@@ -106,6 +106,8 @@ public class CourseServiceImpl  implements CourseService {
 			Course course = new Course();
 			course.setCourseId((BigDecimal)o[0]);
 			course.setCourseName((String)o[1]);
+			if(o[2]!=null)
+			course.setStatus((BigDecimal)o[2]);
 			courses.add(course);
 		}
 		return courses;
@@ -157,7 +159,6 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public TacCourseGuidelines createGuideline(TacCourseGuidelines guideline) {
-		// TODO Auto-generated method stub
 		TacCourseGuidelines guidelines=guidelineRepository.save(guideline);
 		return guidelines;
 	}

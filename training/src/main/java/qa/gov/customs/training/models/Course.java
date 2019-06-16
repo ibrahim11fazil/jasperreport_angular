@@ -8,6 +8,7 @@ public class Course {
 
     private BigDecimal courseId;
     private String courseName;
+    private BigDecimal status;
 
 
     public BigDecimal getCourseId() {
@@ -24,5 +25,13 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public BigDecimal getStatus() {
+        return status;
+    }
+
+    public void setStatus(BigDecimal status) {
+        this.status = status;
     }
 }

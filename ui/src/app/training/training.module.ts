@@ -18,7 +18,9 @@ import { MatCardModule,
   MatExpansionModule,
   MatInputModule,
   MatSelectModule, 
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatDialog,
+  MatDialogModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
@@ -27,12 +29,20 @@ import {TrainingRoutes} from "./training.routing";
 import { ActivityComponent } from './activity/activity.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { ActivityListComponent } from './activity-list/activity-list.component';
-import { SearchCourseComponent } from './search-course/search-course.component';
+import { SearchCourseComponent, CourseActionDialog } from './search-course/search-course.component';
 import {CourseLinkComponent} from './course-link/course-link.component';
 import { ActivateCourseComponent } from './activate-course/activate-course.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, ActivityComponent, CreateCourseComponent, ActivityListComponent, SearchCourseComponent,CourseLinkComponent, ActivateCourseComponent],
+  declarations: [
+    WelcomeComponent, 
+    ActivityComponent, 
+    CreateCourseComponent,
+     ActivityListComponent, 
+     SearchCourseComponent,
+     CourseLinkComponent, 
+     ActivateCourseComponent,
+     CourseActionDialog],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -51,12 +61,16 @@ import { ActivateCourseComponent } from './activate-course/activate-course.compo
     NgxDatatableModule,
     MatListModule,
     MatDatepickerModule,
-  MatSelectModule,
+    MatDialogModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
     RouterModule.forChild(TrainingRoutes),
     TranslateModule
-  ]
+  ],
+	entryComponents : [
+		CourseActionDialog
+	]
 })
 export class TrainingModule { }

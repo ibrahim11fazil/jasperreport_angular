@@ -20,13 +20,11 @@
               You must enter the course Name
             </small>
           </div>
-
         </div>
 
         <div class="pad-wrap">
           <div fxLayout="row" fxLayoutAlign="start">
             <button mat-raised-button color="primary"  type="submit" [disabled]="!form.valid">Search</button>
-
           </div>
         </div>
       </form>
@@ -68,15 +66,6 @@
         </ngx-datatable-column>
   
         <ngx-datatable-column min-width="50px" >
-          <ng-template ngx-datatable-header-template>
-            <span>Delete</span>
-          </ng-template>
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            <button mat-raised-button color="primary" class="m-1" (click)="deleteRow(row)">Disable</button>
-          </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column min-width="50px" >
             <ng-template ngx-datatable-header-template>
               <span>Update</span>
             </ng-template>
@@ -84,6 +73,46 @@
               <button mat-raised-button color="primary" class="m-1"  (click)="updateRow(row)" >Update</button>
             </ng-template>
         </ngx-datatable-column>
+
+        <ngx-datatable-column min-width="50px" >
+            <ng-template ngx-datatable-header-template>
+              <span>Link Course</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-raised-button color="accent" class="m-1"  (click)="linkRow(row)" >Link</button>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column min-width="50px" >
+            <ng-template ngx-datatable-header-template>
+              <span>Activation</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-raised-button color="accent" class="m-1"  (click)="linkRow(row)" >Activation</button>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column min-width="50px" >
+            <ng-template ngx-datatable-header-template>
+              <span>Status</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button mat-raised-button color="warn" class="m-1" (click)="openDialog(row)">Update</button>
+                    <div *ngIf="row.status==1">
+                     <div  class="rounded mrgn-r-xs primary-bg status-icon"></div>
+                     <div class="status-text">
+                        <div>Active</div>
+                     </div>
+                    </div>
+                    <div *ngIf="row.status==0">
+                        <div  class="rounded mrgn-r-xs warn-bg status-icon"></div>
+                        <div class="status-text">
+                           <div>Disable</div>
+                        </div>
+                    </div>
+            </ng-template>
+          </ngx-datatable-column>
+
       </ngx-datatable>
     </div>
   
