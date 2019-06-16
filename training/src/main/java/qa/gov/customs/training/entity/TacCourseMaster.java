@@ -317,4 +317,9 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseDates = tacCourseDates;
 	}
 
+
+	@Override
+	public String toString() {
+		return ":"+ this.courseId + "\n" + "Name"+ this.courseName + "\n" ;
+	}
 }

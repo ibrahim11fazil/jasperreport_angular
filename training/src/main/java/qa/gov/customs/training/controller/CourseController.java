@@ -254,6 +254,28 @@ public class CourseController {
 		return response;
 	}
 
+	@PreAuthorize("hasAnyAuthority('search_course')")
+	@PostMapping("/get-course-by-id")
+	public ResponseType getCourseById(@RequestBody TacCourseMaster course) {
+		logger.info("get activity By Id" + course.toString());
+		Optional<TacCourseMaster> courses = null;
+		if (course.getCourseId() != null) {
+			courses = courseService.getCourseById(course);
+			if (courses != null && !courses.isPresent()) {
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courses);
+				return response;
+			} else {
+				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+				return response;
+			}
+		}
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+		return response;
+	}
+
+
+
+
 	/*
 	 * @GetMapping("/count-course") public long countCourse() { long countcourse=
 	 * courseService.countCourses(); return countcourse;
