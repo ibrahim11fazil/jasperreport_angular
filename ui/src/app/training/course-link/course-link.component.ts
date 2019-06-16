@@ -58,7 +58,16 @@ public form: FormGroup;
 }
 
 getCourseDetails(courseName)
-{}
+{
+  // this.trainingService.getCourseDetails().subscribe(
+  //   data => {
+  //     var response = <Course> data
+  //     console.log(this.courseList)
+  //   }
+
+
+
+}
 
 
 
