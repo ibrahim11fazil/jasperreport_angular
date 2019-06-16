@@ -60,5 +60,6 @@ export class TrainingService {
   getCourseById(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(GET_COURSE_BY_ID, course);
   }
+ 
 }
 
