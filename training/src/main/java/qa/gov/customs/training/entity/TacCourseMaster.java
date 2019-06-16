@@ -24,7 +24,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	private String courseName;
 	private BigDecimal duration;
 	private BigDecimal durationFlag;
-	private Clob objective;
+	private String objective;
 	private BigDecimal numberofhours;
 	private BigDecimal activityId;
 	private String prerequisitesId;
@@ -61,7 +61,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	}
 
 	public TacCourseMaster(BigDecimal courseId, TacCourseCategory tacCourseCategory, String courseName,
-			BigDecimal duration, BigDecimal durationFlag, Clob objective, BigDecimal numberofhours,
+			BigDecimal duration, BigDecimal durationFlag, String objective, BigDecimal numberofhours,
 			BigDecimal activityId, String prerequisitesId, String subcourseFlag, BigDecimal locationType,
 			String courseStatus, String userCreated, Date dateCreated, String userModified, Date dateModified,
 			String coordinatorJobId, Set<TacCoursePrerequisites> tacCoursePrerequisiteses,
@@ -169,11 +169,12 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.activeFlag = activeFlag;
 	}
 	@Column(name = "OBJECTIVE")
-	public Clob getObjective() {
+	@Lob
+	public String getObjective() {
 		return this.objective;
 	}
 
-	public void setObjective(Clob objective) {
+	public void setObjective(String objective) {
 		this.objective = objective;
 	}
 

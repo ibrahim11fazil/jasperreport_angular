@@ -58,35 +58,26 @@ export class CreateCourseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      courseName: [null, Validators.compose([Validators.required])],
-      coursecourseDurationFlagSelect:[null, Validators.compose([Validators.required])],
-      duration: [null, Validators.compose([Validators.required])],
-      description: [null, Validators.compose([Validators.required])],
-      expectedResultsOptions: this.fb.array([]),
-      tacCourseGuidelinesesOptions:this.fb.array([]),
-      targetAudienceOptions:this.fb.array([]),
-      courseCategoriesSelect:[null, Validators.compose([Validators.required])],
-      numberofhours: [null, Validators.compose([Validators.required])],
-    });
+    this.formInit()
     this.patch()
     this.formSetup()
     this.loadDataFromParam();
   }
 
-  loadDataFromParam(){
-    //console.log(this.param);
-    this.activatedRoute.params.subscribe(params => {
-      if(params['id']){
-          this.param = params['id'];
-      }
-     });  
-      if(this.param!='' && this.param!=undefined){
-        console.log(this.param);
-        //TODO load data from db
-      }
+  formInit(){
+    this.form = this.fb.group({
+      courseName: [this.tacCourseMaster.courseName, Validators.compose([Validators.required])],
+      coursecourseDurationFlagSelect:[this.tacCourseMaster.durationFlag, Validators.compose([Validators.required])],
+      duration: [this.tacCourseMaster.duration, Validators.compose([Validators.required])],
+      objective:[this.tacCourseMaster.objective, Validators.compose([Validators.required])],
+      description: [null, Validators.compose([Validators.required])],
+      expectedResultsOptions: this.fb.array([]),
+      tacCourseGuidelinesesOptions:this.fb.array([]),
+      targetAudienceOptions:this.fb.array([]),
+      courseCategoriesSelect:[null, Validators.compose([Validators.required])],
+      numberofhours: [this.tacCourseMaster.numberofhours, Validators.compose([Validators.required])],
+    });
   }
-
 
   formSetup(){
     this.trainingService.getAllCourseCategories().subscribe(
@@ -116,13 +107,9 @@ export class CreateCourseComponent implements OnInit {
 
   getControlOfAddMore(name): FormArray {
     return <FormArray>this.form.get(name);
-
   }
 
   patch() {
-    // if (this.tacCourseMaster.expectedResults == null) {
-    //   this.tacCourseMaster.expectedResults.push({ result: "" });
-    // }
     const controlexpectedResults = this.getControlOfAddMore('expectedResultsOptions');
     this.tacCourseMaster.tacCourseOutcomes.forEach(x => {
       controlexpectedResults.push(this.patchValues(x.outcomeId, x.result))
@@ -222,6 +209,8 @@ export class CreateCourseComponent implements OnInit {
     courseMaster.tacCourseGuidelineses = this.tacCourseMaster.tacCourseGuidelineses
     courseMaster.tacCourseOutcomes = this.tacCourseMaster.tacCourseOutcomes
     courseMaster.tacCourseAudiences = this.tacCourseMaster.tacCourseAudiences
+    courseMaster.courseId = this.tacCourseMaster.courseId
+    courseMaster.objective =this.form.value.objective
     debugger
     console.log(JSON.stringify(courseMaster));
     this.trainingService.saveCourse(courseMaster).subscribe(
@@ -241,4 +230,32 @@ export class CreateCourseComponent implements OnInit {
       this.toastr.error(data.message)
     }
   }
+
+  loadDataFromParam(){
+    //console.log(this.param);
+    this.activatedRoute.params.subscribe(params => {
+      if(params['id']){
+          this.param = params['id'];
+      }
+     });  
+      if(this.param!='' && this.param!=undefined){
+        console.log(this.param);
+        let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null)
+        courseMaster.courseId= this.param
+        this.trainingService.getCourseById(courseMaster).subscribe(
+          data => this.loadData(data),
+          error => {
+            console.log(error)
+            this.toastr.error(error.message)
+          }
+        )
+      }
+  }
+
+  loadData(data){
+    this.tacCourseMaster = data.data;
+    this.formInit()
+    this.patch() 
+  }
+
 }

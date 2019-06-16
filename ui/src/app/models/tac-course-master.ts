@@ -47,8 +47,6 @@ export class TacCourseMaster {
     }
 
     export interface Course{
-
-
          courseId:Number,
          tacCourseCategory:Categories;
          courseName:String
