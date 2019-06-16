@@ -67,8 +67,6 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 
-
-
     @Override
     public TacCourseMaster linkCourseWithActivity(TacCourseMaster course) {
         TacCourseMaster courses= courseRepository.save(course);
@@ -77,13 +75,9 @@ public class CourseServiceImpl  implements CourseService {
  
 
     @Override
-    public long countCourses() {
-     long countcourse= courseRepository.count();
-    return countcourse;
+    public long countCourses() { long countCourses= courseRepository.count();
+    return countCourses;
     }
-
-  
-
 
     @Override
     public BigInteger enabledCountCourses() {
