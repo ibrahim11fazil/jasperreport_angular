@@ -15,7 +15,9 @@ import qa.gov.customs.training.models.Course;
 
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
-    TacCourseMaster disableCourse(TacCourseMaster activity);
+
+    BigDecimal disableCourseById(BigDecimal id);
+    BigDecimal enableCourseById(BigDecimal id);
     TacCourseMaster linkCourseWithActivity(TacCourseMaster linkCourse);
     TacCourseMaster activateCourse(TacCourseMaster course);
     Slice<TacCourseMaster> listCourses();

@@ -88,7 +88,6 @@ export class CreateCourseComponent implements OnInit {
   }
 
 
-
   formSetup(){
     this.trainingService.getAllCourseCategories().subscribe(
       data => {
@@ -198,7 +197,6 @@ export class CreateCourseComponent implements OnInit {
     }else{
       this.toastr.error("Invalid Action")
     }
-
   }
 
   createCourse() {

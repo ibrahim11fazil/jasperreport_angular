@@ -39,7 +39,7 @@ public class CourseServiceImpl  implements CourseService {
 
 	 @Override
 	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
-	  	    Set<TacCourseAudience> targetedAudiences=   course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
+	  	    Set<TacCourseAudience> targetedAudiences= course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
 		    course.setTacCourseAudiences(null);
 	    	TacCourseMaster courseInserted=courseRepository.save(course);
 	    	if(!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences!=null){
@@ -58,10 +58,16 @@ public class CourseServiceImpl  implements CourseService {
 	         return courseCreated;
 	 }
 
-    @Override
-    public TacCourseMaster disableCourse(TacCourseMaster activity) {
-        return null;
-    }
+	@Override
+	public BigDecimal disableCourseById(BigDecimal id) {
+		return null;
+	}
+
+	@Override
+	public BigDecimal enableCourseById(BigDecimal id) {
+		return null;
+	}
+
 
     @Override
     public TacCourseMaster linkCourseWithActivity(TacCourseMaster course) {
@@ -106,6 +112,8 @@ public class CourseServiceImpl  implements CourseService {
 			Course course = new Course();
 			course.setCourseId((BigDecimal)o[0]);
 			course.setCourseName((String)o[1]);
+			if(o[2]!=null)
+			course.setStatus((BigDecimal)o[2]);
 			courses.add(course);
 		}
 		return courses;
@@ -150,7 +158,6 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public TacCourseGuidelines createGuideline(TacCourseGuidelines guideline) {
-		// TODO Auto-generated method stub
 		TacCourseGuidelines guidelines=guidelineRepository.save(guideline);
 		return guidelines;
 	}
