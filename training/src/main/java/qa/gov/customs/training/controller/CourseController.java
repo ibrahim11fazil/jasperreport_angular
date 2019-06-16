@@ -261,7 +261,7 @@ public class CourseController {
 		Optional<TacCourseMaster> courses = null;
 		if (course.getCourseId() != null) {
 			courses = courseService.getCourseById(course);
-			if (courses != null && !courses.isPresent()) {
+			if (courses != null && courses.isPresent()) {
 				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courses);
 				return response;
 			} else {
