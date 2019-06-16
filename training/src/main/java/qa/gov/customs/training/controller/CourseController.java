@@ -131,18 +131,17 @@ public class CourseController {
 			
 			if (courses.isPresent()) {
 				logger.info("course present");
-				courses.get().setActiveFlag(new BigDecimal(0));
-				courseDelete = courseService.createAndUpdateCourse(courses.get());
+				BigDecimal decimal = courseService.enableOrDisableCourse(courses.get().getCourseId(),new BigDecimal(0));
 				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_DISABLED, true,
-						courseDelete);
+						decimal);
 				return response;
 			}
 			logger.info("course not present");
-			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, true,
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, false,
 					null);
 			return response;
 		}
-		ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, true, null);
+		ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, false, null);
 		return response;
 	}
 
@@ -160,17 +159,17 @@ public class CourseController {
 			if (courses.isPresent()) {
 				logger.info("course present");
 				courses.get().setActiveFlag(new BigDecimal(1));
-				courseDelete = courseService.createAndUpdateCourse(courses.get());
+				BigDecimal decimal = courseService.enableOrDisableCourse(courses.get().getCourseId(),new BigDecimal(1));
 				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_DISABLED, true,
-						courseDelete);
+						decimal);
 				return response;
 			}
 			logger.info("course not present");
-			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, true,
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, false,
 					null);
 			return response;
 		}
-		ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, true, null);
+		ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, false, null);
 		return response;
 	}
 

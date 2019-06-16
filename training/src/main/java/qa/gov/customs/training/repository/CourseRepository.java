@@ -4,6 +4,7 @@ package qa.gov.customs.training.repository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -33,5 +34,9 @@ List<Object[]> findIdAndNameByCourseName(String courseName, Pageable firstPageWi
 
 @Query(value="select COURSE_ID,COURSE_NAME from Tac_Course_Master where  and active_flag=1 order by course_id",nativeQuery=true)
 List<Object[]> findAllCourses();
+
+@Modifying
+@Query(value="update Tac_Course_Master  set active_flag=:flag   where  course_id=:courseId",nativeQuery=true)
+void enableOrDisableCourse(BigDecimal courseId , BigDecimal flag);
 
 }

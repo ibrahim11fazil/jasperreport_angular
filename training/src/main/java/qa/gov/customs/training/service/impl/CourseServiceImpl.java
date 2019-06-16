@@ -12,6 +12,7 @@ import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -58,15 +59,14 @@ public class CourseServiceImpl  implements CourseService {
 	         return courseCreated;
 	 }
 
+	@Transactional
 	@Override
-	public BigDecimal disableCourseById(BigDecimal id) {
-		return null;
+	public BigDecimal enableOrDisableCourse(BigDecimal courseId,BigDecimal id) {
+		 courseRepository.enableOrDisableCourse(courseId,id);
+		 return new BigDecimal(1);
 	}
 
-	@Override
-	public BigDecimal enableCourseById(BigDecimal id) {
-		return null;
-	}
+
 
 
     @Override

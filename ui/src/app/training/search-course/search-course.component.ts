@@ -84,7 +84,6 @@ export class SearchCourseComponent implements OnInit {
  }
 
   deleteRow(row) {
-
     if(row.status==1){
     let course: TacCourseMaster = row;
     console.log(course.courseName);
