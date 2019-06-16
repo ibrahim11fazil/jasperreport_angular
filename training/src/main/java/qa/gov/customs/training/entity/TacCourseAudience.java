@@ -46,7 +46,7 @@ public class TacCourseAudience implements java.io.Serializable {
 	public void setAudienceId(BigDecimal audienceId) {
 		this.audienceId = audienceId;
 	}
-	//@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID")
 	public TacCourseMaster getTacCourseMaster() {
@@ -56,7 +56,8 @@ public class TacCourseAudience implements java.io.Serializable {
 	public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
 		this.tacCourseMaster = tacCourseMaster;
 	}
-	
+
+	//@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TARGET_ID")
 	public TacCourseTargetGroup getTacCourseTargetGroup() {

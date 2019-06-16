@@ -49,7 +49,13 @@ public class CourseServiceImpl  implements CourseService {
 					audienceRepository.save(item);
 				});
 			}
-	        return courseRepository.findByCourseId(courseInserted.getCourseId());
+		     Set<TacCourseAudience>  audiences =  audienceRepository.findByCourseId(courseInserted.getCourseId());
+		     audiences.forEach(item -> {
+		     	item.setTargetId(item.getTacCourseTargetGroup().getTargetId());
+			 });
+	         TacCourseMaster courseCreated= courseRepository.findByCourseId(courseInserted.getCourseId());
+	         courseCreated.setTacCourseAudiences(audiences);
+	         return courseCreated;
 	 }
 
     @Override
