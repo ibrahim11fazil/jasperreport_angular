@@ -18,7 +18,7 @@ public interface CourseService {
     TacCourseMaster disableCourse(TacCourseMaster activity);
     TacCourseMaster linkCourseWithActivity(TacCourseMaster linkCourse);
     TacCourseMaster activateCourse(TacCourseMaster course);
-    Slice<TacCourseMaster> listCourses();
+    List<Course> listCourses();
    // List<TacCourseMaster> listCourses(Pageable firstPageWithElements);  
     //List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
     List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements);

@@ -125,11 +125,18 @@ public class CourseServiceImpl  implements CourseService {
 	}
 	
 	@Override
-	public Slice<TacCourseMaster> listCourses() {
-		Pageable firstPageWithElements = PageRequest.of( 0,5);
-		Slice<TacCourseMaster> courseslist=null;
-		courseslist=  courseRepository.findAll(firstPageWithElements);
-				return courseslist;
+	public List<Course> listCourses() {
+//		Pageable firstPageWithElements = PageRequest.of( 0,5);
+		
+		List<Object[]> objects=  courseRepository.findAllCourses();
+		List<Course> courses=new ArrayList<>();
+		for (Object[] o :objects) {
+			Course course = new Course();
+			course.setCourseId((BigDecimal)o[0]);
+			course.setCourseName((String)o[1]);
+			courses.add(course);
+		}
+		return courses;
 	}
 
 	@Override
