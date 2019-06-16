@@ -54,9 +54,9 @@ public class CourseServiceImpl  implements CourseService {
 		     audiences.forEach(item -> {
 		     	item.setTargetId(item.getTacCourseTargetGroup().getTargetId());
 			 });
-	         TacCourseMaster courseCreated= courseRepository.findByCourseId(courseInserted.getCourseId());
-	         courseCreated.setTacCourseAudiences(audiences);
-	         return courseCreated;
+	         Optional<TacCourseMaster> courseCreated= courseRepository.findById(courseInserted.getCourseId());
+	         courseCreated.get().setTacCourseAudiences(audiences);
+	         return courseCreated.get();
 	 }
 
 	@Transactional
