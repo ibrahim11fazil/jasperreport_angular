@@ -134,10 +134,17 @@ export class CreateCourseComponent implements OnInit {
     this.form.controls['durationFlagControl'].patchValue(
       durationItemsArray[0] 
    )
+   }
+   if(this.tacCourseMaster.tacCourseCategory!=null){
+   var courseCategoryArray = this.courseCategories.filter(i => i.categoryId==this.tacCourseMaster.tacCourseCategory.categoryId)
+    if(courseCategoryArray[0]!=null){
+    this.form.controls['courseCategoriesSelect'].patchValue(
+      courseCategoryArray[0] 
+   )
+   console.log("console.log")
+   }
   }
   
-
-
   }
 
   patchValues(outcomeId, result) {
@@ -216,7 +223,7 @@ export class CreateCourseComponent implements OnInit {
     this.tacCourseMaster.tacCourseAudiences=targetAudienceResults
     
     let categorySelected = new Categories("")
-    categorySelected.categoryId = <Number>this.form.value.courseCategoriesSelect
+    categorySelected.categoryId = <Number>this.form.value.courseCategoriesSelect.categoryId
     this.tacCourseMaster.tacCourseCategory = categorySelected
     courseMaster.tacCourseCategory = categorySelected
     courseMaster.tacCourseOutcomes = this.tacCourseMaster.tacCourseOutcomes

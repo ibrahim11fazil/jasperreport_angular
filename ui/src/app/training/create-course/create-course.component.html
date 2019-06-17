@@ -51,10 +51,9 @@
                   <mat-form-field class="full-wid mrgn-b-md">
                      <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect">
                         <option [ngValue]="null">Select Category</option>
-                        <mat-option 
-                         *ngFor="let courseCategoriesSelect of courseCategories"
-                         [value]="courseCategoriesSelect.categoryId">
-                           {{courseCategoriesSelect.description}}
+                        <mat-option *ngFor="let item of courseCategories"
+                         [value]="item">
+                           {{item.description}}
                         </mat-option>
                      </mat-select>
                   </mat-form-field>
