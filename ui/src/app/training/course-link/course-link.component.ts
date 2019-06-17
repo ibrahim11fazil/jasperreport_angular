@@ -5,6 +5,7 @@ import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { ITacCourseMasterList, TacCourseMaster, Course, ResponseTacCourseMaster } from 'app/models/tac-course-master';
+import { ITacCourseList } from '../../models/tac-course-master';
 
 
 @Component({
@@ -60,8 +61,9 @@ public form: FormGroup;
 
 getCourseDetails(course)
 {
-  let courseMaster=new TacCourseMaster(course,null,"",0,null,0,0,null,null,null)
-  console.log(course);
+ // debugger
+  let courseMaster=new TacCourseMaster(course.value,null,"",0,null,0,0,null,null,null)
+  console.log(course.value);
   this.trainingService.getCourseById(courseMaster).subscribe(
     data => {
       var response = <ResponseTacCourseMaster> data
