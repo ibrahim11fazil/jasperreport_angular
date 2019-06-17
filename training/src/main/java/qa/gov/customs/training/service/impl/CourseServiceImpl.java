@@ -34,6 +34,10 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Autowired
 	CourseTargetGroupRepository courseTargetGroupRepository;
+	@Autowired
+	LocationRepository locationRepo;
+	@Autowired
+	PrerequisitesRepository prerequisitesRepo;
 
 	 @Override
 	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -201,6 +205,17 @@ public class CourseServiceImpl  implements CourseService {
 		audienceRepository.save(audience);
 	}
 
-	
+	@Override
+	public List<TacCoursePrerequisites> getAllCoursePrerequisites() {
+		List<TacCoursePrerequisites> prerequisitesList=prerequisitesRepo.findAll();
+		return prerequisitesList;
+	}
+
+	@Override
+	public List<TacCourseLocation> getAllCourseLocation() {
+		List<TacCourseLocation> locationList=locationRepo.findAll();
+		return locationList;
+	}
+
 
 }

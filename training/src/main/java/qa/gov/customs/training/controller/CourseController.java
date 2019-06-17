@@ -366,6 +366,31 @@ public class CourseController {
 		}
 	}
 
+	@GetMapping("/get-all-course-prerequisites")
+	public ResponseType getAllCoursePrerequisites() {
+		List<TacCoursePrerequisites> prerequisites = null;
+		prerequisites = courseService.getAllCoursePrerequisites();
+		if (prerequisites != null && !prerequisites.isEmpty()) {
 
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, prerequisites);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+	}
+	@GetMapping("/get-all-courseLocation")
+	public ResponseType getAllCourseLocation() {
+		List<TacCourseLocation> location = null;
+		location = courseService.getAllCourseLocation();
+		if (location != null && !location.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, location);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+	}
 
 }
