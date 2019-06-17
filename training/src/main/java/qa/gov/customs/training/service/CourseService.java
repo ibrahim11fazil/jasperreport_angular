@@ -34,4 +34,6 @@ public interface CourseService {
     TacCourseGuidelines createGuideline(TacCourseGuidelines guideline);
     void createOutcome(TacCourseOutcome outcome);
     void createAudience(TacCourseAudience audience);
+    List<TacCoursePrerequisites>   getAllCoursePrerequisites();
+    List<TacCourseLocation>    getAllCourseLocation();
 }
