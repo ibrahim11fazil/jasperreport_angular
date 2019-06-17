@@ -24,7 +24,7 @@
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
-                                 <mat-select (selectionChange)="getCourseDetails($event)" placeholder="Courses" matInput >
+                                 <mat-select (selectionChange)="getCourseDetails($event)" placeholder="Courses" matInput formControlName="courseSelect" >
                                        <mat-option *ngFor="let item of courseList" [value]="item.courseId" >
                                       {{item.courseName}} 
                                        </mat-option>

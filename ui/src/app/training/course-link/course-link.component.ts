@@ -17,6 +17,7 @@ export class CourseLinkComponent implements OnInit {
 
   activityList:TacActivity[]=[];
   courseList:TacCourseMaster[]=[];
+  courseDetails:TacCourseMaster;
 editable:true;
 public form: FormGroup;
   constructor(private fb: FormBuilder,
@@ -27,6 +28,7 @@ public form: FormGroup;
   ngOnInit() {
     this.form = this.fb.group({
       activitySelect:[null, Validators.compose([Validators.required])],
+      courseSelect:[null, Validators.compose([Validators.required])],
     });
 
 
@@ -47,9 +49,10 @@ public form: FormGroup;
     ),
     this.trainingService.getAllCourseList().subscribe(
       data => {
-        var response = <Course> data
-        this.courseList=response.data
-        console.log(response)
+        debugger;
+        //var response = <Course> data
+        this.courseList= data.data
+       // console.log(response)
       },
       error => {
         console.log(error)
@@ -66,8 +69,10 @@ getCourseDetails(course)
   console.log(course.value);
   this.trainingService.getCourseById(courseMaster).subscribe(
     data => {
+      debugger;
       var response = <ResponseTacCourseMaster> data
-      console.log(response)
+      this.courseDetails=response.data
+      console.log(this.courseDetails)
     },
     error => {
       console.log(error)
