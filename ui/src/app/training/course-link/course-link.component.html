@@ -12,7 +12,7 @@
          <div class="gene-card-content">
             <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
                 <div fxLayout="column">
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                    <div  fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Activity Type" matInput formControlName="activitySelect">
                                     <mat-option *ngFor="let item of activityList" [value]="item.activityId" >
@@ -29,98 +29,87 @@
                                       {{item.courseName}} 
                                        </mat-option>
                                     </mat-select>
-                              <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+              
                            </mat-form-field>
                         </div>
-                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <!-- <label>Category</label>
-                           {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}} -->
-                           <mat-form-field class="full-wid mrgn-b-lg">
-                           <input matInput placeholder="Category" [readonly]="!editable" >
-                              {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}}    
 
-                           
-                           </mat-form-field>
+
+                        <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField">
+               
+                           <h4>Course Category</h4>
+                           {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}}  
+                         
                            </div>
-                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                 <mat-form-field class="full-wid mrgn-b-lg">
-                                       <mat-select placeholder="Location" matInput >
-                                             <mat-option  >
-                                                   
-                                           
-                                             </mat-option>
-                                          </mat-select>
-                                    <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
-                                 </mat-form-field>
-                              </div>
-                              <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                    <mat-form-field class="full-wid mrgn-b-lg">
-                                         
-                                <textarea matInput placeholder="Course Duration" [readonly]="!editable" >
-                                   
+                
+                           
+                           
 
-                                </textarea> 
-                                    </mat-form-field>
-                                 </div> -->
-
-                                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                 <div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center" class="notEditableField">
                   
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                                       <mat-form-field class="full-wid mrgn-b-md">
-                                          <input matInput placeholder="Course Period" [readonly]="!editable" >
+                                          <h4>Course Period</h4>
+
                                           {{courseDetails.duration}}
-                                       </mat-form-field>
-                                    </div>
-                  
-                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                                       <mat-form-field class="full-wid mrgn-b-md">
-                                             <input matInput placeholder="Duration Type" [readonly]="!editable" >
-                                          {{courseDetails.durationFlag}}
+                                      
                                           
-                                       </mat-form-field>
+                                    </div>
+             
+                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                                          <h4>Duration Type</h4>
+                                          {{courseDetails.durationFlag}}
+                                       
+                                          
                                     </div>
                   
                                  </div>
                   
-                                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                       <mat-form-field class="full-wid mrgn-b-lg">
-                                            
-                                             <input matInput placeholder="Objective" [readonly]="!editable" >
-                                             {{courseDetails.objective}}
-                                    
-                              
-                                       </mat-form-field>
+                                 <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField">
+                                       <h4>Objective</h4>
+                                       {{courseDetails.objective}}
                                     </div>
-                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                       <div *ngFor="let item of expectedResult">  
-                                       <mat-form-field class="full-wid mrgn-b-lg">
-                           
-                                          <input   matInput   placeholder="Expected Result" [readonly]="!editable" >
-                                          {{item.result}}
-                                    
-                                    
-                                          </mat-form-field>
+                                    <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField" >
+                                          <h4>Expected Result</h4>
+                                       <div *ngFor="let item of expectedResult">
+                                          
+                                             {{item.result}}
+                                      
                                        </div> 
                                        </div>
-                                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                       <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField">
+                                          <h4>Guidelines</h4>
                                              <div *ngFor="let item of guidelineList">  
-                                                   <mat-form-field class="full-wid mrgn-b-lg">
-                                       
-                                                      <input   matInput   placeholder="Guidelines" [readonly]="!editable" >
-                                                      {{item.description}}
-                                                
-                                                
-                                                      </mat-form-field>
+                                                   {{item.description}}
+                                                   
                                                    </div> 
                                           </div>
-                                          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                                <mat-form-field class="full-wid mrgn-b-lg">
-                                                     
-                                            <textarea matInput placeholder="Audience" [readonly]="!editable" >
-         
-                                            </textarea> 
-                                                </mat-form-field>
+                                          
+
+                                          <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField">
+                                          
+                                                <h4>Audiences</h4>
+                                                <div *ngFor="let item of targetAudienceString">  
+                                                      {{item}}
+                                                      
+                                                      </div> 
+                                             
                                              </div>
+
+                                             <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField">
+
+                                                   <h4>No Of Hours</h4>
+                                             {{courseDetails.numberofhours}}
+                                            
+                                             </div>
+                                             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                   <mat-form-field class="full-wid mrgn-b-lg">
+                                                         <mat-select placeholder="Location" matInput >
+                                                               <mat-option  >
+                                                                     
+                                                             
+                                                               </mat-option>
+                                                            </mat-select>
+                                                   </mat-form-field>
+                                                </div>
 
                                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                              <mat-form-field>
@@ -129,15 +118,7 @@
                                                    <mat-datepicker #myDatepicker></mat-datepicker>
                                                 </mat-form-field>
                                                 </div>
-                                                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                                      <mat-form-field class="full-wid mrgn-b-lg">
-                                                           
-                                                            <input matInput placeholder="No Of Hours" [readonly]="!editable" >
-                                                            {{courseDetails.numberofhours}}
-                                                    
-                                             
-                                                      </mat-form-field>
-                                                   </div>
+                                                
                                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                          <mat-form-field class="full-wid mrgn-b-lg">
                                                                <mat-select placeholder="Prerequisites" matInput >

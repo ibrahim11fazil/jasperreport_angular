@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ITacCourseMasterList, ITacCourseList,TacCourseMaster, Course, ResponseTacCourseMaster } from '../../models/tac-course-master';
 import { TrainingGuidelines } from 'app/models/training-guidelines';
 import { ExpectedResults } from 'app/models/expected-results';
+import { ResponseTargetAudiences, TargetAudience } from 'app/models/target-audience';
+import { isNgTemplate } from '@angular/compiler';
  
 
 
@@ -22,6 +24,11 @@ export class CourseLinkComponent implements OnInit {
   guidelineList:TrainingGuidelines[]=[];
   expectedResult:ExpectedResults[]=[];
   courseDetails:TacCourseMaster;
+  displayCourseDetails:boolean=false;
+  targetAudiences:TargetAudience[]=[];
+  targetAudiencesResult:TargetAudience[]=[]
+  targetAudienceString:String[]=[]
+
 editable:true;
 public form: FormGroup;
   constructor(private fb: FormBuilder,
@@ -42,6 +49,7 @@ public form: FormGroup;
       activitySelect:[null, Validators.compose([Validators.required])],
       courseSelect:[null, Validators.compose([Validators.required])]
     });
+    
   }
 
   formSetup(){
@@ -67,6 +75,32 @@ public form: FormGroup;
         this.toastr.error(error.message)
       }
     )
+    this.trainingService.getAllCourseTargetGroups().subscribe(
+      data => {
+        var expectedResults = <ResponseTargetAudiences>data
+        this.targetAudiences=expectedResults.data
+        console.log(this.targetAudiences)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    ),
+    this.trainingService.getAllTacCourseLocation().subscribe(
+      data => {
+        var location = <ResponseTargetAudiences>data
+        this.targetAudiences=expectedResults.data
+        console.log(this.targetAudiences)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    ),
+
+
+
+    
 
 }
 
@@ -80,9 +114,26 @@ getCourseDetails(course)
       debugger;
       var response = <ResponseTacCourseMaster> data
       this.courseDetails=response.data
+      if(this.courseDetails!=null)
+      {
+        this.displayCourseDetails=true;
+      }
       this.expectedResult=this.courseDetails.tacCourseOutcomes;
       this.guidelineList=this.courseDetails.tacCourseGuidelineses;
+     this.targetAudiencesResult=this.courseDetails.tacCourseAudiences;
       console.log(this.courseDetails)
+      
+      console.log(this.targetAudiencesResult)
+
+      this.targetAudiencesResult.forEach(i => {
+        var item =  this.targetAudiences.filter(item => item.targetId==i.targetId)
+        if(item[0]!=null){
+          this.targetAudienceString.push(item[0].targentName)
+        }
+      })
+      console.log(this.targetAudienceString);
+      
+
     },
     error => {
       console.log(error)
