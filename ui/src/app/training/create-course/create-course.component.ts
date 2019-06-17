@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from "@angular/forms";
 import { CustomValidators } from "ng2-validation";
 import { TrainingService } from "../../service/training/training.service";
 import { ToastrService } from "ngx-toastr";
@@ -27,12 +27,11 @@ export class CreateCourseComponent implements OnInit {
   courseCategories:Categories[] = [];
   targetAudiences:TargetAudience[]=[]
   tacCourseMaster: TacCourseMaster;
- 
-  courseDurationFlag = [
-    { value: '1', viewValue: 'YEAR' },
-    { value: '2', viewValue: 'MONTH' },
-    { value: '3', viewValue: 'DAY' },
-    { value: '4', viewValue: 'HOUR' }
+  durationFlagList = [
+    { value: 1, viewValue: 'YEAR' },
+    { value: 2, viewValue: 'MONTH' },
+    { value: 3, viewValue: 'DAY' },
+    { value: 4, viewValue: 'HOUR' }
   ];
   param:any;
   public form: FormGroup;
@@ -67,7 +66,7 @@ export class CreateCourseComponent implements OnInit {
   formInit(){
     this.form = this.fb.group({
       courseName: [this.tacCourseMaster.courseName, Validators.compose([Validators.required])],
-      coursecourseDurationFlagSelect:[this.tacCourseMaster.durationFlag, Validators.compose([Validators.required])],
+      durationFlagControl:[null, Validators.compose([Validators.required])],
       duration: [this.tacCourseMaster.duration, Validators.compose([Validators.required])],
       objective:[this.tacCourseMaster.objective, Validators.compose([Validators.required])],
       description: [null, Validators.compose([Validators.required])],
@@ -109,6 +108,10 @@ export class CreateCourseComponent implements OnInit {
     return <FormArray>this.form.get(name);
   }
 
+  getControlOfFormItem(name): FormControl {
+    return <FormControl>this.form.get(name);
+  }
+
   patch() {
     const controlexpectedResults = this.getControlOfAddMore('expectedResultsOptions');
     this.tacCourseMaster.tacCourseOutcomes.forEach(x => {
@@ -124,6 +127,17 @@ export class CreateCourseComponent implements OnInit {
     this.tacCourseMaster.tacCourseAudiences.forEach(x => {
       controltargetAudienceOptions.push(this.patchValuesTragetAudience(x.targetId, x.targentName,x.audienceId))
     })
+
+    
+    var durationItemsArray = this.durationFlagList.filter(i => i.value==this.tacCourseMaster.durationFlag)
+    if(durationItemsArray[0]!=null){
+    this.form.controls['durationFlagControl'].patchValue(
+      durationItemsArray[0] 
+   )
+  }
+  
+
+
   }
 
   patchValues(outcomeId, result) {
@@ -211,6 +225,7 @@ export class CreateCourseComponent implements OnInit {
     courseMaster.tacCourseAudiences = this.tacCourseMaster.tacCourseAudiences
     courseMaster.courseId = this.tacCourseMaster.courseId
     courseMaster.objective =this.form.value.objective
+    courseMaster.durationFlag = this.form.value.durationFlagControl.value
     debugger
     console.log(JSON.stringify(courseMaster));
     this.trainingService.saveCourse(courseMaster).subscribe(
