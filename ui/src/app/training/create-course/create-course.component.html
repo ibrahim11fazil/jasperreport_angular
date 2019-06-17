@@ -29,9 +29,10 @@
 
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                      <mat-form-field class="full-wid mrgn-b-md">
-                        <mat-select placeholder="Duration Type" matInput formControlName="coursecourseDurationFlagSelect">
-                           <mat-option *ngFor="let item of courseDurationFlag" [value]="item.value">
-                              {{item.viewValue}}
+                        <mat-select placeholder="Duration Type" matInput formControlName="durationFlagControl">
+                           <mat-option *ngFor="let durationFlag of durationFlagList" 
+                                       [value]="durationFlag">
+                              {{durationFlag.viewValue}}
                            </mat-option>
                         </mat-select>
                      </mat-form-field>
@@ -49,8 +50,11 @@
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
                      <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect">
-                        <mat-option *ngFor="let item of courseCategories" [value]="item.categoryId">
-                           {{item.description}}
+                        <option [ngValue]="null">Select Category</option>
+                        <mat-option 
+                         *ngFor="let courseCategoriesSelect of courseCategories"
+                         [value]="courseCategoriesSelect.categoryId">
+                           {{courseCategoriesSelect.description}}
                         </mat-option>
                      </mat-select>
                   </mat-form-field>
@@ -71,7 +75,6 @@
                   <div *ngFor="let ff of form.get('expectedResultsOptions').controls; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                       
                            <mat-form-field class="full-wid mrgn-b-lg">
                               <input matInput placeholder="Expected Result" formControlName="result">
                            </mat-form-field>
