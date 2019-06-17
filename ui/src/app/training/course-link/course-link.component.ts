@@ -5,6 +5,8 @@ import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { ITacCourseMasterList, ITacCourseList,TacCourseMaster, Course, ResponseTacCourseMaster } from '../../models/tac-course-master';
+import { TrainingGuidelines } from 'app/models/training-guidelines';
+import { ExpectedResults } from 'app/models/expected-results';
  
 
 
@@ -17,6 +19,8 @@ export class CourseLinkComponent implements OnInit {
 
   activityList:TacActivity[]=[];
   courseList:Course[]=[];
+  guidelineList:TrainingGuidelines[]=[];
+  expectedResult:ExpectedResults[]=[];
   courseDetails:TacCourseMaster;
 editable:true;
 public form: FormGroup;
@@ -76,6 +80,8 @@ getCourseDetails(course)
       debugger;
       var response = <ResponseTacCourseMaster> data
       this.courseDetails=response.data
+      this.expectedResult=this.courseDetails.tacCourseOutcomes;
+      this.guidelineList=this.courseDetails.tacCourseGuidelineses;
       console.log(this.courseDetails)
     },
     error => {
