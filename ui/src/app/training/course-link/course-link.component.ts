@@ -4,8 +4,8 @@ import { FormBuilder, Validators,FormGroup } from '@angular/forms';
 import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { ITacCourseMasterList, TacCourseMaster, Course, ResponseTacCourseMaster } from 'app/models/tac-course-master';
-import { ITacCourseList } from '../../models/tac-course-master';
+import { ITacCourseMasterList, ITacCourseList,TacCourseMaster, Course, ResponseTacCourseMaster } from '../../models/tac-course-master';
+ 
 
 
 @Component({
@@ -17,16 +17,20 @@ export class CourseLinkComponent implements OnInit {
 
   activityList:TacActivity[]=[];
   courseList:Course[]=[];
+  courseDetails:TacCourseMaster;
 editable:true;
 public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
+   
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.form = this.fb.group({
       activitySelect:[null, Validators.compose([Validators.required])],
+      courseSelect:[null, Validators.compose([Validators.required])],
+      courseDetails:[null, Validators.compose([Validators.required])],
     });
 
 
@@ -66,8 +70,10 @@ getCourseDetails(course)
   console.log(course.value);
   this.trainingService.getCourseById(courseMaster).subscribe(
     data => {
+      debugger;
       var response = <ResponseTacCourseMaster> data
-      console.log(response)
+      this.courseDetails=response.data
+      console.log(this.courseDetails)
     },
     error => {
       console.log(error)
