@@ -25,11 +25,13 @@ export class ActivityListComponent implements OnInit {
       this.searchText = message
       //console.log(searchText);
       let activity: TacActivity = { activityName: message, activityId: 0 }
+      if(message!=null){
       this.trainingService.listActivity(activity).subscribe(
         data => this.successSearch(data),
         error => this.errorWhileSearching(error)
       )
-    })
+    }})
+    
   }
 
   errorWhileSearching(error) {
