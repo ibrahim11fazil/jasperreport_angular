@@ -15,10 +15,7 @@ import qa.gov.customs.training.service.CourseService;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
@@ -41,7 +38,9 @@ public class CourseServiceImpl  implements CourseService {
 	 @Override
 	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
 	  	    Set<TacCourseAudience> targetedAudiences= course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
+		    Set<TacCourseGuidelines> tacCourseGuidelineses = course.getTacCourseGuidelineses()!=null? course.getTacCourseGuidelineses():null;
 		    course.setTacCourseAudiences(null);
+		    course.setTacCourseGuidelineses(null);
 	    	TacCourseMaster courseInserted=courseRepository.save(course);
 	    	if(!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences!=null){
 				targetedAudiences.forEach( item -> {
@@ -49,14 +48,17 @@ public class CourseServiceImpl  implements CourseService {
 					item.setTacCourseTargetGroup(courseTargetGroupRepository.findById(item.getTargetId()).get());
 					audienceRepository.save(item);
 				});
+				tacCourseGuidelineses.forEach(item ->{
+					item.setTacCourseMaster(courseInserted);
+					guidelineRepository.save(item);
+				});
+
 			}
 		     Set<TacCourseAudience>  audiences =  audienceRepository.findByCourseId(courseInserted.getCourseId());
 		     audiences.forEach(item -> {
 		     	item.setTargetId(item.getTacCourseTargetGroup().getTargetId());
 			 });
-	         Optional<TacCourseMaster> courseCreated= courseRepository.findById(courseInserted.getCourseId());
-	         courseCreated.get().setTacCourseAudiences(audiences);
-	         return courseCreated.get();
+	         return getCourseById(courseInserted).get();
 	 }
 
 	@Transactional
@@ -86,9 +88,33 @@ public class CourseServiceImpl  implements CourseService {
 
     @Override
     public Optional<TacCourseMaster> getCourseById(TacCourseMaster course) {
-    	Optional<TacCourseMaster> getCourse=null;
-    	getCourse=courseRepository.findById(course.getCourseId());
-        return getCourse;
+    	Optional<TacCourseMaster> courseSelected=null;
+		Set<TacCourseGuidelines> tacCourseGuidelineses = new HashSet<>();
+		Set<TacCourseAudience> tacCourseAudiences = new HashSet<>();
+		courseSelected=courseRepository.findById(course.getCourseId());
+		List<Object[]> objects=  guidelineRepository.findGuidelinesByCourseId(course.getCourseId());
+		if(courseSelected.isPresent() && objects!=null){
+			for (Object[] o :objects) {
+				TacCourseGuidelines guideline = new TacCourseGuidelines();
+				guideline.setGuidelineId((BigDecimal)o[0]);
+				guideline.setDescription((String)o[1]);
+				tacCourseGuidelineses.add(guideline);
+			}
+			courseSelected.get().setTacCourseGuidelineses(tacCourseGuidelineses);
+		}
+
+		List<Object[]> audiences= audienceRepository.findAudiencesByCourseId(course.getCourseId());
+		if(courseSelected.isPresent() && audiences!=null){
+			for (Object[] o :audiences) {
+				TacCourseAudience audience = new TacCourseAudience();
+				audience.setAudienceId((BigDecimal)o[0]);
+				audience.setTargetId((BigDecimal)o[1]);
+				tacCourseAudiences.add(audience);
+			}
+			courseSelected.get().setTacCourseAudiences(tacCourseAudiences);
+		}
+
+        return courseSelected;
     }
 
 	@Override

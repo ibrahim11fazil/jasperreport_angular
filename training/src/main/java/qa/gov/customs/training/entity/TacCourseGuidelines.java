@@ -50,6 +50,7 @@ public class TacCourseGuidelines implements java.io.Serializable {
 	public void setGuidelineId(BigDecimal guidelineId) {
 		this.guidelineId = guidelineId;
 	}
+
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID")
