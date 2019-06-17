@@ -22,16 +22,12 @@ export class ActivityListComponent implements OnInit {
 
   ngOnInit() {
     this.trainingService.currentActivitySearchMessage.subscribe(message => {
-      this.searchText = message
-      //console.log(searchText);
       let activity: TacActivity = { activityName: message, activityId: 0 }
-      if(message!=null){
       this.trainingService.listActivity(activity).subscribe(
-        data => this.successSearch(data),
+        data => this.successSearchActivity(data),
         error => this.errorWhileSearching(error)
       )
-    }})
-    
+    })
   }
 
   errorWhileSearching(error) {
@@ -39,11 +35,10 @@ export class ActivityListComponent implements OnInit {
     this.toastr.error(error.message)
   }
 
-  successSearch(data) {
-    console.log("success search");
+  successSearchActivity(data) {
     this.tData = true;
     debugger;
-    if (data.status == true) {
+    if (data.status) {
       this.rows = data.data;
     } else {
       this.rows = [];
@@ -64,7 +59,7 @@ export class ActivityListComponent implements OnInit {
     this.tData = false;
     let activity: TacActivity = { activityName: this.searchText, activityId: 0 }
     this.trainingService.listActivity(activity).subscribe(
-      data => this.successSearch(data),
+      data => this.successSearchActivity(data),
       error => this.errorWhileSearching(error)
     )
     this.toastr.success(data.message)

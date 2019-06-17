@@ -113,8 +113,7 @@ public class ActivityController {
     {
     	System.out.println("list activity");
     	List<TacActivity> activityList=null;
-    	if(activity.getActivityName()!=null)
-        {
+
     	activityList=activityService.searchActivityList(activity);
     	if(activityList!=null && !activityList.isEmpty()) {
     		
@@ -125,10 +124,9 @@ public class ActivityController {
     		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
             return response;
     	}
-		
-        }
-    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-        return response;
+
+    	//ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+        //return response;
     
     	
     }

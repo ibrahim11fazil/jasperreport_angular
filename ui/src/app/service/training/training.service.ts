@@ -23,7 +23,7 @@ export class TrainingService {
   }
 
   //Activity Listing event
-  private messageSource = new BehaviorSubject('default');
+  private messageSource = new BehaviorSubject("");
   currentActivitySearchMessage = this.messageSource.asObservable();
 
   changeActivitySearchMessage(message: string) {
