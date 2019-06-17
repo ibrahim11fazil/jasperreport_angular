@@ -9,6 +9,8 @@ import { TrainingGuidelines } from 'app/models/training-guidelines';
 import { ExpectedResults } from 'app/models/expected-results';
 import { ResponseTargetAudiences, TargetAudience } from 'app/models/target-audience';
 import { isNgTemplate } from '@angular/compiler';
+import { Location,ResponseLocation } from 'app/models/location';
+import { Prerequisites } from 'app/models/prerequisites';
  
 
 
@@ -26,10 +28,12 @@ export class CourseLinkComponent implements OnInit {
   courseDetails:TacCourseMaster;
   displayCourseDetails:boolean=false;
   targetAudiences:TargetAudience[]=[];
-  targetAudiencesResult:TargetAudience[]=[]
-  targetAudienceString:String[]=[]
-
+  targetAudiencesResult:TargetAudience[]=[];
+  targetAudienceString:String[]=[];
+  tacCourseLocation:Location[]=[];
+  tacCoursePrerequisites:Prerequisites[]=[];
 editable:true;
+
 public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
@@ -47,7 +51,10 @@ public form: FormGroup;
     this.courseDetails=courseMaster
     this.form = this.fb.group({
       activitySelect:[null, Validators.compose([Validators.required])],
-      courseSelect:[null, Validators.compose([Validators.required])]
+      courseSelect:[null, Validators.compose([Validators.required])],
+      locationSelect:[null, Validators.compose([Validators.required])],
+      prerequisitesSelect:[null, Validators.compose([Validators.required])]
+      
     });
     
   }
@@ -88,19 +95,15 @@ public form: FormGroup;
     ),
     this.trainingService.getAllTacCourseLocation().subscribe(
       data => {
-        var location = <ResponseTargetAudiences>data
-        this.targetAudiences=expectedResults.data
-        console.log(this.targetAudiences)
+        var location = <ResponseLocation>data
+        this.tacCourseLocation=location.data
+        console.log(this.tacCourseLocation)
       },
       error => {
         console.log(error)
         this.toastr.error(error.message)
       }
-    ),
-
-
-
-    
+    )
 
 }
 
