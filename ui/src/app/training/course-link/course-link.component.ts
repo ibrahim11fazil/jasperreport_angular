@@ -27,14 +27,17 @@ public form: FormGroup;
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.formInit()
+    this.formSetup()
+  }
+
+  formInit(){
+    let courseMaster=new TacCourseMaster(0,null,"",0,null,0,0,null,null,null)
+    this.courseDetails=courseMaster
     this.form = this.fb.group({
       activitySelect:[null, Validators.compose([Validators.required])],
-      courseSelect:[null, Validators.compose([Validators.required])],
-      courseDetails:[null, Validators.compose([Validators.required])],
+      courseSelect:[null, Validators.compose([Validators.required])]
     });
-
-
-    this.formSetup()
   }
 
   formSetup(){
