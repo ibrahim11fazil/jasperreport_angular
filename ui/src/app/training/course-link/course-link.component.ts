@@ -16,7 +16,7 @@ import { ITacCourseList } from '../../models/tac-course-master';
 export class CourseLinkComponent implements OnInit {
 
   activityList:TacActivity[]=[];
-  courseList:TacCourseMaster[]=[];
+  courseList:Course[]=[];
 editable:true;
 public form: FormGroup;
   constructor(private fb: FormBuilder,
@@ -47,7 +47,7 @@ public form: FormGroup;
     ),
     this.trainingService.getAllCourseList().subscribe(
       data => {
-        var response = <Course> data
+        var response = <ITacCourseList> data
         this.courseList=response.data
         console.log(response)
       },
