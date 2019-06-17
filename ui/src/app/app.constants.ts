@@ -1,7 +1,12 @@
 
 export const CONTENT_TYPE_FORM_URL_ENCODE="application/x-www-form-urlencoded"
 export const CONTENT_TYPE_JSON="application/json"
-
+export const DURATION_FLAG_LIST = [
+    { value: 1, viewValue: 'YEAR' },
+    { value: 2, viewValue: 'MONTH' },
+    { value: 3, viewValue: 'DAY' },
+    { value: 4, viewValue: 'HOUR' }
+];
 
 
 //export const BASE_URL = "http://localhost:9001"

@@ -11,7 +11,7 @@ import { ExpectedResults } from 'app/models/expected-results';
 import { Categories, ResponseCategories } from 'app/models/categories';
 import { TargetAudience, ResponseTargetAudiences } from 'app/models/target-audience';
 import { ActivatedRoute } from '@angular/router';
-
+import {DURATION_FLAG_LIST} from "../../app.constants";
 @Component({
   selector: 'ms-create-course',
   templateUrl: './create-course.component.html',
@@ -27,18 +27,14 @@ export class CreateCourseComponent implements OnInit {
   courseCategories:Categories[] = [];
   targetAudiences:TargetAudience[]=[]
   tacCourseMaster: TacCourseMaster;
-  durationFlagList = [
-    { value: 1, viewValue: 'YEAR' },
-    { value: 2, viewValue: 'MONTH' },
-    { value: 3, viewValue: 'DAY' },
-    { value: 4, viewValue: 'HOUR' }
-  ];
+  durationFlagList = DURATION_FLAG_LIST
   param:any;
   public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private pageTitleService: PageTitleService
   ) {
 
     this.tacCourseMaster =
@@ -57,6 +53,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pageTitleService.setTitle("COURSE DEFINITION");
     this.formInit()
     this.patch()
     this.formSetup()
