@@ -20,7 +20,9 @@ import { MatCardModule,
   MatSelectModule, 
   MatSlideToggleModule,
   MatDialog,
-  MatDialogModule
+  MatDialogModule,
+  MatRadioButton,
+  MatRadioModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
@@ -65,6 +67,7 @@ import { CreateInstructorComponent } from './create-instructor/create-instructor
     MatDatepickerModule,
     MatDialogModule,
     MatSelectModule,
+    MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,

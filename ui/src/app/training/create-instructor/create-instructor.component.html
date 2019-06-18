@@ -14,13 +14,15 @@
              <div fxLayout="column">
  
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                   <mat-form-field class="full-wid mrgn-b-lg">
-                      <input matInput placeholder="Instructor Type" formControlName="instructortype" required>
-                   </mat-form-field>
-                   
+                   <h5 class="mrgn-b-md">Instructor Type</h5>
+                   <mat-radio-group class="radio-group" formControlName="instructorType">
+                      <mat-radio-button value="1" class="radio-button">Employee</mat-radio-button>
+                      <mat-radio-button value="2" class="radio-button">External</mat-radio-button>
+                   </mat-radio-group>
+                  
                 </div>
  
-                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                
                    
                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                       <mat-form-field class="full-wid mrgn-b-md">
@@ -28,68 +30,62 @@
                       </mat-form-field>
                    </div>
  
-                  
- 
-                </div>
-
-                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                   
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="Organization" formControlName="organization">
                        </mat-form-field>
                     </div>
-                 </div>
+               
 
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                 
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="QID / Passport" formControlName="qidPassport">
                        </mat-form-field>
                     </div>
-                 </div>
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                 
+                
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="IBAN No" formControlName="ibanNo">
                        </mat-form-field>
                     </div>
-                 </div>
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                 
+                
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="Email" formControlName="email">
                        </mat-form-field>
                     </div>
-                 </div>
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                
+               
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="Subject" formControlName="subject">
                        </mat-form-field>
                     </div>
-                 </div>
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                
+               
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="Qualifications" formControlName="qualifications">
                        </mat-form-field>
                     </div>
-                 </div>
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                
+              
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="Photo" formControlName="photo">
                        </mat-form-field>
                     </div>
-                 </div>
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                
+                 
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
@@ -100,9 +96,9 @@
 
                    <div fxLayout="row" fxLayoutAlign="start">
                    <button mat-raised-button color="primary" (click)="onSubmit('createCourse')"  type="submit">Save
-                   </button>
-                </div>
-             </div>
+                   </button> 
+                  </div>
+             
           </form>
        </div>
     </mat-card>
