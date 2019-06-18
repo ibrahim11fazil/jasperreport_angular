@@ -317,9 +317,8 @@ var m =
       {state: 'create-course', name: 'Create Courses'},
       {state: 'search-course', name: 'Search Courses'},
       {state: 'course-link', name: 'Link Course'},
-      {state: 'activate-course', name: 'Activate Course'},
-      {state: 'create-instructor', name: 'Create Instructor'}
-
+      {state: 'activate-course', name: 'Activate Course'}
+      
     ]
   };
 
@@ -330,7 +329,7 @@ var m =
     type: 'sub',
     icon: 'book',
     children: [
-      {state: 'welcome', name: 'Welcome' },
+      {state: 'create-instructor', name: 'Create Instructor'}
 
     ]
   };

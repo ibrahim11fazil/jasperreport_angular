@@ -1,4 +1,4 @@
-package qa.gov.customs.employee;
+package qa.gov.custom.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,12 +7,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class EmployeeApplication {
+//@EnableSpringDataWebSupport
+@EnableDiscoveryClient
+//@ComponentScan(basePackages = {"qa.gov.customs.utils.config"})
+public class UserApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EmployeeApplication.class, args);
+        SpringApplication.run(UserApplication.class, args);
     }
 
 }

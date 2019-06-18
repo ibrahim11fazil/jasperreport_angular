@@ -1,6 +1,8 @@
 package qa.gov.customs.authentication.controller;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +15,10 @@ import qa.gov.customs.authentication.service.CustomUserDetailsService;
 import javax.validation.Valid;
 import java.security.Principal;
 
-@RestController
-@RequestMapping("/users")
+@RestController("/sso")
 public class UserController {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private CustomUserDetailsService userService;
 
@@ -25,9 +27,9 @@ public class UserController {
 		return principal;
 	}
 
-//	@PreAuthorize("#oauth2.hasScope('role_admin')")
-//	@RequestMapping(method = RequestMethod.POST)
-//	public void createUser(@Valid @RequestBody UserMaster user) {
-//		userService.create(user);
-//	}
+	@PreAuthorize("hasAnyAuthority('create_user_with_role')")
+	@RequestMapping(method = RequestMethod.POST,value = "create_user_with_role")
+	public void createUser(@Valid @RequestBody UserMaster user) {
+		logger.info("user===> "+ user.getEmail());
+	}
 }
