@@ -24,19 +24,16 @@ import java.util.Properties;
         import javax.mail.internet.MimeMultipart;
 
         import org.springframework.stereotype.Service;
+import qa.gov.customs.notification.model.EmailModel;
 
 
 @Service
 public class EmailService {
 
-    public void sendmail() throws AddressException, MessagingException, IOException {
+    public void testMail() throws AddressException, MessagingException, IOException {
         Properties props = new Properties();
-        // props.put("mail.smtp.auth", "false");
-        // props.put("mail.smtp.starttls.enable", "false");
         props.put("mail.smtp.host", "HQ-MAILSERV1.cpga.net.qa");
         props.put("mail.smtp.port", "25"); // 25
-
-        //("ci-test","C!test123");
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("ci-test", "C!test123");
@@ -46,21 +43,27 @@ public class EmailService {
         msg.setFrom(new InternetAddress("ci-test@customs.gov.qa", true));
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("sraj@customs.gov.qa"));
-        // msg.setFrom("ci-test@customs.gov.qa");
         msg.setSubject("Tutorials point email");
         msg.setContent("Tutorials point email", "text/html");
         msg.setSentDate(new Date());
+        Transport.send(msg);
+    }
 
-        //MimeBodyPart messageBodyPart = new MimeBodyPart();
-        //messageBodyPart.setContent("Test Email", "text/html");
-
-        //Multipart multipart = new MimeMultipart();
-        //multipart.addBodyPart(messageBodyPart);
-        //MimeBodyPart attachPart = new MimeBodyPart();
-
-        //attachPart.attachFile("/var/tmp/image19.png");
-        //multipart.addBodyPart(attachPart);
-        // msg.setContent(multipart);
+    public void sendmail(EmailModel model) throws AddressException, MessagingException, IOException {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "HQ-MAILSERV1.cpga.net.qa");
+        props.put("mail.smtp.port", "25"); // 25
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("ci-test", "C!test123");
+            }
+        });
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress("ci-test@customs.gov.qa", true));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(model.getToAddress()));
+        msg.setSubject(model.getEmailSubject());
+        msg.setContent(model.getEmailbody(), "text/html");
+        msg.setSentDate(new Date());
         Transport.send(msg);
     }
 
