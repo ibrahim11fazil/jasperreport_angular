@@ -10,7 +10,7 @@ import { ExpectedResults } from 'app/models/expected-results';
 import { ResponseTargetAudiences, TargetAudience } from 'app/models/target-audience';
 import { isNgTemplate } from '@angular/compiler';
 import { Location,ResponseLocation } from 'app/models/location';
-import { Prerequisites } from 'app/models/prerequisites';
+import { Prerequisites, ResponsePrerequisites } from 'app/models/prerequisites';
  
 
 
@@ -20,6 +20,10 @@ import { Prerequisites } from 'app/models/prerequisites';
   styleUrls: ['./course-link.component.scss']
 })
 export class CourseLinkComponent implements OnInit {
+  subCourse = [
+    {value: 0, viewValue: 'No'},
+    {value: 1, viewValue: 'Yes'},
+ ];
 
   activityList:TacActivity[]=[];
   courseList:Course[]=[];
@@ -80,7 +84,7 @@ public form: FormGroup;
         console.log(error)
         this.toastr.error(error.message)
       }
-    )
+    ),
     this.trainingService.getAllCourseTargetGroups().subscribe(
       data => {
         var expectedResults = <ResponseTargetAudiences>data
@@ -94,9 +98,25 @@ public form: FormGroup;
     ),
     this.trainingService.getAllTacCourseLocation().subscribe(
       data => {
+        
+        
         var location = <ResponseLocation>data
         this.tacCourseLocation=location.data
         console.log(this.tacCourseLocation)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    ),
+
+    this.trainingService.getAllCoursePrerequisites().subscribe(
+      data => {
+        debugger;
+      
+        var prerequisites = <ResponsePrerequisites>data
+        this.tacCoursePrerequisites=prerequisites.data
+        console.log(this.tacCoursePrerequisites)
       },
       error => {
         console.log(error)
