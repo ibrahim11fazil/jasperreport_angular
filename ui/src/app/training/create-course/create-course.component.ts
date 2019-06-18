@@ -124,7 +124,7 @@ export class CreateCourseComponent implements OnInit {
       controltargetAudienceOptions.push(this.patchValuesTragetAudience(x.targetId, x.targentName,x.audienceId))
     })
 
-    
+
     var durationItemsArray = this.durationFlagList.filter(i => i.value==this.tacCourseMaster.durationFlag)
     if(durationItemsArray[0]!=null){
     this.form.controls['durationFlagControl'].patchValue(
