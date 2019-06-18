@@ -32,13 +32,12 @@ export class CourseLinkComponent implements OnInit {
   targetAudienceString:String[]=[];
   tacCourseLocation:Location[]=[];
   tacCoursePrerequisites:Prerequisites[]=[];
-editable:true;
+  editable:true;
 
 public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
-   
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {

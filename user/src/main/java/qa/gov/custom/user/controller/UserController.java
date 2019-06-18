@@ -1,4 +1,4 @@
-package qa.gov.customs.authentication.controller;
+package qa.gov.custom.user.controller;
 
 
 import org.slf4j.Logger;
@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import qa.gov.customs.authentication.entity.UserMaster;
-import qa.gov.customs.authentication.service.CustomUserDetailsService;
+import qa.gov.custom.user.entity.UserMaster;
+import qa.gov.custom.user.service.CustomUserDetailsService;
+
 
 import javax.validation.Valid;
 import java.security.Principal;
 
-@RestController("/sso")
+@RestController
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
