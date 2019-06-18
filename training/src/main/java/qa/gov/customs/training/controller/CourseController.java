@@ -370,7 +370,9 @@ public class CourseController {
 	public ResponseType getAllCoursePrerequisites() {
 		List<TacCoursePrerequisites> prerequisites = null;
 		prerequisites = courseService.getAllCoursePrerequisites();
+		System.out.println("outside preerquisites");
 		if (prerequisites != null && !prerequisites.isEmpty()) {
+			System.out.println("inside preerquisites");
 
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, prerequisites);
 			return response;
@@ -383,11 +385,14 @@ public class CourseController {
 	public ResponseType getAllCourseLocation() {
 		List<TacCourseLocation> location = null;
 		location = courseService.getAllCourseLocation();
+
 		if (location != null && !location.isEmpty()) {
+			System.out.println("inside location not null");
 
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, location);
 			return response;
 		} else {
+			System.out.println("location null");
 			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
 			return response;
 		}
