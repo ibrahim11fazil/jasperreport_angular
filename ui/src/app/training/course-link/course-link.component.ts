@@ -81,7 +81,7 @@ public form: FormGroup;
         console.log(error)
         this.toastr.error(error.message)
       }
-    )
+    ),
     this.trainingService.getAllCourseTargetGroups().subscribe(
       data => {
         var expectedResults = <ResponseTargetAudiences>data
@@ -95,6 +95,8 @@ public form: FormGroup;
     ),
     this.trainingService.getAllTacCourseLocation().subscribe(
       data => {
+        debugger;
+        console.log("inside locTION")
         var location = <ResponseLocation>data
         this.tacCourseLocation=location.data
         console.log(this.tacCourseLocation)
