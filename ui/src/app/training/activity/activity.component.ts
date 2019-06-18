@@ -27,6 +27,7 @@ export class ActivityComponent implements OnInit {
     this.form = this.fb.group({
       activityName: [null, Validators.required],
     });
+    this.searchActivity()
   }
 
   onSubmit(buttonType): void {
@@ -62,6 +63,8 @@ export class ActivityComponent implements OnInit {
   searchActivity(){
     if(this.form.value.activityName!=null)
     this.trainingService.changeActivitySearchMessage(this.form.value.activityName)
+    else
+    this.trainingService.changeActivitySearchMessage("")
   }
 
 

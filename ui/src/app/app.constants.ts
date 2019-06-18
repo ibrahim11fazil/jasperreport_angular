@@ -35,3 +35,4 @@ export const GET_ALL_COURSE_CATEGORIES = BASE_URL + training +"/get-all-course-c
 export const GET_ALL_COURSE_TARGET = BASE_URL + training +"/get-all-course-target-groups"
 export const  GET_ALL_ACTIVITIES =BASE_URL + training +"/list-activity"
 export const  GET_ALL_COURSES=BASE_URL+training+"/list-courses"
+export const  GET_LOCATION=BASE_URL+training+"/get-all-courseLocation"

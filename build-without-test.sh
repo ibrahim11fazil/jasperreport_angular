@@ -19,9 +19,6 @@ mvn clean install -f training -DskipTests
 mvn clean install -f employee -DskipTests
 [ $? -eq 0 ] || exit 1
 
-mvn clean install -f maward -DskipTests
-[ $? -eq 0 ] || exit 1
-
 mvn clean install -f notification -DskipTests
 [ $? -eq 0 ] || exit 1
 

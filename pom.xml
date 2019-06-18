@@ -40,18 +40,14 @@
 
     <modules>
         <module>config</module>
-        <module>workflow</module>
-        <module>authentication</module>
         <module>registry</module>
         <module>gateway</module>
-        <module>training</module>
-        <module>account</module>
+        <module>authentication</module>
         <module>employee</module>
-        <module>maward</module>
         <module>notification</module>
         <module>fileupload</module>
-        <module>ldap</module>
         <module>workflow-camuda</module>
+        <module>training</module>
         <module>utils</module>
     </modules>
 
