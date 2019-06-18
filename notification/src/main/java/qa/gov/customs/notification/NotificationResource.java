@@ -42,7 +42,7 @@ public TokenStore tokenStore;
   @Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 	    //SET THE RESOURCE NAME IN THE DB
-		resources.resourceId("USER_ADMIN_RESOURCE").tokenStore(tokenStore);
+		resources.resourceId("NOTIFICATION_RESOURCE").tokenStore(tokenStore);
 	}
 
 

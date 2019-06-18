@@ -22,9 +22,16 @@ security:
 spring:
   application:
     name: fileupload
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 5KB
+      max-file-size: 25MB
+      max-request-size: 30MB
   main:
     allow-bean-definition-overriding: true
-
+file:
+  upload-dir: ./uploads
 
 server:
   port: 9021

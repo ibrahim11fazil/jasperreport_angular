@@ -32,6 +32,7 @@ import { ActivityListComponent } from './activity-list/activity-list.component';
 import { SearchCourseComponent, CourseActionDialog } from './search-course/search-course.component';
 import {CourseLinkComponent} from './course-link/course-link.component';
 import { ActivateCourseComponent } from './activate-course/activate-course.component';
+import { CreateInstructorComponent } from './create-instructor/create-instructor.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ActivateCourseComponent } from './activate-course/activate-course.compo
      SearchCourseComponent,
      CourseLinkComponent, 
      ActivateCourseComponent,
-     CourseActionDialog],
+     CourseActionDialog,
+     CreateInstructorComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,

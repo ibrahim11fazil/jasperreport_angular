@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "EMP_EMPLOYEE_MASTER", schema = "CUST_EMPLOYEE")
 public class EmpEmployeeMaster implements java.io.Serializable {
 
+	private String jobId;
 	private EmpEmployeeMasterId id;
 	private EmpPosition empPosition;
 	private EmpJob empJob;
@@ -72,8 +73,15 @@ public class EmpEmployeeMaster implements java.io.Serializable {
 		this.dateofbirth = dateofbirth;
 	}
 
-	@EmbeddedId
+	public String getJobId() {
+		return jobId;
+	}
 
+	public void setJobId(String jobId) {
+		this.jobId = jobId;
+	}
+
+	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "jobId", column = @Column(name = "JOB_ID", nullable = false, length = 20)),
 			@AttributeOverride(name = "verNo", column = @Column(name = "VER_NO", nullable = false, precision = 22, scale = 0)) })

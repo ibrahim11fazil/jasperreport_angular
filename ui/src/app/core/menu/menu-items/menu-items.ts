@@ -308,17 +308,84 @@ const MENUITEMS = [
 var m = 
   {
     state: 'training',
-    name: 'Training',
+    name: 'Course',
     type: 'sub',
     icon: 'book',
     children: [
-      {state: 'welcome', name: 'Welcome' },
+      {state: 'welcome', name: 'My Courses' },
       {state: 'activity', name: 'Activity' },
       {state: 'create-course', name: 'Create Courses'},
       {state: 'search-course', name: 'Search Courses'},
       {state: 'course-link', name: 'Link Course'},
-      {state: 'activate-course', name: 'Activate Course'}
+      {state: 'activate-course', name: 'Activate Course'},
+      {state: 'create-instructor', name: 'Create Instructor'}
 
+    ]
+  };
+
+  var m1 = 
+  {
+    state: 'training',
+    name: 'Instructor',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'welcome', name: 'Welcome' },
+
+    ]
+  };
+  var m2 = 
+  {
+    state: 'training',
+    name: 'Requests',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'welcome', name: 'Welcome' }
+    ]
+  };
+
+  var m3 = 
+  {
+    state: 'training',
+    name: 'Users',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'welcome', name: 'Welcome' }
+    ]
+  };
+
+  var m4 = 
+  {
+    state: 'training',
+    name: 'Job Card',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'welcome', name: 'Welcome' }
+    ]
+  };
+
+  var m5 = 
+  {
+    state: 'training',
+    name: 'Reports',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'welcome', name: 'Welcome' }
+    ]
+  };
+
+  var m6 = 
+  {
+    state: 'training',
+    name: 'Dashboard',
+    type: 'sub',
+    icon: 'book',
+    children: [
+      {state: 'welcome', name: 'Welcome' }
     ]
   };
 
@@ -337,7 +404,13 @@ export class MenuItems {
 
   update() {
     //TODO GET PERMISSIONS AND SET THE MENU
+    dynamicMenu.push(m6);
     dynamicMenu.push(m);
+    dynamicMenu.push(m1);
+    dynamicMenu.push(m2);
+    dynamicMenu.push(m3);
+    dynamicMenu.push(m4);
+    dynamicMenu.push(m5);
     dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
   }
 }

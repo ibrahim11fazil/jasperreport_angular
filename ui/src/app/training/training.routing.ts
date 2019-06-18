@@ -6,6 +6,7 @@ import {ActivityListComponent} from "./activity-list/activity-list.component";
 import { SearchCourseComponent } from './search-course/search-course.component';
 import {CourseLinkComponent} from './course-link/course-link.component';
 import {ActivateCourseComponent}from'./activate-course/activate-course.component';
+import { CreateInstructorComponent } from './create-instructor/create-instructor.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -44,6 +45,10 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'activate-course',
                 component: ActivateCourseComponent
+            },
+            {
+                path: 'create-instructor',
+                component: CreateInstructorComponent
             }
 
         ]
