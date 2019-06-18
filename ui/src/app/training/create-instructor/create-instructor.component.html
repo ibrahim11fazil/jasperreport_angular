@@ -1,174 +1,109 @@
 <div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
-  <mat-card fxFlex="100%">
-     <div class="gene-card-title">
-        <div fxLayout="row" fxLayoutAlign="start center">
-           <div fxLayout="column">
-              <h4>Instructor Registration</h4>
-           </div>
-           <span fxFlex></span>
-        </div>
-        <mat-divider></mat-divider>
-     </div>
-     <div class="gene-card-content">
-        <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
-           <div fxLayout="column">
-
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                 <mat-form-field class="full-wid mrgn-b-lg">
-                    <input matInput placeholder=" Instructor Type" formControlName="instructorType" required>
-                 </mat-form-field>
-              </div>
-
-              <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                 
-                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                    <mat-form-field class="full-wid mrgn-b-md">
-                       <input matInput placeholder="Instructor Name" formControlName="instructorName">
-                    </mat-form-field>
-                 </div>
-
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center"></div>
-
-                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                    <mat-form-field class="full-wid mrgn-b-md">
-                       <mat-select placeholder="Duration Type" matInput formControlName="durationFlagControl">
-                          <mat-option *ngFor="let durationFlag of durationFlagList" 
-                                      [value]="durationFlag">
-                             {{durationFlag.viewValue}}
-                          </mat-option>
-                       </mat-select>
-                    </mat-form-field>
-                 </div>
-
-              </div>
-
-
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                 <mat-form-field class="full-wid mrgn-b-lg ">
-                    <input matInput placeholder="Objective" formControlName="objective">
-                 </mat-form-field>
-              </div>
-
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                 <mat-form-field class="full-wid mrgn-b-md">
-                    <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect">
-                       <option [ngValue]="null">Select Category</option>
-                       <mat-option *ngFor="let item of courseCategories"
-                        [value]="item">
-                          {{item.description}}
-                       </mat-option>
-                    </mat-select>
-                 </mat-form-field>
-              </div>
-
-              <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <h5>Expected Results</h5>
-                    </div>
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <button class="mrgn-all-xs" mat-icon-button (click)="addMoreExpectedResultsTextarea()" type="button">
-                                <mat-icon>add</mat-icon>
-                          </button>   
-                    </div>
-              </div> 
-
-              <div formArrayName="expectedResultsOptions">
-                 <div *ngFor="let ff of form.get('expectedResultsOptions').controls; let in=index" fxLayout="row wrap"
-                    fxLayoutAlign="space-between center">
-                    <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <mat-form-field class="full-wid mrgn-b-lg">
-                             <input matInput placeholder="Expected Result" formControlName="result">
-                          </mat-form-field>
-                       </div>
-
-                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <button class="mrgn-all-xs" mat-icon-button (click)="removeMoreExpectedResultsTextarea(in)"
-                             type="button">
-                             <mat-icon>delete</mat-icon>
-                          </button>
-                       </div>
-                    </div>
+    <mat-card fxFlex="100%">
+       <div class="gene-card-title">
+          <div fxLayout="row" fxLayoutAlign="start center">
+             <div fxLayout="column">
+                <h4>Instructor Registration</h4>
+             </div>
+             <span fxFlex></span>
+          </div>
+          <mat-divider></mat-divider>
+       </div>
+       <div class="gene-card-content">
+          <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+             <div fxLayout="column">
+ 
+                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                   <mat-form-field class="full-wid mrgn-b-lg">
+                      <input matInput placeholder="Instructor Type" formControlName="instructortype" required>
+                   </mat-form-field>
+                   
+                </div>
+ 
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                      <mat-form-field class="full-wid mrgn-b-md">
+                         <input matInput placeholder="Instructor Name" formControlName="instructorName">
+                      </mat-form-field>
+                   </div>
+ 
+                  
+ 
                 </div>
 
-              
-
-
-              <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <h5>Training Guidelines</h5>
-                    </div>
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <button class="mrgn-all-xs" mat-icon-button (click)="addMoreCourseGuideLinesTextarea()" type="button">
-                                <mat-icon>add</mat-icon>
-                          </button>   
-                    </div>
-              </div>  
-
-              <div formArrayName="tacCourseGuidelinesesOptions">
-                 <div *ngFor="let ff of form.get('tacCourseGuidelinesesOptions').controls; let in=index"
-                    fxLayout="row wrap" fxLayoutAlign="space-between center">
-                    <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                     
-                          <mat-form-field class="full-wid mrgn-b-lg">
-                             <input matInput placeholder="Course Guidelines" formControlName="description">
-                          </mat-form-field>
-                       </div>
-
-                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                          <button class="mrgn-all-xs" mat-icon-button (click)="removeMoreCourseGuideLinesTextarea(in)"
-                             type="button">
-                             <mat-icon>delete</mat-icon>
-                          </button>
-                       </div>
-                    </div>
-              </div>
-            
-
-
-                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                             <h5>Targeted Audiences</h5>
-                       </div>
-                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                             <button class="mrgn-all-xs" mat-icon-button (click)="addMoretargetAudienceTextarea()" type="button">
-                                   <mat-icon>add</mat-icon>
-                             </button>   
-                       </div>
-                 </div>  
-                 
-
-                 
-                 <div formArrayName="targetAudienceOptions">
-                    <div *ngFor="let ff of form.get('targetAudienceOptions').controls; let in=index"
-                       fxLayout="row wrap" fxLayoutAlign="space-between center">
-                       <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                <mat-select placeholder="Target Audience" matInput formControlName="targetId">
-                                      <mat-option *ngFor="let item of targetAudiences" [value]="item.targetId">
-                                         {{item.targentName}}
-                                      </mat-option>
-                                </mat-select>
-                       </div>
-                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                             <button class="mrgn-all-xs" mat-icon-button (click)="removeMoretargetAudienceTextarea(in)"
-                                type="button">
-                                <mat-icon>delete</mat-icon>
-                             </button>
-                       </div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="Organization" formControlName="organization">
+                       </mat-form-field>
                     </div>
                  </div>
-                 
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                 <mat-form-field class="full-wid mrgn-b-lg ">
-                    <input matInput placeholder="No of hours" formControlName="numberofhours">
-                 </mat-form-field>
-              </div>
 
-              <div fxLayout="row" fxLayoutAlign="start">
-                 <button mat-raised-button color="primary" (click)="onSubmit('createCourse')" type="submit">Save
-                 </button>
-              </div>
-           </div>
-        </form>
-     </div> 
-  </mat-card>
-</div>
+                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="QID / Passport" formControlName="qidPassport">
+                       </mat-form-field>
+                    </div>
+                 </div>
+                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="IBAN No" formControlName="ibanNo">
+                       </mat-form-field>
+                    </div>
+                 </div>
+                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="Email" formControlName="email">
+                       </mat-form-field>
+                    </div>
+                 </div>
+                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="Subject" formControlName="subject">
+                       </mat-form-field>
+                    </div>
+                 </div>
+                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="Qualifications" formControlName="qualifications">
+                       </mat-form-field>
+                    </div>
+                 </div>
+                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="Photo" formControlName="photo">
+                       </mat-form-field>
+                    </div>
+                 </div>
+                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                   
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                       <mat-form-field class="full-wid mrgn-b-md">
+                          <input matInput placeholder="Priority" formControlName="priority">
+                       </mat-form-field>
+                    </div>
+                 </div>
+
+                   <div fxLayout="row" fxLayoutAlign="start">
+                   <button mat-raised-button color="primary" (click)="onSubmit('createCourse')"  type="submit">Save
+                   </button>
+                </div>
+             </div>
+          </form>
+       </div>
+    </mat-card>
+ </div>
