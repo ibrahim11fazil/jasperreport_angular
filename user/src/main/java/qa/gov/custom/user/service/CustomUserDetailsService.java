@@ -6,8 +6,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
+import qa.gov.custom.user.repository.RoleRepository;
 import qa.gov.custom.user.repository.UserRepository;
+
+import java.util.List;
 
 
 @Service(value = "userDetailsService")
@@ -15,6 +19,7 @@ public class CustomUserDetailsService implements org.springframework.security.co
 
     @Autowired
     UserRepository userRepository;
+
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -25,4 +30,6 @@ public class CustomUserDetailsService implements org.springframework.security.co
         new AccountStatusUserDetailsChecker().check(user);
         return user;
     }
+
+
 }
