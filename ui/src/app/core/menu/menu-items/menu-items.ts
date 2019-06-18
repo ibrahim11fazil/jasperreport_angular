@@ -318,9 +318,7 @@ var m =
       {state: 'search-course', name: 'Search Courses'},
       {state: 'course-link', name: 'Link Course'},
       {state: 'activate-course', name: 'Activate Course'},
-<<<<<<< HEAD
       {state: 'create-instructor', name: 'Create Instructor'}
-=======
 
     ]
   };
@@ -357,7 +355,6 @@ var m =
       {state: 'welcome', name: 'Welcome' }
     ]
   };
->>>>>>> bd7846c3187854fe08dc2d1d8cf8a2f0e36c49d4
 
   var m4 = 
   {
