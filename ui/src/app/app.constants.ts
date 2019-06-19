@@ -16,13 +16,18 @@ export const BASE_URL = "http://localhost:9000"
 var gateway = true
 var authentication=""
 var training=""
+var user=""
 if(gateway){
     authentication="/authentication"
     training="/training"
-
+    user="/user"
 }
+
 //http://localhost:9000/authentication/oauth/token
+//AUTHENTICATION
 export const LOGIN_URL = BASE_URL + authentication +"/oauth/token"
+
+//TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
 export const LIST_ACTIVITY = BASE_URL + training + "/search-activity"
 export const DELETE_ACTIVITY = BASE_URL + training + "/remove-activity"
@@ -37,3 +42,6 @@ export const  GET_ALL_ACTIVITIES =BASE_URL + training +"/list-activity"
 export const  GET_ALL_COURSES=BASE_URL+training+"/list-courses"
 export const  GET_LOCATION=BASE_URL+training+"/get-all-courseLocation"
 export const   GET_PREREQUISITES=BASE_URL+training+"/get-all-course-prerequisites"
+
+//USER MANAGEMENT
+export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all_system_roles"
