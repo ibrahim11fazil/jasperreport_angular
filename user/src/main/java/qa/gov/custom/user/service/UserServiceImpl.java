@@ -9,6 +9,7 @@ import qa.gov.custom.user.repository.UserRepository;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> findAllRoles() {
-        return roleRepository.findAll();
+        List<Object[]> roleObjects = roleRepository.findallAllRolesWithIDAndName();
+        List<Role> roles=new ArrayList<>();
+        for (Object[] o :roleObjects) {
+            Role role = new Role();
+            role.setId(new BigInteger(o[0].toString()));
+            role.setName((String)o[1]);
+            role.setRemark((String)o[2]);
+            roles.add(role);
+        }
+        return roles;
     }
 
     @Override
@@ -33,6 +43,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserMaster createOrUpdateUser(UserMaster user) {
+        Optional<UserMaster> userExistCheck =  findUserById(user.getId());
+        if(userExistCheck.isPresent()){
+            if(user.getPassword().equals("") || user.getPassword()!=null) {
+                userExistCheck.get().setPassword(user.getPassword());
+            }
+            if(user.getRoles()!=null && user.getRoles().get(0).getId()!=null) {
+               Optional<Role> role =  roleRepository.findById(user.getRoles().get(0).getId());
+               if(role.isPresent()){
+                   List<Role> roles = new ArrayList<>();
+                   roles.add(role.get());
+                   userExistCheck.get().setRoles(roles);
+               }
+            }
+            if(user.getEnabled()!=null){
+                userExistCheck.get().setEnabled(user.getEnabled());
+            }
+            return userRepository.save(userExistCheck.get());
+        }
+        else {
+            // Get the Details from From Employee
+            //
+        }
         return userRepository.save(user);
     }
 

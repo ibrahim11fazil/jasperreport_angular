@@ -1,5 +1,6 @@
 package qa.gov.custom.user.entity;
 
+import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,8 @@ import java.util.*;
 @Table(name = "USER_MASTER")
 public class UserMaster implements UserDetails {
     static final long serialVersionUID = 1L;
+
+    @NotNull
     @Id
     @Column(name = "ID")
     private BigInteger id;
