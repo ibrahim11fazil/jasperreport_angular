@@ -60,7 +60,7 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
-    employee-service
+    employee-service:
       path: /employee/**
       serviceId: employee
       stripPrefix: true
