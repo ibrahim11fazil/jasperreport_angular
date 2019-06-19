@@ -27,6 +27,7 @@ export class CreateInstructorComponent implements OnInit {
   formInit()
   {
     this.form = this.fb.group({
+      jobId:[null, Validators.compose([Validators.required])],
       instructorType:[null, Validators.compose([Validators.required])],
       instructorName: [null, Validators.compose([Validators.required])],
       organization:[null, Validators.compose([Validators.required])],
