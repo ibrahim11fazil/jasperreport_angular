@@ -60,8 +60,8 @@ export class CreateCourseComponent implements OnInit {
   ngOnInit() {
     this.pageTitleService.setTitle("COURSE DEFINITION")
     this.formInit()
-    this.patch()
     this.formSetup()
+    this.patch()
     this.loadDataFromParam()
   }
 
@@ -80,6 +80,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   formSetup(){
+    
     this.trainingService.getAllCourseCategories().subscribe(
       data => {
         var response = <ResponseCategories> data
