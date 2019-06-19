@@ -1,8 +1,12 @@
-.mat-radio-button ~ .mat-radio-button {
+::ng-deep .mat-radio-button ~ .mat-radio-button {
     margin-left: 16px;
   }
 
- .mat-radio-label-content {
+::ng-deep .mat-radio-label-content {
     padding-right: 8px;
     padding-left: 13px !important;
+}
+
+::ng-deep .mat-radio-button {
+    margin-bottom: 20px;
 }
