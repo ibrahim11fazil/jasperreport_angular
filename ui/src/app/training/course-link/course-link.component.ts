@@ -64,7 +64,7 @@ public form: FormGroup;
         subcourseFlag:0,
         locationType:0,
         tacCourseDates:[],
-        tacActivities:[],
+        tacActivities:[]
 
       }
     }

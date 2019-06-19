@@ -5,15 +5,15 @@ import { TrainingGuidelines } from "./training-guidelines";
 import { TargetAudience } from "./target-audience";
 import { ExpectedResults } from "./expected-results";
 
-export interface TacCourseMasterLink  extends TacCourseMaster {
+export interface TacCourseMasterLink   {
 
      prerequisitesId:Number
-	 subcourseFlag:Number
+	subcourseFlag:Number
      locationType:Number
      tacActivities:TacActivity;
      tacCourseDates:Date[];
 
-
+     
 
    
 }
