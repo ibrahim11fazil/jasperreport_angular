@@ -81,9 +81,10 @@ public form: FormGroup;
       activitySelect:[null, Validators.compose([Validators.required])],
       courseSelect:[null, Validators.compose([Validators.required])],
       locationSelect:[null, Validators.compose([Validators.required])],
-      prerequisitesSelect:[null, Validators.compose([Validators.required])],
-      dateOptions:this.fb.array([]),
       subCourseSelect:[null, Validators.compose([Validators.required])],
+      prerequisitesSelect:[null, Validators.compose([Validators.required])],
+      dateOptions:this.fb.array([])
+      
       
     });
     
@@ -156,8 +157,9 @@ public form: FormGroup;
 getCourseDetails(course)
 {
  // debugger
-  let courseMaster=new TacCourseMaster(course.value,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
+  let courseMaster=new TacCourseMaster(course.value.courseId,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
   console.log(course.value);
+  debugger;
   this.trainingService.getCourseById(courseMaster).subscribe(
     data => {
       debugger;
@@ -226,6 +228,7 @@ courseMaster.subcourseFlag=this.form.value.subCourseSelect.value;
 
 let activity=new TacActivity("",0)
 activity.activityId=<Number>this.form.value.activitySelect.activityId;
+activity.activityName=<String>this.form.value.activitySelect.activityName;
 this.tacCourseMaster.tacActivities.push(activity);
 courseMaster.tacActivities=this.tacCourseMaster.tacActivities;
 
@@ -236,7 +239,7 @@ var tacCourseDates = <Date[]>dateOptions.value;
 this.tacCourseMaster.tacCourseDates = tacCourseDates;
 courseMaster.tacCourseDates=this.tacCourseMaster.tacCourseDates;
 
-this.trainingService.saveCourse(courseMaster).subscribe(
+this.trainingService.linkCourseWithActivity(courseMaster).subscribe(
   data => this.successSaveCourse(data),
   error => {
     console.log(error.message)

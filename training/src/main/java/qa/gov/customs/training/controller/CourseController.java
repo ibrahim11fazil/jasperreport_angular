@@ -194,6 +194,7 @@ public class CourseController {
 		TacCourseMaster linkCourse = null;
 		TacCourseMaster courselink = null;
 		Set<TacActivity> activities = new HashSet<TacActivity>();
+		Set<TacCourseDate> date = new HashSet<TacCourseDate>();
 		if (course.getCourseId() != new BigDecimal(0)) {
 			linkCourse = courseService.findById(course.getCourseId());
 			if (linkCourse != null) {
@@ -207,10 +208,22 @@ public class CourseController {
 							activities.add(activity);
 						}
 					}
+					for (TacCourseDate dates : course.getTacCourseDates() ){
+						logger.info("inside for loop");
+
+
+							date.add(dates);
+
+					}
+					if (date.size() > 0) {
+						linkCourse.setTacCourseDates(date);
+					}
+					}
 					if (activities.size() > 0) {
 						linkCourse.setTacActivities(activities);
+
 						courselink = courseService.linkCourseWithActivity(linkCourse);
-						ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courselink);
+						ResponseType response = new ResponseType(Constants.SUCCESS, "co", true, courselink);
 						return response;
 
 					}
@@ -226,10 +239,7 @@ public class CourseController {
 			return response;
 
 		}
-		ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
-		return response;
 
-	}
 
 	@PreAuthorize("hasAnyAuthority('search_course')")
 	@PostMapping("/search-course")
