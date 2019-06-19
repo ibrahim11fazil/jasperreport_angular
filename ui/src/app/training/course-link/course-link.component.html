@@ -149,7 +149,7 @@
                                                 
                                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                       <mat-form-field class="full-wid mrgn-b-lg">
-                                                      <mat-select placeholder="Prerequisites" matInput formControlName="subCourseSelect">
+                                                      <mat-select placeholder="Prerequisites" matInput formControlName="prerequisitesSelect">
                                                             <mat-option *ngFor="let item of tacCoursePrerequisites" [value]="item" >
                                                                   {{item.description}} 
                                                                    </mat-option>
@@ -159,7 +159,7 @@
                                                       </div>
                                                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                             <mat-form-field class="full-wid mrgn-b-lg">
-                                                                  <mat-select placeholder="SubCourses" matInput formControlName="prerequisitesSelect" >
+                                                                  <mat-select placeholder="SubCourses" matInput formControlName="subCourseSelect" >
                                                                         <mat-option *ngFor="let item of subCourse" [value]="item" >
                                                                               {{item.viewValue}} 
                                                                                </mat-option>
