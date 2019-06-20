@@ -16,13 +16,18 @@ export const BASE_URL = "http://localhost:9000"
 var gateway = true
 var authentication=""
 var training=""
+var user=""
 if(gateway){
     authentication="/authentication"
     training="/training"
-
+    user="/user"
 }
+
 //http://localhost:9000/authentication/oauth/token
+//AUTHENTICATION
 export const LOGIN_URL = BASE_URL + authentication +"/oauth/token"
+
+//TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
 export const LIST_ACTIVITY = BASE_URL + training + "/search-activity"
 export const DELETE_ACTIVITY = BASE_URL + training + "/remove-activity"
@@ -37,3 +42,11 @@ export const  GET_ALL_ACTIVITIES =BASE_URL + training +"/list-activity"
 export const  GET_ALL_COURSES=BASE_URL+training+"/list-courses"
 export const  GET_LOCATION=BASE_URL+training+"/get-all-courseLocation"
 export const   GET_PREREQUISITES=BASE_URL+training+"/get-all-course-prerequisites"
+export const  LINK_COURSE = BASE_URL + training + "/link-course-with-activity"
+//USER MANAGEMENT
+export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
+export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
+export const  FIND_ALL_SYSTEM_USERS=BASE_URL+user+"/find-all-system-users"
+export const  FIND_SYSTEM_USER_BYID=BASE_URL+user+"/find-system-user-by-id"
+export const  DISABLE_SYSTEM_USER=BASE_URL+user+"/disable-system-user"
+

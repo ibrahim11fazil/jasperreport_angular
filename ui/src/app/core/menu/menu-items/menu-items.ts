@@ -351,7 +351,8 @@ var m =
     type: 'sub',
     icon: 'book',
     children: [
-      {state: 'welcome', name: 'Welcome' }
+      {state: 'user-creation', name: 'New User'},
+      {state: 'user-search', name: 'Search User'}
     ]
   };
 

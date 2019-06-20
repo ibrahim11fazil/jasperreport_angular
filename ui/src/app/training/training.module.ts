@@ -35,6 +35,8 @@ import { SearchCourseComponent, CourseActionDialog } from './search-course/searc
 import {CourseLinkComponent} from './course-link/course-link.component';
 import { ActivateCourseComponent } from './activate-course/activate-course.component';
 import { CreateInstructorComponent } from './create-instructor/create-instructor.component';
+import { UserCreationComponent } from './user-creation/user-creation.component';
+import { UserSearchComponent } from './user-search/user-search.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { CreateInstructorComponent } from './create-instructor/create-instructor
      CourseLinkComponent, 
      ActivateCourseComponent,
      CourseActionDialog,
-     CreateInstructorComponent],
+     CreateInstructorComponent,
+     UserCreationComponent,
+     UserSearchComponent],
   imports: [
     CommonModule,
     FlexLayoutModule,

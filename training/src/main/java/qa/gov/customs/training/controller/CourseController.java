@@ -194,10 +194,15 @@ public class CourseController {
 		TacCourseMaster linkCourse = null;
 		TacCourseMaster courselink = null;
 		Set<TacActivity> activities = new HashSet<TacActivity>();
+		Set<TacCourseDate> date = new HashSet<TacCourseDate>();
 		if (course.getCourseId() != new BigDecimal(0)) {
 			linkCourse = courseService.findById(course.getCourseId());
 			if (linkCourse != null) {
 				logger.info("inside link course not null");
+				linkCourse.setPrerequisitesId(course.getPrerequisitesId());
+				linkCourse.setLocationType(course.getLocationType());
+				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
+
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
@@ -207,10 +212,24 @@ public class CourseController {
 							activities.add(activity);
 						}
 					}
+					for (TacCourseDate dates : course.getTacCourseDates() ){
+						logger.info("inside for loop");
+						dates.setTacCourseMaster(course);
+
+							date.add(dates);
+
+
+					}
+					if (date.size() > 0) {
+						linkCourse.setTacCourseDates(date);
+					}
+					}
 					if (activities.size() > 0) {
 						linkCourse.setTacActivities(activities);
+
 						courselink = courseService.linkCourseWithActivity(linkCourse);
-						ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courselink);
+						ResponseType response = new ResponseType(Constants.SUCCESS, "course linked with activity", true, courselink);
+
 						return response;
 
 					}
@@ -226,10 +245,7 @@ public class CourseController {
 			return response;
 
 		}
-		ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
-		return response;
 
-	}
 
 	@PreAuthorize("hasAnyAuthority('search_course')")
 	@PostMapping("/search-course")

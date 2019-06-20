@@ -27,8 +27,8 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	private String objective;
 	private BigDecimal numberofhours;
 	private BigDecimal activityId;
-	private String prerequisitesId;
-	private String subcourseFlag;
+	private BigDecimal prerequisitesId;
+	private BigDecimal subcourseFlag;
 	private BigDecimal locationType;
 	private String courseStatus;
 	//private String userCreated;
@@ -62,7 +62,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 
 	public TacCourseMaster(BigDecimal courseId, TacCourseCategory tacCourseCategory, String courseName,
 			BigDecimal duration, BigDecimal durationFlag, String objective, BigDecimal numberofhours,
-			BigDecimal activityId, String prerequisitesId, String subcourseFlag, BigDecimal locationType,
+			BigDecimal activityId, BigDecimal prerequisitesId, BigDecimal subcourseFlag, BigDecimal locationType,
 			String courseStatus, String userCreated, Date dateCreated, String userModified, Date dateModified,
 			String coordinatorJobId, Set<TacCoursePrerequisites> tacCoursePrerequisiteses,
 			Set<TacCourseGuidelines> tacCourseGuidelineses, Set<TacCourseActivation> tacCourseActivations,
@@ -197,20 +197,20 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	}
 
 	@Column(name = "PREREQUISITES_ID", length = 20)
-	public String getPrerequisitesId() {
+	public BigDecimal getPrerequisitesId() {
 		return this.prerequisitesId;
 	}
 
-	public void setPrerequisitesId(String prerequisitesId) {
+	public void setPrerequisitesId(BigDecimal prerequisitesId) {
 		this.prerequisitesId = prerequisitesId;
 	}
 
 	@Column(name = "SUBCOURSE_FLAG", length = 20)
-	public String getSubcourseFlag() {
+	public BigDecimal getSubcourseFlag() {
 		return this.subcourseFlag;
 	}
 
-	public void setSubcourseFlag(String subcourseFlag) {
+	public void setSubcourseFlag(BigDecimal subcourseFlag) {
 		this.subcourseFlag = subcourseFlag;
 	}
 

@@ -10,12 +10,12 @@
             <mat-divider></mat-divider>
          </div>
          <div class="gene-card-content">
-            <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+            <form [formGroup]="form" (ngSubmit)="linkCourseWithActivity()">
                 <div fxLayout="column">
                     <div  fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Activity Type" matInput formControlName="activitySelect">
-                                    <mat-option *ngFor="let item of activityList" [value]="item.activityId" >
+                                    <mat-option *ngFor="let item of activityList" [value]="item" >
                                           {{item.activityName}} 
                                            </mat-option>
                                  </mat-select>
@@ -25,7 +25,7 @@
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
                                  <mat-select (selectionChange)="getCourseDetails($event)" placeholder="Courses" matInput formControlName="courseSelect" >
-                                       <mat-option *ngFor="let item of courseList" [value]="item.courseId" >
+                                       <mat-option *ngFor="let item of courseList" [value]="item" >
                                       {{item.courseName}} 
                                        </mat-option>
                                     </mat-select>
@@ -104,7 +104,7 @@
                                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                 <mat-form-field class="full-wid mrgn-b-lg">
                                                       <mat-select placeholder="Location" matInput formControlName="locationSelect">
-                                                            <mat-option *ngFor="let item of tacCourseLocation" [value]="item.locationId" >
+                                                            <mat-option *ngFor="let item of tacCourseLocation" [value]="item" >
                                                                   {{item.locationName}} 
                                                                    </mat-option>
                                                          </mat-select>
@@ -112,18 +112,45 @@
                                                 </mat-form-field>
                                                 </div>
 
-                                             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                             <mat-form-field>
-                                                   <input matInput [matDatepicker]="myDatepicker" placeholder="Choose a date">
-                                                   <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-                                                   <mat-datepicker #myDatepicker></mat-datepicker>
-                                             </mat-form-field>
+                                            
+
+
+                                                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                            <h5>Course Date</h5>
+                                                      </div>
+                                                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                            <button class="mrgn-all-xs" mat-icon-button (click)="addMoreCourseDate()" type="button">
+                                                                  <mat-icon>add</mat-icon>
+                                                            </button>   
+                                                      </div>
+                                                </div>  
+                                 
+                                                <div formArrayName="dateOptions">
+                                                   <div *ngFor="let ff of form.get('dateOptions').controls; let in=index"
+                                                      fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                       
+                                                            <mat-form-field>
+                                                                  <input matInput [matDatepicker]="myDatepicker" placeholder="Choose a date" formControlName="courseDate">
+                                                                  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                                                                  <mat-datepicker #myDatepicker></mat-datepicker>
+                                                            </mat-form-field>
+                                                         </div>
+                                 
+                                                         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                                            <button class="mrgn-all-xs" mat-icon-button (click)="removeMoreCourseDate(in)"
+                                                               type="button">
+                                                               <mat-icon>delete</mat-icon>
+                                                            </button>
+                                                         </div>
+                                                      </div>
                                                 </div>
                                                 
                                                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                       <mat-form-field class="full-wid mrgn-b-lg">
                                                       <mat-select placeholder="Prerequisites" matInput formControlName="prerequisitesSelect">
-                                                            <mat-option *ngFor="let item of tacCoursePrerequisites" [value]="item.prerequisitesId" >
+                                                            <mat-option *ngFor="let item of tacCoursePrerequisites" [value]="item" >
                                                                   {{item.description}} 
                                                                    </mat-option>
                                                          </mat-select>
@@ -132,8 +159,8 @@
                                                       </div>
                                                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                                             <mat-form-field class="full-wid mrgn-b-lg">
-                                                                  <mat-select placeholder="SubCourses" matInput >
-                                                                        <mat-option *ngFor="let item of subCourse" [value]="item.value" >
+                                                                  <mat-select placeholder="SubCourses" matInput formControlName="subCourseSelect" >
+                                                                        <mat-option *ngFor="let item of subCourse" [value]="item" >
                                                                               {{item.viewValue}} 
                                                                                </mat-option>
                                                                      </mat-select>

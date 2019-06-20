@@ -15,6 +15,9 @@ public class Role {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "REMARK")
+    private String remark;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "PERMISSION_ROLE",joinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID")},
                inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID",referencedColumnName = "ID" )})
@@ -52,8 +55,13 @@ public class Role {
         return Objects.hash(id, name);
     }
 
+    public String getRemark() {
+        return remark;
+    }
 
-
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public List<Permission> getPermissions() {
         return permissions;

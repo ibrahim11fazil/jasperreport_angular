@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TacActivity, ITacActivityList } from 'app/models/tac-activity';
-import { FormBuilder, Validators,FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from "@angular/forms";
 import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,7 @@ import { ResponseTargetAudiences, TargetAudience } from 'app/models/target-audie
 import { isNgTemplate } from '@angular/compiler';
 import { Location,ResponseLocation } from 'app/models/location';
 import { Prerequisites, ResponsePrerequisites } from 'app/models/prerequisites';
+import { DURATION_FLAG_LIST } from 'app/app.constants';
  
 
 
@@ -36,13 +37,37 @@ export class CourseLinkComponent implements OnInit {
   targetAudienceString:String[]=[];
   tacCourseLocation:Location[]=[];
   tacCoursePrerequisites:Prerequisites[]=[];
-  editable:true;
+  tacCourseMaster: TacCourseMaster;
+  tacCourseDates:Date[]=[];
+  durationFlagList = DURATION_FLAG_LIST
+editable:true;
 
 public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute) { }
+   
+    private activatedRoute: ActivatedRoute) { 
+      this.tacCourseMaster =
+      {
+        courseId: 0,
+        tacCourseCategory: null,
+        courseName: "",
+        duration: 0,
+        objective: "",
+        numberofhours: 0,
+        durationFlag: 0,
+        tacCourseGuidelineses: [],
+        tacCourseAudiences: [],
+        tacCourseOutcomes: [],
+        prerequisitesId:0,
+        subcourseFlag:0,
+        locationType:0,
+        tacCourseDates:[],
+        tacActivities:[]
+
+      }
+    }
 
   ngOnInit() {
     this.formInit()
@@ -50,13 +75,16 @@ public form: FormGroup;
   }
 
   formInit(){
-    let courseMaster=new TacCourseMaster(0,null,"",0,null,0,0,null,null,null)
+    let courseMaster=new TacCourseMaster(0,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
     this.courseDetails=courseMaster
     this.form = this.fb.group({
       activitySelect:[null, Validators.compose([Validators.required])],
       courseSelect:[null, Validators.compose([Validators.required])],
       locationSelect:[null, Validators.compose([Validators.required])],
-      prerequisitesSelect:[null, Validators.compose([Validators.required])]
+      subCourseSelect:[null, Validators.compose([Validators.required])],
+      prerequisitesSelect:[null, Validators.compose([Validators.required])],
+      dateOptions:this.fb.array([])
+      
       
     });
     
@@ -129,8 +157,9 @@ public form: FormGroup;
 getCourseDetails(course)
 {
  // debugger
-  let courseMaster=new TacCourseMaster(course.value,null,"",0,null,0,0,null,null,null)
+  let courseMaster=new TacCourseMaster(course.value.courseId,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
   console.log(course.value);
+  debugger;
   this.trainingService.getCourseById(courseMaster).subscribe(
     data => {
       debugger;
@@ -164,9 +193,72 @@ getCourseDetails(course)
   )
 }
 
+addMoreCourseDate() {
+  const control = this.getControlOfAddMore('dateOptions');
+  control.push(this.patchValues(0, ""))
+}
+
+removeMoreCourseDate(i) {
+  const control = this.getControlOfAddMore('dateOptions');
+  control.removeAt(i)
+}
+
+getControlOfAddMore(name): FormArray {
+  return <FormArray>this.form.get(name);
+}
+patchValues(dateId, courseDate) {
+  return this.fb.group({
+    dateId: [dateId],
+    courseDate: [courseDate]
+  })
+}
+
+linkCourseWithActivity()
+{
+  debugger;
+  if(this.form.valid){
+
+let courseMaster=new TacCourseMaster(0,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
+
+courseMaster.courseId=this.form.value.courseSelect.courseId;
+courseMaster.prerequisitesId=this.form.value.prerequisitesSelect.prerequisitesId;
+courseMaster.locationType=this.form.value.locationSelect.locationId;
+courseMaster.subcourseFlag=this.form.value.subCourseSelect.value;
+
+
+let activity=new TacActivity("",0)
+activity.activityId=<Number>this.form.value.activitySelect.activityId;
+activity.activityName=<String>this.form.value.activitySelect.activityName;
+this.tacCourseMaster.tacActivities.push(activity);
+courseMaster.tacActivities=this.tacCourseMaster.tacActivities;
 
 
 
+const dateOptions = this.getControlOfAddMore('dateOptions');
+var tacCourseDates = <Date[]>dateOptions.value;
+this.tacCourseMaster.tacCourseDates = tacCourseDates;
+courseMaster.tacCourseDates=this.tacCourseMaster.tacCourseDates;
 
+this.trainingService.linkCourseWithActivity(courseMaster).subscribe(
+  data => this.successSaveCourse(data),
+  error => {
+    console.log(error.message)
+    this.toastr.error(error.message)
+  }
+)
+}else{
+  debugger
+  this.toastr.error("Please fill all required fields");
+}
+}
+
+successSaveCourse(data) {
+if (data.status == true) {
+  this.toastr.success(data.message)
+  this.form.reset()
+} else {
+  this.toastr.error(data.message)
+}
+}
 
 }

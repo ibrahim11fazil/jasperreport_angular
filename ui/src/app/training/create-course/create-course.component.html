@@ -24,13 +24,13 @@
                   
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                      <mat-form-field class="full-wid mrgn-b-md">
-                        <input matInput placeholder="Course Period" formControlName="duration">
+                        <input matInput placeholder="Course Period" formControlName="duration" required>
                      </mat-form-field>
                   </div>
 
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                      <mat-form-field class="full-wid mrgn-b-md">
-                        <mat-select placeholder="Duration Type" matInput formControlName="durationFlagControl">
+                        <mat-select placeholder="Duration Type" matInput formControlName="durationFlagControl" required>
                            <mat-option *ngFor="let durationFlag of durationFlagList" 
                                        [value]="durationFlag">
                               {{durationFlag.viewValue}}
@@ -44,13 +44,13 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg ">
-                     <input matInput placeholder="Objective" formControlName="objective">
+                     <input matInput placeholder="Objective" formControlName="objective" required>
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect">
+                     <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect" required>
                         <option [ngValue]="null">Select Category</option>
                         <mat-option *ngFor="let item of courseCategories"
                          [value]="item">

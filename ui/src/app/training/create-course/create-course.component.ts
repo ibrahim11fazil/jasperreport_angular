@@ -48,15 +48,20 @@ export class CreateCourseComponent implements OnInit {
         durationFlag: 0,
         tacCourseGuidelineses: [],
         tacCourseAudiences: [],
-        tacCourseOutcomes: []
+        tacCourseOutcomes: [],
+        prerequisitesId:0,
+        subcourseFlag:0,
+        locationType:0,
+        tacCourseDates:[],
+        tacActivities:[]
       }
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("COURSE DEFINITION")
     this.formInit()
-    this.patch()
     this.formSetup()
+    this.patch()
     this.loadDataFromParam()
   }
 
@@ -75,6 +80,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   formSetup(){
+    
     this.trainingService.getAllCourseCategories().subscribe(
       data => {
         var response = <ResponseCategories> data
@@ -203,7 +209,7 @@ export class CreateCourseComponent implements OnInit {
 
   createCourse() {
     if(this.form.valid){
-    let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null)
+    let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null,0,0,0,null,null)
 
     const expectedResultsOptions = this.getControlOfAddMore('expectedResultsOptions');
     var expectedResults = <ExpectedResults[]>expectedResultsOptions.value
@@ -260,7 +266,7 @@ export class CreateCourseComponent implements OnInit {
      });  
       if(this.param!='' && this.param!=undefined){
         console.log(this.param);
-        let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null)
+        let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null,0,0,0,null,null)
         courseMaster.courseId= this.param
         this.trainingService.getCourseById(courseMaster).subscribe(
           data => this.loadData(data),

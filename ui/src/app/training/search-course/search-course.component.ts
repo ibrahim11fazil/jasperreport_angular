@@ -43,8 +43,22 @@ export class SearchCourseComponent implements OnInit {
   searchCourse() {
     this.searchText = this.form.value.courseName;
     let course: TacCourseMaster = {
-      courseId: 0, tacCourseCategory: null, courseName: this.form.value.courseName, duration: 0, objective: null, durationFlag: 0,
-      numberofhours: 0, tacCourseGuidelineses: null, tacCourseAudiences: null, tacCourseOutcomes: null
+       courseId: 0, 
+       tacCourseCategory: null,
+       courseName: this.form.value.courseName, 
+       duration: 0, 
+       objective: null, 
+       durationFlag: 0,
+       numberofhours: 0,
+       tacCourseGuidelineses: null, 
+       tacCourseAudiences: null, 
+       tacCourseOutcomes: null,
+       prerequisitesId:0,
+       subcourseFlag:0,
+       locationType:0,
+       tacCourseDates:null,
+       tacActivities:null
+       
     }
     this.trainingService.searchCourse(course).subscribe(
       data => this.successSearch(data),
@@ -118,7 +132,12 @@ export class SearchCourseComponent implements OnInit {
       numberofhours: 0,
       tacCourseGuidelineses: null,
       tacCourseAudiences: null,
-      tacCourseOutcomes: null
+      tacCourseOutcomes: null,
+      prerequisitesId:0,
+       subcourseFlag:0,
+       locationType:0,
+       tacCourseDates:null,
+       tacActivities:null
     }
     this.trainingService.searchCourse(course).subscribe(
       data => this.successSearch(data),
