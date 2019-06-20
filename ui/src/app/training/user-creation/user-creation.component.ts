@@ -67,7 +67,8 @@ export class UserCreationComponent implements OnInit {
       id:this.form.value.jobId,
       password:this.form.value.password,
       roleId:this.form.value.userRole.id,
-      enabled:Number(this.form.value.enabledUser)}
+      enabled:Number(this.form.value.enabledUser)
+    }
       
       this.userService.saveUser( this.systemUser).subscribe(
         data=>  {

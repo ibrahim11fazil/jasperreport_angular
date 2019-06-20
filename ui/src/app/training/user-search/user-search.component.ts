@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { ToastrService } from 'ngx-toastr';
-import { SystemUser, SystemUserResponse } from 'app/models/system-user';
+import { SystemUser, SystemUserResponse, SearchUser, ISystemUserResponseList } from 'app/models/system-user';
 import { Page } from "../../models/paged-data";
 @Component({
   selector: 'ms-user-search',
@@ -11,7 +11,7 @@ import { Page } from "../../models/paged-data";
   styleUrls: ['./user-search.component.scss']
 })
 export class UserSearchComponent implements OnInit {
-  systemUser:SystemUserResponse
+  systemUser:SystemUser
   form:FormGroup
   page = new Page();
   rows = new Array<SystemUserResponse>();
@@ -34,12 +34,29 @@ export class UserSearchComponent implements OnInit {
 
   formInit(){
     this.form = this.fb.group({
-      searchControl:[null, Validators.compose([Validators.required])]
+      searchControl:[""]
     });
   }
 
   onSubmit(){
-
+    var searchString = new SearchUser () 
+    searchString.jobId=this.form.value.searchControl
+    searchString.start=0
+    searchString.limit=10
+    this.userService.listUsers(searchString).subscribe(
+      data=>  {
+        var response =  <ISystemUserResponseList>data
+        if(response.status){
+        this.rows =  response.data 
+        console.log(this.rows)
+        }
+        else{
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
+        }
+      },
+      error=>  this.toastr.error(error.message) 
+    )
   }
 
 }
