@@ -13,8 +13,9 @@ import { Page } from "../../models/paged-data";
 export class UserSearchComponent implements OnInit {
   systemUser:SystemUser
   form:FormGroup
-  page = new Page();
+  page = 0
   rows = new Array<SystemUserResponse>();
+  displayedColumns: string[] = ['id', 'fullName', 'username']; 
   constructor(
     private userService:SystemUserService,
     private fb:FormBuilder,
@@ -41,14 +42,16 @@ export class UserSearchComponent implements OnInit {
   onSubmit(){
     var searchString = new SearchUser () 
     searchString.jobId=this.form.value.searchControl
-    searchString.start=0
     searchString.limit=10
+    if(this.page==0)
+    searchString.start=0
+    else
+    searchString.start = (Number(searchString.limit) * this.page) + 1
     this.userService.listUsers(searchString).subscribe(
       data=>  {
         var response =  <ISystemUserResponseList>data
         if(response.status){
         this.rows =  response.data 
-        console.log(this.rows)
         }
         else{
           console.log(response.message)
@@ -58,5 +61,10 @@ export class UserSearchComponent implements OnInit {
       error=>  this.toastr.error(error.message) 
     )
   }
+
+  onScroll() {  
+    this.page = this.page + 1;  
+    this.onSubmit();  
+  }  
 
 }
