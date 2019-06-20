@@ -403,15 +403,38 @@ public class CourseController {
 		location = courseService.getAllCourseLocation();
 
 		if (location != null && !location.isEmpty()) {
-			System.out.println("inside location not null");
+
 
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, location);
 			return response;
 		} else {
-			System.out.println("location null");
+
 			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
 			return response;
 		}
+	}
+
+
+	@PreAuthorize("hasAnyAuthority('activate-course')")
+	@PostMapping("/activate-course")
+	public ResponseType activateCourse(@RequestBody TacCourseActivation courseActivation) {
+		TacCourseActivation activatedCourse=null;
+
+		if(courseActivation!=null)
+		{
+			activatedCourse=courseService.saveCourseActivation(courseActivation);
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, activatedCourse);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+
+		}
+
+
+
 	}
 
 }
