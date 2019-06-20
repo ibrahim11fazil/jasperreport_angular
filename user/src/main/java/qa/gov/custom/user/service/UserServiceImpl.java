@@ -66,7 +66,9 @@ public class UserServiceImpl implements UserService {
             if(user.getEnabled()!=null){
                 userExistCheck.get().setEnabled(user.getEnabled());
             }
-            return userRepository.save(userExistCheck.get());
+            UserMaster userI=  userRepository.save(userExistCheck.get());
+            userI.setPassword("");
+            return userI;
         }
         else {
             ObjectMapper mapper = new ObjectMapper();
@@ -95,7 +97,9 @@ public class UserServiceImpl implements UserService {
                     roleUserRepository.insertUserRole(user.getId(),user.getRoleId());
                 }
             }
-            return userRepository.findUserMasterByUsername(user.getUsername());
+            UserMaster userI=  userRepository.findUserMasterByUsername(user.getUsername());
+            userI.setPassword("");
+            return userI;
         }
     }
 
