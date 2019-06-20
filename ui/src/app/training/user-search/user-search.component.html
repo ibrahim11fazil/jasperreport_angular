@@ -1,3 +1,90 @@
-<p>
-  user-search works!
-</p>
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+    <mat-card fxFlex="100%">
+      <div class="gene-card-title">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div fxLayout="column">
+            <h4>Users</h4>
+          </div> <span fxFlex></span>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div class="gene-card-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+              <mat-form-field class="full-wid mrgn-b-md">
+                <input matInput placeholder="QID/JOBID" formControlName="searchControl">
+              </mat-form-field>
+              <small class="gene-block" *ngIf="form.controls['searchControl'].hasError('required') && form.controls['searchControl'].touched"
+                     class="warn-text">
+                Enter jobid or Qid for searching
+              </small>
+            </div>
+          </div>
+  
+          <div class="pad-wrap">
+            <div fxLayout="row" fxLayoutAlign="start">
+              <button mat-raised-button color="secondary"  type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="start" *ngIf="tData">
+      <div fxFlex="100">
+        <ngx-datatable #table
+                       class='material mrgn-all-md'
+                       [columns]="columns"
+                       [columnMode]="'force'"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="'auto'"
+                       [limit]="10"
+                       [rows]='rows'
+                       [count]="page.totalElements"
+                       [offset]="page.pageNumber"
+                       (page)='setPage($event)'
+                       >
+    
+          <ngx-datatable-column min-width="50px">
+            <ng-template ngx-datatable-header-template>
+              <span>JOBID</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.id}}
+            </ng-template>
+          </ngx-datatable-column>
+    
+          <ngx-datatable-column min-width="50px">
+            <ng-template ngx-datatable-header-template>
+              <span>Qatar ID</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.username}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column min-width="50px">
+              <ng-template ngx-datatable-header-template>
+                <span>User Name</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.fullName}}
+              </ng-template>
+            </ngx-datatable-column>
+    
+          <ngx-datatable-column min-width="50px" >
+            <ng-template ngx-datatable-header-template>
+              <span>Delete</span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+    
+              <button mat-raised-button color="primary" class="m-1" (click)="deleteRow(row)">Delete</button>
+      
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>

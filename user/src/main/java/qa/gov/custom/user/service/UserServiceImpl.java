@@ -3,6 +3,10 @@ package qa.gov.custom.user.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
@@ -48,7 +52,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserMaster> findAllUsers() {
-        return userRepository.findAll();
+        List<UserMaster> users= new ArrayList<>();
+                userRepository.findAll().forEach( item ->
+                        users.add(item)
+                );
+                return users;
+    }
+
+    @Override
+    public List<UserMaster> findAllByIdOrQID(String jobId, String qid, int start, int end) {
+        List<UserMaster> users =  new ArrayList<>();
+        Pageable pageable =
+                PageRequest.of(
+                        start, end, Sort.by("username"));
+        if(jobId=="" && qid==""){
+            Page<UserMaster>  pages = userRepository.findAll(pageable);
+            pages.forEach(item ->users.add(item));
+            return users;
+        }else {
+            return userRepository.findAllByUsernameContainingOrJobIdContaining(qid, jobId, pageable);
+        }
     }
 
     @Override

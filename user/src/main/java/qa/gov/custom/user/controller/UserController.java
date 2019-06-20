@@ -49,7 +49,6 @@ public class UserController {
 	@PreAuthorize("hasAnyAuthority('create_system_user')")
 	@RequestMapping(method = RequestMethod.POST,value = "create-system-user")
 	public ResponseType createUser(@Valid @RequestBody UserMaster user,@RequestHeader(name="Authorization") String token) {
-
 		ResponseType userdata = userProxyService.getUserById(user.getId().toString(),token);
 		if(userdata!=null && userdata.isStatus()){
 			UserMaster userMaster = userService.createOrUpdateUser(user,userdata.getData());
@@ -76,11 +75,22 @@ public class UserController {
 	//TODO need to add pagination
 	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
 	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-users")
-	public ResponseType findAllSystemUsers() {
+	public ResponseType findAllSystemUsers(@RequestBody  UserMaster user ) {
+		if(user.getJobId()==null)
+			user.setJobId("");
+		List<UserMaster> users = userService.findAllByIdOrQID(user.getJobId(),user.getJobId(),user.getStart(),user.getLimit());
 		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-				userService.findAllUsers());
+				users);
 		return response;
 	}
+
+//	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
+//	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-users")
+//	public ResponseType findAllSystemUsersByUserNameOrQID() {
+//		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+//				userService.findAllUsers());
+//		return response;
+//	}
 
 	@PreAuthorize("hasAnyAuthority('find_system_user_by_id')")
 	@RequestMapping(method = RequestMethod.POST,value = "find-system-user-by-id")

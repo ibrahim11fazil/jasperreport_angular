@@ -1,5 +1,6 @@
 package qa.gov.custom.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -103,6 +104,7 @@ public class UserMaster  {
 //        return null;
 //    }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -199,5 +201,27 @@ public class UserMaster  {
 
     public void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+
+    @Transient
+    int start;
+
+    @Transient
+    int limit;
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }
