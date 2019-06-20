@@ -1,17 +1,24 @@
 package qa.gov.custom.user.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
+import qa.gov.custom.user.proxy.EmpEmployeeMaster;
+import qa.gov.custom.user.proxy.EmpModel;
 import qa.gov.custom.user.repository.RoleRepository;
+import qa.gov.custom.user.repository.RoleUserRepository;
 import qa.gov.custom.user.repository.UserRepository;
+import qa.gov.custom.user.utils.UserUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,6 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleUserRepository roleUserRepository;
 
     @Override
     public List<Role> findAllRoles() {
@@ -42,19 +52,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserMaster createOrUpdateUser(UserMaster user) {
+    public UserMaster createOrUpdateUser(UserMaster user,Object object) {
         Optional<UserMaster> userExistCheck =  findUserById(user.getId());
         if(userExistCheck.isPresent()){
             if(user.getPassword().equals("") || user.getPassword()!=null) {
                 userExistCheck.get().setPassword(user.getPassword());
             }
-            if(user.getRoles()!=null && user.getRoles().get(0).getId()!=null) {
-               Optional<Role> role =  roleRepository.findById(user.getRoles().get(0).getId());
-               if(role.isPresent()){
-                   List<Role> roles = new ArrayList<>();
-                   roles.add(role.get());
-                   userExistCheck.get().setRoles(roles);
-               }
+            if(user.getRoleId()!=null) {
+               Optional<Role> role =  roleRepository.findById(user.getRoleId());
+               //TODO update the role
             }
             if(user.getEnabled()!=null){
                 userExistCheck.get().setEnabled(user.getEnabled());
@@ -63,9 +69,36 @@ public class UserServiceImpl implements UserService {
         }
         else {
             // Get the Details from From Employee
-            //
+            List<Role> roles = new ArrayList<>();
+            //EmpModel employee =  (EmpModel)object;
+            ObjectMapper mapper = new ObjectMapper();
+            EmpModel employee = mapper.convertValue(
+                    object,
+                    new TypeReference<EmpModel>() { });
+            String userName = employee.getJobId();
+            String email = employee.getEmail()!=null?employee.getEmail():"";
+            BigInteger id = new BigInteger(employee.getJobId());
+            String password =user.getPassword()!=null?UserUtils.getPasswordBCrypt(user.getPassword()):UserUtils.getRandomPassword(employee.getJobId());
+            if(employee.getQid()!=null){
+                userName=  employee.getQid();
+            }
+            user.setId(id);
+            user.setUsername(userName);
+            user.setPassword(password);
+            user.setAccountExpired(new BigInteger("0"));
+            user.setAccountLocked(new BigInteger("0"));
+            user.setEmail(email);
+            if(user.getRoleId()!=null) {
+                Optional<Role> role =  roleRepository.findById(user.getRoleId());
+
+            }
+            UserMaster userInserted =  userRepository.save(user);
+            if(userInserted!=null){
+                roleUserRepository.insertUserRole(user.getId(),user.getRoleId());
+            }
+            return userRepository.findUserMasterByUsername(user.getUsername());
+
         }
-        return userRepository.save(user);
     }
 
     @Override

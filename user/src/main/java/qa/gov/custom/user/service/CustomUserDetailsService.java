@@ -23,12 +23,13 @@ public class CustomUserDetailsService implements org.springframework.security.co
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserMaster user = userRepository.findUserMasterByUsername(userName);
-        if(user==null)
-            throw new BadCredentialsException("Bad credentials");
-
-        new AccountStatusUserDetailsChecker().check(user);
-        return user;
+//        UserMaster user = userRepository.findUserMasterByUsername(userName);
+//        if(user==null)
+//            throw new BadCredentialsException("Bad credentials");
+//
+//        new AccountStatusUserDetailsChecker().check(user);
+//        return user;
+        return null;
     }
 
 

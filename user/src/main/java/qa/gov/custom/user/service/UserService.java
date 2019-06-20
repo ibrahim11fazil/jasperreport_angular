@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserService {
      List<Role> findAllRoles();
      List<UserMaster> findAllUsers();
-     UserMaster createOrUpdateUser(UserMaster user);
+     UserMaster createOrUpdateUser(UserMaster user,Object object);
      BigDecimal disable(BigInteger jobId);
      BigDecimal enable(BigInteger jobId);
      Optional<UserMaster> findUserById(BigInteger jobId);

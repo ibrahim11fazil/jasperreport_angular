@@ -11,7 +11,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "USER_MASTER")
-public class UserMaster implements UserDetails {
+public class UserMaster  {
     static final long serialVersionUID = 1L;
 
     @NotNull
@@ -34,11 +34,13 @@ public class UserMaster implements UserDetails {
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
-    private List<Role> roles;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
+//            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
+//    private List<Role> roles;
 
+    @Transient
+    private BigInteger roleId;
 
     public BigInteger getId() {
         return id;
@@ -52,46 +54,51 @@ public class UserMaster implements UserDetails {
     public String getUsername() {
         return username;
     }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return !(this.accountExpired.intValue()!=0?true:false);
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return !(this.accountLocked.intValue()!=0?true:false);
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return !(this.credentialsExpired.intValue()!=0?true:false);
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.enabled.intValue()!=0?true:false;
-    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return !(this.accountExpired.intValue()!=0?true:false);
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return !(this.accountLocked.intValue()!=0?true:false);
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return !(this.credentialsExpired.intValue()!=0?true:false);
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return this.enabled.intValue()!=0?true:false;
+//    }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        roles.forEach(r->{
-            authorities.add(new SimpleGrantedAuthority(r.getName()));
-             r.getPermissions().forEach(p -> {
-                 authorities.add(new SimpleGrantedAuthority(p.getName()));
-             });
-        });
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        Set<GrantedAuthority> authorities = new HashSet<>();
+//        roles.forEach(r->{
+//            authorities.add(new SimpleGrantedAuthority(r.getName()));
+//             r.getPermissions().forEach(p -> {
+//                 authorities.add(new SimpleGrantedAuthority(p.getName()));
+//             });
+//        });
+//
+//        return authorities;
+//
+//        //return null;
+//    }
 
-        return authorities;
-
-        //return null;
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
 
     public String getPassword() {
         return password;
@@ -166,11 +173,20 @@ public class UserMaster implements UserDetails {
         return Objects.hash(id, username, password, email, enabled, accountExpired, credentialsExpired, accountLocked);
     }
 
-    public List<Role> getRoles() {
-        return roles;
+//    public List<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<Role> roles) {
+//        this.roles = roles;
+//    }
+
+
+    public BigInteger getRoleId() {
+        return roleId;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRoleId(BigInteger roleId) {
+        this.roleId = roleId;
     }
 }
