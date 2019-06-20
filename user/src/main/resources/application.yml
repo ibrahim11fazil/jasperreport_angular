@@ -33,6 +33,9 @@ spring:
     url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
     username: CUST_SSO
     password: s504tst123
+#    url: jdbc:oracle:thin:@//localhost:1521/xe
+#    username: raj
+#    password: s504tst123
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -77,4 +80,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
 debug: true

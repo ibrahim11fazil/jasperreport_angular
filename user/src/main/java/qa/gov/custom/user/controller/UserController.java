@@ -48,12 +48,19 @@ public class UserController {
 
 	@PreAuthorize("hasAnyAuthority('create_system_user')")
 	@RequestMapping(method = RequestMethod.POST,value = "create-system-user")
-	public ResponseType createUser(@Valid @RequestBody UserMaster user) {
-		logger.info("user===> "+ user.getId());
-		UserMaster userMaster = userService.createOrUpdateUser(user);
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
-				userMaster);
-		return response;
+	public ResponseType createUser(@Valid @RequestBody UserMaster user,@RequestHeader(name="Authorization") String token) {
+
+		ResponseType userdata = userProxyService.getUserById(user.getId().toString(),token);
+		if(userdata!=null && userdata.isStatus()){
+			UserMaster userMaster = userService.createOrUpdateUser(user,userdata.getData());
+			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+					userMaster);
+			return response;
+		}else{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+					null);
+			return response;
+		}
 	}
 
 
@@ -115,14 +122,16 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/testuser", method = RequestMethod.GET)
-	public void getUserTest(@RequestHeader(name="Authorization") String token) {
-		EmpEmployeeMaster user = new EmpEmployeeMaster();
-		user.setJobId("4077");
-		EmpEmployeeMaster userdata = userProxyService.getUserById(user.getJobId(),token);
-		logger.info(token);
-		logger.info(userdata.getEmail());
-
-	}
+//	@RequestMapping(value = "/testuser", method = RequestMethod.GET)
+//	public void getUserTest(@RequestHeader(name="Authorization") String token) {
+//		EmpEmployeeMaster user = new EmpEmployeeMaster();
+//		user.setJobId("4077");
+//		logger.info("Testing "+ token);
+//
+//		EmpEmployeeMaster userdata = userProxyService.getUserById(user.getJobId(),token);
+//		logger.info(token);
+//		logger.info(userdata.getEmail());
+//
+//	}
 
 }
