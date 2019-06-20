@@ -199,6 +199,10 @@ public class CourseController {
 			linkCourse = courseService.findById(course.getCourseId());
 			if (linkCourse != null) {
 				logger.info("inside link course not null");
+				linkCourse.setPrerequisitesId(course.getPrerequisitesId());
+				linkCourse.setLocationType(course.getLocationType());
+				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
+
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
@@ -210,9 +214,10 @@ public class CourseController {
 					}
 					for (TacCourseDate dates : course.getTacCourseDates() ){
 						logger.info("inside for loop");
-
+						dates.setTacCourseMaster(course);
 
 							date.add(dates);
+
 
 					}
 					if (date.size() > 0) {
@@ -223,7 +228,8 @@ public class CourseController {
 						linkCourse.setTacActivities(activities);
 
 						courselink = courseService.linkCourseWithActivity(linkCourse);
-						ResponseType response = new ResponseType(Constants.SUCCESS, "co", true, courselink);
+						ResponseType response = new ResponseType(Constants.SUCCESS, "course linked with activity", true, courselink);
+
 						return response;
 
 					}
