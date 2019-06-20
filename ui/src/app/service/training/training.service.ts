@@ -69,7 +69,6 @@ export class TrainingService {
   }
 
   linkCourseWithActivity(course: TacCourseMaster): Observable<Object> {
-    debugger;
     return this.httpClient.post(LINK_COURSE, course);
 }
 }
