@@ -38,6 +38,8 @@ public class CourseServiceImpl  implements CourseService {
 	LocationRepository locationRepo;
 	@Autowired
 	PrerequisitesRepository prerequisitesRepo;
+	@Autowired
+	ActivationRepository activationRepo;
 
 	 @Override
 	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -217,5 +219,11 @@ public class CourseServiceImpl  implements CourseService {
 		return locationList;
 	}
 
+     @Override
+	public TacCourseActivation saveCourseActivation(TacCourseActivation courseActivation)
+	{
+		TacCourseActivation course=activationRepo.save(courseActivation);
+		return course;
+	}
 
 }

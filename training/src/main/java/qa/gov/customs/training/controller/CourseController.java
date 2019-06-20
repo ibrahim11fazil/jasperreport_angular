@@ -199,6 +199,10 @@ public class CourseController {
 			linkCourse = courseService.findById(course.getCourseId());
 			if (linkCourse != null) {
 				logger.info("inside link course not null");
+				linkCourse.setPrerequisitesId(course.getPrerequisitesId());
+				linkCourse.setLocationType(course.getLocationType());
+				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
+
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
@@ -210,9 +214,10 @@ public class CourseController {
 					}
 					for (TacCourseDate dates : course.getTacCourseDates() ){
 						logger.info("inside for loop");
-
+						dates.setTacCourseMaster(course);
 
 							date.add(dates);
+
 
 					}
 					if (date.size() > 0) {
@@ -223,7 +228,8 @@ public class CourseController {
 						linkCourse.setTacActivities(activities);
 
 						courselink = courseService.linkCourseWithActivity(linkCourse);
-						ResponseType response = new ResponseType(Constants.SUCCESS, "co", true, courselink);
+						ResponseType response = new ResponseType(Constants.SUCCESS, "course linked with activity", true, courselink);
+
 						return response;
 
 					}
@@ -397,15 +403,38 @@ public class CourseController {
 		location = courseService.getAllCourseLocation();
 
 		if (location != null && !location.isEmpty()) {
-			System.out.println("inside location not null");
+
 
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, location);
 			return response;
 		} else {
-			System.out.println("location null");
+
 			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
 			return response;
 		}
+	}
+
+
+	@PreAuthorize("hasAnyAuthority('activate-course')")
+	@PostMapping("/activate-course")
+	public ResponseType activateCourse(@RequestBody TacCourseActivation courseActivation) {
+		TacCourseActivation activatedCourse=null;
+
+		if(courseActivation!=null)
+		{
+			activatedCourse=courseService.saveCourseActivation(courseActivation);
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, activatedCourse);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+
+		}
+
+
+
 	}
 
 }
