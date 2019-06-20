@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
             String userName = employee.getJobId();
             String email = employee.getEmail()!=null?employee.getEmail():"";
             BigInteger id = new BigInteger(employee.getJobId());
-            String password =user.getPassword()!=null?UserUtils.getPasswordBCrypt(user.getPassword()):UserUtils.getRandomPassword(employee.getJobId());
+            String password =user.getPassword()!=null?"{bcrypt}"+UserUtils.getPasswordBCrypt(user.getPassword()):"{bcrypt}"+UserUtils.getRandomPassword(employee.getJobId());
             if(employee.getQid()!=null){
                 userName=  employee.getQid();
             }
