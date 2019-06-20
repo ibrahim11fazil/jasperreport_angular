@@ -5,6 +5,12 @@ export class SystemUser {
     enabled:Number
 }
 
+export class SearchUser {
+    jobId:Number
+    start:Number
+	limit:Number
+}
+
 export class SystemUserResponse{
     id:Number
     password:String
