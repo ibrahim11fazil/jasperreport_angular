@@ -38,6 +38,7 @@ import { CreateInstructorComponent } from './create-instructor/create-instructor
 import { UserCreationComponent } from './user-creation/user-creation.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 
+
 @NgModule({
   declarations: [
     WelcomeComponent, 
@@ -50,7 +51,8 @@ import { UserSearchComponent } from './user-search/user-search.component';
      CourseActionDialog,
      CreateInstructorComponent,
      UserCreationComponent,
-     UserSearchComponent],
+     UserSearchComponent,
+     ],
   imports: [
     CommonModule,
     FlexLayoutModule,

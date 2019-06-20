@@ -415,7 +415,7 @@ public class CourseController {
 	}
 
 
-	@PreAuthorize("hasAnyAuthority('activate-course')")
+	@PreAuthorize("hasAnyAuthority('activate_course')")
 	@PostMapping("/activate-course")
 	public ResponseType activateCourse(@RequestBody TacCourseActivation courseActivation) {
 		TacCourseActivation activatedCourse=null;

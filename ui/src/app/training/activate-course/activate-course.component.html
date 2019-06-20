@@ -14,9 +14,10 @@
                 <div fxLayout="column">
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Course Name" matInput >
-                                    <mat-option  >
-                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                              <mat-select placeholder="Course Name" matInput formControlName="courseSelect" >
+                                    
+                                       <mat-option *ngFor="let item of courseList" [value]="item" >
+                                          {{item.courseName}} 
                                     </mat-option>
                                  </mat-select>
                         </mat-form-field>
