@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
+import { TrainingService } from '../../service/training/training.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'ms-create-instructor',
@@ -14,7 +17,9 @@ export class CreateInstructorComponent implements OnInit {
 
   constructor(
     private fb:FormBuilder,
-     private pageTitleService: PageTitleService){
+     private pageTitleService: PageTitleService,
+     private trainingService: TrainingService,
+     private toastr : ToastrService){
       this.pageTitleService.setTitle("Instructor Registration")
     this.formInit()
 
