@@ -55,12 +55,13 @@ public class UserServiceImpl implements UserService {
     public UserMaster createOrUpdateUser(UserMaster user,Object object) {
         Optional<UserMaster> userExistCheck =  findUserById(user.getId());
         if(userExistCheck.isPresent()){
-            if(user.getPassword().equals("") || user.getPassword()!=null) {
-                userExistCheck.get().setPassword(user.getPassword());
+            if(!user.getPassword().equals("") && user.getPassword()!=null) {
+                userExistCheck.get().setPassword("{bcrypt}"+UserUtils.getPasswordBCrypt(user.getPassword()));
             }
             if(user.getRoleId()!=null) {
                Optional<Role> role =  roleRepository.findById(user.getRoleId());
-               //TODO update the role
+               if(role.isPresent())
+                roleUserRepository.updateUserRole(user.getId(),user.getRoleId());
             }
             if(user.getEnabled()!=null){
                 userExistCheck.get().setEnabled(user.getEnabled());
@@ -68,9 +69,6 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(userExistCheck.get());
         }
         else {
-            // Get the Details from From Employee
-            List<Role> roles = new ArrayList<>();
-            //EmpModel employee =  (EmpModel)object;
             ObjectMapper mapper = new ObjectMapper();
             EmpModel employee = mapper.convertValue(
                     object,
@@ -83,21 +81,21 @@ public class UserServiceImpl implements UserService {
                 userName=  employee.getQid();
             }
             user.setId(id);
+            user.setJobId(id.toString());
             user.setUsername(userName);
             user.setPassword(password);
             user.setAccountExpired(new BigInteger("0"));
             user.setAccountLocked(new BigInteger("0"));
+            user.setCredentialsExpired(new BigInteger("0"));
             user.setEmail(email);
+            UserMaster userInserted =  userRepository.save(user);
             if(user.getRoleId()!=null) {
                 Optional<Role> role =  roleRepository.findById(user.getRoleId());
-
-            }
-            UserMaster userInserted =  userRepository.save(user);
-            if(userInserted!=null){
-                roleUserRepository.insertUserRole(user.getId(),user.getRoleId());
+                if(userInserted!=null && role.isPresent()){
+                    roleUserRepository.insertUserRole(user.getId(),user.getRoleId());
+                }
             }
             return userRepository.findUserMasterByUsername(user.getUsername());
-
         }
     }
 

@@ -39,6 +39,9 @@ public class UserMaster  {
 //            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
 //    private List<Role> roles;
 
+    @Column(name = "JOBID")
+    private String jobId;
+
     @Transient
     private BigInteger roleId;
 
@@ -188,5 +191,13 @@ public class UserMaster  {
 
     public void setRoleId(BigInteger roleId) {
         this.roleId = roleId;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 }
