@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
 
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, GET_TRAINING_ROOM } from "../../app.constants";
 
 import { BehaviorSubject } from 'rxjs';
 import { TacCourseMaster } from 'app/models/tac-course-master';
@@ -58,9 +58,11 @@ export class TrainingService {
   }
 
   getCourseById(course: TacCourseMaster): Observable<Object> {
+    debugger;
     return this.httpClient.post(GET_COURSE_BY_ID, course);
   }
   getAllTacCourseLocation(): Observable<Object> {
+    debugger;
     return this.httpClient.get(GET_LOCATION);
   }
 
@@ -70,5 +72,10 @@ export class TrainingService {
 
   linkCourseWithActivity(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(LINK_COURSE, course);
+}
+
+getCourseRoom(location:Location): Observable<Object> {
+  debugger;
+  return this.httpClient.post(GET_TRAINING_ROOM, location);
 }
 }

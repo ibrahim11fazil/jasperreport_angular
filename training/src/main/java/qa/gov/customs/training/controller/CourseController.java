@@ -437,4 +437,22 @@ public class CourseController {
 
 	}
 
-}
+
+
+	@PostMapping("/get-training-room")
+	public ResponseType getTrainingRoom(@RequestBody TacCourseLocation courseLocation) {
+		List<TacCourseRoom> courseRoom = null;
+
+		if (courseLocation != null) {
+			courseRoom = courseService.getCourseRoom(courseLocation);
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courseRoom);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+
+		}
+
+
+	}
+	}
