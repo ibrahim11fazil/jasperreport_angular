@@ -36,10 +36,11 @@ public class UserMaster  {
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
-//    private List<Role> roles;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
+    private List<Role> roles;
 
     @Column(name = "JOBID")
     private String jobId;
@@ -179,13 +180,13 @@ public class UserMaster  {
         return Objects.hash(id, username, password, email, enabled, accountExpired, credentialsExpired, accountLocked);
     }
 
-//    public List<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(List<Role> roles) {
-//        this.roles = roles;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
 
 

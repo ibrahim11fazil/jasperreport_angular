@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 import qa.gov.custom.user.proxy.EmpEmployeeMaster;
 import qa.gov.custom.user.proxy.UserProxyService;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,6 +84,36 @@ public class UserController {
 		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
 				users);
 		return response;
+	}
+
+	@PreAuthorize("hasAnyAuthority('find_all_system_users_by_role_id')")
+	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-users-by-role-role-id")
+	public ResponseType findAllSystemUsersByRole(@RequestBody  UserMaster user ) {
+		if(user.getRoleId()!=null) {
+			Optional<Role> role=  userService.findRoleById(user.getRoleId());
+			if(role.isPresent()) {
+				List<Role> roles = new ArrayList<>();
+				roles.add(role.get());
+				List<UserMaster> users = userService.findAllByRoles(roles);
+				if(users!=null && users.size()>0) {
+					ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+							users);
+					return response;
+				}else{
+					ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+							null);
+					return response;
+				}
+			}else{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+						null);
+				return response;
+			}
+		}else{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+					null);
+			return response;
+		}
 	}
 
 //	@PreAuthorize("hasAnyAuthority('find_all_system_users')")

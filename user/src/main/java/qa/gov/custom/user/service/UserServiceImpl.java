@@ -161,4 +161,15 @@ public class UserServiceImpl implements UserService {
         }
         return userMaster;
     }
+
+    @Override
+    public List<UserMaster> findAllByRoles(List<Role> roles) {
+       return userRepository.findAllByRoles(roles);
+    }
+
+
+    @Override
+    public Optional<Role> findRoleById(BigInteger roleId) {
+        return roleRepository.findById(roleId);
+    }
 }

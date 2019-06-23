@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
+import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 
 
@@ -27,4 +28,7 @@ public interface UserRepository extends PagingAndSortingRepository<UserMaster, B
 
 
     List<UserMaster> findAllByUsernameContainingOrJobIdContaining(String username,String jobId,Pageable pageable);
+
+
+    List<UserMaster> findAllByRoles(List<Role> roles);
 }
