@@ -41,6 +41,9 @@ public class CourseServiceImpl  implements CourseService {
 	@Autowired
 	ActivationRepository activationRepo;
 
+	@Autowired
+	CourseRoomRepository courseRoomRepo;
+
 	 @Override
 	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
 	  	    Set<TacCourseAudience> targetedAudiences= course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
@@ -224,6 +227,13 @@ public class CourseServiceImpl  implements CourseService {
 	{
 		TacCourseActivation course=activationRepo.save(courseActivation);
 		return course;
+	}
+
+	@Override
+	public List<TacCourseRoom> getCourseRoom(TacCourseLocation location)
+	{
+		List<TacCourseRoom> room=courseRoomRepo.findByLocationId(location.getLocationId());
+		return room;
 	}
 
 }

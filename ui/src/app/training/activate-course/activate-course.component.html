@@ -14,7 +14,7 @@
                 <div fxLayout="column">
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Course Name" matInput formControlName="courseSelect" >
+                              <mat-select (selectionChange)="getCourseDetails($event)" placeholder="Course Name" matInput formControlName="courseSelect" >
                                     
                                        <mat-option *ngFor="let item of courseList" [value]="item" >
                                           {{item.courseName}} 
@@ -22,13 +22,20 @@
                                  </mat-select>
                         </mat-form-field>
                      </div>
-
+<!-- 
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                              
                     <textarea matInput placeholder="Category" [readonly]="!editable" ></textarea> 
                         </mat-form-field>
-                     </div>
+                     </div> -->
+
+                     <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField">
+               
+                        <h4>Course Category</h4>
+                        {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}}  
+                      
+                        </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
                            <input matInput placeholder="Belongs To" >
@@ -36,26 +43,31 @@
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Course Date" matInput >
-                                    <mat-option  >
-                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                              <mat-select placeholder="Course Date" matInput formControlName="dateSelect" >
+                                    <mat-option *ngFor="let item of courseDate" [value]="item" >
+                                      {{item.courseDate}}
                                     </mat-option>
                                  </mat-select>
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Location" matInput >
-                                    <mat-option  >
-                                       <!-- {{item.description}} [value]="item.categoryId" -->
-                                    </mat-option>
+                              <mat-select (selectionChange)="getCourseRoomDetail($event)" placeholder="Location" matInput formControlName="locationSelect">
+                                    <mat-option *ngFor="let item of tacCourseLocation" [value]="item" >
+                                          {{item.locationName}} 
+                                           </mat-option>
                                  </mat-select>
+                           <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
                         </mat-form-field>
-                     </div>
+                        </div>
+
+         
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Training Hall" matInput >
-                                    <mat-option  >
+                              <mat-select placeholder="Training Hall" matInput formControlName="roomSelect" >
+                                    <mat-option  *ngFor="let item of roomDetails" [value]="item" >
+                                          {{item.roomName}}
+                                          
                                        <!-- {{item.description}} [value]="item.categoryId" -->
                                     </mat-option>
                                  </mat-select>

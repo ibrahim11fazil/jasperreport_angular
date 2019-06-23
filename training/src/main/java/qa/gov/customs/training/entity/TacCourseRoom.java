@@ -1,6 +1,8 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +57,7 @@ public class TacCourseRoom implements java.io.Serializable {
 	public void setRoomId(BigDecimal roomId) {
 		this.roomId = roomId;
 	}
-
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "LOCATION_ID")
 	public TacCourseLocation getTacCourseLocation() {
