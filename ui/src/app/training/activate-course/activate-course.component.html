@@ -36,11 +36,22 @@
                         {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}}  
                       
                         </div>
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                     <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
                            <input matInput placeholder="Belongs To" >
                         </mat-form-field>
-                     </div>
+                     </div> -->
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                           <mat-form-field class="full-wid mrgn-b-lg">
+                                 <mat-select (selectionChange)="getCourseRoomDetail($event)" placeholder="Location" matInput formControlName="locationSelect">
+                                       <mat-option *ngFor="let item of tacCourseLocation" [value]="item" >
+                                             {{item.locationName}} 
+                                              </mat-option>
+                                    </mat-select>
+                              <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+                           </mat-form-field>
+                           </div>
+   
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Course Date" matInput formControlName="dateSelect" >
