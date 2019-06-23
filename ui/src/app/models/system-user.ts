@@ -11,6 +11,10 @@ export class SearchUser {
 	limit:Number
 }
 
+export class SearchUserByRole {
+    roleId:Number
+}
+
 export class SystemUserResponse{
     id:Number
     password:String

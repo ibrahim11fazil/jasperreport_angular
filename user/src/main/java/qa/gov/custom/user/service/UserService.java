@@ -16,4 +16,6 @@ public interface UserService {
      BigDecimal disable(BigInteger jobId);
      BigDecimal enable(BigInteger jobId);
      Optional<UserMaster> findUserById(BigInteger jobId);
+     List<UserMaster> findAllByRoles(List<Role> roles);
+     Optional<Role> findRoleById(BigInteger roleId);
 }

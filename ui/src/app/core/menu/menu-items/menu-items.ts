@@ -389,6 +389,13 @@ var m =
     ]
   };
 
+  var m7 = {
+    state: 'ci-employees',
+    name: 'CI Employees',
+    type: 'link',
+    icon: 'grade'
+  }
+
 var dynamicMenu =[];
 
 @Injectable()
@@ -411,6 +418,7 @@ export class MenuItems {
     dynamicMenu.push(m3);
     dynamicMenu.push(m4);
     dynamicMenu.push(m5);
+    dynamicMenu.push(m7);
     dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
   }
 }
