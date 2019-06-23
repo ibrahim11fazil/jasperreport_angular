@@ -45,7 +45,7 @@ public class UserMaster  {
     private String jobId;
 
     @Transient
-    private BigDecimal roleId;
+    private BigInteger roleId;
 
     public BigInteger getId() {
         return id;
@@ -189,11 +189,11 @@ public class UserMaster  {
 
 
 
-    public BigDecimal getRoleId() {
+    public BigInteger getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(BigDecimal roleId) {
+    public void setRoleId(BigInteger roleId) {
         this.roleId = roleId;
     }
 

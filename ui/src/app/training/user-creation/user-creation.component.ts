@@ -26,8 +26,12 @@ export class UserCreationComponent implements OnInit {
     private toastr : ToastrService,
     private activatedRoute: ActivatedRoute,){
     this.pageTitleService.setTitle("User Creation") 
-    this.systemUser = {id:0,password:"",roleId:0,enabled:0}
+    this.blankUser()
     
+  }
+
+  blankUser(){
+    this.systemUser = {id:0,password:"",roleId:0,enabled:0}
   }
 
   ngOnInit() {
@@ -71,9 +75,6 @@ export class UserCreationComponent implements OnInit {
       roleId:this.form.value.userRole.id,
       enabled:Number(this.form.value.enabledUser)
     }
-
-    debugger
-      
       this.userService.saveUser( this.systemUser).subscribe(
         data=>  {
           debugger
@@ -81,6 +82,7 @@ export class UserCreationComponent implements OnInit {
           if(response.status){
           this.toastr.success(response.message.toString())
           this.form.reset()
+          this.blankUser()
           }
           else{
             this.toastr.error(response.message.toString())

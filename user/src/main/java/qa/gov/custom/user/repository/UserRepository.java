@@ -23,7 +23,7 @@ public interface UserRepository extends PagingAndSortingRepository<UserMaster, B
 
     @Modifying
     @Query(value="update USER_MASTER  set ENABLED=:flag   where ID=:userId",nativeQuery=true)
-    void enableOrDisableCourse(BigInteger userId , BigDecimal flag);
+    void enableOrDisableCourse(BigInteger userId , BigInteger flag);
 
 
     List<UserMaster> findAllByUsernameContainingOrJobIdContaining(String username,String jobId,Pageable pageable);

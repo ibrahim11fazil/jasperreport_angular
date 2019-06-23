@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface RoleRepository extends JpaRepository<Role, BigDecimal> {
+public interface RoleRepository extends JpaRepository<Role, BigInteger> {
 
     @Query(value="select ID,NAME,REMARK from ROLE ",nativeQuery=true)
     List<Object[]> findallAllRolesWithIDAndName();
