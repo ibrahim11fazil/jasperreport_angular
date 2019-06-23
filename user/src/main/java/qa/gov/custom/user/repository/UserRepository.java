@@ -22,10 +22,8 @@ public interface UserRepository extends PagingAndSortingRepository<UserMaster, B
     UserMaster findUserMasterByUsername(String userName);
 
     @Modifying
-    @Query(value="update USER_MASTER  set ACCOUNT_LOCKED=:flag   where ID=:userId",nativeQuery=true)
+    @Query(value="update USER_MASTER  set ENABLED=:flag   where ID=:userId",nativeQuery=true)
     void enableOrDisableCourse(BigInteger userId , BigDecimal flag);
-
-
 
 
     List<UserMaster> findAllByUsernameContainingOrJobIdContaining(String username,String jobId,Pageable pageable);

@@ -53,7 +53,8 @@ import {
   MatStepperModule,    
   MatTableModule,       
   MatToolbarModule  
-} from '@angular/material';   
+} from '@angular/material';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';   
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {
      CourseActionDialog,
      CreateInstructorComponent,
      UserCreationComponent,
-     UserSearchComponent],
+     UserSearchComponent,
+     FileUploaderComponent],
   imports: [
     InfiniteScrollModule,
     A11yModule,    

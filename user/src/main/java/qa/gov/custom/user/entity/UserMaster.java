@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -44,7 +45,7 @@ public class UserMaster  {
     private String jobId;
 
     @Transient
-    private BigInteger roleId;
+    private BigDecimal roleId;
 
     public BigInteger getId() {
         return id;
@@ -187,11 +188,12 @@ public class UserMaster  {
 //    }
 
 
-    public BigInteger getRoleId() {
+
+    public BigDecimal getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(BigInteger roleId) {
+    public void setRoleId(BigDecimal roleId) {
         this.roleId = roleId;
     }
 

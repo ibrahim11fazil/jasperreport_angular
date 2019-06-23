@@ -37,8 +37,10 @@
  
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    <mat-form-field class="full-wid mrgn-b-lg ">
-                      <input matInput type="password"  placeholder="password" formControlName="password" required>
+                      <input matInput type="password"  placeholder={{blankPassword}} formControlName="password" >
+                     
                    </mat-form-field>
+                
                 </div>
                 
 
@@ -49,6 +51,8 @@
                         <mat-radio-button value="0" class="radio-button">Disable</mat-radio-button>
                      </mat-radio-group>   
                 </div> 
+
+                <ms-file-uploader></ms-file-uploader>
 
                 <div fxLayout="row" fxLayoutAlign="start">
                    <button mat-raised-button color="primary"   type="submit">Save

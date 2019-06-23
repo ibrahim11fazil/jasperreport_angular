@@ -60,11 +60,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserMaster> findAllByIdOrQID(String jobId, String qid, int start, int end) {
+    public List<UserMaster> findAllByIdOrQID(String jobId, String qid, int page, int limit) {
         List<UserMaster> users =  new ArrayList<>();
         Pageable pageable =
                 PageRequest.of(
-                        start, end, Sort.by("username"));
+                        page, limit, Sort.by("id"));
         if(jobId=="" && qid==""){
             Page<UserMaster>  pages = userRepository.findAll(pageable);
             pages.forEach(item ->users.add(item));
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BigDecimal disable(BigInteger jobId) {
+    public BigDecimal enable(BigInteger jobId) {
         try {
             userRepository.enableOrDisableCourse(jobId, new BigDecimal(1));
             return new BigDecimal(1);
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BigDecimal enable(BigInteger jobId) {
+    public BigDecimal disable(BigInteger jobId) {
         try {
             userRepository.enableOrDisableCourse(jobId, new BigDecimal(0));
             return new BigDecimal(1);
@@ -152,6 +152,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserMaster> findUserById(BigInteger jobId) {
-        return userRepository.findById(jobId);
+
+        Optional<UserMaster> userMaster =  userRepository.findById(jobId);
+        List<Object[]>  objects =roleUserRepository.findRoleUserByUserId(jobId);
+        for (Object[] o :objects) {
+            userMaster.get().setRoleId((BigDecimal) o[2]);
+        }
+        return userMaster;
     }
 }

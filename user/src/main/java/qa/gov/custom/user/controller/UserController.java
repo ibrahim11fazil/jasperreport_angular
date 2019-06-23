@@ -99,7 +99,7 @@ public class UserController {
 		Optional<UserMaster> userUpdated =  userService.findUserById(user.getId());
 		if(userUpdated.isPresent()) {
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-					userService.findAllUsers());
+					userUpdated.get());
 			return response;
 		}else{
 			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
@@ -116,6 +116,28 @@ public class UserController {
 		Optional<UserMaster> userSelected =  userService.findUserById(user.getId());
 		if(userSelected.isPresent()) {
 			BigDecimal value = userService.disable(user.getId());
+			if(value.equals(new BigDecimal(1))) {
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+						userSelected.get());
+				return response;
+			}else{
+				ResponseType response = new ResponseType(Constants.SERVER_ERROR, MessageUtil.FAILED, false,
+						null);
+				return response;
+			}
+		}else{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+					null);
+			return response;
+		}
+	}
+
+	@PreAuthorize("hasAnyAuthority('enable_system_user')")
+	@RequestMapping(method = RequestMethod.POST,value = "enable-system-user")
+	public ResponseType enableUser(@Valid @RequestBody UserMaster user) {
+		Optional<UserMaster> userSelected =  userService.findUserById(user.getId());
+		if(userSelected.isPresent()) {
+			BigDecimal value = userService.enable(user.getId());
 			if(value.equals(new BigDecimal(1))) {
 				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
 						userSelected.get());

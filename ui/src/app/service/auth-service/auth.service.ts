@@ -76,7 +76,7 @@ export class AuthService {
       this.http.post(LOGIN_URL,body.toString(),options)
           .subscribe(
               response => {
-               console.log(response); 
+               //console.log(response); 
                this.setLocalUserProfile(response);
                this.toastr.success('Successfully Logged In!');
                this.router.navigate(['/']);

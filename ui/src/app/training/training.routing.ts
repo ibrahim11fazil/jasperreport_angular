@@ -57,6 +57,10 @@ export const TrainingRoutes: Routes = [
                 component: UserCreationComponent
             }, 
             {
+                path: 'user-creation/:id',
+                component: UserCreationComponent
+            },
+            {
                 path: 'user-search',
                 component: UserSearchComponent
             }

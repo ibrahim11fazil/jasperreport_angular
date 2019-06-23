@@ -8,13 +8,14 @@ import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
 
 @Repository
 @Transactional
-public interface RoleRepository extends JpaRepository<Role, BigInteger> {
+public interface RoleRepository extends JpaRepository<Role, BigDecimal> {
 
     @Query(value="select ID,NAME,REMARK from ROLE ",nativeQuery=true)
     List<Object[]> findallAllRolesWithIDAndName();

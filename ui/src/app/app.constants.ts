@@ -1,6 +1,7 @@
 
 export const CONTENT_TYPE_FORM_URL_ENCODE="application/x-www-form-urlencoded"
 export const CONTENT_TYPE_JSON="application/json"
+export const PAGE_LIMIT=10
 export const DURATION_FLAG_LIST = [
     { value: 1, viewValue: 'YEAR' },
     { value: 2, viewValue: 'MONTH' },
@@ -50,4 +51,5 @@ export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
 export const  GET_ALL_SYSTEM_USERS=BASE_URL+user+"/find-all-system-users"
 export const  FIND_SYSTEM_USER_BYID=BASE_URL+user+"/find-system-user-by-id"
 export const  DISABLE_SYSTEM_USER=BASE_URL+user+"/disable-system-user"
-
+export const  ENABLE_SYSTEM_USER=BASE_URL+user+"/enable-system-user"
+export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
