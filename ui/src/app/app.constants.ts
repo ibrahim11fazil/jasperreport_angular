@@ -47,6 +47,7 @@ export const  GET_ALL_COURSES=BASE_URL+training+"/list-courses"
 export const  GET_LOCATION=BASE_URL+training+"/get-all-courseLocation"
 export const   GET_PREREQUISITES=BASE_URL+training+"/get-all-course-prerequisites"
 export const  LINK_COURSE = BASE_URL + training + "/link-course-with-activity"
+export const  SAVE_INSTRUCTOR=BASE_URL+training+"/create-instructor"
 export const  GET_TRAINING_ROOM=BASE_URL+user+"/get-training-room"
 
 //USER MANAGEMENT

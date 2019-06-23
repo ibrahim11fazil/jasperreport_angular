@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { TrainingService } from '../../service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
+import { TacInstructor } from '../../models/tac-instructor';
+//import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
 @Component({
@@ -13,14 +15,15 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateInstructorComponent implements OnInit {
 
   form:FormGroup
-
-
+  tacInstructor:TacInstructor 
+  
   constructor(
     private fb:FormBuilder,
      private pageTitleService: PageTitleService,
      private trainingService: TrainingService,
      private toastr : ToastrService){
-      this.pageTitleService.setTitle("Instructor Registration")
+      this.pageTitleService.setTitle("Instructor Registration"),
+      this.tacInstructor={jobid:"",name:"",ibanno:"",qid:""}
     this.formInit()
 
    // this.formInit()
@@ -32,7 +35,6 @@ export class CreateInstructorComponent implements OnInit {
   formInit()
   {
     this.form = this.fb.group({
-      jobId:[null, Validators.compose([Validators.required])],
       instructorType:[null, Validators.compose([Validators.required])],
       instructorName: [null, Validators.compose([Validators.required])],
       organization:[null, Validators.compose([Validators.required])],
@@ -49,6 +51,52 @@ export class CreateInstructorComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(event){}
+  onSubmit(buttonType):void{
+    if (buttonType==="save") 
+    {this.saveInstructor()}
+    else if (buttonType==="search")
+    {this.searchInstructor()}
+  }
+
+
+  saveInstructor(){
+    this.tacInstructor={
+      jobid:this.form.value.jobId,
+      name:this.form.value.instructorName,
+      ibanno:this.form.value.ibanNo,
+      qid:this.form.value.qidPassport
+    }
+    this.trainingService.saveInstructor(this.tacInstructor).subscribe(
+        data=>this.successSaveInstructor(data),
+        error=>{
+          console.log(error)
+          this.toastr.error(error.message)
+        }
+    )
+  }
+  successSaveInstructor(data){
+    if(data.status==true){
+      this.toastr.success(data.message)
+      this.form.reset()
+    }else{
+      this.toastr.error(data.message)
+    }
+  }
+
+  searchInstructor(){
+    //if(this.form.value.instructorName!=null)
+    //this.trainingService.changeInstructorSearchMessage(this.form.value.instructorName)
+    //else
+   // this.trainingService.changeInstructorSearchMessage("")
+  }
+// code reference
+
+
+// Code reference
+
+
+
+
+
 
 }

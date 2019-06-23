@@ -101,7 +101,8 @@
                  </div>
 
                  <div fxLayout="row" fxLayoutAlign="start">
-                     <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [disabled]="!form.valid">Save</button>
+                    <!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
+                     <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">Save</button>
                      <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button>
                    </div>
              
