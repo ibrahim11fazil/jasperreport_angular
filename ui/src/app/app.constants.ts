@@ -56,6 +56,7 @@ export const  FIND_SYSTEM_USER_BYID=BASE_URL+user+"/find-system-user-by-id"
 export const  DISABLE_SYSTEM_USER=BASE_URL+user+"/disable-system-user"
 export const  ENABLE_SYSTEM_USER=BASE_URL+user+"/enable-system-user"
 export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
+export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
 
 
 //FILE UPLOADING
