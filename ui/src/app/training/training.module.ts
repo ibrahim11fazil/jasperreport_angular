@@ -56,6 +56,7 @@ import {
 } from '@angular/material';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';   
 
+
 @NgModule({
   declarations: [
     WelcomeComponent, 
@@ -69,7 +70,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
      CreateInstructorComponent,
      UserCreationComponent,
      UserSearchComponent,
-     FileUploaderComponent],
+     FileUploaderComponent,
+     ],
   imports: [
     InfiniteScrollModule,
     A11yModule,    
