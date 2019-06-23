@@ -60,11 +60,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserMaster> findAllByIdOrQID(String jobId, String qid, int start, int end) {
+    public List<UserMaster> findAllByIdOrQID(String jobId, String qid, int page, int limit) {
         List<UserMaster> users =  new ArrayList<>();
         Pageable pageable =
                 PageRequest.of(
-                        start, end, Sort.by("username"));
+                        page, limit, Sort.by("id"));
         if(jobId=="" && qid==""){
             Page<UserMaster>  pages = userRepository.findAll(pageable);
             pages.forEach(item ->users.add(item));
@@ -78,13 +78,14 @@ public class UserServiceImpl implements UserService {
     public UserMaster createOrUpdateUser(UserMaster user,Object object) {
         Optional<UserMaster> userExistCheck =  findUserById(user.getId());
         if(userExistCheck.isPresent()){
-            if(!user.getPassword().equals("") && user.getPassword()!=null) {
+            if(user.getPassword()!=null && !user.getPassword().equals("") ) {
                 userExistCheck.get().setPassword("{bcrypt}"+UserUtils.getPasswordBCrypt(user.getPassword()));
             }
             if(user.getRoleId()!=null) {
                Optional<Role> role =  roleRepository.findById(user.getRoleId());
-               if(role.isPresent())
-                roleUserRepository.updateUserRole(user.getId(),user.getRoleId());
+               if(role.isPresent()) {
+                   roleUserRepository.updateUserRole(user.getId(), user.getRoleId());
+               }
             }
             if(user.getEnabled()!=null){
                 userExistCheck.get().setEnabled(user.getEnabled());
@@ -127,9 +128,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BigDecimal disable(BigInteger jobId) {
+    public BigDecimal enable(BigInteger jobId) {
         try {
-            userRepository.enableOrDisableCourse(jobId, new BigDecimal(1));
+            userRepository.enableOrDisableCourse(jobId, new BigInteger("1"));
             return new BigDecimal(1);
         }catch (Exception e){
             e.printStackTrace();
@@ -139,9 +140,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BigDecimal enable(BigInteger jobId) {
+    public BigDecimal disable(BigInteger jobId) {
         try {
-            userRepository.enableOrDisableCourse(jobId, new BigDecimal(0));
+            userRepository.enableOrDisableCourse(jobId, new BigInteger("0"));
             return new BigDecimal(1);
         }catch (Exception e){
             e.printStackTrace();
@@ -152,6 +153,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserMaster> findUserById(BigInteger jobId) {
-        return userRepository.findById(jobId);
+
+        Optional<UserMaster> userMaster =  userRepository.findById(jobId);
+        List<Object[]>  objects =roleUserRepository.findRoleUserByUserId(jobId);
+        for (Object[] o :objects) {
+            userMaster.get().setRoleId(new BigInteger(o[2].toString()));
+        }
+        return userMaster;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -185,6 +186,7 @@ public class UserMaster  {
 //    public void setRoles(List<Role> roles) {
 //        this.roles = roles;
 //    }
+
 
 
     public BigInteger getRoleId() {
