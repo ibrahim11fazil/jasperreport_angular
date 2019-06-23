@@ -1,11 +1,13 @@
 package qa.gov.custom.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -34,10 +36,11 @@ public class UserMaster  {
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
-//    private List<Role> roles;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
+    private List<Role> roles;
 
     @Column(name = "JOBID")
     private String jobId;
@@ -103,6 +106,7 @@ public class UserMaster  {
 //        return null;
 //    }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -176,13 +180,14 @@ public class UserMaster  {
         return Objects.hash(id, username, password, email, enabled, accountExpired, credentialsExpired, accountLocked);
     }
 
-//    public List<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(List<Role> roles) {
-//        this.roles = roles;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
 
 
     public BigInteger getRoleId() {
@@ -199,5 +204,27 @@ public class UserMaster  {
 
     public void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+
+    @Transient
+    int start;
+
+    @Transient
+    int limit;
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }

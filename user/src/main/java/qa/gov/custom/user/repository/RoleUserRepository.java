@@ -8,7 +8,10 @@ import qa.gov.custom.user.entity.RoleUser;
 import qa.gov.custom.user.entity.UserMaster;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
+
 @Repository
 @Transactional
 public interface RoleUserRepository extends JpaRepository<RoleUser, BigInteger> {
@@ -22,4 +25,7 @@ public interface RoleUserRepository extends JpaRepository<RoleUser, BigInteger> 
     @Transactional
     @Query(value="update  ROLE_USER SET ROLE_ID=:roleId where USER_ID=:userId",nativeQuery=true)
     void updateUserRole(BigInteger userId , BigInteger roleId);
+
+    @Query(value="select ID,USER_ID,ROLE_ID from ROLE_USER  where USER_ID=:userId",nativeQuery=true)
+    List<Object[]>  findRoleUserByUserId( BigInteger userId);
 }

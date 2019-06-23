@@ -1,5 +1,7 @@
 package qa.gov.custom.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Role {
     @Column(name = "REMARK")
     private String remark;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "PERMISSION_ROLE",joinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID")},
                inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID",referencedColumnName = "ID" )})

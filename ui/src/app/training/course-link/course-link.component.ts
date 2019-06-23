@@ -30,6 +30,7 @@ export class CourseLinkComponent implements OnInit {
   courseList:Course[]=[];
   guidelineList:TrainingGuidelines[]=[];
   expectedResult:ExpectedResults[]=[];
+  dates:Date[]=[];
   courseDetails:TacCourseMaster;
   displayCourseDetails:boolean=false;
   targetAudiences:TargetAudience[]=[];
@@ -172,6 +173,7 @@ getCourseDetails(course)
       this.expectedResult=this.courseDetails.tacCourseOutcomes;
       this.guidelineList=this.courseDetails.tacCourseGuidelineses;
      this.targetAudiencesResult=this.courseDetails.tacCourseAudiences;
+     this.dates=this.courseDetails.tacCourseDates;
       console.log(this.courseDetails)
       
       console.log(this.targetAudiencesResult)
@@ -192,6 +194,8 @@ getCourseDetails(course)
     }
   )
 }
+
+
 
 addMoreCourseDate() {
   const control = this.getControlOfAddMore('dateOptions');

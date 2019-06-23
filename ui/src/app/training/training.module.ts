@@ -37,6 +37,26 @@ import { ActivateCourseComponent } from './activate-course/activate-course.compo
 import { CreateInstructorComponent } from './create-instructor/create-instructor.component';
 import { UserCreationComponent } from './user-creation/user-creation.component';
 import { UserSearchComponent } from './user-search/user-search.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import {A11yModule} from '@angular/cdk/a11y';    
+import {DragDropModule} from '@angular/cdk/drag-drop';    
+import {PortalModule} from '@angular/cdk/portal';    
+import {ScrollingModule} from '@angular/cdk/scrolling';    
+import {CdkStepperModule} from '@angular/cdk/stepper';    
+import {CdkTableModule} from '@angular/cdk/table';    
+import {CdkTreeModule} from '@angular/cdk/tree'; 
+
+import {    
+  MatProgressBarModule,    
+  MatSortModule,    
+  MatStepperModule,    
+  MatTableModule,       
+  MatToolbarModule  
+} from '@angular/material';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { CisSystemComponent } from './cis-system/cis-system.component';   
+
 
 @NgModule({
   declarations: [
@@ -50,8 +70,24 @@ import { UserSearchComponent } from './user-search/user-search.component';
      CourseActionDialog,
      CreateInstructorComponent,
      UserCreationComponent,
-     UserSearchComponent],
+     UserSearchComponent,
+     FileUploaderComponent,
+     CisSystemComponent,
+     ],
   imports: [
+    InfiniteScrollModule,
+    A11yModule,    
+    CdkStepperModule,    
+    CdkTableModule,    
+    CdkTreeModule,
+    PortalModule,    
+    ScrollingModule,
+    MatProgressBarModule,    
+    MatSortModule,    
+    MatStepperModule,    
+    MatTableModule,       
+    MatToolbarModule,      
+    DragDropModule,    
     CommonModule,
     FlexLayoutModule,
     MatCardModule,

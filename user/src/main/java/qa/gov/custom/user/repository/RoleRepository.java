@@ -8,6 +8,7 @@ import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 

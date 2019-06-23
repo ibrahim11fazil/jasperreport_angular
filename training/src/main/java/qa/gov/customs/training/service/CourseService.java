@@ -36,4 +36,7 @@ public interface CourseService {
     void createAudience(TacCourseAudience audience);
     List<TacCoursePrerequisites>   getAllCoursePrerequisites();
     List<TacCourseLocation>    getAllCourseLocation();
+
+    TacCourseActivation saveCourseActivation(TacCourseActivation courseActivation);
+    List<TacCourseRoom> getCourseRoom(TacCourseLocation location);
 }

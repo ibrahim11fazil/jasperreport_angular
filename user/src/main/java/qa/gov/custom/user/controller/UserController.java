@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 import qa.gov.custom.user.proxy.EmpEmployeeMaster;
 import qa.gov.custom.user.proxy.UserProxyService;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +51,6 @@ public class UserController {
 	@PreAuthorize("hasAnyAuthority('create_system_user')")
 	@RequestMapping(method = RequestMethod.POST,value = "create-system-user")
 	public ResponseType createUser(@Valid @RequestBody UserMaster user,@RequestHeader(name="Authorization") String token) {
-
 		ResponseType userdata = userProxyService.getUserById(user.getId().toString(),token);
 		if(userdata!=null && userdata.isStatus()){
 			UserMaster userMaster = userService.createOrUpdateUser(user,userdata.getData());
@@ -76,11 +77,52 @@ public class UserController {
 	//TODO need to add pagination
 	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
 	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-users")
-	public ResponseType findAllSystemUsers() {
+	public ResponseType findAllSystemUsers(@RequestBody  UserMaster user ) {
+		if(user.getJobId()==null)
+			user.setJobId("");
+		List<UserMaster> users = userService.findAllByIdOrQID(user.getJobId(),user.getJobId(),user.getStart(),user.getLimit());
 		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-				userService.findAllUsers());
+				users);
 		return response;
 	}
+
+	@PreAuthorize("hasAnyAuthority('find_all_system_users_by_role_id')")
+	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-users-by-role-role-id")
+	public ResponseType findAllSystemUsersByRole(@RequestBody  UserMaster user ) {
+		if(user.getRoleId()!=null) {
+			Optional<Role> role=  userService.findRoleById(user.getRoleId());
+			if(role.isPresent()) {
+				List<Role> roles = new ArrayList<>();
+				roles.add(role.get());
+				List<UserMaster> users = userService.findAllByRoles(roles);
+				if(users!=null && users.size()>0) {
+					ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+							users);
+					return response;
+				}else{
+					ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+							null);
+					return response;
+				}
+			}else{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+						null);
+				return response;
+			}
+		}else{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+					null);
+			return response;
+		}
+	}
+
+//	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
+//	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-users")
+//	public ResponseType findAllSystemUsersByUserNameOrQID() {
+//		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+//				userService.findAllUsers());
+//		return response;
+//	}
 
 	@PreAuthorize("hasAnyAuthority('find_system_user_by_id')")
 	@RequestMapping(method = RequestMethod.POST,value = "find-system-user-by-id")
@@ -89,7 +131,7 @@ public class UserController {
 		Optional<UserMaster> userUpdated =  userService.findUserById(user.getId());
 		if(userUpdated.isPresent()) {
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-					userService.findAllUsers());
+					userUpdated.get());
 			return response;
 		}else{
 			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
@@ -106,6 +148,28 @@ public class UserController {
 		Optional<UserMaster> userSelected =  userService.findUserById(user.getId());
 		if(userSelected.isPresent()) {
 			BigDecimal value = userService.disable(user.getId());
+			if(value.equals(new BigDecimal(1))) {
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+						userSelected.get());
+				return response;
+			}else{
+				ResponseType response = new ResponseType(Constants.SERVER_ERROR, MessageUtil.FAILED, false,
+						null);
+				return response;
+			}
+		}else{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+					null);
+			return response;
+		}
+	}
+
+	@PreAuthorize("hasAnyAuthority('enable_system_user')")
+	@RequestMapping(method = RequestMethod.POST,value = "enable-system-user")
+	public ResponseType enableUser(@Valid @RequestBody UserMaster user) {
+		Optional<UserMaster> userSelected =  userService.findUserById(user.getId());
+		if(userSelected.isPresent()) {
+			BigDecimal value = userService.enable(user.getId());
 			if(value.equals(new BigDecimal(1))) {
 				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
 						userSelected.get());

@@ -11,8 +11,11 @@ import java.util.Optional;
 public interface UserService {
      List<Role> findAllRoles();
      List<UserMaster> findAllUsers();
+     List<UserMaster> findAllByIdOrQID(String jobid,String qid,int start,int limit);
      UserMaster createOrUpdateUser(UserMaster user,Object object);
      BigDecimal disable(BigInteger jobId);
      BigDecimal enable(BigInteger jobId);
      Optional<UserMaster> findUserById(BigInteger jobId);
+     List<UserMaster> findAllByRoles(List<Role> roles);
+     Optional<Role> findRoleById(BigInteger roleId);
 }
