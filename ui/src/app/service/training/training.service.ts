@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR,GET_TRAINING_ROOM, UPLOAD_FILE } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR,GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES } from "../../app.constants";
 
 
 import { BehaviorSubject } from 'rxjs';
@@ -83,6 +83,14 @@ getCourseRoom(location:Location): Observable<Object> {
 saveInstructor(instructor: TacInstructor): Observable<Object> {
   return this.httpClient.post(SAVE_INSTRUCTOR, instructor);
 }
+
+getAllInstructor():Observable<Object> {
+  return this.httpClient.get(GET_INSTRUCTORS);
+}
+getAllMainCourses():Observable<Object> {
+  return this.httpClient.get(GET_MAIN_COURSES);
+}
+
 
 
   getFile(fileName): Observable<any> {

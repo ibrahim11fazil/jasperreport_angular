@@ -39,4 +39,5 @@ public interface CourseService {
 
     TacCourseActivation saveCourseActivation(TacCourseActivation courseActivation);
     List<TacCourseRoom> getCourseRoom(TacCourseLocation location);
+    List<Course> getAllMainCourse();
 }

@@ -43,9 +43,9 @@
                      </div> -->
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
-                                 <mat-select (selectionChange)="getCourseRoomDetail($event)" placeholder="Location" matInput formControlName="locationSelect">
-                                       <mat-option *ngFor="let item of tacCourseLocation" [value]="item" >
-                                             {{item.locationName}} 
+                                 <mat-select  placeholder="Belongs To" matInput formControlName="belongsSelect">
+                                       <mat-option *ngFor="let item of mainCourseList" [value]="item" >
+                                             {{item.courseName}} 
                                               </mat-option>
                                     </mat-select>
                               <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
@@ -84,21 +84,58 @@
                                  </mat-select>
                         </mat-form-field>
                      </div>
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+
+                     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                 <h5>Instructor</h5>
+                           </div>
+                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                 <button class="mrgn-all-xs" mat-icon-button (click)="addMoreInstructor()" type="button">
+                                       <mat-icon>add</mat-icon>
+                                 </button>   
+                           </div>
+                     </div> 
+                     <div formArrayName="instructorOptions">
+                           <div *ngFor="let ff of form.get('instructorOptions').controls; let in=index"
+                              fxLayout="row wrap" fxLayoutAlign="space-between center">
+                              <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                       <mat-select placeholder="Instructor" matInput formControlName="instructorSelect">
+                                             <mat-option *ngFor="let item of tacInstructor" [value]="item">
+                                                {{item.name}}
+                                             </mat-option>
+                                       </mat-select>
+                              </div>
+                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                    <button class="mrgn-all-xs" mat-icon-button (click)="removeMoreInstructor(in)"
+                                       type="button">
+                                       <mat-icon>delete</mat-icon>
+                                    </button>
+                              </div>
+                           </div>
+                        </div>
+
+                     <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Instructor" matInput >
-                                    <mat-option  >
-                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    <mat-option *ngFor="let item of tacInstructor" [value]="item" >
+                                          {{item.name}}
                                     </mat-option>
                                  </mat-select>
                         </mat-form-field>
-                     </div>
+                     </div> -->
+
+                   
+
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Training Co-ordinator" matInput formControlName="instructorSelect">
-                                    <mat-option  >
+                              <mat-select placeholder="Training Co-ordinator" matInput formControlName="userSelect">
+                                    <mat-option  *ngFor="let item of userList" [value]="item" >
+                                          {{item.username}}
+                                          
                                        <!-- {{item.description}} [value]="item.categoryId" -->
                                     </mat-option>
+                                       <!-- {{item.description}} [value]="item.categoryId" userList-->
+                                   
                                  </mat-select>
                         </mat-form-field>
                      </div>
