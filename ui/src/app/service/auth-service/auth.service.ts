@@ -146,7 +146,7 @@ export class AuthService {
         this.userData = JSON.parse(localStorage.getItem("userProfile"));
         if(this.userData) {
             var json = this.userData;
-            console.log(JSON.stringify(json));
+            //console.log(JSON.stringify(json));
             let body = JSON.parse(JSON.stringify(json));
             return body.access_token;
         } else {

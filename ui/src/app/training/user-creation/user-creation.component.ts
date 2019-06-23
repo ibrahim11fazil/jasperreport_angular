@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { SystemUserService } from 'app/service/user/system-user.service';
@@ -6,6 +6,7 @@ import { ISystemRoles, SystemRoles } from 'app/models/system-roles';
 import { ToastrService } from 'ngx-toastr';
 import { SystemUser, ISystemUserResponse } from 'app/models/system-user';
 import { ActivatedRoute } from '@angular/router';
+import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 
 @Component({
   selector: 'ms-user-creation',
@@ -19,6 +20,7 @@ export class UserCreationComponent implements OnInit {
   systemRoles:SystemRoles[]=[]
   systemUser:SystemUser
   blankPassword:String="Password"
+ // @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   constructor(
     private userService:SystemUserService,
     private fb:FormBuilder,

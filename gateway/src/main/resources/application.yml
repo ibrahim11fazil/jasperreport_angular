@@ -55,7 +55,7 @@ zuul:
       sensitiveHeaders:
 
     file-service:
-      path: /file/**
+      path: /fileupload/**
       serviceId: fileupload
       stripPrefix: true
       sensitiveHeaders:

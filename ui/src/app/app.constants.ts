@@ -18,10 +18,13 @@ var gateway = true
 var authentication=""
 var training=""
 var user=""
+var fileUploading=""
 if(gateway){
     authentication="/authentication"
     training="/training"
     user="/user"
+    fileUploading="/fileupload"
+
 }
 
 //http://localhost:9000/authentication/oauth/token
@@ -53,3 +56,9 @@ export const  FIND_SYSTEM_USER_BYID=BASE_URL+user+"/find-system-user-by-id"
 export const  DISABLE_SYSTEM_USER=BASE_URL+user+"/disable-system-user"
 export const  ENABLE_SYSTEM_USER=BASE_URL+user+"/enable-system-user"
 export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
+
+
+//FILE UPLOADING
+
+export const  UPLOAD_FILE   = BASE_URL+fileUploading+"/uploadFile"
+export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"

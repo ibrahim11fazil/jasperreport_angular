@@ -75,7 +75,6 @@ public class TacInstructorMaster implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "INSTRUCTOR_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_INSTRUCTOR_SEQ",allocationSize = 1)
