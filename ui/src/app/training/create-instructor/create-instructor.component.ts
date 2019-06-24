@@ -5,6 +5,7 @@ import { TrainingService } from '../../service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { TacInstructor, Subject, Qualifiacation, SubjectListResponse, QualifiacationListResponse } from '../../models/tac-instructor';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
+import { PRIORITY_LIST } from 'app/app.constants';
 //import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
@@ -18,7 +19,8 @@ export class CreateInstructorComponent implements OnInit {
   subjects:Subject[] =[]
   qualifications:Qualifiacation[] =[]
   form:FormGroup
-  tacInstructor:TacInstructor 
+  tacInstructor:TacInstructor
+  priorityList =PRIORITY_LIST 
   @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   constructor(
     private fb:FormBuilder,

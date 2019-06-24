@@ -16,6 +16,7 @@ public interface InstructorService {
 	 List<TacCourseInstructor> searchinstructor(TacInstructorMaster instructor);
 	 void deleteinstructor(TacInstructorMaster instructor);
 	List<TacInstructorMaster> listinstructors();
+	List<TacInstructorMaster> listinstructors(String name, int page, int limit);
 	
 	 
 }

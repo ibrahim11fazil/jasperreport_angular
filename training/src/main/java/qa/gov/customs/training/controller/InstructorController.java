@@ -114,6 +114,23 @@ public class InstructorController {
 		}
 	}
 
+	@PreAuthorize("hasAnyAuthority('list_instructors')")
+	@PostMapping("/list-instructors-by-name")
+	public ResponseType listInstructors(@RequestBody  TacInstructorMaster instructorMaster) {
+		List<TacInstructorMaster> instructorList = null;
+		instructorList = instructorService.listinstructors(instructorMaster.getName(),instructorMaster.getStart(),instructorMaster.getLimit());
+		if(instructorList!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, instructorList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", false, null);
+			return response;
+		}
+	}
+
 	@PreAuthorize("hasAnyAuthority('remove_instructor')")
 	@PostMapping("/remove-instructor")
 	public ResponseType removeInstructor(@RequestBody TacInstructorMaster instructor)

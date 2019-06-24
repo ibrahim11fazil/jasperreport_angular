@@ -98,11 +98,18 @@
                     </div>
                 
                  
+                  
+
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="Priority" formControlName="priority">
-                       </mat-form-field>
-                    </div>
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <mat-select placeholder="Duration Type" matInput formControlName="priority">
+                              <mat-option *ngFor="let priorityFlag of priorityList" 
+                                          [value]="priorityFlag">
+                                 {{priorityFlag.viewValue}}
+                              </mat-option>
+                           </mat-select>
+                        </mat-form-field>
+                     </div>
                  </div>
 
                  <div fxLayout="row" fxLayoutAlign="start">

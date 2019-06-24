@@ -9,6 +9,11 @@ export const DURATION_FLAG_LIST = [
     { value: 4, viewValue: 'HOUR' }
 ];
 
+export const PRIORITY_LIST = [
+    { value: 1, viewValue: 'Primary' },
+    { value: 2, viewValue: 'Secondary' }
+];
+
 
 //export const BASE_URL = "http://localhost:9001"
 export const BASE_URL = "http://localhost:9000"
