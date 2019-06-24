@@ -47,9 +47,17 @@
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="QID / Passport" formControlName="qidPassport">
+                          <input matInput placeholder="QID " formControlName="qid">
                        </mat-form-field>
                     </div>
+
+                    
+
+                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput placeholder="Passport " formControlName="passportNo">
+                        </mat-form-field>
+                     </div>
                  
                 
                    
@@ -86,13 +94,10 @@
               
                    
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="Photo" formControlName="photo">
-                       </mat-form-field>
+                        <ms-file-uploader #fileUploaderComponent type="document" single="false"></ms-file-uploader>
                     </div>
                 
                  
-                   
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                        <mat-form-field class="full-wid mrgn-b-md">
                           <input matInput placeholder="Priority" formControlName="priority">

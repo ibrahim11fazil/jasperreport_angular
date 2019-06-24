@@ -1,14 +1,25 @@
 export class TacInstructor {
-    jobid:String
-    name:String
-    ibanno:String
-    qid:String
+    instructorId?: Number;
+    jobId: String
+    name: String
+    ibanNo: String
+    qid: String
+    typeFlag?: Number;
+    department?: String;
+    jobTitle?: String;
+    companyName?: String;
+    passportNo?: String;
+    phone?: String;
+    email?: String;
+    photo?: String;
+    priority?: Number;
 
-    constructor(jobid:String,name:String,ibanno:String,qid:String) {
-        this.jobid=jobid;
-        this.name=name;
-        this.ibanno=ibanno;
-        this.qid=qid;
+
+    constructor(jobid: String, name: String, ibanNo: String, qid: String) {
+        this.jobId = jobid;
+        this.name = name;
+        this.ibanNo = ibanNo;
+        this.qid = qid;
 
     }
 }
@@ -16,13 +27,44 @@ export class TacInstructor {
 //To bind data
 export interface ITacInstructor {
     status: Boolean;
-    code:number;
-    message:String;
+    code: number;
+    message: String;
     data: TacInstructor;
 }
 export interface ITacInstructorList {
     status: Boolean;
-    code:number;
-    message:String;
+    code: number;
+    message: String;
     data: TacInstructor[];
 }
+
+//GET ALL SUBJECTS
+export interface Subject {
+    subjectId:Number;
+	subjectName:String;
+}
+
+
+
+export interface Qualifiacation {
+    qualificationId: Number;
+    qualificationName: String;
+}
+
+export interface QualifiacationListResponse {
+    status: Boolean;
+    code: number;
+    message: String;
+    data: Qualifiacation[];
+}
+
+
+export interface SubjectListResponse {
+    status: Boolean;
+    code: number;
+    message: String;
+    data: Subject[];
+}
+
+
+

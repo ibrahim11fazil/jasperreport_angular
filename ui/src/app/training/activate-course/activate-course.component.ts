@@ -75,8 +75,6 @@ export class ActivateCourseComponent implements OnInit {
 
   formSetup()
   {
-    debugger;
-
     this.trainingService.getAllCourseList().subscribe(
       data => {
         var response = <ITacCourseList> data

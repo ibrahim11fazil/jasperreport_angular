@@ -52,6 +52,8 @@ export const  GET_TRAINING_ROOM=BASE_URL+training+"/get-training-room"
 export const GET_INSTRUCTORS=BASE_URL+training+"/list-instructors"
 export const GET_MAIN_COURSES=BASE_URL+training+"/get-all-mainCourse"
 export const GET_CIS_USERS=BASE_URL+training+"/find-all-users-cases-for-cis"
+export const GET_ALL_SUBJECTS=BASE_URL+training+"/list-subjects"
+export const GET_ALL_QUALIFICATIONS=BASE_URL+training+"/list-qualifications"
 
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"

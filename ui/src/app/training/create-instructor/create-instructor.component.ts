@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { TrainingService } from '../../service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
-import { TacInstructor } from '../../models/tac-instructor';
+import { TacInstructor, Subject, Qualifiacation, SubjectListResponse, QualifiacationListResponse } from '../../models/tac-instructor';
+import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 //import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
@@ -14,19 +15,25 @@ import { TacInstructor } from '../../models/tac-instructor';
 })
 export class CreateInstructorComponent implements OnInit {
 
+  subjects:Subject[] =[]
+  qualifications:Qualifiacation[] =[]
   form:FormGroup
   tacInstructor:TacInstructor 
-  
+  @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   constructor(
     private fb:FormBuilder,
      private pageTitleService: PageTitleService,
      private trainingService: TrainingService,
      private toastr : ToastrService){
       this.pageTitleService.setTitle("Instructor Registration"),
-      this.tacInstructor={jobid:"",name:"",ibanno:"",qid:""}
-    this.formInit()
+      this.tacInstructor={
+      jobId:"",
+      name:"",
+      ibanNo:"",
+      qid:""} 
 
-   // this.formInit()
+    this.formInit()
+    this.formSetup()
     //this.patch()
    // this.formSetup()
    // this.loadDataFromParam()
@@ -36,9 +43,11 @@ export class CreateInstructorComponent implements OnInit {
   {
     this.form = this.fb.group({
       instructorType:[null, Validators.compose([Validators.required])],
+      jobId:[null, Validators.compose([Validators.required])],
       instructorName: [null, Validators.compose([Validators.required])],
       organization:[null, Validators.compose([Validators.required])],
-      qidPassport: [null, Validators.compose([Validators.required])],
+      qid: [null, Validators.compose([Validators.required])],
+      passportNo: [null, Validators.compose([Validators.required])],
       ibanNo:[null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required])],
       subject:[null, Validators.compose([Validators.required])],
@@ -48,9 +57,33 @@ export class CreateInstructorComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  formSetup(){
+    this.trainingService.getAllSubjects().subscribe(
+      data => {
+        var response = <SubjectListResponse> data
+        this.subjects=response.data
+        console.log( this.subjects)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    )
+    this.trainingService.getAllQualificaitons().subscribe(
+      data => {
+        var response = <QualifiacationListResponse> data
+        this.qualifications=response.data
+        console.log( this.qualifications)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    )
   }
 
+  ngOnInit() {
+  }
   onSubmit(buttonType):void{
     if (buttonType==="save") 
     {this.saveInstructor()}
@@ -58,13 +91,13 @@ export class CreateInstructorComponent implements OnInit {
     {this.searchInstructor()}
   }
 
-
   saveInstructor(){
     this.tacInstructor={
-      jobid:this.form.value.jobId,
+      jobId:this.form.value.jobId,
       name:this.form.value.instructorName,
-      ibanno:this.form.value.ibanNo,
-      qid:this.form.value.qidPassport
+      ibanNo:this.form.value.ibanNo,
+      qid:this.form.value.qidPassport,
+      photo:this.fileuploader.fileName
     }
     this.trainingService.saveInstructor(this.tacInstructor).subscribe(
         data=>this.successSaveInstructor(data),
@@ -84,19 +117,8 @@ export class CreateInstructorComponent implements OnInit {
   }
 
   searchInstructor(){
-    //if(this.form.value.instructorName!=null)
-    //this.trainingService.changeInstructorSearchMessage(this.form.value.instructorName)
-    //else
-   // this.trainingService.changeInstructorSearchMessage("")
+
   }
-// code reference
-
-
-// Code reference
-
-
-
-
 
 
 }
