@@ -389,12 +389,19 @@ var m =
     ]
   };
 
-  var m7 = {
-    state: 'ci-employees',
+  var m7 = 
+  {
+    state: 'training',
     name: 'CI Employees',
-    type: 'link',
-    icon: 'grade'
-  }
+    type: 'sub',
+    icon: 'grade',
+    children: [
+      {state: 'cis-system', name: 'CI Employees' },
+      {state: 'welcome', name: 'Requests' }
+    ]
+  };
+
+
 
 var dynamicMenu =[];
 

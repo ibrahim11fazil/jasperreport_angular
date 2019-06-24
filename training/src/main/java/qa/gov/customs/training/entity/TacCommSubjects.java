@@ -30,7 +30,7 @@ public class TacCommSubjects implements java.io.Serializable {
 	private Date dateCreated;
 	private String userModified;
 	private Date dateModified;
-	private Set<TacInstructorSubjects> tacInstructorSubjectses = new HashSet<TacInstructorSubjects>(0);
+	//private Set<TacInstructorSubjects> tacInstructorSubjectses = new HashSet<TacInstructorSubjects>(0);
 
 	public TacCommSubjects() {
 	}
@@ -47,7 +47,7 @@ public class TacCommSubjects implements java.io.Serializable {
 		this.dateCreated = dateCreated;
 		this.userModified = userModified;
 		this.dateModified = dateModified;
-		this.tacInstructorSubjectses = tacInstructorSubjectses;
+		//this.tacInstructorSubjectses = tacInstructorSubjectses;
 	}
 
 	@Id
@@ -110,13 +110,13 @@ public class TacCommSubjects implements java.io.Serializable {
 		this.dateModified = dateModified;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCommSubjects")
-	public Set<TacInstructorSubjects> getTacInstructorSubjectses() {
-		return this.tacInstructorSubjectses;
-	}
-
-	public void setTacInstructorSubjectses(Set<TacInstructorSubjects> tacInstructorSubjectses) {
-		this.tacInstructorSubjectses = tacInstructorSubjectses;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCommSubjects")
+//	public Set<TacInstructorSubjects> getTacInstructorSubjectses() {
+//		return this.tacInstructorSubjectses;
+//	}
+//
+//	public void setTacInstructorSubjectses(Set<TacInstructorSubjects> tacInstructorSubjectses) {
+//		this.tacInstructorSubjectses = tacInstructorSubjectses;
+//	}
 
 }

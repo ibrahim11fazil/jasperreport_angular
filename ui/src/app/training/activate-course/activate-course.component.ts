@@ -11,7 +11,7 @@ import { ITacInstructorList, TacInstructor } from 'app/models/tac-instructor';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { SystemUser, ISystemUserResponse, ISystemUserResponseList, SystemUserResponse, SystemUserResponseArray } from 'app/models/system-user';
 import { TacActivation } from 'app/models/tac-activation';
-import { Date } from "app/models/date";
+//import { Date } from "app/models/date";
 
 
 @Component({
@@ -99,8 +99,6 @@ this.tacCourseActivation = {
 
   formSetup()
   {
-    debugger;
-
     this.trainingService.getAllCourseList().subscribe(
       data => {
         var response = <ITacCourseList> data
@@ -217,7 +215,7 @@ getCourseRoomDetail(location)
 }
 addMoreInstructor() {
   const control = this.getControlOfAddMore('instructorSelect');
-  control.push(this.patchValues(0,"", "","",""))
+  control.push(this.patchValues(0,""))
 }
 
 removeMoreInstructor(i) {
@@ -228,13 +226,11 @@ removeMoreInstructor(i) {
 getControlOfAddMore(name): FormArray {
   return <FormArray>this.form.get(name);
 }
-patchValues(instructorId,jobid,name,ibanno,qid) {
+patchValues(instructorId,name) {
   return this.fb.group({
     instructorId:[instructorId],
-    jobid: [jobid],
     name: [name],
-    ibanno:[ibanno],
-    qid:[qid]
+  
   })
 }
 

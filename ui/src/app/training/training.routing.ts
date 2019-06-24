@@ -66,7 +66,7 @@ export const TrainingRoutes: Routes = [
                 component: UserSearchComponent
             },
             {
-                path: 'ci-employees',
+                path: 'cis-system',
                 component: CisSystemComponent
             }
 

@@ -34,7 +34,7 @@ public class TacInstructorMaster implements java.io.Serializable {
 	private String passportNo;
 	private String phone;
 	private String email;
-	private Blob photo;
+	private String photo;
 	private BigDecimal priority;
 	//Many to many
 	private Set<TacInstructorQualifications> tacInstructorQualificationses = new HashSet<TacInstructorQualifications>(0);
@@ -52,7 +52,7 @@ public class TacInstructorMaster implements java.io.Serializable {
 
 	public TacInstructorMaster(BigDecimal instructorId, BigDecimal typeFlag, String jobId, String name,
 			String department, String jobTitle, String ibanNo, String companyName, String qid, String passportNo,
-			String phone, String email, Blob photo, BigDecimal priority,
+			String phone, String email, String photo, BigDecimal priority,
 			Set<TacInstructorQualifications> tacInstructorQualificationses,
 			Set<TacCourseInstructor> tacCourseInstructors, Set<TacInstructorSubjects> tacInstructorSubjectses) {
 		this.instructorId = instructorId;
@@ -186,11 +186,11 @@ public class TacInstructorMaster implements java.io.Serializable {
 	}
 
 	@Column(name = "PHOTO")
-	public Blob getPhoto() {
+	public String getPhoto() {
 		return this.photo;
 	}
 
-	public void setPhoto(Blob photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 

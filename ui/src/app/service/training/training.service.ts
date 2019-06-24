@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR,GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, SAVE_ACTIVATION } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR,GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, SAVE_ACTIVATION, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS } from "../../app.constants";
 
 
 import { BehaviorSubject } from 'rxjs';
 import { TacCourseMaster } from 'app/models/tac-course-master';
 import { TacInstructor } from '../../models/tac-instructor';
 import { TacActivation } from 'app/models/tac-activation';
+import { CiSystemUsersRequest } from 'app/models/ci-system-user';
 @Injectable({
   providedIn: 'root'
 })
@@ -75,37 +76,52 @@ export class TrainingService {
   linkCourseWithActivity(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(LINK_COURSE, course);
 
-}
+  }
 
-getCourseRoom(location:Location): Observable<Object> {
-  return this.httpClient.post(GET_TRAINING_ROOM, location);
-}
-
-saveInstructor(instructor: TacInstructor): Observable<Object> {
-  return this.httpClient.post(SAVE_INSTRUCTOR, instructor);
-}
-
-getAllInstructor():Observable<Object> {
-  return this.httpClient.get(GET_INSTRUCTORS);
-}
-getAllMainCourses():Observable<Object> {
-  return this.httpClient.get(GET_MAIN_COURSES);
-}
+// getAllInstructor():Observable<Object> {
+//   return this.httpClient.get(GET_INSTRUCTORS);
+// }
+// getAllMainCourses():Observable<Object> {
+//   return this.httpClient.get(GET_MAIN_COURSES);
+// }
 saveCourseActivation(activation:TacActivation): Observable<Object> {
   return this.httpClient.post(SAVE_ACTIVATION,activation);
 }
+  getCourseRoom(location: Location): Observable<Object> {
+    return this.httpClient.post(GET_TRAINING_ROOM, location);
+  }
 
+  saveInstructor(instructor: TacInstructor): Observable<Object> {
+    return this.httpClient.post(SAVE_INSTRUCTOR, instructor);
+  }
 
+  getAllInstructor(): Observable<Object> {
+    return this.httpClient.get(GET_INSTRUCTORS);
+  }
+  getAllMainCourses(): Observable<Object> {
+    return this.httpClient.get(GET_MAIN_COURSES);
+  }
 
   getFile(fileName): Observable<any> {
     var request = this.httpClient.get(`${fileName}`, { responseType: 'arraybuffer' });
     return request;
   }
 
-
   putFile(formData): Observable<any> {
     var request = this.httpClient.post(UPLOAD_FILE, formData, { reportProgress: true, observe: 'events' })
     return request;
+  }
+
+  listUsersofCis(user: CiSystemUsersRequest): Observable<Object> {
+    return this.httpClient.post(GET_CIS_USERS, user);
+  }
+
+  getAllSubjects(): Observable<Object> {
+    return this.httpClient.get(GET_ALL_SUBJECTS)
+  }
+
+  getAllQualificaitons(): Observable<Object> {
+    return this.httpClient.get(GET_ALL_QUALIFICATIONS);
   }
 
 

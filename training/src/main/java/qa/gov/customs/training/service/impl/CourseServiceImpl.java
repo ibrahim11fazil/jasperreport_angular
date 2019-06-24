@@ -43,6 +43,10 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Autowired
 	CourseRoomRepository courseRoomRepo;
+	@Autowired
+	TacCommSubjectsRepository subjectsRepository;
+	@Autowired
+	TacCommQualificationsRepository qualificationsRepository;
 
 	@Override
 	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -246,5 +250,15 @@ public class CourseServiceImpl  implements CourseService {
 			courses.add(course);
 		}
 		return courses;
+	}
+
+	@Override
+	public List<TacCommSubjects> getAllSubjects() {
+		return subjectsRepository.findAll();
+	}
+
+	@Override
+	public List<TacCommQualifications> getAllQualifications() {
+		return qualificationsRepository.findAll();
 	}
 }
