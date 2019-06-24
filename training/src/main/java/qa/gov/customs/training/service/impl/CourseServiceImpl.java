@@ -19,7 +19,7 @@ import java.util.*;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
-	
+
 	@Autowired
 	CourseRepository courseRepository;
 	@Autowired
@@ -44,87 +44,88 @@ public class CourseServiceImpl  implements CourseService {
 	@Autowired
 	CourseRoomRepository courseRoomRepo;
 
-	 @Override
-	 public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
-	  	    Set<TacCourseAudience> targetedAudiences= course.getTacCourseAudiences()!=null?course.getTacCourseAudiences():null;
-		    Set<TacCourseGuidelines> tacCourseGuidelineses = course.getTacCourseGuidelineses()!=null? course.getTacCourseGuidelineses():null;
-		    course.setTacCourseAudiences(null);
-		    course.setTacCourseGuidelineses(null);
-	    	TacCourseMaster courseInserted=courseRepository.save(course);
-	    	if(!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences!=null){
-				targetedAudiences.forEach( item -> {
-					item.setTacCourseMaster(courseInserted);
-					item.setTacCourseTargetGroup(courseTargetGroupRepository.findById(item.getTargetId()).get());
-					audienceRepository.save(item);
-				});
-				tacCourseGuidelineses.forEach(item ->{
-					item.setTacCourseMaster(courseInserted);
-					guidelineRepository.save(item);
-				});
+	@Override
+	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
+		Set<TacCourseAudience> targetedAudiences = course.getTacCourseAudiences() != null ? course.getTacCourseAudiences() : null;
+		Set<TacCourseGuidelines> tacCourseGuidelineses = course.getTacCourseGuidelineses() != null ? course.getTacCourseGuidelineses() : null;
+		course.setTacCourseAudiences(null);
+		course.setTacCourseGuidelineses(null);
+		TacCourseMaster courseInserted = courseRepository.save(course);
+		if (!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences != null) {
+			targetedAudiences.forEach(item -> {
+				item.setTacCourseMaster(courseInserted);
+				item.setTacCourseTargetGroup(courseTargetGroupRepository.findById(item.getTargetId()).get());
+				audienceRepository.save(item);
+			});
+			tacCourseGuidelineses.forEach(item -> {
+				item.setTacCourseMaster(courseInserted);
+				guidelineRepository.save(item);
+			});
 
-			}
-		     Set<TacCourseAudience>  audiences =  audienceRepository.findByCourseId(courseInserted.getCourseId());
-		     audiences.forEach(item -> {
-		     	item.setTargetId(item.getTacCourseTargetGroup().getTargetId());
-			 });
-	         return getCourseById(courseInserted).get();
-	 }
+		}
+		Set<TacCourseAudience> audiences = audienceRepository.findByCourseId(courseInserted.getCourseId());
+		audiences.forEach(item -> {
+			item.setTargetId(item.getTacCourseTargetGroup().getTargetId());
+		});
+		return getCourseById(courseInserted).get();
+	}
 
 	@Transactional
 	@Override
-	public BigDecimal enableOrDisableCourse(BigDecimal courseId,BigDecimal id) {
-		 courseRepository.enableOrDisableCourse(courseId,id);
-		 return new BigDecimal(1);
+	public BigDecimal enableOrDisableCourse(BigDecimal courseId, BigDecimal id) {
+		courseRepository.enableOrDisableCourse(courseId, id);
+		return new BigDecimal(1);
 	}
 
 
-    @Override
-    public TacCourseMaster linkCourseWithActivity(TacCourseMaster course) {
-        TacCourseMaster courses= courseRepository.save(course);
-        return courses;
-    }
- 
+	@Override
+	public TacCourseMaster linkCourseWithActivity(TacCourseMaster course) {
+		TacCourseMaster courses = courseRepository.save(course);
+		return courses;
+	}
 
-    @Override
-    public long countCourses() { long countCourses= courseRepository.count();
-    return countCourses;
-    }
 
-    @Override
-    public BigInteger enabledCountCourses() {
-        return null;
-    }
+	@Override
+	public long countCourses() {
+		long countCourses = courseRepository.count();
+		return countCourses;
+	}
 
-    @Override
-    public Optional<TacCourseMaster> getCourseById(TacCourseMaster course) {
-    	Optional<TacCourseMaster> courseSelected=null;
+	@Override
+	public BigInteger enabledCountCourses() {
+		return null;
+	}
+
+	@Override
+	public Optional<TacCourseMaster> getCourseById(TacCourseMaster course) {
+		Optional<TacCourseMaster> courseSelected = null;
 		Set<TacCourseGuidelines> tacCourseGuidelineses = new HashSet<>();
 		Set<TacCourseAudience> tacCourseAudiences = new HashSet<>();
-		courseSelected=courseRepository.findById(course.getCourseId());
-		List<Object[]> objects=  guidelineRepository.findGuidelinesByCourseId(course.getCourseId());
-		if(courseSelected.isPresent() && objects!=null){
-			for (Object[] o :objects) {
+		courseSelected = courseRepository.findById(course.getCourseId());
+		List<Object[]> objects = guidelineRepository.findGuidelinesByCourseId(course.getCourseId());
+		if (courseSelected.isPresent() && objects != null) {
+			for (Object[] o : objects) {
 				TacCourseGuidelines guideline = new TacCourseGuidelines();
-				guideline.setGuidelineId((BigDecimal)o[0]);
-				guideline.setDescription((String)o[1]);
+				guideline.setGuidelineId((BigDecimal) o[0]);
+				guideline.setDescription((String) o[1]);
 				tacCourseGuidelineses.add(guideline);
 			}
 			courseSelected.get().setTacCourseGuidelineses(tacCourseGuidelineses);
 		}
 
-		List<Object[]> audiences= audienceRepository.findAudiencesByCourseId(course.getCourseId());
-		if(courseSelected.isPresent() && audiences!=null){
-			for (Object[] o :audiences) {
+		List<Object[]> audiences = audienceRepository.findAudiencesByCourseId(course.getCourseId());
+		if (courseSelected.isPresent() && audiences != null) {
+			for (Object[] o : audiences) {
 				TacCourseAudience audience = new TacCourseAudience();
-				audience.setAudienceId((BigDecimal)o[0]);
-				audience.setTargetId((BigDecimal)o[1]);
+				audience.setAudienceId((BigDecimal) o[0]);
+				audience.setTargetId((BigDecimal) o[1]);
 				tacCourseAudiences.add(audience);
 			}
 			courseSelected.get().setTacCourseAudiences(tacCourseAudiences);
 		}
 
-        return courseSelected;
-    }
+		return courseSelected;
+	}
 
 	@Override
 	public TacCourseMaster activateCourse(TacCourseMaster course) {
@@ -135,14 +136,14 @@ public class CourseServiceImpl  implements CourseService {
 	@Override
 	public List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
 		//courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-		List<Object[]> objects =   courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-		List<Course> courses=new ArrayList<>();
-		for (Object[] o :objects) {
+		List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+		List<Course> courses = new ArrayList<>();
+		for (Object[] o : objects) {
 			Course course = new Course();
-			course.setCourseId((BigDecimal)o[0]);
-			course.setCourseName((String)o[1]);
-			if(o[2]!=null)
-			course.setStatus((BigDecimal)o[2]);
+			course.setCourseId((BigDecimal) o[0]);
+			course.setCourseName((String) o[1]);
+			if (o[2] != null)
+				course.setStatus((BigDecimal) o[2]);
 			courses.add(course);
 		}
 		return courses;
@@ -156,21 +157,21 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public TacCourseMaster findById(BigDecimal id) {
-		TacCourseMaster courses=null;
-		courses=courseRepository.findByCourseId(id);
+		TacCourseMaster courses = null;
+		courses = courseRepository.findByCourseId(id);
 		return courses;
 	}
-	
+
 	@Override
 	public List<Course> listCourses() {
 //		Pageable firstPageWithElements = PageRequest.of( 0,5);
-		
-		List<Object[]> objects=  courseRepository.findAllCourses();
-		List<Course> courses=new ArrayList<>();
-		for (Object[] o :objects) {
+
+		List<Object[]> objects = courseRepository.findAllCourses();
+		List<Course> courses = new ArrayList<>();
+		for (Object[] o : objects) {
 			Course course = new Course();
-			course.setCourseId((BigDecimal)o[0]);
-			course.setCourseName((String)o[1]);
+			course.setCourseId((BigDecimal) o[0]);
+			course.setCourseName((String) o[1]);
 			courses.add(course);
 		}
 		return courses;
@@ -178,7 +179,7 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course) {
-		List<TacCourseMaster> courseList=courseRepository.findByCourseName(course.getCourseName());
+		List<TacCourseMaster> courseList = courseRepository.findByCourseName(course.getCourseName());
 		return courseList;
 	}
 
@@ -194,7 +195,7 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public TacCourseGuidelines createGuideline(TacCourseGuidelines guideline) {
-		TacCourseGuidelines guidelines=guidelineRepository.save(guideline);
+		TacCourseGuidelines guidelines = guidelineRepository.save(guideline);
 		return guidelines;
 	}
 
@@ -212,28 +213,38 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public List<TacCoursePrerequisites> getAllCoursePrerequisites() {
-		List<TacCoursePrerequisites> prerequisitesList=prerequisitesRepo.findAll();
+		List<TacCoursePrerequisites> prerequisitesList = prerequisitesRepo.findAll();
 		return prerequisitesList;
 	}
 
 	@Override
 	public List<TacCourseLocation> getAllCourseLocation() {
-		List<TacCourseLocation> locationList=locationRepo.findAll();
+		List<TacCourseLocation> locationList = locationRepo.findAll();
 		return locationList;
 	}
 
-     @Override
-	public TacCourseActivation saveCourseActivation(TacCourseActivation courseActivation)
-	{
-		TacCourseActivation course=activationRepo.save(courseActivation);
+	@Override
+	public TacCourseActivation saveCourseActivation(TacCourseActivation courseActivation) {
+		TacCourseActivation course = activationRepo.save(courseActivation);
 		return course;
 	}
 
 	@Override
-	public List<TacCourseRoom> getCourseRoom(TacCourseLocation location)
-	{
-		List<TacCourseRoom> room=courseRoomRepo.findByLocationId(location.getLocationId());
+	public List<TacCourseRoom> getCourseRoom(TacCourseLocation location) {
+		List<TacCourseRoom> room = courseRoomRepo.findByLocationId(location.getLocationId());
 		return room;
 	}
 
+	@Override
+	public List<Course> getAllMainCourse() {
+		List<Object[]> objects = courseRepository.findCourseBySubcourseFlag();
+		List<Course> courses = new ArrayList<>();
+		for (Object[] o : objects) {
+			Course course = new Course();
+			course.setCourseId((BigDecimal) o[0]);
+			course.setCourseName((String) o[1]);
+			courses.add(course);
+		}
+		return courses;
+	}
 }

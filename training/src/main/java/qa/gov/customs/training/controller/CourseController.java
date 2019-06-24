@@ -455,4 +455,21 @@ public class CourseController {
 
 
 	}
+
+	@GetMapping("/get-all-mainCourse")
+	public ResponseType getAllMainCourses() {
+		List<Course> course = null;
+		course = courseService.getAllMainCourse();
+
+		if (course != null && !course.isEmpty()) {
+
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, course);
+			return response;
+		} else {
+
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+	}
 	}

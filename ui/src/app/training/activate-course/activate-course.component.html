@@ -36,11 +36,22 @@
                         {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}}  
                       
                         </div>
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                     <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
                            <input matInput placeholder="Belongs To" >
                         </mat-form-field>
-                     </div>
+                     </div> -->
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                           <mat-form-field class="full-wid mrgn-b-lg">
+                                 <mat-select  placeholder="Belongs To" matInput formControlName="belongsSelect">
+                                       <mat-option *ngFor="let item of mainCourseList" [value]="item" >
+                                             {{item.courseName}} 
+                                              </mat-option>
+                                    </mat-select>
+                              <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
+                           </mat-form-field>
+                           </div>
+   
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Course Date" matInput formControlName="dateSelect" >
@@ -73,21 +84,58 @@
                                  </mat-select>
                         </mat-form-field>
                      </div>
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+
+                     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                 <h5>Instructor</h5>
+                           </div>
+                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                 <button class="mrgn-all-xs" mat-icon-button (click)="addMoreInstructor()" type="button">
+                                       <mat-icon>add</mat-icon>
+                                 </button>   
+                           </div>
+                     </div> 
+                     <div formArrayName="instructorOptions">
+                           <div *ngFor="let ff of form.get('instructorOptions').controls; let in=index"
+                              fxLayout="row wrap" fxLayoutAlign="space-between center">
+                              <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                       <mat-select placeholder="Instructor" matInput formControlName="instructorSelect">
+                                             <mat-option *ngFor="let item of tacInstructor" [value]="item">
+                                                {{item.name}}
+                                             </mat-option>
+                                       </mat-select>
+                              </div>
+                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                    <button class="mrgn-all-xs" mat-icon-button (click)="removeMoreInstructor(in)"
+                                       type="button">
+                                       <mat-icon>delete</mat-icon>
+                                    </button>
+                              </div>
+                           </div>
+                        </div>
+
+                     <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Instructor" matInput >
-                                    <mat-option  >
-                                       <!-- {{item.description}} [value]="item.categoryId" -->
+                                    <mat-option *ngFor="let item of tacInstructor" [value]="item" >
+                                          {{item.name}}
                                     </mat-option>
                                  </mat-select>
                         </mat-form-field>
-                     </div>
+                     </div> -->
+
+                   
+
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Training Co-ordinator" matInput >
-                                    <mat-option  >
+                              <mat-select placeholder="Training Co-ordinator" matInput formControlName="userSelect">
+                                    <mat-option  *ngFor="let item of userList" [value]="item" >
+                                          {{item.username}}
+                                          
                                        <!-- {{item.description}} [value]="item.categoryId" -->
                                     </mat-option>
+                                       <!-- {{item.description}} [value]="item.categoryId" userList-->
+                                   
                                  </mat-select>
                         </mat-form-field>
                      </div>
@@ -96,47 +144,47 @@
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Instructor Cost" >
+                           <input matInput placeholder="Instructor Cost" formControlName="instructorCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Buffet Cost" >
+                           <input matInput placeholder="Buffet Cost" formControlName="buffetCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Internal Transport Cost" >
+                           <input matInput placeholder="Internal Transport Cost"  formControlName="transportCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Ticket Cost" >
+                           <input matInput placeholder="Ticket Cost" formControlName="ticketCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Hospitality Cost" >
+                           <input matInput placeholder="Hospitality Cost" formControlName="hospitalityCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Gift Cost" >
+                           <input matInput placeholder="Gift Cost"formControlName="giftCost" >
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Hall Reservation Cost" >
+                           <input matInput placeholder="Hall Reservation Cost" formControlName="reservationCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Belongs Cost" >
+                           <input matInput placeholder="Bonus Cost" formControlName="bonusCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Translation Cost" >
+                           <input matInput placeholder="Translation Cost" formControlName="translationCost">
                         </mat-form-field>
                      </div>
                      <div fxLayout="row" fxLayoutAlign="start">
