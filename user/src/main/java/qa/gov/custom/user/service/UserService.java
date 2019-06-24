@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserService {
      List<Role> findAllRoles();
      List<UserMaster> findAllUsers();
-     List<UserMaster> findAllByIdOrQID(String jobid,String qid,int start,int limit);
+     List<UserMaster> findAllByIdOrQID(String jobid,String qid,int page,int limit);
      UserMaster createOrUpdateUser(UserMaster user,Object object);
      BigDecimal disable(BigInteger jobId);
      BigDecimal enable(BigInteger jobId);
