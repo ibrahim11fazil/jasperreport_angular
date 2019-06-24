@@ -135,13 +135,11 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public Optional<TacCourseMaster> getCourseByIdAndActivity(TacCourseMaster course) {
-		Optional<TacCourseMaster> courseMaster=   getCourseById(course);
-        if(courseMaster.isPresent()){
-			courseMaster.get().setTacCourseDates(findAllDatesByCourseIdAndActivityId(course.getCourseId(),course.getActivityId()));
-		}
-		return courseMaster;
+	public Set<TacCourseDate> getCourseDatesByIdAndActivity(TacCourseMaster course) {
+			return findAllDatesByCourseIdAndActivityId(course.getCourseId(),course.getActivityId());
 	}
+
+
 
 	@Override
 	public Set<TacCourseDate> findAllDatesByCourseIdAndActivityId(BigDecimal courseId, BigDecimal activityId) {

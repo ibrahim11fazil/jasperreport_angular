@@ -23,6 +23,7 @@ export class TacCourseMaster {
     public locationType:Number
     public tacCourseDates:CourseDate[];
     public tacActivities:TacActivity[];
+   
     
     constructor(courseId:Number,tacCourseCategory:Categories,courseName:String,duration:Number,objective:String,durationFlag:Number,
         numberofhours:Number,tacCourseGuidelineses:TrainingGuidelines[],targetAudience:TargetAudience[],expectedResults:ExpectedResults[],prerequisitesId:Number,subcourseFlag:Number,locationType:Number,tacCourseDates:CourseDate[],tacActivities:TacActivity[]) {
@@ -73,6 +74,11 @@ export class TacCourseMaster {
         message:String;
         data: Course[];
         count:number;
+    }
+
+    export class CourseActivityDatesRequest{
+        public courseId:Number
+        public activityId:Number
     }
     
     

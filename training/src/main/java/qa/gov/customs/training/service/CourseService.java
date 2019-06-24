@@ -29,7 +29,7 @@ public interface CourseService {
     TacCourseMaster findById(BigDecimal id);
     BigInteger enabledCountCourses();
     Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
-    Optional<TacCourseMaster> getCourseByIdAndActivity(TacCourseMaster courses);
+    Set<TacCourseDate> getCourseDatesByIdAndActivity(TacCourseMaster courses);
     Set<TacCourseDate> findAllDatesByCourseIdAndActivityId(BigDecimal courseId, BigDecimal activityId);
     List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course);
     List<TacCourseCategory> findCourseCategories();

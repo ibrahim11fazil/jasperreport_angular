@@ -187,11 +187,11 @@ public class CourseController {
 	}
 
 	@PreAuthorize("hasAnyAuthority('get_course_by_id')")
-	@PostMapping("/get-courses-by-id-and-activity-id")
+	@PostMapping("/get-course-dates-by-id-and-activity-id")
 	public ResponseType getCourseByIdAndActivityId(@RequestBody TacCourseMaster course, CustomPrincipal principal) {
-		Optional<TacCourseMaster> courseList = null;
+		Set<TacCourseDate> courseList = null;
 		if (course.getCourseId() != new BigDecimal(0)) {
-			courseList = courseService.getCourseByIdAndActivity(course);
+			courseList = courseService.getCourseDatesByIdAndActivity(course);
 			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseList);
 			return response;
 		}
