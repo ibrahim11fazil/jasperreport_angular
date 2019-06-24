@@ -81,4 +81,8 @@ export class SearchInstructorComponent implements OnInit {
     this.search();
   }
 
+  updateRow(row){
+    this.router.navigate(["/training/create-instructor/",row.instructorId]);
+  }
+
 }

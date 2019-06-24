@@ -1,7 +1,9 @@
 package qa.gov.customs.training.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +86,14 @@ public class InstructorServiceImpl  implements InstructorService {
 		else {
 			return instructorRepository.findAllByNameContaining(name, pageable);
 		}
+	}
+
+	@Override
+	public TacInstructorMaster getInstructorById(BigDecimal instructorId) {
+		Optional<TacInstructorMaster> instructor=  instructorRepository.findById(instructorId);
+		if(instructor.isPresent())
+			return instructor.get();
+		else return null;
 	}
 }
 

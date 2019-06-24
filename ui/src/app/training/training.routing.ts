@@ -51,6 +51,10 @@ export const TrainingRoutes: Routes = [
                 component: ActivateCourseComponent
             },
             {
+                path: 'create-instructor/:id',
+                component: CreateInstructorComponent
+            },
+            {
                 path: 'create-instructor',
                 component: CreateInstructorComponent
             },

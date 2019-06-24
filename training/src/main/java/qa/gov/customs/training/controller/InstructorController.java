@@ -109,7 +109,7 @@ public class InstructorController {
 		}
 		else
 		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", false, null);
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
 			return response;
 		}
 	}
@@ -126,7 +126,24 @@ public class InstructorController {
 		}
 		else
 		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", false, null);
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+	}
+
+	@PreAuthorize("hasAnyAuthority('get_instructor_by_id')")
+	@PostMapping("/get-instructor-by-id")
+	public ResponseType getInstructorById(@RequestBody  TacInstructorMaster instructorMaster) {
+	    TacInstructorMaster instructorList = null;
+		instructorList = instructorService.getInstructorById(instructorMaster.getInstructorId());
+		if(instructorList!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, instructorList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
 			return response;
 		}
 	}
