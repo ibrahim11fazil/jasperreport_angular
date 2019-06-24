@@ -186,6 +186,19 @@ public class CourseController {
 		return response;
 	}
 
+	@PreAuthorize("hasAnyAuthority('get_course_by_id')")
+	@PostMapping("/get-courses-by-id-and-activity-id")
+	public ResponseType getCourseByIdAndActivityId(@RequestBody TacCourseMaster course, CustomPrincipal principal) {
+		Optional<TacCourseMaster> courseList = null;
+		if (course.getCourseId() != new BigDecimal(0)) {
+			courseList = courseService.getCourseByIdAndActivity(course);
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseList);
+			return response;
+		}
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+		return response;
+	}
+
 	@PreAuthorize("hasAnyAuthority('link_course_with_activity')")
 	@PostMapping("/link-course-with-activity")
 	public ResponseType linkCourseWithActivity(@RequestBody TacCourseMaster course) {

@@ -48,6 +48,9 @@ public class CourseServiceImpl  implements CourseService {
 	@Autowired
 	TacCommQualificationsRepository qualificationsRepository;
 
+	@Autowired
+	TacCourseDateRepository tacCourseDateRepository;
+
 	@Override
 	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
 		Set<TacCourseAudience> targetedAudiences = course.getTacCourseAudiences() != null ? course.getTacCourseAudiences() : null;
@@ -129,6 +132,28 @@ public class CourseServiceImpl  implements CourseService {
 		}
 
 		return courseSelected;
+	}
+
+	@Override
+	public Optional<TacCourseMaster> getCourseByIdAndActivity(TacCourseMaster course) {
+		Optional<TacCourseMaster> courseMaster=   getCourseById(course);
+        if(courseMaster.isPresent()){
+			courseMaster.get().setTacCourseDates(findAllDatesByCourseIdAndActivityId(course.getCourseId(),course.getActivityId()));
+		}
+		return courseMaster;
+	}
+
+	@Override
+	public Set<TacCourseDate> findAllDatesByCourseIdAndActivityId(BigDecimal courseId, BigDecimal activityId) {
+			List<Object[]> objects = tacCourseDateRepository.findAllDatesByCourseIdAndActivityId(courseId,activityId);
+		   Set<TacCourseDate> courses = new HashSet<>();
+			for (Object[] o : objects) {
+				TacCourseDate course = new TacCourseDate();
+				course.setCourseDate((Date) o[3]);
+				course.setDateId((BigDecimal) o[0]);
+				courses.add(course);
+			}
+			return courses;
 	}
 
 	@Override
