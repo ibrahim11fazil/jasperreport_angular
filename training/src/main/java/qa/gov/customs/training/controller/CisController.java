@@ -9,6 +9,7 @@ import qa.gov.customs.utils.Constants;
 import qa.gov.customs.utils.MessageUtil;
 import qa.gov.customs.utils.models.ResponseType;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class CisController {
     @RequestMapping(method = RequestMethod.POST,value = "find-all-users-cases-for-cis")
     public ResponseType findAllSystemUsers(@RequestBody EmployeeCaseDetails user ) {
         if(user.getId()==null)
-            user.setId(new BigInteger("0"));
+            user.setId(0L);
         if(user.getJobCode()==null)
             user.setJobCode("");
         List<EmployeeCaseDetails> users = cisService.findAllByIdContainingOrJobCodeContaining(user.getId(),user.getJobCode(),user.getStart(),user.getLimit());

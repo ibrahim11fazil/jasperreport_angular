@@ -11,6 +11,7 @@ import qa.gov.customs.training.entity.EmployeeCaseDetails;
 import qa.gov.customs.training.repository.EmployeeCaseDetailsRepository;
 import qa.gov.customs.training.service.CisService;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +23,23 @@ public class CisServiceImpl implements CisService {
     EmployeeCaseDetailsRepository cisRepository;
 
     @Override
-    public List<EmployeeCaseDetails> findAllByIdContainingOrJobCodeContaining(BigInteger id, String jobCode, int page, int limit) {
+    public List<EmployeeCaseDetails> findAllByIdContainingOrJobCodeContaining(Long id, String jobCode, int page, int limit) {
         List<EmployeeCaseDetails> users =  new ArrayList<>();
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("id"));
-        if(id==new BigInteger("0") && jobCode==""){
+        if(id==0L && jobCode==""){
             Page<EmployeeCaseDetails> pages = cisRepository.findAll(pageable);
             pages.forEach(item ->users.add(item));
             return users;
-        }else {
-            return cisRepository.findAllByIdContainingOrJobCodeContaining(id, jobCode, pageable);
+        }else if(id==0L && jobCode!="") {
+            return cisRepository.findAllByJobCodeContaining(jobCode, pageable);
+        }
+        else if(id!=0L && jobCode=="") {
+            return cisRepository.findAllById(id.longValue(), pageable);
+        }
+        else {
+            return cisRepository.findAllByIdOrJobCodeContaining(id.longValue(), jobCode, pageable);
         }
     }
 }

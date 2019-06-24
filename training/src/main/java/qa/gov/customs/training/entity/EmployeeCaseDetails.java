@@ -1,6 +1,7 @@
 package qa.gov.customs.training.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Entity
@@ -9,7 +10,7 @@ public class EmployeeCaseDetails {
 
     @Id
     @Column(name="SNO")
-    BigInteger id;
+    Long id;
     @Column(name="MJOBID")
     String jobCode;
     @Column(name="CNAME_AR")
@@ -25,11 +26,11 @@ public class EmployeeCaseDetails {
     @Column(name="DECISION_DATE")
     String decisionDate;
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
