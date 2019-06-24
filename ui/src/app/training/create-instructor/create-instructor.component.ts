@@ -3,8 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { TrainingService } from '../../service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
-import { TacInstructor, Subject, Qualifiacation, SubjectListResponse, QualifiacationListResponse } from '../../models/tac-instructor';
+import { TacInstructor, Subject, Qualifiacation, SubjectListResponse, QualifiacationListResponse, TacInstructorRequest } from '../../models/tac-instructor';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
+import { PRIORITY_LIST } from 'app/app.constants';
+import { ActivatedRoute } from '@angular/router';
 //import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
@@ -18,13 +20,16 @@ export class CreateInstructorComponent implements OnInit {
   subjects:Subject[] =[]
   qualifications:Qualifiacation[] =[]
   form:FormGroup
-  tacInstructor:TacInstructor 
+  tacInstructor:TacInstructor
+  priorityList =PRIORITY_LIST 
+  param:any;
   @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   constructor(
     private fb:FormBuilder,
      private pageTitleService: PageTitleService,
      private trainingService: TrainingService,
-     private toastr : ToastrService){
+     private toastr : ToastrService,
+     private activatedRoute: ActivatedRoute){
       this.pageTitleService.setTitle("Instructor Registration"),
       this.tacInstructor={
       jobId:"",
@@ -32,11 +37,17 @@ export class CreateInstructorComponent implements OnInit {
       ibanNo:"",
       qid:""} 
 
-    this.formInit()
-    this.formSetup()
+   
     //this.patch()
    // this.formSetup()
    // this.loadDataFromParam()
+  }
+
+  ngOnInit() {
+    this.formInit()
+    this.formSetup()
+    this.loadDataFromParam()
+
   }
 
   formInit()
@@ -82,8 +93,7 @@ export class CreateInstructorComponent implements OnInit {
     )
   }
 
-  ngOnInit() {
-  }
+  
   onSubmit(buttonType):void{
     if (buttonType==="save") 
     {this.saveInstructor()}
@@ -118,6 +128,34 @@ export class CreateInstructorComponent implements OnInit {
 
   searchInstructor(){
 
+  }
+
+  loadDataFromParam(){
+    //console.log(this.param);
+    this.activatedRoute.params.subscribe(params => {
+      if(params['id']){
+          this.param = params['id'];
+      }
+     });  
+      if(this.param!='' && this.param!=undefined){
+        console.log(this.param);
+        let instructor=new TacInstructorRequest()
+        instructor.instructorId= this.param
+        this.trainingService.getInstructorById(instructor).subscribe(
+          data => this.loadData(data),
+          error => {
+            console.log(error)
+            this.toastr.error(error.message)
+          }
+        )
+      }
+  }
+
+  loadData(data){
+    this.tacInstructor = data.data;
+    this.formInit()
+    //TODO need to do
+    //this.patch() 
   }
 
 

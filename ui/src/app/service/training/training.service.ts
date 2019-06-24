@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR,GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, SAVE_ACTIVATION, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION } from "../../app.constants";
 
 
 import { BehaviorSubject } from 'rxjs';
 import { TacCourseMaster } from 'app/models/tac-course-master';
-import { TacInstructor } from '../../models/tac-instructor';
+
 import { TacActivation } from 'app/models/tac-activation';
+
+import { TacInstructor, TacInstructorRequest } from '../../models/tac-instructor';
+
 import { CiSystemUsersRequest } from 'app/models/ci-system-user';
+import { SearchUser } from 'app/models/system-user';
 @Injectable({
   providedIn: 'root'
 })
@@ -122,6 +126,14 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
 
   getAllQualificaitons(): Observable<Object> {
     return this.httpClient.get(GET_ALL_QUALIFICATIONS);
+  }
+
+  getAllInstructorByName(instructor:SearchUser): Observable<Object> {
+    return this.httpClient.post(GET_INSTRUCTORS_BY_NAME,instructor);
+  }
+
+  getInstructorById(instructor:TacInstructorRequest): Observable<Object> {
+    return this.httpClient.post(GET_INSTRUCTOR_BY_ID,instructor);
   }
 
 

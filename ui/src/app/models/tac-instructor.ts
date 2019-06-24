@@ -18,6 +18,10 @@ export class TacInstructor {
   
 }
 
+export class TacInstructorRequest {
+    instructorId?: Number;
+}
+
 //To bind data
 export interface ITacInstructor {
     status: Boolean;

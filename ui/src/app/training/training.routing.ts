@@ -10,6 +10,7 @@ import { CreateInstructorComponent } from './create-instructor/create-instructor
 import { UserCreationComponent } from './user-creation/user-creation.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { CisSystemComponent } from './cis-system/cis-system.component';
+import { SearchInstructorComponent } from './search-instructor/search-instructor.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -50,8 +51,16 @@ export const TrainingRoutes: Routes = [
                 component: ActivateCourseComponent
             },
             {
+                path: 'create-instructor/:id',
+                component: CreateInstructorComponent
+            },
+            {
                 path: 'create-instructor',
                 component: CreateInstructorComponent
+            },
+            {
+                path: 'search-instructor',
+                component: SearchInstructorComponent
             },
             {
                 path: 'user-creation',

@@ -1,5 +1,6 @@
 package qa.gov.customs.training.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.domain.Slice;
@@ -16,6 +17,8 @@ public interface InstructorService {
 	 List<TacCourseInstructor> searchinstructor(TacInstructorMaster instructor);
 	 void deleteinstructor(TacInstructorMaster instructor);
 	List<TacInstructorMaster> listinstructors();
+	List<TacInstructorMaster> listinstructors(String name, int page, int limit);
+	TacInstructorMaster getInstructorById(BigDecimal instructorId);
 	
 	 
 }

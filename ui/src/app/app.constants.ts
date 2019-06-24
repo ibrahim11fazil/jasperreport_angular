@@ -9,6 +9,11 @@ export const DURATION_FLAG_LIST = [
     { value: 4, viewValue: 'HOUR' }
 ];
 
+export const PRIORITY_LIST = [
+    { value: 1, viewValue: 'Primary' },
+    { value: 2, viewValue: 'Secondary' }
+];
+
 
 //export const BASE_URL = "http://localhost:9001"
 export const BASE_URL = "http://localhost:9000"
@@ -50,11 +55,13 @@ export const  LINK_COURSE = BASE_URL + training + "/link-course-with-activity"
 export const  SAVE_INSTRUCTOR=BASE_URL+training+"/create-instructor"
 export const  GET_TRAINING_ROOM=BASE_URL+training+"/get-training-room"
 export const GET_INSTRUCTORS=BASE_URL+training+"/list-instructors"
+export const GET_INSTRUCTORS_BY_NAME=BASE_URL+training+"/list-instructors-by-name"
 export const GET_MAIN_COURSES=BASE_URL+training+"/get-all-mainCourse"
 export const  SAVE_ACTIVATION=BASE_URL+training+"/activate-course"
 export const GET_CIS_USERS=BASE_URL+training+"/find-all-users-cases-for-cis"
 export const GET_ALL_SUBJECTS=BASE_URL+training+"/list-subjects"
 export const GET_ALL_QUALIFICATIONS=BASE_URL+training+"/list-qualifications"
+export const GET_INSTRUCTOR_BY_ID=BASE_URL+training+"/get-instructor-by-id"
 
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"

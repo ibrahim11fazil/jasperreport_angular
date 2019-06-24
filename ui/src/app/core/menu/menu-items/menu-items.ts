@@ -329,8 +329,8 @@ var m =
     type: 'sub',
     icon: 'book',
     children: [
-      {state: 'create-instructor', name: 'Create Instructor'}
-
+      {state: 'create-instructor', name: 'Create Instructor'},
+      {state: 'search-instructor', name: 'Search Instructor'}
     ]
   };
   var m2 = 
