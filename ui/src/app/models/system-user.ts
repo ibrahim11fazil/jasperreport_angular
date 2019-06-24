@@ -1,3 +1,5 @@
+import { TacInstructor } from "./tac-instructor";
+
 export class SystemUser {
     id:Number
     password:String
@@ -6,7 +8,8 @@ export class SystemUser {
 }
 
 export class SearchUser {
-    jobId:Number
+    name?:String
+    jobId?:Number
     start:Number
 	limit:Number
 }
@@ -47,6 +50,14 @@ export interface ISystemUserResponseList {
     code:number;
     message:String;
     data: SystemUserResponseArray[];
+}
+
+
+export interface ISystemInstructorResponseList {
+    status: Boolean;
+    code:number;
+    message:String;
+    data: TacInstructor[];
 }
 
 

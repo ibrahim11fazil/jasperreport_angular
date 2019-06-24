@@ -55,7 +55,8 @@ import {
   MatToolbarModule  
 } from '@angular/material';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
-import { CisSystemComponent } from './cis-system/cis-system.component';   
+import { CisSystemComponent } from './cis-system/cis-system.component';
+import { SearchInstructorComponent } from './search-instructor/search-instructor.component';   
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { CisSystemComponent } from './cis-system/cis-system.component';
      UserSearchComponent,
      FileUploaderComponent,
      CisSystemComponent,
+     SearchInstructorComponent,
      ],
   imports: [
     InfiniteScrollModule,
