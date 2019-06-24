@@ -76,7 +76,7 @@
               <span>Link Course</span>
             </ng-template>
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-raised-button color="accent" class="m-1"  (click)="linkRow(row)" >Link</button>
+              <button mat-raised-button color="accent" class="m-1"  (click)="updateLink(row)" >Link</button>
             </ng-template>
         </ngx-datatable-column>
 
@@ -85,7 +85,7 @@
               <span>Activation</span>
             </ng-template>
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-raised-button color="accent" class="m-1"  (click)="linkRow(row)" >Activation</button>
+              <button mat-raised-button color="accent" class="m-1"  (click)="updateActivation(row)" >Activation</button>
             </ng-template>
         </ngx-datatable-column>
 

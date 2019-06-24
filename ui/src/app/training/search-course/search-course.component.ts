@@ -120,6 +120,16 @@ export class SearchCourseComponent implements OnInit {
     this.router.navigate(["/training/create-course/",row.courseId]);
   }
 
+  updateLink(row){
+    //this.router.navigate(["create-course"])
+    this.router.navigate(["/training/course-link/",row.courseId]);
+  }
+
+  updateActivation(row){
+    //this.router.navigate(["create-course"])
+    this.router.navigate(["/training/activate-course/",row.courseId]);
+  }
+
   successDelete(data) {
     //this.tData=false;
     let course: TacCourseMaster = {
