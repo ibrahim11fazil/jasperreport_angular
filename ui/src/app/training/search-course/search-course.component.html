@@ -3,7 +3,7 @@
     <div class="gene-card-title">
       <div fxLayout="row" fxLayoutAlign="start center">
         <div fxLayout="column">
-          <h4>Course</h4>
+          <h4>Search Course</h4>
         </div> <span fxFlex></span>
       </div>
       <mat-divider></mat-divider>
@@ -15,10 +15,7 @@
             <mat-form-field class="full-wid mrgn-b-md">
               <input matInput placeholder="Course Name" formControlName="courseName">
             </mat-form-field>
-            <small class="gene-block" *ngIf="form.controls['courseName'].hasError('required') && form.controls['courseName'].touched"
-                   class="warn-text">
-              You must enter the course Name
-            </small>
+            
           </div>
         </div>
 

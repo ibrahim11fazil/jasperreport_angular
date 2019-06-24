@@ -35,7 +35,7 @@ export class SearchCourseComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      courseName: [null, Validators.compose([Validators.required])],
+      courseName: null,
     }
     )
   }
