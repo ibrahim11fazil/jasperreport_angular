@@ -10,7 +10,7 @@
             <mat-divider></mat-divider>
          </div>
          <div class="gene-card-content">
-            <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+            <form [formGroup]="form" (ngSubmit)="activateCourse()">
                 <div fxLayout="column">
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
@@ -95,11 +95,11 @@
                                  </button>   
                            </div>
                      </div> 
-                     <div formArrayName="instructorOptions">
-                           <div *ngFor="let ff of form.get('instructorOptions').controls; let in=index"
+                     <div formArrayName="instructorSelect">
+                           <div *ngFor="let ff of form.get('instructorSelect').controls; let in=index"
                               fxLayout="row wrap" fxLayoutAlign="space-between center">
                               <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                       <mat-select placeholder="Instructor" matInput formControlName="instructorSelect">
+                                       <mat-select placeholder="Instructor" matInput formControlName="name">
                                              <mat-option *ngFor="let item of tacInstructor" [value]="item">
                                                 {{item.name}}
                                              </mat-option>

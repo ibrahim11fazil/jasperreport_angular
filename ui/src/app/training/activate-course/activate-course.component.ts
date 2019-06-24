@@ -10,6 +10,8 @@ import { ResponseRoom, TrainingRoom } from 'app/models/training-room';
 import { ITacInstructorList, TacInstructor } from 'app/models/tac-instructor';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { SystemUser, ISystemUserResponse, ISystemUserResponseList, SystemUserResponse, SystemUserResponseArray } from 'app/models/system-user';
+import { TacActivation } from 'app/models/tac-activation';
+import { Date } from "app/models/date";
 
 
 @Component({
@@ -28,6 +30,7 @@ export class ActivateCourseComponent implements OnInit {
   tacCourseLocation:Location[]=[];
   tacInstructor:TacInstructor[]=[];
   user:SystemUser;
+  tacCourseActivation:TacActivation;
   courseCategories:Categories[] = [];
   displayCourseDetails:boolean=false;
   editable:true;
@@ -37,7 +40,28 @@ export class ActivateCourseComponent implements OnInit {
     private userService:SystemUserService,
     private toastr: ToastrService,
    
-    private activatedRoute: ActivatedRoute ){}
+    private activatedRoute: ActivatedRoute ){
+this.tacCourseActivation = {
+      activationId:0,
+      tacActivity:null,
+      tacCourseMaster:null,
+      tacCourseRoom:null,
+      tacCourseDate:null,
+      dependentId:null,
+      coordinatorId:"",
+      costInstructor:0,
+      costFood:0,
+      costTransport:0,
+      costAirticket:0,
+      costHospitality:0,
+      costGift:0,
+      costVenue:0,
+      costBonus:0,
+      costTranslation:0,
+      tacCourseInstructor:[],
+      status:0
+  }
+    }
 
   ngOnInit() {
      this.formInit()
@@ -54,7 +78,7 @@ export class ActivateCourseComponent implements OnInit {
       locationSelect:[null, Validators.compose([Validators.required])],
       dateSelect:[null, Validators.compose([Validators.required])],
       roomSelect:[null, Validators.compose([Validators.required])],
-      instructorSelect:[null, Validators.compose([Validators.required])],
+      instructorSelect:this.fb.array([]),
       instructorCost:[null, Validators.compose([Validators.required])],
       buffetCost:[null, Validators.compose([Validators.required])],
       transportCost:[null, Validators.compose([Validators.required])],
@@ -66,7 +90,7 @@ export class ActivateCourseComponent implements OnInit {
       translationCost:[null, Validators.compose([Validators.required])],
       belongsSelect:[null, Validators.compose([Validators.required])],
       userSelect:[null, Validators.compose([Validators.required])],
-      instructorOptions:this.fb.array([])
+      //instructorOptions:this.fb.array([])
       
       
     });
@@ -192,20 +216,21 @@ getCourseRoomDetail(location)
 
 }
 addMoreInstructor() {
-  const control = this.getControlOfAddMore('instructorOptions');
-  control.push(this.patchValues("", "","",""))
+  const control = this.getControlOfAddMore('instructorSelect');
+  control.push(this.patchValues(0,"", "","",""))
 }
 
 removeMoreInstructor(i) {
-  const control = this.getControlOfAddMore('instructorOptions');
+  const control = this.getControlOfAddMore('instructorSelect');
   control.removeAt(i)
 }
 
 getControlOfAddMore(name): FormArray {
   return <FormArray>this.form.get(name);
 }
-patchValues(jobid,name,ibanno,qid) {
+patchValues(instructorId,jobid,name,ibanno,qid) {
   return this.fb.group({
+    instructorId:[instructorId],
     jobid: [jobid],
     name: [name],
     ibanno:[ibanno],
@@ -213,10 +238,66 @@ patchValues(jobid,name,ibanno,qid) {
   })
 }
 
+activateCourse()
+{
+  debugger;
+  
+  if(this.form.valid){
+    console.log(this.form.value.courseSelect.courseId);
+    let courseActivation=new TacActivation(0,null,null,null,null,0,"",0,0,0,0,0,0,0,0,0,null,0)
+var courseMaster=new TacCourseMaster(0,null,"",0,"",0,0,null,null,null,0,0,0,null,null);
+
+courseMaster.courseId=this.form.value.courseSelect.courseId;
+courseMaster.courseName=this.form.value.courseSelect.courseName;
+
+    courseActivation.tacCourseMaster=courseMaster;
+    courseActivation.dependentId=this.form.value.belongsSelect.courseId;
+
+    var courseDate=new Date(0,null);
+courseDate.dateId=this.form.value.dateSelect.dateId
+courseActivation.tacCourseDate=courseDate;
+
+var trainingRoom=new TrainingRoom(0,"");
+trainingRoom.roomId=this.form.value.roomSelect.roomId;
+    courseActivation.tacCourseRoom=trainingRoom;
+
+const instructorOptions=this.getControlOfAddMore('instructorSelect');
+var instructors=<TacInstructor[]>instructorOptions.value;
+this.tacCourseActivation.tacCourseInstructor=instructors;
+courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructor;
+
+   courseActivation.costInstructor=this.form.value.instructorCost;
 
 
+   courseActivation.costInstructor=this.form.value.instructorCost
+      courseActivation.costFood=this.form.value.buffetCost
+     courseActivation.costTransport=this.form.value.transportCost
+      courseActivation.costAirticket=this.form.value.ticketCost
+      courseActivation.costHospitality=this.form.value.hospitalityCost
+      courseActivation.costVenue=this.form.value.reservationCost
+      courseActivation.costBonus=this.form.value.bonusCost
+      courseActivation.costTranslation=this.form.value.translationCost
+debugger;
+      this.trainingService.saveCourseActivation(courseActivation).subscribe(
+        data => this.successSaveActivation(data),
+        error => {
+          console.log(error.message)
+          this.toastr.error(error.message)
+        }
+      )
+      }else{
+        debugger
+        this.toastr.error("Please fill all required fields");
+      }
+      }
+      
+      successSaveActivation(data) {
+      if (data.status == true) {
+        this.toastr.success(data.message)
+        this.form.reset()
+      } else {
+        this.toastr.error(data.message)
+      }
+      }
 
-
-}
-
-
+    }

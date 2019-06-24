@@ -1,10 +1,12 @@
 export class TacInstructor {
+    instructorId:Number
     jobid:String
     name:String
     ibanno:String
     qid:String
 
-    constructor(jobid:String,name:String,ibanno:String,qid:String) {
+    constructor(instructorId:Number,jobid:String,name:String,ibanno:String,qid:String) {
+        this.instructorId=instructorId;
         this.jobid=jobid;
         this.name=name;
         this.ibanno=ibanno;

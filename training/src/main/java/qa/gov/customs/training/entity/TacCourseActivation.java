@@ -50,6 +50,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	private BigDecimal status;
 	private Set<TacCourseAttendees> tacCourseAttendeeses = new HashSet<TacCourseAttendees>(0);
 	private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
+	private String cordinatorJobcode;
 
 	public TacCourseActivation() {
 	}
@@ -59,13 +60,15 @@ public class TacCourseActivation implements java.io.Serializable {
 		this.tacCourseMaster = tacCourseMaster;
 	}
 
+
+
 	public TacCourseActivation(BigDecimal activationId, TacActivity tacActivity, TacCourseMaster tacCourseMaster,
-			TacCourseRoom tacCourseRoom, TacCourseDate tacCourseDate, BigDecimal dependentId, Date activationDate,
-			String coordinatorId, BigDecimal costInstructor, BigDecimal costFood, BigDecimal costTransport,
-			BigDecimal costAirticket, BigDecimal costHospitality, BigDecimal costGift, BigDecimal costVenue,
-			BigDecimal costBonus, BigDecimal costTranslation, String userCreated, Date dateCreated, String userModified,
-			Date dateModified, BigDecimal status, Set<TacCourseAttendees> tacCourseAttendeeses,
-			Set<TacCourseInstructor> tacCourseInstructors) {
+							   TacCourseRoom tacCourseRoom, TacCourseDate tacCourseDate, BigDecimal dependentId, Date activationDate,
+							   String coordinatorId, BigDecimal costInstructor, BigDecimal costFood, BigDecimal costTransport,
+							   BigDecimal costAirticket, BigDecimal costHospitality, BigDecimal costGift, BigDecimal costVenue,
+							   BigDecimal costBonus, BigDecimal costTranslation, String userCreated, Date dateCreated, String userModified,
+							   Date dateModified, BigDecimal status, Set<TacCourseAttendees> tacCourseAttendeeses,
+							   Set<TacCourseInstructor> tacCourseInstructors, String cordinatorJobcode) {
 		this.activationId = activationId;
 		this.tacActivity = tacActivity;
 		this.tacCourseMaster = tacCourseMaster;
@@ -90,6 +93,7 @@ public class TacCourseActivation implements java.io.Serializable {
 		this.status = status;
 		this.tacCourseAttendeeses = tacCourseAttendeeses;
 		this.tacCourseInstructors = tacCourseInstructors;
+		this.cordinatorJobcode=cordinatorJobcode;
 	}
 
 	@Id
@@ -316,6 +320,13 @@ public class TacCourseActivation implements java.io.Serializable {
 
 	public void setTacCourseInstructors(Set<TacCourseInstructor> tacCourseInstructors) {
 		this.tacCourseInstructors = tacCourseInstructors;
+	}
+	public String getCordinatorJobcode() {
+		return cordinatorJobcode;
+	}
+
+	public void setCordinatorJobcode(String cordinatorJobcode) {
+		this.cordinatorJobcode = cordinatorJobcode;
 	}
 
 }
