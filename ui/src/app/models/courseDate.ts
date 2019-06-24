@@ -1,4 +1,4 @@
-export class Date {
+export class CourseDate {
 
     public dateId:Number;
 	public  courseDate:Date;
@@ -14,5 +14,5 @@ export interface ResponseDate{
     status: Boolean;
     code:number;
     message:String;
-    data: Date[];
+    data: CourseDate[];
 }

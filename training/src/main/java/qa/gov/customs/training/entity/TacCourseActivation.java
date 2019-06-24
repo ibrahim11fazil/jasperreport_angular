@@ -1,6 +1,9 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -27,7 +30,6 @@ import javax.persistence.TemporalType;
 public class TacCourseActivation implements java.io.Serializable {
 
 	private BigDecimal activationId;
-	private TacActivity tacActivity;
 	private TacCourseMaster tacCourseMaster;
 	private TacCourseRoom tacCourseRoom;
 	private TacCourseDate tacCourseDate;
@@ -62,7 +64,7 @@ public class TacCourseActivation implements java.io.Serializable {
 
 
 
-	public TacCourseActivation(BigDecimal activationId, TacActivity tacActivity, TacCourseMaster tacCourseMaster,
+	public TacCourseActivation(BigDecimal activationId,  TacCourseMaster tacCourseMaster,
 							   TacCourseRoom tacCourseRoom, TacCourseDate tacCourseDate, BigDecimal dependentId, Date activationDate,
 							   String coordinatorId, BigDecimal costInstructor, BigDecimal costFood, BigDecimal costTransport,
 							   BigDecimal costAirticket, BigDecimal costHospitality, BigDecimal costGift, BigDecimal costVenue,
@@ -70,7 +72,7 @@ public class TacCourseActivation implements java.io.Serializable {
 							   Date dateModified, BigDecimal status, Set<TacCourseAttendees> tacCourseAttendeeses,
 							   Set<TacCourseInstructor> tacCourseInstructors, String cordinatorJobcode) {
 		this.activationId = activationId;
-		this.tacActivity = tacActivity;
+
 		this.tacCourseMaster = tacCourseMaster;
 		this.tacCourseRoom = tacCourseRoom;
 		this.tacCourseDate = tacCourseDate;
@@ -107,19 +109,9 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setActivationId(BigDecimal activationId) {
 		this.activationId = activationId;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ACTIVITY_ID")
-	public TacActivity getTacActivity() {
-		return this.tacActivity;
-	}
-
-	public void setTacActivity(TacActivity tacActivity) {
-		this.tacActivity = tacActivity;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COURSE_ID", nullable = false)
+	@JoinColumn(name = "COURSE_ID")
 	public TacCourseMaster getTacCourseMaster() {
 		return this.tacCourseMaster;
 	}
@@ -127,7 +119,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
 		this.tacCourseMaster = tacCourseMaster;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ROOM_ID")
 	public TacCourseRoom getTacCourseRoom() {
@@ -137,7 +129,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setTacCourseRoom(TacCourseRoom tacCourseRoom) {
 		this.tacCourseRoom = tacCourseRoom;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DATE_ID")
 	public TacCourseDate getTacCourseDate() {
@@ -321,6 +313,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setTacCourseInstructors(Set<TacCourseInstructor> tacCourseInstructors) {
 		this.tacCourseInstructors = tacCourseInstructors;
 	}
+	@Column(name = "CORDINATOR_JOBCODE", precision = 22, scale = 0)
 	public String getCordinatorJobcode() {
 		return cordinatorJobcode;
 	}

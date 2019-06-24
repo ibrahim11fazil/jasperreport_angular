@@ -12,6 +12,7 @@ import { isNgTemplate } from '@angular/compiler';
 import { Location,ResponseLocation } from 'app/models/location';
 import { Prerequisites, ResponsePrerequisites } from 'app/models/prerequisites';
 import { DURATION_FLAG_LIST } from 'app/app.constants';
+import { CourseDate } from 'app/models/courseDate';
  
 
 
@@ -30,7 +31,7 @@ export class CourseLinkComponent implements OnInit {
   courseList:Course[]=[];
   guidelineList:TrainingGuidelines[]=[];
   expectedResult:ExpectedResults[]=[];
-  dates:Date[]=[];
+  dates:CourseDate[]=[];
   courseDetails:TacCourseMaster;
   displayCourseDetails:boolean=false;
   targetAudiences:TargetAudience[]=[];
@@ -39,7 +40,7 @@ export class CourseLinkComponent implements OnInit {
   tacCourseLocation:Location[]=[];
   tacCoursePrerequisites:Prerequisites[]=[];
   tacCourseMaster: TacCourseMaster;
-  tacCourseDates:Date[]=[];
+  tacCourseDates:CourseDate[]=[];
   durationFlagList = DURATION_FLAG_LIST
 editable:true;
 
@@ -124,7 +125,8 @@ public form: FormGroup;
         console.log(error)
         this.toastr.error(error.message)
       }
-    ),
+    )
+    debugger;
     this.trainingService.getAllTacCourseLocation().subscribe(
       data => {
         
@@ -239,7 +241,7 @@ courseMaster.tacActivities=this.tacCourseMaster.tacActivities;
 
 
 const dateOptions = this.getControlOfAddMore('dateOptions');
-var tacCourseDates = <Date[]>dateOptions.value;
+var tacCourseDates = <CourseDate[]>dateOptions.value;
 this.tacCourseMaster.tacCourseDates = tacCourseDates;
 courseMaster.tacCourseDates=this.tacCourseMaster.tacCourseDates;
 

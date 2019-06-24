@@ -11,7 +11,7 @@ import { ITacInstructorList, TacInstructor } from 'app/models/tac-instructor';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { SystemUser, ISystemUserResponse, ISystemUserResponseList, SystemUserResponse, SystemUserResponseArray } from 'app/models/system-user';
 import { TacActivation } from 'app/models/tac-activation';
-//import { Date } from "app/models/date";
+import { CourseDate } from "app/models/courseDate";
 
 
 @Component({
@@ -26,7 +26,7 @@ export class ActivateCourseComponent implements OnInit {
   userList:SystemUserResponseArray[]=[];
   courseDetails:TacCourseMaster;
   roomDetails:TrainingRoom[]=[];
-  courseDate:Date[]=[];
+  courseDate:CourseDate[]=[];
   tacCourseLocation:Location[]=[];
   tacInstructor:TacInstructor[]=[];
   user:SystemUser;
@@ -249,7 +249,7 @@ courseMaster.courseName=this.form.value.courseSelect.courseName;
     courseActivation.tacCourseMaster=courseMaster;
     courseActivation.dependentId=this.form.value.belongsSelect.courseId;
 
-    var courseDate=new Date(0,null);
+    var courseDate=new CourseDate(0,null);
 courseDate.dateId=this.form.value.dateSelect.dateId
 courseActivation.tacCourseDate=courseDate;
 

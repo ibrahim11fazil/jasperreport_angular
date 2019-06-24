@@ -3,6 +3,7 @@ import { TrainingGuidelines } from "./training-guidelines";
 import { TargetAudience } from "./target-audience";
 import { ExpectedResults } from "./expected-results";
 import { TacActivity } from "./tac-activity";
+import { CourseDate } from "./courseDate";
 
 export class TacCourseMaster {
 
@@ -20,11 +21,11 @@ export class TacCourseMaster {
     public prerequisitesId:Number
     public subcourseFlag:Number
     public locationType:Number
-    public tacCourseDates:Date[];
+    public tacCourseDates:CourseDate[];
     public tacActivities:TacActivity[];
     
     constructor(courseId:Number,tacCourseCategory:Categories,courseName:String,duration:Number,objective:String,durationFlag:Number,
-        numberofhours:Number,tacCourseGuidelineses:TrainingGuidelines[],targetAudience:TargetAudience[],expectedResults:ExpectedResults[],prerequisitesId:Number,subcourseFlag:Number,locationType:Number,tacCourseDates:Date[],tacActivities:TacActivity[]) {
+        numberofhours:Number,tacCourseGuidelineses:TrainingGuidelines[],targetAudience:TargetAudience[],expectedResults:ExpectedResults[],prerequisitesId:Number,subcourseFlag:Number,locationType:Number,tacCourseDates:CourseDate[],tacActivities:TacActivity[]) {
         this.courseId=courseId;
         this.tacCourseCategory=tacCourseCategory;
         this.courseName=courseName;

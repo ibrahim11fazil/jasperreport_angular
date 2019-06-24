@@ -309,6 +309,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseOutcomes = tacCourseOutcomes;
 	}
 
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseDate> getTacCourseDates() {
 		return this.tacCourseDates;

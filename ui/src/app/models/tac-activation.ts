@@ -1,7 +1,7 @@
 import { TacActivity } from "./tac-activity";
 import { TacCourseMaster } from "./tac-course-master";
 import { TrainingRoom } from "./training-room";
-import { Date } from "./date";
+import { CourseDate } from "./courseDate";
 import { TacInstructor } from "./tac-instructor";
 
 export class TacActivation {
@@ -10,7 +10,7 @@ export class TacActivation {
 	public tacActivity?:TacActivity;
 	public tacCourseMaster?:TacCourseMaster;
 	public tacCourseRoom?:TrainingRoom;
-	public tacCourseDate?:Date;
+	public tacCourseDate?:CourseDate;
 	public  dependentId:Number;
 	//public activationDate:Date;
 	public  coordinatorId:String;
@@ -28,7 +28,7 @@ export class TacActivation {
 	//public tacCourseAttendeeses = TacCourseAttendees[];
     public tacCourseInstructor:TacInstructor[];
     
-    constructor(activationId:Number,tacActivity:TacActivity,tacCourseMaster:TacCourseMaster,tacCourseRoom:TrainingRoom,tacCourseDate:Date,
+    constructor(activationId:Number,tacActivity:TacActivity,tacCourseMaster:TacCourseMaster,tacCourseRoom:TrainingRoom,tacCourseDate:CourseDate,
         dependentId:Number,coordinatorId:String,costInstructor:Number,costFood:Number,costTransport:Number,costAirticket:Number,
         costHospitality:Number,costGift:Number,costVenue:Number,costBonus:Number,costTranslation:Number,tacCourseInstructor:TacInstructor[],status:Number )
         {

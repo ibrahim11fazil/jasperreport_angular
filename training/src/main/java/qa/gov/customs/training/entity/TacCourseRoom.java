@@ -2,6 +2,7 @@ package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -76,7 +77,7 @@ public class TacCourseRoom implements java.io.Serializable {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseRoom")
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;

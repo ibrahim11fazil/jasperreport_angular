@@ -1,6 +1,8 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +53,7 @@ public class TacCourseLocation implements java.io.Serializable {
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
-
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseLocation",cascade = CascadeType.ALL)
 	public Set<TacCourseRoom> getTacCourseRooms() {
 		return this.tacCourseRooms;

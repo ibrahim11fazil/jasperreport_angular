@@ -2,6 +2,8 @@ package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -62,7 +64,7 @@ public class TacCourseDate implements java.io.Serializable {
 	public void setDateId(BigDecimal dateId) {
 		this.dateId = dateId;
 	}
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID")
 	public TacCourseMaster getTacCourseMaster() {

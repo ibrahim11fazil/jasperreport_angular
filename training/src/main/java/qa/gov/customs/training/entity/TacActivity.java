@@ -144,13 +144,13 @@ public class TacActivity extends Auditable<String> implements java.io.Serializab
 //		this.tacCourseMasters = tacCourseMasters;
 //	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacActivity")
-	public Set<TacCourseActivation> getTacCourseActivations() {
-		return this.tacCourseActivations;
-	}
-
-	public void setTacCourseActivations(Set<TacCourseActivation> tacCourseActivations) {
-		this.tacCourseActivations = tacCourseActivations;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacActivity")
+//	public Set<TacCourseActivation> getTacCourseActivations() {
+//		return this.tacCourseActivations;
+//	}
+//
+//	public void setTacCourseActivations(Set<TacCourseActivation> tacCourseActivations) {
+//		this.tacCourseActivations = tacCourseActivations;
+//	}
 
 }
