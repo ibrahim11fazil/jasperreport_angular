@@ -140,17 +140,21 @@ public class CourseServiceImpl  implements CourseService {
 	@Override
 	public List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
 		//courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-		List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-		List<Course> courses = new ArrayList<>();
-		for (Object[] o : objects) {
-			Course course = new Course();
-			course.setCourseId((BigDecimal) o[0]);
-			course.setCourseName((String) o[1]);
-			if (o[2] != null)
-				course.setStatus((BigDecimal) o[2]);
-			courses.add(course);
+		if(searchCriteria.getCourseName()==null || searchCriteria.getCourseName().equals("") ){
+			return listCourses();
+		}else {
+			List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+			List<Course> courses = new ArrayList<>();
+			for (Object[] o : objects) {
+				Course course = new Course();
+				course.setCourseId((BigDecimal) o[0]);
+				course.setCourseName((String) o[1]);
+				if (o[2] != null)
+					course.setStatus((BigDecimal) o[2]);
+				courses.add(course);
+			}
+			return courses;
 		}
-		return courses;
 	}
 
 	@Override
