@@ -7,7 +7,7 @@ import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_
 
 import { BehaviorSubject } from 'rxjs';
 import { TacCourseMaster } from 'app/models/tac-course-master';
-import { TacInstructor } from '../../models/tac-instructor';
+import { TacInstructor, TacInstructorRequest } from '../../models/tac-instructor';
 import { CiSystemUsersRequest } from 'app/models/ci-system-user';
 import { SearchUser } from 'app/models/system-user';
 @Injectable({
@@ -119,7 +119,7 @@ export class TrainingService {
     return this.httpClient.post(GET_INSTRUCTORS_BY_NAME,instructor);
   }
 
-  getInstructorById(instructor:TacInstructor): Observable<Object> {
+  getInstructorById(instructor:TacInstructorRequest): Observable<Object> {
     return this.httpClient.post(GET_INSTRUCTOR_BY_ID,instructor);
   }
 
