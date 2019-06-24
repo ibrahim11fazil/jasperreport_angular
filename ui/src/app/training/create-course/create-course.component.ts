@@ -143,7 +143,6 @@ export class CreateCourseComponent implements OnInit {
     this.form.controls['courseCategoriesSelect'].patchValue(
       courseCategoryArray[0] 
    )
-   console.log("console.log")
    }
   }
   

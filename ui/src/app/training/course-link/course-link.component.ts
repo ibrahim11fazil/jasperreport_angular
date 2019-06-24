@@ -209,14 +209,13 @@ export class CourseLinkComponent implements OnInit {
             this.loadedCourseDates= response.data
             this.patch()
           },
-          error=>{
-            // No Dates Found 
+          error=> {
+            this.toastr.error(error.message)
+            console.log(error.message)
           }
         )
-
-
       }else{
-        this.toastr.info("Select Course to update")
+        this.toastr.info("Select Course or Activity to view date")
       }
   }
 
@@ -249,8 +248,14 @@ export class CourseLinkComponent implements OnInit {
     }
 
     const datesControl = this.getControlOfAddMore('dateOptions');
+    //this.form.setControl('dateOptions', this.fb.array([]));
+   this.loadedCourseDates.forEach(x => {
+    console.log(x.courseDate)
+    datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
+  })
     this.loadedCourseDates.forEach(x => {
-      datesControl.push(this.patchValues(x.dateId, x.courseDate))
+      console.log(x.courseDate)
+      datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
     })
 
 
