@@ -47,7 +47,15 @@ export const TrainingRoutes: Routes = [
                 component: CourseLinkComponent
             },
             {
+                path: 'course-link/:id',
+                component: CourseLinkComponent
+            },
+            {
                 path: 'activate-course',
+                component: ActivateCourseComponent
+            },
+            {
+                path: 'activate-course/:id',
                 component: ActivateCourseComponent
             },
             {

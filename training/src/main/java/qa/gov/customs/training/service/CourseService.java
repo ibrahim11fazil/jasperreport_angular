@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,8 @@ public interface CourseService {
     TacCourseMaster findById(BigDecimal id);
     BigInteger enabledCountCourses();
     Optional<TacCourseMaster> getCourseById(TacCourseMaster courses);
+    Set<TacCourseDate> getCourseDatesByIdAndActivity(TacCourseMaster courses);
+    Set<TacCourseDate> findAllDatesByCourseIdAndActivityId(BigDecimal courseId, BigDecimal activityId);
     List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course);
     List<TacCourseCategory> findCourseCategories();
     List<TacCourseTargetGroup> findCourseTargetGroups();

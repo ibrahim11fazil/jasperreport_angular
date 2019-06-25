@@ -35,7 +35,7 @@ export class SearchCourseComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      courseName: [null, Validators.compose([Validators.required])],
+      courseName: null,
     }
     )
   }
@@ -118,6 +118,16 @@ export class SearchCourseComponent implements OnInit {
   updateRow(row){
     //this.router.navigate(["create-course"])
     this.router.navigate(["/training/create-course/",row.courseId]);
+  }
+
+  updateLink(row){
+    //this.router.navigate(["create-course"])
+    this.router.navigate(["/training/course-link/",row.courseId]);
+  }
+
+  updateActivation(row){
+    //this.router.navigate(["create-course"])
+    this.router.navigate(["/training/activate-course/",row.courseId]);
   }
 
   successDelete(data) {

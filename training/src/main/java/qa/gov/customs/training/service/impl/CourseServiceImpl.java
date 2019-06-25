@@ -48,6 +48,9 @@ public class CourseServiceImpl  implements CourseService {
 	@Autowired
 	TacCommQualificationsRepository qualificationsRepository;
 
+	@Autowired
+	TacCourseDateRepository tacCourseDateRepository;
+
 	@Override
 	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
 		Set<TacCourseAudience> targetedAudiences = course.getTacCourseAudiences() != null ? course.getTacCourseAudiences() : null;
@@ -132,6 +135,26 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
+	public Set<TacCourseDate> getCourseDatesByIdAndActivity(TacCourseMaster course) {
+			return findAllDatesByCourseIdAndActivityId(course.getCourseId(),course.getActivityId());
+	}
+
+
+
+	@Override
+	public Set<TacCourseDate> findAllDatesByCourseIdAndActivityId(BigDecimal courseId, BigDecimal activityId) {
+			List<Object[]> objects = tacCourseDateRepository.findAllDatesByCourseIdAndActivityId(courseId,activityId);
+		   Set<TacCourseDate> courses = new HashSet<>();
+			for (Object[] o : objects) {
+				TacCourseDate course = new TacCourseDate();
+				course.setCourseDate((Date) o[3]);
+				course.setDateId((BigDecimal) o[0]);
+				courses.add(course);
+			}
+			return courses;
+	}
+
+	@Override
 	public TacCourseMaster activateCourse(TacCourseMaster course) {
 		// TODO Auto-generated method stub
 		return null;
@@ -140,17 +163,21 @@ public class CourseServiceImpl  implements CourseService {
 	@Override
 	public List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
 		//courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-		List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-		List<Course> courses = new ArrayList<>();
-		for (Object[] o : objects) {
-			Course course = new Course();
-			course.setCourseId((BigDecimal) o[0]);
-			course.setCourseName((String) o[1]);
-			if (o[2] != null)
-				course.setStatus((BigDecimal) o[2]);
-			courses.add(course);
+		if(searchCriteria.getCourseName()==null || searchCriteria.getCourseName().equals("") ){
+			return listCourses();
+		}else {
+			List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+			List<Course> courses = new ArrayList<>();
+			for (Object[] o : objects) {
+				Course course = new Course();
+				course.setCourseId((BigDecimal) o[0]);
+				course.setCourseName((String) o[1]);
+				if (o[2] != null)
+					course.setStatus((BigDecimal) o[2]);
+				courses.add(course);
+			}
+			return courses;
 		}
-		return courses;
 	}
 
 	@Override

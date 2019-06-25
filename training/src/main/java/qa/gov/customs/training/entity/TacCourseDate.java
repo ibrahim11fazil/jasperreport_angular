@@ -32,6 +32,7 @@ public class TacCourseDate implements java.io.Serializable {
 
 	private BigDecimal dateId;
 	private TacCourseMaster tacCourseMaster;
+	private TacActivity tacActivity;
 	private Date courseDate;
 	private BigDecimal status;
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
@@ -71,6 +72,18 @@ public class TacCourseDate implements java.io.Serializable {
 		return this.tacCourseMaster;
 	}
 
+
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ACTIVITY_ID")
+	public TacActivity getTacActivity() {
+		return tacActivity;
+	}
+
+	public void setTacActivity(TacActivity tacActivity) {
+		this.tacActivity = tacActivity;
+	}
+
 	public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
 		this.tacCourseMaster = tacCourseMaster;
 	}
@@ -94,6 +107,7 @@ public class TacCourseDate implements java.io.Serializable {
 		this.status = status;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseDate")
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;

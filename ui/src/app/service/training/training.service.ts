@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID } from "../../app.constants";
 
 
 import { BehaviorSubject } from 'rxjs';
-import { TacCourseMaster } from 'app/models/tac-course-master';
+import { TacCourseMaster, CourseActivityDatesRequest } from 'app/models/tac-course-master';
 
 import { TacActivation } from 'app/models/tac-activation';
 
@@ -65,7 +65,6 @@ export class TrainingService {
   }
 
   getCourseById(course: TacCourseMaster): Observable<Object> {
-    debugger;
     return this.httpClient.post(GET_COURSE_BY_ID, course);
   }
   getAllTacCourseLocation(): Observable<Object> {
@@ -134,6 +133,10 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
 
   getInstructorById(instructor:TacInstructorRequest): Observable<Object> {
     return this.httpClient.post(GET_INSTRUCTOR_BY_ID,instructor);
+  }
+
+  getAllDatesForCourseAndActivity(course:CourseActivityDatesRequest): Observable<Object> {
+    return this.httpClient.post(GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID,course);
   }
 
 
