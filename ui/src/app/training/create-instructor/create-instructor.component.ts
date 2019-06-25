@@ -155,7 +155,11 @@ export class CreateInstructorComponent implements OnInit {
     this.tacInstructor = data.data;
     this.formInit()
     //TODO need to do
-    //this.patch() 
+    this.patch() 
+  }
+
+  patch(){
+    
   }
 
 

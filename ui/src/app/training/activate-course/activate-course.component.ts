@@ -265,9 +265,9 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
    courseActivation.costInstructor=this.form.value.instructorCost;
 
 
-   courseActivation.costInstructor=this.form.value.instructorCost
+      courseActivation.costInstructor=this.form.value.instructorCost
       courseActivation.costFood=this.form.value.buffetCost
-     courseActivation.costTransport=this.form.value.transportCost
+      courseActivation.costTransport=this.form.value.transportCost
       courseActivation.costAirticket=this.form.value.ticketCost
       courseActivation.costHospitality=this.form.value.hospitalityCost
       courseActivation.costVenue=this.form.value.reservationCost

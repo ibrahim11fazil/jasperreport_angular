@@ -29,8 +29,8 @@ export class CourseLinkComponent implements OnInit {
   expectedResult: ExpectedResults[] = [];
   dates: CourseDate[] = [];
   courseDetails: TacCourseMaster;
-  loadedActivityId:Number=0
-  loadedCourseDates:CourseDate[]=[]
+  loadedActivityId:Number=0 // NOt required
+  loadedCourseDates:CourseDate[]=[] // NOt required
   displayCourseDetails: boolean = false;
   targetAudiences: TargetAudience[] = [];
   targetAudiencesResult: TargetAudience[] = [];
@@ -86,7 +86,6 @@ export class CourseLinkComponent implements OnInit {
       prerequisitesSelect: [null, Validators.compose([Validators.required])],
       dateOptions: this.fb.array([])
     });
-
   }
 
   formSetup() {
@@ -123,7 +122,6 @@ export class CourseLinkComponent implements OnInit {
           this.toastr.error(error.message)
         }
       )
-    debugger;
     this.trainingService.getAllTacCourseLocation().subscribe(
       data => {
 
@@ -140,8 +138,6 @@ export class CourseLinkComponent implements OnInit {
 
       this.trainingService.getAllCoursePrerequisites().subscribe(
         data => {
-          debugger;
-
           var prerequisites = <ResponsePrerequisites>data
           this.tacCoursePrerequisites = prerequisites.data
           console.log(this.tacCoursePrerequisites)
@@ -195,8 +191,8 @@ export class CourseLinkComponent implements OnInit {
     
   }
 
+  //Not required
   fetchDates(){
-    debugger
     if(this.courseDetails!=null && this.courseDetails.courseId!=null && 
       this.loadedActivityId!=0
       ){
@@ -214,7 +210,7 @@ export class CourseLinkComponent implements OnInit {
             console.log(error.message)
           }
         )
-      }else{
+      } else {
         this.toastr.info("Select Course or Activity to view date")
       }
   }
@@ -287,20 +283,16 @@ export class CourseLinkComponent implements OnInit {
     if (this.form.valid) {
 
       let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
-
       courseMaster.courseId = this.form.value.courseSelect.courseId;
       courseMaster.prerequisitesId = this.form.value.prerequisitesSelect.prerequisitesId;
       courseMaster.locationType = this.form.value.locationSelect.locationId;
       courseMaster.subcourseFlag = this.form.value.subCourseSelect.value;
-
 
       let activity = new TacActivity("", 0)
       activity.activityId = <Number>this.form.value.activitySelect.activityId;
       activity.activityName = <String>this.form.value.activitySelect.activityName;
       this.tacCourseMaster.tacActivities.push(activity);
       courseMaster.tacActivities = this.tacCourseMaster.tacActivities;
-
-
 
       const dateOptions = this.getControlOfAddMore('dateOptions');
       var tacCourseDates = <CourseDate[]>dateOptions.value;
