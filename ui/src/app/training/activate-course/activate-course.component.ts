@@ -256,7 +256,7 @@ courseActivation.tacCourseDate=courseDate;
 var trainingRoom=new TrainingRoom(0,"");
 trainingRoom.roomId=this.form.value.roomSelect.roomId;
     courseActivation.tacCourseRoom=trainingRoom;
-
+debugger;
 const instructorOptions=this.getControlOfAddMore('instructorSelect');
 var instructors=<TacInstructor[]>instructorOptions.value;
 this.tacCourseActivation.tacCourseInstructor=instructors;
@@ -270,6 +270,7 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
       courseActivation.costTransport=this.form.value.transportCost
       courseActivation.costAirticket=this.form.value.ticketCost
       courseActivation.costHospitality=this.form.value.hospitalityCost
+      courseActivation.costGift=this.form.value.giftCost
       courseActivation.costVenue=this.form.value.reservationCost
       courseActivation.costBonus=this.form.value.bonusCost
       courseActivation.costTranslation=this.form.value.translationCost
