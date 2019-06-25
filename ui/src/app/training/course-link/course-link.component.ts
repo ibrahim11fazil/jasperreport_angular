@@ -246,7 +246,7 @@ export class CourseLinkComponent implements OnInit {
     const datesControl = this.getControlOfAddMore('dateOptions');
     //this.form.setControl('dateOptions', this.fb.array([]));
    this.loadedCourseDates.forEach(x => {
-    console.log(x.courseDate)
+    //console.log(x.courseDate)
     datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
   })
     this.loadedCourseDates.forEach(x => {
