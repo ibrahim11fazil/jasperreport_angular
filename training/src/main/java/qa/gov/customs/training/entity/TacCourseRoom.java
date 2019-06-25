@@ -1,6 +1,8 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -58,7 +60,7 @@ public class TacCourseRoom implements java.io.Serializable {
 	public void setRoomId(BigDecimal roomId) {
 		this.roomId = roomId;
 	}
-	@JsonBackReference
+@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "LOCATION_ID")
 	public TacCourseLocation getTacCourseLocation() {
@@ -77,7 +79,7 @@ public class TacCourseRoom implements java.io.Serializable {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-	@JsonManagedReference
+@JsonManagedReference(value="room")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseRoom")
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;

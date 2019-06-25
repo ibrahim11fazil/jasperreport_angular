@@ -51,7 +51,7 @@ public class TacCourseOutcome implements java.io.Serializable {
 	public void setOutcomeId(BigDecimal outcomeId) {
 		this.outcomeId = outcomeId;
 	}
-	@JsonBackReference
+	@JsonBackReference(value="outcomes")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID")
 	public TacCourseMaster getTacCourseMaster() {

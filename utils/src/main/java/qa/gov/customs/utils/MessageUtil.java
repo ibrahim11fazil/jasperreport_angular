@@ -20,6 +20,8 @@ public class MessageUtil {
     public static String INSTRUCTOR_DELETED="Instructor Deleted";
     public static String INSTRUCTOR_DELETED_FAILED= "Failed to delete instructor";  
     public static String INSTRUCTOR_CREATION_FAILED="Instructor Creation failed";
+    public static String COURSE_ACTIVATE="Course Activated";
+    public static String COURSE_ACTIVATE_FAIL="Course Activation Failed";
 
     public static String  SYSTEM_USER_CREATED="User Created";
     public static String  FAILED="Failed";
