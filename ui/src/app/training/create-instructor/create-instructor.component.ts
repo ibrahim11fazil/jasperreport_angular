@@ -35,7 +35,8 @@ export class CreateInstructorComponent implements OnInit {
       jobId:"",
       name:"",
       ibanNo:"",
-      qid:""} 
+      qid:"",
+    passportNo:""} 
 
    
     //this.patch()
@@ -53,19 +54,24 @@ export class CreateInstructorComponent implements OnInit {
   formInit()
   {
     this.form = this.fb.group({
-      instructorType:[null, Validators.compose([Validators.required])],
-      jobId:[null, Validators.compose([Validators.required])],
-      instructorName: [null, Validators.compose([Validators.required])],
-      organization:[null, Validators.compose([Validators.required])],
-      qid: [null, Validators.compose([Validators.required])],
-      passportNo: [null, Validators.compose([Validators.required])],
-      ibanNo:[null, Validators.compose([Validators.required])],
-      email: [null, Validators.compose([Validators.required])],
+      jobId:[this.tacInstructor.jobId, Validators.compose([Validators.required])],
+      instructorName: [ this.tacInstructor.name, Validators.compose([Validators.required])],
+      organization:[this.tacInstructor.companyName, Validators.compose([Validators.required])],
+      qid: [this.tacInstructor.qid, Validators.compose([Validators.required])],
+      passportNo: [this.tacInstructor.passportNo, Validators.compose([Validators.required])],
+      ibanNo:[this.tacInstructor.ibanNo, Validators.compose([Validators.required])],
+      email: [this.tacInstructor.email, Validators.compose([Validators.required])],
       subject:[null, Validators.compose([Validators.required])],
       qualifications:[null, Validators.compose([Validators.required])],
       photo:[null, Validators.compose([Validators.required])],
-      priority:[null, Validators.compose([Validators.required])]
+      priority:[null, Validators.compose([Validators.required])],
+      instructorType:[null, Validators.compose([Validators.required])],
     });
+  }
+
+  patch(){
+    //TODO need to patch 
+    
   }
 
   formSetup(){
@@ -138,13 +144,11 @@ export class CreateInstructorComponent implements OnInit {
       }
      });  
       if(this.param!='' && this.param!=undefined){
-        console.log(this.param);
         let instructor=new TacInstructorRequest()
         instructor.instructorId= this.param
         this.trainingService.getInstructorById(instructor).subscribe(
           data => this.loadData(data),
           error => {
-            console.log(error)
             this.toastr.error(error.message)
           }
         )
@@ -154,13 +158,10 @@ export class CreateInstructorComponent implements OnInit {
   loadData(data){
     this.tacInstructor = data.data;
     this.formInit()
-    //TODO need to do
     this.patch() 
   }
 
-  patch(){
-    
-  }
+  
 
 
 }
