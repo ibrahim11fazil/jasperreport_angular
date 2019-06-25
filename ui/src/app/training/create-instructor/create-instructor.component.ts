@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { TrainingService } from '../../service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
-import { TacInstructor, Subject, Qualifiacation, SubjectListResponse, QualifiacationListResponse, TacInstructorRequest } from '../../models/tac-instructor';
+import { TacInstructor, Subject, Qualification, SubjectListResponse, QualifiacationListResponse, TacInstructorRequest } from '../../models/tac-instructor';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { PRIORITY_LIST } from 'app/app.constants';
 import { ActivatedRoute } from '@angular/router';
@@ -18,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CreateInstructorComponent implements OnInit {
 
   subjects:Subject[] =[]
-  qualifications:Qualifiacation[] =[]
+  qualifications:Qualification[] =[]
   form:FormGroup
   tacInstructor:TacInstructor
   priorityList =PRIORITY_LIST 
@@ -30,18 +30,21 @@ export class CreateInstructorComponent implements OnInit {
      private trainingService: TrainingService,
      private toastr : ToastrService,
      private activatedRoute: ActivatedRoute){
-      this.pageTitleService.setTitle("Instructor Registration"),
+      this.pageTitleService.setTitle("Instructor Registration")
       this.tacInstructor={
+      instructorId:0,
       jobId:"",
       name:"",
       ibanNo:"",
       qid:"",
-    passportNo:""} 
+      passportNo:""
+    } 
 
    
     //this.patch()
    // this.formSetup()
    // this.loadDataFromParam()
+
   }
 
   ngOnInit() {
@@ -61,7 +64,7 @@ export class CreateInstructorComponent implements OnInit {
       passportNo: [this.tacInstructor.passportNo, Validators.compose([Validators.required])],
       ibanNo:[this.tacInstructor.ibanNo, Validators.compose([Validators.required])],
       email: [this.tacInstructor.email, Validators.compose([Validators.required])],
-      subject:[null, Validators.compose([Validators.required])],
+      subject:this.fb.array([]),
       qualifications:[null, Validators.compose([Validators.required])],
       photo:[null, Validators.compose([Validators.required])],
       priority:[null, Validators.compose([Validators.required])],
@@ -71,7 +74,15 @@ export class CreateInstructorComponent implements OnInit {
 
   patch(){
     //TODO need to patch 
+    const controltargetAudienceOptions = this.getControlOfAddMore('subject');
+    this.tacInstructor.tacSubjectsModel.forEach(x => {
+      controltargetAudienceOptions.push(this.patchValuesSubjects(x.subjectId, x.subjectName,x.instructorId))
+    })
     
+  }
+
+  getControlOfAddMore(name): FormArray {
+    return <FormArray>this.form.get(name);
   }
 
   formSetup(){
@@ -108,13 +119,19 @@ export class CreateInstructorComponent implements OnInit {
   }
 
   saveInstructor(){
+    debugger
+    const subjectsCtrl = this.getControlOfAddMore('subject');
+    var subjectsArray = <Subject[]>subjectsCtrl.value
     this.tacInstructor={
+      instructorId:this.tacInstructor.instructorId,
       jobId:this.form.value.jobId,
       name:this.form.value.instructorName,
       ibanNo:this.form.value.ibanNo,
       qid:this.form.value.qidPassport,
-      photo:this.fileuploader.fileName
+      photo:this.fileuploader.fileName,
+      tacSubjectsModel:subjectsArray
     }
+    console.log(this.tacInstructor)
     this.trainingService.saveInstructor(this.tacInstructor).subscribe(
         data=>this.successSaveInstructor(data),
         error=>{
@@ -146,6 +163,7 @@ export class CreateInstructorComponent implements OnInit {
       if(this.param!='' && this.param!=undefined){
         let instructor=new TacInstructorRequest()
         instructor.instructorId= this.param
+        debugger
         this.trainingService.getInstructorById(instructor).subscribe(
           data => this.loadData(data),
           error => {
@@ -160,6 +178,25 @@ export class CreateInstructorComponent implements OnInit {
     this.formInit()
     this.patch() 
   }
+
+  addSubjects(){
+    const control = this.getControlOfAddMore('subject');
+    control.push(this.patchValuesSubjects(0, "",0))
+  }
+
+  removeSubjects(i){
+    const control = this.getControlOfAddMore('subject');
+    control.removeAt(i)
+  }
+
+  patchValuesSubjects(subjectId, subjectName,instructorId) {
+    return this.fb.group({
+      subjectId: [subjectId],
+      subjectName: [subjectName],
+      instructorId:[instructorId]
+    })
+  }
+
 
   
 

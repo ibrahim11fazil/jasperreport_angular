@@ -13,9 +13,9 @@ export class TacInstructor {
     email?: String;
     photo?: String;
     priority?: Number;
+    public tacSubjectsModel?:Subject[];
+    public tacInstructorQualifications?:Qualification[];
 
-
-  
 }
 
 export class TacInstructorRequest {
@@ -39,12 +39,13 @@ export interface ITacInstructorList {
 //GET ALL SUBJECTS
 export interface Subject {
     subjectId:Number;
-	subjectName:String;
+    subjectName:String;
+    instructorId?:Number
 }
 
 
 
-export interface Qualifiacation {
+export interface Qualification {
     qualificationId: Number;
     qualificationName: String;
 }
@@ -53,7 +54,7 @@ export interface QualifiacationListResponse {
     status: Boolean;
     code: number;
     message: String;
-    data: Qualifiacation[];
+    data: Qualification[];
 }
 
 
