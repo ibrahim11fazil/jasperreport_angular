@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +15,53 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import qa.gov.customs.training.entity.*;
+import qa.gov.customs.training.models.InstructorSubjectModel;
 import qa.gov.customs.training.repository.InstructorCourseRepository;
 import qa.gov.customs.training.repository.InstructorRepository;
+import qa.gov.customs.training.repository.TacCommSubjectsRepository;
 import qa.gov.customs.training.service.InstructorService;
 
 @Service
 public class InstructorServiceImpl  implements InstructorService {
 	@Autowired
 	InstructorRepository instructorRepository;
+	@Autowired
 	InstructorCourseRepository instructorCourserepository;
+	@Autowired
+	TacCommSubjectsRepository subjectsRepository;
+
 	
 	@Override
 	public TacInstructorMaster createInstructor (TacInstructorMaster tacInstructorMaster) {
-	TacInstructorMaster instructor=instructorRepository.save(tacInstructorMaster);
+
+		if(tacInstructorMaster.getInstructorId()==null || tacInstructorMaster.getInstructorId().equals(new BigDecimal("0"))){
+			//New Instructor
+//			TacInstructorMaster instructor=instructorRepository.save(tacInstructorMaster);
+//			if(tacInstructorMaster.getTacSubjectsModel()!=null & tacInstructorMaster.getTacSubjectsModel().size()>0)
+//			{
+//				tacInstructorMaster.getTacSubjectsModel().forEach(item -> {
+//					TacInstructorSubjectsId subjectsId= new TacInstructorSubjectsId();
+//					subjectsId.setInstructorId(instructor.getInstructorId());
+//					subjectsId.setSubjectId(item.getSubjectId());
+//					TacInstructorSubjects id= new TacInstructorSubjects();
+//					id.setId(subjectsId);
+//					id.setTacInstructorMaster(instructorRepository.findById(instructor.getInstructorId()).get());
+//					id.setTacCommSubjects(subjectsRepository.findById(item.getSubjectId()).get());
+//					tacInstructorMaster.getTacInstructorSubjects().add(id);
+//					});
+//
+//			}
+			TacInstructorMaster instructorUpdated=instructorRepository.save(tacInstructorMaster);
+			return instructorUpdated;
+
+		}else{
+			//Update instructor
+		}
+
+
+		TacInstructorMaster instructor=instructorRepository.save(tacInstructorMaster);
+
+
 	return instructor;
 
 }

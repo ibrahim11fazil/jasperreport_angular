@@ -31,9 +31,6 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	private BigDecimal subcourseFlag;
 	private BigDecimal locationType;
 	private String courseStatus;
-	//private String userCreated;
-	//private Date dateCreated;
-	//private String userModified;
 	private BigDecimal activeFlag;
 	public int offset;
 	public int limit;

@@ -40,7 +40,7 @@ public class TacCommSubjects implements java.io.Serializable {
 	}
 
 	public TacCommSubjects(BigDecimal subjectId, String subjectName, String userCreated, Date dateCreated,
-			String userModified, Date dateModified, Set<TacInstructorSubjects> tacInstructorSubjectses) {
+			String userModified, Date dateModified) {
 		this.subjectId = subjectId;
 		this.subjectName = subjectName;
 		this.userCreated = userCreated;
@@ -51,7 +51,6 @@ public class TacCommSubjects implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "SUBJECT_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_SUBJECT_SEQ",allocationSize = 1)

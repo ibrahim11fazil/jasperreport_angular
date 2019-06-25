@@ -33,8 +33,8 @@ public class TacCommQualifications implements java.io.Serializable {
 		this.qualificationId = qualificationId;
 	}
 
-	public TacCommQualifications(BigDecimal qualificationId, String qualificationName,
-			Set<TacInstructorQualifications> tacInstructorQualificationses) {
+	public TacCommQualifications(BigDecimal qualificationId, String qualificationName
+			) {
 		this.qualificationId = qualificationId;
 		this.qualificationName = qualificationName;
 		//this.tacInstructorQualificationses = tacInstructorQualificationses;

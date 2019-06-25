@@ -1,9 +1,12 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+import qa.gov.customs.training.models.InstructorSubjectModel;
+
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -29,11 +32,17 @@ public class TacInstructorMaster implements java.io.Serializable {
 	private String photo;
 	private BigDecimal priority;
 	//Many to many
-	private Set<TacInstructorQualifications> tacInstructorQualificationses = new HashSet<TacInstructorQualifications>(0);
+	private Set<TacCommQualifications> tacCommQualifications = new HashSet<>();
+	//private Set<TacInstructorQualifications> tacInstructorQualifications = new HashSet<TacInstructorQualifications>(0);
 	//Many to many
-	private Set<TacInstructorSubjects> tacInstructorSubjectses = new HashSet<TacInstructorSubjects>(0);
+	//private Set<TacInstructorSubjects> tacInstructorSubjects = new HashSet<TacInstructorSubjects>(0);
+
+	private Set<TacCommSubjects> tacCommSubjects = new HashSet<>();
 	//Many to many with priority
 	private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
+
+	//Set<InstructorSubjectModel> tacSubjectsModel = new HashSet<InstructorSubjectModel>(0);
+
 	public TacInstructorMaster() {
 	}
 
@@ -47,8 +56,8 @@ public class TacInstructorMaster implements java.io.Serializable {
 	public TacInstructorMaster(BigDecimal instructorId, BigDecimal typeFlag, String jobId, String name,
 			String department, String jobTitle, String ibanNo, String companyName, String qid, String passportNo,
 			String phone, String email, String photo, BigDecimal priority,
-			Set<TacInstructorQualifications> tacInstructorQualificationses,
-			Set<TacCourseInstructor> tacCourseInstructors, Set<TacInstructorSubjects> tacInstructorSubjectses) {
+			Set<TacCommQualifications> tacCommQualifications,
+			Set<TacCourseInstructor> tacCourseInstructors, Set<TacCommSubjects> tacCommSubjects) {
 		this.instructorId = instructorId;
 		this.typeFlag = typeFlag;
 		this.jobId = jobId;
@@ -63,9 +72,9 @@ public class TacInstructorMaster implements java.io.Serializable {
 		this.email = email;
 		this.photo = photo;
 		this.priority = priority;
-		this.tacInstructorQualificationses = tacInstructorQualificationses;
+		this.tacCommQualifications = tacCommQualifications;
 		this.tacCourseInstructors = tacCourseInstructors;
-		this.tacInstructorSubjectses = tacInstructorSubjectses;
+		this.tacCommSubjects = tacCommSubjects;
 	}
 
 	@Id
@@ -197,14 +206,32 @@ public class TacInstructorMaster implements java.io.Serializable {
 		this.priority = priority;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
-	public Set<TacInstructorQualifications> getTacInstructorQualificationses() {
-		return this.tacInstructorQualificationses;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
+//	public Set<TacInstructorQualifications> getTacInstructorQualificationses() {
+//		return this.tacInstructorQualificationses;
+//	}
+//
+//	public void setTacInstructorQualificationses(Set<TacInstructorQualifications> tacInstructorQualificationses) {
+//		this.tacInstructorQualificationses = tacInstructorQualificationses;
+//	}
 
-	public void setTacInstructorQualificationses(Set<TacInstructorQualifications> tacInstructorQualificationses) {
-		this.tacInstructorQualificationses = tacInstructorQualificationses;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
+//	public Set<TacInstructorQualifications> getTacInstructorQualifications() {
+//		return tacInstructorQualifications;
+//	}
+//
+//	public void setTacInstructorQualifications(Set<TacInstructorQualifications> tacInstructorQualifications) {
+//		this.tacInstructorQualifications = tacInstructorQualifications;
+//	}
+
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
+//	public Set<TacInstructorSubjects> getTacInstructorSubjects() {
+//		return tacInstructorSubjects;
+//	}
+//
+//	public void setTacInstructorSubjects(Set<TacInstructorSubjects> tacInstructorSubjects) {
+//		this.tacInstructorSubjects = tacInstructorSubjects;
+//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
 	public Set<TacCourseInstructor> getTacCourseInstructors() {
@@ -215,14 +242,45 @@ public class TacInstructorMaster implements java.io.Serializable {
 		this.tacCourseInstructors = tacCourseInstructors;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
-	public Set<TacInstructorSubjects> getTacInstructorSubjectses() {
-		return this.tacInstructorSubjectses;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TAC_INSTRUCTOR_SUBJECTS",
+			joinColumns = { @JoinColumn(name = "instructorId") },
+			inverseJoinColumns = { @JoinColumn(name = "subjectId") })
+	public Set<TacCommSubjects> getTacCommSubjects() {
+		return tacCommSubjects;
 	}
 
-	public void setTacInstructorSubjectses(Set<TacInstructorSubjects> tacInstructorSubjectses) {
-		this.tacInstructorSubjectses = tacInstructorSubjectses;
+	public void setTacCommSubjects(Set<TacCommSubjects> tacCommSubjects) {
+		this.tacCommSubjects = tacCommSubjects;
 	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TAC_INSTRUCTOR_QUALIFICATIONS",
+			joinColumns = { @JoinColumn(name = "instructorId") },
+			inverseJoinColumns = { @JoinColumn(name = "qualificationId") })
+	public Set<TacCommQualifications> getTacCommQualifications() {
+		return tacCommQualifications;
+	}
+
+	public void setTacCommQualifications(Set<TacCommQualifications> tacCommQualifications) {
+		this.tacCommQualifications = tacCommQualifications;
+	}
+
+	//	public Set<TacActivity> getTacActivities() {
+//		return tacActivities;
+//	}
+
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
+//	public Set<TacInstructorSubjects> getTacInstructorSubjectses() {
+//		return this.tacInstructorSubjectses;
+//	}
+//
+//	public void setTacInstructorSubjectses(Set<TacInstructorSubjects> tacInstructorSubjectses) {
+//		this.tacInstructorSubjectses = tacInstructorSubjectses;
+//	}
+
+
 
 	@Transient
 	int start;
@@ -246,4 +304,13 @@ public class TacInstructorMaster implements java.io.Serializable {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
+
+//	@Transient
+//	public Set<InstructorSubjectModel> getTacSubjectsModel() {
+//		return tacSubjectsModel;
+//	}
+//
+//	public void setTacSubjectsModel(Set<InstructorSubjectModel> tacSubjectsModel) {
+//		this.tacSubjectsModel = tacSubjectsModel;
+//	}
 }
