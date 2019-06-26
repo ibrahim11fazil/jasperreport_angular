@@ -62,7 +62,7 @@ export class CreateInstructorComponent implements OnInit {
       jobId:[this.tacInstructor.jobId, Validators.compose([Validators.required])],
       instructorName: [ this.tacInstructor.name, Validators.compose([Validators.required])],
       organization:[this.tacInstructor.companyName, Validators.compose([Validators.required])],
-      qid: [this.tacInstructor.qid, Validators.compose([Validators.required])],
+      qid: [this.tacInstructor.qid, Validators.compose([Validators.required,Validators.minLength(11),Validators.maxLength(11)])],
       passportNo: [this.tacInstructor.passportNo, Validators.compose([Validators.required])],
       ibanNo:[this.tacInstructor.ibanNo, Validators.compose([Validators.required])],
       email: [this.tacInstructor.email, Validators.compose([Validators.required,Validators.email])],
