@@ -24,7 +24,7 @@ export class FileUploaderComponent implements OnInit {
   uploadSuccess: boolean;
   imageDatas: any;
   constructor(private service: TrainingService, private sanitizer: DomSanitizer, ) {
-    this.fileName = "noimage";
+    this.fileName = "";
     this.blankView()
   }
 

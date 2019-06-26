@@ -1,159 +1,194 @@
 <div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
-    <mat-card fxFlex="100%">
-       <div class="gene-card-title">
-          <div fxLayout="row" fxLayoutAlign="start center">
-             <div fxLayout="column">
-                <h4>Instructor Registration</h4>
-             </div>
-             <span fxFlex></span>
-          </div>
-          <mat-divider></mat-divider>
-       </div>
-       <div class="gene-card-content">
-          <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
-             <div fxLayout="column">
- 
-                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                   <h5 class="mrgn-b-md">Instructor Type</h5>
-                   <mat-radio-group class="radio-group" formControlName="instructorType">
-                      <mat-radio-button value="1" class="radio-button">Employee</mat-radio-button>
-                      <mat-radio-button value="2" class="radio-button">External</mat-radio-button>
-                   </mat-radio-group>
-                  
-                </div>
+   <mat-card fxFlex="100%">
+      <div class="gene-card-title">
+         <div fxLayout="row" fxLayoutAlign="start center">
+            <div fxLayout="column">
+               <h4>Instructor Registration</h4>
+            </div>
+            <span fxFlex></span>
+         </div>
+         <mat-divider></mat-divider>
+      </div>
+      <div class="gene-card-content">
+         <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+            <div fxLayout="column">
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <h5 class="mrgn-b-md">Instructor Type</h5>
+                  <mat-radio-group class="radio-group" formControlName="typeFlag">
+                     <mat-radio-button value="1" class="radio-button">Employee</mat-radio-button>
+                     <mat-radio-button value="2" class="radio-button">External</mat-radio-button>
+                  </mat-radio-group>
+
+               </div>
 
 
-                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                     <mat-form-field class="full-wid mrgn-b-md">
-                        <input matInput placeholder="JobId" formControlName="jobId">
-                     </mat-form-field>
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="JobId" formControlName="jobId">
+                  </mat-form-field>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="Job Title" formControlName="jobTitle">
+                  </mat-form-field>
+               </div>
+
+               
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="Instructor Name" formControlName="instructorName">
+                  </mat-form-field>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="Organization" formControlName="organization">
+                  </mat-form-field>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="Department" formControlName="department">
+                  </mat-form-field>
+               </div>
+
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="QID " formControlName="qid">
+                  </mat-form-field>
+               </div>
+
+
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="Passport " formControlName="passportNo">
+                  </mat-form-field>
+               </div>
+
+
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="IBAN No" formControlName="ibanNo">
+                  </mat-form-field>
+               </div>
+
+
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="Email" formControlName="email">
+                  </mat-form-field>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder="Phone" formControlName="phone">
+                  </mat-form-field>
+               </div>
+
+
+               <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <h5>Subjects</h5>
                   </div>
-                
-                   
-                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                      <mat-form-field class="full-wid mrgn-b-md">
-                         <input matInput placeholder="Instructor Name" formControlName="instructorName">
-                      </mat-form-field>
-                   </div>
- 
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="Organization" formControlName="organization">
-                       </mat-form-field>
-                    </div>
-               
-
-                 
-                   
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="QID " formControlName="qid">
-                       </mat-form-field>
-                    </div>
-
-                    
-
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                        <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Passport " formControlName="passportNo">
-                        </mat-form-field>
-                     </div>
-                 
-                
-                   
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="IBAN No" formControlName="ibanNo">
-                       </mat-form-field>
-                    </div>
-                 
-                
-                   
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="Email" formControlName="email">
-                       </mat-form-field>
-                    </div>
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <button class="mrgn-all-xs" mat-icon-button (click)="addSubjects()" type="button">
+                        <mat-icon>add</mat-icon>
+                     </button>
+                  </div>
+               </div>
 
 
-                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <h5>Subjects</h5>
-                     </div>
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <button class="mrgn-all-xs" mat-icon-button (click)="addSubjects()" type="button">
-                                 <mat-icon>add</mat-icon>
-                           </button>   
-                     </div>
-               </div>  
-               
 
-               
                <div formArrayName="subject">
-                  <div *ngFor="let ff of form.get('subject').controls; let in=index"
-                     fxLayout="row wrap" fxLayoutAlign="space-between center">
+                  <div *ngFor="let ff of form.get('subject').controls; let in=index" fxLayout="row wrap"
+                     fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                              <mat-select placeholder="Subject" matInput formControlName="subjectId">
-                                    <mat-option *ngFor="let item of subjects" [value]="item.subjectId">
-                                       {{item.subjectName}}
-                                    </mat-option>
-                              </mat-select>
+                        <mat-select placeholder="Subject" matInput formControlName="subjectId">
+                           <mat-option *ngFor="let item of subjects" [value]="item.subjectId">
+                              {{item.subjectName}}
+                           </mat-option>
+                        </mat-select>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <button class="mrgn-all-xs" mat-icon-button (click)="removeSubjects(in)"
-                              type="button">
-                              <mat-icon>delete</mat-icon>
-                           </button>
+                        <button class="mrgn-all-xs" mat-icon-button (click)="removeSubjects(in)" type="button">
+                           <mat-icon>delete</mat-icon>
+                        </button>
                      </div>
                   </div>
                </div>
-                
+
+
+
                
-                   
-                    <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="Subject" formControlName="subject">
-                       </mat-form-field>
-                    </div> -->
 
-                    
-                
-               
-                   
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                       <mat-form-field class="full-wid mrgn-b-md">
-                          <input matInput placeholder="Qualifications" formControlName="qualifications">
-                       </mat-form-field>
-                    </div>
-                
-              
-                   
-                    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                        <ms-file-uploader #fileUploaderComponent type="document" single="false"></ms-file-uploader>
-                    </div>
-                
-                 
-                  
 
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                        <mat-form-field class="full-wid mrgn-b-md">
-                           <mat-select placeholder="Priority" matInput formControlName="priority">
-                              <mat-option *ngFor="let priorityFlag of priorityList" 
-                                          [value]="priorityFlag">
-                                 {{priorityFlag.viewValue}}
-                              </mat-option>
-                           </mat-select>
-                        </mat-form-field>
-                     </div>
-                 </div>
-
-                 <div fxLayout="row" fxLayoutAlign="start">
-                    <!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
-                     <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">Save</button>
-                     <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button>
+               <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <h5>Qualifications</h5>
                   </div>
-             
-          </form>
-       </div>
-    </mat-card>
- </div>
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <button class="mrgn-all-xs" mat-icon-button (click)="addQualifications()" type="button">
+                        <mat-icon>add</mat-icon>
+                     </button>
+                  </div>
+               </div>
+
+
+
+               <div formArrayName="qualification">
+                  <div *ngFor="let ff of form.get('qualification').controls; let in=index" fxLayout="row wrap"
+                     fxLayoutAlign="space-between center">
+                     <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <mat-select placeholder="Qualifications" matInput formControlName="qualificationId">
+                           <mat-option *ngFor="let item of qualifications" [value]="item.qualificationId">
+                              {{item.qualificationName}}
+                           </mat-option>
+                        </mat-select>
+                     </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <button class="mrgn-all-xs" mat-icon-button (click)="removeQualifications(in)" type="button">
+                           <mat-icon>delete</mat-icon>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+
+
+
+               
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <ms-file-uploader #fileUploaderComponent type="document" single="false"></ms-file-uploader>
+               </div>
+
+
+
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <mat-select placeholder="Priority" matInput formControlName="priority">
+                        <mat-option *ngFor="let priorityFlag of priorityList" [value]="priorityFlag">
+                           {{priorityFlag.viewValue}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+               </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start">
+               <!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
+               <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">Save</button>
+               <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button>
+            </div>
+
+         </form>
+      </div>
+   </mat-card>
+</div>

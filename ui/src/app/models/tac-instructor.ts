@@ -13,8 +13,8 @@ export class TacInstructor {
     email?: String;
     photo?: String;
     priority?: Number;
-    public tacSubjectsModel?:Subject[];
-    public tacInstructorQualifications?:Qualification[];
+    public tacCommSubjects?:Subject[];
+    public tacCommQualifications?:Qualification[];
 
 }
 
@@ -48,6 +48,7 @@ export interface Subject {
 export interface Qualification {
     qualificationId: Number;
     qualificationName: String;
+    instructorId?:Number
 }
 
 export interface QualifiacationListResponse {
