@@ -65,7 +65,7 @@ export class CreateInstructorComponent implements OnInit {
       ibanNo:[this.tacInstructor.ibanNo, Validators.compose([Validators.required])],
       email: [this.tacInstructor.email, Validators.compose([Validators.required])],
       subject:this.fb.array([]),
-      qualifications:[null, Validators.compose([Validators.required])],
+      qualification:this.fb.array([]),
       photo:[null, Validators.compose([Validators.required])],
       priority:[null, Validators.compose([Validators.required])],
       instructorType:[null, Validators.compose([Validators.required])],
@@ -74,9 +74,14 @@ export class CreateInstructorComponent implements OnInit {
 
   patch(){
     //TODO need to patch 
-    const controltargetAudienceOptions = this.getControlOfAddMore('subject');
-    this.tacInstructor.tacSubjectsModel.forEach(x => {
-      controltargetAudienceOptions.push(this.patchValuesSubjects(x.subjectId, x.subjectName,x.instructorId))
+    const controlSubjectOptions = this.getControlOfAddMore('subject');
+    this.tacInstructor.tacCommSubjects.forEach(x => {
+      controlSubjectOptions.push(this.patchValuesSubjects(x.subjectId, x.subjectName,x.subjectId))
+    })
+
+    const controlQualificationsOptions = this.getControlOfAddMore('qualification');
+    this.tacInstructor.tacCommQualifications.forEach(x => {
+      controlQualificationsOptions.push(this.patchValuesQualifications(x.qualificationId, x.qualificationName,x.qualificationId))
     })
     
   }
@@ -122,6 +127,10 @@ export class CreateInstructorComponent implements OnInit {
     debugger
     const subjectsCtrl = this.getControlOfAddMore('subject');
     var subjectsArray = <Subject[]>subjectsCtrl.value
+
+    const qualificationCtrl = this.getControlOfAddMore('qualification');
+    var qualificationArray = <Qualification[]>qualificationCtrl.value
+
     this.tacInstructor={
       instructorId:this.tacInstructor.instructorId,
       jobId:this.form.value.jobId,
@@ -129,7 +138,8 @@ export class CreateInstructorComponent implements OnInit {
       ibanNo:this.form.value.ibanNo,
       qid:this.form.value.qidPassport,
       photo:this.fileuploader.fileName,
-      tacSubjectsModel:subjectsArray
+      tacCommSubjects:subjectsArray,
+      tacCommQualifications:qualificationArray
     }
     console.log(this.tacInstructor)
     this.trainingService.saveInstructor(this.tacInstructor).subscribe(
@@ -189,10 +199,28 @@ export class CreateInstructorComponent implements OnInit {
     control.removeAt(i)
   }
 
+  addQualifications(){
+    const control = this.getControlOfAddMore('qualification');
+    control.push(this.patchValuesQualifications(0,"",0))
+  }
+
+  removeQualifications(i){
+    const control = this.getControlOfAddMore('qualification');
+    control.removeAt(i)
+  }
+
   patchValuesSubjects(subjectId, subjectName,instructorId) {
     return this.fb.group({
       subjectId: [subjectId],
       subjectName: [subjectName],
+      instructorId:[instructorId]
+    })
+  }
+
+  patchValuesQualifications(qualificationId, qualificationName,instructorId) {
+    return this.fb.group({
+      qualificationId: [qualificationId],
+      qualificationName: [qualificationName],
       instructorId:[instructorId]
     })
   }
