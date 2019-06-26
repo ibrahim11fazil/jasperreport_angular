@@ -65,7 +65,7 @@ export class CreateInstructorComponent implements OnInit {
       qid: [this.tacInstructor.qid, Validators.compose([Validators.required])],
       passportNo: [this.tacInstructor.passportNo, Validators.compose([Validators.required])],
       ibanNo:[this.tacInstructor.ibanNo, Validators.compose([Validators.required])],
-      email: [this.tacInstructor.email, Validators.compose([Validators.required])],
+      email: [this.tacInstructor.email, Validators.compose([Validators.required,Validators.email])],
       department:[this.tacInstructor.department, Validators.compose([Validators.required])],
       subject:this.fb.array([]),
       qualification:this.fb.array([]),
