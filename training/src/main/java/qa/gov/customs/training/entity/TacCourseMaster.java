@@ -258,6 +258,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseGuidelineses = tacCourseGuidelineses;
 	}
 
+	@JsonManagedReference(value="activation")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;
@@ -296,7 +297,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	public void setTacActivities(Set<TacActivity> tacActivities) {
 		this.tacActivities = tacActivities;
 	}
-	@JsonManagedReference
+	@JsonManagedReference(value="outcomes")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseOutcome> getTacCourseOutcomes() {
 		return this.tacCourseOutcomes;

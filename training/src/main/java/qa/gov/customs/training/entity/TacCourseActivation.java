@@ -1,8 +1,9 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -109,7 +110,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setActivationId(BigDecimal activationId) {
 		this.activationId = activationId;
 	}
-	@JsonIgnore
+	@JsonBackReference(value="activation")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID")
 	public TacCourseMaster getTacCourseMaster() {
@@ -119,6 +120,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
 		this.tacCourseMaster = tacCourseMaster;
 	}
+	@JsonBackReference(value="room")
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ROOM_ID")
@@ -129,7 +131,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setTacCourseRoom(TacCourseRoom tacCourseRoom) {
 		this.tacCourseRoom = tacCourseRoom;
 	}
-	@JsonIgnore
+	@JsonBackReference(value="date")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DATE_ID")
 	public TacCourseDate getTacCourseDate() {

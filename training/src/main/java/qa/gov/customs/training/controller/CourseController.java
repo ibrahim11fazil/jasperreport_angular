@@ -23,10 +23,7 @@ import qa.gov.customs.utils.MessageUtil;
 import qa.gov.customs.utils.models.ResponseType;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class CourseController {
@@ -431,15 +428,16 @@ public class CourseController {
 	public ResponseType activateCourse(@RequestBody TacCourseActivation courseActivation) {
 		TacCourseActivation activatedCourse=null;
 
-		if(courseActivation!=null)
+  		if(courseActivation!=null)
 		{
+			courseActivation.setActivationDate(new Date());
 			activatedCourse=courseService.saveCourseActivation(courseActivation);
-			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, activatedCourse);
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_ACTIVATE, true, activatedCourse);
 			return response;
 		}
 		else
 		{
-			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.COURSE_ACTIVATE_FAIL, false, null);
 			return response;
 
 		}
