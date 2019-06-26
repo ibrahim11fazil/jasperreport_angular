@@ -68,7 +68,7 @@ export class TrainingService {
     return this.httpClient.post(GET_COURSE_BY_ID, course);
   }
   getAllTacCourseLocation(): Observable<Object> {
-    debugger;
+    //debugger;
     return this.httpClient.get(GET_LOCATION);
   }
 

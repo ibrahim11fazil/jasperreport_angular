@@ -258,6 +258,7 @@ export class CreateCourseComponent implements OnInit {
 
   loadDataFromParam(){
     //console.log(this.param);
+    debugger;
     this.activatedRoute.params.subscribe(params => {
       if(params['id']){
           this.param = params['id'];

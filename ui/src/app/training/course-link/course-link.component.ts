@@ -13,6 +13,7 @@ import { Location, ResponseLocation } from 'app/models/location';
 import { Prerequisites, ResponsePrerequisites } from 'app/models/prerequisites';
 import { DURATION_FLAG_LIST, IS_SUB_COURSES } from 'app/app.constants';
 import { CourseDate, ResponseDate } from 'app/models/courseDate';
+import { PageTitleService } from 'app/core/page-title/page-title.service';
 
 
 
@@ -28,6 +29,7 @@ export class CourseLinkComponent implements OnInit {
   guidelineList: TrainingGuidelines[] = [];
   expectedResult: ExpectedResults[] = [];
   dates: CourseDate[] = [];
+  param:any;
   courseDetails: TacCourseMaster;
   loadedActivityId:Number=0 // NOt required
   loadedCourseDates:CourseDate[]=[] // NOt required
@@ -48,7 +50,8 @@ export class CourseLinkComponent implements OnInit {
     private trainingService: TrainingService,
     private toastr: ToastrService,
 
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private pageTitleService: PageTitleService) {
     this.tacCourseMaster =
       {
         courseId: 0,
@@ -71,8 +74,11 @@ export class CourseLinkComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
+    this.pageTitleService.setTitle("COURSE LINK")
     this.formInit()
-    this.formSetup()
+    this.formSetup()  
+    this.loadDataFromParam()
   }
 
   formInit() {
@@ -151,38 +157,39 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getCourseDetails(course) {
-    // debugger
+     debugger;
     let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
     console.log(course.value);
     debugger;
-    this.trainingService.getCourseById(courseMaster).subscribe(
-      data => {
-        debugger;
-        var response = <ResponseTacCourseMaster>data
-        this.courseDetails = response.data
-        if (this.courseDetails != null) {
-          this.displayCourseDetails = true;
-        }
-        this.expectedResult = this.courseDetails.tacCourseOutcomes;
-        this.guidelineList = this.courseDetails.tacCourseGuidelineses;
-        this.targetAudiencesResult = this.courseDetails.tacCourseAudiences;
-        this.dates = this.courseDetails.tacCourseDates;
-        this.targetAudiencesResult.forEach(i => {
-          var item = this.targetAudiences.filter(item => item.targetId == i.targetId)
-          if (item[0] != null) {
-            this.targetAudienceString.push(item[0].targentName)
-          }
-        })
-        console.log(this.targetAudienceString);
-        this.fetchDates();
-        this.patch();
+    this.courseByIdList(courseMaster);
+    // this.trainingService.getCourseById(courseMaster).subscribe(
+    //   data => {
+    //     debugger;
+    //     var response = <ResponseTacCourseMaster>data
+    //     this.courseDetails = response.data
+    //     if (this.courseDetails != null) {
+    //       this.displayCourseDetails = true;
+    //     }
+    //     this.expectedResult = this.courseDetails.tacCourseOutcomes;
+    //     this.guidelineList = this.courseDetails.tacCourseGuidelineses;
+    //     this.targetAudiencesResult = this.courseDetails.tacCourseAudiences;
+    //     this.dates = this.courseDetails.tacCourseDates;
+    //     this.targetAudiencesResult.forEach(i => {
+    //       var item = this.targetAudiences.filter(item => item.targetId == i.targetId)
+    //       if (item[0] != null) {
+    //         this.targetAudienceString.push(item[0].targentName)
+    //       }
+    //     })
+    //     console.log(this.targetAudienceString);
+    //     this.fetchDates();
+    //     this.patch();
 
-      },
-      error => {
-        console.log(error)
-        this.toastr.error(error.message)
-      }
-    )
+    //   },
+    //   error => {
+    //     console.log(error)
+    //     this.toastr.error(error.message)
+    //   }
+    // )
   }
 
   getDates(activity){
@@ -193,6 +200,7 @@ export class CourseLinkComponent implements OnInit {
 
   //Not required
   fetchDates(){
+    debugger;
     if(this.courseDetails!=null && this.courseDetails.courseId!=null && 
       this.loadedActivityId!=0
       ){
@@ -242,6 +250,18 @@ export class CourseLinkComponent implements OnInit {
     subCourseArray[0] 
    )
     }
+    var courseArray = this.courseList.filter(i => i.courseId==this.courseDetails.courseId)
+    if(courseArray[0]!=null){
+    this.form.controls['courseSelect'].patchValue(
+      courseArray[0] 
+   )
+    }
+  //   var activityArray = this.courseDetails.tacActivities.filter(i => i.activityId==this.courseDetails.tacActivities.filter(i.activityId))
+  //   if(courseArray[0]!=null){
+  //   this.form.controls['courseSelect'].patchValue(
+  //     courseArray[0] 
+  //  )
+  //   }
 
     const datesControl = this.getControlOfAddMore('dateOptions');
     //this.form.setControl('dateOptions', this.fb.array([]));
@@ -280,6 +300,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   linkCourseWithActivity() {
+    debugger;
     if (this.form.valid) {
 
       let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
@@ -294,10 +315,13 @@ export class CourseLinkComponent implements OnInit {
       this.tacCourseMaster.tacActivities.push(activity);
       courseMaster.tacActivities = this.tacCourseMaster.tacActivities;
 
+
       const dateOptions = this.getControlOfAddMore('dateOptions');
       var tacCourseDates = <CourseDate[]>dateOptions.value;
       this.tacCourseMaster.tacCourseDates = tacCourseDates;
+      
       courseMaster.tacCourseDates = this.tacCourseMaster.tacCourseDates;
+      
 
       this.trainingService.linkCourseWithActivity(courseMaster).subscribe(
         data => this.successSaveCourse(data),
@@ -320,5 +344,65 @@ export class CourseLinkComponent implements OnInit {
       this.toastr.error(data.message)
     }
   }
+  loadDataFromParam(){
+    debugger;
+    console.log(this.param);
+    this.activatedRoute.params.subscribe(params => {
+      if(params['id']){
+          this.param = params['id'];
+      }
+     });  
+      if(this.param!='' && this.param!=undefined){
+        console.log(this.param);
+        let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null,0,0,0,null,null)
+        courseMaster.courseId= this.param
+        // this.trainingService.getCourseById(courseMaster).subscribe(
+        //   data => this.loadData(data),
+        //   error => {
+        //     console.log(error)
+        //     this.toastr.error(error.message)
+        //   }
+        // )
+        this.courseByIdList(courseMaster);
+      }
+  }
 
+  loadData(data){
+    //this.tacCourseMaster = data.data;
+    this.formInit()
+    this.patch() 
+  }
+
+  courseByIdList(course)
+  {
+    this.trainingService.getCourseById(course).subscribe(
+      data => {
+        debugger;
+        var response = <ResponseTacCourseMaster>data
+        this.courseDetails = response.data
+        if (this.courseDetails != null) {
+          this.displayCourseDetails = true;
+        }
+      
+        this.expectedResult = this.courseDetails.tacCourseOutcomes;
+        this.guidelineList = this.courseDetails.tacCourseGuidelineses;
+        this.targetAudiencesResult = this.courseDetails.tacCourseAudiences;
+        this.dates = this.courseDetails.tacCourseDates;
+        this.targetAudiencesResult.forEach(i => {
+          var item = this.targetAudiences.filter(item => item.targetId == i.targetId)
+          if (item[0] != null) {
+            this.targetAudienceString.push(item[0].targentName)
+          }
+        })
+        console.log(this.targetAudienceString);
+        this.fetchDates();
+        this.patch();
+
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+    )
+  }
 }

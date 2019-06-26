@@ -122,6 +122,7 @@ export class SearchCourseComponent implements OnInit {
 
   updateLink(row){
     //this.router.navigate(["create-course"])
+    
     this.router.navigate(["/training/course-link/",row.courseId]);
   }
 

@@ -213,6 +213,10 @@ public class CourseController {
 				linkCourse.setLocationType(course.getLocationType());
 				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
 
+//				for(TacCourseDate date:linkCourse.getTacCourseDates())
+//				{
+//					date.setTacActivity()=course.getTacActivities().;
+//				}
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
