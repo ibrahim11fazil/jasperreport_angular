@@ -29,10 +29,12 @@ export class CreateInstructorComponent implements OnInit {
      private pageTitleService: PageTitleService,
      private trainingService: TrainingService,
      private toastr : ToastrService,
-     private activatedRoute: ActivatedRoute){
+     private activatedRoute: ActivatedRoute) {
       this.pageTitleService.setTitle("Instructor Registration")
       this.tacInstructor={
       instructorId:0,
+      typeFlag:0,
+      priority:0,
       jobId:"",
       name:"",
       ibanNo:"",
@@ -48,14 +50,14 @@ export class CreateInstructorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.formInit()
     this.formSetup()
+    this.formInit()
     this.loadDataFromParam()
-
   }
 
   formInit()
   {
+    var priority = this.priorityList.find(i => i.value==this.tacInstructor.priority)
     this.form = this.fb.group({
       jobId:[this.tacInstructor.jobId, Validators.compose([Validators.required])],
       instructorName: [ this.tacInstructor.name, Validators.compose([Validators.required])],
@@ -64,16 +66,18 @@ export class CreateInstructorComponent implements OnInit {
       passportNo: [this.tacInstructor.passportNo, Validators.compose([Validators.required])],
       ibanNo:[this.tacInstructor.ibanNo, Validators.compose([Validators.required])],
       email: [this.tacInstructor.email, Validators.compose([Validators.required])],
+      department:[this.tacInstructor.department, Validators.compose([Validators.required])],
       subject:this.fb.array([]),
       qualification:this.fb.array([]),
-      photo:[null, Validators.compose([Validators.required])],
-      priority:[null, Validators.compose([Validators.required])],
-      instructorType:[null, Validators.compose([Validators.required])],
+      priority:[priority, Validators.compose([Validators.required])],
+      phone:this.tacInstructor.phone,
+      jobTitle:this.tacInstructor.jobTitle,
+      typeFlag:[this.tacInstructor.typeFlag.toString(), Validators.compose([Validators.required])]
     });
   }
 
   patch(){
-    //TODO need to patch 
+  
     const controlSubjectOptions = this.getControlOfAddMore('subject');
     this.tacInstructor.tacCommSubjects.forEach(x => {
       controlSubjectOptions.push(this.patchValuesSubjects(x.subjectId, x.subjectName,x.subjectId))
@@ -83,7 +87,6 @@ export class CreateInstructorComponent implements OnInit {
     this.tacInstructor.tacCommQualifications.forEach(x => {
       controlQualificationsOptions.push(this.patchValuesQualifications(x.qualificationId, x.qualificationName,x.qualificationId))
     })
-    
   }
 
   getControlOfAddMore(name): FormArray {
@@ -130,16 +133,26 @@ export class CreateInstructorComponent implements OnInit {
 
     const qualificationCtrl = this.getControlOfAddMore('qualification');
     var qualificationArray = <Qualification[]>qualificationCtrl.value
+   debugger
+    var priority = this.priorityList.find(i => i.value==this.tacInstructor.priority)
 
-    this.tacInstructor={
+    this.tacInstructor = {
       instructorId:this.tacInstructor.instructorId,
       jobId:this.form.value.jobId,
       name:this.form.value.instructorName,
+      department:this.form.value.department,
+      email:this.form.value.email,
       ibanNo:this.form.value.ibanNo,
-      qid:this.form.value.qidPassport,
-      photo:this.fileuploader.fileName,
+      qid:this.form.value.qid,
+      passportNo:this.form.value.passportNo,
+      companyName:this.form.value.organization,
       tacCommSubjects:subjectsArray,
-      tacCommQualifications:qualificationArray
+      tacCommQualifications:qualificationArray,
+      typeFlag:Number(this.form.value.typeFlag),
+      priority:priority!=null?Number(priority.value):0,
+      photo:this.fileuploader.fileName,
+      phone:this.form.value.phone,
+      jobTitle:this.form.value.jobTitle
     }
     console.log(this.tacInstructor)
     this.trainingService.saveInstructor(this.tacInstructor).subscribe(
