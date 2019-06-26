@@ -11,7 +11,9 @@ export const DURATION_FLAG_LIST = [
 
 export const PRIORITY_LIST = [
     { value: 1, viewValue: 'Primary' },
-    { value: 2, viewValue: 'Secondary' }
+    { value: 2, viewValue: 'Secondary' },
+    { value: 3, viewValue: 'Third' },
+    { value: 4, viewValue: 'Fourth' },
 ];
 
 export const IS_SUB_COURSES=[

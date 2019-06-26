@@ -127,15 +127,12 @@ export class CreateInstructorComponent implements OnInit {
   }
 
   saveInstructor(){
-    debugger
+    if(this.form.valid){
     const subjectsCtrl = this.getControlOfAddMore('subject');
     var subjectsArray = <Subject[]>subjectsCtrl.value
-
     const qualificationCtrl = this.getControlOfAddMore('qualification');
     var qualificationArray = <Qualification[]>qualificationCtrl.value
-   debugger
-    var priority = this.priorityList.find(i => i.value==this.tacInstructor.priority)
-
+    var priority = this.priorityList.find(i => i.value==this.form.value.priority.value)
     this.tacInstructor = {
       instructorId:this.tacInstructor.instructorId,
       jobId:this.form.value.jobId,
@@ -149,7 +146,7 @@ export class CreateInstructorComponent implements OnInit {
       tacCommSubjects:subjectsArray,
       tacCommQualifications:qualificationArray,
       typeFlag:Number(this.form.value.typeFlag),
-      priority:priority!=null?Number(priority.value):0,
+      priority:priority.value,
       photo:this.fileuploader.fileName,
       phone:this.form.value.phone,
       jobTitle:this.form.value.jobTitle
@@ -162,6 +159,9 @@ export class CreateInstructorComponent implements OnInit {
           this.toastr.error(error.message)
         }
     )
+      }else{
+        this.toastr.error("Please fill required fields") 
+      }
   }
   successSaveInstructor(data){
     if(data.status==true){
