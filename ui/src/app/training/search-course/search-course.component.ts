@@ -128,6 +128,7 @@ export class SearchCourseComponent implements OnInit {
 
   updateActivation(row){
     //this.router.navigate(["create-course"])
+    debugger;
     this.router.navigate(["/training/activate-course/",row.courseId]);
   }
 

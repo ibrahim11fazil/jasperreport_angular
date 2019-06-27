@@ -12,6 +12,7 @@ import { SystemUserService } from 'app/service/user/system-user.service';
 import { SystemUser, ISystemUserResponse, ISystemUserResponseList, SystemUserResponse, SystemUserResponseArray } from 'app/models/system-user';
 import { TacActivation } from 'app/models/tac-activation';
 import { CourseDate } from "app/models/courseDate";
+import { PageTitleService } from 'app/core/page-title/page-title.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class ActivateCourseComponent implements OnInit {
   courseDetails:TacCourseMaster;
   roomDetails:TrainingRoom[]=[];
   courseDate:CourseDate[]=[];
+  param:any;
   tacCourseLocation:Location[]=[];
   tacInstructor:TacInstructor[]=[];
   user:SystemUser;
@@ -39,6 +41,7 @@ export class ActivateCourseComponent implements OnInit {
     private trainingService: TrainingService,
     private userService:SystemUserService,
     private toastr: ToastrService,
+    private pageTitleService: PageTitleService,
    
     private activatedRoute: ActivatedRoute ){
 this.tacCourseActivation = {
@@ -64,8 +67,11 @@ this.tacCourseActivation = {
     }
 
   ngOnInit() {
+    this.pageTitleService.setTitle("ACTIVATE COURSE") 
      this.formInit()
     this.formSetup()
+    debugger;
+    this.loadDataFromParam()
   }
 
   formInit()
@@ -176,7 +182,15 @@ this.tacCourseActivation = {
 
  }
 
-
+patch()
+{
+  var courseArray = this.courseList.filter(i => i.courseId==this.courseDetails.courseId)
+    if(courseArray[0]!=null){
+    this.form.controls['courseSelect'].patchValue(
+      courseArray[0] 
+   )
+    }
+}
 
 getCourseDetails(course)
 {
@@ -184,24 +198,25 @@ getCourseDetails(course)
   let courseMaster=new TacCourseMaster(course.value.courseId,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
   console.log(course.value);
   debugger;
-  this.trainingService.getCourseById(courseMaster).subscribe(
-    data => {
-      debugger;
-      var response = <ResponseTacCourseMaster> data
-      this.courseDetails=response.data
-      this.courseDate=this.courseDetails.tacCourseDates
-      if(this.courseDetails!=null)
-      {
-        this.displayCourseDetails=true;
-      }
+  this.courseByIdList(courseMaster);
+  // this.trainingService.getCourseById(courseMaster).subscribe(
+  //   data => {
+  //     debugger;
+  //     var response = <ResponseTacCourseMaster> data
+  //     this.courseDetails=response.data
+  //     this.courseDate=this.courseDetails.tacCourseDates
+  //     if(this.courseDetails!=null)
+  //     {
+  //       this.displayCourseDetails=true;
+  //     }
       
 
-    },
-    error => {
-      console.log(error)
-      this.toastr.error(error.message)
-    }
-  )
+  //   },
+  //   error => {
+  //     console.log(error)
+  //     this.toastr.error(error.message)
+  //   }
+  // )
 }
 
 getCourseRoomDetail(location)
@@ -296,5 +311,53 @@ debugger;
         this.toastr.error(data.message)
       }
       }
-
+      courseByIdList(courseMaster){
+      this.trainingService.getCourseById(courseMaster).subscribe(
+        data => {
+          debugger;
+          var response = <ResponseTacCourseMaster> data
+          this.courseDetails=response.data
+          this.courseDate=this.courseDetails.tacCourseDates
+          if(this.courseDetails!=null)
+          {
+            this.displayCourseDetails=true;
+          }
+         
+         //this.belongsSelect=
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        }
+      )
     }
+    loadDataFromParam(){
+      debugger;
+      console.log(this.param);
+      this.activatedRoute.params.subscribe(params => {
+        if(params['id']){
+            this.param = params['id'];
+        }
+       });  
+        if(this.param!='' && this.param!=undefined){
+          console.log(this.param);
+          let courseMaster=new TacCourseMaster(0,null,"",0,null,0,this.form.value.numberofhours,null,null,null,0,0,0,null,null)
+          courseMaster.courseId= this.param
+          // this.trainingService.getCourseById(courseMaster).subscribe(
+          //   data => this.loadData(data),
+          //   error => {
+          //     console.log(error)
+          //     this.toastr.error(error.message)
+          //   }
+          // )
+          this.courseByIdList(courseMaster);
+        }
+    }
+  
+    loadData(data){
+      //this.tacCourseMaster = data.data;
+      this.formInit()
+      this.patch() 
+    }
+    
+  }
