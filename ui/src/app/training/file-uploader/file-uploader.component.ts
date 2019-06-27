@@ -62,7 +62,8 @@ export class FileUploaderComponent implements OnInit {
   }
 
   updateView(fileName) {
-    this.service.getFile(fileName).subscribe(
+    var url = fileName.split('/').pop().split('?')[0]
+    this.service.getFile(url).subscribe(
       res => {
         var blob = new Blob([res], { type: res.type });
         let urlCreator = window.URL;

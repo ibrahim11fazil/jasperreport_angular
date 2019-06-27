@@ -212,10 +212,12 @@ public class CourseController {
 				linkCourse.setPrerequisitesId(course.getPrerequisitesId());
 				linkCourse.setLocationType(course.getLocationType());
 				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
-
-//				for(TacCourseDate date:linkCourse.getTacCourseDates())
-//				{
-//					date.setTacActivity()=course.getTacActivities().;
+//				for(TacActivity activity:course.getTacActivities()) {
+//					for (TacCourseDate dateSet : linkCourse.getTacCourseDates()) {
+//
+//						dateSet.setTacActivity(activity);
+//						course.setTacCourseDates(dateSet);
+//					}
 //				}
 				if (course.getTacActivities() != null) {
 
@@ -226,13 +228,16 @@ public class CourseController {
 							activities.add(activity);
 						}
 					}
-					for (TacCourseDate dates : course.getTacCourseDates() ){
-						logger.info("inside for loop");
-						dates.setTacCourseMaster(course);
+					for(TacActivity activity:course.getTacActivities()) {
+						for (TacCourseDate dates : course.getTacCourseDates()) {
+							logger.info("inside for loop");
+							dates.setTacCourseMaster(course);
+							dates.setTacActivity(activity);
 
 							date.add(dates);
 
 
+						}
 					}
 					if (date.size() > 0) {
 						linkCourse.setTacCourseDates(date);

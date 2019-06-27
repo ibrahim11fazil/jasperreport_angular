@@ -80,13 +80,15 @@ export class CreateInstructorComponent implements OnInit {
   
     const controlSubjectOptions = this.getControlOfAddMore('subject');
     this.tacInstructor.tacCommSubjects.forEach(x => {
-      controlSubjectOptions.push(this.patchValuesSubjects(x.subjectId, x.subjectName,x.subjectId))
+      controlSubjectOptions.push(this.patchValuesSubjects(x.subjectId, x.subjectName, x.subjectId))
     })
-
     const controlQualificationsOptions = this.getControlOfAddMore('qualification');
     this.tacInstructor.tacCommQualifications.forEach(x => {
-      controlQualificationsOptions.push(this.patchValuesQualifications(x.qualificationId, x.qualificationName,x.qualificationId))
+      controlQualificationsOptions.push(this.patchValuesQualifications(x.qualificationId, x.qualificationName, x.qualificationId))
     })
+    if (this.tacInstructor.photo != "") {
+      this.fileuploader.updateView(this.tacInstructor.photo);
+    }
   }
 
   getControlOfAddMore(name): FormArray {

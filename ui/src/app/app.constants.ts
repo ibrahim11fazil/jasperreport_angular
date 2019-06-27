@@ -83,4 +83,6 @@ export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-r
 //FILE UPLOADING
 
 export const  UPLOAD_FILE   = BASE_URL+fileUploading+"/uploadFile"
+//export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
 export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
+
