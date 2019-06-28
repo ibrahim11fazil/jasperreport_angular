@@ -18,6 +18,8 @@ public class CustomTokenEnhancer extends JwtAccessTokenConverter {
         UserMaster userMaster = (UserMaster) authentication.getPrincipal();
         Map<String,Object> info =new LinkedHashMap<String,Object>(accessToken.getAdditionalInformation());
         info.put("email",userMaster.getEmail());
+        info.put("jid",userMaster.getId());
+        info.put("qid",userMaster.getQid());
         List roles = new ArrayList<String>();
         List permissions = new ArrayList<String>();
         if( userMaster.getRoles()!=null) {

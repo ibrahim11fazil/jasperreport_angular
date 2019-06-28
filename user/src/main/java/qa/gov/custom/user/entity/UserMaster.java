@@ -45,6 +45,9 @@ public class UserMaster  {
     @Column(name = "JOBID")
     private String jobId;
 
+    @Column(name = "QID")
+    private String qid;
+
     @Transient
     private BigInteger roleId;
 
@@ -204,6 +207,15 @@ public class UserMaster  {
 
     public void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+
+
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
     }
 
     @Transient
