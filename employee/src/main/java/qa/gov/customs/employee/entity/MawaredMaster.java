@@ -8,7 +8,7 @@ import javax.persistence.Column;
 import java.util.Date;
 
 @Entity
-@Table(name="XXGDC_SAP_WS_MINI")
+@Table(name="USER_SAP_WS_MINI")
 public class MawaredMaster {
 
     @Id
