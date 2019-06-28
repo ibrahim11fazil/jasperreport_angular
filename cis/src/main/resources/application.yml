@@ -13,22 +13,26 @@ security:
           YwIDAQAB
           -----END PUBLIC KEY-----
     client:
-      clientId: training
+      clientId: cis
 
-debug: false
 server:
-  port: 9061
+#  servlet:
+#    context-path: /training
+  port: 9071
+
+feign:
+  hystrix:
+    enabled: true
 
 spring:
   application:
-    name: workflow
+    name: cis
+  main:
+    allow-bean-definition-overriding: true
   datasource:
-#    url: jdbc:oracle:thin:@//localhost:1521/xe
-#    username: camuda
-#    password: 12345
     url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
-    username: CUST_WORKFLOW
-    password: wflo4tst123
+    username: CIS
+    password: c15tst123
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -36,16 +40,19 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     properties:
       hibernate:
         dialect: org.hibernate.dialect.Oracle10gDialect
+        max_fetch_depth: 1
+
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS : false
+      FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
 
 
@@ -56,26 +63,13 @@ logging:
   level:
     org:
       springframework:
-        web: INFO
+        web: ERROR
       hibernate: ERROR
     qa:
       gov:
         customs:
-          workflowcamuda: DEBUG
-  file: logs/workflow.log
-
-#management:
-#    endpoint:
-#      flowable:
-#        enabled: true
-
-camunda:
-      bpm:
-       jpa:
-        enabled: true
-       database:
-        jdbc-batch-processing: false
-
+          authentication: DEBUG
+  file: logs/cis.log
 
 eureka:
   instance:
@@ -83,3 +77,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+debug: true

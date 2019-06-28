@@ -31,11 +31,13 @@ var authentication=""
 var training=""
 var user=""
 var fileUploading=""
+var cis=""
 if(gateway){
     authentication="/authentication"
     training="/training"
     user="/user"
     fileUploading="/fileupload"
+    cis="/cis"
 
 }
 
@@ -65,11 +67,11 @@ export const GET_INSTRUCTORS=BASE_URL+training+"/list-instructors"
 export const GET_INSTRUCTORS_BY_NAME=BASE_URL+training+"/list-instructors-by-name"
 export const GET_MAIN_COURSES=BASE_URL+training+"/get-all-mainCourse"
 export const  SAVE_ACTIVATION=BASE_URL+training+"/activate-course"
-export const GET_CIS_USERS=BASE_URL+training+"/find-all-users-cases-for-cis"
 export const GET_ALL_SUBJECTS=BASE_URL+training+"/list-subjects"
 export const GET_ALL_QUALIFICATIONS=BASE_URL+training+"/list-qualifications"
 export const GET_INSTRUCTOR_BY_ID=BASE_URL+training+"/get-instructor-by-id"
 export const GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID=BASE_URL+training+"/get-course-dates-by-id-and-activity-id"
+
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
@@ -81,8 +83,11 @@ export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
 export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
 
 //FILE UPLOADING
-
 export const  UPLOAD_FILE   = BASE_URL+fileUploading+"/uploadFile"
 //export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
 export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
+
+
+//CIS Actions
+export const GET_CIS_USERS=BASE_URL+cis+"/find-all-users-cases-for-cis"
 

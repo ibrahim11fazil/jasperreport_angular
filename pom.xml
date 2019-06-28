@@ -49,6 +49,7 @@
         <module>training</module>
         <module>utils</module>
         <module>user</module>
+        <module>cis</module>
     </modules>
 
 
