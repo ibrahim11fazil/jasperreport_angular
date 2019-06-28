@@ -27,7 +27,7 @@ public interface UserProxyService {
     ////    EmpEmployeeMaster getUserById(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader, @RequestBody EmpEmployeeMaster user); EmpEmployeeMaster getUserById(@Param("id") String id,@Param("id") String token);
 
 
-    @PostMapping(value="/get-employee-by-jobid1/{id}",consumes= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/get-employee-by-jobid/{id}",consumes= MediaType.APPLICATION_JSON_VALUE)
     ResponseType getUserById(@PathVariable("id") String id, @RequestHeader(name="Authorization") String token);
 
 
