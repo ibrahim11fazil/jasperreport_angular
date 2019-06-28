@@ -34,9 +34,26 @@ public class UserMaster implements UserDetails {
     private String qid;
     @Column(name = "JOBID")
     private String jobId;
+    @Column(name = "CNAME_EN")
+    private String cNameEn;
+    @Column(name = "CNAME_AR")
+    private String cNameAr;
 
+    public String getcNameEn() {
+        return cNameEn;
+    }
 
+    public void setcNameEn(String cNameEn) {
+        this.cNameEn = cNameEn;
+    }
 
+    public String getcNameAr() {
+        return cNameAr;
+    }
+
+    public void setcNameAr(String cNameAr) {
+        this.cNameAr = cNameAr;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},

@@ -112,6 +112,8 @@ public class UserServiceImpl implements UserService {
             user.setUsername(userName);
             user.setPassword(password);
             user.setQid(qid);
+            user.setcNameAr(employee.getCnameAr());
+            user.setcNameEn(employee.getCnameEn());
             user.setAccountExpired(new BigInteger("0"));
             user.setAccountLocked(new BigInteger("0"));
             user.setCredentialsExpired(new BigInteger("0"));

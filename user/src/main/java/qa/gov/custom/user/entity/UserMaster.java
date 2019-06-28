@@ -48,6 +48,12 @@ public class UserMaster  {
     @Column(name = "QID")
     private String qid;
 
+    @Column(name = "CNAME_EN")
+    private String cNameEn;
+    @Column(name = "CNAME_AR")
+    private String cNameAr;
+
+
     @Transient
     private BigInteger roleId;
 
@@ -238,5 +244,21 @@ public class UserMaster  {
 
     public void setLimit(int limit) {
         this.limit = limit;
+    }
+
+    public String getcNameEn() {
+        return cNameEn;
+    }
+
+    public void setcNameEn(String cNameEn) {
+        this.cNameEn = cNameEn;
+    }
+
+    public String getcNameAr() {
+        return cNameAr;
+    }
+
+    public void setcNameAr(String cNameAr) {
+        this.cNameAr = cNameAr;
     }
 }

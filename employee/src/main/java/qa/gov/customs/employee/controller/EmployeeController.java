@@ -62,7 +62,8 @@ public class EmployeeController {
            List<MawaredMaster> masterData= mawaredService.findByLegacyCode(id);
            if(masterData!=null && masterData.size()>0){
                EmpModel employee=  new EmpModel();
-               employee.setEmail(masterData.get(0).getEMAIL());
+               String email = masterData.get(0).getEMAIL()!=null  ?masterData.get(0).getEMAIL().replace( "MAILTO:",""):"";
+               employee.setEmail(email);
                employee.setJobId(masterData.get(0).getLEGACYCODE());
                employee.setQid(masterData.get(0).getQID());
                employee.setCnameAr(masterData.get(0).getCNAME_AR());
