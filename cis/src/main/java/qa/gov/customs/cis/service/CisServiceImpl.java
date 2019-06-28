@@ -7,7 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.cis.entity.CisCourseRequest;
 import qa.gov.customs.cis.entity.EmployeeCaseDetails;
+import qa.gov.customs.cis.repository.CisCourseRequestRepository;
 import qa.gov.customs.cis.repository.EmployeeCaseDetailsRepository;
 
 import java.util.ArrayList;
@@ -18,6 +20,9 @@ public class CisServiceImpl implements CisService {
 
     @Autowired
     EmployeeCaseDetailsRepository cisRepository;
+
+    @Autowired
+    CisCourseRequestRepository cisCourseRequestRepository;
 
     @Override
     public List<EmployeeCaseDetails> findAllByIdContainingOrJobCodeContaining(Long id, String jobCode, int page, int limit) {
@@ -37,6 +42,21 @@ public class CisServiceImpl implements CisService {
         }
         else {
             return cisRepository.findAllByIdOrJobCodeContaining(id.longValue(), jobCode, pageable);
+        }
+    }
+
+    @Override
+    public List<CisCourseRequest> findAllByFromUserContaining(String fromUser, int page, int limit) {
+        Pageable pageable =
+                PageRequest.of(
+                        page, limit, Sort.by("requestedId"));
+        if(fromUser!=null && fromUser!=""){
+            List<CisCourseRequest> requests = cisCourseRequestRepository.findAllByFromUserEquals(fromUser,pageable);
+            return requests;
+        }
+        else {
+            List<CisCourseRequest> users =  new ArrayList<>();
+            return users;
         }
     }
 }

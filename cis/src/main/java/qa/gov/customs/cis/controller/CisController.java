@@ -3,6 +3,7 @@ package qa.gov.customs.cis.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import qa.gov.customs.cis.entity.CisCourseRequest;
 import qa.gov.customs.cis.entity.EmployeeCaseDetails;
 import qa.gov.customs.cis.service.CisService;
 import qa.gov.customs.utils.Constants;
@@ -26,6 +27,16 @@ public class CisController {
         if(user.getJobCode()==null)
             user.setJobCode("");
         List<EmployeeCaseDetails> users = cisService.findAllByIdContainingOrJobCodeContaining(user.getId(),user.getJobCode(),user.getStart(),user.getLimit());
+        ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                users);
+        return response;
+    }
+
+
+    @PreAuthorize("hasAnyAuthority('find_all_courses_i_requested')")
+    @RequestMapping(method = RequestMethod.POST,value = "find-all-courses-i-requested")
+    public ResponseType findAllCoursesIRequestedForOthers(@RequestBody CisCourseRequest user ) {
+        List<CisCourseRequest> users = cisService.findAllByFromUserContaining(user.getFromUser(),user.getStart(),user.getLimit());
         ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                 users);
         return response;

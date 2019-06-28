@@ -90,4 +90,4 @@ export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
 
 //CIS Actions
 export const GET_CIS_USERS=BASE_URL+cis+"/find-all-users-cases-for-cis"
-
+export const GET_ALL_CIS_COURSES_I_REQUESTED=BASE_URL+cis+"/find-all-courses-i-requested"
