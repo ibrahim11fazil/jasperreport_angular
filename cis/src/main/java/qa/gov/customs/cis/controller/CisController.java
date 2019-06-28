@@ -33,7 +33,7 @@ public class CisController {
     }
 
 
-    @PreAuthorize("hasAnyAuthority('find_all_courses_i_requested')")
+        @PreAuthorize("hasAnyAuthority('find_all_courses_i_requested')")
     @RequestMapping(method = RequestMethod.POST,value = "find-all-courses-i-requested")
     public ResponseType findAllCoursesIRequestedForOthers(@RequestBody CisCourseRequest user ) {
         List<CisCourseRequest> users = cisService.findAllByFromUserContaining(user.getFromUser(),user.getStart(),user.getLimit());

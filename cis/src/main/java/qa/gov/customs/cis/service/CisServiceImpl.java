@@ -49,9 +49,9 @@ public class CisServiceImpl implements CisService {
     public List<CisCourseRequest> findAllByFromUserContaining(String fromUser, int page, int limit) {
         Pageable pageable =
                 PageRequest.of(
-                        page, limit, Sort.by("requestedId"));
+                        page, limit, Sort.by("requestId"));
         if(fromUser!=null && fromUser!=""){
-            List<CisCourseRequest> requests = cisCourseRequestRepository.findAllByFromUserEquals(fromUser,pageable);
+            List<CisCourseRequest> requests = cisCourseRequestRepository.findAllByFromUserContaining(fromUser,pageable);
             return requests;
         }
         else {

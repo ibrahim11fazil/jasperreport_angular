@@ -11,6 +11,7 @@ import { UserCreationComponent } from './user-creation/user-creation.component';
 import { UserSearchComponent } from './user-search/user-search.component';
 import { CisSystemComponent } from './cis-system/cis-system.component';
 import { SearchInstructorComponent } from './search-instructor/search-instructor.component';
+import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -85,7 +86,13 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'cis-system',
                 component: CisSystemComponent
+            },
+            {
+                path: 'cis-course-requests-i-made',
+                component: CisCourseRequestsIMadeComponent
             }
+
+            
 
         ]
     }

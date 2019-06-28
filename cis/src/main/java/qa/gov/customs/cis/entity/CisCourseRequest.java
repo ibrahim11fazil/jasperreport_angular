@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
-@Table(name="EMP_CASE_DETAILS")
+@Table(name="CIS_COURSE_REQUESTS")
 public class CisCourseRequest {
 
     @Id
     @Column(name="REQUEST_ID")
-    Long  requestedId;
+    Long  requestId;
     @Column(name="FROM_USER")
     String      fromUser;
     @Column(name="TO_USER")
@@ -26,12 +26,12 @@ public class CisCourseRequest {
     String remark;
 
 
-    public Long getRequestedId() {
-        return requestedId;
+    public Long getRequestId() {
+        return requestId;
     }
 
-    public void setRequestedId(Long requestedId) {
-        this.requestedId = requestedId;
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 
     public String getFromUser() {

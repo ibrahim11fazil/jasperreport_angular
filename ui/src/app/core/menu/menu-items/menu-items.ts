@@ -392,12 +392,12 @@ var m =
   var m7 = 
   {
     state: 'training',
-    name: 'CI Employees',
+    name: 'CI System',
     type: 'sub',
     icon: 'grade',
     children: [
-      {state: 'cis-system', name: 'CI Employees' },
-      {state: 'welcome', name: 'Requests' }
+      {state: 'cis-system', name: 'All Employees' },
+      {state: 'cis-course-requests-i-made', name: 'Course Requests' }
     ]
   };
 

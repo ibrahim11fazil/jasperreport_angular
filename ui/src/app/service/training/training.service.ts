@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_CIS_COURSES_I_REQUESTED } from "../../app.constants";
 
 
 import { BehaviorSubject } from 'rxjs';
@@ -12,7 +12,7 @@ import { TacActivation } from 'app/models/tac-activation';
 
 import { TacInstructor, TacInstructorRequest } from '../../models/tac-instructor';
 
-import { CiSystemUsersRequest } from 'app/models/ci-system-user';
+import { CiSystemUsersRequest, CiCourseRequestedUsers } from 'app/models/ci-system-user';
 import { SearchUser } from 'app/models/system-user';
 @Injectable({
   providedIn: 'root'
@@ -121,6 +121,10 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
 
   listUsersofCis(user: CiSystemUsersRequest): Observable<Object> {
     return this.httpClient.post(GET_CIS_USERS, user);
+  }
+
+  listUsersofCisRequest(user: CiCourseRequestedUsers): Observable<Object> {
+    return this.httpClient.post(GET_ALL_CIS_COURSES_I_REQUESTED, user);
   }
 
   getAllSubjects(): Observable<Object> {

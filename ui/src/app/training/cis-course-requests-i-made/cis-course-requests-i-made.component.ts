@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CiSystemUser, CiSystemUsersRequest, CISystemUserResponseList } from 'app/models/ci-system-user';
+import { CiSystemUser, CiSystemUsersRequest, CISystemUserResponseList, CiCourseRequestedUsers, CiCourseRequestedUsersList } from 'app/models/ci-system-user';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { TrainingService } from 'app/service/training/training.service';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
@@ -9,25 +9,25 @@ import { PAGE_LIMIT } from 'app/app.constants';
 import { ISystemUserResponseList } from 'app/models/system-user';
 
 @Component({
-  selector: 'ms-cis-system',
-  templateUrl: './cis-system.component.html',
-  styleUrls: ['./cis-system.component.scss']
+  selector: 'ms-cis-course-requests-i-made',
+  templateUrl: './cis-course-requests-i-made.component.html',
+  styleUrls: ['./cis-course-requests-i-made.component.scss']
 })
-export class CisSystemComponent implements OnInit {
+export class CisCourseRequestsIMadeComponent implements OnInit {
 
   //systemUser: SystemUser
   form: FormGroup
   page = 0
-  ds: CiSystemUser[] = [];
+  ds: CiCourseRequestedUsers[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['id', 'jobCode', 'fullName', 'deparatment', 'decision','decisionDetails','decisionDate'];
+  displayedColumns: string[] = ['requestedId','investigationId', 'toUser', 'createdDate', 'courseNumber', 'remark','statusFlag'];
   constructor(
     private trainingService: TrainingService,
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private router:Router,) {
-    this.pageTitleService.setTitle("CIS Employees")
+    this.pageTitleService.setTitle("CIS Training Request")
   }
 
   ngOnInit() {
@@ -36,12 +36,11 @@ export class CisSystemComponent implements OnInit {
 
   formInit() {
     this.form = this.fb.group({
-      searchJobId: [""],
-      searchId: null
+      searchJobId: [""]
     });
   }
   onSubmit() {
-    this.ds = new Array<CiSystemUser>();
+    this.ds = new Array<CiCourseRequestedUsers>();
     this.ds = [...this.ds];
     this.page = 0
     this.firstSearch=true
@@ -49,14 +48,13 @@ export class CisSystemComponent implements OnInit {
   }
 
   search() {
-    var searchString = new CiSystemUsersRequest()
-    searchString.jobCode = this.form.value.searchJobId
-    searchString.id = this.form.value.searchId
+    var searchString = new CiCourseRequestedUsers()
+    searchString.fromUser = this.form.value.searchJobId
     searchString.limit = PAGE_LIMIT
     searchString.start = this.page
-    this.trainingService.listUsersofCis(searchString).subscribe(
+    this.trainingService.listUsersofCisRequest(searchString).subscribe(
       data => {
-        var response = <CISystemUserResponseList>data
+        var response = <CiCourseRequestedUsersList>data
         if (response.status) {
           response.data.forEach(item => {
             this.ds.push(item);

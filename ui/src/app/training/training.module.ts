@@ -56,7 +56,8 @@ import {
 } from '@angular/material';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { CisSystemComponent } from './cis-system/cis-system.component';
-import { SearchInstructorComponent } from './search-instructor/search-instructor.component';   
+import { SearchInstructorComponent } from './search-instructor/search-instructor.component';
+import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';   
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { SearchInstructorComponent } from './search-instructor/search-instructor
      FileUploaderComponent,
      CisSystemComponent,
      SearchInstructorComponent,
+     CisCourseRequestsIMadeComponent,
      ],
   imports: [
     InfiniteScrollModule,
