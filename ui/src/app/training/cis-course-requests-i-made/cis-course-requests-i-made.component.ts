@@ -20,7 +20,7 @@ export class CisCourseRequestsIMadeComponent implements OnInit {
   page = 0
   ds: CiCourseRequestedUsers[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['requestedId','investigationId', 'toUser', 'createdDate', 'courseNumber', 'remark','statusFlag'];
+  displayedColumns: string[] = ['requestId','investigationId', 'toUser', 'createdDate', 'courseNumber', 'remark','statusFlag'];
   constructor(
     private trainingService: TrainingService,
     private fb: FormBuilder,

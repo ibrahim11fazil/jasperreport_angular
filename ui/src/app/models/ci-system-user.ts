@@ -11,7 +11,7 @@ export class CiSystemUser {
 
 export class CiCourseRequestedUsers {
 
-    requestedId: Number;
+    requestId: Number;
     fromUser: String;
     toUser: String;
     statusFlag: Number;
