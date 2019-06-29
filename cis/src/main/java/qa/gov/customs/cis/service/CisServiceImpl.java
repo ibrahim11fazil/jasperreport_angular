@@ -46,12 +46,12 @@ public class CisServiceImpl implements CisService {
     }
 
     @Override
-    public List<CisCourseRequest> findAllByFromUserContaining(String fromUser, int page, int limit) {
+    public List<CisCourseRequest> findAllByFromUserContaining(String fromUser,String toUser, int page, int limit) {
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("requestId"));
         if(fromUser!=null && fromUser!=""){
-            List<CisCourseRequest> requests = cisCourseRequestRepository.findAllByFromUserContaining(fromUser,pageable);
+            List<CisCourseRequest> requests = cisCourseRequestRepository.findAllByFromUserEqualsAndToUserContaining(fromUser,toUser,pageable);
             return requests;
         }
         else {
