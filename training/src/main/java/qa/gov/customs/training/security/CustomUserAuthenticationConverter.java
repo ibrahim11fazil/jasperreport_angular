@@ -15,6 +15,9 @@ import java.util.Map;
 public class CustomUserAuthenticationConverter implements UserAuthenticationConverter {
 
     private final String EMAIL ="email";
+    private final String QID ="qid";
+    private final String JID ="jid";
+    private String USER_NAME="cNameAr";
     private final String ENABLED ="enabled";
     private final String EXPIRED ="credentialsExpired";
     private Collection<? extends GrantedAuthority> defaultAuthorities;
@@ -39,12 +42,17 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
         if(map.containsKey(USERNAME)) {
             BigInteger b =  map.get(ENABLED)!=null ?new BigInteger( map.get(ENABLED).toString()):new BigInteger("0");
             BigInteger b1 =  map.get(EXPIRED)!=null ?new BigInteger( map.get(EXPIRED).toString()):new BigInteger("0");
-            return new UsernamePasswordAuthenticationToken(
-                    new CustomPrincipal(
-                            map.get(USERNAME).toString(),
-                            map.get(EMAIL).toString(),
-                            b,
-                            b1)
+
+            CustomPrincipal principal=   new CustomPrincipal(
+                    map.get(USERNAME).toString(),
+                    map.get(EMAIL).toString(),
+                    b,
+                    b1);
+            principal.setQid(map.get(QID).toString());
+            principal.setQid(map.get(JID).toString());
+            principal.setcNameAr(map.get(USER_NAME).toString());
+            return new UsernamePasswordAuthenticationToken(principal
+
                     , "N/A", getAuthorities(map));
         }
         return null;

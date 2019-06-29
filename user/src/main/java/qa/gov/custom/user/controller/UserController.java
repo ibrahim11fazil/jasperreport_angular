@@ -5,12 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 import qa.gov.custom.user.proxy.EmpEmployeeMaster;
 import qa.gov.custom.user.proxy.UserProxyService;
 import qa.gov.custom.user.repository.UserRepository;
+import qa.gov.custom.user.security.CustomPrincipal;
 import qa.gov.custom.user.service.CustomUserDetailsService;
 import qa.gov.custom.user.service.UserService;
 import qa.gov.customs.utils.Constants;
@@ -43,8 +45,13 @@ public class UserController {
 	}
 
 
+//	@RequestMapping(value = "/current", method = RequestMethod.GET)
+//	public Principal getUser(Principal principal) {
+//		return principal;
+//	}
+
 	@RequestMapping(value = "/current", method = RequestMethod.GET)
-	public Principal getUser(Principal principal) {
+	public CustomPrincipal getUser(@AuthenticationPrincipal CustomPrincipal principal) {
 		return principal;
 	}
 

@@ -1,4 +1,4 @@
-package qa.gov.customs.cis.security;
+package qa.gov.customs.workflowcamuda.security;
 
 import java.io.Serializable;
 import java.math.BigInteger;

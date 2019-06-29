@@ -210,4 +210,6 @@ public class UserMaster implements UserDetails {
     public void setJobId(String jobId) {
         this.jobId = jobId;
     }
+
+
 }

@@ -1,4 +1,4 @@
-package qa.gov.custom.user.security;
+package qa.gov.customs.workflowcamuda.security;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -20,6 +20,7 @@ public class CustomTokenEnhancer extends JwtAccessTokenConverter {
         info.put("email",userMaster.getEmail());
         info.put("jid",userMaster.getId());
         info.put("qid",userMaster.getQid());
+        info.put("cNameAr",userMaster.getcNameAr());
         List roles = new ArrayList<String>();
         List permissions = new ArrayList<String>();
         if( userMaster.getRoles()!=null) {
