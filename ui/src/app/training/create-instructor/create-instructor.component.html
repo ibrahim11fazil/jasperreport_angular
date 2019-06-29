@@ -15,7 +15,7 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <h5 class="mrgn-b-md">Instructor Type</h5>
-                  <mat-radio-group class="radio-group" formControlName="typeFlag">
+                  <mat-radio-group class="radio-group" formControlName="typeFlag" (change)="onJobIdChange($event)">
                      <mat-radio-button value="1" class="radio-button">Employee</mat-radio-button>
                      <mat-radio-button value="2" class="radio-button">External</mat-radio-button>
                   </mat-radio-group>

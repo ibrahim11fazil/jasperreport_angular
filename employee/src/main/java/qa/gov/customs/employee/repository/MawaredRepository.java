@@ -14,10 +14,10 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
 
     //List<MiniUserMaward> findBylegacyCode(String legacyCode);
 
-    @Query(value="SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI where legacycode=:jobCode)",nativeQuery = true)
+    @Query(value="SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI where legacycode=:jobCode) and  legacycode=:jobCode",nativeQuery = true)
     List<MawaredMaster> findByLegacyCode(@Param("jobCode") String jobCode);
 
-    @Query(value="SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI where email=:email)",nativeQuery = true)
+    @Query(value="SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI where email=:email)  and  legacycode=:jobCode",nativeQuery = true)
     List<MawaredMaster> findByEmail(@Param("email") String email);
 
 }

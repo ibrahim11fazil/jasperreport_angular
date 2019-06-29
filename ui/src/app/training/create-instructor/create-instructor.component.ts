@@ -7,6 +7,8 @@ import { TacInstructor, Subject, Qualification, SubjectListResponse, Qualifiacat
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { PRIORITY_LIST } from 'app/app.constants';
 import { ActivatedRoute } from '@angular/router';
+import { SystemUserService } from 'app/service/user/system-user.service';
+import { MawaredUserResponse, MawaredUser } from 'app/models/system-user';
 //import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
@@ -24,14 +26,26 @@ export class CreateInstructorComponent implements OnInit {
   priorityList =PRIORITY_LIST 
   param:any;
   @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
+  cNameAr: any;
   constructor(
-    private fb:FormBuilder,
+     private fb:FormBuilder,
      private pageTitleService: PageTitleService,
      private trainingService: TrainingService,
      private toastr : ToastrService,
+     private userService:SystemUserService,
      private activatedRoute: ActivatedRoute) {
       this.pageTitleService.setTitle("Instructor Registration")
-      this.tacInstructor={
+      this.loadForm()
+
+   
+    //this.patch()
+   // this.formSetup()
+   // this.loadDataFromParam()
+
+  }
+
+  loadForm(){
+    this.tacInstructor={
       instructorId:0,
       typeFlag:0,
       priority:0,
@@ -41,12 +55,6 @@ export class CreateInstructorComponent implements OnInit {
       qid:"",
       passportNo:""
     } 
-
-   
-    //this.patch()
-   // this.formSetup()
-   // this.loadDataFromParam()
-
   }
 
   ngOnInit() {
@@ -241,10 +249,69 @@ export class CreateInstructorComponent implements OnInit {
   }
 
 
+ 
+
   onJobIdChange(event){
-    if(Number(this.form.value.typeFlag)==1 && this.form.value.jobId!=null && this.form.value.jobId!="" ){
+    if( Number(this.form.value.typeFlag)!=2 && this.form.value.jobId!=null && this.form.value.jobId!="" ){
+      this.getUserById(this.form.value.jobId)
+    }else{
+      this.tacInstructor={
+        instructorId:0,
+        typeFlag:Number(this.form.value.typeFlag),
+        priority:0,
+        jobId:this.form.value.jobId,
+        name:"",
+        ibanNo:"",
+        qid:"",
+        passportNo:""
+      } 
+      this.formInit()
 
     }
+  }
+
+  getUserById(jobId){
+    this.userService.getUserById(jobId).subscribe(
+      data=>{
+        //this.toastr.info("Valid User")
+        debugger
+        var response = <MawaredUserResponse>data
+        if(response.data!=null){
+        this.updateTacInstructorView(response.data)
+        }else{
+          this.cNameAr= "Invalid User"
+        }
+
+      },
+      error=>{
+        console.log(error.message)
+        this.cNameAr= "Invalid User"
+      }
+    )
+  }
+
+  updateTacInstructorView(data){
+    this.form.reset()
+    var response = <MawaredUser> data
+    this.tacInstructor = {
+      instructorId:0,
+      jobId:response.jobId,
+      name:response.cnameAr,
+      department:response.department,
+      email:response.email,
+      ibanNo:response.iban,
+      qid:response.qid,
+      passportNo:"",
+      companyName:"Customs",
+      tacCommSubjects:[],
+      tacCommQualifications:[],
+      typeFlag:1,
+      priority:null,
+      photo:"",
+      phone:"",
+      jobTitle:response.jobTitle
+    }
+    this.formInit()
   }
 
 
