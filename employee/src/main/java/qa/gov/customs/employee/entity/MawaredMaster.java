@@ -396,4 +396,108 @@ public class MawaredMaster {
     public void setMOBILE(String MOBILE) {
         this.MOBILE = MOBILE;
     }
+
+    public String getBKEY() {
+        return BKEY;
+    }
+
+    public void setBKEY(String BKEY) {
+        this.BKEY = BKEY;
+    }
+
+    public String getBACNO() {
+        return BACNO;
+    }
+
+    public void setBACNO(String BACNO) {
+        this.BACNO = BACNO;
+    }
+
+    public String getORGUNIT() {
+        return ORGUNIT;
+    }
+
+    public void setORGUNIT(String ORGUNIT) {
+        this.ORGUNIT = ORGUNIT;
+    }
+
+    public String getORGUNIT_DESC() {
+        return ORGUNIT_DESC;
+    }
+
+    public void setORGUNIT_DESC(String ORGUNIT_DESC) {
+        this.ORGUNIT_DESC = ORGUNIT_DESC;
+    }
+
+    public String getORGUNIT_DESC_AR() {
+        return ORGUNIT_DESC_AR;
+    }
+
+    public void setORGUNIT_DESC_AR(String ORGUNIT_DESC_AR) {
+        this.ORGUNIT_DESC_AR = ORGUNIT_DESC_AR;
+    }
+
+    public String getPOSITION() {
+        return POSITION;
+    }
+
+    public void setPOSITION(String POSITION) {
+        this.POSITION = POSITION;
+    }
+
+    public String getPOSITION_DESC() {
+        return POSITION_DESC;
+    }
+
+    public void setPOSITION_DESC(String POSITION_DESC) {
+        this.POSITION_DESC = POSITION_DESC;
+    }
+
+    public String getPOSITION_DESC_AR() {
+        return POSITION_DESC_AR;
+    }
+
+    public void setPOSITION_DESC_AR(String POSITION_DESC_AR) {
+        this.POSITION_DESC_AR = POSITION_DESC_AR;
+    }
+
+    public String getJOB() {
+        return JOB;
+    }
+
+    public void setJOB(String JOB) {
+        this.JOB = JOB;
+    }
+
+    public String getJOB_DESC() {
+        return JOB_DESC;
+    }
+
+    public void setJOB_DESC(String JOB_DESC) {
+        this.JOB_DESC = JOB_DESC;
+    }
+
+    public String getJOB_DESC_AR() {
+        return JOB_DESC_AR;
+    }
+
+    public void setJOB_DESC_AR(String JOB_DESC_AR) {
+        this.JOB_DESC_AR = JOB_DESC_AR;
+    }
+
+    public String getPSLEVEL() {
+        return PSLEVEL;
+    }
+
+    public void setPSLEVEL(String PSLEVEL) {
+        this.PSLEVEL = PSLEVEL;
+    }
+
+    public Date getRUN_DATE() {
+        return RUN_DATE;
+    }
+
+    public void setRUN_DATE(Date RUN_DATE) {
+        this.RUN_DATE = RUN_DATE;
+    }
 }

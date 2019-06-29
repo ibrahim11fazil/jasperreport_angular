@@ -68,6 +68,13 @@ public class EmployeeController {
                employee.setQid(masterData.get(0).getQID());
                employee.setCnameAr(masterData.get(0).getCNAME_AR());
                employee.setCnameEn(masterData.get(0).getCNAME_AR());
+               employee.setMobile(masterData.get(0).getMOBILE()!=null?masterData.get(0).getMOBILE():"");
+               employee.setDepartment(masterData.get(0).getORGUNIT_DESC_AR()!=null?masterData.get(0).getORGUNIT_DESC_AR():"");
+               employee.setDepartmentId(masterData.get(0).getORGUNIT()!=null?masterData.get(0).getORGUNIT():"");
+               employee.setJobTitle(masterData.get(0).getPOSITION_DESC_AR()!=null?masterData.get(0).getPOSITION_DESC_AR():"");
+               employee.setIban(masterData.get(0).getBACNO()!=null?masterData.get(0).getBACNO():"");
+
+
                ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SYSTEM_USER_CREATED, true,
                        employee);
                return response;
