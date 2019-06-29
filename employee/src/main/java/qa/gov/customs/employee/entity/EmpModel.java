@@ -1,10 +1,14 @@
 package qa.gov.customs.employee.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmpModel {
 
     private String jobId;
+    private String jobTitle;
     private String pernr;
     private String cnameAr;
     private String cnameEn;
@@ -15,7 +19,11 @@ public class EmpModel {
     private String positionId;
     private String secionCode;
     private String gender;
-    private Date dateofbirth;
+    private Date   dateofbirth;
+    private String department;
+    private String departmentId;
+    private String passport;
+    private String iban;
 
     public String getJobId() {
         return jobId;
@@ -111,5 +119,45 @@ public class EmpModel {
 
     public void setDateofbirth(Date dateofbirth) {
         this.dateofbirth = dateofbirth;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 }

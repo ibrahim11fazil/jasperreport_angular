@@ -106,12 +106,12 @@ public class MawaredMaster {
 //    String BKCOUN;
 //    @Column(name="BKCOUN_DESC")
 //    String BKCOUN_DESC;
-//    @Column(name="BKEY")
-//    String BKEY	;
+    @Column(name="BKEY")
+    String BKEY	;
 //    @Column(name="BKEY_DESC")
 //    String BKEY_DESC;
-//    @Column(name="BACNO")
-//    String BACNO	;
+    @Column(name="BACNO")
+    String BACNO	;
 //    @Column(name="BCITY")
 //    String BCITY	;
 //    @Column(name="BPOSCODE")
@@ -154,24 +154,24 @@ public class MawaredMaster {
 //    String COSTCENTER_DESC;
 
 
-//    @Column(name="ORGUNIT")
-//    String ORGUNIT	;
-//    @Column(name="ORGUNIT_DESC")
-//    String  ORGUNIT_DESC	;
-//    @Column(name="ORGUNIT_DESC_AR")
-//    String  ORGUNIT_DESC_AR	;
-//    @Column(name="POSITION")
-//    String POSITION	;
-//    @Column(name="POSITION_DESC")
-//    String POSITION_DESC	;
-//    @Column(name="POSITION_DESC_AR")
-//    String  POSITION_DESC_AR	;
-//    @Column(name="JOB")
-//    String  JOB	;
-//    @Column(name="JOB_DESC")
-//    String JOB_DESC	;
-//    @Column(name="JOB_DESC_AR")
-//    String  JOB_DESC_AR	;
+    @Column(name="ORGUNIT")
+    String ORGUNIT	;
+    @Column(name="ORGUNIT_DESC")
+    String  ORGUNIT_DESC	;
+    @Column(name="ORGUNIT_DESC_AR")
+    String  ORGUNIT_DESC_AR	;
+    @Column(name="POSITION")
+    String POSITION	;
+    @Column(name="POSITION_DESC")
+    String POSITION_DESC	;
+    @Column(name="POSITION_DESC_AR")
+    String  POSITION_DESC_AR	;
+    @Column(name="JOB")
+    String  JOB	;
+    @Column(name="JOB_DESC")
+    String JOB_DESC	;
+    @Column(name="JOB_DESC_AR")
+    String  JOB_DESC_AR	;
 //    @Column(name="PSTYPE")
 //    String  PSTYPE	;
 //    @Column(name="PSTYPE_DESC")
@@ -182,8 +182,8 @@ public class MawaredMaster {
 //    String PSAREA_DESC	;
 //    @Column(name="PSGROUP")
 //    String PSGROUP	;
-//    @Column(name="PSLEVEL")
-//    String PSLEVEL	;
+    @Column(name="PSLEVEL")
+    String PSLEVEL	;
 //    @Column(name="DEPTYPE")
 //    String DEPTYPE	;
 
@@ -197,8 +197,10 @@ public class MawaredMaster {
 //    String DEPQID	;
 //    @Column(name="DEPTIC")
 //    String DEPTIC	;
+
     @Column(name="RUN_DATE")
     Date RUN_DATE	;
+
 //    @Column(name="PER_STATUS")
 //    String PER_STATUS	;
 //    @Column(name="PER_ERR_MSG")

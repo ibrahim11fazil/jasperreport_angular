@@ -55,7 +55,7 @@ public class EmployeeController {
 
     @PreAuthorize("hasAnyAuthority('get_employee_by_jobid')")
     @PostMapping("/get-employee-by-jobid/{id}")
-    public ResponseType getEmployeeById2(@PathVariable("id") String id){
+    public ResponseType getEmployeeById(@PathVariable("id") String id){
         logger.info("Recieved ### " + id);
 
         if(id!=null){

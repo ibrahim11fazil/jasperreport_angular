@@ -241,6 +241,13 @@ export class CreateInstructorComponent implements OnInit {
   }
 
 
+  onJobIdChange(event){
+    if(Number(this.form.value.typeFlag)==1 && this.form.value.jobId!=null && this.form.value.jobId!="" ){
+
+    }
+  }
+
+
   
 
 
