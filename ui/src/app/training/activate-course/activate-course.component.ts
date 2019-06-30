@@ -79,7 +79,7 @@ this.tacCourseActivation = {
   {
     let courseMaster=new TacCourseMaster(0,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
     this.courseDetails=courseMaster
-    let courseActivation=new TacActivation(0,null,null,null,null,0,"",0,0,0,0,0,0,0,0,0,null,"")
+    let courseActivation=new TacActivation(0,null,null,null,null,0,"",0,0,0,0,0,0,0,0,0,null,0)
     this.courseActivationDetails=courseActivation
     this.form = this.fb.group({
       

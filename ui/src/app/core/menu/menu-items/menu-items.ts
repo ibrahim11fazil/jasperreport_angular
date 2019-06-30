@@ -401,6 +401,17 @@ var m =
     ]
   };
 
+  var m8 = 
+  {
+    state: 'training',
+    name: 'Course Attendance',
+    type: 'sub',
+    icon: 'grade',
+    children: [
+      {state: 'welcome', name: 'Welcome' }
+    ]
+  };
+
 
 
 var dynamicMenu =[];
@@ -420,6 +431,7 @@ export class MenuItems {
     //TODO GET PERMISSIONS AND SET THE MENU
     dynamicMenu.push(m6);
     dynamicMenu.push(m);
+    dynamicMenu.push(m8);
     dynamicMenu.push(m1);
     dynamicMenu.push(m2);
     dynamicMenu.push(m3);

@@ -83,6 +83,7 @@ export class UserCreationComponent implements OnInit {
           debugger
           var response =  <ISystemUserResponse>data
           if(response.status){
+            this.cNameAr = ""
           this.toastr.success(response.message.toString())
           this.form.reset()
           this.blankUser()
