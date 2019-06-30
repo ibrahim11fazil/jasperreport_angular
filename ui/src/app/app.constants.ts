@@ -2,6 +2,14 @@
 export const CONTENT_TYPE_FORM_URL_ENCODE="application/x-www-form-urlencoded"
 export const CONTENT_TYPE_JSON="application/json"
 export const PAGE_LIMIT=10
+
+export const WF_REQUESTED="REQUESTED"
+export const WF_PROCESSING="PROCESSING"
+export const WF_APPROVED="APPROVED"
+export const WF_REJECTED="REJECTED"
+export const WF_CANCELLED="CANCELLED"
+
+
 export const DURATION_FLAG_LIST = [
     { value: 1, viewValue: 'YEAR' },
     { value: 2, viewValue: 'MONTH' },

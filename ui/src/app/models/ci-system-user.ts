@@ -15,6 +15,7 @@ export class CiCourseRequestedUsers {
     fromUser: String;
     toUser: String;
     statusFlag: Number;
+    statusFlagString?: String;
     investigationId: Number;
     createdDate: String;
     courseNumber: Number;

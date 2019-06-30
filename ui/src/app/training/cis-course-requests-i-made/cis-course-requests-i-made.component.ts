@@ -5,7 +5,7 @@ import { TrainingService } from 'app/service/training/training.service';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { PAGE_LIMIT } from 'app/app.constants';
+import { PAGE_LIMIT, WF_REQUESTED, WF_PROCESSING, WF_APPROVED, WF_REJECTED, WF_CANCELLED } from 'app/app.constants';
 import { ISystemUserResponseList } from 'app/models/system-user';
 
 @Component({
@@ -47,6 +47,19 @@ export class CisCourseRequestsIMadeComponent implements OnInit {
     this.search()
   }
 
+  getwfStatus(status):String{
+    if(status==1)
+    return WF_REQUESTED
+    else if(status==2)
+    return WF_PROCESSING
+    else if(status==3)
+    return WF_APPROVED
+    else if(status==5)
+    return WF_REJECTED
+    else 
+    return WF_CANCELLED
+  }
+
   search() {
     var searchString = new CiCourseRequestedUsers()
     searchString.fromUser = this.form.value.searchJobId
@@ -57,6 +70,7 @@ export class CisCourseRequestsIMadeComponent implements OnInit {
         var response = <CiCourseRequestedUsersList>data
         if (response.status) {
           response.data.forEach(item => {
+           item.statusFlagString = this.getwfStatus(item.statusFlag)
             this.ds.push(item);
           })
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
