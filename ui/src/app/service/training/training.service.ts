@@ -147,7 +147,6 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
     return this.httpClient.post(GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID,course);
   }
   getCourseActivationById(course: TacCourseMaster): Observable<Object> {
-   debugger;
     return this.httpClient.post(GET_ALL_COURSE_ACTIVATION, course);
   }
   

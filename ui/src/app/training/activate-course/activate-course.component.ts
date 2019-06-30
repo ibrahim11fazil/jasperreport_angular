@@ -71,14 +71,12 @@ this.tacCourseActivation = {
     this.pageTitleService.setTitle("ACTIVATE COURSE") 
      this.formInit()
     this.formSetup()
-    debugger;
     this.loadDataFromParam()
   }
 
   formInit()
   {
-    let courseMaster=new TacCourseMaster(0,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
-    this.courseDetails=courseMaster
+
     let courseActivation=new TacActivation(0,null,null,null,null,0,"",0,0,0,0,0,0,0,0,0,null,0)
     this.courseActivationDetails=courseActivation
     this.form = this.fb.group({
@@ -88,15 +86,15 @@ this.tacCourseActivation = {
       dateSelect:[null, Validators.compose([Validators.required])],
       roomSelect:[null, Validators.compose([Validators.required])],
       instructorSelect:this.fb.array([]),
-      instructorCost:[null, Validators.compose([Validators.required])],
-      buffetCost:[null, Validators.compose([Validators.required])],
-      transportCost:[null, Validators.compose([Validators.required])],
-      ticketCost:[null, Validators.compose([Validators.required])],
-      hospitalityCost:[null, Validators.compose([Validators.required])],
-      giftCost:[null, Validators.compose([Validators.required])],
-      reservationCost:[null, Validators.compose([Validators.required])],
-      bonusCost:[null, Validators.compose([Validators.required])],
-      translationCost:[null, Validators.compose([Validators.required])],
+      instructorCost:[this.tacCourseActivation.costInstructor, Validators.compose([Validators.required])],
+      buffetCost:[this.tacCourseActivation.costFood, Validators.compose([Validators.required])],
+      transportCost:[this.tacCourseActivation.costTransport, Validators.compose([Validators.required])],
+      ticketCost:[this.tacCourseActivation.costAirticket, Validators.compose([Validators.required])],
+      hospitalityCost:[this.tacCourseActivation.costHospitality, Validators.compose([Validators.required])],
+      giftCost:[this.tacCourseActivation.costGift, Validators.compose([Validators.required])],
+      reservationCost:[this.tacCourseActivation.costVenue, Validators.compose([Validators.required])],
+      bonusCost:[this.tacCourseActivation.costBonus, Validators.compose([Validators.required])],
+      translationCost:[this.tacCourseActivation.costTranslation, Validators.compose([Validators.required])],
       belongsSelect:[null, Validators.compose([Validators.required])],
       userSelect:[null, Validators.compose([Validators.required])],
       //instructorOptions:this.fb.array([])
@@ -201,6 +199,7 @@ patch()
         locationArray[0]
       )
     }
+   
 
    
   
@@ -208,10 +207,10 @@ patch()
 
 getCourseDetails(course)
 {
-  debugger;
+
   let courseMaster=new TacCourseMaster(course.value.courseId,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
   console.log(course.value);
-  debugger;
+
   this.courseByIdList(courseMaster);
   // this.trainingService.getCourseById(courseMaster).subscribe(
   //   data => {
@@ -235,7 +234,7 @@ getCourseDetails(course)
 
 getCourseRoomDetail(location)
 {
-  debugger;
+
   let courseLocation=new Location(location.value.locationId,"")
   console.log(courseLocation);
   console.log(location.value);
@@ -265,7 +264,7 @@ patchValues(instructorId,name) {
 
 activateCourse()
 {
-  debugger;
+  
   
   if(this.form.valid){
     console.log(this.form.value.courseSelect.courseId);
@@ -285,7 +284,7 @@ courseActivation.tacCourseDate=courseDate;
 var trainingRoom=new TrainingRoom(0,"");
 trainingRoom.roomId=this.form.value.roomSelect.roomId;
     courseActivation.tacCourseRoom=trainingRoom;
-debugger;
+
 const instructorOptions=this.getControlOfAddMore('instructorSelect');
 var instructors=<TacInstructor[]>instructorOptions.value;
 this.tacCourseActivation.tacCourseInstructor=instructors;
@@ -303,7 +302,7 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
       courseActivation.costVenue=this.form.value.reservationCost
       courseActivation.costBonus=this.form.value.bonusCost
       courseActivation.costTranslation=this.form.value.translationCost
-debugger;
+
       this.trainingService.saveCourseActivation(courseActivation).subscribe(
         data => this.successSaveActivation(data),
         error => {
@@ -312,7 +311,7 @@ debugger;
         }
       )
       }else{
-        debugger
+        
         this.toastr.error("Please fill all required fields");
       }
       }
@@ -328,7 +327,7 @@ debugger;
       courseByIdList(courseMaster){
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
-          debugger;
+         
           var response = <ResponseTacCourseMaster> data
           this.courseDetails=response.data
           this.courseDate=this.courseDetails.tacCourseDates
@@ -337,7 +336,8 @@ debugger;
             this.displayCourseDetails=true;
           }
           this.getCourseActivationById(courseMaster);
-          this.patch();
+          //this.patch();
+          
          //this.belongsSelect=
         },
         error => {
@@ -347,7 +347,7 @@ debugger;
       )
     }
     loadDataFromParam(){
-      debugger;
+      
       console.log(this.param);
       this.activatedRoute.params.subscribe(params => {
         if(params['id']){
@@ -371,29 +371,44 @@ debugger;
     }
   
     loadData(data){
+   
       //this.tacCourseMaster = data.data;
+      this.tacCourseActivation=data.data;
+      this.courseDetails=this.courseDetails;
+      if(this.courseDetails!=null)
+          {
+            this.displayCourseDetails=true;
+          }
       this.formInit()
       this.patch() 
     }
 
-    getCourseActivationById(course)
-    { debugger;
-      this.trainingService.getCourseActivationById(course).subscribe(
-        data => {
-         debugger;
-          var response = <ResponseActivationDetail>data
-          this.courseActivationDetails = response.data
-          console.log(response.data);
-
-          this.form.value.instructorCost=this.courseActivationDetails.costInstructor;
+    getCourseActivationById(courseMaster)
+    { 
+      // this.trainingService.getCourseActivationById(courseMaster).subscribe(
+      //   data => {
+      //    debugger;
+      //     var response = <ResponseActivationDetail>data
+      //     this.courseActivationDetails=response.data
+      //     console.log(response.data);
+          
+      //    // this.form.value.instructorCost=this.courseActivationDetails.costInstructor;
      
-  
-        },
-        error => {
-          console.log(error)
-          this.toastr.error(error.message)
-        }
-      )
+          
+      //   },
+      //   error => {
+      //     console.log(error)
+      //     this.toastr.error(error.message)
+      //   }
+      // )
+
+      this.trainingService.getCourseActivationById(courseMaster).subscribe(
+          data => this.loadData(data),
+          error => {
+            console.log(error)
+            this.toastr.error(error.message)
+          }
+        )
     }
     
   }
