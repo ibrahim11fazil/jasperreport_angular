@@ -184,6 +184,7 @@ this.tacCourseActivation = {
 
 patch()
 {
+  debugger;
   var courseArray = this.courseList.filter(i => i.courseId==this.courseDetails.courseId)
     if(courseArray[0]!=null){
     this.form.controls['courseSelect'].patchValue(
@@ -322,7 +323,7 @@ debugger;
           {
             this.displayCourseDetails=true;
           }
-         
+          this.patch();
          //this.belongsSelect=
         },
         error => {

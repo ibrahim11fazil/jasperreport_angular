@@ -288,4 +288,10 @@ public class CourseServiceImpl  implements CourseService {
 	public List<TacCommQualifications> getAllQualifications() {
 		return qualificationsRepository.findAll();
 	}
+	@Override
+	public List<TacCourseActivation> getCourseActivationByCourseId(TacCourseMaster courseMaster)
+	{
+		List<TacCourseActivation>course=activationRepo.findByCourseId(courseMaster.getCourseId());
+		return course;
+	}
 }

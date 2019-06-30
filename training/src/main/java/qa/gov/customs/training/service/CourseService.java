@@ -46,4 +46,5 @@ public interface CourseService {
 
     List<TacCommSubjects> getAllSubjects();
     List<TacCommQualifications> getAllQualifications();
+    List<TacCourseActivation> getCourseActivationByCourseId(TacCourseMaster courseMaster);
 }
