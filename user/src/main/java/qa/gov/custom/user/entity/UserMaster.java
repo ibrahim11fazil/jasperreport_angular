@@ -45,6 +45,15 @@ public class UserMaster  {
     @Column(name = "JOBID")
     private String jobId;
 
+    @Column(name = "QID")
+    private String qid;
+
+    @Column(name = "CNAME_EN")
+    private String cNameEn;
+    @Column(name = "CNAME_AR")
+    private String cNameAr;
+
+
     @Transient
     private BigInteger roleId;
 
@@ -206,6 +215,15 @@ public class UserMaster  {
         this.jobId = jobId;
     }
 
+
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
+    }
+
     @Transient
     int start;
 
@@ -226,5 +244,21 @@ public class UserMaster  {
 
     public void setLimit(int limit) {
         this.limit = limit;
+    }
+
+    public String getcNameEn() {
+        return cNameEn;
+    }
+
+    public void setcNameEn(String cNameEn) {
+        this.cNameEn = cNameEn;
+    }
+
+    public String getcNameAr() {
+        return cNameAr;
+    }
+
+    public void setcNameAr(String cNameAr) {
+        this.cNameAr = cNameAr;
     }
 }

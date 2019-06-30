@@ -2,6 +2,14 @@
 export const CONTENT_TYPE_FORM_URL_ENCODE="application/x-www-form-urlencoded"
 export const CONTENT_TYPE_JSON="application/json"
 export const PAGE_LIMIT=10
+
+export const WF_REQUESTED="REQUESTED"
+export const WF_PROCESSING="PROCESSING"
+export const WF_APPROVED="APPROVED"
+export const WF_REJECTED="REJECTED"
+export const WF_CANCELLED="CANCELLED"
+
+
 export const DURATION_FLAG_LIST = [
     { value: 1, viewValue: 'YEAR' },
     { value: 2, viewValue: 'MONTH' },
@@ -31,11 +39,15 @@ var authentication=""
 var training=""
 var user=""
 var fileUploading=""
+var cis=""
+var employee=""
 if(gateway){
     authentication="/authentication"
     training="/training"
     user="/user"
     fileUploading="/fileupload"
+    cis="/cis"
+    employee="/employee"
 
 }
 
@@ -65,7 +77,6 @@ export const GET_INSTRUCTORS=BASE_URL+training+"/list-instructors"
 export const GET_INSTRUCTORS_BY_NAME=BASE_URL+training+"/list-instructors-by-name"
 export const GET_MAIN_COURSES=BASE_URL+training+"/get-all-mainCourse"
 export const  SAVE_ACTIVATION=BASE_URL+training+"/activate-course"
-export const GET_CIS_USERS=BASE_URL+training+"/find-all-users-cases-for-cis"
 export const GET_ALL_SUBJECTS=BASE_URL+training+"/list-subjects"
 export const GET_ALL_QUALIFICATIONS=BASE_URL+training+"/list-qualifications"
 export const GET_INSTRUCTOR_BY_ID=BASE_URL+training+"/get-instructor-by-id"
@@ -82,8 +93,16 @@ export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
 export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
 
 //FILE UPLOADING
-
 export const  UPLOAD_FILE   = BASE_URL+fileUploading+"/uploadFile"
 //export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
 export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
 
+
+//CIS Actions
+export const GET_CIS_USERS=BASE_URL+cis+"/find-all-users-cases-for-cis"
+export const GET_ALL_CIS_COURSES_I_REQUESTED=BASE_URL+cis+"/find-all-courses-i-requested"
+
+
+//EMPLOYEE
+export const  GET_EMPLOYEE_BY_ID = BASE_URL+employee+"/get-employee-by-jobid"
+//get-employee-by-jobid

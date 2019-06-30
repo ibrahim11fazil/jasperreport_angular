@@ -4,7 +4,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { ISystemRoles, SystemRoles } from 'app/models/system-roles';
 import { ToastrService } from 'ngx-toastr';
-import { SystemUser, ISystemUserResponse } from 'app/models/system-user';
+import { SystemUser, ISystemUserResponse, MawaredUserResponse } from 'app/models/system-user';
 import { ActivatedRoute } from '@angular/router';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 
@@ -20,6 +20,7 @@ export class UserCreationComponent implements OnInit {
   systemRoles:SystemRoles[]=[]
   systemUser:SystemUser
   blankPassword:String="Password"
+  cNameAr:String=""
  // @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   constructor(
     private userService:SystemUserService,
@@ -141,6 +142,32 @@ export class UserCreationComponent implements OnInit {
     // this.form.controls['password'].validator=null
      this.blankPassword="Please provide blank area for no change in password"
    
+  }
+
+  onJobIdChange(event){
+    if( this.form.value.jobId!=null && this.form.value.jobId!="" ){
+      this.getUserById(this.form.value.jobId)
+    }
+  }
+
+  getUserById(jobId){
+    this.userService.getUserById(jobId).subscribe(
+      data=>{
+        //this.toastr.info("Valid User")
+        debugger
+        var response = <MawaredUserResponse>data
+        if(response.data!=null){
+        this.cNameAr= response.data.cnameAr
+        }else{
+          this.cNameAr= "Invalid User"
+        }
+
+      },
+      error=>{
+        console.log(error.message)
+        this.cNameAr= "Invalid User"
+      }
+    )
   }
 
 }

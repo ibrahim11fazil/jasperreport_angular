@@ -7,8 +7,11 @@ public class CustomPrincipal implements Serializable {
     private static final long serialVersionUID = 1L;
     private String username;
     private String email;
+    private String cNameAr;
     private BigInteger enabled;
     private BigInteger credentialsExpired;
+    private String jid;
+    private String qid;
 
     public CustomPrincipal() {
     }
@@ -23,6 +26,31 @@ public class CustomPrincipal implements Serializable {
         this.email = email;
         this.enabled = enabled;
         this.credentialsExpired = credentialsExpired;
+    }
+
+    public String getJid() {
+        return jid;
+    }
+
+    public void setJid(String jid) {
+        this.jid = jid;
+    }
+
+
+    public String getcNameAr() {
+        return cNameAr;
+    }
+
+    public void setcNameAr(String cNameAr) {
+        this.cNameAr = cNameAr;
+    }
+
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
     }
 
     public BigInteger getCredentialsExpired() {
@@ -56,4 +84,8 @@ public class CustomPrincipal implements Serializable {
     public void setEnabled(BigInteger enabled) {
         this.enabled = enabled;
     }
+
+
+
+
 }

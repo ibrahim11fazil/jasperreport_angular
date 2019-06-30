@@ -15,7 +15,7 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <h5 class="mrgn-b-md">Instructor Type</h5>
-                  <mat-radio-group class="radio-group" formControlName="typeFlag">
+                  <mat-radio-group class="radio-group" formControlName="typeFlag" (change)="onJobIdChange($event)">
                      <mat-radio-button value="1" class="radio-button">Employee</mat-radio-button>
                      <mat-radio-button value="2" class="radio-button">External</mat-radio-button>
                   </mat-radio-group>
@@ -25,7 +25,7 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="JobId" formControlName="jobId">
+                     <input matInput placeholder="JobId" formControlName="jobId" (change)="onJobIdChange($event)" >
                   </mat-form-field>
                </div>
 
@@ -185,7 +185,7 @@
             <div fxLayout="row" fxLayoutAlign="start">
                <!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
                <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">Save</button>
-               <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button>
+               <!-- <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button> -->
             </div>
 
          </form>

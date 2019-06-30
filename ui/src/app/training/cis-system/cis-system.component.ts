@@ -20,7 +20,7 @@ export class CisSystemComponent implements OnInit {
   page = 0
   ds: CiSystemUser[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['id', 'jobCode', 'fullName', 'deparatment', 'decision','decisionDetails','decisionDate','Request'];
+  displayedColumns: string[] = ['id', 'jobCode', 'fullName', 'deparatment', 'decision','decisionDetails','decisionDate'];
   constructor(
     private trainingService: TrainingService,
     private fb: FormBuilder,

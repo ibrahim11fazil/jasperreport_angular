@@ -66,6 +66,12 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+    cis-service:
+      path: /cis/**
+      serviceId: cis
+      stripPrefix: true
+      sensitiveHeaders:
+
 
 
 debug: true

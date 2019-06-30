@@ -12,7 +12,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     public Optional<String> getCurrentAuditor() {
         try{
             //TODO need update with user code, audit logs
-            String str=  ((CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
+            String str=  ((CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getJid();
             Optional<String> ostr = Optional.ofNullable(str)
                     .map(s -> s.isEmpty()?null:s);
             return ostr;

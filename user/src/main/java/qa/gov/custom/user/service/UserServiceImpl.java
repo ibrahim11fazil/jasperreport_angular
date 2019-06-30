@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
             String userName = employee.getJobId();
             String email = employee.getEmail()!=null?employee.getEmail():"";
             BigInteger id = new BigInteger(employee.getJobId());
+            String qid = employee.getQid();
             String password =user.getPassword()!=null?"{bcrypt}"+UserUtils.getPasswordBCrypt(user.getPassword()):"{bcrypt}"+UserUtils.getRandomPassword(employee.getJobId());
             if(employee.getQid()!=null){
                 userName=  employee.getQid();
@@ -110,6 +111,9 @@ public class UserServiceImpl implements UserService {
             user.setJobId(id.toString());
             user.setUsername(userName);
             user.setPassword(password);
+            user.setQid(qid);
+            user.setcNameAr(employee.getCnameAr());
+            user.setcNameEn(employee.getCnameEn());
             user.setAccountExpired(new BigInteger("0"));
             user.setAccountLocked(new BigInteger("0"));
             user.setCredentialsExpired(new BigInteger("0"));

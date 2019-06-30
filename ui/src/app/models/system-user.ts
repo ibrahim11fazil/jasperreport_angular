@@ -67,3 +67,30 @@ export interface GenericResponse {
     message:String;
     data:any;
 }
+
+export interface MawaredUser{
+      jobId:String;
+      jobTitle:String;
+      pernr:String;
+      cnameAr:String;
+      cnameEn:String;
+      qid:String;
+      mobile:String;
+      email:String;
+      activeFlag:String;
+      positionId:String;
+      secionCode:String;
+      gender:String;
+        dateofbirth:String;
+      department:String;
+      departmentId:String;
+      passport:String;
+      iban:String;
+}
+
+export interface MawaredUserResponse {
+    status: Boolean;
+    code:number;
+    message:String;
+    data:MawaredUser;
+}
