@@ -30,7 +30,7 @@ public class TacCommSubjects implements java.io.Serializable {
 	private Date dateCreated;
 	private String userModified;
 	private Date dateModified;
-	private Set<TacInstructorSubjects> tacInstructorSubjectses = new HashSet<TacInstructorSubjects>(0);
+	//private Set<TacInstructorSubjects> tacInstructorSubjectses = new HashSet<TacInstructorSubjects>(0);
 
 	public TacCommSubjects() {
 	}
@@ -40,18 +40,17 @@ public class TacCommSubjects implements java.io.Serializable {
 	}
 
 	public TacCommSubjects(BigDecimal subjectId, String subjectName, String userCreated, Date dateCreated,
-			String userModified, Date dateModified, Set<TacInstructorSubjects> tacInstructorSubjectses) {
+			String userModified, Date dateModified) {
 		this.subjectId = subjectId;
 		this.subjectName = subjectName;
 		this.userCreated = userCreated;
 		this.dateCreated = dateCreated;
 		this.userModified = userModified;
 		this.dateModified = dateModified;
-		this.tacInstructorSubjectses = tacInstructorSubjectses;
+		//this.tacInstructorSubjectses = tacInstructorSubjectses;
 	}
 
 	@Id
-
 	@Column(name = "SUBJECT_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_SUBJECT_SEQ",allocationSize = 1)
@@ -110,13 +109,13 @@ public class TacCommSubjects implements java.io.Serializable {
 		this.dateModified = dateModified;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCommSubjects")
-	public Set<TacInstructorSubjects> getTacInstructorSubjectses() {
-		return this.tacInstructorSubjectses;
-	}
-
-	public void setTacInstructorSubjectses(Set<TacInstructorSubjects> tacInstructorSubjectses) {
-		this.tacInstructorSubjectses = tacInstructorSubjectses;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCommSubjects")
+//	public Set<TacInstructorSubjects> getTacInstructorSubjectses() {
+//		return this.tacInstructorSubjectses;
+//	}
+//
+//	public void setTacInstructorSubjectses(Set<TacInstructorSubjects> tacInstructorSubjectses) {
+//		this.tacInstructorSubjectses = tacInstructorSubjectses;
+//	}
 
 }

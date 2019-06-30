@@ -16,4 +16,7 @@ public interface AudienceRepository extends JpaRepository<TacCourseAudience,BigD
 
     @Query(value="select * from TAC_COURSE_AUDIENCE where COURSE_ID=:courseId",nativeQuery=true)
     Set<TacCourseAudience> findByCourseId(BigDecimal courseId);
+
+    @Query(value="select AUDIENCE_ID,TARGET_ID  from TAC_COURSE_AUDIENCE where COURSE_ID=:courseId",nativeQuery=true)
+    List<Object[]> findAudiencesByCourseId(BigDecimal courseId);
 }

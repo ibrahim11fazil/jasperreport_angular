@@ -1,6 +1,10 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -28,6 +32,7 @@ public class TacCourseDate implements java.io.Serializable {
 
 	private BigDecimal dateId;
 	private TacCourseMaster tacCourseMaster;
+	private TacActivity tacActivity;
 	private Date courseDate;
 	private BigDecimal status;
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
@@ -60,11 +65,23 @@ public class TacCourseDate implements java.io.Serializable {
 	public void setDateId(BigDecimal dateId) {
 		this.dateId = dateId;
 	}
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID")
 	public TacCourseMaster getTacCourseMaster() {
 		return this.tacCourseMaster;
+	}
+
+
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ACTIVITY_ID")
+	public TacActivity getTacActivity() {
+		return tacActivity;
+	}
+
+	public void setTacActivity(TacActivity tacActivity) {
+		this.tacActivity = tacActivity;
 	}
 
 	public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
@@ -90,6 +107,7 @@ public class TacCourseDate implements java.io.Serializable {
 		this.status = status;
 	}
 
+	@JsonManagedReference(value="date")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseDate")
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;

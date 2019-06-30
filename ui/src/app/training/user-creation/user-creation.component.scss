@@ -1,0 +1,16 @@
+::ng-deep .mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+
+::ng-deep .mat-radio-label-content {
+    padding-right: 8px;
+    padding-left: 13px !important;
+}
+
+::ng-deep .mat-radio-button {
+    margin-bottom: 20px;
+}
+
+::ng-deep body .mat-form-field-appearance-legacy .mat-form-field-label, body .mat-form-field-appearance-legacy .mat-hint {
+    color: rgb(0, 0, 0) !important;
+}

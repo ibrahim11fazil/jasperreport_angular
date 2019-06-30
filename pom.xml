@@ -22,7 +22,6 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <flowable.version>6.4.1</flowable.version>
     </properties>
 
     <dependencyManagement>
@@ -40,19 +39,17 @@
 
     <modules>
         <module>config</module>
-        <module>workflow</module>
-        <module>authentication</module>
         <module>registry</module>
         <module>gateway</module>
-        <module>training</module>
-        <module>account</module>
+        <module>authentication</module>
         <module>employee</module>
-        <module>maward</module>
         <module>notification</module>
         <module>fileupload</module>
-        <module>ldap</module>
         <module>workflow-camuda</module>
+        <module>training</module>
         <module>utils</module>
+        <module>user</module>
+        <module>cis</module>
     </modules>
 
 

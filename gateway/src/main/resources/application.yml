@@ -48,6 +48,29 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+    user-service:
+      path: /user/**
+      serviceId: user
+      stripPrefix: true
+      sensitiveHeaders:
+
+    file-service:
+      path: /fileupload/**
+      serviceId: fileupload
+      stripPrefix: true
+      sensitiveHeaders:
+
+    employee-service:
+      path: /employee/**
+      serviceId: employee
+      stripPrefix: true
+      sensitiveHeaders:
+
+    cis-service:
+      path: /cis/**
+      serviceId: cis
+      stripPrefix: true
+      sensitiveHeaders:
 
 
 

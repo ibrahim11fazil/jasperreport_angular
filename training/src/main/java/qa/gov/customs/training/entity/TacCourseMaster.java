@@ -24,16 +24,13 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	private String courseName;
 	private BigDecimal duration;
 	private BigDecimal durationFlag;
-	private Clob objective;
+	private String objective;
 	private BigDecimal numberofhours;
 	private BigDecimal activityId;
-	private String prerequisitesId;
-	private String subcourseFlag;
+	private BigDecimal prerequisitesId;
+	private BigDecimal subcourseFlag;
 	private BigDecimal locationType;
 	private String courseStatus;
-	//private String userCreated;
-	//private Date dateCreated;
-	//private String userModified;
 	private BigDecimal activeFlag;
 	public int offset;
 	public int limit;
@@ -61,8 +58,8 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	}
 
 	public TacCourseMaster(BigDecimal courseId, TacCourseCategory tacCourseCategory, String courseName,
-			BigDecimal duration, BigDecimal durationFlag, Clob objective, BigDecimal numberofhours,
-			BigDecimal activityId, String prerequisitesId, String subcourseFlag, BigDecimal locationType,
+			BigDecimal duration, BigDecimal durationFlag, String objective, BigDecimal numberofhours,
+			BigDecimal activityId, BigDecimal prerequisitesId, BigDecimal subcourseFlag, BigDecimal locationType,
 			String courseStatus, String userCreated, Date dateCreated, String userModified, Date dateModified,
 			String coordinatorJobId, Set<TacCoursePrerequisites> tacCoursePrerequisiteses,
 			Set<TacCourseGuidelines> tacCourseGuidelineses, Set<TacCourseActivation> tacCourseActivations,
@@ -169,11 +166,12 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.activeFlag = activeFlag;
 	}
 	@Column(name = "OBJECTIVE")
-	public Clob getObjective() {
+	@Lob
+	public String getObjective() {
 		return this.objective;
 	}
 
-	public void setObjective(Clob objective) {
+	public void setObjective(String objective) {
 		this.objective = objective;
 	}
 
@@ -196,20 +194,20 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	}
 
 	@Column(name = "PREREQUISITES_ID", length = 20)
-	public String getPrerequisitesId() {
+	public BigDecimal getPrerequisitesId() {
 		return this.prerequisitesId;
 	}
 
-	public void setPrerequisitesId(String prerequisitesId) {
+	public void setPrerequisitesId(BigDecimal prerequisitesId) {
 		this.prerequisitesId = prerequisitesId;
 	}
 
 	@Column(name = "SUBCOURSE_FLAG", length = 20)
-	public String getSubcourseFlag() {
+	public BigDecimal getSubcourseFlag() {
 		return this.subcourseFlag;
 	}
 
-	public void setSubcourseFlag(String subcourseFlag) {
+	public void setSubcourseFlag(BigDecimal subcourseFlag) {
 		this.subcourseFlag = subcourseFlag;
 	}
 
@@ -260,6 +258,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseGuidelineses = tacCourseGuidelineses;
 	}
 
+	@JsonManagedReference(value="activation")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;
@@ -298,7 +297,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	public void setTacActivities(Set<TacActivity> tacActivities) {
 		this.tacActivities = tacActivities;
 	}
-	@JsonManagedReference
+	@JsonManagedReference(value="outcomes")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseOutcome> getTacCourseOutcomes() {
 		return this.tacCourseOutcomes;
@@ -307,6 +306,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	public void setTacCourseOutcomes(Set<TacCourseOutcome> tacCourseOutcomes) {
 		this.tacCourseOutcomes = tacCourseOutcomes;
 	}
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseDate> getTacCourseDates() {
@@ -317,4 +317,9 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseDates = tacCourseDates;
 	}
 
+
+	@Override
+	public String toString() {
+		return ":"+ this.courseId + "\n" + "Name"+ this.courseName + "\n" ;
+	}
 }

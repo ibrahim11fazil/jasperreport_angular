@@ -6,6 +6,12 @@ import {ActivityListComponent} from "./activity-list/activity-list.component";
 import { SearchCourseComponent } from './search-course/search-course.component';
 import {CourseLinkComponent} from './course-link/course-link.component';
 import {ActivateCourseComponent}from'./activate-course/activate-course.component';
+import { CreateInstructorComponent } from './create-instructor/create-instructor.component';
+import { UserCreationComponent } from './user-creation/user-creation.component';
+import { UserSearchComponent } from './user-search/user-search.component';
+import { CisSystemComponent } from './cis-system/cis-system.component';
+import { SearchInstructorComponent } from './search-instructor/search-instructor.component';
+import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -42,9 +48,51 @@ export const TrainingRoutes: Routes = [
                 component: CourseLinkComponent
             },
             {
+                path: 'course-link/:id',
+                component: CourseLinkComponent
+            },
+            {
                 path: 'activate-course',
                 component: ActivateCourseComponent
+            },
+            {
+                path: 'activate-course/:id',
+                component: ActivateCourseComponent
+            },
+            {
+                path: 'create-instructor/:id',
+                component: CreateInstructorComponent
+            },
+            {
+                path: 'create-instructor',
+                component: CreateInstructorComponent
+            },
+            {
+                path: 'search-instructor',
+                component: SearchInstructorComponent
+            },
+            {
+                path: 'user-creation',
+                component: UserCreationComponent
+            }, 
+            {
+                path: 'user-creation/:id',
+                component: UserCreationComponent
+            },
+            {
+                path: 'user-search',
+                component: UserSearchComponent
+            },
+            {
+                path: 'cis-system',
+                component: CisSystemComponent
+            },
+            {
+                path: 'cis-course-requests-i-made',
+                component: CisCourseRequestsIMadeComponent
             }
+
+            
 
         ]
     }

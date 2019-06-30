@@ -8,6 +8,7 @@ import { PageTitleService } from "../../core/page-title/page-title.service";
 import { Page } from "../../models/paged-data"
 import { TacCourseMaster, ITacCourseMasterList, ITacCourseList, Course } from 'app/models/tac-course-master';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'ms-search-course',
@@ -21,16 +22,20 @@ export class SearchCourseComponent implements OnInit {
   searchText: String;
   page = new Page();
   public form: FormGroup;
+
+   dialogRef : MatDialogRef<CourseActionDialog>;
+   result    : string;
+
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
     private router:Router,
-    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
-      courseName: [null, Validators.compose([Validators.required])],
+      courseName: null,
     }
     )
   }
@@ -38,8 +43,22 @@ export class SearchCourseComponent implements OnInit {
   searchCourse() {
     this.searchText = this.form.value.courseName;
     let course: TacCourseMaster = {
-      courseId: 0, tacCourseCategory: null, courseName: this.form.value.courseName, duration: 0, objective: null, durationFlag: 0,
-      numberofhours: 0, tacCourseGuidelineses: null, tacCourseAudiences: null, tacCourseOutcomes: null
+       courseId: 0, 
+       tacCourseCategory: null,
+       courseName: this.form.value.courseName, 
+       duration: 0, 
+       objective: null, 
+       durationFlag: 0,
+       numberofhours: 0,
+       tacCourseGuidelineses: null, 
+       tacCourseAudiences: null, 
+       tacCourseOutcomes: null,
+       prerequisitesId:0,
+       subcourseFlag:0,
+       locationType:0,
+       tacCourseDates:null,
+       tacActivities:null
+       
     }
     this.trainingService.searchCourse(course).subscribe(
       data => this.successSearch(data),
@@ -62,18 +81,55 @@ export class SearchCourseComponent implements OnInit {
     this.toastr.error(error.message)
   }
 
-  deleteRow(id) {
-    let course: TacCourseMaster = id;
+  openDialog(row) {
+    this.dialogRef = this.dialog.open(CourseActionDialog, {
+       disableClose: false
+    });
+    this.dialogRef.afterClosed().subscribe(result => {
+       this.result = result;
+      
+       if(this.result=='Yes'){
+        this.deleteRow(row)
+        console.log(result)
+        console.log(row)
+       }
+       this.dialogRef = null;
+    });
+ }
+
+  deleteRow(row) {
+    if(row.status==1){
+    let course: TacCourseMaster = row;
     console.log(course.courseName);
     this.trainingService.deleteCourse(course).subscribe(
       data => this.successDelete(data),
       error => this.errorWhileSearching(error)
     )
+    } else{
+      let course: TacCourseMaster = row;
+      console.log(course.courseName);
+      this.trainingService.enableCourse(course).subscribe(
+        data => this.successDelete(data),
+        error => this.errorWhileSearching(error)
+      )
+      }
   }
 
   updateRow(row){
     //this.router.navigate(["create-course"])
     this.router.navigate(["/training/create-course/",row.courseId]);
+  }
+
+  updateLink(row){
+    //this.router.navigate(["create-course"])
+    
+    this.router.navigate(["/training/course-link/",row.courseId]);
+  }
+
+  updateActivation(row){
+    //this.router.navigate(["create-course"])
+    debugger;
+    this.router.navigate(["/training/activate-course/",row.courseId]);
   }
 
   successDelete(data) {
@@ -88,7 +144,12 @@ export class SearchCourseComponent implements OnInit {
       numberofhours: 0,
       tacCourseGuidelineses: null,
       tacCourseAudiences: null,
-      tacCourseOutcomes: null
+      tacCourseOutcomes: null,
+      prerequisitesId:0,
+       subcourseFlag:0,
+       locationType:0,
+       tacCourseDates:null,
+       tacActivities:null
     }
     this.trainingService.searchCourse(course).subscribe(
       data => this.successSearch(data),
@@ -96,7 +157,19 @@ export class SearchCourseComponent implements OnInit {
     )
   }
 
+}
 
+@Component({
+  selector: 'ms-search-course-dialog',
+  template: `
+     <h1>Would you like to update?</h1>
 
+     <mat-dialog-actions align="end">
+      <button mat-button (click)="dialogRef.close('No')">No</button>
+      <button mat-button color="primary" (click)="dialogRef.close('Yes')">Yes</button>
+     </mat-dialog-actions>`
+})
 
+export class CourseActionDialog {
+  constructor(public dialogRef: MatDialogRef<CourseActionDialog>) { }
 }

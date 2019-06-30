@@ -23,8 +23,8 @@ public class TacCommQualifications implements java.io.Serializable {
 
 	private BigDecimal qualificationId;
 	private String qualificationName;
-	private Set<TacInstructorQualifications> tacInstructorQualificationses = new HashSet<TacInstructorQualifications>(
-			0);
+//	private Set<TacInstructorQualifications> tacInstructorQualificationses = new HashSet<TacInstructorQualifications>(
+//			0);
 
 	public TacCommQualifications() {
 	}
@@ -33,11 +33,11 @@ public class TacCommQualifications implements java.io.Serializable {
 		this.qualificationId = qualificationId;
 	}
 
-	public TacCommQualifications(BigDecimal qualificationId, String qualificationName,
-			Set<TacInstructorQualifications> tacInstructorQualificationses) {
+	public TacCommQualifications(BigDecimal qualificationId, String qualificationName
+			) {
 		this.qualificationId = qualificationId;
 		this.qualificationName = qualificationName;
-		this.tacInstructorQualificationses = tacInstructorQualificationses;
+		//this.tacInstructorQualificationses = tacInstructorQualificationses;
 	}
 
 	@Id
@@ -62,13 +62,13 @@ public class TacCommQualifications implements java.io.Serializable {
 		this.qualificationName = qualificationName;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCommQualifications")
-	public Set<TacInstructorQualifications> getTacInstructorQualificationses() {
-		return this.tacInstructorQualificationses;
-	}
-
-	public void setTacInstructorQualificationses(Set<TacInstructorQualifications> tacInstructorQualificationses) {
-		this.tacInstructorQualificationses = tacInstructorQualificationses;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCommQualifications")
+//	public Set<TacInstructorQualifications> getTacInstructorQualificationses() {
+//		return this.tacInstructorQualificationses;
+//	}
+//
+//	public void setTacInstructorQualificationses(Set<TacInstructorQualifications> tacInstructorQualificationses) {
+//		this.tacInstructorQualificationses = tacInstructorQualificationses;
+//	}
 
 }

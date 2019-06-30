@@ -17,21 +17,23 @@
                   <mat-form-field class="full-wid mrgn-b-lg">
                      <input matInput placeholder="Course Name" formControlName="courseName" required>
                   </mat-form-field>
+                  
                </div>
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                   
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                      <mat-form-field class="full-wid mrgn-b-md">
-                        <input matInput placeholder="Course Period" formControlName="duration">
+                        <input matInput placeholder="Course Period" formControlName="duration" required>
                      </mat-form-field>
                   </div>
 
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                      <mat-form-field class="full-wid mrgn-b-md">
-                        <mat-select placeholder="Duration Type" matInput formControlName="coursecourseDurationFlagSelect">
-                           <mat-option *ngFor="let item of courseDurationFlag" [value]="item.value">
-                              {{item.viewValue}}
+                        <mat-select placeholder="Duration Type" matInput formControlName="durationFlagControl" required>
+                           <mat-option *ngFor="let durationFlag of durationFlagList" 
+                                       [value]="durationFlag">
+                              {{durationFlag.viewValue}}
                            </mat-option>
                         </mat-select>
                      </mat-form-field>
@@ -42,14 +44,16 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg ">
-                     <input matInput placeholder="Objective">
+                     <input matInput placeholder="Objective" formControlName="objective" required>
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect">
-                        <mat-option *ngFor="let item of courseCategories" [value]="item.categoryId">
+                     <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect" required>
+                        <option [ngValue]="null">Select Category</option>
+                        <mat-option *ngFor="let item of courseCategories"
+                         [value]="item">
                            {{item.description}}
                         </mat-option>
                      </mat-select>
@@ -71,7 +75,6 @@
                   <div *ngFor="let ff of form.get('expectedResultsOptions').controls; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                       
                            <mat-form-field class="full-wid mrgn-b-lg">
                               <input matInput placeholder="Expected Result" formControlName="result">
                            </mat-form-field>
@@ -85,9 +88,6 @@
                         </div>
                      </div>
                  </div>
-
-               
-
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
@@ -153,17 +153,14 @@
                      </div>
                   </div>
                   
-   
-                  
-
-
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg ">
                      <input matInput placeholder="No of hours" formControlName="numberofhours">
                   </mat-form-field>
                </div>
+
                <div fxLayout="row" fxLayoutAlign="start">
-                  <button mat-raised-button color="primary" (click)="onSubmit('createCourse')" type="submit">Save
+                  <button mat-raised-button color="primary" (click)="onSubmit('createCourse')"  type="submit">Save
                   </button>
                </div>
             </div>

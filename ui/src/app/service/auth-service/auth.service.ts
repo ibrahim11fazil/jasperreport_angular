@@ -76,7 +76,7 @@ export class AuthService {
       this.http.post(LOGIN_URL,body.toString(),options)
           .subscribe(
               response => {
-               console.log(response); 
+               //console.log(response); 
                this.setLocalUserProfile(response);
                this.toastr.success('Successfully Logged In!');
                this.router.navigate(['/']);
@@ -146,7 +146,7 @@ export class AuthService {
         this.userData = JSON.parse(localStorage.getItem("userProfile"));
         if(this.userData) {
             var json = this.userData;
-            console.log(JSON.stringify(json));
+            //console.log(JSON.stringify(json));
             let body = JSON.parse(JSON.stringify(json));
             return body.access_token;
         } else {

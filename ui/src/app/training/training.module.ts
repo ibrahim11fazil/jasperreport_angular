@@ -18,7 +18,11 @@ import { MatCardModule,
   MatExpansionModule,
   MatInputModule,
   MatSelectModule, 
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatDialog,
+  MatDialogModule,
+  MatRadioButton,
+  MatRadioModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
@@ -27,13 +31,67 @@ import {TrainingRoutes} from "./training.routing";
 import { ActivityComponent } from './activity/activity.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { ActivityListComponent } from './activity-list/activity-list.component';
-import { SearchCourseComponent } from './search-course/search-course.component';
+import { SearchCourseComponent, CourseActionDialog } from './search-course/search-course.component';
 import {CourseLinkComponent} from './course-link/course-link.component';
 import { ActivateCourseComponent } from './activate-course/activate-course.component';
+import { CreateInstructorComponent } from './create-instructor/create-instructor.component';
+import { UserCreationComponent } from './user-creation/user-creation.component';
+import { UserSearchComponent } from './user-search/user-search.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import {A11yModule} from '@angular/cdk/a11y';    
+import {DragDropModule} from '@angular/cdk/drag-drop';    
+import {PortalModule} from '@angular/cdk/portal';    
+import {ScrollingModule} from '@angular/cdk/scrolling';    
+import {CdkStepperModule} from '@angular/cdk/stepper';    
+import {CdkTableModule} from '@angular/cdk/table';    
+import {CdkTreeModule} from '@angular/cdk/tree'; 
+
+import {    
+  MatProgressBarModule,    
+  MatSortModule,    
+  MatStepperModule,    
+  MatTableModule,       
+  MatToolbarModule  
+} from '@angular/material';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { CisSystemComponent } from './cis-system/cis-system.component';
+import { SearchInstructorComponent } from './search-instructor/search-instructor.component';
+import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';   
+
 
 @NgModule({
-  declarations: [WelcomeComponent, ActivityComponent, CreateCourseComponent, ActivityListComponent, SearchCourseComponent,CourseLinkComponent, ActivateCourseComponent],
+  declarations: [
+    WelcomeComponent, 
+    ActivityComponent, 
+    CreateCourseComponent,
+     ActivityListComponent, 
+     SearchCourseComponent,
+     CourseLinkComponent, 
+     ActivateCourseComponent,
+     CourseActionDialog,
+     CreateInstructorComponent,
+     UserCreationComponent,
+     UserSearchComponent,
+     FileUploaderComponent,
+     CisSystemComponent,
+     SearchInstructorComponent,
+     CisCourseRequestsIMadeComponent,
+     ],
   imports: [
+    InfiniteScrollModule,
+    A11yModule,    
+    CdkStepperModule,    
+    CdkTableModule,    
+    CdkTreeModule,
+    PortalModule,    
+    ScrollingModule,
+    MatProgressBarModule,    
+    MatSortModule,    
+    MatStepperModule,    
+    MatTableModule,       
+    MatToolbarModule,      
+    DragDropModule,    
     CommonModule,
     FlexLayoutModule,
     MatCardModule,
@@ -51,12 +109,17 @@ import { ActivateCourseComponent } from './activate-course/activate-course.compo
     NgxDatatableModule,
     MatListModule,
     MatDatepickerModule,
-  MatSelectModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
     RouterModule.forChild(TrainingRoutes),
     TranslateModule
-  ]
+  ],
+	entryComponents : [
+		CourseActionDialog
+	]
 })
 export class TrainingModule { }

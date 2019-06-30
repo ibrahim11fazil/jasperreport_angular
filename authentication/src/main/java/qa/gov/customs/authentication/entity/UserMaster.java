@@ -30,6 +30,30 @@ public class UserMaster implements UserDetails {
     private BigInteger credentialsExpired;
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
+    @Column(name = "QID")
+    private String qid;
+    @Column(name = "JOBID")
+    private String jobId;
+    @Column(name = "CNAME_EN")
+    private String cNameEn;
+    @Column(name = "CNAME_AR")
+    private String cNameAr;
+
+    public String getcNameEn() {
+        return cNameEn;
+    }
+
+    public void setcNameEn(String cNameEn) {
+        this.cNameEn = cNameEn;
+    }
+
+    public String getcNameAr() {
+        return cNameAr;
+    }
+
+    public void setcNameAr(String cNameAr) {
+        this.cNameAr = cNameAr;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
@@ -170,4 +194,23 @@ public class UserMaster implements UserDetails {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
+    }
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+
+
 }
