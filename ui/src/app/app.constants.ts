@@ -70,6 +70,7 @@ export const GET_ALL_SUBJECTS=BASE_URL+training+"/list-subjects"
 export const GET_ALL_QUALIFICATIONS=BASE_URL+training+"/list-qualifications"
 export const GET_INSTRUCTOR_BY_ID=BASE_URL+training+"/get-instructor-by-id"
 export const GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID=BASE_URL+training+"/get-course-dates-by-id-and-activity-id"
+export const  GET_ALL_COURSE_ACTIVATION=BASE_URL+training+"/get-all-courseActivation"
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"

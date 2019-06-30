@@ -490,4 +490,22 @@ public class CourseController {
 			return response;
 		}
 	}
+
+	@PostMapping("/get-all-courseActivation")
+	public ResponseType getCourseActivationById(@RequestBody TacCourseMaster courseMaster)
+	{
+		List<TacCourseActivation> course = null;
+		course = courseService.getCourseActivationByCourseId(courseMaster);
+
+		if (course != null && !course.isEmpty()) {
+
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, course);
+			return response;
+		} else {
+
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+	}
 	}
