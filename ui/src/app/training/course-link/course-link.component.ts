@@ -14,6 +14,9 @@ import { Prerequisites, ResponsePrerequisites } from 'app/models/prerequisites';
 import { DURATION_FLAG_LIST, IS_SUB_COURSES } from 'app/app.constants';
 import { CourseDate, ResponseDate } from 'app/models/courseDate';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
+import { TrainingRoom } from 'app/models/training-room';
+import { TacInstructor } from 'app/models/tac-instructor';
+import { ResponseTacActivation, TacActivation } from 'app/models/tac-activation';
 
 
 
@@ -28,9 +31,12 @@ export class CourseLinkComponent implements OnInit {
   courseList: Course[] = [];
   guidelineList: TrainingGuidelines[] = [];
   expectedResult: ExpectedResults[] = [];
+  trainingRoom:TrainingRoom[]=[];
+  instructor:TacInstructor[]=[];
   dates: CourseDate[] = [];
   param:any;
   courseDetails: TacCourseMaster;
+ 
   loadedActivityId:Number=0 // NOt required
   loadedCourseDates:CourseDate[]=[] // NOt required
   displayCourseDetails: boolean = false;
@@ -388,6 +394,7 @@ export class CourseLinkComponent implements OnInit {
         this.guidelineList = this.courseDetails.tacCourseGuidelineses;
         this.targetAudiencesResult = this.courseDetails.tacCourseAudiences;
         this.dates = this.courseDetails.tacCourseDates;
+        
         this.targetAudiencesResult.forEach(i => {
           var item = this.targetAudiences.filter(item => item.targetId == i.targetId)
           if (item[0] != null) {
@@ -396,6 +403,7 @@ export class CourseLinkComponent implements OnInit {
         })
         console.log(this.targetAudienceString);
         this.fetchDates();
+        //this.getCourseActivationById(course)
         this.patch();
 
       },
@@ -405,4 +413,5 @@ export class CourseLinkComponent implements OnInit {
       }
     )
   }
+ 
 }

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public interface ActivationRepository extends JpaRepository<TacCourseActivation, BigDecimal> {
 
     @Query(value="select * from Tac_Course_Activation where course_id=:courseId",nativeQuery=true)
-    List<TacCourseActivation> findByCourseId(BigDecimal courseId);
+    TacCourseActivation findByCourseId(BigDecimal courseId);
 
 
 }

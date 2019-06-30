@@ -10,7 +10,7 @@ import { ResponseRoom, TrainingRoom } from 'app/models/training-room';
 import { ITacInstructorList, TacInstructor } from 'app/models/tac-instructor';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { SystemUser, ISystemUserResponse, ISystemUserResponseList, SystemUserResponse, SystemUserResponseArray } from 'app/models/system-user';
-import { TacActivation } from 'app/models/tac-activation';
+import { TacActivation, ResponseTacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
 import { CourseDate } from "app/models/courseDate";
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 
@@ -26,6 +26,7 @@ export class ActivateCourseComponent implements OnInit {
   mainCourseList:Course[]=[];
   userList:SystemUserResponseArray[]=[];
   courseDetails:TacCourseMaster;
+   courseActivationDetails:TacActivation;
   roomDetails:TrainingRoom[]=[];
   courseDate:CourseDate[]=[];
   param:any;
@@ -78,6 +79,8 @@ this.tacCourseActivation = {
   {
     let courseMaster=new TacCourseMaster(0,null,"",0,null,0,0,null,null,null,0,0,0,null,null)
     this.courseDetails=courseMaster
+    let courseActivation=new TacActivation(0,null,null,null,null,0,"",0,0,0,0,0,0,0,0,0,null,"")
+    this.courseActivationDetails=courseActivation
     this.form = this.fb.group({
       
       courseSelect:[null, Validators.compose([Validators.required])],
@@ -190,7 +193,17 @@ patch()
     this.form.controls['courseSelect'].patchValue(
       courseArray[0] 
    )
+    
+  }
+  var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.courseDetails.locationType)
+    if (locationArray[0] != null) {
+      this.form.controls['locationSelect'].patchValue(
+        locationArray[0]
+      )
     }
+
+   
+  
 }
 
 getCourseDetails(course)
@@ -323,6 +336,7 @@ debugger;
           {
             this.displayCourseDetails=true;
           }
+          this.getCourseActivationById(courseMaster);
           this.patch();
          //this.belongsSelect=
         },
@@ -352,6 +366,7 @@ debugger;
           //   }
           // )
           this.courseByIdList(courseMaster);
+          
         }
     }
   
@@ -359,6 +374,26 @@ debugger;
       //this.tacCourseMaster = data.data;
       this.formInit()
       this.patch() 
+    }
+
+    getCourseActivationById(course)
+    { debugger;
+      this.trainingService.getCourseActivationById(course).subscribe(
+        data => {
+         debugger;
+          var response = <ResponseActivationDetail>data
+          this.courseActivationDetails = response.data
+          console.log(response.data);
+
+          this.form.value.instructorCost=this.courseActivationDetails.costInstructor;
+     
+  
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        }
+      )
     }
     
   }

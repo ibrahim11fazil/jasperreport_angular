@@ -61,3 +61,9 @@ export interface ResponseTacActivation{
     message:String;
     data: TacActivation[];
 }
+export interface ResponseActivationDetail{
+    status: Boolean;
+    code:number;
+    message:String;
+    data: TacActivation;
+}

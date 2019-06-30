@@ -289,9 +289,9 @@ public class CourseServiceImpl  implements CourseService {
 		return qualificationsRepository.findAll();
 	}
 	@Override
-	public List<TacCourseActivation> getCourseActivationByCourseId(TacCourseMaster courseMaster)
+	public TacCourseActivation getCourseActivationByCourseId(TacCourseMaster courseMaster)
 	{
-		List<TacCourseActivation>course=activationRepo.findByCourseId(courseMaster.getCourseId());
+		TacCourseActivation course=activationRepo.findByCourseId(courseMaster.getCourseId());
 		return course;
 	}
 }

@@ -494,10 +494,10 @@ public class CourseController {
 	@PostMapping("/get-all-courseActivation")
 	public ResponseType getCourseActivationById(@RequestBody TacCourseMaster courseMaster)
 	{
-		List<TacCourseActivation> course = null;
+		TacCourseActivation course = null;
 		course = courseService.getCourseActivationByCourseId(courseMaster);
 
-		if (course != null && !course.isEmpty()) {
+		if (course != null) {
 
 
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, course);
