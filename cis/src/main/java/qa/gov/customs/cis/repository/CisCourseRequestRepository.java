@@ -13,6 +13,7 @@ public interface CisCourseRequestRepository extends PagingAndSortingRepository<C
 
 
         List<CisCourseRequest> findAllByFromUserEqualsAndToUserContaining(String fromUser,String toUser, Pageable pageable);
+        List<CisCourseRequest> findAllByFromUserContaining(String fromUser, Pageable pageable);
 
 
         }

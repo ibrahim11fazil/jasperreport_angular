@@ -45,10 +45,10 @@ public class UserController {
 	}
 
 
-//	@RequestMapping(value = "/current", method = RequestMethod.GET)
-//	public Principal getUser(Principal principal) {
-//		return principal;
-//	}
+	@RequestMapping(value = "/current1", method = RequestMethod.GET)
+	public Principal getUser(Principal principal) {
+		return principal;
+	}
 
 	@RequestMapping(value = "/current", method = RequestMethod.GET)
 	public CustomPrincipal getUser(@AuthenticationPrincipal CustomPrincipal principal) {
