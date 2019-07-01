@@ -52,7 +52,7 @@ this.tacCourseActivation = {
       tacCourseRoom:null,
       tacCourseDate:null,
       dependentId:null,
-      coordinatorId:"",
+      coordinatorId:0,
       costInstructor:0,
       costFood:0,
       costTransport:0,
@@ -77,7 +77,7 @@ this.tacCourseActivation = {
   formInit()
   {
 
-    let courseActivation=new TacActivation(0,null,null,null,null,0,"",0,0,0,0,0,0,0,0,0,null,0)
+    let courseActivation=new TacActivation(0,null,null,null,null,0,0,0,0,0,0,0,0,0,0,0,null,0)
     this.courseActivationDetails=courseActivation
     this.form = this.fb.group({
       
@@ -195,10 +195,41 @@ patch()
   }
   var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.courseDetails.locationType)
     if (locationArray[0] != null) {
+     
       this.form.controls['locationSelect'].patchValue(
         locationArray[0]
       )
     }
+
+    var belongsArray=this.mainCourseList.filter(i=>i.courseId==this.tacCourseActivation.dependentId)
+    if (belongsArray[0] != null) {
+      this.form.controls['belongsSelect'].patchValue(
+        belongsArray[0]
+      )
+    }
+    debugger;
+    var dateArray=this.courseDate.filter(i=>i.dateId==this.courseActivationDetails.tacCourseDate.dateId)
+    if (dateArray[0] != null) {
+      this.form.controls['dateSelect'].patchValue(
+        dateArray[0]
+      )
+    }
+    
+    var roomArray=this.roomDetails.filter(i=>i.roomId==this.tacCourseActivation.tacCourseRoom.roomId)
+    if (roomArray[0] != null) {
+      this.form.controls['roomSelect'].patchValue(
+        roomArray[0]
+      )
+    }
+
+    var cordinatorArray=this.userList.filter(i=>i.id==this.tacCourseActivation.coordinatorId)
+    if (cordinatorArray[0] != null) {
+      this.form.controls['userSelect'].patchValue(
+        belongsArray[0]
+      )
+    }
+
+    
    
 
    
@@ -234,6 +265,7 @@ getCourseDetails(course)
 
 getCourseRoomDetail(location)
 {
+  debugger;
 
   let courseLocation=new Location(location.value.locationId,"")
   console.log(courseLocation);
@@ -268,7 +300,7 @@ activateCourse()
   
   if(this.form.valid){
     console.log(this.form.value.courseSelect.courseId);
-    let courseActivation=new TacActivation(0,null,null,null,null,0,"",0,0,0,0,0,0,0,0,0,null,0)
+    let courseActivation=new TacActivation(0,null,null,null,null,0,0,0,0,0,0,0,0,0,0,0,null,0)
 var courseMaster=new TacCourseMaster(0,null,"",0,"",0,0,null,null,null,0,0,0,null,null);
 
 courseMaster.courseId=this.form.value.courseSelect.courseId;
@@ -327,7 +359,7 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
       courseByIdList(courseMaster){
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
-         
+         debugger;
           var response = <ResponseTacCourseMaster> data
           this.courseDetails=response.data
           this.courseDate=this.courseDetails.tacCourseDates
@@ -371,7 +403,7 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
     }
   
     loadData(data){
-   
+   debugger;
       //this.tacCourseMaster = data.data;
       this.tacCourseActivation=data.data;
       this.courseDetails=this.courseDetails;
@@ -379,6 +411,8 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
           {
             this.displayCourseDetails=true;
           }
+          var response = <ResponseActivationDetail>data
+          this.courseActivationDetails=response.data
       this.formInit()
       this.patch() 
     }

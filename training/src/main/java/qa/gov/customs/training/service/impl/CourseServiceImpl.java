@@ -1,10 +1,7 @@
 package qa.gov.customs.training.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import qa.gov.customs.training.entity.*;
@@ -292,6 +289,41 @@ public class CourseServiceImpl  implements CourseService {
 	public TacCourseActivation getCourseActivationByCourseId(TacCourseMaster courseMaster)
 	{
 		TacCourseActivation course=activationRepo.findByCourseId(courseMaster.getCourseId());
+
+        BigDecimal date_id=activationRepo.findDateId(courseMaster.getCourseId());
+		BigDecimal roomID=activationRepo.findRoomId(courseMaster.getCourseId());
+        TacCourseRoom courseRoom=courseRoomRepo.findByRoomId(roomID);
+        TacCourseDate courseDate=tacCourseDateRepository.findByDateId(date_id);
+		if (courseRoom != null)
+		 {
+
+			course.setTacCourseRoom(courseRoom);
+		}
+		if(courseDate!=null)
+		{
+			course.setTacCourseDate(courseDate);
+		}
+
 		return course;
+	}
+    @Override
+	public List<TacCourseActivation> listactivations(String name, int page, int limit)
+	{
+		System.out.println(page);
+		System.out.println(limit);
+		List<TacCourseActivation> activations =  new ArrayList<>();
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("activationId"));
+		if(name==null &&  name.equals("")){
+			//System.out.println(activationRepo.findAll());
+			Page<TacCourseActivation> pages = activationRepo.findAll(pageable);
+			pages.forEach(item ->activations.add(item));
+			return activations;
+		}
+		else {
+			//return activationRepo.findAllByNameContaining(name, pageable);
+			return null;
+		}
 	}
 }

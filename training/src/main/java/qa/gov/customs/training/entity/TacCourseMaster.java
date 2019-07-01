@@ -32,8 +32,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	private BigDecimal locationType;
 	private String courseStatus;
 	private BigDecimal activeFlag;
-	public int offset;
-	public int limit;
+
 	//private Date dateModified;
 	private String coordinatorJobId;
 
@@ -132,22 +131,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	public void setDuration(BigDecimal duration) {
 		this.duration = duration;
 	}
-	@Transient
-	public int getOffset() {
-		return offset;
-	}
 
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
-	@Transient
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
 
 	@Column(name = "DURATION_FLAG", precision = 22, scale = 0)
 	public BigDecimal getDurationFlag() {
@@ -321,5 +305,27 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	@Override
 	public String toString() {
 		return ":"+ this.courseId + "\n" + "Name"+ this.courseName + "\n" ;
+	}
+	@Transient
+	int start;
+
+	@Transient
+	int limit;
+
+	@Transient
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+	@Transient
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 }

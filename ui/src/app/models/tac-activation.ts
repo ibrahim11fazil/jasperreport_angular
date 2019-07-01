@@ -13,7 +13,7 @@ export class TacActivation {
 	public tacCourseDate?:CourseDate;
 	public  dependentId:Number;
 	//public activationDate:Date;
-	public  coordinatorId:String;
+	public  coordinatorId:Number;
 	public  costInstructor:Number;
 	public  costFood:Number;
 	public  costTransport:Number;
@@ -29,7 +29,7 @@ export class TacActivation {
     public tacCourseInstructor:TacInstructor[];
     
     constructor(activationId:Number,tacActivity:TacActivity,tacCourseMaster:TacCourseMaster,tacCourseRoom:TrainingRoom,tacCourseDate:CourseDate,
-        dependentId:Number,coordinatorId:String,costInstructor:Number,costFood:Number,costTransport:Number,costAirticket:Number,
+        dependentId:Number,coordinatorId:Number,costInstructor:Number,costFood:Number,costTransport:Number,costAirticket:Number,
         costHospitality:Number,costGift:Number,costVenue:Number,costBonus:Number,costTranslation:Number,tacCourseInstructor:TacInstructor[],status:Number )
         {
 

@@ -57,7 +57,8 @@ import {
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { CisSystemComponent } from './cis-system/cis-system.component';
 import { SearchInstructorComponent } from './search-instructor/search-instructor.component';
-import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';   
+import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';
+import { ActivationsComponent } from './activations/activations.component';   
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/ci
      CisSystemComponent,
      SearchInstructorComponent,
      CisCourseRequestsIMadeComponent,
+     ActivationsComponent,
      ],
   imports: [
     InfiniteScrollModule,

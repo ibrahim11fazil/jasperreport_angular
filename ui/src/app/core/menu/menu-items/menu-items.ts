@@ -317,6 +317,7 @@ var m =
       {state: 'create-course', name: 'Create Courses'},
       {state: 'search-course', name: 'Search Courses'},
       {state: 'course-link', name: 'Link Course'},
+      {state: 'activations', name: 'Manage Activations'},
       {state: 'activate-course', name: 'Activate Course'}
       
     ]

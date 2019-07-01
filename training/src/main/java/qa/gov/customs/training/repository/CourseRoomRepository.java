@@ -13,4 +13,6 @@ public interface CourseRoomRepository extends JpaRepository<TacCourseRoom, BigDe
 
     @Query(value="select ROOM_ID,ROOM_NAME  from TAC_COURSE_ROOM where locationId=:locationId",nativeQuery=true)
     List<TacCourseRoom> findByLocationId(BigDecimal locationId);
+
+   TacCourseRoom findByRoomId(BigDecimal roomId);
 }

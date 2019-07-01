@@ -490,7 +490,7 @@ public class CourseController {
 			return response;
 		}
 	}
-
+	@PreAuthorize("hasAnyAuthority('courseActivation_detail')")
 	@PostMapping("/get-all-courseActivation")
 	public ResponseType getCourseActivationById(@RequestBody TacCourseMaster courseMaster)
 	{
@@ -508,4 +508,21 @@ public class CourseController {
 			return response;
 		}
 	}
+	@PreAuthorize("hasAnyAuthority('list_activations')")
+	@PostMapping("/list-activations-by-courseName")
+	public ResponseType listactivations(@RequestBody  TacCourseMaster courseMaster) {
+		List<TacCourseActivation> activationList = null;
+		activationList = courseService.listactivations(courseMaster.getCourseName(),courseMaster.getStart(),courseMaster.getLimit());
+		if(activationList!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activationList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+	}
+
 	}
