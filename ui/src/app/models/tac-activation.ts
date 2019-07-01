@@ -1,7 +1,7 @@
 import { TacActivity } from "./tac-activity";
 import { TacCourseMaster } from "./tac-course-master";
 import { TrainingRoom } from "./training-room";
-import { CourseDate } from "./courseDate";
+import { CourseDate } from "./tacCourseDate";
 import { TacInstructor } from "./tac-instructor";
 
 export class TacActivation {
@@ -9,8 +9,8 @@ export class TacActivation {
     public activationId:Number
 	public tacActivity?:TacActivity;
 	public tacCourseMaster?:TacCourseMaster;
-	public tacCourseRoom?:TrainingRoom;
-	public tacCourseDate?:CourseDate;
+	public tacCourseRoom:TrainingRoom;
+	public tacCourseDate:CourseDate;
 	public  dependentId:Number;
 	//public activationDate:Date;
 	public  coordinatorId:Number;

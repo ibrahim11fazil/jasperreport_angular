@@ -3,7 +3,7 @@ import { TrainingGuidelines } from "./training-guidelines";
 import { TargetAudience } from "./target-audience";
 import { ExpectedResults } from "./expected-results";
 import { TacActivity } from "./tac-activity";
-import { CourseDate } from "./courseDate";
+
 
 export class TacCourseMaster {
 

@@ -293,18 +293,32 @@ public class CourseServiceImpl  implements CourseService {
         BigDecimal date_id=activationRepo.findDateId(courseMaster.getCourseId());
 		BigDecimal roomID=activationRepo.findRoomId(courseMaster.getCourseId());
         TacCourseRoom courseRoom=courseRoomRepo.findByRoomId(roomID);
-        TacCourseDate courseDate=tacCourseDateRepository.findByDateId(date_id);
+        TacCourseDate tacCourseDate =tacCourseDateRepository.findByDateId(date_id);
 		if (courseRoom != null)
 		 {
 
 			course.setTacCourseRoom(courseRoom);
 		}
-		if(courseDate!=null)
+		if(tacCourseDate !=null)
 		{
-			course.setTacCourseDate(courseDate);
+			course.setTacCourseDate(tacCourseDate);
 		}
 
 		return course;
+	}
+	@Override
+	public TacCourseRoom getCourseroom(BigDecimal courseId)
+	{
+		BigDecimal roomID=activationRepo.findRoomId(courseId);
+		TacCourseRoom courseRoom=courseRoomRepo.findByRoomId(roomID);
+		return courseRoom;
+	}
+	@Override
+	public TacCourseDate getCourseDate(BigDecimal courseId)
+	{
+		BigDecimal date_id=activationRepo.findDateId(courseId);
+		TacCourseDate tacCourseDate =tacCourseDateRepository.findByDateId(date_id);
+		return tacCourseDate;
 	}
     @Override
 	public List<TacCourseActivation> listactivations(String name, int page, int limit)

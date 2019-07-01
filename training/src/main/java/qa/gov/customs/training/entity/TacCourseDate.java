@@ -45,7 +45,7 @@ public class TacCourseDate implements java.io.Serializable {
 	}
 
 	public TacCourseDate(BigDecimal dateId, TacCourseMaster tacCourseMaster, Date courseDate, BigDecimal status,
-			Set<TacCourseActivation> tacCourseActivations) {
+						 Set<TacCourseActivation> tacCourseActivations) {
 		this.dateId = dateId;
 		this.tacCourseMaster = tacCourseMaster;
 		this.courseDate = courseDate;

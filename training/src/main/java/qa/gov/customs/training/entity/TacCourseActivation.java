@@ -3,7 +3,6 @@ package qa.gov.customs.training.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -53,7 +52,7 @@ public class TacCourseActivation implements java.io.Serializable {
 
 
 
-	public TacCourseActivation(BigDecimal activationId,  TacCourseMaster tacCourseMaster,
+	public TacCourseActivation(BigDecimal activationId, TacCourseMaster tacCourseMaster,
 							   TacCourseRoom tacCourseRoom, TacCourseDate tacCourseDate, BigDecimal dependentId, Date activationDate,
 							   String coordinatorId, BigDecimal costInstructor, BigDecimal costFood, BigDecimal costTransport,
 							   BigDecimal costAirticket, BigDecimal costHospitality, BigDecimal costGift, BigDecimal costVenue,

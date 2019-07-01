@@ -28,7 +28,9 @@ export class ActivateCourseComponent implements OnInit {
   courseDetails:TacCourseMaster;
    courseActivationDetails:TacActivation;
   roomDetails:TrainingRoom[]=[];
-  courseDate:CourseDate[]=[];
+  tacCourseDate:CourseDate[]=[];
+  trainingRoomDetail:TrainingRoom;
+  trainingDateDetail:CourseDate;
   param:any;
   tacCourseLocation:Location[]=[];
   tacInstructor:TacInstructor[]=[];
@@ -208,7 +210,7 @@ patch()
       )
     }
     debugger;
-    var dateArray=this.courseDate.filter(i=>i.dateId==this.courseActivationDetails.tacCourseDate.dateId)
+    var dateArray=this.tacCourseDate.filter(i=>i.dateId==this.courseActivationDetails.tacCourseDate.dateId)
     if (dateArray[0] != null) {
       this.form.controls['dateSelect'].patchValue(
         dateArray[0]
@@ -248,7 +250,7 @@ getCourseDetails(course)
   //     debugger;
   //     var response = <ResponseTacCourseMaster> data
   //     this.courseDetails=response.data
-  //     this.courseDate=this.courseDetails.tacCourseDates
+  //     this.tacCourseDate=this.courseDetails.tacCourseDates
   //     if(this.courseDetails!=null)
   //     {
   //       this.displayCourseDetails=true;
@@ -309,13 +311,13 @@ courseMaster.courseName=this.form.value.courseSelect.courseName;
     courseActivation.tacCourseMaster=courseMaster;
     courseActivation.dependentId=this.form.value.belongsSelect.courseId;
 
-    var courseDate=new CourseDate(0,null);
-courseDate.dateId=this.form.value.dateSelect.dateId
-courseActivation.tacCourseDate=courseDate;
+    var tacCourseDate=new CourseDate(0,null);
+tacCourseDate.dateId=this.form.value.dateSelect.dateId
+courseActivation.tacCourseDate=tacCourseDate;
 
-var trainingRoom=new TrainingRoom(0,"");
-trainingRoom.roomId=this.form.value.roomSelect.roomId;
-    courseActivation.tacCourseRoom=trainingRoom;
+var tacCourseRoom=new TrainingRoom(0,"");
+tacCourseRoom.roomId=this.form.value.roomSelect.roomId;
+    courseActivation.tacCourseRoom=tacCourseRoom;
 
 const instructorOptions=this.getControlOfAddMore('instructorSelect');
 var instructors=<TacInstructor[]>instructorOptions.value;
@@ -359,10 +361,10 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
       courseByIdList(courseMaster){
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
-         debugger;
+     
           var response = <ResponseTacCourseMaster> data
           this.courseDetails=response.data
-          this.courseDate=this.courseDetails.tacCourseDates
+          this.tacCourseDate=this.courseDetails.tacCourseDates
           if(this.courseDetails!=null)
           {
             this.displayCourseDetails=true;
@@ -403,7 +405,7 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
     }
   
     loadData(data){
-   debugger;
+        debugger;
       //this.tacCourseMaster = data.data;
       this.tacCourseActivation=data.data;
       this.courseDetails=this.courseDetails;
@@ -413,6 +415,11 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
           }
           var response = <ResponseActivationDetail>data
           this.courseActivationDetails=response.data
+
+      
+
+
+
       this.formInit()
       this.patch() 
     }
@@ -435,6 +442,7 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
       //     this.toastr.error(error.message)
       //   }
       // )
+      debugger;
 
       this.trainingService.getCourseActivationById(courseMaster).subscribe(
           data => this.loadData(data),
