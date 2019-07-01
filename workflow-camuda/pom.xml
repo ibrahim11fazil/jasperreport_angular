@@ -84,7 +84,7 @@
     </dependencies>
 
     <build>
-        <finalName>workflow-camuda</finalName>
+        <finalName>workflow</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

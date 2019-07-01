@@ -1,0 +1,7 @@
+FROM openjdk:8-jre-alpine
+COPY target/config*.jar config.jar
+CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=default", "config.jar"]
+#VOLUME /tmp
+#VOLUME /logs
+
+EXPOSE 8888
