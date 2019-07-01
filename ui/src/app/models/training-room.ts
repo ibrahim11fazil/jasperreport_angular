@@ -14,3 +14,10 @@ export interface ResponseRoom{
     message:String;
     data: TrainingRoom[];
 }
+
+export interface ResponseRoomDetail{
+    status: Boolean;
+    code:number;
+    message:String;
+    data: TrainingRoom;
+}

@@ -20,3 +20,11 @@ export interface ResponseDate{
     data: CourseDate[];
 }
 
+export interface ResponseDateDetail{
+    status: Boolean;
+    code:number;
+    message:String;
+    data: CourseDate;
+}
+
+

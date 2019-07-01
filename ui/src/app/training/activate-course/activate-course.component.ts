@@ -6,12 +6,12 @@ import { Course, ITacCourseList, ResponseTacCourseMaster, TacCourseMaster } from
 import { ActivatedRoute } from '@angular/router';
 import { ResponseCategories, Categories } from 'app/models/categories';
 import { Location,ResponseLocation } from 'app/models/location';
-import { ResponseRoom, TrainingRoom } from 'app/models/training-room';
+import { ResponseRoom, TrainingRoom, ResponseRoomDetail } from 'app/models/training-room';
 import { ITacInstructorList, TacInstructor } from 'app/models/tac-instructor';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { SystemUser, ISystemUserResponse, ISystemUserResponseList, SystemUserResponse, SystemUserResponseArray } from 'app/models/system-user';
 import { TacActivation, ResponseTacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
-import { CourseDate } from "app/models/courseDate";
+import { CourseDate, ResponseDateDetail } from "app/models/courseDate";
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 
 
@@ -370,6 +370,8 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
             this.displayCourseDetails=true;
           }
           this.getCourseActivationById(courseMaster);
+          this.getCourseDate(courseMaster);
+          this.getCourseroom(courseMaster);
           //this.patch();
           
          //this.belongsSelect=
@@ -413,11 +415,7 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
           {
             this.displayCourseDetails=true;
           }
-          var response = <ResponseActivationDetail>data
-          this.courseActivationDetails=response.data
-
-      
-
+       
 
 
       this.formInit()
@@ -452,5 +450,45 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
           }
         )
     }
-    
+
+    getCourseDate(courseMaster)
+    {
+      debugger;
+      this.trainingService.getCourseDateDetail(courseMaster).subscribe(
+         data => {
+           debugger;
+           console.log("courseDateDetail");
+           console.log(data)
+            var response = <ResponseDateDetail>data
+             this.trainingDateDetail=response.data
+             console.log(response.data);
+
+           },
+           error => {
+            console.log(error)
+             this.toastr.error(error.message)
+       }
+        )
+    }
+
+    getCourseroom(courseMaster)
+    {
+      debugger;
+    this.trainingService.getCourseRoomDetail(courseMaster).subscribe(
+      data => {
+        debugger;
+        console.log("courseRoomDetail");
+        console.log(data)
+         var response = <ResponseRoomDetail>data
+          this.trainingRoomDetail=response.data
+          console.log(response.data);
+
+        },
+        error => {
+         console.log(error)
+          this.toastr.error(error.message)
+    }
+     )
+ }
+
   }
