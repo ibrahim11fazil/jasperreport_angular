@@ -1,7 +1,10 @@
-FROM openjdk:8u171-alpine3.7
-RUN apk --no-cache add curl
+# Alpine Linux with OpenJDK JRE
+FROM openjdk:8-jre-alpine
+# copy JAR into image
+COPY target/authentication*.jar /training/authentication.jar
+# run application with this command line
+CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=default", "/training/authentication.jar"]
 VOLUME /tmp
-VOLUME /log
-COPY target/authentication*.jar authentication.jar
-CMD java ${JAVA_OPTS} -jar authentication.jar
+VOLUME /logs
+
 EXPOSE 9001

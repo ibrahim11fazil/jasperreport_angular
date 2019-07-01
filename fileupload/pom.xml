@@ -62,6 +62,7 @@
     </dependencies>
 
     <build>
+        <finalName>fileupload</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

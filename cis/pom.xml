@@ -87,12 +87,13 @@
     </dependencies>
 
     <build>
+        <finalName>cis</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>training</finalName>
+                    <finalName>cis</finalName>
                 </configuration>
             </plugin>
         </plugins>
