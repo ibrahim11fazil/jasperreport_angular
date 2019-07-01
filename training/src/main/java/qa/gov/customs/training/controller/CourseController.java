@@ -3,10 +3,8 @@ package qa.gov.customs.training.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -499,7 +497,6 @@ public class CourseController {
 
 		if (course != null) {
 
-
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, course);
 			return response;
 		} else {
@@ -516,6 +513,38 @@ public class CourseController {
 		if(activationList!=null)
 		{
 			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activationList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+	}
+	@PreAuthorize("hasAnyAuthority('course_date_detail')")
+	@PostMapping("/get-course-date")
+	public ResponseType getCourseDate(@RequestBody  TacCourseMaster courseMaster)
+	{
+		TacCourseDate courseDate=courseService.getCourseDate(courseMaster.getCourseId());
+		if(courseDate!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseDate);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+	}
+	@PreAuthorize("hasAnyAuthority('course_room_detail')")
+	@PostMapping("/get-course-room")
+	public ResponseType getCourseRoom(@RequestBody  TacCourseMaster courseMaster)
+	{
+		TacCourseRoom courseRoom=courseService.getCourseroom(courseMaster.getCourseId());
+		if(courseRoom!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseRoom);
 			return response;
 		}
 		else

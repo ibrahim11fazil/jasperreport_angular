@@ -41,7 +41,7 @@ public class TacCourseRoom implements java.io.Serializable {
 	}
 
 	public TacCourseRoom(BigDecimal roomId, TacCourseLocation tacCourseLocation, String roomName,
-			Set<TacCourseActivation> tacCourseActivations) {
+						 Set<TacCourseActivation> tacCourseActivations) {
 		this.roomId = roomId;
 		this.tacCourseLocation = tacCourseLocation;
 		this.roomName = roomName;

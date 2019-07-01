@@ -1,12 +1,8 @@
 package qa.gov.customs.training.repository;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import qa.gov.customs.training.entity.TacActivity;
-import qa.gov.customs.training.entity.TacCommSubjects;
 import qa.gov.customs.training.entity.TacCourseDate;
-import qa.gov.customs.training.entity.TacInstructorMaster;
 
 import java.math.BigDecimal;
 import java.util.List;

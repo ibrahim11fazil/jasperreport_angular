@@ -12,7 +12,7 @@ import { isNgTemplate } from '@angular/compiler';
 import { Location, ResponseLocation } from 'app/models/location';
 import { Prerequisites, ResponsePrerequisites } from 'app/models/prerequisites';
 import { DURATION_FLAG_LIST, IS_SUB_COURSES } from 'app/app.constants';
-import { CourseDate, ResponseDate } from 'app/models/courseDate';
+import { ResponseDate, CourseDate } from 'app/models/courseDate';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { TrainingRoom } from 'app/models/training-room';
 import { TacInstructor } from 'app/models/tac-instructor';
@@ -31,7 +31,7 @@ export class CourseLinkComponent implements OnInit {
   courseList: Course[] = [];
   guidelineList: TrainingGuidelines[] = [];
   expectedResult: ExpectedResults[] = [];
-  trainingRoom:TrainingRoom[]=[];
+  tacCourseRoom:TrainingRoom[]=[];
   instructor:TacInstructor[]=[];
   dates: CourseDate[] = [];
   param:any;
@@ -272,12 +272,12 @@ export class CourseLinkComponent implements OnInit {
     const datesControl = this.getControlOfAddMore('dateOptions');
     //this.form.setControl('dateOptions', this.fb.array([]));
    this.loadedCourseDates.forEach(x => {
-    //console.log(x.courseDate)
-    datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
+    //console.log(x.tacCourseDate)
+    datesControl.push(this.patchValues(x.dateId, new Date(x.tacCourseDate)))
   })
     this.loadedCourseDates.forEach(x => {
-      console.log(x.courseDate)
-      datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
+      console.log(x.tacCourseDate)
+      datesControl.push(this.patchValues(x.dateId, new Date(x.tacCourseDate)))
     })
 
 
@@ -298,10 +298,10 @@ export class CourseLinkComponent implements OnInit {
   getControlOfAddMore(name): FormArray {
     return <FormArray>this.form.get(name);
   }
-  patchValues(dateId, courseDate) {
+  patchValues(dateId, tacCourseDate) {
     return this.fb.group({
       dateId: [dateId],
-      courseDate: [courseDate]
+      tacCourseDate: [tacCourseDate]
     })
   }
 
