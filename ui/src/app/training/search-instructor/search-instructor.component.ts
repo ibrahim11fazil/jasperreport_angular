@@ -22,7 +22,7 @@ export class SearchInstructorComponent implements OnInit {
   page = 0
   ds: TacInstructor[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['instructorId', 'jobId', 'name','ibanNo','qid', 'Edit', ];
+  displayedColumns: string[] = ['instructorId', 'jobId', 'name','ibanNo','qid', 'Edit','Status' ];
   constructor(
     private trainingService: TrainingService,
     private fb: FormBuilder,
