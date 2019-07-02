@@ -2,6 +2,7 @@ version: '2.1'
 
 services:
   registry:
+    image: 172.16.0.253:5000/registry:$TAG
     build: registry
     ports:
       - 8761:8761
@@ -9,8 +10,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   config:
+    image: 172.16.0.253:5000/config:$TAG
     build: config
     ports:
       - 8888:8888
@@ -18,8 +22,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   gateway:
+    image: 172.16.0.253:5000/gateway:$TAG
     build: gateway
     ports:
       - 9000:9000
@@ -27,8 +34,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   authentication-service:
+    image: 172.16.0.253:5000/authentication:$TAG
     build: authentication
     ports:
       - 9001:9001
@@ -36,8 +46,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   training-service:
+    image: 172.16.0.253:5000/training:$TAG
     build: training
     ports:
       - 9051:9051
@@ -45,8 +58,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   cis-service:
+    image: 172.16.0.253:5000/cis:$TAG
     build: cis
     ports:
       - 9071:9071
@@ -54,8 +70,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   employee-service:
+    image: 172.16.0.253:5000/employee:$TAG
     build: employee
     ports:
       - 9011:9011
@@ -63,8 +82,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   user-service:
+    image: 172.16.0.253:5000/user:$TAG
     build: user
     ports:
       - 9031:9031
@@ -72,8 +94,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   fileupload-service:
+    image: 172.16.0.253:5000/fileupload:$TAG
     build: fileupload
     ports:
       - 9021:9021
@@ -81,8 +106,12 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+      - $UPLOAD_PATH:/uploads
 
   notification-service:
+    image: 172.16.0.253:5000/notification:$TAG
     build: notification
     ports:
       - 9041:9041
@@ -90,8 +119,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   workflow-service:
+    image: 172.16.0.253:5000/workflow:$TAG
     build: workflow-camuda
     ports:
       - 9061:9061
@@ -99,8 +131,11 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
 
   ui:
+    image: 172.16.0.253:5000/ui:$TAG
     build: ui
     ports:
       - 80:80

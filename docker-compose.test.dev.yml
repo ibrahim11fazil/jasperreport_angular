@@ -1,0 +1,36 @@
+version: '2.1'
+
+services:
+  registry:
+    image: 172.16.0.253:5000/registry:$TAG
+    build: registry
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - /Users/sraj/logs:/logs
+    networks:
+      - registry-fileupload-service
+
+  fileupload-service:
+    image: 172.16.0.253:5000/fileupload:$TAG
+    build: fileupload
+    ports:
+      - 9021:9021
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+      - $UPLOAD_PATH:/uploads
+    depends_on:
+      - registry]
+    networks:
+      - registry-fileupload-service
+
+  networks:
+    registry-fileupload-service:

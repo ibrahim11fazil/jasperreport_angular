@@ -1,1 +1,3 @@
 FILE=env_prod.txt
+LOG_PATH=/var/logs/training
+UPLOAD_PATH=/var/uploads

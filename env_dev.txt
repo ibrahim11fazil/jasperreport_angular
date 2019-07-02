@@ -1,3 +1,5 @@
 USER=foo
 PASS=bar
 FILE=env_dev.txt
+LOG_PATH=/Users/sraj/logs
+UPLOAD_PATH=/Users/sraj/uploads
