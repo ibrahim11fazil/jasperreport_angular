@@ -1,0 +1,3 @@
+USER=foo
+PASS=bar
+FILE=env_dev.txt
