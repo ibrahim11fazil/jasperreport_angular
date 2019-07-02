@@ -145,7 +145,7 @@
                               </div>
 
                               <div formArrayName="dateOptions">
-                                    <div *ngFor="let ff of form.get('dateOptions').controls; let in=index"
+                                    <div *ngFor="let ff of form.get('dateOptions')['controls']; let in=index"
                                           fxLayout="row wrap" fxLayoutAlign="space-between center">
                                           <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                                 fxFlex.gt-md="49">

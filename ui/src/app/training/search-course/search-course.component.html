@@ -32,7 +32,7 @@
   <div fxFlex="100" >
       <ngx-datatable #table
                      class='material mrgn-all-md'
-                     [columns]="columns"
+                     
                      [columnMode]="'force'"
                      [headerHeight]="50"
                      [footerHeight]="50"
@@ -41,8 +41,10 @@
                      [rows]='rows'
                      [count]="page.totalElements"
                      [offset]="page.pageNumber"
-                     (page)='setPage($event)'
+                     
                      >
+                     <!-- (page)='setPage($event)'
+                     [columns]="columns" -->
   
         <ngx-datatable-column min-width="50px">
           <ng-template ngx-datatable-header-template>
