@@ -323,6 +323,7 @@ public class CourseServiceImpl  implements CourseService {
     @Override
 	public List<TacCourseActivation> listactivations(String name, int page, int limit)
 	{
+		List<TacCourseActivation>activationList=null;
 		System.out.println(page);
 		System.out.println(limit);
 		List<TacCourseActivation> activations =  new ArrayList<>();
@@ -336,8 +337,10 @@ public class CourseServiceImpl  implements CourseService {
 			return activations;
 		}
 		else {
-			//return activationRepo.findAllByNameContaining(name, pageable);
-			return null;
+			activationList=activationRepo.findAllByCourseNameContaining(name);
+		//List<Object[]> objects= 	activationRepo.findAllByCourseNameContaining(name, pageable);
+			return activationList;
+
 		}
 	}
 }

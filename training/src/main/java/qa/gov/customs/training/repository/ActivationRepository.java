@@ -20,8 +20,8 @@ public interface ActivationRepository extends JpaRepository<TacCourseActivation,
     @Query(value="select room_id from Tac_Course_Activation where course_id=:courseId",nativeQuery=true)
     BigDecimal findRoomId(BigDecimal courseId);
 
-
-   // List<TacCourseActivation> findAllByNameContaining(String name, Pageable pageable);
+    @Query(value="Select * from Tac_Course_Activation where course_Id in (select course_id from Tac_Course_Master where course_Name=:name ) order by activation_Id desc",nativeQuery=true)
+    List<TacCourseActivation> findAllByCourseNameContaining(String name);
 
 
 }
