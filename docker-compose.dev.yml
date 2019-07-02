@@ -1,7 +1,113 @@
 version: '2.1'
 
 services:
-  account-service:
+
+  registry:
+    build: registry
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  config:
+    build: config
+    ports:
+      - 8888:8888
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  gateway:
+    build: gateway
+    ports:
+      - 9000:9000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  authentication-service:
     build: authentication
     ports:
       - 9001:9001
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  training-service:
+    build: training
+    ports:
+      - 9051:9051
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  cis-service:
+    build: cis
+    ports:
+      - 9071:9071
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  employee-service:
+    build: employee
+    ports:
+      - 9011:9011
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  user-service:
+    build: user
+    ports:
+      - 9031:9031
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  fileupload-service:
+    build: fileupload
+    ports:
+      - 9021:9021
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  notification-service:
+    build: notification
+    ports:
+      - 9041:9041
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  workflow-service:
+    build: workflow-camuda
+    ports:
+      - 9061:9061
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  ui:
+    build: ui
+    ports:
+      - 80:80
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+
