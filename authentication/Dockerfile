@@ -1,7 +1,7 @@
-FROM openjdk:8u171-alpine3.7
-RUN apk --no-cache add curl
-VOLUME /tmp
-VOLUME /log
+FROM openjdk:8-jre-alpine
 COPY target/authentication*.jar authentication.jar
-CMD java ${JAVA_OPTS} -jar authentication.jar
+CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=default", "authentication.jar"]
+#VOLUME /tmp
+#VOLUME /logs
+
 EXPOSE 9001

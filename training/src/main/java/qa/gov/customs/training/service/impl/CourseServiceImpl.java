@@ -1,10 +1,7 @@
 package qa.gov.customs.training.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import qa.gov.customs.training.entity.*;
@@ -292,6 +289,58 @@ public class CourseServiceImpl  implements CourseService {
 	public TacCourseActivation getCourseActivationByCourseId(TacCourseMaster courseMaster)
 	{
 		TacCourseActivation course=activationRepo.findByCourseId(courseMaster.getCourseId());
+
+        BigDecimal date_id=activationRepo.findDateId(courseMaster.getCourseId());
+		BigDecimal roomID=activationRepo.findRoomId(courseMaster.getCourseId());
+        TacCourseRoom courseRoom=courseRoomRepo.findByRoomId(roomID);
+        TacCourseDate tacCourseDate =tacCourseDateRepository.findByDateId(date_id);
+		if (courseRoom != null)
+		 {
+
+			course.setTacCourseRoom(courseRoom);
+		}
+		if(tacCourseDate !=null)
+		{
+			course.setTacCourseDate(tacCourseDate);
+		}
+
 		return course;
+	}
+	@Override
+	public TacCourseRoom getCourseroom(BigDecimal courseId)
+	{
+		BigDecimal roomID=activationRepo.findRoomId(courseId);
+		TacCourseRoom courseRoom=courseRoomRepo.findByRoomId(roomID);
+		return courseRoom;
+	}
+	@Override
+	public TacCourseDate getCourseDate(BigDecimal courseId)
+	{
+		BigDecimal date_id=activationRepo.findDateId(courseId);
+		TacCourseDate tacCourseDate =tacCourseDateRepository.findByDateId(date_id);
+		return tacCourseDate;
+	}
+    @Override
+	public List<TacCourseActivation> listactivations(String name, int page, int limit)
+	{
+		List<TacCourseActivation>activationList=null;
+		System.out.println(page);
+		System.out.println(limit);
+		List<TacCourseActivation> activations =  new ArrayList<>();
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("activationId"));
+		if(name==null &&  name.equals("")){
+			//System.out.println(activationRepo.findAll());
+			Page<TacCourseActivation> pages = activationRepo.findAll(pageable);
+			pages.forEach(item ->activations.add(item));
+			return activations;
+		}
+		else {
+			activationList=activationRepo.findAllByCourseNameContaining(name);
+		//List<Object[]> objects= 	activationRepo.findAllByCourseNameContaining(name, pageable);
+			return activationList;
+
+		}
 	}
 }

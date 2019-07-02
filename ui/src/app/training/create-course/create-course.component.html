@@ -72,7 +72,7 @@
                </div> 
 
                <div formArrayName="expectedResultsOptions">
-                  <div *ngFor="let ff of form.get('expectedResultsOptions').controls; let in=index" fxLayout="row wrap"
+                  <div *ngFor="let ff of form.get('expectedResultsOptions')['controls']; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
@@ -101,7 +101,7 @@
                </div>  
 
                <div formArrayName="tacCourseGuidelinesesOptions">
-                  <div *ngFor="let ff of form.get('tacCourseGuidelinesesOptions').controls; let in=index"
+                  <div *ngFor="let ff of form.get('tacCourseGuidelinesesOptions')['controls']; let in=index"
                      fxLayout="row wrap" fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                       
@@ -135,7 +135,7 @@
  
                   
                   <div formArrayName="targetAudienceOptions">
-                     <div *ngFor="let ff of form.get('targetAudienceOptions').controls; let in=index"
+                     <div *ngFor="let ff of form.get('targetAudienceOptions')['controls']; let in=index"
                         fxLayout="row wrap" fxLayoutAlign="space-between center">
                         <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                  <mat-select placeholder="Target Audience" matInput formControlName="targetId">

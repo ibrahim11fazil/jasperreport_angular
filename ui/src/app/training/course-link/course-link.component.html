@@ -145,14 +145,14 @@
                               </div>
 
                               <div formArrayName="dateOptions">
-                                    <div *ngFor="let ff of form.get('dateOptions').controls; let in=index"
+                                    <div *ngFor="let ff of form.get('dateOptions')['controls']; let in=index"
                                           fxLayout="row wrap" fxLayoutAlign="space-between center">
                                           <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                                 fxFlex.gt-md="49">
 
                                                 <mat-form-field>
                                                       <input matInput [matDatepicker]="myDatepicker"
-                                                            placeholder="Choose a date" formControlName="courseDate">
+                                                            placeholder="Choose a date" formControlName="tacCourseDate">
                                                       <mat-datepicker-toggle matSuffix [for]="myDatepicker">
                                                       </mat-datepicker-toggle>
                                                       <mat-datepicker #myDatepicker></mat-datepicker>

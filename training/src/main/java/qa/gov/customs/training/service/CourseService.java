@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import qa.gov.customs.training.models.Course;
 
 public interface CourseService {
@@ -47,4 +45,7 @@ public interface CourseService {
     List<TacCommSubjects> getAllSubjects();
     List<TacCommQualifications> getAllQualifications();
     TacCourseActivation getCourseActivationByCourseId(TacCourseMaster courseMaster);
+    List<TacCourseActivation>  listactivations(String name, int page, int limit);
+    TacCourseRoom getCourseroom(BigDecimal courseId);
+    TacCourseDate getCourseDate(BigDecimal courseId);
 }

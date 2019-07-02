@@ -29,8 +29,14 @@ mvn clean install -f fileupload
 mvn clean install -f workflow-camuda
 [ $? -eq 0 ] || exit 1
 
-npm install -g @angular/cli
+mvn clean install -f user
 [ $? -eq 0 ] || exit 1
+
+mvn clean install -f cis
+[ $? -eq 0 ] || exit 1
+
+#npm install -g @angular/cli
+#[ $? -eq 0 ] || exit 1
 
 npm install --prefix ./ui
 [ $? -eq 0 ] || exit 1

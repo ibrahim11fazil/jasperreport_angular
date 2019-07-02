@@ -55,8 +55,8 @@
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Course Date" matInput formControlName="dateSelect" >
-                                    <mat-option *ngFor="let item of courseDate" [value]="item" >
-                                      {{item.courseDate}}
+                                    <mat-option *ngFor="let item of tacCourseDate" [value]="item" >
+                                      {{item.tacCourseDate}}
                                     </mat-option>
                                  </mat-select>
                         </mat-form-field>
@@ -96,7 +96,7 @@
                            </div>
                      </div> 
                      <div formArrayName="instructorSelect">
-                           <div *ngFor="let ff of form.get('instructorSelect').controls; let in=index"
+                           <div *ngFor="let ff of form.get('instructorSelect')['controls']; let in=index"
                               fxLayout="row wrap" fxLayoutAlign="space-between center">
                               <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                        <mat-select placeholder="Instructor" matInput formControlName="name">
