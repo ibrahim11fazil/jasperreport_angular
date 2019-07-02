@@ -26,4 +26,21 @@ public class MessageUtil {
     public static String  SYSTEM_USER_CREATED="User Created";
     public static String  FAILED="Failed";
     public static String  SUCCESS="Success";
+    
+    
+    public static String jobcardConditions_CREATED="Condition added";
+    public static String JOBCARD_CREATED="Job card Created";
+    public static String jobcardSkills_CREATED="Skills added";
+    public static String jobcardDuties_CREATED="Duties added";
+    
+    public static String JOBCARD_CONDITION_DELETED="CONDITION DELETED";
+    public static String JOBCARD_SKILLS_DELETED="SKILLS DELETED";
+    public static String JOBCARD_DUTIES_DELETED="DUTIES DELETED";
+    
+    public static String JOBCARD_CONDITION_DELETED_FAILED="CONDITION DELETE FAILED";
+    public static String JOBCARD_SKILLS_DELETED_FAILED="SKILLS DELETE FAILED";
+    public static String JOBCARD_DUTIES_DELETED_FAILED="DUTIES DELETE FAILED";
+    
+    
+    
 }
