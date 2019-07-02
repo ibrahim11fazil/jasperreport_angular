@@ -12,6 +12,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   config:
     image: 172.16.0.253:5000/config:$TAG
@@ -24,6 +25,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   gateway:
     image: 172.16.0.253:5000/gateway:$TAG
@@ -36,6 +38,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   authentication-service:
     image: 172.16.0.253:5000/authentication:$TAG
@@ -48,6 +51,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   training-service:
     image: 172.16.0.253:5000/training:$TAG
@@ -60,6 +64,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   cis-service:
     image: 172.16.0.253:5000/cis:$TAG
@@ -72,6 +77,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   employee-service:
     image: 172.16.0.253:5000/employee:$TAG
@@ -84,6 +90,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   user-service:
     image: 172.16.0.253:5000/user:$TAG
@@ -96,6 +103,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   fileupload-service:
     image: 172.16.0.253:5000/fileupload:$TAG
@@ -109,6 +117,7 @@ services:
     volumes:
       - $LOG_PATH:/logs
       - $UPLOAD_PATH:/uploads
+    restart: always
 
   notification-service:
     image: 172.16.0.253:5000/notification:$TAG
@@ -121,6 +130,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   workflow-service:
     image: 172.16.0.253:5000/workflow:$TAG
@@ -133,6 +143,7 @@ services:
         max-file: "10"
     volumes:
       - $LOG_PATH:/logs
+    restart: always
 
   ui:
     image: 172.16.0.253:5000/ui:$TAG
@@ -143,5 +154,5 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-
+    restart: always
 

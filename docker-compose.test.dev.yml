@@ -1,6 +1,35 @@
 version: '2.1'
 
 services:
+
+  gateway:
+    image: 172.16.0.253:5000/gateway:$TAG
+    build: gateway
+    ports:
+      - 9000:9000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+    restart: always
+    #network_mode: host
+
+  authentication-service:
+    image: 172.16.0.253:5000/authentication:$TAG
+    build: authentication
+    ports:
+      - 9001:9001
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+    restart: always
+    #network_mode: host
+
   registry:
     image: 172.16.0.253:5000/registry:$TAG
     build: registry
@@ -12,8 +41,7 @@ services:
         max-file: "10"
     volumes:
       - /Users/sraj/logs:/logs
-    networks:
-      - registry-fileupload-service
+    #network_mode: host
 
   fileupload-service:
     image: 172.16.0.253:5000/fileupload:$TAG
@@ -28,9 +56,8 @@ services:
       - $LOG_PATH:/logs
       - $UPLOAD_PATH:/uploads
     depends_on:
-      - registry]
-    networks:
-      - registry-fileupload-service
+      - registry
+    #network_mode: host
 
-  networks:
-    registry-fileupload-service:
+networks:
+  training-test:
