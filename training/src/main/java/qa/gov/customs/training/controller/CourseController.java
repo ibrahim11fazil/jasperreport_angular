@@ -505,6 +505,23 @@ public class CourseController {
 			return response;
 		}
 	}
+	@PreAuthorize("hasAnyAuthority('courseActivation_list')")
+	@PostMapping("/get-all-activationList")
+	public ResponseType getActivationsById(@RequestBody TacCourseActivation courseActivation)
+	{
+		TacCourseActivation course = null;
+		course = courseService.getCourseActivationByActivationId(courseActivation);
+
+		if (course != null) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, course);
+			return response;
+		} else {
+
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+	}
 	@PreAuthorize("hasAnyAuthority('list_activations')")
 	@PostMapping("/list-activations-by-courseName")
 	public ResponseType listactivations(@RequestBody  TacCourseMaster courseMaster) {

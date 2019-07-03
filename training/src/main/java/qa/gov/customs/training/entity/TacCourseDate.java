@@ -107,7 +107,7 @@ public class TacCourseDate implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@JsonManagedReference(value="date")
+	//@JsonManagedReference(value="date")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseDate")
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;

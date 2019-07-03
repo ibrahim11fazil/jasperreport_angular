@@ -45,6 +45,12 @@ export class TacCourseMaster {
     this. tacActivities=tacActivities;
     }
 }
+    export class SearchCourse    {
+    courseId?:Number;
+    courseName?:String;
+    start:Number;
+    limit:Number;
+    }
     export interface ResponseTacCourseMaster {
         status: Boolean;
         code:number;
@@ -64,10 +70,12 @@ export class TacCourseMaster {
     export interface Course{
 
 
-         courseId:Number,
+         courseId:Number;
          tacCourseCategory:Categories;
-         courseName:String
+         courseName:String;
     }
+
+   
 
     export interface ITacCourseList {
         status: Boolean;

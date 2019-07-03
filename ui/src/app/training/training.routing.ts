@@ -12,6 +12,7 @@ import { UserSearchComponent } from './user-search/user-search.component';
 import { CisSystemComponent } from './cis-system/cis-system.component';
 import { SearchInstructorComponent } from './search-instructor/search-instructor.component';
 import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';
+import { ActivationsComponent } from './activations/activations.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -54,6 +55,10 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'activate-course',
                 component: ActivateCourseComponent
+            },
+            {
+                path: 'activations',
+                component: ActivationsComponent
             },
             {
                 path: 'activate-course/:id',

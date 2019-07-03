@@ -67,3 +67,9 @@ export interface ResponseActivationDetail{
     message:String;
     data: TacActivation;
 }
+
+export interface ActivationDetails{
+	 tacCourseMaster?:TacCourseMaster;
+	 tacCourseRoom?:TrainingRoom;
+     tacCourseDate?:CourseDate;
+}

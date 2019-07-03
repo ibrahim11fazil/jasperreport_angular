@@ -84,6 +84,8 @@ export const GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID=BASE_URL+training+"/get-co
 export const  GET_ALL_COURSE_ACTIVATION=BASE_URL+training+"/get-all-courseActivation"
 export const  GET_COURSE_ROOM_DETAIL=BASE_URL+training+"/get-course-room"
 export const  GET_COURSE_DATE_DETAIL=BASE_URL+training+"/get-course-date"
+export const  GET_ACTIVATIONS_BY_NAME=BASE_URL+training+"/list-activations-by-courseName"
+export const   GET_ACTIVATIONS_BY_ID=BASE_URL+training+"/get-all-activationList"
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"

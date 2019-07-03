@@ -48,4 +48,6 @@ public interface CourseService {
     List<TacCourseActivation>  listactivations(String name, int page, int limit);
     TacCourseRoom getCourseroom(BigDecimal courseId);
     TacCourseDate getCourseDate(BigDecimal courseId);
+
+ TacCourseActivation getCourseActivationByActivationId(TacCourseActivation courseActivation);
 }
