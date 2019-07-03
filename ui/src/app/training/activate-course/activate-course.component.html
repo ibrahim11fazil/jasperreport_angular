@@ -55,7 +55,7 @@
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select placeholder="Course Date" matInput formControlName="dateSelect" >
-                                    <mat-option *ngFor="let item of tacCourseDate" [value]="item" >
+                                    <mat-option *ngFor="let item of tacCourseDateList" [value]="item" >
                                       {{item.tacCourseDate}}
                                     </mat-option>
                                  </mat-select>

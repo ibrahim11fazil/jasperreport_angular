@@ -412,6 +412,7 @@ public class CourseController {
 			return response;
 		}
 	}
+	@PreAuthorize("hasAnyAuthority('get_all_course_location')")
 	@GetMapping("/get-all-courseLocation")
 	public ResponseType getAllCourseLocation() {
 		List<TacCourseLocation> location = null;
