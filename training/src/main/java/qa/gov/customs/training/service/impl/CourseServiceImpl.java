@@ -314,11 +314,11 @@ public class CourseServiceImpl  implements CourseService {
 		return course;
 	}
 	@Override
-	public TacCourseRoom getCourseroom(BigDecimal courseId)
+	public TacCourseLocation getCourseroom(BigDecimal locationId)
 	{
-		BigDecimal roomID=activationRepo.findRoomId(courseId);
-		TacCourseRoom courseRoom=courseRoomRepo.findByRoomId(roomID);
-		return courseRoom;
+		TacCourseLocation location=locationRepo.findByLocationId(locationId);
+
+		return location;
 	}
 	@Override
 	public TacCourseDate getCourseDate(BigDecimal courseId)
