@@ -3,3 +3,4 @@ PASS=bar
 FILE=env_dev.txt
 LOG_PATH=/Users/sraj/logs
 UPLOAD_PATH=/Users/sraj/uploads
+REGISTRY_IP=172.16.7.19

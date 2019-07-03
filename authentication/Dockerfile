@@ -5,3 +5,8 @@ VOLUME /tmp
 VOLUME /logs
 
 EXPOSE 9001
+
+
+#COPY entrypoint.sh /usr/local/bin/
+
+#ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

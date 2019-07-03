@@ -14,7 +14,9 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
-    #network_mode: host
+    networks:
+      mynet123456:
+        ipv4_address: 172.16.7.21
 
   authentication-service:
     image: 172.16.0.253:5000/authentication:$TAG
@@ -28,7 +30,9 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
-    #network_mode: host
+    networks:
+      mynet123456:
+        ipv4_address: 172.16.7.20
 
   registry:
     image: 172.16.0.253:5000/registry:$TAG
@@ -40,8 +44,10 @@ services:
         max-size: "10m"
         max-file: "10"
     volumes:
-      - /Users/sraj/logs:/logs
-    #network_mode: host
+      - $LOG_PATH:/logs
+    networks:
+      mynet123456:
+        ipv4_address: 172.16.7.19
 
   fileupload-service:
     image: 172.16.0.253:5000/fileupload:$TAG
@@ -57,7 +63,17 @@ services:
       - $UPLOAD_PATH:/uploads
     depends_on:
       - registry
+    networks:
+      mynet123456:
+        ipv4_address: 172.16.7.18
     #network_mode: host
 
 networks:
-  training-test:
+  mynet123456:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.7.0/16
+
+
+# docker network create --subnet=172.16.7.0/16  --gateway=172.16.202.202   mynet123456

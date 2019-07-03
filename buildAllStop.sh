@@ -14,14 +14,14 @@ echo $FILE
 
 if [ "$1" = "prod" ]
 then
-    docker-compose  up
+    #docker-compose  up
     echo "Prod version Hot Beans Done "
 else
     echo "Staring developer version building file"
-    ./build.sh
-    #docker-compose -f docker-compose.dev.yml up
-    docker-compose -f docker-compose.test.dev.yml up
-    #push to registry
+    #./build.sh
+    #docker-compose -f docker-compose.dev.yml down
+    docker-compose -f docker-compose.test.dev.yml stop
+    docker-compose -f docker-compose.test.dev.yml down
     echo "Dev version  Hot Beans Done"
 fi
 
