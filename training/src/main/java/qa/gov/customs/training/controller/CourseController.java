@@ -412,6 +412,7 @@ public class CourseController {
 			return response;
 		}
 	}
+	@PreAuthorize("hasAnyAuthority('get_all_course_location')")
 	@GetMapping("/get-all-courseLocation")
 	public ResponseType getAllCourseLocation() {
 		List<TacCourseLocation> location = null;
@@ -554,14 +555,14 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('course_room_detail')")
+	@PreAuthorize("hasAnyAuthority('get_training_room')")
 	@PostMapping("/get-course-room")
-	public ResponseType getCourseRoom(@RequestBody  TacCourseMaster courseMaster)
+	public ResponseType getCourseRoom(@RequestBody  TacCourseLocation courseLocation)
 	{
-		TacCourseRoom courseRoom=courseService.getCourseroom(courseMaster.getCourseId());
-		if(courseRoom!=null)
+		TacCourseLocation location=courseService.getCourseroom(courseLocation.getLocationId());
+		if(courseLocation!=null)
 		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseRoom);
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, location);
 			return response;
 		}
 		else
