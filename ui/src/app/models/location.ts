@@ -4,8 +4,9 @@ export class Location {
 
     public locationId:Number;
     public  locationName:String;
-    public tacCourseRoom:TrainingRoom;
-	// private Set<TacCourseRoom> tacCourseRooms = new HashSet<TacCourseRoom>(0);
+    //public tacCourseRoom:TrainingRoom;
+    //private Set<TacCourseRoom> tacCourseRooms = new HashSet<TacCourseRoom>(0);
+    public tacCourseRoom:TrainingRoom[];
 constructor(locationId:Number,locationName:String)
 {
     this.locationId=locationId;
@@ -17,4 +18,10 @@ export interface ResponseLocation{
     code:number;
     message:String;
     data: Location[];
+}
+export interface ResponseLocationDetail{
+    status: Boolean;
+    code:number;
+    message:String;
+    data: Location;
 }

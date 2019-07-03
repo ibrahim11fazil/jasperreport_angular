@@ -5,7 +5,7 @@ import { TrainingService } from 'app/service/training/training.service';
 import { Course, ITacCourseList, ResponseTacCourseMaster, TacCourseMaster } from 'app/models/tac-course-master';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseCategories, Categories } from 'app/models/categories';
-import { Location,ResponseLocation } from 'app/models/location';
+import { Location,ResponseLocation, ResponseLocationDetail } from 'app/models/location';
 import { ResponseRoom, TrainingRoom, ResponseRoomDetail } from 'app/models/training-room';
 import { ITacInstructorList, TacInstructor } from 'app/models/tac-instructor';
 import { SystemUserService } from 'app/service/user/system-user.service';
@@ -30,7 +30,7 @@ export class ActivateCourseComponent implements OnInit {
   roomDetails:TrainingRoom[]=[];
   roomLocation:TrainingRoom[]=[];
   tacCourseDate:CourseDate[]=[];
-  trainingRoomDetail:TrainingRoom;
+  trainingRoomDetail:Location;
   trainingDateDetail:CourseDate;
   param:any;
   tacCourseLocation:Location[]=[];
@@ -201,8 +201,9 @@ patch()
   var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.tacCourseActivation.tacCourseMaster.locationType)
   console.log(this.tacCourseLocation)
   console.log(locationArray)
+  this.getCourseroom(this.tacCourseActivation.tacCourseMaster.locationType)
     if (locationArray[0] != null) {
-      //this.roomLocation=locationArray[0].tacCourseRoom;
+     // this.roomLocation=locationArray[0].
       this.form.controls['locationSelect'].patchValue(
         locationArray[0]
       )
@@ -222,7 +223,7 @@ patch()
       )
     }
     
-    var roomArray=this.roomDetails.filter(i=>i.roomId==this.tacCourseActivation.tacCourseRoom.roomId)
+    var roomArray=this.trainingRoomDetail.tacCourseRoom.filter(i=>i.roomId==this.tacCourseActivation.tacCourseRoom.roomId)
     if (roomArray[0] != null) {
       this.form.controls['roomSelect'].patchValue(
         roomArray[0]
@@ -272,11 +273,9 @@ getCourseDetails(course)
 
 getCourseRoomDetail(location)
 {
-  debugger;
+  
 
   let courseLocation=new Location(location.value.locationId,"")
-  console.log(courseLocation);
-  console.log(location.value);
  this.roomDetails=location.value.tacCourseRooms
 
 }
@@ -465,22 +464,22 @@ courseActivation.tacCourseInstructor=this.tacCourseActivation.tacCourseInstructo
 //     }
 
 
-//     getCourseroom(courseMaster)
-//     {
-//     this.trainingService.getCourseRoomDetail(courseMaster).subscribe(
-//       data => {
-//         debugger;
-//          var response = <ResponseRoomDetail>data
-//           this.trainingRoomDetail=response.data
-//           console.log(response.data);
+    getCourseroom(locationType)
+    {
+    this.trainingService.getCourseRoomDetail(locationType).subscribe(
+      data => {
+        debugger;
+         var response = <ResponseLocationDetail>data
+          this.trainingRoomDetail=response.data
+          console.log(response.data);
 
-//         },
-//         error => {
-//          console.log(error)
-//           this.toastr.error(error.message)
-//     }
-//      )
-//  }
+        },
+        error => {
+         console.log(error)
+          this.toastr.error(error.message)
+    }
+     )
+ }
 
 
 

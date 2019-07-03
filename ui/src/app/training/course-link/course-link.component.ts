@@ -199,6 +199,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getDates(activity){
+    debugger;
     this.loadedActivityId= activity.value.activityId
     this.fetchDates()
     

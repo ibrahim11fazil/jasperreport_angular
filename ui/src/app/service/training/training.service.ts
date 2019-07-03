@@ -153,9 +153,9 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
     debugger;
     return this.httpClient.post(GET_COURSE_DATE_DETAIL, course);
   }
-  getCourseRoomDetail(course: TacCourseMaster): Observable<Object> {
+  getCourseRoomDetail(location:Location): Observable<Object> {
     debugger;
-    return this.httpClient.post(GET_COURSE_ROOM_DETAIL, course);
+    return this.httpClient.post(GET_COURSE_ROOM_DETAIL, location);
   }
 
   getAllActivationsByName(course:SearchCourse): Observable<Object> {
