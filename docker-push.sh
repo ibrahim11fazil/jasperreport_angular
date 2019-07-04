@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 set -a
 TAG=dev_$(git describe --abbrev=0)
 if [ "$1" = "prod" ]
