@@ -7,7 +7,7 @@ if [ "$1" = "prod" ]
         TAG=$(git describe --abbrev=0)
 elif [ "$1" = "qa" ]
     then
-        source env_prod.txt
+        source env_qa.txt
         TAG=qa_$(git describe --abbrev=0)
 else
         source env_dev.txt
