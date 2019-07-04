@@ -30,9 +30,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
-    username: CIS
-    password: c15tst123
+    url: ${CIS_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
+    username: ${CIS_DB_URL_USER:CIS}
+    password: ${CIS_DB_URL_PASWORD:c15tst123}
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -76,6 +76,6 @@ eureka:
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://registry:8761/eureka/
 
 debug: true

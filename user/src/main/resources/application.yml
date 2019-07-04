@@ -30,9 +30,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
-    username: CUST_SSO
-    password: s504tst123
+    url: ${SSO_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
+    username: ${SSO_DB_URL_USER:CUST_SSO}
+    password: ${SSO_DB_URL_PASWORD:s504tst123}
 #    url: jdbc:oracle:thin:@//localhost:1521/xe
 #    username: raj
 #    password: 12345
@@ -79,6 +79,6 @@ eureka:
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://registry:8761/eureka/
     fetch-registry: true
 debug: true

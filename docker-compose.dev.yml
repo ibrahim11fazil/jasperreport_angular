@@ -13,19 +13,9 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
-
-  config:
-    image: 172.16.0.253:5000/config:$TAG
-    build: config
-    ports:
-      - 8888:8888
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    volumes:
-      - $LOG_PATH:/logs
-    restart: always
+    networks:
+        networktraining:
+          ipv4_address: $REGISTRY_IP
 
   gateway:
     image: 172.16.0.253:5000/gateway:$TAG
@@ -39,8 +29,32 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $GATEWAY_IP
+
+  config:
+    image: 172.16.0.253:5000/config:$TAG
+    build: config
+    ports:
+      - 8888:8888
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+    restart: always
+    networks:
+      networktraining:
+        ipv4_address: $CONFIG_IP
+
 
   authentication-service:
+    environment:
+      SSO_DB_URL: $SSO_DB_URL
+      SSO_DB_URL_USER: $SSO_DB_URL_USER
+      SSO_DB_URL_PASWORD: $SSO_DB_URL_PASWORD
     image: 172.16.0.253:5000/authentication:$TAG
     build: authentication
     ports:
@@ -52,8 +66,15 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $OAUTH_IP
 
   training-service:
+    environment:
+      TAC_DB_URL: $TAC_DB_URL
+      TAC_DB_URL_USER: $TAC_DB_URL_USER
+      TAC_DB_URL_PASWORD: $TAC_DB_URL_PASWORD
     image: 172.16.0.253:5000/training:$TAG
     build: training
     ports:
@@ -65,8 +86,15 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $TRAINING_IP
 
   cis-service:
+    environment:
+      CIS_DB_URL: $CIS_DB_URL
+      CIS_DB_URL_USER: $CIS_DB_URL_USER
+      CIS_DB_URL_PASWORD: $CIS_DB_URL_PASWORD
     image: 172.16.0.253:5000/cis:$TAG
     build: cis
     ports:
@@ -78,8 +106,15 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $CIS_INTEGRATION_IP
 
   employee-service:
+    environment:
+      EMPLOYEE_DB_URL: $EMPLOYEE_DB_URL
+      EMPLOYEE_DB_URL_USER: $EMPLOYEE_DB_URL_USER
+      EMPLOYEE_DB_URL_PASWORD: $EMPLOYEE_DB_URL_PASWORD
     image: 172.16.0.253:5000/employee:$TAG
     build: employee
     ports:
@@ -91,8 +126,15 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $EMPLOYEE_IP
 
   user-service:
+    environment:
+      SSO_DB_URL: $SSO_DB_URL
+      SSO_DB_URL_USER: $SSO_DB_URL_USER
+      SSO_DB_URL_PASWORD: $SSO_DB_URL_PASWORD
     image: 172.16.0.253:5000/user:$TAG
     build: user
     ports:
@@ -104,6 +146,9 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $USER_IP
 
   fileupload-service:
     image: 172.16.0.253:5000/fileupload:$TAG
@@ -118,6 +163,9 @@ services:
       - $LOG_PATH:/logs
       - $UPLOAD_PATH:/uploads
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $FILE_UPLOAD_IP
 
   notification-service:
     image: 172.16.0.253:5000/notification:$TAG
@@ -131,8 +179,15 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $NOTIFICATION_IP
 
   workflow-service:
+    environment:
+      WORKFLOW_DB_URL: $WORKFLOW_DB_URL
+      WORKFLOW_DB_URL_USER: $WORKFLOW_DB_URL_USER
+      WORKFLOW_DB_URL_PASWORD: $WORKFLOW_DB_URL_PASWORD
     image: 172.16.0.253:5000/workflow:$TAG
     build: workflow-camuda
     ports:
@@ -144,6 +199,9 @@ services:
     volumes:
       - $LOG_PATH:/logs
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $WORKFLOW_IP
 
   ui:
     image: 172.16.0.253:5000/ui:$TAG
@@ -155,4 +213,15 @@ services:
         max-size: "10m"
         max-file: "10"
     restart: always
+    networks:
+      networktraining:
+        ipv4_address: $TRAINING_UI_IP
 
+
+networks:
+  networktraining:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.7.0/16
+          gateway: 172.16.202.202

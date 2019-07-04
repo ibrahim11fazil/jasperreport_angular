@@ -3,9 +3,14 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:/shared
+          search-locations: classpath:/config
+
   profiles:
     active: native
+  security:
+    user:
+      password: 123456123123123kj123kh1g23hk21k312k3
 
 server:
   port: 8888
+#${CONFIG_SERVICE_PASSWORD}

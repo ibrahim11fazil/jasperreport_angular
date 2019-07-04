@@ -13,10 +13,12 @@ security:
           YwIDAQAB
           -----END PUBLIC KEY-----
     client:
-      clientId: employee
+      clientId: training
 
 server:
-  port: 9011
+#  servlet:
+#    context-path: /training
+  port: 9051
 
 feign:
   hystrix:
@@ -24,16 +26,13 @@ feign:
 
 spring:
   application:
-    name: employee
+    name: training
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: ${EMPLOYEE_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
-    username: ${EMPLOYEE_DB_URL_USER:CUST_EMPLOYEE}
-    password: ${EMPLOYEE_DB_URL_PASWORD:cemp4tst123}
-#    url: jdbc:oracle:thin:@//localhost:1521/xe
-#    username: raj
-#    password: 12345
+    url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
+    username: Cust_Tac
+    password: tac4tst123
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -70,11 +69,13 @@ logging:
       gov:
         customs:
           authentication: DEBUG
-  file: logs/employee.log
+  file: logs/training.log
 
 eureka:
   instance:
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://registry:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
+
+debug: true

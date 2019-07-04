@@ -16,8 +16,8 @@ security:
       clientId: training
 
 server:
-#  servlet:
-#    context-path: /training
+  #  servlet:
+  #    context-path: /training
   port: 9051
 
 feign:
@@ -30,9 +30,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
-    username: Cust_Tac
-    password: tac4tst123
+    url: ${TAC_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
+    username: ${TAC_DB_URL_USER:Cust_Tac}
+    password: ${TAC_DB_URL_PASWORD:tac4tst123}
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -76,6 +76,6 @@ eureka:
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://registry:8761/eureka/
 
 debug: true

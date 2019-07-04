@@ -15,8 +15,23 @@ services:
       - $LOG_PATH:/logs
     restart: always
     networks:
-      mynet123456:
-        ipv4_address: 172.16.7.21
+      networktraining:
+        ipv4_address: 172.16.7.1
+
+  registry:
+    image: 172.16.0.253:5000/registry:$TAG
+    build: registry
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+    networks:
+      networktraining:
+        ipv4_address: 172.16.7.2
 
   authentication-service:
     image: 172.16.0.253:5000/authentication:$TAG
@@ -31,23 +46,10 @@ services:
       - $LOG_PATH:/logs
     restart: always
     networks:
-      mynet123456:
-        ipv4_address: 172.16.7.20
+      networktraining:
+        ipv4_address: 172.16.7.3
 
-  registry:
-    image: 172.16.0.253:5000/registry:$TAG
-    build: registry
-    ports:
-      - 8761:8761
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    volumes:
-      - $LOG_PATH:/logs
-    networks:
-      mynet123456:
-        ipv4_address: 172.16.7.19
+
 
   fileupload-service:
     image: 172.16.0.253:5000/fileupload:$TAG
@@ -61,19 +63,18 @@ services:
     volumes:
       - $LOG_PATH:/logs
       - $UPLOAD_PATH:/uploads
-    depends_on:
-      - registry
     networks:
-      mynet123456:
-        ipv4_address: 172.16.7.18
+      networktraining:
+        ipv4_address: 172.16.7.4
     #network_mode: host
 
 networks:
-  mynet123456:
+  networktraining:
     ipam:
       driver: default
       config:
         - subnet: 172.16.7.0/16
+          gateway: 172.16.202.202
 
 
 # docker network create --subnet=172.16.7.0/16  --gateway=172.16.202.202   mynet123456

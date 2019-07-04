@@ -20,8 +20,10 @@ else
     echo "Staring developer version building file"
     #./build.sh
     #docker-compose -f docker-compose.dev.yml down
-    docker-compose -f docker-compose.test.dev.yml stop
-    docker-compose -f docker-compose.test.dev.yml down
+    #docker-compose -f docker-compose.test.dev.yml stop
+    #docker-compose -f docker-compose.test.dev.yml down
+    docker-compose -f docker-compose.dev.yml stop
+    docker-compose -f docker-compose.dev.yml down
     echo "Dev version  Hot Beans Done"
 fi
 
