@@ -33,3 +33,9 @@ security:
 
 
 #debug: true
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
