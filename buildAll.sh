@@ -32,11 +32,11 @@ then
      #docker-compose -f docker-compose.dev.yml up
 else
     echo "Staring developer version building file"
-    ./build.sh
+    #./build.sh
     #docker-compose  up
-    docker-compose up --build
+    #docker-compose up --build
     #docker-compose -f docker-compose.dev.yml up
     #docker-compose -f docker-compose.test.dev.yml up
-    echo "Dev version  Hot Beans Done"
+    echo "Pass -->  qa or prod"
 fi
 
