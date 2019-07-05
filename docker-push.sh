@@ -38,7 +38,7 @@ elif [ "$1" = "qa" ]
         echo $TAG
 else
 
-    echo "Developer version no need to push"
+    echo "Developer version no need to push use prod or qa"
 
 fi
 set +a
