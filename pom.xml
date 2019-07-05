@@ -6,7 +6,7 @@
 
     <groupId>qa.gov.customs</groupId>
     <artifactId>app</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>pom</packaging>
     <name>customsapp</name>
 
@@ -47,7 +47,6 @@
         <module>fileupload</module>
         <module>workflow-camuda</module>
         <module>training</module>
-        <module>utils</module>
         <module>user</module>
         <module>cis</module>
     </modules>

@@ -25,7 +25,7 @@ then
     echo "Prod version Hot Beans Done "
 elif [ "$1" = "qa" ]
 then
-     #./build.sh
+     ./build.sh
      #docker-compose  up
      docker-compose up --build
      echo "Staring qa version building file"

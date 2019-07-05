@@ -1,4 +1,4 @@
-package qa.gov.customs.utils;
+package qa.gov.custom.user.utils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package qa.gov.customs.utils.models;
+package qa.gov.customs.authentication.utils.models;
 
 public class ResponseType {
  private int code;

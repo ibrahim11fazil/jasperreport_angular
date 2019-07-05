@@ -15,9 +15,9 @@ import qa.gov.custom.user.repository.UserRepository;
 import qa.gov.custom.user.security.CustomPrincipal;
 import qa.gov.custom.user.service.CustomUserDetailsService;
 import qa.gov.custom.user.service.UserService;
-import qa.gov.customs.utils.Constants;
-import qa.gov.customs.utils.MessageUtil;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.custom.user.utils.Constants;
+import qa.gov.custom.user.utils.MessageUtil;
+import qa.gov.custom.user.utils.models.ResponseType;
 
 
 import javax.validation.Valid;

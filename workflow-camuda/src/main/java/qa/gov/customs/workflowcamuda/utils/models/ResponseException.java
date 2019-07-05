@@ -1,4 +1,4 @@
-package qa.gov.customs.utils.models;
+package qa.gov.customs.workflowcamuda.utils.models;
 
 import java.util.Date;
 
