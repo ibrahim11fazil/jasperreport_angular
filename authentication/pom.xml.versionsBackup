@@ -5,43 +5,41 @@
     <parent>
         <artifactId>app</artifactId>
         <groupId>qa.gov.customs</groupId>
-        <version>0.0.5</version>
+        <version>0.04</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>notification</artifactId>
-
+    <description>This service is for sso for all other services</description>
+    <artifactId>authentication</artifactId>
     <dependencies>
 
-        <dependency>
-            <groupId>qa.gov.customs</groupId>
-            <artifactId>utils</artifactId>
-            <version>0.0.3</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>qa.gov.customs</groupId>-->
+            <!--<artifactId>utils</artifactId>-->
+            <!--<version>0.0.3</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
-        <!--  <dependency>
-             <groupId>org.springframework.boot</groupId>
-             <artifactId>spring-boot-starter-data-jpa</artifactId>
-         </dependency> -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-security</artifactId>
         </dependency>
 
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
 
         <dependency>
@@ -51,20 +49,41 @@
         </dependency>
 
         <!--<dependency>-->
-        <!--<groupId>org.springframework.security.oauth.boot</groupId>-->
-        <!--<artifactId>spring-security-oauth2-autoconfigure</artifactId>-->
-        <!--<version>2.1.3.RELEASE</version>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-security</artifactId>-->
         <!--</dependency>-->
 
-        <!-- <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
+     <!--    <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+
         </dependency> -->
+
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-oauth2</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-sleuth</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+        <!--</dependency>-->
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -79,6 +98,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc7</artifactId>
             <version>12.1.0.1</version>
@@ -87,18 +113,17 @@
     </dependencies>
 
 
+
     <build>
-        <finalName>notification</finalName>
+        <finalName>authentication</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>notification</finalName>
+                    <finalName>authentication</finalName>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-
 </project>

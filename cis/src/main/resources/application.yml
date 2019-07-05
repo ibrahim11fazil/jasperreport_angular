@@ -71,11 +71,18 @@ logging:
           authentication: DEBUG
   file: logs/cis.log
 
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    serviceUrl:
+#      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
+
 eureka:
-  instance:
-    prefer-ip-address: true
   client:
+    fetchRegistry: true
+    registryFetchIntervalSeconds: 5
     serviceUrl:
       defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
-
-debug: true
+  instance:
+    prefer-ip-address: true

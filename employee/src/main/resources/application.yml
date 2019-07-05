@@ -73,8 +73,10 @@ logging:
   file: logs/employee.log
 
 eureka:
-  instance:
-    prefer-ip-address: true
   client:
+    fetchRegistry: true
+    registryFetchIntervalSeconds: 5
     serviceUrl:
       defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
+  instance:
+    prefer-ip-address: true

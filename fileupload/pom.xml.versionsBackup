@@ -5,19 +5,30 @@
     <parent>
         <artifactId>app</artifactId>
         <groupId>qa.gov.customs</groupId>
-        <version>0.0.5</version>
+        <version>0.04</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description>This service is for employee for all other services</description>
-    <artifactId>employee</artifactId>
+    <description>This service is for files uploading and downloading</description>
+    <artifactId>fileupload</artifactId>
 
 
     <dependencies>
+
         <!--<dependency>-->
-            <!--<groupId>qa.gov.customs</groupId>-->
-            <!--<artifactId>utils</artifactId>-->
-            <!--<version>0.0.3</version>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
         <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-quartz</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
@@ -27,26 +38,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <dependency>
@@ -61,11 +52,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
         <dependency>
             <groupId>com.oracle</groupId>
@@ -76,13 +62,13 @@
     </dependencies>
 
     <build>
-        <finalName>employee</finalName>
+        <finalName>fileupload</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>employee</finalName>
+                    <finalName>fileupload</finalName>
                 </configuration>
             </plugin>
         </plugins>
