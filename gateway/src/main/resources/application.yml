@@ -39,7 +39,7 @@ zuul:
     auth-service:
       sensitiveHeaders:
       path: /authentication/**
-      url: http://localhost:9001
+      url: ${LOGIN_SERVER_URL:http://localhost:9001}
       stripPrefix: true
 
     account-service:
