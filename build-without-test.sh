@@ -1,5 +1,5 @@
-mvn clean install -f utils -DskipTests
-[ $? -eq 0 ] || exit 1
+#mvn clean install -f utils -DskipTests
+#[ $? -eq 0 ] || exit 1
 
 mvn clean install -f config -DskipTests
 [ $? -eq 0 ] || exit 1

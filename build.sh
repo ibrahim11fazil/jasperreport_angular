@@ -1,6 +1,6 @@
 #mvn dependency:purge-local-repository clean install -f utils
-mvn clean install -f utils
-[ $? -eq 0 ] || exit 1
+#mvn clean install -f utils
+#[ $? -eq 0 ] || exit 1
 
 mvn clean install -f config
 [ $? -eq 0 ] || exit 1
