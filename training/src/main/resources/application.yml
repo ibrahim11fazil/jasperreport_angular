@@ -79,3 +79,4 @@ eureka:
       defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
   instance:
     prefer-ip-address: true
+    hostname: training
