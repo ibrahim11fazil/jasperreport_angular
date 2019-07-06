@@ -41,7 +41,11 @@ then
       docker build --file authentication/Dockerfile authentication -t 172.16.0.253:5000/authentication:$TAG
       docker build --file registry/Dockerfile registry -t 172.16.0.253:5000/registry:$TAG
       docker build --file gateway/Dockerfile gateway -t 172.16.0.253:5000/gateway:$TAG
-     echo "Staring qa version building file"
+      echo "QA build done"
+
+      echo "Pushing to server "
+      ./docker-push.sh qa
+      echo "Pushing to server done"
 
 else
     echo "Staring developer version building file"
