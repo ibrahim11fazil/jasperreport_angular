@@ -34,3 +34,4 @@ docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.t
 docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME -p 9051:9051  --name training 172.16.0.253:5000/training:$TAG
 docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME -p 8888:8888 --name config   172.16.0.253:5000/config:$TAG
 docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME $UPLOAD_VOLUME --name fileupload  -p 9021:9021   172.16.0.253:5000/fileupload:$TAG
+docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME -p 9000:9000 --name gateway   172.16.0.253:5000/gateway:$TAG
