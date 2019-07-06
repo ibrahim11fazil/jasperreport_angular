@@ -13,6 +13,7 @@ if [ "$1" != "" ] && [ "$2" != "" ]
      git commit -m "build version $1"
      git push origin $2
      echo "Version updated to "   $(git describe --abbrev=0)
+     git status
     else
      echo "Enter the version"
      echo "Enter the git branch to push to server , use current and master"

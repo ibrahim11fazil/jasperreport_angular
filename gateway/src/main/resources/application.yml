@@ -92,15 +92,26 @@ logging:
           gateway: DEBUG
   file: logs/gateway.log
 
+#eureka:
+#  client:
+#    fetchRegistry: true
+#    registryFetchIntervalSeconds: 5
+#    serviceUrl:
+#      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    hostname: gateway
 eureka:
   client:
-    fetchRegistry: true
+    healthcheck: true
     registryFetchIntervalSeconds: 5
+    fetch-registry: true
     serviceUrl:
       defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
   instance:
-    prefer-ip-address: true
-    hostname: gateway
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+
 
 
 cloud:
