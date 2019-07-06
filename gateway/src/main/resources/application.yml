@@ -7,9 +7,9 @@ spring:
 server:
   port: 9000
 
-feign:
-  hystrix:
-    enabled: false
+#feign:
+#  hystrix:
+#    enabled: false
 
 
 hystrix:
@@ -42,31 +42,31 @@ zuul:
       url: ${LOGIN_SERVER_URL:http://localhost:9001}
       stripPrefix: true
 
-    account-service:
+    training:
       path: /training/**
       serviceId: training
       stripPrefix: true
       sensitiveHeaders:
 
-    user-service:
+    user:
       path: /user/**
       serviceId: user
       stripPrefix: true
       sensitiveHeaders:
 
-    file-service:
+    fileupload:
       path: /fileupload/**
       serviceId: fileupload
       stripPrefix: true
       sensitiveHeaders:
 
-    employee-service:
+    employee:
       path: /employee/**
       serviceId: employee
       stripPrefix: true
       sensitiveHeaders:
 
-    cis-service:
+    cis:
       path: /cis/**
       serviceId: cis
       stripPrefix: true
@@ -101,3 +101,58 @@ eureka:
     prefer-ip-address: true
     hostname: gateway
 
+
+cloud:
+  inetutils:
+    prfered-networks:
+      - 10.0
+
+training:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    ConnectTimeout: 5000
+    ReadTimeout: 5000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+user:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    ConnectTimeout: 5000
+    ReadTimeout: 5000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+fileupload:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    ConnectTimeout: 5000
+    ReadTimeout: 5000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+employee:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    ConnectTimeout: 5000
+    ReadTimeout: 5000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+auth-service:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    ConnectTimeout: 5000
+    ReadTimeout: 5000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100

@@ -21,6 +21,19 @@ TAG=$1
 #docker run -d --env-file=./env_qa.txt -v $LOG_PATH:/logs -v  $TMP_PATH:/tmp -p 9000:9000  172.16.0.253:5000/gateway:$TAG
 
 
+
+docker pull   172.16.0.253:5000/registry:$TAG
+docker pull    172.16.0.253:5000/ui:$TAG
+docker pull   172.16.0.253:5000/workflow:$TAG
+docker pull   172.16.0.253:5000/notification:$TAG
+docker pull   172.16.0.253:5000/user:$TAG
+docker pull   172.16.0.253:5000/employee:$TAG
+docker pull  172.16.0.253:5000/cis:$TAG
+docker pull  172.16.0.253:5000/training:$TAG
+docker pull    172.16.0.253:5000/config:$TAG
+docker pull    172.16.0.253:5000/fileupload:$TAG
+docker pull    172.16.0.253:5000/gateway:$TAG
+
 TAG=$1
 VOLUME="--mount type=bind,source=$LOG_PATH,destination=/logs --mount type=bind,source=$TMP_PATH,destination=/tmp"
 UPLOAD_VOLUME="--mount type=bind,source=$UPLOAD_PATH,destination=/uploads"
