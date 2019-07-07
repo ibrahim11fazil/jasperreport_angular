@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.InstructorSubjectModel;
-import qa.gov.customs.training.repository.InstructorCourseRepository;
+
 import qa.gov.customs.training.repository.InstructorRepository;
 import qa.gov.customs.training.repository.TacCommSubjectsRepository;
 import qa.gov.customs.training.service.InstructorService;
@@ -25,8 +25,8 @@ import qa.gov.customs.training.service.InstructorService;
 public class InstructorServiceImpl  implements InstructorService {
 	@Autowired
 	InstructorRepository instructorRepository;
-	@Autowired
-	InstructorCourseRepository instructorCourserepository;
+//	@Autowired
+//	InstructorCourseRepository instructorCourserepository;
 	@Autowired
 	TacCommSubjectsRepository subjectsRepository;
 
@@ -94,12 +94,12 @@ public class InstructorServiceImpl  implements InstructorService {
 		return countinstructors;
 	}
 
-	@Override
-	public List<TacCourseInstructor> searchinstructor(TacInstructorMaster instructor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+//	@Override
+//	public List<TacCourseInstructor> searchinstructor(TacInstructorMaster instructor) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
 	@Override
 	public List<TacInstructorMaster> listinstructors() {
 		List<TacInstructorMaster> instructorMasters = new ArrayList<>();

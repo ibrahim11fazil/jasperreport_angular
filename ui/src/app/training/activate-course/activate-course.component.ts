@@ -65,7 +65,7 @@ export class ActivateCourseComponent implements OnInit {
       costVenue: 0,
       costBonus: 0,
       costTranslation: 0,
-      tacCourseInstructor: [],
+      tacCourseInstructors: [],
       status: 0
     }
   }
@@ -303,11 +303,12 @@ export class ActivateCourseComponent implements OnInit {
     var tacCourseRoom = new TrainingRoom(0, "");
     tacCourseRoom.roomId = this.form.value.roomSelect.roomId;
     courseActivation.tacCourseRoom = tacCourseRoom;
-
+debugger
     const instructorOptions = this.getControlOfAddMore('instructorSelect');
     var instructors = <TacInstructor[]>instructorOptions.value;
-    this.tacCourseActivation.tacCourseInstructor = instructors;
-    courseActivation.tacCourseInstructor = this.tacCourseActivation.tacCourseInstructor;
+    this.tacCourseActivation.tacCourseInstructors = instructors;
+
+    courseActivation.tacCourseInstructors = this.tacCourseActivation.tacCourseInstructors;
     courseActivation.costInstructor = this.form.value.instructorCost;
     courseActivation.costInstructor = this.form.value.instructorCost
     courseActivation.costFood = this.form.value.buffetCost
@@ -396,6 +397,7 @@ export class ActivateCourseComponent implements OnInit {
     this.tacCourseDateList = this.tacCourseActivation.tacCourseMaster.tacCourseDates
     this.tacCourseLocation = this.tacCourseLocation
     this.getCourseroom(this.tacCourseActivation.tacCourseMaster.locationType)
+    this.trainingRoomDetail=this.trainingRoomDetail
     this.formInit()
     this.patch()
   }
@@ -413,7 +415,7 @@ export class ActivateCourseComponent implements OnInit {
     )
   }
   getCourseroom(locationType) {
-
+debugger;
     let location = new Location(0, "");
     location.locationId = locationType;
     this.trainingService.getCourseRoomDetail(location).subscribe(
