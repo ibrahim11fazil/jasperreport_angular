@@ -24,4 +24,7 @@ public interface ActivationRepository extends JpaRepository<TacCourseActivation,
     List<TacCourseActivation> findAllByCourseNameContaining(String name);
    TacCourseActivation findByActivationId(BigDecimal activation);
 
+//    @Query(value="Select a. from Tac_Course_Activation a where a.course_Id in (select b.course_id from Tac_Course_Master b where lower(b.course_Name) LIKE %:name% ) order by a.activation_Id desc",nativeQuery=true)
+//    List<TacCourseActivation> findAllByCourseNameContaining(String name);
+
 }

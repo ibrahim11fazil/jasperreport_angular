@@ -20,7 +20,7 @@ export class ActivationsComponent implements OnInit {
   searchText: String;
   ds: TacActivation[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['activationId', 'activationDate','Edit' ];
+  displayedColumns: string[] = ['activationId', ,'activationDate','Edit' ];
 
   constructor(
     private trainingService: TrainingService,
@@ -31,6 +31,7 @@ export class ActivationsComponent implements OnInit {
     this.pageTitleService.setTitle("Search Activation")}
 
   ngOnInit() {
+    
     this.formInit()
   }
   formInit() {
@@ -62,6 +63,7 @@ export class ActivationsComponent implements OnInit {
           response.data.forEach(item => {
             this.ds.push(item);
           })
+          debugger;
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
           if(this.firstSearch==true && response.data.length==0){
             this.toastr.info("Search result no found")

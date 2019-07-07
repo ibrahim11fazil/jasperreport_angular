@@ -6,7 +6,7 @@ export class Location {
     public  locationName:String;
     //public tacCourseRoom:TrainingRoom;
     //private Set<TacCourseRoom> tacCourseRooms = new HashSet<TacCourseRoom>(0);
-    public tacCourseRoom:TrainingRoom[];
+    public tacCourseRooms:TrainingRoom[];
 constructor(locationId:Number,locationName:String)
 {
     this.locationId=locationId;

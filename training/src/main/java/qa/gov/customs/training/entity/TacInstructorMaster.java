@@ -39,7 +39,8 @@ public class TacInstructorMaster implements java.io.Serializable {
 
 	private Set<TacCommSubjects> tacCommSubjects = new HashSet<>();
 	//Many to many with priority
-	private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
+	//private Set<TacCommInstructors>tacCommInstructors=new HashSet<>();
+	//private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
 
 	//Set<InstructorSubjectModel> tacSubjectsModel = new HashSet<InstructorSubjectModel>(0);
 
@@ -57,7 +58,7 @@ public class TacInstructorMaster implements java.io.Serializable {
 			String department, String jobTitle, String ibanNo, String companyName, String qid, String passportNo,
 			String phone, String email, String photo, BigDecimal priority,
 			Set<TacCommQualifications> tacCommQualifications,
-			Set<TacCourseInstructor> tacCourseInstructors, Set<TacCommSubjects> tacCommSubjects) {
+			 Set<TacCommSubjects> tacCommSubjects) {
 		this.instructorId = instructorId;
 		this.typeFlag = typeFlag;
 		this.jobId = jobId;
@@ -73,7 +74,7 @@ public class TacInstructorMaster implements java.io.Serializable {
 		this.photo = photo;
 		this.priority = priority;
 		this.tacCommQualifications = tacCommQualifications;
-		this.tacCourseInstructors = tacCourseInstructors;
+		///this.tacCourseInstructors = tacCourseInstructors;
 		this.tacCommSubjects = tacCommSubjects;
 	}
 
@@ -233,14 +234,14 @@ public class TacInstructorMaster implements java.io.Serializable {
 //		this.tacInstructorSubjects = tacInstructorSubjects;
 //	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
-	public Set<TacCourseInstructor> getTacCourseInstructors() {
-		return this.tacCourseInstructors;
-	}
-
-	public void setTacCourseInstructors(Set<TacCourseInstructor> tacCourseInstructors) {
-		this.tacCourseInstructors = tacCourseInstructors;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacInstructorMaster")
+//	public Set<TacCourseInstructor> getTacCourseInstructors() {
+//		return this.tacCourseInstructors;
+//	}
+//
+//	public void setTacCourseInstructors(Set<TacCourseInstructor> tacCourseInstructors) {
+//		this.tacCourseInstructors = tacCourseInstructors;
+//	}
 
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -266,6 +267,8 @@ public class TacInstructorMaster implements java.io.Serializable {
 	public void setTacCommQualifications(Set<TacCommQualifications> tacCommQualifications) {
 		this.tacCommQualifications = tacCommQualifications;
 	}
+
+	//TacCourseInstructor
 
 	//	public Set<TacActivity> getTacActivities() {
 //		return tacActivities;
