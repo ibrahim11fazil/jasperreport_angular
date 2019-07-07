@@ -55,3 +55,14 @@ logging:
         customs:
           authentication: DEBUG
   file: logs/registry.log
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true

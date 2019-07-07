@@ -168,3 +168,4 @@ auth-service:
     ReadTimeout: 5000
     MaxTotalHttpConnections: 500
     MaxConnectionsPerHost: 100
+

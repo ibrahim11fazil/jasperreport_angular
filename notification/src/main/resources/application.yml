@@ -35,11 +35,24 @@ security:
 #debug: true
 eureka:
   client:
-    fetchRegistry: true
+    healthcheck: true
     registryFetchIntervalSeconds: 5
+    fetch-registry: true
     serviceUrl:
-      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
   instance:
-    prefer-ip-address: true
-    hostname: notification
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true
 
