@@ -1,0 +1,80 @@
+version: '2.1'
+
+services:
+
+  gateway:
+    image: 172.16.0.253:5000/gateway:$TAG
+    build: gateway
+    ports:
+      - 9000:9000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+    restart: always
+    networks:
+      networktraining:
+        ipv4_address: 172.16.7.1
+
+  registry:
+    image: 172.16.0.253:5000/registry:$TAG
+    build: registry
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+    networks:
+      networktraining:
+        ipv4_address: 172.16.7.2
+
+  authentication-service:
+    image: 172.16.0.253:5000/authentication:$TAG
+    build: authentication
+    ports:
+      - 9001:9001
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+    restart: always
+    networks:
+      networktraining:
+        ipv4_address: 172.16.7.3
+
+
+
+  fileupload-service:
+    image: 172.16.0.253:5000/fileupload:$TAG
+    build: fileupload
+    ports:
+      - 9021:9021
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - $LOG_PATH:/logs
+      - $UPLOAD_PATH:/uploads
+    networks:
+      networktraining:
+        ipv4_address: 172.16.7.4
+    #network_mode: host
+
+networks:
+  networktraining:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.7.0/16
+          gateway: 172.16.202.202
+
+
+# docker network create --subnet=172.16.7.0/16  --gateway=172.16.202.202   mynet123456

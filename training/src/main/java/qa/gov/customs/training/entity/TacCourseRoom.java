@@ -79,7 +79,7 @@ public class TacCourseRoom implements java.io.Serializable {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-@JsonManagedReference(value="room")
+//@JsonManagedReference(value="room")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseRoom")
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;

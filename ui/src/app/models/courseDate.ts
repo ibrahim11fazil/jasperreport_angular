@@ -3,7 +3,8 @@ import { TacActivity } from "./tac-activity";
 export class CourseDate {
 
     public dateId:Number;
-    public  tacCourseDate:Date;
+    public  tacCourseDate?:Date;
+    public  courseDate:Date;
     public tacActivity:TacActivity;
 	// private Set<TacCourseRoom> tacCourseRooms = new HashSet<TacCourseRoom>(0);
 constructor(dateId:Number,tacCourseDate:Date)

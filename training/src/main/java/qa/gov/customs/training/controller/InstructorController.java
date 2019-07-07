@@ -12,9 +12,9 @@ import qa.gov.customs.training.entity.TacCommSubjects;
 import qa.gov.customs.training.entity.TacInstructorMaster;
 import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.service.InstructorService;
-import qa.gov.customs.utils.Constants;
-import qa.gov.customs.utils.MessageUtil;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.customs.training.utils.Constants;
+import qa.gov.customs.training.utils.MessageUtil;
+import qa.gov.customs.training.utils.models.ResponseType;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;

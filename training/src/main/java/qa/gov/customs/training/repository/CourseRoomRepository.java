@@ -11,8 +11,7 @@ import java.util.List;
 public interface CourseRoomRepository extends JpaRepository<TacCourseRoom, BigDecimal> {
 
 
-    @Query(value="select ROOM_ID,ROOM_NAME  from TAC_COURSE_ROOM where locationId=:locationId",nativeQuery=true)
+    @Query(value="select ROOM_ID,ROOM_NAME  from TAC_COURSE_ROOM where location_Id=:locationId",nativeQuery=true)
     List<TacCourseRoom> findByLocationId(BigDecimal locationId);
-
    TacCourseRoom findByRoomId(BigDecimal roomId);
 }

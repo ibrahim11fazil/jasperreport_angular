@@ -8,9 +8,9 @@ import qa.gov.customs.cis.entity.CisCourseRequest;
 import qa.gov.customs.cis.entity.EmployeeCaseDetails;
 import qa.gov.customs.cis.security.CustomPrincipal;
 import qa.gov.customs.cis.service.CisService;
-import qa.gov.customs.utils.Constants;
-import qa.gov.customs.utils.MessageUtil;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.customs.cis.utils.Constants;
+import qa.gov.customs.cis.utils.MessageUtil;
+import qa.gov.customs.cis.utils.models.ResponseType;
 
 import java.util.List;
 

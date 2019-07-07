@@ -40,3 +40,29 @@ eureka:
     fetchRegistry: false
     server:
       waitTimeInMsWhenSyncEmpty: 0
+
+logging:
+  pattern:
+    console: '@%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    file: '@%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  level:
+    org:
+      springframework:
+        web: ERROR
+      hibernate: ERROR
+    qa:
+      gov:
+        customs:
+          authentication: DEBUG
+  file: logs/registry.log
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true

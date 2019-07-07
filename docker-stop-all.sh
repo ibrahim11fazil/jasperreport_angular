@@ -16,10 +16,10 @@ if [ -z "$DOCKER_IMAGE_IDS" -o "$DOCKER_IMAGE_IDS" == " " ]; then
      docker rmi  $DOCKER_IMAGE_IDS
 fi
 
-#docker stop `docker ps -a -q --filter 'name=^/training'`
+#docker stop $(docker ps -a -q --filter 'name=^/training')
 
-#docker rm  `docker ps -a -q --filter 'name=^/training'`
+#docker rm  $(docker ps -a -q --filter 'name=^/training')
 
-#docker rmi `docker images |grep 'training'`
+#docker rmi $(docker images |grep 'training')
 
 echo 'finished cleaning'

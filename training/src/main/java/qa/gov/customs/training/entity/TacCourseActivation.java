@@ -3,6 +3,8 @@ package qa.gov.customs.training.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,6 +17,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "TAC_COURSE_ACTIVATION", schema = "CUST_TAC")
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+		property = "activationId")
 public class TacCourseActivation implements java.io.Serializable {
 
 	private BigDecimal activationId;
@@ -97,7 +102,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setActivationId(BigDecimal activationId) {
 		this.activationId = activationId;
 	}
-	@JsonBackReference(value="activation")
+	//@JsonBackReference(value="activation")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID")
 	public TacCourseMaster getTacCourseMaster() {
@@ -107,7 +112,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
 		this.tacCourseMaster = tacCourseMaster;
 	}
-	@JsonBackReference(value="room")
+	//@JsonBackReference(value="room")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ROOM_ID")
 	public TacCourseRoom getTacCourseRoom() {
@@ -117,7 +122,7 @@ public class TacCourseActivation implements java.io.Serializable {
 	public void setTacCourseRoom(TacCourseRoom tacCourseRoom) {
 		this.tacCourseRoom = tacCourseRoom;
 	}
-	@JsonBackReference(value="date")
+	//@JsonBackReference(value="date")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DATE_ID")
 	public TacCourseDate getTacCourseDate() {

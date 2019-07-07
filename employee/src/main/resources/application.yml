@@ -28,9 +28,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
-    username: CUST_EMPLOYEE
-    password: cemp4tst123
+    url: ${EMPLOYEE_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
+    username: ${EMPLOYEE_DB_URL_USER:CUST_EMPLOYEE}
+    password: ${EMPLOYEE_DB_URL_PASWORD:cemp4tst123}
 #    url: jdbc:oracle:thin:@//localhost:1521/xe
 #    username: raj
 #    password: 12345
@@ -73,8 +73,23 @@ logging:
   file: logs/employee.log
 
 eureka:
-  instance:
-    prefer-ip-address: true
   client:
+    healthcheck: true
+    registryFetchIntervalSeconds: 5
+    fetch-registry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true

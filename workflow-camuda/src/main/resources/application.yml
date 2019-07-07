@@ -26,9 +26,9 @@ spring:
 #    url: jdbc:oracle:thin:@//localhost:1521/xe
 #    username: camuda
 #    password: 12345
-    url: jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST
-    username: CUST_WORKFLOW
-    password: wflo4tst123
+    url: ${WORKFLOW_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
+    username: ${WORKFLOW_DB_URL_USER:CUST_WORKFLOW}
+    password: ${WORKFLOW_DB_URL_PASWORD:wflo4tst123}
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -76,10 +76,24 @@ camunda:
        database:
         jdbc-batch-processing: false
 
-
 eureka:
-  instance:
-    prefer-ip-address: true
   client:
+    healthcheck: true
+    registryFetchIntervalSeconds: 5
+    fetch-registry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true

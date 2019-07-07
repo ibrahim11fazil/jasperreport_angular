@@ -16,9 +16,9 @@ import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
-import qa.gov.customs.utils.Constants;
-import qa.gov.customs.utils.MessageUtil;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.customs.training.utils.Constants;
+import qa.gov.customs.training.utils.MessageUtil;
+import qa.gov.customs.training.utils.models.ResponseType;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -412,6 +412,7 @@ public class CourseController {
 			return response;
 		}
 	}
+	@PreAuthorize("hasAnyAuthority('get_all_course_location')")
 	@GetMapping("/get-all-courseLocation")
 	public ResponseType getAllCourseLocation() {
 		List<TacCourseLocation> location = null;
@@ -505,6 +506,23 @@ public class CourseController {
 			return response;
 		}
 	}
+	@PreAuthorize("hasAnyAuthority('courseActivation_list')")
+	@PostMapping("/get-all-activationList")
+	public ResponseType getActivationsById(@RequestBody TacCourseActivation courseActivation)
+	{
+		TacCourseActivation course = null;
+		course = courseService.getCourseActivationByActivationId(courseActivation);
+
+		if (course != null) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, course);
+			return response;
+		} else {
+
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+			return response;
+		}
+	}
 	@PreAuthorize("hasAnyAuthority('list_activations')")
 	@PostMapping("/list-activations-by-courseName")
 	public ResponseType listactivations(@RequestBody  TacCourseMaster courseMaster) {
@@ -537,14 +555,14 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('course_room_detail')")
+	@PreAuthorize("hasAnyAuthority('get_training_room')")
 	@PostMapping("/get-course-room")
-	public ResponseType getCourseRoom(@RequestBody  TacCourseMaster courseMaster)
+	public ResponseType getCourseRoom(@RequestBody  TacCourseLocation courseLocation)
 	{
-		TacCourseRoom courseRoom=courseService.getCourseroom(courseMaster.getCourseId());
-		if(courseRoom!=null)
+		TacCourseLocation location=courseService.getCourseroom(courseLocation.getLocationId());
+		if(courseLocation!=null)
 		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseRoom);
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, location);
 			return response;
 		}
 		else

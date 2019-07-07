@@ -7,9 +7,9 @@ spring:
 server:
   port: 9000
 
-feign:
-  hystrix:
-    enabled: false
+#feign:
+#  hystrix:
+#    enabled: false
 
 
 hystrix:
@@ -17,8 +17,9 @@ hystrix:
     default:
       execution:
         isolation:
+          strategy: THREAD
           thread:
-            timeoutInMilliseconds: 20000
+            timeoutInMilliseconds: 60000
 
 ribbon:
   ReadTimeout: 20000
@@ -39,34 +40,34 @@ zuul:
     auth-service:
       sensitiveHeaders:
       path: /authentication/**
-      url: http://localhost:9001
+      url: ${LOGIN_SERVER_URL:http://localhost:9001}
       stripPrefix: true
 
-    account-service:
+    training:
       path: /training/**
       serviceId: training
       stripPrefix: true
       sensitiveHeaders:
 
-    user-service:
+    user:
       path: /user/**
       serviceId: user
       stripPrefix: true
       sensitiveHeaders:
 
-    file-service:
+    fileupload:
       path: /fileupload/**
       serviceId: fileupload
       stripPrefix: true
       sensitiveHeaders:
 
-    employee-service:
+    employee:
       path: /employee/**
       serviceId: employee
       stripPrefix: true
       sensitiveHeaders:
 
-    cis-service:
+    cis:
       path: /cis/**
       serviceId: cis
       stripPrefix: true
@@ -91,4 +92,80 @@ logging:
           gateway: DEBUG
   file: logs/gateway.log
 
+#eureka:
+#  client:
+#    fetchRegistry: true
+#    registryFetchIntervalSeconds: 5
+#    serviceUrl:
+#      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
+#    hostname: gateway
+eureka:
+  client:
+    healthcheck: true
+    registryFetchIntervalSeconds: 5
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+
+# http://${REGISTRY_URL:registry}:8761/eureka/
+
+cloud:
+  inetutils:
+    prfered-networks:
+      - 10.0
+
+#training:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#user:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#fileupload:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#employee:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#auth-service:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
 
