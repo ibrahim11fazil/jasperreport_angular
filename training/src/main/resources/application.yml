@@ -77,7 +77,7 @@ eureka:
     registryFetchIntervalSeconds: 5
     fetch-registry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:localhost}:8761}/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true

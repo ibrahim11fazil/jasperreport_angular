@@ -38,6 +38,7 @@ public class TacJobcardConditions
 	}
 	
 //	@Column(name = "JOB_CONDITIONS", length = 500)
+	
 	public String getJobConditions() {
 		return jobConditions;
 	}

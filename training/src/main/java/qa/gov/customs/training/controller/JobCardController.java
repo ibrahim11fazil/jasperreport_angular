@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import qa.gov.customs.training.entity.TacActivity;
-import qa.gov.customs.training.entity.TacInstructorMaster;
 import qa.gov.customs.training.entity.TacJobcard;
 import qa.gov.customs.training.entity.TacJobcardConditions;
 import qa.gov.customs.training.entity.TacJobcardDuties;
@@ -20,9 +18,9 @@ import qa.gov.customs.training.entity.TacJobcardSkills;
 import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.service.JobcardService;
 import qa.gov.customs.training.service.impl.JobcardServiceImpl;
-import qa.gov.customs.utils.Constants;
-import qa.gov.customs.utils.MessageUtil;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.customs.training.utils.Constants;
+import qa.gov.customs.training.utils.MessageUtil;
+import qa.gov.customs.training.utils.models.ResponseType;
 
 
 @RestController
@@ -67,40 +65,40 @@ public class JobCardController
 //	
 //	// Conditions
 	
-	@PreAuthorize("hasAnyAuthority('add_jobcardConditions')")
-	@PostMapping("/add-jobcardConditions")
-	public ResponseType AddjobcardConditions(@Valid @RequestBody TacJobcardConditions jobcardConditions)
-	{
-    	System.out.println("add jobcardConditions");
-        TacJobcardConditions newjobcardConditions = null;
-        ResponseType response=null;
-        
-        if(jobcardConditions!=null)
-        {
-        		newjobcardConditions = jobcardService.createJobcardConditions(jobcardConditions);
-        			if(newjobcardConditions!=null)
-        			{
-        					 response = new ResponseType(201, MessageUtil.jobcardConditions_CREATED, true, newjobcardConditions);
-        
-
-        			}
-        			else
-        			{
-        				 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-	
-        			}
-        }
-		else
-		{
-			 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-
-		}
-    
-
-		return response;
-		
-		
-	}
+//	@PreAuthorize("hasAnyAuthority('add_jobcardConditions')")
+//	@PostMapping("/add-jobcardConditions")
+//	public ResponseType AddjobcardConditions(@Valid @RequestBody TacJobcardConditions jobcardConditions)
+//	{
+//    	System.out.println("add jobcardConditions");
+//        TacJobcardConditions newjobcardConditions = null;
+//        ResponseType response=null;
+//        
+//        if(jobcardConditions!=null)
+//        {
+//        		newjobcardConditions = jobcardService.createJobcardConditions(jobcardConditions);
+//        			if(newjobcardConditions!=null)
+//        			{
+//        					 response = new ResponseType(201, MessageUtil.JOBCARDCONDITIONS_CREATED, true, newjobcardConditions);
+//        
+//
+//        			}
+//        			else
+//        			{
+//        				 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+//	
+//        			}
+//        }
+//		else
+//		{
+//			 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+//
+//		}
+//    
+//
+//		return response;
+//		
+//		
+//	}
 }	
 //	
 //	//Skills
@@ -117,7 +115,7 @@ public class JobCardController
 //	        		newjobcardSkills = JobcardService.CreateJobcardSkills(jobcardSkills);
 //	        			if(newjobcardSkills!=null)
 //	        			{
-//	        					ResponseType response = new ResponseType(201, MessageUtil.jobcardSkills_CREATED, true, newjobcardSkills);
+//	        					ResponseType response = new ResponseType(201, MessageUtil.JOBCARDSKILLS_CREATED, true, newjobcardSkills);
 //	        
 //						return response;
 //	        			}

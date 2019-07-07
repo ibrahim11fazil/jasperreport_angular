@@ -20,17 +20,17 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name ="TAC_JOBCARD_SKILLS", schema = "CUST_TAC")
 public class TacJobcardSkills {
 	
-	public TacJobcardSkills(BigDecimal skillsId, String jobSkills)//,TacJobcard tacJobcard)
+	public TacJobcardSkills(BigDecimal skillsId, String jobSkills,TacJobcard tacJobcard)
 	{
 		//super();
 		this.jobSkills = jobSkills;
 		this.skillsID=skillsId;
-		//this.tacJobcard=tacJobcard;
+		this.tacJobcard=tacJobcard;
 		   
 	}
 	private BigDecimal skillsID;
 	private String jobSkills;
-	//private TacJobcard tacJobcard;
+	private TacJobcard tacJobcard;
 
 		public TacJobcardSkills() {
 			
@@ -57,16 +57,16 @@ public class TacJobcardSkills {
 		}
 		
 
-//		@JsonBackReference(value="skills")
-//		@ManyToOne(fetch = FetchType.LAZY)
-//		@JoinColumn(name = "JOBCARD_NO")
-//		public TacJobcard getTacJobcard() {
-//			return tacJobcard;
-//		}
-//
-//		public void setTacJobcard(TacJobcard tacJobcard) {
-//			this.tacJobcard = tacJobcard;
-//		}
+		@JsonBackReference(value="skills")
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name = "JOBCARD_NO")
+		public TacJobcard getTacJobcard() {
+			return tacJobcard;
+		}
+
+		public void setTacJobcard(TacJobcard tacJobcard) {
+			this.tacJobcard = tacJobcard;
+		}
 
 
 }

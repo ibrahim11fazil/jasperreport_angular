@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+//import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -29,7 +29,7 @@ import java.util.Optional;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableZuulProxy
-@EnableHystrixDashboard
+//@EnableHystrixDashboard
 public class GatewayApplication {
 
     public static void main(String[] args) {
