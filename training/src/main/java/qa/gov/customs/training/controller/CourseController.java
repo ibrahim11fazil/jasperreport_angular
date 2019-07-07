@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.Course;
+import qa.gov.customs.training.models.ActivationList;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
@@ -526,18 +527,30 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('list_activations')")
 	@PostMapping("/list-activations-by-courseName")
 	public ResponseType listactivations(@RequestBody  TacCourseMaster courseMaster) {
-		List<TacCourseActivation> activationList = null;
-		activationList = courseService.listactivations(courseMaster.getCourseName(),courseMaster.getStart(),courseMaster.getLimit());
-		if(activationList!=null)
-		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activationList);
-			return response;
+		List<TacCourseActivation> activations = null;
+		Set<ActivationList> listActivity=new HashSet<>();
+		ActivationList activationDetail=new ActivationList();
+		activations = courseService.listactivations(courseMaster.getCourseName(),courseMaster.getStart(),courseMaster.getLimit());
+		if(activations!=null) {
+			for (TacCourseActivation activation : activations) {
+				activationDetail.setActivationId(activation.getActivationId());
+				activationDetail.setActivationDate(activation.getActivationDate());
+				activationDetail.setCourseName(courseMaster.getCourseName());
+				if(activationDetail!=null) {
+					listActivity.add(activationDetail);
+				}
+
+			}
+
 		}
-		else
-		{
-			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, listActivity);
 			return response;
-		}
+
+//		else
+//		{
+//			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+//			return response;
+//		}
 	}
 	@PreAuthorize("hasAnyAuthority('course_date_detail')")
 	@PostMapping("/get-course-date")
