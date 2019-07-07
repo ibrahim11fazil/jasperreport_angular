@@ -118,8 +118,8 @@ export class ActivateCourseComponent implements OnInit {
       data => {
 
 
-        var location = <ResponseLocation>data
-        this.tacCourseLocation = location.data
+        var response = <ResponseLocation>data
+        this.tacCourseLocation = response.data
         console.log("formSetUp", this.tacCourseLocation)
       },
       error => {
@@ -162,6 +162,7 @@ export class ActivateCourseComponent implements OnInit {
         this.toastr.error(error.message)
       }
     )
+   
 
     // this.trainingService.getAllCourseCategories().subscribe(
     //   data => {
@@ -178,7 +179,7 @@ export class ActivateCourseComponent implements OnInit {
   }
 
   patch() {
-    debugger
+    //debugger
     var courseArray = this.courseList.filter(i => i.courseId == this.tacCourseActivation.tacCourseMaster.courseId)
     if (courseArray[0] != null) {
       this.form.controls['courseSelect'].patchValue(
@@ -186,28 +187,24 @@ export class ActivateCourseComponent implements OnInit {
       )
 
     }
+    const instrcutorControl = this.getControlOfAddMore('instructorSelect');
+    //this.form.setControl('dateOptions', this.fb.array([]));
+    this.tacCourseActivation.tacCourseInstructors.forEach(x => {
+      //debugger
+      console.log(x.instructorId)
+      instrcutorControl.push(this.patchValues(x.instructorId,x.name))
+    })
 
-    var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.tacCourseActivation.tacCourseMaster.locationType)
-    console.log("patch", this.tacCourseLocation)
-    console.log("patch", locationArray)
-    // this.getCourseroom(this.tacCourseActivation.tacCourseMaster.locationType)
-    if (locationArray[0] != null) {
-      // this.roomLocation=locationArray[0].
-      this.form.controls['locationSelect'].patchValue(
-        locationArray[0]
-      )
-    }
-
-    var belongsArray = this.mainCourseList.filter(i => i.courseId == this.tacCourseActivation.dependentId)
-    if (belongsArray[0] != null) {
-      this.form.controls['belongsSelect'].patchValue(
-        belongsArray[0]
-      )
-    }
     var cordinatorArray = this.userList.filter(i => i.id == this.tacCourseActivation.coordinatorId)
     if (cordinatorArray[0] != null) {
       this.form.controls['userSelect'].patchValue(
         cordinatorArray[0]
+      )
+    }
+    var belongsArray = this.mainCourseList.filter(i => i.courseId == this.tacCourseActivation.dependentId)
+    if (belongsArray[0] != null) {
+      this.form.controls['belongsSelect'].patchValue(
+        belongsArray[0]
       )
     }
     var dateArray = this.tacCourseActivation.tacCourseMaster.tacCourseDates.filter(i => i.dateId == this.tacCourseActivation.tacCourseDate.dateId)
@@ -218,15 +215,24 @@ export class ActivateCourseComponent implements OnInit {
       )
     }
 
-
-    var roomArray = this.trainingRoomDetail.tacCourseRoom.filter(i => i.roomId == this.tacCourseActivation.tacCourseRoom.roomId)
+    var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.tacCourseActivation.tacCourseMaster.locationType)
+    // this.getCourseroom(this.tacCourseActivation.tacCourseMaster.locationType)
+    if (locationArray[0] != null) {
+      // this.roomLocation=locationArray[0].
+      this.form.controls['locationSelect'].patchValue(
+        locationArray[0]
+      )
+    }
+    //trainingRoomDetail.tacCourseRoom
+    debugger;
+    var roomArray = this.roomDetails.filter(i => i.roomId == this.tacCourseActivation.tacCourseRoom.roomId)
     if (roomArray[0] != null) {
       this.form.controls['roomSelect'].patchValue(
         roomArray[0]
       )
     }
 
-
+    
   
 
   }
@@ -303,7 +309,7 @@ export class ActivateCourseComponent implements OnInit {
     var tacCourseRoom = new TrainingRoom(0, "");
     tacCourseRoom.roomId = this.form.value.roomSelect.roomId;
     courseActivation.tacCourseRoom = tacCourseRoom;
-debugger
+//debugger
     const instructorOptions = this.getControlOfAddMore('instructorSelect');
     var instructors = <TacInstructor[]>instructorOptions.value;
     this.tacCourseActivation.tacCourseInstructors = instructors;
@@ -344,7 +350,7 @@ debugger
   //   courseByIdList(courseMaster){
   //   this.trainingService.getCourseById(courseMaster).subscribe(
   //     data => {
-  //  debugger;
+  //  //debugger;
   //       var response = <ResponseTacCourseMaster> data
   //       this.courseDetails=response.data
   //       this.tacCourseDate=this.courseDetails.tacCourseDates
@@ -391,14 +397,15 @@ debugger
   }
 
   loadData(data) {
-    debugger
-    //console.log("inside loadData")
+    //debugger
     this.tacCourseActivation = data.data
     this.tacCourseDateList = this.tacCourseActivation.tacCourseMaster.tacCourseDates
-    this.tacCourseLocation = this.tacCourseLocation
+    // this.tacCourseLocation = this.tacCourseLocation
+    
     this.getCourseroom(this.tacCourseActivation.tacCourseMaster.locationType)
-    this.trainingRoomDetail=this.trainingRoomDetail
+    this.trainingRoomDetail=this.trainingRoomDetail;
     this.formInit()
+    //this.formSetup()
     this.patch()
   }
 
@@ -422,7 +429,10 @@ debugger;
       data => {
         var response = <ResponseLocationDetail>data
         this.trainingRoomDetail = response.data
-        console.log("getCourseRoom", response.data);
+        this.roomDetails=this.trainingRoomDetail .tacCourseRooms
+        
+        console.log("getCourseRoom", response.data)
+        this.patch()
 
       },
       error => {
@@ -430,6 +440,7 @@ debugger;
         this.toastr.error(error.message)
       }
     )
+    
   }
 
 }
