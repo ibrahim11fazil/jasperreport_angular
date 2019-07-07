@@ -119,53 +119,53 @@ cloud:
     prfered-networks:
       - 10.0
 
-training:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    ConnectTimeout: 5000
-    ReadTimeout: 5000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-user:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    ConnectTimeout: 5000
-    ReadTimeout: 5000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-fileupload:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    ConnectTimeout: 5000
-    ReadTimeout: 5000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-employee:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    ConnectTimeout: 5000
-    ReadTimeout: 5000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-auth-service:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    ConnectTimeout: 5000
-    ReadTimeout: 5000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
+#training:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#user:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#fileupload:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#employee:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#auth-service:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 5000
+#    ReadTimeout: 5000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
 
