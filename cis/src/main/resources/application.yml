@@ -71,11 +71,31 @@ logging:
           authentication: DEBUG
   file: logs/cis.log
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://registry:8761/eureka/
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    serviceUrl:
+#      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
 
-debug: true
+eureka:
+  client:
+    healthcheck: true
+    registryFetchIntervalSeconds: 5
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true

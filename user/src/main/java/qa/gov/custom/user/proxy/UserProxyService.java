@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.custom.user.utils.models.ResponseType;
 
 @FeignClient(name="employee")
 //RibbonClient(name="employee")

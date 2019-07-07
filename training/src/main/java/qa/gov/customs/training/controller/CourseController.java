@@ -16,9 +16,9 @@ import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
-import qa.gov.customs.utils.Constants;
-import qa.gov.customs.utils.MessageUtil;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.customs.training.utils.Constants;
+import qa.gov.customs.training.utils.MessageUtil;
+import qa.gov.customs.training.utils.models.ResponseType;
 
 import java.math.BigDecimal;
 import java.util.*;

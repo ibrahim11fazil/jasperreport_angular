@@ -8,9 +8,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.employee.entity.*;
 import qa.gov.customs.employee.service.MawaredService;
-import qa.gov.customs.utils.Constants;
-import qa.gov.customs.utils.MessageUtil;
-import qa.gov.customs.utils.models.ResponseType;
+import qa.gov.customs.employee.utils.Constants;
+import qa.gov.customs.employee.utils.MessageUtil;
+import qa.gov.customs.employee.utils.models.ResponseType;
 
 import java.util.List;
 
