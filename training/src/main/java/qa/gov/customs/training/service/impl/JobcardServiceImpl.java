@@ -22,6 +22,7 @@ import qa.gov.customs.training.service.JobcardService;
 public class JobcardServiceImpl implements JobcardService{
 	@Autowired
 	JobcardRepository jobcardRepository;
+	JobcardConditionsRepository jobcardConditionsRepository;
 	@Override
 	public TacJobcard createJobcard(TacJobcard jobcard)
 	{
@@ -33,11 +34,11 @@ public class JobcardServiceImpl implements JobcardService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	@Override
 	public List<TacJobcardConditions> searchJobcardConditions(BigDecimal jobcardno) {
 		// TODO Auto-generated method stub
@@ -96,13 +97,13 @@ public class JobcardServiceImpl implements JobcardService{
 //		
 //	}
 //	
-//	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions)
-//	{
-//		TacJobcardConditions MyJobcardConditions=JobcardConditionsRepository.save(jobcardConditions);
-//		return MyJobcardConditions;
-//	}
-//	
-//	
+	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions)
+	{
+		TacJobcardConditions MyJobcardConditions=jobcardConditionsRepository.save(jobcardConditions);
+		return MyJobcardConditions;
+	}
+	
+	
 //	@Override
 //	public void deleteConditions(TacJobcardConditions jobcardConditions) 
 //	{

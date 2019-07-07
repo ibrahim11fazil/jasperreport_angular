@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -17,9 +18,10 @@ public class TacJobcardCourseLink {
 		COURSE_ID = cOURSE_ID;
 		MANDATORY_FLAG = mANDATORY_FLAG;
 	}
+	@Id
 	private BigDecimal JOBCARD_NO;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOBCARD_NO", nullable = false, insertable = false, updatable = false)
+	//@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "JOBCARD_NO", nullable = false, insertable = false, updatable = false)
 	public BigDecimal getJOBCARD_NO() {
 		return JOBCARD_NO;
 	}
@@ -30,8 +32,8 @@ public class TacJobcardCourseLink {
 	public BigDecimal getCOURSE_ID() {
 		return COURSE_ID;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COURSE_ID", nullable = false, insertable = false, updatable = false)
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "COURSE_ID", nullable = false, insertable = false, updatable = false)
 	public void setCOURSE_ID(BigDecimal cOURSE_ID) {
 		COURSE_ID = cOURSE_ID;
 	}

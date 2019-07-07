@@ -41,54 +41,67 @@ public class JobCardController
 	{
     	System.out.println("create jobcard");
         TacJobcard newJobcard = null;
+        ResponseType response=null;
         if(jobcard!=null)
         {
         	      	
         		newJobcard = jobcardService.createJobcard(jobcard);
         			if(newJobcard!=null)
         			{
-        					ResponseType response = new ResponseType(201, MessageUtil.JOBCARD_CREATED, true, newJobcard);
+        					 response = new ResponseType(201, MessageUtil.JOBCARD_CREATED, true, newJobcard);
         
-					return response;
+				//	return response;
         			}
         			else
         			{
-        				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-        				return response;	
+        				 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+        			//	return response;	
         			}
         	}
-    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+//    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
 		return response;
 	}
-}
+
 	
 	//Add 
 //	
 //	// Conditions
-//	
-//	@PreAuthorize("hasAnyAuthority('add_jobcardConditions')")
-//	@PostMapping("/add-jobcardConditions")
-//	
-//	public ResponseType AddjobcardConditions(@Valid @RequestBody TacJobcardConditions jobcardConditions)
-//	{
-//    	System.out.println("add jobcardConditions");
-//        TacJobcardConditions newjobcardConditions = null;
-//               	
-//        		newjobcardConditions = JobcardService.createJobcardConditions(jobcardConditions);
-//        			if(newjobcardConditions!=null)
-//        			{
-//        					ResponseType response = new ResponseType(201, MessageUtil.jobcardConditions_CREATED, true, newjobcardConditions);
-//        
-//					return response;
-//        			}
-//        			else
-//        			{
-//        				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-//        				return response;	
-//        			}
-//        	
-//	}
-//	
+	
+	@PreAuthorize("hasAnyAuthority('add_jobcardConditions')")
+	@PostMapping("/add-jobcardConditions")
+	public ResponseType AddjobcardConditions(@Valid @RequestBody TacJobcardConditions jobcardConditions)
+	{
+    	System.out.println("add jobcardConditions");
+        TacJobcardConditions newjobcardConditions = null;
+        ResponseType response=null;
+        
+        if(jobcardConditions!=null)
+        {
+        		newjobcardConditions = jobcardService.createJobcardConditions(jobcardConditions);
+        			if(newjobcardConditions!=null)
+        			{
+        					 response = new ResponseType(201, MessageUtil.jobcardConditions_CREATED, true, newjobcardConditions);
+        
+
+        			}
+        			else
+        			{
+        				 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+	
+        			}
+        }
+		else
+		{
+			 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+
+		}
+    
+
+		return response;
+		
+		
+	}
+}	
 //	
 //	//Skills
 //	

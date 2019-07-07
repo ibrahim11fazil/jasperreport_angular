@@ -2,37 +2,71 @@ package qa.gov.customs.training.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name ="TAC_JOBCARD_SKILLS", schema = "CUST_TAC")
 public class TacJobcardSkills {
 	
-	public TacJobcardSkills(BigDecimal jOBCARD_NO, String jOB_SKILLS) {
-		super();
-		JOBCARD_NO = jOBCARD_NO;
-		JOB_SKILLS = jOB_SKILLS;
+	public TacJobcardSkills(BigDecimal skillsId, String jobSkills)//,TacJobcard tacJobcard)
+	{
+		//super();
+		this.jobSkills = jobSkills;
+		this.skillsID=skillsId;
+		//this.tacJobcard=tacJobcard;
+		   
 	}
-	private BigDecimal JOBCARD_NO;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOBCARD_NO", nullable = false, insertable = false, updatable = false)
-	public BigDecimal getJOBCARD_NO() {
-		return JOBCARD_NO;
-	}
-	public void setJOBCARD_NO(BigDecimal jOBCARD_NO) {
-		JOBCARD_NO = jOBCARD_NO;
-	}
-	public String getJOB_SKILLS() {
-		return JOB_SKILLS;
-	}
-	public void setJOB_SKILLS(String jOB_SKILLS) {
-		JOB_SKILLS = jOB_SKILLS;
-	}
-	private String JOB_SKILLS;
-	
+	private BigDecimal skillsID;
+	private String jobSkills;
+	//private TacJobcard tacJobcard;
+
+		public TacJobcardSkills() {
+			
+		}
+
+		@Id
+		@Column(name = "SKILLS_ID", unique = true, nullable = false, precision = 22, scale = 0)
+		@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "skillsId_Sequence")
+	    @SequenceGenerator(name = "skillsId_Sequence", sequenceName = "TAC_SKILLS_ID_SEQ",allocationSize = 1)
+		public BigDecimal getSkillsID() {
+			return skillsID;
+		}
+
+		public void setSkillsID(BigDecimal skillsID) {
+			this.skillsID = skillsID;
+		}
+
+		public String getJobSkills() {
+			return jobSkills;
+		}
+
+		public void setJobSkills(String jobSkills) {
+			this.jobSkills = jobSkills;
+		}
+		
+
+//		@JsonBackReference(value="skills")
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumn(name = "JOBCARD_NO")
+//		public TacJobcard getTacJobcard() {
+//			return tacJobcard;
+//		}
+//
+//		public void setTacJobcard(TacJobcard tacJobcard) {
+//			this.tacJobcard = tacJobcard;
+//		}
+
 
 }

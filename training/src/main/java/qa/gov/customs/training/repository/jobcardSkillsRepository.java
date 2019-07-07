@@ -12,7 +12,7 @@ public interface jobcardSkillsRepository extends JpaRepository<TacJobcardSkills,
 	
 	
 	//skills
-	@Query(value="select * from TAC_JOBCARDSKILLS where TAC_JOBCARDSKILLS.JOBCARD_NO Like :JOBCARDNO order by TAC_JOBCARDSKILLS.JOBCARD_NO",nativeQuery=true)
+	@Query(value="select * from TAC_JOBCARDSKILLS where TAC_JOBCARDSKILLS.JOBCARD_NO Like :jobcardNo order by TAC_JOBCARDSKILLS.JOBCARD_NO",nativeQuery=true)
 	List<TacJobcardSkills> findSkills(BigDecimal jobcardNo);
 	
 

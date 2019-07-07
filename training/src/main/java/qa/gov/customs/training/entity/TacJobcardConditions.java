@@ -2,45 +2,80 @@ package qa.gov.customs.training.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name ="TAC_JOBCARD_CONDITIONS", schema = "CUST_TAC")
-
 public class TacJobcardConditions 
 
 {
+	
+	private String jobConditions;
+	private BigDecimal conditionsId;
+	private TacJobcard tacJobcard;
+	
+	public TacJobcardConditions( String jobConditions,BigDecimal conditionsId, TacJobcard tacJobcard) 
+	{
+		//super();
+		this.jobConditions = jobConditions;
+		this.conditionsId=conditionsId;
+		this.tacJobcard=tacJobcard;
+	}
+	
+	public TacJobcardConditions(){
+		
+	}
+	
+//	@Column(name = "JOB_CONDITIONS", length = 500)
+	public String getJobConditions() {
+		return jobConditions;
+	}
 
-	public TacJobcardConditions(BigDecimal jOBCARD_NO, String jOB_CONDITIONS) {
-		super();
-		JOBCARD_NO = jOBCARD_NO;
-		JOB_CONDITIONS = jOB_CONDITIONS;
+
+	public void setJobConditions(String jobConditions) {
+		this.jobConditions = jobConditions;
+	}
+
+	@Id
+	
+    @Column(name = "CONDITIONS_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "Id_Sequence")
+    @SequenceGenerator(name = "Id_Sequence", sequenceName = "TAC_CONDITIONS_ID_SEQ",allocationSize = 1)
+	public BigDecimal getConditionsId() {
+		return conditionsId;
 	}
 	
-	private BigDecimal JOBCARD_NO; 
-	public BigDecimal getJOBCARD_NO() {
-		return JOBCARD_NO;
+	public void setConditionsId(BigDecimal conditionsId) {
+		this.conditionsId = conditionsId;
 	}
-	public void setJOBCARD_NO(BigDecimal jOBCARD_NO) {
-		JOBCARD_NO = jOBCARD_NO;
-	}
-	
+
+	@JsonBackReference(value="conditions")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOBCARD_NO", nullable = false, insertable = false, updatable = false)
-	public String getJOB_CONDITIONS() {
-		return JOB_CONDITIONS;
-	}
-	public void setJOB_CONDITIONS(String jOB_CONDITIONS) {
-		JOB_CONDITIONS = jOB_CONDITIONS;
+	@JoinColumn(name = "JOBCARD_NO")
+	public TacJobcard getTacJobcard() {
+		return tacJobcard;
 	}
 
-	private String JOB_CONDITIONS;
+	public void setTacJobcard(TacJobcard tacJobcard) {
+		this.tacJobcard = tacJobcard;
+	}
+	
+	//, insertable = false, updatable = false)
+	
 	
 
-	
-	
+
+
+
 }
