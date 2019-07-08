@@ -7,10 +7,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import qa.gov.customs.training.entity.TacInstructorMaster;
 import qa.gov.customs.training.entity.TacJobcard;
 import qa.gov.customs.training.entity.TacJobcardConditions;
 import qa.gov.customs.training.entity.TacJobcardDuties;
@@ -60,33 +62,46 @@ public class JobCardController
 		return response;
 	}
 
-	@PreAuthorize("hasAnyAuthority('search_JobCard')")
-	@PostMapping("/search-JobCard")
-	public ResponseType searchJobcard(@RequestBody TacJobcard jobcard)
+	@PreAuthorize("hasAnyAuthority('List_JobCard')")
+	@PostMapping("/list-JobCard")
+	public ResponseType listJobcards() 
 	{
-
-		List<TacJobcard> jobcardList=null;
-		if (jobcard!=null)
+		List<TacJobcard> jobcardList = null;
+		jobcardList = jobcardService.listJobcards();
+		if(jobcardList!=null)
 		{
-			jobcardList=jobcardService.searchJobcard(jobcard);
-			if(jobcardList!=null && !jobcardList.isEmpty())
-			{
-				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, jobcardList);
-				return response;
-			}
-			else
-			{
-				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NO_DATA_FOUND, false, null);
-				return response;
-			}
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);
+			return response;
 		}
-
-		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-		return response;
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+	}
+	
+	@PreAuthorize("hasAnyAuthority('List_JobCard')")
+	@PostMapping("/list-JobCard-by-job")
+	public ResponseType listJobcards(@RequestBody  TacJobcard jobcard)
+	{
+		List<TacJobcard> jobcardList = null;
+		//jobcardList = jobcardService.listJobcards();
+		jobcardList = jobcardService.listJobcards(jobcard.getJob(),jobcard.getStart(),jobcard.getLimit());
 		
+		if(jobcardList!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
 	}
-	}
-
+	
+	
+}
 	//Add 
 //	
 //	// Conditions

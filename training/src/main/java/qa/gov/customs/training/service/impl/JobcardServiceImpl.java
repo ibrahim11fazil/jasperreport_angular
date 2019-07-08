@@ -1,9 +1,14 @@
 package qa.gov.customs.training.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import qa.gov.customs.training.entity.TacActivity;
@@ -13,6 +18,7 @@ import qa.gov.customs.training.entity.TacJobcard;
 import qa.gov.customs.training.entity.TacJobcardConditions;
 import qa.gov.customs.training.entity.TacJobcardDuties;
 import qa.gov.customs.training.entity.TacJobcardSkills;
+import qa.gov.customs.training.repository.InstructorRepository;
 import qa.gov.customs.training.repository.JobcardConditionsRepository;
 import qa.gov.customs.training.repository.JobcardRepository;
 import qa.gov.customs.training.repository.jobcardDutiesRepository;
@@ -29,57 +35,139 @@ public class JobcardServiceImpl implements JobcardService{
 		TacJobcard myjobcard=jobcardRepository.save(jobcard);
 		return myjobcard;
 	}
-	@Override
-	public List<TacJobcard> searchJobcard(TacJobcard jobcard) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 //	@Override
-//	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions) {
+//	public List<TacJobcard> searchJobcard(TacJobcard jobcard) {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+//	
+	@Override
+	public List<TacJobcard> listJobcards() {
+		List<TacJobcard> jobcards = new ArrayList<>();
+		jobcardRepository.findAll().forEach(item -> jobcards.add(item));
+		 return jobcards;
+	}
+	
+	@Override
+	public List<TacJobcard> listJobcards(String job, int page, int limit) {
+		List<TacJobcard> jobcards =  new ArrayList<>();
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("job"));
+		if(job==null ||  job.equals("")){
+			Page<TacJobcard> pages = jobcardRepository.findAll(pageable);
+			pages.forEach(item ->jobcards.add(item));
+			return jobcards;
+		}
+		else {
+			return jobcardRepository.findByJob(job,pageable);
+		}
+	}
+
+	@Override
+	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public List<TacJobcardConditions> searchJobcardConditions(BigDecimal jobcardno) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public void deleteJobcardConditions(TacJobcardConditions jobcardConditions) {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public TacJobcardDuties createJobcardDuties(TacJobcardDuties jobcardDuties) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public List<TacJobcardDuties> searchJobcardDuties(BigDecimal jobcardno) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public void deleteJobcardDuties(TacJobcardDuties jobcardDuties) {
 		// TODO Auto-generated method stub
 		
 	}
+
 	@Override
 	public TacJobcardSkills CreateJobcardSkills(TacJobcardSkills jobcardSkills) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public List<TacJobcardSkills> searchJobcardSkills(BigDecimal jobcardno) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public void deleteJobcardSkills(TacJobcardSkills jobcardSkills) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	
+	
+	
+//	@Override
+//	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions) {
+//		// TODO Auto-generated method stub
+//		return null;
+////	}
+//	@Override
+//	public List<TacJobcardConditions> searchJobcardConditions(BigDecimal jobcardno) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public void deleteJobcardConditions(TacJobcardConditions jobcardConditions) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//	@Override
+//	public TacJobcardDuties createJobcardDuties(TacJobcardDuties jobcardDuties) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public List<TacJobcardDuties> searchJobcardDuties(BigDecimal jobcardno) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public void deleteJobcardDuties(TacJobcardDuties jobcardDuties) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//	@Override
+//	public TacJobcardSkills CreateJobcardSkills(TacJobcardSkills jobcardSkills) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public List<TacJobcardSkills> searchJobcardSkills(BigDecimal jobcardno) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public void deleteJobcardSkills(TacJobcardSkills jobcardSkills) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//	
 	
 //	public List<TacJobcard> searchJobcard(String JOB)
 //	{
@@ -97,12 +185,12 @@ public class JobcardServiceImpl implements JobcardService{
 //		
 //	}
 //	
-	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions)
-	{
-		TacJobcardConditions MyJobcardConditions=jobcardConditionsRepository.save(jobcardConditions);
-		return MyJobcardConditions;
-	}
-	
+//	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions)
+//	{
+//		TacJobcardConditions MyJobcardConditions=jobcardConditionsRepository.save(jobcardConditions);
+//		return MyJobcardConditions;
+//	}
+//	
 	
 //	@Override
 //	public void deleteConditions(TacJobcardConditions jobcardConditions) 
