@@ -14,5 +14,6 @@ docker service update --image   172.16.0.253:5000/cis:$TAG cis
 docker service update --image   172.16.0.253:5000/training:$TAG training
 docker service update --image     172.16.0.253:5000/config:$TAG config
 docker service update --image     172.16.0.253:5000/fileupload:$TAG fileupload
+docker service update --image     172.16.0.253:5000/authentication:$TAG authentication
 echo "done"
 fi

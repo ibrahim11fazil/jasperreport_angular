@@ -113,7 +113,7 @@ public class InstructorServiceImpl  implements InstructorService {
 		Pageable pageable =
 				PageRequest.of(
 						page, limit, Sort.by("instructorId"));
-		if(name==null &&  name.equals("")){
+		if(name==null ||  name.equals("")){
 			Page<TacInstructorMaster> pages = instructorRepository.findAll(pageable);
 			pages.forEach(item ->users.add(item));
 			return users;
