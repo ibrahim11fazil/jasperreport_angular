@@ -69,7 +69,7 @@ logging:
     qa:
       gov:
         customs:
-          authentication: DEBUG
+          employee: DEBUG
   file: logs/employee.log
 
 eureka:

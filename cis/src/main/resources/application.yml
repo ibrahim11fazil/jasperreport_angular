@@ -68,7 +68,7 @@ logging:
     qa:
       gov:
         customs:
-          authentication: DEBUG
+          cis: DEBUG
   file: logs/cis.log
 
 #eureka:
