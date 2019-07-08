@@ -22,16 +22,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 public class TacJobcardDuties {
 
-	public TacJobcardDuties( String dutyDescription,BigDecimal dutiesId)//,TacJobcard tacJobcard)
+	public TacJobcardDuties( String dutyDescription,BigDecimal dutiesId,TacJobcard tacJobcard)
 	{
 		//super();
 		this.dutyDescription = dutyDescription;
 		this.dutiesId=dutiesId;
-		//this.tacJobcard=tacJobcard;
+		this.tacJobcard=tacJobcard;
 	}
 	private String dutyDescription;
 	private BigDecimal dutiesId;
-	//private TacJobcard tacJobcard;
+	private TacJobcard tacJobcard;
 
 	public TacJobcardDuties() {
 		
@@ -47,6 +47,7 @@ public class TacJobcardDuties {
 	}
 	
 	@Id
+	
 	@Column(name = "DUTIES_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "dutiesId_Sequence")
     @SequenceGenerator(name = "dutiesId_Sequence", sequenceName = "TAC_DUTIES_ID_SEQ",allocationSize = 1)
@@ -57,17 +58,17 @@ public class TacJobcardDuties {
 	public void setDutiesId(BigDecimal dutiesId) {
 		this.dutiesId = dutiesId;
 	}
-//	
-//	@JsonBackReference(value="duties")
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "JOBCARD_NO")
-//	public TacJobcard getTacJobcard() {
-//		return tacJobcard;
-//	}
-//
-//	public void setTacJobcard(TacJobcard tacJobcard) {
-//		this.tacJobcard = tacJobcard;
-	//}
+	
+	@JsonBackReference(value="duties")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "JOBCARD_NO")
+	public TacJobcard getTacJobcard() {
+		return tacJobcard;
+	}
+
+	public void setTacJobcard(TacJobcard tacJobcard) {
+		this.tacJobcard = tacJobcard;
+	}
 
 
 
