@@ -29,13 +29,13 @@ then
      #./build.sh
      TAG=qa_$(git describe --abbrev=0)
 
-     docker build --file ui/Dockerfile  ui -t 172.16.0.253:5000/ui:$TAG
-     docker build --file workflow/Dockerfile  workflow -t 172.16.0.253:5000/workflow:$TAG
-     docker build --file notification/Dockerfile notification -t 172.16.0.253:5000/notification:$TAG
-     docker build --file user/Dockerfile user -t 172.16.0.253:5000/user:$TAG
-     docker build --file employee/Dockerfile employee -t 172.16.0.253:5000/employee:$TAG
-     docker build --file cis/Dockerfile cis -t 172.16.0.253:5000/cis:$TAG
-     docker build --file training/Dockerfile training -t 172.16.0.253:5000/training:$TAG
+      docker build --file ui/Dockerfile  ui -t 172.16.0.253:5000/ui:$TAG
+      docker build --file workflow/Dockerfile  workflow -t 172.16.0.253:5000/workflow:$TAG
+      docker build --file notification/Dockerfile notification -t 172.16.0.253:5000/notification:$TAG
+      docker build --file user/Dockerfile user -t 172.16.0.253:5000/user:$TAG
+      docker build --file employee/Dockerfile employee -t 172.16.0.253:5000/employee:$TAG
+      docker build --file cis/Dockerfile cis -t 172.16.0.253:5000/cis:$TAG
+      docker build --file training/Dockerfile training -t 172.16.0.253:5000/training:$TAG
       docker build --file config/Dockerfile config -t 172.16.0.253:5000/config:$TAG
       docker build --file fileupload/Dockerfile fileupload -t 172.16.0.253:5000/fileupload:$TAG
       docker build --file authentication/Dockerfile authentication -t 172.16.0.253:5000/authentication:$TAG
