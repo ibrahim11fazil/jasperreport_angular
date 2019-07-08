@@ -122,10 +122,10 @@ eureka:
 
 # http://${REGISTRY_URL:registry}:8761/eureka/
 
-cloud:
-  inetutils:
-    prfered-networks:
-      - 10.0
+#cloud:
+#  inetutils:
+#    prfered-networks:
+#      - 10.0
 
 #training:
 #  ribbon:
