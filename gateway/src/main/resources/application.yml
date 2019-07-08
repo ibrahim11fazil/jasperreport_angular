@@ -12,6 +12,7 @@ server:
 #    enabled: false
 
 
+
 hystrix:
   command:
     default:
@@ -20,8 +21,12 @@ hystrix:
           thread:
             timeoutInMilliseconds: 15000
 
+# load ribbon on startup
 ribbon:
-  ReadTimeout: 15000
+  ReadTimeout: 60000
+  ConnectTimeout: 3000
+  eager-load:
+    enabled: true
 ##service routing setting
 #  zuul.ignored-services=*
 #  zuul.sensitive-headers=Cookie,Set-Cookie
@@ -30,9 +35,9 @@ zuul:
   ignoredServices: '*'
   #ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Authorization,Content-Type
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-  #host:
-  #  connect-timeout-millis: 100000
-  #  socket-timeout-millis: 100000
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
 
   routes:
     auth-service:

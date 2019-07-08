@@ -46,6 +46,7 @@ public class GatewayApplication {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Bean
+    @Primary
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
