@@ -11,39 +11,73 @@ server:
 #  hystrix:
 #    enabled: false
 
-
+#hystrix.command.default.execution.timeout.enabled: false
 
 #hystrix:
 #  command:
 #    default:
 #      execution:
+#        timeout:
+#          enabled: false
 #        isolation:
 #          thread:
-#            timeoutInMilliseconds: 15000
+#            timeoutInMilliseconds: 30000
 #(5000 * 60000) *  (1 + 0) * (2 + 1) = xxxx ms
+#eg:
+
+
+#    ribbon.connectionTimeout is 5000
+#    ribbon.readTimeout is 15000
+#    ribbon.maxAutoRetries is 0 (default)
+#    ribbon.maxAutoRetriesNextServer is 1 (default)
+
+#So the hystrixTimeout should be:
+
+#  (5000 + 15000) * (1 + 0) * (1 + 1) // -> 40000 ms
+
+
+
 # If you choose to not configure Hystrix timeout, the default Hystrix timeout will be xxxx ms .
 #(ribbon.ConnectTimeout + ribbon.ReadTimeout) * (ribbon.MaxAutoRetries + 1) * (ribbon.MaxAutoRetriesNextServer + 1)
 # https://cloud.spring.io/spring-cloud-static/Edgware.SR3/single/spring-cloud.html#_zuul_timeouts
 # load ribbon on startup
+#ribbon:
+#  ReadTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
 ribbon:
-  ConnectTime out: 5000
+  ConnectTimeout: 60000
   ReadTimeout: 60000
-  MaxAutoRetries: 2
-  MaxAutoRetriesNextServer: 1
-  eager-load:
+  eureka:
     enabled: true
+#ribbon:
+#  ReadTimeout: 100000
+#  ConnectTimeout: 10000
+#  MaxAutoRetries: 0
+#  MaxAutoRetriesNextServer: 1
+#  eureka:
+#    enabled: true
+#  eager-load:
+#    enabled: true
+
 ##service routing setting
 #  zuul.ignored-services=*
 #  zuul.sensitive-headers=Cookie,Set-Cookie
 #  zuul.ignored-headers=Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+#zuul.RibbonRoutingFilter.route.disable=true
 zuul:
   ignoredServices: '*'
   #ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Authorization,Content-Type
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-  host:
-    connect-timeout-millis: 60000
-    socket-timeout-millis: 60000
-
+#  host:
+#    connect-timeout-millis: 60000
+#    socket-timeout-millis: 60000
   routes:
     auth-service:
       sensitiveHeaders:
@@ -83,7 +117,7 @@ zuul:
 
 
 
-debug: true
+#debug: true
 
 logging:
   pattern:
@@ -112,8 +146,9 @@ logging:
 eureka:
   client:
     healthcheck: true
-    registryFetchIntervalSeconds: 5
-    fetch-registry: true
+    leaseRenewalIntervalInSeconds: 10
+    #registryFetchIntervalSeconds: 5
+    #fetch-registry: true
     serviceUrl:
       defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
   instance:
@@ -122,18 +157,18 @@ eureka:
 
 # http://${REGISTRY_URL:registry}:8761/eureka/
 
-#cloud:
-#  inetutils:
-#    prfered-networks:
-#      - 10.0
+cloud:
+  inetutils:
+    prfered-networks:
+      - 10.0
 
 #training:
 #  ribbon:
 #    eureka:
-#      enabled: true
-#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#      enabled: false
+#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
@@ -141,9 +176,9 @@ eureka:
 #  ribbon:
 #    eureka:
 #      enabled: true
-#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
@@ -151,9 +186,9 @@ eureka:
 #  ribbon:
 #    eureka:
 #      enabled: true
-#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
@@ -161,9 +196,9 @@ eureka:
 #  ribbon:
 #    eureka:
 #      enabled: true
-#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
@@ -171,9 +206,12 @@ eureka:
 #  ribbon:
 #    eureka:
 #      enabled: true
-#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
-
+#management:
+#  health:
+#    elasticsearch:
+#      response-timeout:
