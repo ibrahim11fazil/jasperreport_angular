@@ -37,7 +37,7 @@ public class JobCardController
 	
 	public ResponseType createJobCard(@Valid @RequestBody TacJobcard jobcard)
 	{
-    	System.out.println("create jobcard");
+    	//System.out.println("create jobcard");
         TacJobcard newJobcard = null;
         ResponseType response=null;
         if(jobcard!=null)
@@ -60,7 +60,33 @@ public class JobCardController
 		return response;
 	}
 
-	
+	@PreAuthorize("hasAnyAuthority('search_JobCard')")
+	@PostMapping("/search-JobCard")
+	public ResponseType searchJobcard(@RequestBody TacJobcard jobcard)
+	{
+
+		List<TacJobcard> jobcardList=null;
+		if (jobcard!=null)
+		{
+			jobcardList=jobcardService.searchJobcard(jobcard);
+			if(jobcardList!=null && !jobcardList.isEmpty())
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, jobcardList);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NO_DATA_FOUND, false, null);
+				return response;
+			}
+		}
+
+		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+		return response;
+		
+	}
+	}
+
 	//Add 
 //	
 //	// Conditions
@@ -99,7 +125,6 @@ public class JobCardController
 //		
 //		
 //	}
-}	
 //	
 //	//Skills
 //	
@@ -161,32 +186,7 @@ public class JobCardController
 //	
 //	//Job card
 //	
-//	@PreAuthorize("hasAnyAuthority('search_JobCard')")
-//	@PostMapping("/search-JobCard")
-//	public ResponseType searchJobcard(@RequestBody TacJobcard jobcard)
-//	{
-//
-//		List<TacJobcard> jobcardList=null;
-//		if (jobcard.getJOB()=null)
-//		{
-//			jobcardList=JobcardService.searchJobcard(jobcard);
-//			if(jobcardList!=null && !jobcardList.isEmpty())
-//			{
-//				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, jobcardList);
-//				return response;
-//			}
-//			else
-//			{
-//				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NO_DATA_FOUND, false, null);
-//				return response;
-//			}
-//		}
-//
-//		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-//		return response;
-//		
-//	}
-//		
+	//		
 //		//duties
 //		
 //		@PreAuthorize("hasAnyAuthority('List_jobcardDuties')")

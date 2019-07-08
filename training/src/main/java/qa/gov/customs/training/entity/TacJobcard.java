@@ -94,7 +94,7 @@ import java.util.Set;
 		private BigDecimal jobcardNo;
 		
 		private Set<TacJobcardConditions> tacJobcardConditions = new HashSet<TacJobcardConditions>(0);
-//		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
+		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
 		private Set<TacJobcardSkills> tacJobcardSkills = new HashSet<TacJobcardSkills>(0);
 		
 		
@@ -104,7 +104,7 @@ import java.util.Set;
 		
 	
 
-		public TacJobcard(String job, String jobTitle, String jobGrade, String jobGroup,String specialGroup,BigDecimal jobcardNo,Set<TacJobcardConditions> tacJobcardConditions,Set<TacJobcardSkills> tacJobcardSkills)//,Set<TacJobcardDuties> tacJobcardDuties,)
+		public TacJobcard(String job, String jobTitle, String jobGrade, String jobGroup,String specialGroup,BigDecimal jobcardNo,Set<TacJobcardConditions> tacJobcardConditions,Set<TacJobcardSkills> tacJobcardSkills,Set<TacJobcardDuties> tacJobcardDuties)
 		{
 			
 			this.job=job;
@@ -114,7 +114,7 @@ import java.util.Set;
 			this.specialGroup=specialGroup;
 			this.jobcardNo=jobcardNo;
 			this.tacJobcardConditions=tacJobcardConditions;
-//			this.tacJobcardDuties=tacJobcardDuties;
+			this.tacJobcardDuties=tacJobcardDuties;
 			this.tacJobcardSkills=tacJobcardSkills;
 			
 		}
@@ -139,19 +139,17 @@ import java.util.Set;
 			this.tacJobcardSkills = tacJobcardSkills;
 		}
 		
-		
 
-//
-//		@JsonManagedReference(value="duties")
-//		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
-//		public Set<TacJobcardDuties> getTacJobcardDuties() {
-//			return tacJobcardDuties;
-//		}
-//
-//		public void setTacJobcardDuties(Set<TacJobcardDuties> tacJobcardDuties) {
-//			this.tacJobcardDuties = tacJobcardDuties;
-//		}
-//		
+		@JsonManagedReference(value="duties")
+		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
+		public Set<TacJobcardDuties> getTacJobcardDuties() {
+			return tacJobcardDuties;
+		}
+
+		public void setTacJobcardDuties(Set<TacJobcardDuties> tacJobcardDuties) {
+			this.tacJobcardDuties = tacJobcardDuties;
+		}
+		
 		
 		
 		
