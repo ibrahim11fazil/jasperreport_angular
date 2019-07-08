@@ -529,13 +529,15 @@ public class CourseController {
 	public ResponseType listactivations(@RequestBody  TacCourseMaster courseMaster) {
 		List<TacCourseActivation> activations = null;
 		Set<ActivationList> listActivity=new HashSet<>();
-		ActivationList activationDetail=new ActivationList();
+
 		activations = courseService.listactivations(courseMaster.getCourseName(),courseMaster.getStart(),courseMaster.getLimit());
 		if(activations!=null) {
 			for (TacCourseActivation activation : activations) {
+				ActivationList activationDetail=new ActivationList();
 				activationDetail.setActivationId(activation.getActivationId());
 				activationDetail.setActivationDate(activation.getActivationDate());
-				activationDetail.setCourseName(courseMaster.getCourseName());
+				//activationDetail.setCourseName(courseMaster.getCourseName());
+				activationDetail.setCourseName(activation.getTacCourseMaster().getCourseName());
 				if(activationDetail!=null) {
 					listActivity.add(activationDetail);
 				}
