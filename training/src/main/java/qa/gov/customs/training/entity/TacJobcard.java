@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -151,6 +152,27 @@ import java.util.Set;
 		}
 		
 		
-		
+		@Transient
+		int start;
+
+		@Transient
+		int limit;
+
+		@Transient
+		public int getStart() {
+			return start;
+		}
+
+		public void setStart(int start) {
+			this.start = start;
+		}
+		@Transient
+		public int getLimit() {
+			return limit;
+		}
+
+		public void setLimit(int limit) {
+			this.limit = limit;
+		}
 		
 		}
