@@ -19,11 +19,11 @@ hystrix:
         isolation:
           strategy: THREAD
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds: 100000
 
 ribbon:
-  ReadTimeout: 20000
-  ConnectTimeout: 20000
+  ReadTimeout: 100000
+  ConnectTimeout: 100000
 ##service routing setting
 #  zuul.ignored-services=*
 #  zuul.sensitive-headers=Cookie,Set-Cookie
@@ -32,9 +32,9 @@ zuul:
   ignoredServices: '*'
   #ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Authorization,Content-Type
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-  host:
-    connect-timeout-millis: 80000
-    socket-timeout-millis: 80000
+  #host:
+  #  connect-timeout-millis: 80000
+  #  socket-timeout-millis: 80000
 
   routes:
     auth-service:
