@@ -337,7 +337,7 @@ public class CourseServiceImpl  implements CourseService {
 		Pageable pageable =
 				PageRequest.of(
 						page, limit, Sort.by("activationId"));
-		if(name==null &&  name.equals("")){
+		if(name==null ||  name.equals("")){
 			//System.out.println(activationRepo.findAll());
 			Page<TacCourseActivation> pages = activationRepo.findAll(pageable);
 			pages.forEach(item ->activations.add(item));
