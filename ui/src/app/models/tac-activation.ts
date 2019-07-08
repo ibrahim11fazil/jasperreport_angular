@@ -74,3 +74,21 @@ export interface ActivationDetails{
 	 tacCourseRoom?:TrainingRoom;
      tacCourseDate?:CourseDate;
 }
+
+export interface ActivationList{
+
+
+    activationId:Number;
+    activationDate:Date;
+    courseName:String;
+}
+
+
+
+export interface IActivationList {
+   status: Boolean;
+   code:number;
+   message:String;
+   data: ActivationList[];
+   count:number;
+}
