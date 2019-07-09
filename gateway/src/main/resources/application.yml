@@ -66,6 +66,9 @@ hystrix:
             timeoutInMilliseconds: 60000
 
 zuul:
+  ribbon:
+    eager-load:
+      enabled: true
   ignoredServices: '*'
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   routes:
@@ -166,7 +169,7 @@ logging:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${registry:REGISTRY_URL}:8761}/eureka/
+      defaultZone: http://registry:8761/eureka/
 #  instance:
 #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 #    preferIpAddress: true

@@ -85,7 +85,8 @@ logging:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${registry:REGISTRY_URL}:8761}/eureka/
+      defaultZone: http://registry:8761/eureka/
+
 
 management:
   endpoint:
