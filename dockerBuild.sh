@@ -44,7 +44,7 @@ then
       echo "QA build done"
 
       echo "Pushing to server "
-      ./docker-push.sh qa
+      #./docker-push.sh qa
       echo "Pushing to server done"
 
 else
