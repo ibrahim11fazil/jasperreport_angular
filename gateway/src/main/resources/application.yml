@@ -94,15 +94,16 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
-    user:
-      path: /user/**
-      serviceId: user
+    userdata:
+      path: /userdata/**
+      serviceId: userdata
       stripPrefix: true
       sensitiveHeaders:
 
     fileupload:
       path: /fileupload/**
-      serviceId: fileupload
+      url: ${FILE_SERVER_URL:http://localhost:9021}
+      #serviceId: fileupload
       stripPrefix: true
       sensitiveHeaders:
 
