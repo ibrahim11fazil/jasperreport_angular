@@ -1,4 +1,6 @@
 server:
+  servlet:
+    context-path: /notification
   port: 9041
 
 feign:

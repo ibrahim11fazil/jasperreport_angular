@@ -34,6 +34,8 @@ file:
   upload-dir: ./uploads
 
 server:
+  servlet:
+    context-path: /fileupload
   port: 9021
 
 feign:

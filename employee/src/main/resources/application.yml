@@ -16,6 +16,8 @@ security:
       clientId: employee
 
 server:
+  servlet:
+    context-path: /employee
   port: 9011
 
 feign:

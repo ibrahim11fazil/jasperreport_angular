@@ -16,8 +16,8 @@ security:
       clientId: user
 
 server:
-#  servlet:
-#    context-path: /training
+  servlet:
+    context-path: /user
   port: 9031
 
 feign:
