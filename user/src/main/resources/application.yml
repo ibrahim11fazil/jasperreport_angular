@@ -95,3 +95,8 @@ management:
       exposure:
         include: ["health","routes","metrics","info"]
       enabled: true
+
+cloud:
+  inetutils:
+    prefered-networks:
+      - 10.0

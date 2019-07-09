@@ -44,42 +44,27 @@ server:
 #ribbon:
 #  ReadTimeout: 60000
 
-hystrix:
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: false
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false
 
-ribbon:
-  ConnectTimeout: 60000
-  ReadTimeout: 60000
-  eureka:
-    enabled: true
 #ribbon:
-#  ReadTimeout: 100000
-#  ConnectTimeout: 10000
-#  MaxAutoRetries: 0
-#  MaxAutoRetriesNextServer: 1
+#  ConnectTimeout: 60000
+#  ReadTimeout: 60000
 #  eureka:
 #    enabled: true
-#  eager-load:
-#    enabled: true
 
-##service routing setting
-#  zuul.ignored-services=*
-#  zuul.sensitive-headers=Cookie,Set-Cookie
-#  zuul.ignored-headers=Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-#zuul.RibbonRoutingFilter.route.disable=true
 zuul:
+  ribbonIsolationStrategy: THREAD
+  threadPool:
+    useSeparateThreadPools: true
   ignoredServices: '*'
-  #ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Authorization,Content-Type
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-#  host:
-#    connect-timeout-millis: 60000
-#    socket-timeout-millis: 60000
   routes:
-    auth-service:
+    authentication:
       sensitiveHeaders:
       path: /authentication/**
       url: ${LOGIN_SERVER_URL:http://localhost:9001}
@@ -115,6 +100,40 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+hystrix:
+  command:
+    training:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 40000
+    user:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 40000
+    fileupload:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    employee:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 40000
+    cis:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 30000
+
+
 logging:
   pattern:
     console: '@%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
@@ -142,9 +161,7 @@ logging:
 eureka:
   client:
     healthcheck: true
-    leaseRenewalIntervalInSeconds: 10
-    #registryFetchIntervalSeconds: 5
-    #fetch-registry: true
+    fetch-registry: true
     serviceUrl:
       defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
   instance:
@@ -158,56 +175,73 @@ cloud:
     prfered-networks:
       - 10.0
 
-#training:
-#  ribbon:
-#    eureka:
-#      enabled: false
-#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 15000
-#    ReadTimeout: 15000
-#    MaxTotalHttpConnections: 500
-#    MaxConnectionsPerHost: 100
-#
-#user:
-#  ribbon:
-#    eureka:
-#      enabled: true
-#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 15000
-#    ReadTimeout: 15000
-#    MaxTotalHttpConnections: 500
-#    MaxConnectionsPerHost: 100
-#
-#fileupload:
-#  ribbon:
-#    eureka:
-#      enabled: true
-#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 15000
-#    ReadTimeout: 15000
-#    MaxTotalHttpConnections: 500
-#    MaxConnectionsPerHost: 100
-#
-#employee:
-#  ribbon:
-#    eureka:
-#      enabled: true
-#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 15000
-#    ReadTimeout: 15000
-#    MaxTotalHttpConnections: 500
-#    MaxConnectionsPerHost: 100
-#
-#auth-service:
-#  ribbon:
-#    eureka:
-#      enabled: true
-#    #NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 15000
-#    ReadTimeout: 15000
-#    MaxTotalHttpConnections: 500
-#    MaxConnectionsPerHost: 100
+training:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: training
+    ConnectTimeout: 15000
+    ReadTimeout: 15000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+user:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: user
+    ConnectTimeout: 15000
+    ReadTimeout: 15000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+fileupload:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: fileupload
+    ConnectTimeout: 60000
+    ReadTimeout: 60000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+employee:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: employee
+    ConnectTimeout: 15000
+    ReadTimeout: 15000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
+cis:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    DeploymentContextBasedVipAddresses: cis
+    ConnectTimeout: 15000
+    ReadTimeout: 15000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+
 #management:
 #  health:
 #    elasticsearch:
 #      response-timeout:
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true
