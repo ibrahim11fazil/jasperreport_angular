@@ -71,16 +71,21 @@ logging:
           authentication: DEBUG
   file: logs/training.log
 
+#eureka:
+#  client:
+#    healthcheck: true
+#    registryFetchIntervalSeconds: 5
+#    fetch-registry: true
+#    serviceUrl:
+#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
+
 eureka:
   client:
-    healthcheck: true
-    registryFetchIntervalSeconds: 5
-    fetch-registry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    preferIpAddress: true
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${registry:REGISTRY_URL}:8761}/eureka/
 
 management:
   endpoint:

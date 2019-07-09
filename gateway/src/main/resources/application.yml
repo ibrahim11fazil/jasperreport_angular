@@ -22,7 +22,7 @@ server:
 #        isolation:
 #          thread:
 #            timeoutInMilliseconds: 30000
-#(5000 * 60000) *  (1 + 0) * (2 + 1) = xxxx ms
+#(60000 * 60000) *  (1 + 0) * (2 + 1) = xxxx ms
 #eg:
 
 
@@ -51,16 +51,21 @@ server:
 #        timeout:
 #          enabled: false
 
-#ribbon:
-#  ConnectTimeout: 60000
-#  ReadTimeout: 60000
-#  eureka:
-#    enabled: true
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
+  eureka:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
 
 zuul:
-  ribbonIsolationStrategy: THREAD
-  threadPool:
-    useSeparateThreadPools: true
   ignoredServices: '*'
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   routes:
@@ -100,38 +105,38 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
-hystrix:
-  command:
-    training:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    user:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    fileupload:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    employee:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    cis:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
+#hystrix:
+#  command:
+#    training:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    user:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    fileupload:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    employee:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    cis:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
 
 
 logging:
@@ -160,13 +165,11 @@ logging:
 #    hostname: gateway
 eureka:
   client:
-    healthcheck: true
-    fetch-registry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    preferIpAddress: true
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${registry:REGISTRY_URL}:8761}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
 
 # http://${REGISTRY_URL:registry}:8761/eureka/
 
@@ -175,60 +178,60 @@ cloud:
     prfered-networks:
       - 10.0
 
-training:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    DeploymentContextBasedVipAddresses: training
-    ConnectTimeout: 15000
-    ReadTimeout: 15000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-user:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    DeploymentContextBasedVipAddresses: user
-    ConnectTimeout: 15000
-    ReadTimeout: 15000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-fileupload:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    DeploymentContextBasedVipAddresses: fileupload
-    ConnectTimeout: 60000
-    ReadTimeout: 60000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-employee:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    DeploymentContextBasedVipAddresses: employee
-    ConnectTimeout: 15000
-    ReadTimeout: 15000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
-
-cis:
-  ribbon:
-    eureka:
-      enabled: true
-    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-    DeploymentContextBasedVipAddresses: cis
-    ConnectTimeout: 15000
-    ReadTimeout: 15000
-    MaxTotalHttpConnections: 500
-    MaxConnectionsPerHost: 100
+#training:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    DeploymentContextBasedVipAddresses: training
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#user:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    DeploymentContextBasedVipAddresses: user
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#fileupload:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    DeploymentContextBasedVipAddresses: fileupload
+#    ConnectTimeout: 60000
+#    ReadTimeout: 60000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#employee:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    DeploymentContextBasedVipAddresses: employee
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
+#
+#cis:
+#  ribbon:
+#    eureka:
+#      enabled: true
+#    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+#    DeploymentContextBasedVipAddresses: cis
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
 
 #management:
 #  health:
