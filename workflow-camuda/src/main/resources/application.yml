@@ -17,8 +17,8 @@ security:
 
 debug: false
 server:
-  servlet:
-    context-path: /workflow
+#  servlet:
+#    context-path: /workflow
   port: 9061
 
 spring:

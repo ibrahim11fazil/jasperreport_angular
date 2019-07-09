@@ -1,8 +1,8 @@
 mvn clean install -f gateway
 [ $? -eq 0 ] || exit 1
 
-#mvn clean install -f training
-#[ $? -eq 0 ] || exit 1
+mvn clean install -f training
+[ $? -eq 0 ] || exit 1
 
 #!/bin/bash
 
@@ -35,12 +35,12 @@ then
      #./build.sh
      TAG=gbuild_$(git describe --abbrev=0)_$2
       docker build --file gateway/Dockerfile gateway -t 172.16.0.253:5000/gateway:$TAG
-      #docker build --file training/Dockerfile training -t 172.16.0.253:5000/training:$TAG
+      docker build --file training/Dockerfile training -t 172.16.0.253:5000/training:$TAG
       echo "QA build done"
 
       echo "Pushing to server "
       docker push 172.16.0.253:5000/gateway:$TAG
-     #  docker push 172.16.0.253:5000/training:$TAG
+      docker push 172.16.0.253:5000/training:$TAG
       echo "Pushing to server done"
 
 else

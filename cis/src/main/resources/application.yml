@@ -16,8 +16,8 @@ security:
       clientId: cis
 
 server:
-  servlet:
-    context-path: /cis
+#  servlet:
+#    context-path: /cis
   port: 9071
 
 feign:
