@@ -330,7 +330,10 @@ public class CourseServiceImpl  implements CourseService {
     @Override
 	public List<TacCourseActivation> listactivations(String name, int page, int limit)
 	{
+
+
 		List<TacCourseActivation>activationList=null;
+		List<Object[]> objects=null;
 		System.out.println(page);
 		System.out.println(limit);
 		List<TacCourseActivation> activations =  new ArrayList<>();
@@ -344,10 +347,36 @@ public class CourseServiceImpl  implements CourseService {
 			return activations;
 		}
 		else {
-			activationList=activationRepo.findAllByCourseNameContaining(name);
-		//List<Object[]> objects= 	activationRepo.findAllByCourseNameContaining(name, pageable);
-			return activationList;
+			//if(page==0 && limit ==10) {
+			activationList = activationRepo.findAllByCourseNameContaining(name, pageable);
+			//}
+		}
+//			else if(page>0) {
+//				page = (page * limit) + 1;
+//				limit = (page + limit) - 1;
+//				 objects = activationRepo.findAllByCourseNameContaining(name);
+//			}
+//				List<TacCourseActivation> activationsList = new ArrayList<>();
+//				for (Object[] o : objects) {
+//					TacCourseActivation activation = new TacCourseActivation();
+//					activation.setActivationId((BigDecimal) o[0]);
+//					activation.setActivationDate((Date) o[5]);
+//					activation.setTacCourseMaster((TacCourseMaster) o[1]);
+//
+//
+//					activationsList.add(activation);
+//
+//			}
+
+
+			//activationList=activationRepo.findAllByCourseNameContaining(name);
+			//List<Object[]> objects= 	activationRepo.findAllByCourseNameContaining(name, pageable);
+
+		return activationList;
 
 		}
+
 	}
-}
+
+
+

@@ -52,7 +52,7 @@ logging:
     qa:
       gov:
         customs:
-          authentication: DEBUG
+          fileupload: DEBUG
   file: logs/file.log
 
 eureka:

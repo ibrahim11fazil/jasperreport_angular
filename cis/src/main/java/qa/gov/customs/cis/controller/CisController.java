@@ -14,7 +14,6 @@ import qa.gov.customs.cis.utils.models.ResponseType;
 
 import java.util.List;
 
-@ControllerAdvice
 @RestController
 public class CisController {
 

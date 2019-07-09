@@ -71,7 +71,7 @@ logging:
     qa:
       gov:
         customs:
-          authentication: DEBUG
+          user: DEBUG
   file: logs/user.log
 
 eureka:
@@ -95,3 +95,8 @@ management:
       exposure:
         include: ["health","routes","metrics","info"]
       enabled: true
+
+cloud:
+  inetutils:
+    prefered-networks:
+      - 10.0

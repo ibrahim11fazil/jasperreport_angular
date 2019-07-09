@@ -17,7 +17,7 @@ security:
 
 server:
 #  servlet:
-#    context-path: /training
+#    context-path: /cis
   port: 9071
 
 feign:
@@ -68,7 +68,7 @@ logging:
     qa:
       gov:
         customs:
-          authentication: DEBUG
+          cis: DEBUG
   file: logs/cis.log
 
 #eureka:
@@ -99,3 +99,8 @@ management:
       exposure:
         include: ["health","routes","metrics","info"]
       enabled: true
+
+cloud:
+  inetutils:
+    prefered-networks:
+      - 10.0
