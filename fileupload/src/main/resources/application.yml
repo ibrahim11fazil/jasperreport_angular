@@ -70,6 +70,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://registry:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
 
 management:
   endpoint:
@@ -81,3 +84,8 @@ management:
       exposure:
         include: ["health","routes","metrics","info"]
       enabled: true
+
+cloud:
+  inetutils:
+    prefered-networks:
+      - 10.0

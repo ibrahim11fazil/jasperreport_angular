@@ -63,7 +63,15 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds: 240000
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 3000
 
 zuul:
   ribbon:
@@ -170,9 +178,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://registry:8761/eureka/
-#  instance:
-#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-#    preferIpAddress: true
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
 
 # http://${REGISTRY_URL:registry}:8761/eureka/
 
