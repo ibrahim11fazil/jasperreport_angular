@@ -55,7 +55,7 @@ if(gateway){
 
 //http://localhost:9000/authentication/oauth/token
 //AUTHENTICATION
-export const LOGIN_URL = BASE_URL + authentication +"/oauth/token"
+export const LOGIN_URL = BASE_URL + authentication +"/authentication/oauth/token"
 
 //TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
