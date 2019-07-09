@@ -19,7 +19,7 @@ public interface CourseService {
     TacCourseMaster linkCourseWithActivity(TacCourseMaster linkCourse);
     TacCourseMaster activateCourse(TacCourseMaster course);
     List<Course> listCourses();
-   // List<TacCourseMaster> listCourses(Pageable firstPageWithElements);  
+    //List<TacCourseMaster> listCourses(Pageable firstPageWithElements);  
     //List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
     List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements);
     long countCourses(); 
@@ -46,7 +46,7 @@ public interface CourseService {
     List<TacCommQualifications> getAllQualifications();
     TacCourseActivation getCourseActivationByCourseId(TacCourseMaster courseMaster);
     List<TacCourseActivation>  listactivations(String name, int page, int limit);
- TacCourseLocation getCourseroom(BigDecimal locationId);
+    TacCourseLocation getCourseroom(BigDecimal locationId);
     TacCourseDate getCourseDate(BigDecimal courseId);
 
  TacCourseActivation getCourseActivationByActivationId(TacCourseActivation courseActivation);

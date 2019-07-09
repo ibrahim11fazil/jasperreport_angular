@@ -10,8 +10,8 @@ import qa.gov.customs.employee.entity.*;
 import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.utils.Constants;
 import qa.gov.customs.employee.utils.MessageUtil;
+import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.ResponseType;
-
 import java.util.List;
 
 @RestController
@@ -91,4 +91,27 @@ public class EmployeeController {
             return response;
         }
     }
+    
+    
+    //@PreAuthorize("hasAnyAuthority('List_Jobs')")
+	@GetMapping("/list-jobs")
+	public ResponseType listJobs() 
+	{
+		List<MawaredJobs> jobList = null;
+		jobList = mawaredService.listJobs();
+		if(jobList!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+	}
+    
+	
+	
+    
 }
