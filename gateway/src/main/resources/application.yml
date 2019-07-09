@@ -107,13 +107,13 @@ hystrix:
         isolation:
           strategy: THREAD
           thread:
-            timeoutInMilliseconds: 40000
+            timeoutInMilliseconds: 60000
     user:
       execution:
         isolation:
           strategy: THREAD
           thread:
-            timeoutInMilliseconds: 40000
+            timeoutInMilliseconds: 60000
     fileupload:
       execution:
         isolation:
@@ -125,13 +125,13 @@ hystrix:
         isolation:
           strategy: THREAD
           thread:
-            timeoutInMilliseconds: 40000
+            timeoutInMilliseconds: 60000
     cis:
       execution:
         isolation:
           strategy: THREAD
           thread:
-            timeoutInMilliseconds: 30000
+            timeoutInMilliseconds: 60000
 
 
 logging:
