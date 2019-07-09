@@ -179,6 +179,8 @@ logging:
 #    hostname: gateway
 eureka:
   client:
+    fetchRegistry: true
+    registryFetchIntervalSeconds: 5
     serviceUrl:
       defaultZone: http://registry:8761/eureka/
   instance:
