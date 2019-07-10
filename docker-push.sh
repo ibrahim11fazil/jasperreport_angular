@@ -15,7 +15,8 @@ if [ "$1" = "prod" ]
         docker push 172.16.0.253:5000/fileupload:$TAG
         docker push 172.16.0.253:5000/authentication:$TAG
         docker push 172.16.0.253:5000/registry:$TAG
-        docker push 172.16.0.253:5000/gateway:$TAG
+        #docker push 172.16.0.253:5000/gateway:$TAG
+        docker push 172.16.0.253:5000/gateway-cloud:$TAG
         echo "prod version pushed"
         echo $TAG
 elif [ "$1" = "qa" ]
@@ -33,7 +34,8 @@ elif [ "$1" = "qa" ]
         docker push 172.16.0.253:5000/fileupload:$TAG
         docker push 172.16.0.253:5000/authentication:$TAG
         docker push 172.16.0.253:5000/registry:$TAG
-        docker push 172.16.0.253:5000/gateway:$TAG
+        #docker push 172.16.0.253:5000/gateway:$TAG
+        docker push 172.16.0.253:5000/gateway-cloud:$TAG
         echo "QA version pushed"
         echo $TAG
 else

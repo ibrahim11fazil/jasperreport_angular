@@ -46,7 +46,7 @@ var employee=""
 if(gateway){
     authentication="/authentication"
     training="/training"
-    user="/user"
+    user="/userdata"
     fileUploading="/fileupload"
     cis="/cis"
     employee="/employee"

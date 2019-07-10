@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -98,14 +100,18 @@ import java.util.Set;
 		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
 		private Set<TacJobcardSkills> tacJobcardSkills = new HashSet<TacJobcardSkills>(0);
 		
+//		private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
+//		
 		
+		
+
 		public TacJobcard(){
 			
 		}
 		
 	
 
-		public TacJobcard(String job, String jobTitle, String jobGrade, String jobGroup,String specialGroup,BigDecimal jobcardNo,Set<TacJobcardConditions> tacJobcardConditions,Set<TacJobcardSkills> tacJobcardSkills,Set<TacJobcardDuties> tacJobcardDuties)
+		public TacJobcard(String job, String jobTitle, String jobGrade, String jobGroup,String specialGroup,BigDecimal jobcardNo,Set<TacJobcardConditions> tacJobcardConditions,Set<TacJobcardSkills> tacJobcardSkills,Set<TacJobcardDuties> tacJobcardDuties)// ,Set<TacJobcardCourseLink> tacJobcardCourseLink)
 		{
 			
 			this.job=job;
@@ -117,7 +123,7 @@ import java.util.Set;
 			this.tacJobcardConditions=tacJobcardConditions;
 			this.tacJobcardDuties=tacJobcardDuties;
 			this.tacJobcardSkills=tacJobcardSkills;
-			
+//			this.tacJobcardCourseLink=tacJobcardCourseLink;
 		}
 		
 		@JsonManagedReference(value="conditions")
@@ -150,6 +156,20 @@ import java.util.Set;
 		public void setTacJobcardDuties(Set<TacJobcardDuties> tacJobcardDuties) {
 			this.tacJobcardDuties = tacJobcardDuties;
 		}
+		
+//		@ManyToMany(fetch = FetchType.LAZY)
+//		@JoinTable(name = "TAC_JOBCARD_COURSE_LINK",
+//				joinColumns = { @JoinColumn(name = "JOBCARD_NO") },
+//				inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
+//		public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
+//			return tacJobcardCourseLink;
+//		}
+//
+//		public void setTacJobcardCourseLink(Set<TacJobcardCourseLink> tacJobcardCourseLink) {
+//			this.tacJobcardCourseLink = tacJobcardCourseLink;
+//		}
+//		
+		
 		
 		
 		@Transient

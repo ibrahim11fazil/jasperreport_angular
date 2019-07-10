@@ -16,6 +16,8 @@ security:
       clientId: employee
 
 server:
+#  servlet:
+#    context-path: /employee
   port: 9011
 
 feign:
@@ -69,16 +71,36 @@ logging:
     qa:
       gov:
         customs:
-          authentication: DEBUG
+          employee: DEBUG
   file: logs/employee.log
+
+#eureka:
+#  client:
+#    healthcheck: true
+#    registryFetchIntervalSeconds: 5
+#    fetch-registry: true
+#    serviceUrl:
+#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
+
+#eureka:
+#  client:
+#    serviceUrl:
+#<<<<<<< HEAD
+#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${registry:REGISTRY_URL}:8761}/eureka/
+#=======
+#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:localhost}:8761}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
+#>>>>>>> 2f75bd6ce7f8f63a984d199355f5132dc2f45627
 
 eureka:
   client:
-    healthcheck: true
-    registryFetchIntervalSeconds: 5
-    fetch-registry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+      defaultZone: http://registry:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
@@ -93,3 +115,8 @@ management:
       exposure:
         include: ["health","routes","metrics","info"]
       enabled: true
+
+cloud:
+  inetutils:
+    prefered-networks:
+      - 10.0

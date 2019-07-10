@@ -36,17 +36,17 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-    @Bean
-    public Filter filter()
-    {
-        return new Filter();
-    }
+//    @Bean
+//    public Filter filter()
+//    {
+//        return new Filter();
+//    }
+
 
     private EurekaInstanceConfigBean eurekaInstanceConfig;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Bean
-    @Primary
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
@@ -75,11 +75,11 @@ public class GatewayApplication {
         try{
             eurekaInstanceConfig= new EurekaInstanceConfigBean(inetUtils);
 
-            final String HostName = System.getenv("HOSTNAME"); //container hostname 가져옴, container_id 일 것임.
+            final String HostName = System.getenv("HOSTNAME"); //container hostname x, container_id y
             logger.info("HOSTNAME : " + HostName);
 
 
-            Optional<NetworkInterface> net = Optional.of(NetworkInterface.getByName("eth2"));
+            Optional<NetworkInterface> net = Optional.of(NetworkInterface.getByName("mybridge"));
 
             logger.info("Network instance inetaddress: " + net.get().getInetAddresses());
             logger.info("Network instance name: " + net.get().getName());

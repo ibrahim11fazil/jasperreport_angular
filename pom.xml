@@ -6,7 +6,7 @@
 
     <groupId>qa.gov.customs</groupId>
     <artifactId>app</artifactId>
-    <version>0.2.3</version>
+    <version>0.4.5</version>
     <packaging>pom</packaging>
     <name>customsapp</name>
 
@@ -49,6 +49,7 @@
         <module>training</module>
         <module>user</module>
         <module>cis</module>
+        <module>gateway-cloud</module>
     </modules>
 
 
