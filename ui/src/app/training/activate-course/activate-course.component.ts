@@ -240,7 +240,7 @@ export class ActivateCourseComponent implements OnInit {
   patchCourse()
   {
     debugger;
-    this.getCourseroomforCourse(this.courseDetails.locationType)
+    this.getCourseroom(this.courseDetails.locationType)
     var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.courseDetails.locationType)
     if (locationArray[0] != null) {
       this.form.controls['locationSelect'].patchValue(
@@ -455,26 +455,6 @@ debugger;
     )
     
   }
-  getCourseroomforCourse(locationType) {
-    debugger;
-        let location = new Location(0, "");
-        location.locationId = locationType;
-        this.trainingService.getCourseRoomDetail(location).subscribe(
-          data => {
-            var response = <ResponseLocationDetail>data
-            this.trainingRoomDetail = response.data
-            this.roomDetails=this.trainingRoomDetail .tacCourseRooms
-            
-            console.log("getCourseRoom", response.data)
-            this.patchCourse()
-    
-          },
-          error => {
-            console.log(error)
-            this.toastr.error(error.message)
-          }
-        )
-        
-      }
+ 
 
 }
