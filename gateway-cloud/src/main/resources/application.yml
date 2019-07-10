@@ -28,11 +28,25 @@ logging:
           gateway-cloud: DEBUG
   file: logs/cloudgateway.log
 
+
+
+
 spring:
   application:
     name: gateway-cloud
   cloud:
    gateway:
+    globalcors:
+      corsConfigurations:
+          '[/**]':
+           allowedOrigins:
+             - "http://172.16.0.254"
+             - "http://localhost:4200"
+           allowed-methods:
+             - "*"
+           allowed-headers:
+             - "*"
+           allow-credentials: true
     discovery:
       locator:
         enabled: true
