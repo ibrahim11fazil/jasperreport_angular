@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/fallback")
-public class FallBackController {
+public class HystrixController {
 
-    @GetMapping("/request")
+    @GetMapping("/server")
     public ResponseEntity<List> requestFallBack(){
         return ResponseEntity.ok(Arrays.asList());
     }

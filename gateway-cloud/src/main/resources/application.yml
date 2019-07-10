@@ -51,6 +51,12 @@ spring:
         uri: lb://fileupload
         predicates:
           - Path=/fileupload/**
+        filters:
+          - AddRequestHeader=Content-Type,application/x-www-form-urlencoded
+          - name: Hystrix
+            args:
+              name: fallbackcmd
+              fallbackUri: forward:/fallback/server
 
       - id: employee
         uri: lb://employee
@@ -114,6 +120,55 @@ spring:
 #      serviceId: cis
 #      stripPrefix: true
 #      sensitiveHeaders:
+
+#hystix:
+#  command:
+#    fileupload:
+#      execution:
+#      isolation:
+#        strategy: THREAD
+#        thread:
+#          timeoutInMilliseconds: 60000
+
+
+hystrix:
+  command:
+    training:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    userdata:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    fileupload:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    employee:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    cis:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    authentication:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
 
 
 
