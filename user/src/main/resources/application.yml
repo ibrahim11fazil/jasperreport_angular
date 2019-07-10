@@ -13,7 +13,7 @@ security:
           YwIDAQAB
           -----END PUBLIC KEY-----
     client:
-      clientId: userdata
+      clientId: user
 
 server:
   port: 9031
@@ -24,7 +24,7 @@ feign:
 
 spring:
   application:
-    name: userdata
+    name: user
   main:
     allow-bean-definition-overriding: true
   datasource:

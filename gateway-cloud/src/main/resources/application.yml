@@ -38,17 +38,18 @@ spring:
         lowerCaseServiceId: true
     routes:
       - id: training
-        uri: lb://training
+        uri: http://training:9051
         predicates:
           - Path=/training/**
 
-      - id: userdata
-        uri: lb://userdata
+      - id: user
+        uri: http://user:9031
         predicates:
-          - Path=/userdata/**
+          - Path=/user/**
+
 
       - id: fileupload
-        uri: lb://fileupload
+        uri: http://fileupload:9021
         predicates:
           - Path=/fileupload/**
         filters:
@@ -59,17 +60,19 @@ spring:
               fallbackUri: forward:/fallback/server
 
       - id: employee
-        uri: lb://employee
+        uri: http://employee:9011
         predicates:
           - Path=/employee/**
 
+
       - id: cis
-        uri: lb://cis
+        uri: http://cis:9071
         predicates:
           - Path=/cis/**
 
+
       - id: authentication
-        uri: ${LOGIN_SERVER_URL:http://localhost:9001}
+        uri: http://authentication:9001
         predicates:
           - Path=/authentication/**
         filters:
@@ -77,6 +80,54 @@ spring:
           - AddRequestHeader=Content-Type,application/x-www-form-urlencoded
           - AddRequestParameter=grant_type,password
 
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 150000
+
+
+#hystrix:
+#  command:
+#    training:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    userdata:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    fileupload:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    employee:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    cis:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    authentication:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
 #zuul:
 #  ribbon:
 #    eager-load:
@@ -131,44 +182,7 @@ spring:
 #          timeoutInMilliseconds: 60000
 
 
-hystrix:
-  command:
-    training:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    userdata:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    fileupload:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    employee:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    cis:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
-    authentication:
-      execution:
-        isolation:
-          strategy: THREAD
-          thread:
-            timeoutInMilliseconds: 60000
+
 
 
 

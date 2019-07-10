@@ -1,4 +1,4 @@
-mvn clean install -f gateway
+mvn clean install -f gateway-cloud
 [ $? -eq 0 ] || exit 1
 
 mvn clean install -f training
@@ -33,13 +33,13 @@ then
 elif [ "$1" = "qa" ]
 then
      #./build.sh
-     TAG=gbuild_$(git describe --abbrev=0)_$2
-      docker build --file gateway/Dockerfile gateway -t 172.16.0.253:5000/gateway:$TAG
+      TAG=gbuild_$(git describe --abbrev=0)_$2
+      docker build --file gateway-cloud/Dockerfile gateway-cloud -t 172.16.0.253:5000/gateway-cloud:$TAG
       docker build --file training/Dockerfile training -t 172.16.0.253:5000/training:$TAG
       echo "QA build done"
 
       echo "Pushing to server "
-      docker push 172.16.0.253:5000/gateway:$TAG
+      docker push 172.16.0.253:5000/gateway-cloud:$TAG
       docker push 172.16.0.253:5000/training:$TAG
       echo "Pushing to server done"
 
