@@ -11,6 +11,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
+    ip-address: gateway-cloud
 
 logging:
   pattern:
@@ -38,56 +39,67 @@ spring:
         lowerCaseServiceId: true
     routes:
       - id: training
-        uri: http://training:9051
+        uri: lb://training
         predicates:
           - Path=/training/**
+        filters:
+          - RewritePath=/training/(?.*), /$\{path}
+
 
       - id: user
-        uri: http://user:9031
+        uri: lb://user
         predicates:
           - Path=/user/**
+        filters:
+          - RewritePath=/user/(?.*), /$\{path}
 
 
       - id: fileupload
-        uri: http://fileupload:9021
+        uri: lb://fileupload
         predicates:
           - Path=/fileupload/**
         filters:
           - AddRequestHeader=Content-Type,application/x-www-form-urlencoded
-          - name: Hystrix
-            args:
-              name: fallbackcmd
-              fallbackUri: forward:/fallback/server
+          - RewritePath=/fileupload/(?.*), /$\{path}
+#          - name: Hystrix
+#            args:
+#              name: fallbackcmd
+#              fallbackUri: forward:/fallback/server
 
       - id: employee
-        uri: http://employee:9011
+        uri: lb://employee
         predicates:
           - Path=/employee/**
+        filters:
+          - RewritePath=/employee/(?.*), /$\{path}
 
 
       - id: cis
-        uri: http://cis:9071
+        uri: lb://cis
         predicates:
           - Path=/cis/**
+        filters:
+          - RewritePath=/cis/(?.*), /$\{path}
 
 
       - id: authentication
-        uri: http://authentication:9001
+        uri: lb://authentication
         predicates:
           - Path=/authentication/**
         filters:
           - AddRequestHeader=Authorization,Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=
           - AddRequestHeader=Content-Type,application/x-www-form-urlencoded
           - AddRequestParameter=grant_type,password
+          - RewritePath=/authentication/(?.*), /$\{path}
 
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 150000
+#
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 150000
 
 
 #hystrix:

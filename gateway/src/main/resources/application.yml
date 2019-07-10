@@ -95,8 +95,8 @@ zuul:
       sensitiveHeaders:
 
     userdata:
-      path: /userdata/**
-      serviceId: userdata
+      path: /user/**
+      serviceId: user
       stripPrefix: true
       sensitiveHeaders:
 
@@ -186,6 +186,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
+    ip-address: gateway
 
 # http://${REGISTRY_URL:registry}:8761/eureka/
 
