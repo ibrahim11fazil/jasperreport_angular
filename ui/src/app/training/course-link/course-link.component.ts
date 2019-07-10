@@ -291,14 +291,15 @@ export class CourseLinkComponent implements OnInit {
   getControlOfAddMore(name): FormArray {
     return <FormArray>this.form.get(name);
   }
-  patchValues(dateId, tacCourseDate) {
+  patchValues(dateId, courseDate) {
     return this.fb.group({
       dateId: [dateId],
-      tacCourseDate: [tacCourseDate]
+      courseDate: [courseDate]
     })
   }
 
   linkCourseWithActivity() {
+    debugger;
     if (this.form.valid) {
       let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
       courseMaster.courseId = this.form.value.courseSelect.courseId;
