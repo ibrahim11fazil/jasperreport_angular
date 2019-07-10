@@ -115,48 +115,54 @@ spring:
 #      stripPrefix: true
 #      sensitiveHeaders:
 
-hystix:
-  command:
-    fileupload:
-      execution:
-      isolation:
-        strategy: THREAD
-        thread:
-          timeoutInMilliseconds: 60000
-
-
-#hystrix:
+#hystix:
 #  command:
-#    training:
-#      execution:
-#        isolation:
-#          strategy: THREAD
-#          thread:
-#            timeoutInMilliseconds: 60000
-#    user:
-#      execution:
-#        isolation:
-#          strategy: THREAD
-#          thread:
-#            timeoutInMilliseconds: 60000
 #    fileupload:
 #      execution:
-#        isolation:
-#          strategy: THREAD
-#          thread:
-#            timeoutInMilliseconds: 60000
-#    employee:
-#      execution:
-#        isolation:
-#          strategy: THREAD
-#          thread:
-#            timeoutInMilliseconds: 60000
-#    cis:
-#      execution:
-#        isolation:
-#          strategy: THREAD
-#          thread:
-#            timeoutInMilliseconds: 60000
+#      isolation:
+#        strategy: THREAD
+#        thread:
+#          timeoutInMilliseconds: 60000
+
+
+hystrix:
+  command:
+    training:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    userdata:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    fileupload:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    employee:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    cis:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+    authentication:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
 
 
 

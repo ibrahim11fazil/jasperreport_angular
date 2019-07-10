@@ -32,7 +32,8 @@ export const IS_SUB_COURSES=[
 
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
-export const BASE_URL ="http://172.16.0.254:9000"
+//export const BASE_URL ="http://172.16.0.254:9000"
+export const BASE_URL ="http://172.16.0.254:7777"
 //export const BASE_URL ="http://localhost:9000"
 
 //Disable if gateway is down -- for development
@@ -46,7 +47,7 @@ var employee=""
 if(gateway){
     authentication="/authentication"
     training="/training"
-    user="/user"
+    user="/userdata"
     fileUploading="/fileupload"
     cis="/cis"
     employee="/employee"
@@ -55,7 +56,7 @@ if(gateway){
 
 //http://localhost:9000/authentication/oauth/token
 //AUTHENTICATION
-export const LOGIN_URL = BASE_URL + authentication +"/authentication/oauth/token"
+export const LOGIN_URL = BASE_URL + authentication +"/oauth/token"
 
 //TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
