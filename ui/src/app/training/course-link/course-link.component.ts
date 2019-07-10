@@ -43,6 +43,7 @@ export class CourseLinkComponent implements OnInit {
   targetAudiences: TargetAudience[] = [];
   targetAudiencesResult: TargetAudience[] = [];
   targetAudienceString: String[] = [];
+  durationValueString:String;
   tacCourseLocation: Location[] = [];
   tacCoursePrerequisites: Prerequisites[] = [];
   tacCourseMaster: TacCourseMaster;
@@ -370,6 +371,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   courseByIdList(course) {
+    debugger
     this.trainingService.getCourseById(course).subscribe(
       data => {
         var response = <ResponseTacCourseMaster>data
@@ -389,6 +391,10 @@ export class CourseLinkComponent implements OnInit {
             this.targetAudienceString.push(item[0].targentName)
           }
         })
+        var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value==this.courseDetails.durationFlag)
+        if(durationItemsArray[0]!=null){
+          this.durationValueString=durationItemsArray[0].viewValue
+        }
         console.log(this.targetAudienceString);
         this.fetchDates();
         //this.getCourseActivationById(course)

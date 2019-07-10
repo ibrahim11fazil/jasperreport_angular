@@ -237,6 +237,18 @@ export class ActivateCourseComponent implements OnInit {
 
   }
 
+  patchCourse()
+  {
+    debugger;
+    this.getCourseroom(this.courseDetails.locationType)
+    var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.courseDetails.locationType)
+    if (locationArray[0] != null) {
+      this.form.controls['locationSelect'].patchValue(
+        locationArray[0]
+      )
+    }
+  }
+
   getCourseDetails(course) {
     let courseMaster = null
    
@@ -255,6 +267,7 @@ export class ActivateCourseComponent implements OnInit {
         if (this.courseDetails != null) {
           this.displayCourseDetails = true;
         }
+       this.patchCourse()
       },
       error => {
         console.log(error)
@@ -442,5 +455,6 @@ debugger;
     )
     
   }
+ 
 
 }
