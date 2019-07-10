@@ -1,0 +1,128 @@
+server:
+  port: 7777
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
+
+logging:
+  pattern:
+    console: '@%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    file: '@%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  level:
+    org:
+      springframework:
+        web: ERROR
+      hibernate: ERROR
+    qa:
+      gov:
+        customs:
+          gateway-cloud: DEBUG
+  file: logs/cloudgateway.log
+
+spring:
+  application:
+    name: gateway-cloud
+  cloud:
+   gateway:
+    discovery:
+      locator:
+        enabled: true
+        lowerCaseServiceId: true
+    routes:
+      - id: training
+        uri: lb://training
+        predicates:
+          - Path=/training/**
+
+      - id: userdata
+        uri: lb://userdata
+        predicates:
+          - Path=/userdata/**
+
+      - id: fileupload
+        uri: lb://fileupload
+        predicates:
+          - Path=/fileupload/**
+
+      - id: employee
+        uri: lb://employee
+        predicates:
+          - Path=/employee/**
+
+      - id: cis
+        uri: lb://cis
+        predicates:
+          - Path=/cis/**
+
+      - id: authentication
+        uri: ${LOGIN_SERVER_URL:http://localhost:9001}
+        predicates:
+          - Path=/authentication/**
+        filters:
+          - AddRequestHeader=Authorization,Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=
+          - AddRequestHeader=Content-Type,application/x-www-form-urlencoded
+          - AddRequestParameter=grant_type,password
+
+#zuul:
+#  ribbon:
+#    eager-load:
+#      enabled: true
+#  ignoredServices: '*'
+#  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+#  routes:
+#    authentication:
+#      sensitiveHeaders:
+#      path: /authentication/**
+#      url: ${LOGIN_SERVER_URL:http://localhost:9001}
+#      stripPrefix: true
+#
+#    training:
+#      path: /training/**
+#      serviceId: training
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    userdata:
+#      path: /userdata/**
+#      serviceId: userdata
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    fileupload:
+#      path: /fileupload/**
+#      url: ${FILE_SERVER_URL:http://localhost:9021}
+#      #serviceId: fileupload
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    employee:
+#      path: /employee/**
+#      serviceId: employee
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    cis:
+#      path: /cis/**
+#      serviceId: cis
+#      stripPrefix: true
+#      sensitiveHeaders:
+
+
+
+
+
+
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true

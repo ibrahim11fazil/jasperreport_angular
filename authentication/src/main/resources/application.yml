@@ -62,3 +62,12 @@ check-user-scopes: true
 #    client:
 #      clientId: USER_CLIENT_APP
 #      clientSecret: $2a$10$KnNfG.ib4vFzEioYsd24T.XzuNUNVPhzyceM0Wz7mHFW3l.lPnH9G
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true

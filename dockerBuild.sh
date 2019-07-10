@@ -40,7 +40,8 @@ then
       docker build --file fileupload/Dockerfile fileupload -t 172.16.0.253:5000/fileupload:$TAG
       docker build --file authentication/Dockerfile authentication -t 172.16.0.253:5000/authentication:$TAG
       docker build --file registry/Dockerfile registry -t 172.16.0.253:5000/registry:$TAG
-      docker build --file gateway/Dockerfile gateway -t 172.16.0.253:5000/gateway:$TAG
+      #docker build --file gateway/Dockerfile gateway -t 172.16.0.253:5000/gateway:$TAG
+      docker build --file gateway-cloud/Dockerfile gateway-cloud -t 172.16.0.253:5000/gateway-cloud:$TAG
       echo "QA build done"
 
       echo "Pushing to server "

@@ -78,7 +78,7 @@ hystrix:
 zuul:
   ribbon:
     eager-load:
-      enabled: true
+      enabled: false
   ignoredServices: '*'
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   routes:
