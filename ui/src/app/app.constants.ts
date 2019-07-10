@@ -32,7 +32,9 @@ export const IS_SUB_COURSES=[
 
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
-export const BASE_URL ="http://172.16.0.254:9000"
+//export const BASE_URL ="http://172.16.0.254:9000"
+export const BASE_URL ="http://172.16.0.254:7777"
+export const BASE_URL_FILE ="http://172.16.0.254:9021"
 //export const BASE_URL ="http://localhost:9000"
 
 //Disable if gateway is down -- for development
@@ -47,7 +49,7 @@ if(gateway){
     authentication="/authentication"
     training="/training"
     user="/user"
-    fileUploading="/fileupload"
+    fileUploading=""
     cis="/cis"
     employee="/employee"
 
@@ -99,9 +101,9 @@ export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
 export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
 
 //FILE UPLOADING
-export const  UPLOAD_FILE   = BASE_URL+fileUploading+"/uploadFile"
+export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
 //export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
-export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
+export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"
 
 
 //CIS Actions

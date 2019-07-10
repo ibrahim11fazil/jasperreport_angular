@@ -3,8 +3,14 @@ server:
 
 eureka:
   client:
+    healthcheck: true
+    registryFetchIntervalSeconds: 5
+    fetch-registry: true
     serviceUrl:
       defaultZone: http://registry:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
 
 logging:
   pattern:
