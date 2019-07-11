@@ -103,8 +103,8 @@ zuul:
 
     fileupload:
       path: /fileupload/**
-      url: ${FILE_SERVER_URL:http://localhost:9021}
-      #serviceId: fileupload
+      #url: ${FILE_SERVER_URL:http://localhost:9021}
+      serviceId: fileupload
       stripPrefix: true
       sensitiveHeaders:
 
