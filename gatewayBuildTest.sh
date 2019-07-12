@@ -1,7 +1,7 @@
 mvn clean install -f gateway-cloud
 [ $? -eq 0 ] || exit 1
 
-mvn clean install -f training
+#mvn clean install -f training
 [ $? -eq 0 ] || exit 1
 
 #!/bin/bash

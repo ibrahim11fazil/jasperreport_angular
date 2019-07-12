@@ -8,8 +8,8 @@ mvn clean install -f config
 mvn clean install -f registry
 [ $? -eq 0 ] || exit 1
 
-#mvn clean install -f gateway
-#[ $? -eq 0 ] || exit 1
+mvn clean install -f gateway
+[ $? -eq 0 ] || exit 1
 
 mvn clean install -f gateway-cloud
 [ $? -eq 0 ] || exit 1

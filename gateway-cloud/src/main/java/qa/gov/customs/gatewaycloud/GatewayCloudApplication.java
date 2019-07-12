@@ -14,7 +14,19 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import reactor.core.publisher.Mono;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 
 @SpringBootApplication
 public class GatewayCloudApplication {
@@ -93,4 +105,26 @@ public class GatewayCloudApplication {
 //        source.registerCorsConfiguration("/**", config);
 //        return new CorsFilter(source);
 //    }
+
+    @Bean
+    public CorsConfiguration corsConfiguration(RoutePredicateHandlerMapping routePredicateHandlerMapping) {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(Collections.unmodifiableList(Arrays.asList(CorsConfiguration.ALL)));
+        corsConfiguration.setAllowedMethods(Arrays.asList(
+                HttpMethod.POST.name(),
+                HttpMethod.GET.name(),
+                HttpMethod.OPTIONS.name(),
+                HttpMethod.DELETE.name(),
+                HttpMethod.PUT.name(),
+                HttpMethod.PATCH.name()
+        ));
+
+        corsConfiguration.setAllowedHeaders(Collections.unmodifiableList(Arrays.asList(CorsConfiguration.ALL)));
+        corsConfiguration.setMaxAge(3600L);
+        corsConfiguration.setAllowCredentials(true);
+        routePredicateHandlerMapping.setCorsConfigurations(
+                new HashMap<String, CorsConfiguration>() {{ put("/**", corsConfiguration); }});
+        return corsConfiguration;
+    }
+
 }
