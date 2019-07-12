@@ -63,9 +63,8 @@ export class AuthService {
    loginUser(value) {
       let options = {
          headers: new HttpHeaders()
-            // .set('Content-Type', 'application/x-www-form-urlencoded')
-             //.set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
-
+               .set('Content-Type', 'application/x-www-form-urlencoded')
+               .set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
              //.set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
       };
       let body = new URLSearchParams()

@@ -5,20 +5,73 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-
+import reactor.core.publisher.Mono;
 
 
 @SpringBootApplication
 public class GatewayCloudApplication {
 
+    private static final Logger logger = LoggerFactory.getLogger(GatewayCloudApplication.class);
     public static void main(String[] args) {
         SpringApplication.run(GatewayCloudApplication.class, args);
     }
+
+
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+//        return builder.routes()
+//                .route(r -> r.host("authentication")
+//                        .and()
+//                        .path("/authentication/**")
+//                        .filters(
+//                                f ->
+//                                f.setResponseHeader("Authorization"," Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=")
+//                                 .addRequestParameter("grant_type","password")
+//                                 .modifyRequestBody(String.class,String.class,MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+//                                         (exchange,s) -> {
+//                                             return Mono.just("grant_type=password&"+s);
+//                                 }).saveSession()
+//
+//                        ).uri("lb://authentication")
+//                        .id("authentication"))
+//                .build();
+//    }
+
+
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder, ThrottleGatewayFilterFactory throttle) {
+//        return builder.routes()
+//                .route(r -> r.host("**.abc.org").and().path("/image/png")
+//                        .filters(f ->
+//                                f.addResponseHeader("X-TestHeader", "foobar"))
+//                        .uri("http://httpbin.org:80")
+//                )
+//                .route(r -> r.path("/image/webp")
+//                        .filters(f ->
+//                                f.addResponseHeader("X-AnotherHeader", "baz"))
+//                        .uri("http://httpbin.org:80")
+//                )
+//                .route(r -> r.order(-1)
+//                        .host("**.throttle.org").and().path("/get")
+//                        .filters(f -> f.filter(throttle.apply(1,
+//                                1,
+//                                10,
+//                                TimeUnit.SECONDS)))
+//                        .uri("http://httpbin.org:80")
+//                )
+//                .build();
+//    }
+
+   // .modifyRequestBody(String.class, RequestData.class, MediaType.APPLICATION_FORM_URLENCODED,
+   //                                             (exchange, s) -> return Mono.just(new RequestData(s.toUpperCase())))).uri(uri))
 
 
    // private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -40,5 +93,4 @@ public class GatewayCloudApplication {
 //        source.registerCorsConfiguration("/**", config);
 //        return new CorsFilter(source);
 //    }
-
 }
