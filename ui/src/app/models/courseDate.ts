@@ -7,10 +7,10 @@ export class CourseDate {
     public  courseDate:Date;
     public tacActivity:TacActivity;
 	// private Set<TacCourseRoom> tacCourseRooms = new HashSet<TacCourseRoom>(0);
-constructor(dateId:Number,tacCourseDate:Date)
+constructor(dateId:Number,courseDate:Date)
 {
     this.dateId=dateId;
-    this.tacCourseDate=tacCourseDate;
+    this.courseDate=courseDate;
 
 }
 }

@@ -49,8 +49,6 @@ services:
       networktraining:
         ipv4_address: 172.16.7.3
 
-
-
   fileupload-service:
     image: 172.16.0.253:5000/fileupload:$TAG
     build: fileupload

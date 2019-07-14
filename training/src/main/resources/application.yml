@@ -16,8 +16,8 @@ security:
       clientId: training
 
 server:
-  #  servlet:
-  #    context-path: /training
+#  servlet:
+#    context-path: /training
   port: 9051
 
 feign:
@@ -71,16 +71,29 @@ logging:
           authentication: DEBUG
   file: logs/training.log
 
+#eureka:
+#  client:
+#    healthcheck: true
+#    registryFetchIntervalSeconds: 5
+#    fetch-registry: true
+#    serviceUrl:
+#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
+
 eureka:
   client:
     healthcheck: true
     registryFetchIntervalSeconds: 5
     fetch-registry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+      defaultZone: http://registry:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
+    ip-address: training
+
 
 management:
   endpoint:

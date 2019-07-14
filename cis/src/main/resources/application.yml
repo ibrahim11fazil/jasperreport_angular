@@ -78,6 +78,17 @@ logging:
 #    serviceUrl:
 #      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
 
+#eureka:
+#  client:
+#    healthcheck: true
+#    registryFetchIntervalSeconds: 5
+#    fetch-registry: true
+#    serviceUrl:
+#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
+
 eureka:
   client:
     healthcheck: true
@@ -88,6 +99,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
+    ip-address: cis
 
 management:
   endpoint:

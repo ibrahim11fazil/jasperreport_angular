@@ -1,0 +1,222 @@
+server:
+  port: 7777
+
+
+
+logging:
+  pattern:
+    console: '@%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    file: '@%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  level:
+    org:
+      springframework:
+        web: ERROR
+      hibernate: ERROR
+    qa:
+      gov:
+        customs:
+          gateway-cloud: DEBUG
+  file: logs/cloudgateway.log
+
+
+spring:
+  application:
+    name: gateway-cloud
+  cloud:
+   gateway:
+    globalcors:
+      corsConfigurations:
+          '[/**]':
+           allowedOrigins:
+            - "*"
+           allowed-methods:
+             - "*"
+           allowed-headers:
+             - "*"
+           allow-credentials: true
+    discovery:
+      locator:
+        enabled: true
+        lowerCaseServiceId: true
+    routes:
+      - id: training
+        uri: lb://training
+        predicates:
+          - Path=/training/**
+        filters:
+          - RewritePath=/training/(?.*), /$\{path}
+
+
+      - id: user
+        uri: lb://user
+        predicates:
+          - Path=/user/**
+        filters:
+          - RewritePath=/user/(?.*), /$\{path}
+
+
+      - id: fileupload
+        uri: lb://fileupload
+        predicates:
+          - Path=/fileupload/**
+        filters:
+          - AddRequestHeader=Content-Type,application/x-www-form-urlencoded
+          - RewritePath=/fileupload/(?.*), /$\{path}
+#          - name: Hystrix
+#            args:
+#              name: fallbackcmd
+#              fallbackUri: forward:/fallback/server
+
+      - id: employee
+        uri: lb://employee
+        predicates:
+          - Path=/employee/**
+        filters:
+          - RewritePath=/employee/(?.*), /$\{path}
+
+
+      - id: cis
+        uri: lb://cis
+        predicates:
+          - Path=/cis/**
+        filters:
+          - RewritePath=/cis/(?.*), /$\{path}
+
+
+      - id: authentication
+        uri: lb://authentication
+        predicates:
+          - Method=POST
+          - Path=/authentication/**
+        filters:
+          #- GatewayFilterData
+          #- AddResponseHeader=Authorization,Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=
+          #- AddRequestHeader=Content-Type,application/x-www-form-urlencoded
+          #- AddRequestParameter=grant_type,password
+          - RewritePath=/authentication/(?.*), /$\{path}
+
+#
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 150000
+
+
+#hystrix:
+#  command:
+#    training:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    userdata:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    fileupload:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    employee:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    cis:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    authentication:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#zuul:
+#  ribbon:
+#    eager-load:
+#      enabled: true
+#  ignoredServices: '*'
+#  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+#  routes:
+#    authentication:
+#      sensitiveHeaders:
+#      path: /authentication/**
+#      url: ${LOGIN_SERVER_URL:http://localhost:9001}
+#      stripPrefix: true
+#
+#    training:
+#      path: /training/**
+#      serviceId: training
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    userdata:
+#      path: /userdata/**
+#      serviceId: userdata
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    fileupload:
+#      path: /fileupload/**
+#      url: ${FILE_SERVER_URL:http://localhost:9021}
+#      #serviceId: fileupload
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    employee:
+#      path: /employee/**
+#      serviceId: employee
+#      stripPrefix: true
+#      sensitiveHeaders:
+#
+#    cis:
+#      path: /cis/**
+#      serviceId: cis
+#      stripPrefix: true
+#      sensitiveHeaders:
+
+#hystix:
+#  command:
+#    fileupload:
+#      execution:
+#      isolation:
+#        strategy: THREAD
+#        thread:
+#          timeoutInMilliseconds: 60000
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true
+
+
+eureka:
+  client:
+    healthcheck: true
+    registryFetchIntervalSeconds: 10
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+    ip-address: gateway-cloud

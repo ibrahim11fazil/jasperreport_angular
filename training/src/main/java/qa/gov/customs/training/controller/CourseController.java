@@ -203,12 +203,13 @@ public class CourseController {
 		TacCourseMaster linkCourse = null;
 		TacCourseMaster courselink = null;
 		Set<TacActivity> activities = new HashSet<TacActivity>();
+		Set<TacCoursePrerequisites> prerequisitesList = new HashSet<TacCoursePrerequisites>();
 		Set<TacCourseDate> date = new HashSet<TacCourseDate>();
 		if (course.getCourseId() != new BigDecimal(0)) {
 			linkCourse = courseService.findById(course.getCourseId());
 			if (linkCourse != null) {
 				logger.info("inside link course not null");
-				linkCourse.setPrerequisitesId(course.getPrerequisitesId());
+				//linkCourse.setPrerequisitesId(course.getPrerequisitesId());
 				linkCourse.setLocationType(course.getLocationType());
 				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
 //				for(TacActivity activity:course.getTacActivities()) {
@@ -218,6 +219,13 @@ public class CourseController {
 //						course.setTacCourseDates(dateSet);
 //					}
 //				}
+				if(course.getTacCoursePrerequisiteses()!=null)
+				{
+					for(TacCoursePrerequisites prerequisites:course.getTacCoursePrerequisiteses())
+					{
+						prerequisitesList.add(prerequisites);
+					}
+				}
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
@@ -240,6 +248,10 @@ public class CourseController {
 					}
 					if (date.size() > 0) {
 						linkCourse.setTacCourseDates(date);
+					}
+					if(prerequisitesList.size()>0)
+					{
+						linkCourse.setTacCoursePrerequisiteses(prerequisitesList);
 					}
 					}
 					if (activities.size() > 0) {
