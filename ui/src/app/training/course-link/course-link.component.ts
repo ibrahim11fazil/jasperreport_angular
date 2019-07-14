@@ -172,6 +172,7 @@ export class CourseLinkComponent implements OnInit {
     const arrPrerequisites = <FormArray>this.form.controls.prerequisitesSelect; 
     arrPrerequisites.controls = []; 
   this.targetAudienceString=[];
+  
 
   
     let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
