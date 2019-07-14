@@ -257,7 +257,7 @@ export class ActivateCourseComponent implements OnInit {
     this.form.reset();
     let courseMaster = null
    
-      courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
+      courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     
 
     //this.courseByIdList(courseMaster);
@@ -328,7 +328,7 @@ export class ActivateCourseComponent implements OnInit {
     //if(this.form.valid){
     //console.log(this.form.value.courseSelect.courseId);
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
-    var courseMaster = new TacCourseMaster(0, null, "", 0, "", 0, 0, null, null, null, 0, 0, 0, null, null);
+    var courseMaster = new TacCourseMaster(0, null, "", 0, "", 0, 0, null, null, null,null, 0, 0, null, null);
 
     courseMaster.courseId = this.form.value.courseSelect.courseId;
     courseMaster.courseName = this.form.value.courseSelect.courseName;

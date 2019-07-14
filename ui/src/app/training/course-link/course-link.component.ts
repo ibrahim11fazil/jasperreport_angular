@@ -71,7 +71,7 @@ export class CourseLinkComponent implements OnInit {
         tacCourseGuidelineses: [],
         tacCourseAudiences: [],
         tacCourseOutcomes: [],
-        prerequisitesId: 0,
+        tacCoursePrerequisiteses: [],
         subcourseFlag: 0,
         locationType: 0,
         tacCourseDates: [],
@@ -88,14 +88,15 @@ export class CourseLinkComponent implements OnInit {
   }
 
   formInit() {
-    let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
+    let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     this.courseDetails = courseMaster
     this.form = this.fb.group({
       activitySelect: [null, Validators.compose([Validators.required])],
+      prerequisitesSelect:this.fb.array([]),
       courseSelect: [null, Validators.compose([Validators.required])],
       locationSelect: [null, Validators.compose([Validators.required])],
       subCourseSelect: [null, Validators.compose([Validators.required])],
-      prerequisitesSelect: [null, Validators.compose([Validators.required])],
+      // prerequisitesSelect: [null, Validators.compose([Validators.required])],
       dateOptions: this.fb.array([])
     });
   }
@@ -163,37 +164,9 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getCourseDetails(course) {
-    let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
+    let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     console.log(course.value);
     this.courseByIdList(courseMaster);
-    // this.trainingService.getCourseById(courseMaster).subscribe(
-    //   data => {
-    //     debugger;
-    //     var response = <ResponseTacCourseMaster>data
-    //     this.courseDetails = response.data
-    //     if (this.courseDetails != null) {
-    //       this.displayCourseDetails = true;
-    //     }
-    //     this.expectedResult = this.courseDetails.tacCourseOutcomes;
-    //     this.guidelineList = this.courseDetails.tacCourseGuidelineses;
-    //     this.targetAudiencesResult = this.courseDetails.tacCourseAudiences;
-    //     this.dates = this.courseDetails.tacCourseDates;
-    //     this.targetAudiencesResult.forEach(i => {
-    //       var item = this.targetAudiences.filter(item => item.targetId == i.targetId)
-    //       if (item[0] != null) {
-    //         this.targetAudienceString.push(item[0].targentName)
-    //       }
-    //     })
-    //     console.log(this.targetAudienceString);
-    //     this.fetchDates();
-    //     this.patch();
-
-    //   },
-    //   error => {
-    //     console.log(error)
-    //     this.toastr.error(error.message)
-    //   }
-    // )
   }
 
   getDates(activity) {
@@ -214,7 +187,7 @@ export class CourseLinkComponent implements OnInit {
         data => {
           var response = <ResponseDate>data
           this.loadedCourseDates = response.data
-          this.patch()
+          this.patchDates()
         },
         error => {
           this.toastr.error(error.message)
@@ -227,6 +200,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   patch() {
+    debugger; 
     if (this.courseDetails.tacActivities.length > 0) {
       this.existingActivity = ""
       this.courseDetails.tacActivities.forEach(item =>
@@ -237,13 +211,6 @@ export class CourseLinkComponent implements OnInit {
     if (locationArray[0] != null) {
       this.form.controls['locationSelect'].patchValue(
         locationArray[0]
-      )
-    }
-
-    var preRequsitesArray = this.tacCoursePrerequisites.filter(i => i.prerequisitesId == this.courseDetails.prerequisitesId)
-    if (preRequsitesArray[0] != null) {
-      this.form.controls['prerequisitesSelect'].patchValue(
-        preRequsitesArray[0]
       )
     }
 
@@ -259,24 +226,22 @@ export class CourseLinkComponent implements OnInit {
         courseArray[0]
       )
     }
-    //   var activityArray = this.courseDetails.tacActivities.filter(i => i.activityId==this.courseDetails.tacActivities.filter(i.activityId))
-    //   if(courseArray[0]!=null){
-    //   this.form.controls['courseSelect'].patchValue(
-    //     courseArray[0] 
-    //  )
-    //   }
+    const prerequisitesControl = this.getControlOfAddMorePrerequisites('prerequisitesSelect');
+    this.courseDetails.tacCoursePrerequisiteses.forEach(x => {
+      prerequisitesControl.push(this.patchValuesPrerequisites(x.prerequisitesId,x.description))
+    })
 
+  
+  }
+
+  patchDates()
+  {
     const datesControl = this.getControlOfAddMore('dateOptions');
-    //this.form.setControl('dateOptions', this.fb.array([]));
     this.loadedCourseDates.forEach(x => {
       debugger
       console.log(x.tacCourseDate)
       datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
     })
-    // this.loadedCourseDates.forEach(x => {
-    //   console.log(x.tacCourseDate)
-    //   datesControl.push(this.patchValues(x.dateId, new Date(x.tacCourseDate)))
-    // })
   }
 
   addMoreCourseDate() {
@@ -292,19 +257,45 @@ export class CourseLinkComponent implements OnInit {
   getControlOfAddMore(name): FormArray {
     return <FormArray>this.form.get(name);
   }
+  addMorePrerequisites() {
+    const control = this.getControlOfAddMorePrerequisites('prerequisitesSelect');
+    control.push(this.patchValuesPrerequisites(0, ""))
+  }
+
+  removeMorePrerequisites(i) {
+    const control = this.getControlOfAddMorePrerequisites('prerequisitesSelect');
+    control.removeAt(i)
+  }
+  getControlOfAddMorePrerequisites(name): FormArray {
+    return <FormArray>this.form.get(name);
+  }
+
+ tchValues(instructorId, name) {
+    return this.fb.group({
+      instructorId: [instructorId],
+      name: [name],
+
+    })
+  }
   patchValues(dateId, courseDate) {
     return this.fb.group({
       dateId: [dateId],
       courseDate: [courseDate]
     })
   }
+  patchValuesPrerequisites(prerequisitesId, description) {
+    return this.fb.group({
+      prerequisitesId: [prerequisitesId],
+      description: [description]
+    })
+  }
 
   linkCourseWithActivity() {
     debugger;
     if (this.form.valid) {
-      let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, 0, 0, 0, null, null)
+      let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       courseMaster.courseId = this.form.value.courseSelect.courseId;
-      courseMaster.prerequisitesId = this.form.value.prerequisitesSelect.prerequisitesId;
+      //courseMaster.prerequisitesId = this.form.value.prerequisitesSelect.prerequisitesId;
       courseMaster.locationType = this.form.value.locationSelect.locationId;
       courseMaster.subcourseFlag = this.form.value.subCourseSelect.value;
 
@@ -314,6 +305,9 @@ export class CourseLinkComponent implements OnInit {
       this.tacCourseMaster.tacActivities.push(activity);
       courseMaster.tacActivities = this.tacCourseMaster.tacActivities;
 
+      const prerequisitesOptions = this.getControlOfAddMorePrerequisites('prerequisitesSelect');
+      var prerequisites = <Prerequisites[]>prerequisitesOptions.value;
+      courseMaster.tacCoursePrerequisiteses = prerequisites;
 
       const dateOptions = this.getControlOfAddMore('dateOptions');
       var tacCourseDates = <CourseDate[]>dateOptions.value;
@@ -351,7 +345,7 @@ export class CourseLinkComponent implements OnInit {
     });
     if (this.param != '' && this.param != undefined) {
       console.log(this.param);
-      let courseMaster = new TacCourseMaster(0, null, this.form.value.courseName, this.form.value.duration, null, 0, this.form.value.numberofhours, null, null, null, 0, 0, 0, null, null)
+      let courseMaster = new TacCourseMaster(0, null, this.form.value.courseName, this.form.value.duration, null, 0, this.form.value.numberofhours, null, null, null, null, 0, 0, null, null)
       courseMaster.courseId = this.param
       // this.trainingService.getCourseById(courseMaster).subscribe(
       //   data => this.loadData(data),
@@ -365,7 +359,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   loadData(data) {
-    //this.tacCourseMaster = data.data;
+    this.tacCourseMaster = data.data;
     this.formInit()
     this.patch()
   }
@@ -397,7 +391,6 @@ export class CourseLinkComponent implements OnInit {
         }
         console.log(this.targetAudienceString);
         this.fetchDates();
-        //this.getCourseActivationById(course)
         this.patch();
 
       },

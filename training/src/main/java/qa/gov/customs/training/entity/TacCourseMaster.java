@@ -222,7 +222,11 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.coordinatorJobId = coordinatorJobId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TAC_COURSE_PREREQUISITES_LINK",
+			joinColumns = { @JoinColumn(name = "courseId") },
+			inverseJoinColumns = { @JoinColumn(name = "prerequisitesId") })
 	public Set<TacCoursePrerequisites> getTacCoursePrerequisiteses() {
 		return this.tacCoursePrerequisiteses;
 	}
