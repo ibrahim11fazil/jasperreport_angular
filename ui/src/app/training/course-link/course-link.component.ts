@@ -164,13 +164,21 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getCourseDetails(course) {
-    //this.form.reset();
+    // this.form.reset();
     this.existingActivity = "";
     this.displayCourseDetails=false;
+    const arrDate = <FormArray>this.form.controls.dateOptions; 
+    arrDate.controls = []; 
+    const arrPrerequisites = <FormArray>this.form.controls.prerequisitesSelect; 
+    arrPrerequisites.controls = []; 
+  this.targetAudienceString=[];
+
+  
     let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     console.log(course.value);
     this.courseByIdList(courseMaster);
   }
+ 
 
   getDates(activity) {
     this.loadedActivityId = activity.value.activityId
@@ -279,13 +287,7 @@ export class CourseLinkComponent implements OnInit {
     return <FormArray>this.form.get(name);
   }
 
- tchValues(instructorId, name) {
-    return this.fb.group({
-      instructorId: [instructorId],
-      name: [name],
 
-    })
-  }
   patchValues(dateId, courseDate) {
     return this.fb.group({
       dateId: [dateId],
