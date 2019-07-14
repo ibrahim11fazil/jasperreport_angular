@@ -164,6 +164,9 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getCourseDetails(course) {
+    //this.form.reset();
+    this.existingActivity = "";
+    this.displayCourseDetails=false;
     let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     console.log(course.value);
     this.courseByIdList(courseMaster);
@@ -236,6 +239,12 @@ export class CourseLinkComponent implements OnInit {
 
   patchDates()
   {
+    var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.courseDetails.locationType)
+    if (locationArray[0] != null) {
+      this.form.controls['locationSelect'].patchValue(
+        locationArray[0]
+      )
+    }
     const datesControl = this.getControlOfAddMore('dateOptions');
     this.loadedCourseDates.forEach(x => {
       debugger
@@ -385,10 +394,16 @@ export class CourseLinkComponent implements OnInit {
             this.targetAudienceString.push(item[0].targentName)
           }
         })
+        if (this.courseDetails.tacActivities.length > 0) {
+          this.existingActivity = ""
+          this.courseDetails.tacActivities.forEach(item =>
+            this.existingActivity = this.existingActivity + item.activityName + " - ")
+        }
         var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value==this.courseDetails.durationFlag)
         if(durationItemsArray[0]!=null){
           this.durationValueString=durationItemsArray[0].viewValue
         }
+         
         console.log(this.targetAudienceString);
         this.fetchDates();
         this.patch();

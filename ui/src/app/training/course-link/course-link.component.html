@@ -196,7 +196,7 @@
                            </div>
                         </div>
                      </div>
-                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                              <div  *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                     <mat-form-field class="full-wid mrgn-b-lg">
                                           <mat-select placeholder="SubCourses" matInput
                                                 formControlName="subCourseSelect">
