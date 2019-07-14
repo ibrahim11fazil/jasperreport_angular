@@ -110,6 +110,25 @@ public class EmployeeController {
 			return response;
 		}
 	}
+	
+	 //@PreAuthorize("hasAnyAuthority('List_Jobs')")
+		@GetMapping("/list-Grades")
+		public ResponseType listGrades() 
+		{
+			List<MawaredJobs> jobList = null;
+			jobList = mawaredService.listJobs();
+			if(jobList!=null)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobList);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
+		
     
 	
 	
