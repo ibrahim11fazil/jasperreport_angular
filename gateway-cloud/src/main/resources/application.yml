@@ -1,17 +1,7 @@
 server:
   port: 7777
 
-eureka:
-  client:
-    healthcheck: true
-    registryFetchIntervalSeconds: 5
-    fetch-registry: true
-    serviceUrl:
-      defaultZone: http://registry:8761/eureka/
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    preferIpAddress: true
-    ip-address: gateway-cloud
+
 
 logging:
   pattern:
@@ -29,8 +19,6 @@ logging:
   file: logs/cloudgateway.log
 
 
-
-
 spring:
   application:
     name: gateway-cloud
@@ -39,7 +27,8 @@ spring:
     globalcors:
       corsConfigurations:
           '[/**]':
-           allowedOrigins: "*"
+           allowedOrigins:
+            - "*"
            allowed-methods:
              - "*"
            allowed-headers:
@@ -97,11 +86,13 @@ spring:
       - id: authentication
         uri: lb://authentication
         predicates:
+          - Method=POST
           - Path=/authentication/**
         filters:
-          - AddRequestHeader=Authorization,Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=
-          - AddRequestHeader=Content-Type,application/x-www-form-urlencoded
-          - AddRequestParameter=grant_type,password
+          #- GatewayFilterData
+          #- AddResponseHeader=Authorization,Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=
+          #- AddRequestHeader=Content-Type,application/x-www-form-urlencoded
+          #- AddRequestParameter=grant_type,password
           - RewritePath=/authentication/(?.*), /$\{path}
 
 #
@@ -206,15 +197,6 @@ spring:
 #          timeoutInMilliseconds: 60000
 
 
-
-
-
-
-
-
-
-
-
 management:
   endpoint:
     health:
@@ -225,3 +207,16 @@ management:
       exposure:
         include: ["health","routes","metrics","info"]
       enabled: true
+
+
+eureka:
+  client:
+    healthcheck: true
+    registryFetchIntervalSeconds: 10
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+    ip-address: gateway-cloud

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>app</artifactId>
         <groupId>qa.gov.customs</groupId>
-        <version>0.5.1</version>
+        <version>0.5.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,6 +14,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
         <dependency>

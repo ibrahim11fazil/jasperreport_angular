@@ -1,4 +1,6 @@
 #!/bin/bash
+source ~/.bash_profile
+nvm use v10.15.3
  echo "Current version is "   $(git describe --abbrev=0)
 if [ "$1" != "" ] && [ "$2" != "" ]
     then

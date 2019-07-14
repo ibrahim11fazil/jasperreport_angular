@@ -4,6 +4,7 @@ target/*
 .project
 .settings/
 target/
+uploads/
 logs/
 .idea/
 .DS_Store
