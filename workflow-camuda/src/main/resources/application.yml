@@ -24,6 +24,8 @@ server:
 spring:
   application:
     name: workflow
+  main:
+    allow-bean-definition-overriding: true
   datasource:
 #    url: jdbc:oracle:thin:@//localhost:1521/xe
 #    username: camuda
@@ -38,7 +40,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
