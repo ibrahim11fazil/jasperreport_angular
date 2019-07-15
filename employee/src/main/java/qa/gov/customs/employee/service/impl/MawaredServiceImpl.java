@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import qa.gov.customs.employee.entity.MawaredMaster;
 import qa.gov.customs.employee.repository.MawaredRepository;
 import qa.gov.customs.employee.service.MawaredService;
+import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
 
 
@@ -60,5 +61,18 @@ public class MawaredServiceImpl implements MawaredService {
 		return jobs;
 	}
 
+    public List<MawaredGrades> listGrades()
     
+    {
+		List<Object[]> objects = mawaredRepository.listFullGrades();
+		List<MawaredGrades> grades = new ArrayList<>();
+		for (Object[] o : objects) {
+			MawaredGrades grade = new MawaredGrades();
+			grade.setPsLevel((String) o[0]);
+			grades.add(grade);
+		}
+		return grades;
+	}
+    
+
 }

@@ -13,6 +13,7 @@ public interface MawaredService {
     List<MawaredMaster> findByLegacyCode(String jobCode);
     List<MawaredMaster> findByEmail(String email);
     List<MawaredJobs> listJobs();
-    //List<MawaredGrades> listJobs();
+    List<MawaredGrades> listGrades();
+
     
 }

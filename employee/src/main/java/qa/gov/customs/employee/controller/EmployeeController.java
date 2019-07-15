@@ -10,6 +10,7 @@ import qa.gov.customs.employee.entity.*;
 import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.utils.Constants;
 import qa.gov.customs.employee.utils.MessageUtil;
+import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.ResponseType;
 import java.util.List;
@@ -111,15 +112,14 @@ public class EmployeeController {
 		}
 	}
 	
-	 //@PreAuthorize("hasAnyAuthority('List_Jobs')")
 		@GetMapping("/list-Grades")
 		public ResponseType listGrades() 
 		{
-			List<MawaredJobs> jobList = null;
-			jobList = mawaredService.listJobs();
-			if(jobList!=null)
+			List<MawaredGrades> gradeList = null;
+			gradeList = mawaredService.listGrades();
+			if(gradeList!=null)
 			{
-				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobList);
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, gradeList);
 				return response;
 			}
 			else
