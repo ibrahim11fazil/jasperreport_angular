@@ -1,111 +1,75 @@
 package qa.gov.customs.training.controller;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import qa.gov.customs.training.entity.TacInstructorMaster;
 import qa.gov.customs.training.entity.TacJobcard;
-import qa.gov.customs.training.entity.TacJobcardConditions;
-import qa.gov.customs.training.entity.TacJobcardDuties;
-import qa.gov.customs.training.entity.TacJobcardSkills;
-import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.service.JobcardService;
-import qa.gov.customs.training.service.impl.JobcardServiceImpl;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
 
+import javax.validation.Valid;
+import java.util.List;
+
 
 @RestController
 
-public class JobCardController
-{
-	@Autowired
-	JobcardService jobcardService;
-
-	//Create
-	
-	@PreAuthorize("hasAnyAuthority('create_jobcard')")
-	@PostMapping("/create-jobCard")
-	
-	public ResponseType createJobCard(@Valid @RequestBody TacJobcard jobcard)
-	{
-    	//System.out.println("create jobcard");
+public class JobCardController {
+    @Autowired
+    JobcardService jobcardService;
+    @PreAuthorize("hasAnyAuthority('create_jobcard')")
+    @PostMapping("/create-job-card")
+    public ResponseType createJobCard(@Valid @RequestBody TacJobcard jobcard) {
         TacJobcard newJobcard = null;
-        ResponseType response=null;
-        if(jobcard!=null)
-        {
-        	      	
-        		newJobcard = jobcardService.createJobcard(jobcard);
-        			if(newJobcard!=null)
-        			{
-        					 response = new ResponseType(201, MessageUtil.JOBCARD_CREATED, true, newJobcard);
-        
-				//	return response;
-        			}
-        			else
-        			{
-        				 response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-        			//	return response;	
-        			}
-        	}
-//    	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-		return response;
-	}
+        ResponseType response = null;
+        if (jobcard != null) {
+            newJobcard = jobcardService.createJobcard(jobcard);
+            if (newJobcard != null) {
+                response = new ResponseType(201, MessageUtil.JOBCARD_CREATED, true, newJobcard);
+            } else {
+                response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+            }
+        }
+        return response;
+    }
 
-	@PreAuthorize("hasAnyAuthority('List_JobCard')")
-	@PostMapping("/list-JobCard")
-	public ResponseType listJobcards() 
-	{
-		List<TacJobcard> jobcardList = null;
-		jobcardList = jobcardService.listJobcards();
-		if(jobcardList!=null)
-		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);
-			return response;
-		}
-		else
-		{
-			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
-			return response;
-		}
-	}
-	
-	@PreAuthorize("hasAnyAuthority('List_JobCard')")
-	@PostMapping("/list-JobCard-by-job")
-	public ResponseType listJobcards(@RequestBody  TacJobcard jobcard)
-	{
-		List<TacJobcard> jobcardList = null;
-		//jobcardList = jobcardService.listJobcards();
-		jobcardList = jobcardService.listJobcards(jobcard.getJob(),jobcard.getStart(),jobcard.getLimit());
-		
-		if(jobcardList!=null)
-		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);
-			return response;
-		}
-		else
-		{
-			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
-			return response;
-		}
-	}
-	
-	
+    @PreAuthorize("hasAnyAuthority('list_job_card')")
+    @PostMapping("/list-job-card")
+    public ResponseType listJobcards() {
+        List<TacJobcard> jobcardList = null;
+        jobcardList = jobcardService.listJobcards();
+        if (jobcardList != null) {
+            ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);
+            return response;
+        } else {
+            ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+            return response;
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('list_job_card')")
+    @PostMapping("/list-job-card-by-job")
+    public ResponseType listJobCards(@RequestBody TacJobcard jobcard) {
+        List<TacJobcard> jobcardList = null;
+        //jobcardList = jobcardService.listJobcards();
+        jobcardList = jobcardService.listJobcards(jobcard.getJob(), jobcard.getStart(), jobcard.getLimit());
+
+        if (jobcardList != null) {
+            ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);
+            return response;
+        } else {
+            ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+            return response;
+        }
+    }
 }
-	//Add 
+//Add
 //	
 //	// Conditions
-	
+
 //	@PreAuthorize("hasAnyAuthority('add_jobcardConditions')")
 //	@PostMapping("/add-jobcardConditions")
 //	public ResponseType AddjobcardConditions(@Valid @RequestBody TacJobcardConditions jobcardConditions)
@@ -201,10 +165,10 @@ public class JobCardController
 //	
 //	//Job card
 //	
-	//		
+//
 //		//duties
 //		
-//		@PreAuthorize("hasAnyAuthority('List_jobcardDuties')")
+//		@PreAuthorize("hasAnyAuthority('list_job_card_duties')")
 //		@PostMapping("/List-jobcardDuties")
 //		public ResponseType listJobcardDuties(@RequestBody TacJobcardDuties jobcardDuties)
 //		{
