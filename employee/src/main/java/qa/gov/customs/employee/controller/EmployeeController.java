@@ -112,7 +112,7 @@ public class EmployeeController {
 		}
 	}
 	
-		@GetMapping("/list-Grades")
+		@GetMapping("/list-grades")
 		public ResponseType listGrades() 
 		{
 			List<MawaredGrades> gradeList = null;
