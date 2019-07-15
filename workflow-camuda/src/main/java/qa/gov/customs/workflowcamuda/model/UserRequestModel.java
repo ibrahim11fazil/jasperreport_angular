@@ -4,13 +4,24 @@ import java.io.Serializable;
 
 public class UserRequestModel implements Serializable {
 
+    String workflowType;
+    String fullName;
     String userId;
     String email;
     String department;
     String courseId;
+    String courseName;
     String processId;
     String processKey;
 
+
+    public String getWorkflowType() {
+        return workflowType;
+    }
+
+    public void setWorkflowType(String workflowType) {
+        this.workflowType = workflowType;
+    }
 
     public String getUserId() {
         return userId;
