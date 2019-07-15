@@ -40,13 +40,10 @@ public class HodService {
     }
 
 
-    public UserRequestModel getProcessDetails(String executionId){
-
+    public UserRequestModel getProcessDetails(String executionId) {
         UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId,"applicant");
         System.out.println(variables.getEmail());
-
-       return variables;
-
+        return variables;
     }
 
     public List<Task> getTasks(String assignee) {

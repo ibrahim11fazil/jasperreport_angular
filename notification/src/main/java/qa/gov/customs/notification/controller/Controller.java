@@ -29,7 +29,8 @@ public class Controller {
             }
             return "success";
         }
-        else if(model.isSMS())
+
+         if(model.isSMS())
         {
             try
             {
