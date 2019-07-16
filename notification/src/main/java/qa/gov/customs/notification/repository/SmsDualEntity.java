@@ -1,5 +1,5 @@
-package qa.gov.customs.notification.repository;
-
-@Enti
-public class SmsDualEntity {
-}
+//package qa.gov.customs.notification.repository;
+//
+//@Enti
+//public class SmsDualEntity {
+//}

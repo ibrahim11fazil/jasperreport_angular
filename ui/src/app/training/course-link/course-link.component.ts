@@ -96,7 +96,6 @@ export class CourseLinkComponent implements OnInit {
       courseSelect: [null, Validators.compose([Validators.required])],
       locationSelect: [null, Validators.compose([Validators.required])],
       subCourseSelect: [null, Validators.compose([Validators.required])],
-      // prerequisitesSelect: [null, Validators.compose([Validators.required])],
       dateOptions: this.fb.array([])
     });
   }
@@ -164,15 +163,14 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getCourseDetails(course) {
-    // this.form.reset();
     this.existingActivity = "";
     this.displayCourseDetails=false;
     const arrDate = <FormArray>this.form.controls.dateOptions; 
     arrDate.controls = []; 
     const arrPrerequisites = <FormArray>this.form.controls.prerequisitesSelect; 
     arrPrerequisites.controls = []; 
-  this.targetAudienceString=[];
-  
+    this.targetAudienceString=[];
+   
 
   
     let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
