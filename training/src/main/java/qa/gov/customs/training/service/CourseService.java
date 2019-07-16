@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.springframework.data.domain.Pageable;
 import qa.gov.customs.training.models.Course;
+import qa.gov.customs.training.models.CourseManagement;
 
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
@@ -50,4 +51,5 @@ public interface CourseService {
     TacCourseDate getCourseDate(BigDecimal courseId);
 
  TacCourseActivation getCourseActivationByActivationId(TacCourseActivation courseActivation);
+    List<CourseManagement> getAllCurrentCourses();
 }

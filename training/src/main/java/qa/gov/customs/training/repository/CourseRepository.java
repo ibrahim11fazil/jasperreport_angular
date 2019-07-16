@@ -38,4 +38,11 @@ List<Object[]> findAllCourses();
 @Query(value="update Tac_Course_Master  set active_flag=:flag   where  course_id=:courseId",nativeQuery=true)
 void enableOrDisableCourse(BigDecimal courseId , BigDecimal flag);
 
+    @Query(value="select a.course_name,b.course_date,b.end_date from tac_course_master a join tac_course_date b on a.course_id in (SELECT course_id FROM Tac_course_date WHERE sysdate >=course_date and sysdate<=end_date) where sysdate >=course_date and sysdate<=end_date",nativeQuery=true)
+    List<Object[]>  getAllCurrentCourses();
+
+
+
 }
+
+

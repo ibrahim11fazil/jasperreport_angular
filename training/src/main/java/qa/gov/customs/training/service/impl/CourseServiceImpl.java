@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import qa.gov.customs.training.models.CourseManagement;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
@@ -375,7 +376,20 @@ public class CourseServiceImpl  implements CourseService {
 		return activationList;
 
 		}
-
+	@Override
+	public List<CourseManagement> getAllCurrentCourses()
+	{
+		List<Object[]> objects=courseRepository.getAllCurrentCourses();
+		List<CourseManagement> courseList = new ArrayList<>();
+		for (Object[] o : objects) {
+			CourseManagement course = new CourseManagement();
+			course.setCourseName((String) o[0]);
+			course.setCourse_date((Date) o[1]);
+			course.setEnd_date((Date) o[2]);
+			courseList.add(course);
+		}
+		return courseList;
+	}
 	}
 
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.models.ActivationList;
+import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
@@ -537,10 +538,20 @@ public class CourseController {
 	@GetMapping("/get-current-courses")
 	public ResponseType getCurrentCourses()
 	{
+		List<CourseManagement> courseManagement=null;
+		courseManagement=courseService.getAllCurrentCourses();
+		if(courseManagement!=null || !courseManagement.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
 
 
-
-	return null;
 	}
 	@PreAuthorize("hasAnyAuthority('get_future_courses')")
 	@GetMapping("/get-future-courses")
