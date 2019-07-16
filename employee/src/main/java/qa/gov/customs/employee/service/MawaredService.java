@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import qa.gov.customs.employee.entity.MawaredMaster;
 import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
+import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface MawaredService {
     List<MawaredMaster> findByEmail(String email);
     List<MawaredJobs> listJobs();
     List<MawaredGrades> listGrades();
-
+    List<mawaredJobFamily> listJobFamily();
     
 }

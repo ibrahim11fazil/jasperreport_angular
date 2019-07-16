@@ -7,7 +7,7 @@ import qa.gov.customs.employee.repository.MawaredRepository;
 import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
-
+import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +73,22 @@ public class MawaredServiceImpl implements MawaredService {
 		}
 		return grades;
 	}
+    
+    public List<mawaredJobFamily> listJobFamily()
+    
+    {
+		List<Object[]> objects = mawaredRepository.listFullJobFamily();
+		List<mawaredJobFamily> jobFamilies = new ArrayList<>();
+		for (Object[] o : objects) {
+			mawaredJobFamily jobFamily = new mawaredJobFamily();
+			jobFamily.setJobFamily((String) o[0]);
+			jobFamily.setJobFamilyShort((String) o[1]);
+			jobFamily.setJobFamilyText((String) o[2]);
+			jobFamilies.add(jobFamily);
+		}
+		return jobFamilies;
+	}
+    
     
 
 }

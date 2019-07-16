@@ -13,6 +13,8 @@ import qa.gov.customs.employee.utils.MessageUtil;
 import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.ResponseType;
+import qa.gov.customs.employee.utils.models.mawaredJobFamily;
+
 import java.util.List;
 
 @RestController
@@ -129,7 +131,22 @@ public class EmployeeController {
 			}
 		}
 		
-    
+		@GetMapping("/list-jobfamily")
+		public ResponseType listJobFamily() 
+		{
+			List<mawaredJobFamily> jobFamilyList = null;
+			jobFamilyList = mawaredService.listJobFamily();
+			if(jobFamilyList!=null)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobFamilyList);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
 	
 	
     

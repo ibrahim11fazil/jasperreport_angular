@@ -26,4 +26,7 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
     @Query(value="SELECT distinct PSLEVEL FROM USER_SAP_WS_MINI  where PSLEVEL is not null order by PSLEVEL",nativeQuery = true)
     List<Object[]> listFullGrades();
     
+    @Query(value="SELECT distinct JOB_FAMILY,JOB_FAMILY_SHORT,JOB_FAMILY_TEXT FROM USER_SAP_MASTERDETAILS where JOB_FAMILY is not null order by JOB_FAMILY",nativeQuery = true)
+    List<Object[]> listFullJobFamily();
+    
 }
