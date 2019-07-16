@@ -1,6 +1,7 @@
 package qa.gov.customs.workflowcamuda;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +20,7 @@ public class WorkflowResource extends ResourceServerConfigurerAdapter {
     public TokenStore tokenStore;
 
     @Autowired
-    public WorkflowResource(TokenStore tokenStore) {
+    public WorkflowResource(@Qualifier("jwtTokenStore") TokenStore tokenStore) {
         this.tokenStore = tokenStore;
     }
 

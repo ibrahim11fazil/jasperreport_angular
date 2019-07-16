@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +21,7 @@ public class TrainingResource extends ResourceServerConfigurerAdapter {
     public TokenStore tokenStore;
 
     @Autowired
-    public TrainingResource(TokenStore tokenStore) {
+    public TrainingResource(@Qualifier("jwtTokenStore")  TokenStore tokenStore) {
         this.tokenStore = tokenStore;
     }
 
@@ -36,10 +37,8 @@ public class TrainingResource extends ResourceServerConfigurerAdapter {
                 );
     }
 
-
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        //SET THE RESOURCE NAME IN THE DB
         resources.resourceId("TRAINING_RESOURCE").tokenStore(tokenStore);
     }
 

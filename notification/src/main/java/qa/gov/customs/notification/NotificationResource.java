@@ -21,7 +21,7 @@ public class NotificationResource extends ResourceServerConfigurerAdapter {
 public TokenStore tokenStore;
 
 	@Autowired
-	public NotificationResource( TokenStore tokenStore) {
+	public NotificationResource(@Qualifier("jwtTokenStore") TokenStore tokenStore) {
 		this.tokenStore = tokenStore;
 	}
 

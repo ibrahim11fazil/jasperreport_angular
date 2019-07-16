@@ -60,6 +60,9 @@ import { SearchInstructorComponent } from './search-instructor/search-instructor
 import { CisCourseRequestsIMadeComponent } from './cis-course-requests-i-made/cis-course-requests-i-made.component';
 import { ActivationsComponent } from './activations/activations.component';
 import { CourseManagementComponent } from './course-management/course-management.component';   
+import { JobCardComponent } from './job-card/job-card.component';
+import { JobCardSearchComponent } from './job-card-search/job-card-search.component';
+
 
 
 @NgModule({
@@ -81,6 +84,9 @@ import { CourseManagementComponent } from './course-management/course-management
      CisCourseRequestsIMadeComponent,
      ActivationsComponent,
      CourseManagementComponent,
+     JobCardComponent,
+     JobCardSearchComponent,
+
      ],
   imports: [
     InfiniteScrollModule,
