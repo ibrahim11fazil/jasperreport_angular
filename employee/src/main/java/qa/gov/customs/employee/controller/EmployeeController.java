@@ -132,8 +132,7 @@ public class EmployeeController {
 		}
 		
 		@GetMapping("/list-jobfamily")
-		public ResponseType listJobFamily() 
-		{
+		public ResponseType listJobFamily() {
 			List<mawaredJobFamily> jobFamilyList = null;
 			jobFamilyList = mawaredService.listJobFamily();
 			if(jobFamilyList!=null)
