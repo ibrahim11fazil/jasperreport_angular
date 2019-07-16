@@ -405,11 +405,11 @@ var m =
   var m8 = 
   {
     state: 'training',
-    name: 'Course Attendance',
+    name: 'Course Management',
     type: 'sub',
     icon: 'grade',
     children: [
-      {state: 'welcome', name: 'Welcome' }
+      {state: 'course-management', name: 'Manage Courses'},
     ]
   };
 
