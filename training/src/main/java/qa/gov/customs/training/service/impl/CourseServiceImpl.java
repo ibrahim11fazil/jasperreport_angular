@@ -3,11 +3,14 @@ package qa.gov.customs.training.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-
+import java.text.DateFormat;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.GregorianCalendar;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -374,22 +377,38 @@ public class CourseServiceImpl  implements CourseService {
 		return activationList;
 
 		}
+//	public static Date parseDate(Date date) {
+//		try {
+//			return new SimpleDateFormat("yyyy-MM-dd").format(date);
+//		} catch (ParseException e) {
+//			return null;
+//		}
+//	}
 	@Override
 	public List<CourseManagement> getAllCurrentCourses()
 	{
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		//Date endDate=null;
 		int page =0;
 		int limit=20;
 		Pageable pageable =
 				PageRequest.of(
 						page, limit, Sort.by("course_Id"));
+
 		List<Object[]> objects=courseRepository.getAllCurrentCourses(pageable);
 		List<CourseManagement> courseList = new ArrayList<>();
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();
 			course.setCourseName((String) o[0]);
-			course.setCourse_date((Date) o[1]);
-			course.setEnd_date((Date) o[2]);
+//			course.setCourse_date((Date) o[1]);
+//			course.setEnd_date((Date) o[2]);
+			Date courseDate=((Date)o[1]);
+			Date endDate=((Date)o[2]);
+			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
 			courseList.add(course);
+
 		}
 		return courseList;
 	}
@@ -407,8 +426,12 @@ public class CourseServiceImpl  implements CourseService {
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();
 			course.setCourseName((String) o[0]);
-			course.setCourse_date((Date) o[1]);
-			course.setEnd_date((Date) o[2]);
+//			course.setCourse_date((Date) o[1]);
+//			course.setEnd_date((Date) o[2]);
+			Date courseDate=((Date)o[1]);
+			Date endDate=((Date)o[2]);
+			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
 			courseList.add(course);
 		}
 		return courseList;
@@ -427,8 +450,12 @@ public class CourseServiceImpl  implements CourseService {
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();
 			course.setCourseName((String) o[0]);
-			course.setCourse_date((Date) o[1]);
-			course.setEnd_date((Date) o[2]);
+//			course.setCourse_date((Date) o[1]);
+//			course.setEnd_date((Date) o[2]);
+			Date courseDate=((Date)o[1]);
+			Date endDate=((Date)o[2]);
+			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
 			courseList.add(course);
 		}
 		return courseList;

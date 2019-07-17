@@ -94,8 +94,8 @@ export class TacCourseMaster {
 
     export class CourseManagementRes{
         public courseName:String
-        public course_date:Date
-        public end_date:Date
+        public course_date:String
+        public end_date:String
     }
     export interface ITacCourseManagementList {
         status: Boolean;
