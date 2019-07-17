@@ -156,33 +156,34 @@ public class CourseController {
 				linkCourse.setLocationType(course.getLocationType());
 				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
 					Set<TacCourseDate> dates=course.getTacCourseDates();
-
+				if(linkCourse.getDurationFlag()!=null) {
 					for(TacCourseDate dateOption:dates)
 					{
 					Calendar  cal=Calendar.getInstance();
 					cal.setTime(dateOption.getCourseDate());
-					if(linkCourse.getDurationFlag().equals(new BigDecimal(1))) {
-						cal.add(Calendar.YEAR,Integer.valueOf(linkCourse.getDuration().intValue()));
-					}
-					if(linkCourse.getDurationFlag().equals(new BigDecimal(2))) {
-						cal.add(Calendar.MONTH,Integer.valueOf(linkCourse.getDuration().intValue()));
-					}
-						if(linkCourse.getDurationFlag().equals(new BigDecimal(3))) {
 
-						for (int i = 1; i <= Integer.valueOf(linkCourse.getDuration().intValue())-1; i++) {
+						if (linkCourse.getDurationFlag().equals(new BigDecimal(1))) {
+							cal.add(Calendar.YEAR, Integer.valueOf(linkCourse.getDuration().intValue()));
+						}
+						if (linkCourse.getDurationFlag().equals(new BigDecimal(2))) {
+							cal.add(Calendar.MONTH, Integer.valueOf(linkCourse.getDuration().intValue()));
+						}
+						if (linkCourse.getDurationFlag().equals(new BigDecimal(3))) {
 
-							cal.add(Calendar.DATE, 1);
-							while (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+							for (int i = 1; i <= Integer.valueOf(linkCourse.getDuration().intValue()) - 1; i++) {
+
 								cal.add(Calendar.DATE, 1);
+								while (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+									cal.add(Calendar.DATE, 1);
+								}
 							}
+
 						}
 
+						dateOption.setEndDate(cal.getTime());
+						courseDate.add(dateOption);
+
 					}
-
-					dateOption.setEndDate(cal.getTime());
-					courseDate.add(dateOption);
-
-
 				}
 					if(courseDate!=null)
 					{
@@ -399,7 +400,10 @@ public class CourseController {
   		if(courseActivation!=null)
 		{
 			courseActivation.setActivationDate(new Date());
+
 			activatedCourse=courseService.saveCourseActivation(courseActivation);
+			activatedCourse.getTacCourseDate().setStatus(new BigDecimal(1));
+			courseService.setStatusOfDate(activatedCourse.getTacCourseDate());
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_ACTIVATE, true, activatedCourse);
 			return response;
 		}
@@ -557,13 +561,37 @@ public class CourseController {
 	@GetMapping("/get-future-courses")
 	public ResponseType getFutureCourses()
 	{
-		return null;
+		List<CourseManagement> courseManagement=null;
+		courseManagement=courseService.getAllFutureCourses();
+		if(courseManagement!=null || !courseManagement.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
 	}
 	@PreAuthorize("hasAnyAuthority('get_previous_courses')")
 	@GetMapping("/get-previous-courses")
 	public ResponseType getPreviousCourses()
 	{
-		return null;
+		List<CourseManagement> courseManagement=null;
+		courseManagement=courseService.getAllPreviousCourses();
+		if(courseManagement!=null || !courseManagement.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
 	}
 
 	}

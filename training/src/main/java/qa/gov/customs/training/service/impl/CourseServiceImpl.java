@@ -335,8 +335,6 @@ public class CourseServiceImpl  implements CourseService {
 
 		List<TacCourseActivation>activationList=null;
 		List<Object[]> objects=null;
-		System.out.println(page);
-		System.out.println(limit);
 		List<TacCourseActivation> activations =  new ArrayList<>();
 		Pageable pageable =
 				PageRequest.of(
@@ -379,7 +377,12 @@ public class CourseServiceImpl  implements CourseService {
 	@Override
 	public List<CourseManagement> getAllCurrentCourses()
 	{
-		List<Object[]> objects=courseRepository.getAllCurrentCourses();
+		int page =0;
+		int limit=20;
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("course_Id"));
+		List<Object[]> objects=courseRepository.getAllCurrentCourses(pageable);
 		List<CourseManagement> courseList = new ArrayList<>();
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();
@@ -390,6 +393,54 @@ public class CourseServiceImpl  implements CourseService {
 		}
 		return courseList;
 	}
+
+	@Override
+	public List<CourseManagement> getAllFutureCourses()
+	{
+		int page =0;
+		int limit=20;
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("course_Id"));
+		List<Object[]> objects=courseRepository.getAllFutureCourses(pageable);
+		List<CourseManagement> courseList = new ArrayList<>();
+		for (Object[] o : objects) {
+			CourseManagement course = new CourseManagement();
+			course.setCourseName((String) o[0]);
+			course.setCourse_date((Date) o[1]);
+			course.setEnd_date((Date) o[2]);
+			courseList.add(course);
+		}
+		return courseList;
+	}
+
+	@Override
+	public List<CourseManagement> getAllPreviousCourses()
+	{
+		int page =0;
+		int limit=20;
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("course_Id"));
+		List<Object[]> objects=courseRepository.getAllPreviousCourses(pageable);
+		List<CourseManagement> courseList = new ArrayList<>();
+		for (Object[] o : objects) {
+			CourseManagement course = new CourseManagement();
+			course.setCourseName((String) o[0]);
+			course.setCourse_date((Date) o[1]);
+			course.setEnd_date((Date) o[2]);
+			courseList.add(course);
+		}
+		return courseList;
+	}
+	@Override
+	public void setStatusOfDate(TacCourseDate courseDate)
+	{
+		tacCourseDateRepository.save(courseDate);
+	}
+
+
+
 	}
 
 

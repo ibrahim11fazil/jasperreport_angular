@@ -63,8 +63,6 @@ import { CourseManagementComponent } from './course-management/course-management
 import { JobCardComponent } from './job-card/job-card.component';
 import { JobCardSearchComponent } from './job-card-search/job-card-search.component';
 
-
-
 @NgModule({
   declarations: [
     WelcomeComponent, 

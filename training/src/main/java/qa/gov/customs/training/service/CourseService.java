@@ -52,4 +52,7 @@ public interface CourseService {
 
  TacCourseActivation getCourseActivationByActivationId(TacCourseActivation courseActivation);
     List<CourseManagement> getAllCurrentCourses();
+    List<CourseManagement> getAllFutureCourses();
+    List<CourseManagement>  getAllPreviousCourses();
+   void setStatusOfDate(TacCourseDate courseDate);
 }

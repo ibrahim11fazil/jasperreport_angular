@@ -99,6 +99,9 @@ export const  GET_COURSE_ROOM_DETAIL=BASE_URL+training+"/get-course-room"
 export const  GET_COURSE_DATE_DETAIL=BASE_URL+training+"/get-course-date"
 export const  GET_ACTIVATIONS_BY_NAME=BASE_URL+training+"/list-activations-by-courseName"
 export const   GET_ACTIVATIONS_BY_ID=BASE_URL+training+"/get-all-activationList"
+export const   GET_CURRENT_COURSES=BASE_URL+training+"/get-current-courses"
+export const   GET_PREVIOUS_COURSES=BASE_URL+training+"/get-previous-courses"
+export const   GET_FUTURE_COURSES=BASE_URL+training+"/get-future-courses"
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
@@ -111,7 +114,6 @@ export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-r
 
 //FILE UPLOADING
 export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
-//export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
 export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"
 
 

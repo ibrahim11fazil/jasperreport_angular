@@ -91,6 +91,19 @@ export class TacCourseMaster {
         public courseId:Number
         public activityId:Number
     }
+
+    export class CourseManagementRes{
+        public courseName:String
+        public course_date:Date
+        public end_date:Date
+    }
+    export interface ITacCourseManagementList {
+        status: Boolean;
+        code:number;
+        message:String;
+        data: CourseManagementRes[];
+        count:number;
+    }
     
     
 

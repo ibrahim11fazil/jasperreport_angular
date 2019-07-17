@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { TrainingService } from 'app/service/training/training.service';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { PageTitleService } from 'app/core/page-title/page-title.service';
+import { CourseManagementRes, ITacCourseManagementList } from 'app/models/tac-course-master';
+import { Page } from 'app/models/paged-data';
 
 @Component({
   selector: 'ms-course-management',
@@ -7,7 +14,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseManagementComponent implements OnInit {
 
-  constructor() { }
+  rows:CourseManagementRes[];
+  page = new Page();
+  form: FormGroup
+  constructor(private fb: FormBuilder,
+    private trainingService: TrainingService,
+    private toastr: ToastrService,
+
+    private activatedRoute: ActivatedRoute,
+    private pageTitleService: PageTitleService) { }
 
   ngOnInit() {
   }
@@ -32,4 +47,53 @@ export class CourseManagementComponent implements OnInit {
       icon : "new_releases"
     }
   ]
+
+
+  getCourseManagement(card)
+  {
+    debugger;
+    
+    if (card.title=="Previous Courses")
+    {
+this.trainingService.getPreviousCourses().subscribe(
+  data => {
+    var response = <ITacCourseManagementList>data
+    this.rows = response.data
+    console.log(this.rows)
+  },
+  error => {
+    console.log(error)
+    this.toastr.error(error.message)
+  })
+    }
+    else if (card.title=="Current Courses")
+    {
+      this.trainingService.getCurrentCourses().subscribe(
+        data => {
+          var response = <ITacCourseManagementList>data
+          this.rows = response.data
+          console.log(this.rows)
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
+    }
+    else if (card.title=="Future Courses")
+    {
+      this.trainingService.getFutureCourses().subscribe(
+        data => {
+          var response = <ITacCourseManagementList>data
+          this.rows = response.data
+          console.log(this.rows)
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
+    }
+  }
+
+
+  
 }
