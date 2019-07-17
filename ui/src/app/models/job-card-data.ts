@@ -45,3 +45,43 @@ export interface IJobCardDataSearchResponse {
     message:String;
     data: JobCardData[];
 }
+
+export interface JobGradesListResponse {
+    code: number;
+    message: string;
+    status: boolean;
+    count: number;
+    data: JobGrades[];
+}
+
+export interface JobFamily {
+    jobFamily: string;
+    jobFamilyShort: string;
+    jobFamilyText: string;
+}
+
+export interface JobFamilyListResponses {
+    code: number;
+    message: string;
+    status: boolean;
+    count: number;
+    data: JobFamily[];
+}
+
+export interface JobGrades {
+    psLevel: string;
+}
+
+export interface JobTitle {
+    job: string;
+    jobDesc: string;
+    jobDescAr: string;
+}
+
+export interface JobTitleListResponse {
+    code: number;
+    message: string;
+    status: boolean;
+    count: number;
+    data: JobTitle[];
+}

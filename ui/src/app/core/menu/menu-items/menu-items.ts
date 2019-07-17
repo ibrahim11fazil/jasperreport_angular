@@ -364,7 +364,8 @@ var m =
     type: 'sub',
     icon: 'book',
     children: [
-      {state: 'welcome', name: 'Welcome' }
+      {state: 'job-card-management', name: 'Create Job Card' },
+      {state: 'job-card-search', name: 'Search Job Card' }
     ]
   };
 

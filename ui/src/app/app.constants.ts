@@ -102,6 +102,9 @@ export const   GET_ACTIVATIONS_BY_ID=BASE_URL+training+"/get-all-activationList"
 export const   GET_CURRENT_COURSES=BASE_URL+training+"/get-current-courses"
 export const   GET_PREVIOUS_COURSES=BASE_URL+training+"/get-previous-courses"
 export const   GET_FUTURE_COURSES=BASE_URL+training+"/get-future-courses"
+export const  CREATE_JOB_CARD=BASE_URL+training+"/create-job-card"
+export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
+
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
@@ -125,3 +128,6 @@ export const GET_ALL_CIS_COURSES_I_REQUESTED=BASE_URL+cis+"/find-all-courses-i-r
 //EMPLOYEE
 export const  GET_EMPLOYEE_BY_ID = BASE_URL+employee+"/get-employee-by-jobid"
 //get-employee-by-jobid
+export const  GET_JOB_TITLE=BASE_URL+employee+"/list-jobs"
+export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
+export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"
