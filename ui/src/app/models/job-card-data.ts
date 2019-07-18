@@ -85,3 +85,19 @@ export interface JobTitleListResponse {
     count: number;
     data: JobTitle[];
 }
+
+
+export interface FunctionalArea {
+    otype: string;
+    objid: string;
+    objectText: string;
+    lang: string;
+}
+
+export interface FunctionalAreaResponseList {
+    code: number;
+    message: string;
+    status: boolean;
+    count: number;
+    data: FunctionalArea[];
+}

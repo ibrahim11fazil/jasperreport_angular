@@ -149,7 +149,7 @@ public class EmployeeController {
 		}
 	
 	
-		@GetMapping("/list-frunctional-aea")
+		@GetMapping("/list-functional-area")
 		public ResponseType listFunctionalArea() {
 			List<mawaredOrgDetails> fAreaList = null;
 			fAreaList = mawaredService.listOrgDetails();
