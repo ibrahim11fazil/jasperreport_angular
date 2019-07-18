@@ -8,6 +8,7 @@ import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.mawaredJobFamily;
+import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +90,21 @@ public class MawaredServiceImpl implements MawaredService {
 		return jobFamilies;
 	}
     
-    
 
+    
+public List<mawaredOrgDetails> listOrgDetails()
+    
+    {
+		List<Object[]> objects = mawaredRepository.listFunctionalArea();
+		List<mawaredOrgDetails> fAreas = new ArrayList<>();
+		for (Object[] o : objects) {
+			mawaredOrgDetails fArea = new mawaredOrgDetails();
+			fArea.setOtype((String) o[0]);
+			fArea.setObjid((String) o[1]);
+			fArea.setObjectText((String) o[2]);
+			fArea.setLang((String) o[3]);
+			fAreas.add(fArea);
+		}
+		return fAreas;
+	}
 }

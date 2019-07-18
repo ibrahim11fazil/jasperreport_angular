@@ -100,7 +100,7 @@ import java.util.Set;
 		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
 		private Set<TacJobcardSkills> tacJobcardSkills = new HashSet<TacJobcardSkills>(0);
 		
-//		private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
+		private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
 //		
 		
 		
@@ -161,6 +161,9 @@ import java.util.Set;
 //		@JoinTable(name = "TAC_JOBCARD_COURSE_LINK",
 //				joinColumns = { @JoinColumn(name = "JOBCARD_NO") },
 //				inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
+		
+//		@JsonManagedReference(value="courseLink")
+//		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
 //		public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
 //			return tacJobcardCourseLink;
 //		}

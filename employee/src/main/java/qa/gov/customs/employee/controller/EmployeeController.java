@@ -14,6 +14,7 @@ import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.ResponseType;
 import qa.gov.customs.employee.utils.models.mawaredJobFamily;
+import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
 import java.util.List;
 
@@ -148,5 +149,19 @@ public class EmployeeController {
 		}
 	
 	
-    
+		@GetMapping("/list-frunctional-aea")
+		public ResponseType listFunctionalArea() {
+			List<mawaredOrgDetails> fAreaList = null;
+			fAreaList = mawaredService.listOrgDetails();
+			if(fAreaList!=null)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, fAreaList);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
 }
