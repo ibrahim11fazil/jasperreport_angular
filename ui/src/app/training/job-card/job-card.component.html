@@ -45,7 +45,7 @@
                          </mat-option>
                       </mat-select>
                    </mat-form-field>
-                </div>
+               </div>
 
 
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
@@ -55,6 +55,18 @@
                         <mat-option *ngFor="let obj of jobFamilies"
                          [value]="obj">
                          {{  obj.jobFamilyShort }} {{" "}} {{ obj.jobFamily }} {{" "}}  {{ obj.jobFamilyText}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <mat-select placeholder="Functional Area" matInput formControlName="functionalArea" required>
+                        <option [ngValue]="null">Functional Area</option>
+                        <mat-option *ngFor="let obj of functionalAreas"
+                         [value]="obj">
+                          {{ obj.objectText }} 
                         </mat-option>
                      </mat-select>
                   </mat-form-field>
