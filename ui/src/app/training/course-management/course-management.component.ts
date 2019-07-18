@@ -17,6 +17,7 @@ export class CourseManagementComponent implements OnInit {
   rows:CourseManagementRes[];
   page = new Page();
   form: FormGroup
+  displayManage:boolean=false;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
@@ -38,7 +39,7 @@ export class CourseManagementComponent implements OnInit {
       card_color : "success-bg",
       title : "Current Courses",
       //number : "6,101",
-      icon : "assessment"
+      icon : "assessment",
     },
     {
       card_color : "accent-bg",
@@ -52,7 +53,7 @@ export class CourseManagementComponent implements OnInit {
   getCourseManagement(card)
   {
     debugger;
-    
+    this.displayManage=false;
     if (card.title=="Previous Courses")
     {
 this.trainingService.getPreviousCourses().subscribe(
@@ -68,6 +69,7 @@ this.trainingService.getPreviousCourses().subscribe(
     }
     else if (card.title=="Current Courses")
     {
+      this.displayManage=true;
       this.trainingService.getCurrentCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
