@@ -4,6 +4,7 @@ target/*
 .project
 .settings/
 target/
+uploads/
 logs/
 .idea/
 .DS_Store
@@ -28,3 +29,13 @@ logs/
 hs_err_pid*
 
 env_production.txt
+
+
+# NodeJS specific #
+.nyc_output/
+coverage/
+node_modules/
+dist/
+npm-debug.log
+package-lock.json
+test/*.log

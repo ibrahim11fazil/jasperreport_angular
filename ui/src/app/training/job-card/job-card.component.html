@@ -1,0 +1,76 @@
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+  <mat-card fxFlex="100%">
+     <div class="gene-card-title">
+        <div fxLayout="row" fxLayoutAlign="start center">
+           <div fxLayout="column">
+              <h4>Job Creation</h4>
+           </div>
+           <span fxFlex></span>
+        </div>
+        <mat-divider></mat-divider>
+     </div>
+     <div class="gene-card-content">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+           <div fxLayout="column">
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+              {{jobId}}
+            </div>
+
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+              <mat-form-field class="full-wid mrgn-b-md">
+                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitles" required>
+                    <option [ngValue]="null">Select Job Titles</option>
+                    <mat-option *ngFor="let obj of jobTitles"
+                     [value]="obj">
+                       {{obj.jobDescAr}}
+                    </mat-option>
+                 </mat-select>
+              </mat-form-field>
+           </div>
+
+              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                 <mat-form-field class="full-wid mrgn-b-lg">
+                    <input matInput placeholder="Job Id"    formControlName="jobNumber" required (change)="onJobIdChange($event)" >
+                 </mat-form-field>   
+              </div>
+
+              
+              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                   <mat-form-field class="full-wid mrgn-b-md">
+                      <mat-select placeholder="Job Grade" matInput formControlName="jobGrade" required>
+                         <option [ngValue]="null">Select Job Grade</option>
+                         <mat-option *ngFor="let obj of jobGrades"
+                          [value]="obj">
+                            {{obj.psLevel}}
+                         </mat-option>
+                      </mat-select>
+                   </mat-form-field>
+                </div>
+
+
+                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <mat-select placeholder="Job Family" matInput formControlName="jobFamily" required>
+                        <option [ngValue]="null">Select Role</option>
+                        <mat-option *ngFor="let obj of jobFamilies"
+                         [value]="obj">
+                         {{  obj.jobFamilyShort }} {{" "}} {{ obj.jobFamily }} {{" "}}  {{ obj.jobFamilyText}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+               </div>
+
+
+            
+              <div fxLayout="row" fxLayoutAlign="start">
+                 <button mat-raised-button color="primary"   type="submit">Save
+                 </button>
+              </div>
+            
+
+           </div>
+        </form>
+     </div>
+  </mat-card>
+</div>
+

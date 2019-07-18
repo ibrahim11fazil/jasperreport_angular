@@ -10,7 +10,11 @@ import qa.gov.customs.employee.entity.*;
 import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.utils.Constants;
 import qa.gov.customs.employee.utils.MessageUtil;
+import qa.gov.customs.employee.utils.models.MawaredGrades;
+import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.ResponseType;
+import qa.gov.customs.employee.utils.models.mawaredJobFamily;
+import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
 import java.util.List;
 
@@ -91,4 +95,73 @@ public class EmployeeController {
             return response;
         }
     }
+    
+    
+    //@PreAuthorize("hasAnyAuthority('List_Jobs')")
+	@GetMapping("/list-jobs")
+	public ResponseType listJobs() 
+	{
+		List<MawaredJobs> jobList = null;
+		jobList = mawaredService.listJobs();
+		if(jobList!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+	}
+	
+		@GetMapping("/list-grades")
+		public ResponseType listGrades() 
+		{
+			List<MawaredGrades> gradeList = null;
+			gradeList = mawaredService.listGrades();
+			if(gradeList!=null)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, gradeList);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
+		
+		@GetMapping("/list-jobfamily")
+		public ResponseType listJobFamily() {
+			List<mawaredJobFamily> jobFamilyList = null;
+			jobFamilyList = mawaredService.listJobFamily();
+			if(jobFamilyList!=null)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobFamilyList);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
+	
+	
+		@GetMapping("/list-frunctional-aea")
+		public ResponseType listFunctionalArea() {
+			List<mawaredOrgDetails> fAreaList = null;
+			fAreaList = mawaredService.listOrgDetails();
+			if(fAreaList!=null)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, fAreaList);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
 }

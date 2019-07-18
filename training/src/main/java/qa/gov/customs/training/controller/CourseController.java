@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.Course;
+import qa.gov.customs.training.models.ActivationList;
+import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
-
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -56,63 +56,8 @@ public class CourseController {
 			return response;
 		}
 
-//		TacCourseMaster courses = null;
-//		TacCourseGuidelines guideline=null;
-//		if (course.getCourseId() != new BigDecimal(0)) {
-//			ResponseType searchResponse = getCourseByName(course);
-//			if (searchResponse.getData() == null) {
-//				course.setActiveFlag(new BigDecimal(1));
-//				courses = courseService.createAndUpdateCourse(course);
-//				if (courses != null) {
-//						if(courses.getTacCourseGuidelineses()!=null)
-//						{
-//							for(TacCourseGuidelines guidelines:course.getTacCourseGuidelineses())
-//							{
-//								logger.info(guidelines.getDescription());
-//								guidelines.setTacCourseMaster(courses);
-//								guideline=courseService.createGuideline(guidelines);
-//
-//						}
-//					}
-//						if(course.getTacCourseOutcomes()!=null)
-//						{
-//
-//							for(TacCourseOutcome outcomes:course.getTacCourseOutcomes())
-//							{
-//
-//								outcomes.setTacCourseMaster(courses);
-//						courseService.createOutcome(outcomes);
-//
-//						}
-//						}
-//						if(course.getTacCourseAudiences()!=null)
-//						{
-//
-//							for(TacCourseAudience audience:course.getTacCourseAudiences())
-//							{
-//
-//								audience.setTacCourseMaster(courses);
-//						courseService.createAudience(audience);
-//
-//						}
-//						}
-//
-//					ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
-//							courses);
-//					return response;
-//				} else {
-//					ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false,
-//							null);
-//					return response;
-//				}
-//			}
-//		}
-//		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_COURSE, false, null);
-//		return response;
-
 	}
 
-	// for creating and updating courses
 	@PreAuthorize("hasAnyAuthority('disable_course')")
 	@PostMapping("/disable-course")
 	public ResponseType disableCourse(@RequestBody TacCourseMaster course) {
@@ -140,8 +85,6 @@ public class CourseController {
 		return response;
 	}
 
-
-	// for creating and updating courses
 	@PreAuthorize("hasAnyAuthority('enable_course')")
 	@PostMapping("/enable-course")
 	public ResponseType enableCourse(@RequestBody TacCourseMaster course) {
@@ -202,21 +145,57 @@ public class CourseController {
 		TacCourseMaster linkCourse = null;
 		TacCourseMaster courselink = null;
 		Set<TacActivity> activities = new HashSet<TacActivity>();
+		Set<TacCourseDate> courseDate=new HashSet<TacCourseDate>();
+		Set<TacCoursePrerequisites> prerequisitesList = new HashSet<TacCoursePrerequisites>();
 		Set<TacCourseDate> date = new HashSet<TacCourseDate>();
 		if (course.getCourseId() != new BigDecimal(0)) {
 			linkCourse = courseService.findById(course.getCourseId());
 			if (linkCourse != null) {
 				logger.info("inside link course not null");
-				linkCourse.setPrerequisitesId(course.getPrerequisitesId());
+				//linkCourse.setPrerequisitesId(course.getPrerequisitesId());
 				linkCourse.setLocationType(course.getLocationType());
 				linkCourse.setSubcourseFlag(course.getSubcourseFlag());
-//				for(TacActivity activity:course.getTacActivities()) {
-//					for (TacCourseDate dateSet : linkCourse.getTacCourseDates()) {
-//
-//						dateSet.setTacActivity(activity);
-//						course.setTacCourseDates(dateSet);
-//					}
-//				}
+					Set<TacCourseDate> dates=course.getTacCourseDates();
+				if(linkCourse.getDurationFlag()!=null) {
+					for(TacCourseDate dateOption:dates)
+					{
+					Calendar  cal=Calendar.getInstance();
+					cal.setTime(dateOption.getCourseDate());
+
+						if (linkCourse.getDurationFlag().equals(new BigDecimal(1))) {
+							cal.add(Calendar.YEAR, Integer.valueOf(linkCourse.getDuration().intValue()));
+						}
+						if (linkCourse.getDurationFlag().equals(new BigDecimal(2))) {
+							cal.add(Calendar.MONTH, Integer.valueOf(linkCourse.getDuration().intValue()));
+						}
+						if (linkCourse.getDurationFlag().equals(new BigDecimal(3))) {
+
+							for (int i = 1; i <= Integer.valueOf(linkCourse.getDuration().intValue()) - 1; i++) {
+
+								cal.add(Calendar.DATE, 1);
+								while (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+									cal.add(Calendar.DATE, 1);
+								}
+							}
+
+						}
+
+						dateOption.setEndDate(cal.getTime());
+						courseDate.add(dateOption);
+
+					}
+				}
+					if(courseDate!=null)
+					{
+						linkCourse.setTacCourseDates(courseDate);
+					}
+				if(course.getTacCoursePrerequisiteses()!=null)
+				{
+					for(TacCoursePrerequisites prerequisites:course.getTacCoursePrerequisiteses())
+					{
+						prerequisitesList.add(prerequisites);
+					}
+				}
 				if (course.getTacActivities() != null) {
 
 					for (TacActivity activity : course.getTacActivities()) {
@@ -227,18 +206,19 @@ public class CourseController {
 						}
 					}
 					for(TacActivity activity:course.getTacActivities()) {
-						for (TacCourseDate dates : course.getTacCourseDates()) {
+						for (TacCourseDate dates1 : linkCourse.getTacCourseDates()) {
 							logger.info("inside for loop");
-							dates.setTacCourseMaster(course);
-							dates.setTacActivity(activity);
-
-							date.add(dates);
-
-
+							dates1.setTacCourseMaster(course);
+							dates1.setTacActivity(activity);
+							date.add(dates1);
 						}
 					}
 					if (date.size() > 0) {
 						linkCourse.setTacCourseDates(date);
+					}
+					if(prerequisitesList.size()>0)
+					{
+						linkCourse.setTacCoursePrerequisiteses(prerequisitesList);
 					}
 					}
 					if (activities.size() > 0) {
@@ -248,21 +228,16 @@ public class CourseController {
 						ResponseType response = new ResponseType(Constants.SUCCESS, "course linked with activity", true, courselink);
 
 						return response;
-
 					}
 					ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
 					return response;
-
 				}
 				ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
 				return response;
-
 			}
 			ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
 			return response;
-
 		}
-
 
 	@PreAuthorize("hasAnyAuthority('search_course')")
 	@PostMapping("/search-course")
@@ -303,16 +278,6 @@ public class CourseController {
 		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
 		return response;
 	}
-
-
-
-
-	/*
-	 * @GetMapping("/count-course") public long countCourse() { long countcourse=
-	 * courseService.countCourses(); return countcourse;
-	 * 
-	 * }
-	 */
 
 	@PreAuthorize("hasAnyAuthority('count_course')")
 	@GetMapping("/count-course")
@@ -363,9 +328,6 @@ public class CourseController {
 
 	}
 
-
-	//@PreAuthorize("hasAnyAuthority('count_course')"),
-	//NOTE: Its a general method no need for authority
 	@GetMapping("/get-all-course-categories")
 	public ResponseType getAllCourseCategories() {
 		List<TacCourseCategory> categories = null;
@@ -381,8 +343,6 @@ public class CourseController {
 
 	}
 
-	//@PreAuthorize("hasAnyAuthority('count_course')"),
-	//NOTE: Its a general method no need for authority
 	@GetMapping("/get-all-course-target-groups")
 	public ResponseType getAllCourseTargetGroups() {
 		List<TacCourseTargetGroup> categories = null;
@@ -435,11 +395,15 @@ public class CourseController {
 	@PostMapping("/activate-course")
 	public ResponseType activateCourse(@RequestBody TacCourseActivation courseActivation) {
 		TacCourseActivation activatedCourse=null;
+		TacCourseMaster courseMaster=null;
 
   		if(courseActivation!=null)
 		{
 			courseActivation.setActivationDate(new Date());
+
 			activatedCourse=courseService.saveCourseActivation(courseActivation);
+			activatedCourse.getTacCourseDate().setStatus(new BigDecimal(1));
+			courseService.setStatusOfDate(activatedCourse.getTacCourseDate());
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.COURSE_ACTIVATE, true, activatedCourse);
 			return response;
 		}
@@ -450,11 +414,7 @@ public class CourseController {
 
 		}
 
-
-
 	}
-
-
 
 	@PostMapping("/get-training-room")
 	public ResponseType getTrainingRoom(@RequestBody TacCourseLocation courseLocation) {
@@ -469,8 +429,6 @@ public class CourseController {
 			return response;
 
 		}
-
-
 	}
 
 	@GetMapping("/get-all-mainCourse")
@@ -526,18 +484,27 @@ public class CourseController {
 	@PreAuthorize("hasAnyAuthority('list_activations')")
 	@PostMapping("/list-activations-by-courseName")
 	public ResponseType listactivations(@RequestBody  TacCourseMaster courseMaster) {
-		List<TacCourseActivation> activationList = null;
-		activationList = courseService.listactivations(courseMaster.getCourseName(),courseMaster.getStart(),courseMaster.getLimit());
-		if(activationList!=null)
-		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activationList);
-			return response;
+		List<TacCourseActivation> activations = null;
+		Set<ActivationList> listActivity=new HashSet<>();
+
+		activations = courseService.listactivations(courseMaster.getCourseName(),courseMaster.getStart(),courseMaster.getLimit());
+		if(activations!=null) {
+			for (TacCourseActivation activation : activations) {
+				ActivationList activationDetail=new ActivationList();
+				activationDetail.setActivationId(activation.getActivationId());
+				activationDetail.setActivationDate(activation.getActivationDate());
+				//activationDetail.setCourseName(courseMaster.getCourseName());
+				activationDetail.setCourseName(activation.getTacCourseMaster().getCourseName());
+				if(activationDetail!=null) {
+					listActivity.add(activationDetail);
+				}
+
+			}
+
 		}
-		else
-		{
-			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, listActivity);
 			return response;
-		}
+
 	}
 	@PreAuthorize("hasAnyAuthority('course_date_detail')")
 	@PostMapping("/get-course-date")
@@ -570,6 +537,61 @@ public class CourseController {
 			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
 			return response;
 		}
+	}
+	@PreAuthorize("hasAnyAuthority('get_current_courses')")
+	@GetMapping("/get-current-courses")
+	public ResponseType getCurrentCourses()
+	{
+		List<CourseManagement> courseManagement=null;
+		courseManagement=courseService.getAllCurrentCourses();
+		if(courseManagement!=null || !courseManagement.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
+
+	}
+	@PreAuthorize("hasAnyAuthority('get_future_courses')")
+	@GetMapping("/get-future-courses")
+	public ResponseType getFutureCourses()
+	{
+		List<CourseManagement> courseManagement=null;
+		courseManagement=courseService.getAllFutureCourses();
+		if(courseManagement!=null || !courseManagement.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
+	}
+	@PreAuthorize("hasAnyAuthority('get_previous_courses')")
+	@GetMapping("/get-previous-courses")
+	public ResponseType getPreviousCourses()
+	{
+		List<CourseManagement> courseManagement=null;
+		courseManagement=courseService.getAllPreviousCourses();
+		if(courseManagement!=null || !courseManagement.isEmpty()) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
 	}
 
 	}

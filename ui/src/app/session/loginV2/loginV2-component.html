@@ -28,11 +28,11 @@
                            <input class="mrgn-t-none" matInput placeholder="Password" type="password" name="password" required [(ngModel)]="password">
                            <span matSuffix><i class="material-icons">vpn_key</i></span>
                         </mat-form-field>
+                        <div class="mrgn-b-md" id="app_j_version"> Version: qa_0.5.8 </div>
                         <div class="mrgn-b-md"><a [routerLink]="['/session/forgot-passwordV2']">Forgot Password?</a></div>
                         <div fxLayoutAlign="center start" class=" mrgn-b-lg">
                            <button mat-flat-button class="success-bg gene-btn-lg" [disabled]="!form.valid">LOGIN</button>    
                         </div>
-                        
                      </div>
                      </form>
                   </div>

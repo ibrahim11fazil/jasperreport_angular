@@ -4,6 +4,7 @@ import { TrainingRoom } from "./training-room";
 import { CourseDate } from "./courseDate";
 import { TacInstructor } from "./tac-instructor";
 
+
 export class TacActivation {
 
     public activationId:Number
@@ -26,11 +27,11 @@ export class TacActivation {
 	
 	public  status:Number;
 	//public tacCourseAttendeeses = TacCourseAttendees[];
-    public tacCourseInstructor:TacInstructor[];
+    public tacCourseInstructors:TacInstructor[];
     
     constructor(activationId:Number,tacActivity:TacActivity,tacCourseMaster:TacCourseMaster,tacCourseRoom:TrainingRoom,tacCourseDate:CourseDate,
         dependentId:Number,coordinatorId:Number,costInstructor:Number,costFood:Number,costTransport:Number,costAirticket:Number,
-        costHospitality:Number,costGift:Number,costVenue:Number,costBonus:Number,costTranslation:Number,tacCourseInstructor:TacInstructor[],status:Number )
+        costHospitality:Number,costGift:Number,costVenue:Number,costBonus:Number,costTranslation:Number,tacCourseInstructors:TacInstructor[],status:Number )
         {
 
             this.activationId=activationId;
@@ -49,7 +50,7 @@ export class TacActivation {
             this.costVenue=costVenue;
             this.costBonus=costBonus;
             this.costTranslation=costTranslation;
-            this.tacCourseInstructor=tacCourseInstructor;
+            this.tacCourseInstructors=tacCourseInstructors;
             this.status=status;
         }
 
@@ -72,4 +73,22 @@ export interface ActivationDetails{
 	 tacCourseMaster?:TacCourseMaster;
 	 tacCourseRoom?:TrainingRoom;
      tacCourseDate?:CourseDate;
+}
+
+export interface ActivationList{
+
+
+    activationId:Number;
+    activationDate:Date;
+    courseName:String;
+}
+
+
+
+export interface IActivationList {
+   status: Boolean;
+   code:number;
+   message:String;
+   data: ActivationList[];
+   count:number;
 }

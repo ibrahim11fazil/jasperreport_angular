@@ -32,7 +32,19 @@ export const IS_SUB_COURSES=[
 
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
-export const BASE_URL ="http://172.16.0.254:9000"
+// export const BASE_URL ="http://172.16.0.254:9000"
+// export const BASE_URL_FILE ="http://172.16.0.254:9000"
+//export const BASE_URL ="http://localhost:7777"
+//export const BASE_URL ="http://172.16.0.254:7777"
+
+// export const BASE_URL ="http://172.16.0.254:7777"
+//export const BASE_URL_FILE ="http://172.16.0.254:9021"
+//export const BASE_URL_FILE ="http://172.16.0.254:7777"
+
+export const BASE_URL ="http://localhost:9000"
+export const BASE_URL_FILE ="http://localhost:9000"
+//export const BASE_URL ="http://localhost:9000"
+
 
 //Disable if gateway is down -- for development
 var gateway = true
@@ -87,6 +99,12 @@ export const  GET_COURSE_ROOM_DETAIL=BASE_URL+training+"/get-course-room"
 export const  GET_COURSE_DATE_DETAIL=BASE_URL+training+"/get-course-date"
 export const  GET_ACTIVATIONS_BY_NAME=BASE_URL+training+"/list-activations-by-courseName"
 export const   GET_ACTIVATIONS_BY_ID=BASE_URL+training+"/get-all-activationList"
+export const   GET_CURRENT_COURSES=BASE_URL+training+"/get-current-courses"
+export const   GET_PREVIOUS_COURSES=BASE_URL+training+"/get-previous-courses"
+export const   GET_FUTURE_COURSES=BASE_URL+training+"/get-future-courses"
+export const  CREATE_JOB_CARD=BASE_URL+training+"/create-job-card"
+export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
+
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
@@ -98,9 +116,8 @@ export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
 export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
 
 //FILE UPLOADING
-export const  UPLOAD_FILE   = BASE_URL+fileUploading+"/uploadFile"
-//export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
-export const  DOWNLOAD_FILE = BASE_URL+fileUploading+"/downloadFile"
+export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
+export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"
 
 
 //CIS Actions
@@ -111,3 +128,6 @@ export const GET_ALL_CIS_COURSES_I_REQUESTED=BASE_URL+cis+"/find-all-courses-i-r
 //EMPLOYEE
 export const  GET_EMPLOYEE_BY_ID = BASE_URL+employee+"/get-employee-by-jobid"
 //get-employee-by-jobid
+export const  GET_JOB_TITLE=BASE_URL+employee+"/list-jobs"
+export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
+export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"

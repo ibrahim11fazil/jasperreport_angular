@@ -32,7 +32,8 @@ docker pull  172.16.0.253:5000/cis:$TAG
 docker pull  172.16.0.253:5000/training:$TAG
 docker pull    172.16.0.253:5000/config:$TAG
 docker pull    172.16.0.253:5000/fileupload:$TAG
-docker pull    172.16.0.253:5000/gateway:$TAG
+#docker pull    172.16.0.253:5000/gateway:$TAG
+docker pull    172.16.0.253:5000/gateway-cloud:$TAG
 
 TAG=$1
 VOLUME="--mount type=bind,source=$LOG_PATH,destination=/logs --mount type=bind,source=$TMP_PATH,destination=/tmp"
@@ -48,3 +49,4 @@ docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.t
 docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME -p 8888:8888 --name config   172.16.0.253:5000/config:$TAG
 docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME $UPLOAD_VOLUME --name fileupload  -p 9021:9021   172.16.0.253:5000/fileupload:$TAG
 docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME -p 9000:9000 --name gateway   172.16.0.253:5000/gateway:$TAG
+docker service create  -d  --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME -p 7777:7777 --name gateway-cloud   172.16.0.253:5000/gateway-cloud:$TAG

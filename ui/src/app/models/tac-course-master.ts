@@ -4,6 +4,7 @@ import { TargetAudience } from "./target-audience";
 import { ExpectedResults } from "./expected-results";
 import { TacActivity } from "./tac-activity";
 import { CourseDate } from "./courseDate";
+import { Prerequisites } from "./prerequisites";
 
 
 export class TacCourseMaster {
@@ -19,15 +20,16 @@ export class TacCourseMaster {
     public tacCourseGuidelineses:TrainingGuidelines[];
     public tacCourseAudiences:TargetAudience[];
     public tacCourseOutcomes:ExpectedResults[];
-    public prerequisitesId:Number
+    //public prerequisitesId:Number
     public subcourseFlag:Number
     public locationType:Number
     public tacCourseDates:CourseDate[];
     public tacActivities:TacActivity[];
+    public tacCoursePrerequisiteses:Prerequisites[];
    
     
     constructor(courseId:Number,tacCourseCategory:Categories,courseName:String,duration:Number,objective:String,durationFlag:Number,
-        numberofhours:Number,tacCourseGuidelineses:TrainingGuidelines[],targetAudience:TargetAudience[],expectedResults:ExpectedResults[],prerequisitesId:Number,subcourseFlag:Number,locationType:Number,tacCourseDates:CourseDate[],tacActivities:TacActivity[]) {
+        numberofhours:Number,tacCourseGuidelineses:TrainingGuidelines[],targetAudience:TargetAudience[],expectedResults:ExpectedResults[],tacCoursePrerequisiteses:Prerequisites[],subcourseFlag:Number,locationType:Number,tacCourseDates:CourseDate[],tacActivities:TacActivity[]) {
         this.courseId=courseId;
         this.tacCourseCategory=tacCourseCategory;
         this.courseName=courseName;
@@ -38,7 +40,7 @@ export class TacCourseMaster {
         this.tacCourseGuidelineses=tacCourseGuidelineses;
         this.tacCourseAudiences=targetAudience;
          this.tacCourseOutcomes=expectedResults;
-         this.prerequisitesId=prerequisitesId;
+         this.tacCoursePrerequisiteses=tacCoursePrerequisiteses;
     this. subcourseFlag=subcourseFlag;
     this. locationType=locationType;
     this. tacCourseDates=tacCourseDates;
@@ -88,6 +90,19 @@ export class TacCourseMaster {
     export class CourseActivityDatesRequest{
         public courseId:Number
         public activityId:Number
+    }
+
+    export class CourseManagementRes{
+        public courseName:String
+        public course_date:String
+        public end_date:String
+    }
+    export interface ITacCourseManagementList {
+        status: Boolean;
+        code:number;
+        message:String;
+        data: CourseManagementRes[];
+        count:number;
     }
     
     

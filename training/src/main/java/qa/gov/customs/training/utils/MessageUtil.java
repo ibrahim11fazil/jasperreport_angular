@@ -26,4 +26,12 @@ public class MessageUtil {
     public static String  SYSTEM_USER_CREATED="User Created";
     public static String  FAILED="Failed";
     public static String  SUCCESS="Success";
+    
+    public static String  JOBCARD_CREATED="JOBCARD CREATED";
+    public static String  JOBCARDCONDITIONS_CREATED="JOBCARD CONDITIONS CREATED";
+    public static String  JOBCARDSKILLS_CREATED="JOBCARD SKILLS CREATED";
+    public static String  JOBCARDDUTIES_CREATED="JOBCARD DUTIES CREATED";
+    
+    
+    
 }

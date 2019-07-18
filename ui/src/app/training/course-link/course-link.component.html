@@ -38,7 +38,6 @@
                                                       {{item.activityName}}
                                                 </mat-option>
                                           </mat-select>
-                                          <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
                                     </mat-form-field>
                               </div>
 
@@ -68,7 +67,8 @@
 
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                                           <h4>Duration Type</h4>
-                                          {{courseDetails.durationFlag}}
+                                          <!-- {{courseDetails.durationFlag}} -->
+                                          {{durationValueString}}
 
 
                                     </div>
@@ -125,7 +125,6 @@
                                                       {{item.locationName}}
                                                 </mat-option>
                                           </mat-select>
-                                          <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
                                     </mat-form-field>
                               </div>
 
@@ -152,7 +151,7 @@
 
                                                 <mat-form-field>
                                                       <input matInput [matDatepicker]="myDatepicker"
-                                                            placeholder="Choose a date" formControlName="tacCourseDate">
+                                                            placeholder="Choose a date" formControlName="courseDate">
                                                       <mat-datepicker-toggle matSuffix [for]="myDatepicker">
                                                       </mat-datepicker-toggle>
                                                       <mat-datepicker #myDatepicker></mat-datepicker>
@@ -168,18 +167,35 @@
                                     </div>
                               </div>
 
-                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                    <mat-form-field class="full-wid mrgn-b-lg">
-                                          <mat-select placeholder="Prerequisites" matInput
-                                                formControlName="prerequisitesSelect">
-                                                <mat-option *ngFor="let item of tacCoursePrerequisites" [value]="item">
-                                                      {{item.description}}
-                                                </mat-option>
-                                          </mat-select>
-                                          <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
-                                    </mat-form-field>
-                              </div>
-                              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                              <h5>Prerequites</h5>
+                        </div>
+                        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                              <button class="mrgn-all-xs" mat-icon-button (click)="addMorePrerequisites()" type="button">
+                                    <mat-icon>add</mat-icon>
+                              </button>   
+                        </div>
+                  </div> 
+                  <div formArrayName="prerequisitesSelect">
+                        <div *ngFor="let ff of form.get('prerequisitesSelect')['controls']; let in=index"
+                           fxLayout="row wrap" fxLayoutAlign="space-between center">
+                           <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                    <mat-select placeholder="Prerequisites" matInput formControlName="prerequisitesId">
+                                          <mat-option *ngFor="let item of tacCoursePrerequisites" [value]="item.prerequisitesId">
+                                             {{item.description}}
+                                          </mat-option>
+                                    </mat-select>
+                           </div> 
+                           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                                 <button class="mrgn-all-xs" mat-icon-button (click)="removeMorePrerequisites(in)"
+                                    type="button">
+                                    <mat-icon>delete</mat-icon>
+                                 </button>
+                           </div>
+                        </div>
+                     </div>
+                              <div  *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                     <mat-form-field class="full-wid mrgn-b-lg">
                                           <mat-select placeholder="SubCourses" matInput
                                                 formControlName="subCourseSelect">
@@ -187,7 +203,6 @@
                                                       {{item.viewValue}}
                                                 </mat-option>
                                           </mat-select>
-                                          <!-- <textarea matInput placeholder="TypeOfActivity" [(ngModel)]="answer.answer1"  ></textarea> -->
                                     </mat-form-field>
                               </div>
                               <div fxLayout="row" fxLayoutAlign="start">

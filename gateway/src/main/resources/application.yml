@@ -4,40 +4,86 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+
 server:
+#  servlet:
+#    context-path: /gateway
   port: 9000
 
 #feign:
 #  hystrix:
 #    enabled: false
 
+#hystrix.command.default.execution.timeout.enabled: false
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 30000
+#(60000 * 60000) *  (1 + 0) * (2 + 1) = xxxx ms
+#eg:
+
+
+#    ribbon.connectionTimeout is 5000
+#    ribbon.readTimeout is 15000
+#    ribbon.maxAutoRetries is 0 (default)
+#    ribbon.maxAutoRetriesNextServer is 1 (default)
+
+#So the hystrixTimeout should be:
+
+#  (5000 + 15000) * (1 + 0) * (1 + 1) // -> 40000 ms
+
+
+
+# If you choose to not configure Hystrix timeout, the default Hystrix timeout will be xxxx ms .
+#(ribbon.ConnectTimeout + ribbon.ReadTimeout) * (ribbon.MaxAutoRetries + 1) * (ribbon.MaxAutoRetriesNextServer + 1)
+# https://cloud.spring.io/spring-cloud-static/Edgware.SR3/single/spring-cloud.html#_zuul_timeouts
+# load ribbon on startup
+#ribbon:
+#  ReadTimeout: 60000
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false
+
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 60000
+  eureka:
+    enabled: true
 
 hystrix:
   command:
     default:
       execution:
         isolation:
-          strategy: THREAD
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds: 240000
 
-ribbon:
-  ReadTimeout: 20000
-  ConnectTimeout: 20000
-##service routing setting
-#  zuul.ignored-services=*
-#  zuul.sensitive-headers=Cookie,Set-Cookie
-#  zuul.ignored-headers=Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 3000
+
 zuul:
+  ribbon:
+    eager-load:
+      enabled: false
   ignoredServices: '*'
-  #ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Authorization,Content-Type
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
-  host:
-    connect-timeout-millis: 80000
-    socket-timeout-millis: 80000
-
   routes:
-    auth-service:
+    authentication:
       sensitiveHeaders:
       path: /authentication/**
       url: ${LOGIN_SERVER_URL:http://localhost:9001}
@@ -49,7 +95,7 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
-    user:
+    userdata:
       path: /user/**
       serviceId: user
       stripPrefix: true
@@ -57,6 +103,7 @@ zuul:
 
     fileupload:
       path: /fileupload/**
+      #url: ${FILE_SERVER_URL:http://localhost:9021}
       serviceId: fileupload
       stripPrefix: true
       sensitiveHeaders:
@@ -73,9 +120,39 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+#hystrix:
+#  command:
+#    training:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    user:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    fileupload:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    employee:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#    cis:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
 
-
-debug: true
 
 logging:
   pattern:
@@ -103,14 +180,14 @@ logging:
 #    hostname: gateway
 eureka:
   client:
-    healthcheck: true
+    fetchRegistry: true
     registryFetchIntervalSeconds: 5
-    fetch-registry: true
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+      defaultZone: http://registry:8761/eureka/
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
+    ip-address: gateway
 
 # http://${REGISTRY_URL:registry}:8761/eureka/
 
@@ -124,8 +201,9 @@ cloud:
 #    eureka:
 #      enabled: true
 #    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    DeploymentContextBasedVipAddresses: training
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
@@ -134,8 +212,9 @@ cloud:
 #    eureka:
 #      enabled: true
 #    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    DeploymentContextBasedVipAddresses: user
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
@@ -144,8 +223,9 @@ cloud:
 #    eureka:
 #      enabled: true
 #    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    DeploymentContextBasedVipAddresses: fileupload
+#    ConnectTimeout: 60000
+#    ReadTimeout: 60000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
@@ -154,18 +234,35 @@ cloud:
 #    eureka:
 #      enabled: true
 #    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    DeploymentContextBasedVipAddresses: employee
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 #
-#auth-service:
+#cis:
 #  ribbon:
 #    eureka:
 #      enabled: true
 #    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-#    ConnectTimeout: 5000
-#    ReadTimeout: 5000
+#    DeploymentContextBasedVipAddresses: cis
+#    ConnectTimeout: 15000
+#    ReadTimeout: 15000
 #    MaxTotalHttpConnections: 500
 #    MaxConnectionsPerHost: 100
 
+#management:
+#  health:
+#    elasticsearch:
+#      response-timeout:
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    info:
+      enabled: true
+    web:
+      exposure:
+        include: ["health","routes","metrics","info"]
+      enabled: true

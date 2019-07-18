@@ -3,16 +3,20 @@ package qa.gov.customs.training.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-
+import java.text.DateFormat;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.GregorianCalendar;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import qa.gov.customs.training.models.CourseManagement;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
@@ -330,24 +334,141 @@ public class CourseServiceImpl  implements CourseService {
     @Override
 	public List<TacCourseActivation> listactivations(String name, int page, int limit)
 	{
+
+
 		List<TacCourseActivation>activationList=null;
-		System.out.println(page);
-		System.out.println(limit);
+		List<Object[]> objects=null;
 		List<TacCourseActivation> activations =  new ArrayList<>();
 		Pageable pageable =
 				PageRequest.of(
 						page, limit, Sort.by("activationId"));
-		if(name==null &&  name.equals("")){
+		if(name==null ||  name.equals("")){
 			//System.out.println(activationRepo.findAll());
 			Page<TacCourseActivation> pages = activationRepo.findAll(pageable);
 			pages.forEach(item ->activations.add(item));
 			return activations;
 		}
 		else {
-			activationList=activationRepo.findAllByCourseNameContaining(name);
-		//List<Object[]> objects= 	activationRepo.findAllByCourseNameContaining(name, pageable);
-			return activationList;
+			//if(page==0 && limit ==10) {
+			activationList = activationRepo.findAllByCourseNameContaining(name, pageable);
+			//}
+		}
+//			else if(page>0) {
+//				page = (page * limit) + 1;
+//				limit = (page + limit) - 1;
+//				 objects = activationRepo.findAllByCourseNameContaining(name);
+//			}
+//				List<TacCourseActivation> activationsList = new ArrayList<>();
+//				for (Object[] o : objects) {
+//					TacCourseActivation activation = new TacCourseActivation();
+//					activation.setActivationId((BigDecimal) o[0]);
+//					activation.setActivationDate((Date) o[5]);
+//					activation.setTacCourseMaster((TacCourseMaster) o[1]);
+//
+//
+//					activationsList.add(activation);
+//
+//			}
+
+
+			//activationList=activationRepo.findAllByCourseNameContaining(name);
+			//List<Object[]> objects= 	activationRepo.findAllByCourseNameContaining(name, pageable);
+
+		return activationList;
 
 		}
+//	public static Date parseDate(Date date) {
+//		try {
+//			return new SimpleDateFormat("yyyy-MM-dd").format(date);
+//		} catch (ParseException e) {
+//			return null;
+//		}
+//	}
+	@Override
+	public List<CourseManagement> getAllCurrentCourses()
+	{
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		//Date endDate=null;
+		int page =0;
+		int limit=20;
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("course_Id"));
+
+		List<Object[]> objects=courseRepository.getAllCurrentCourses(pageable);
+		List<CourseManagement> courseList = new ArrayList<>();
+		for (Object[] o : objects) {
+			CourseManagement course = new CourseManagement();
+			course.setCourseName((String) o[0]);
+//			course.setCourse_date((Date) o[1]);
+//			course.setEnd_date((Date) o[2]);
+			Date courseDate=((Date)o[1]);
+			Date endDate=((Date)o[2]);
+			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+			courseList.add(course);
+
+		}
+		return courseList;
 	}
-}
+
+	@Override
+	public List<CourseManagement> getAllFutureCourses()
+	{
+		int page =0;
+		int limit=20;
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("course_Id"));
+		List<Object[]> objects=courseRepository.getAllFutureCourses(pageable);
+		List<CourseManagement> courseList = new ArrayList<>();
+		for (Object[] o : objects) {
+			CourseManagement course = new CourseManagement();
+			course.setCourseName((String) o[0]);
+//			course.setCourse_date((Date) o[1]);
+//			course.setEnd_date((Date) o[2]);
+			Date courseDate=((Date)o[1]);
+			Date endDate=((Date)o[2]);
+			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+			courseList.add(course);
+		}
+		return courseList;
+	}
+
+	@Override
+	public List<CourseManagement> getAllPreviousCourses()
+	{
+		int page =0;
+		int limit=20;
+		Pageable pageable =
+				PageRequest.of(
+						page, limit, Sort.by("course_Id"));
+		List<Object[]> objects=courseRepository.getAllPreviousCourses(pageable);
+		List<CourseManagement> courseList = new ArrayList<>();
+		for (Object[] o : objects) {
+			CourseManagement course = new CourseManagement();
+			course.setCourseName((String) o[0]);
+//			course.setCourse_date((Date) o[1]);
+//			course.setEnd_date((Date) o[2]);
+			Date courseDate=((Date)o[1]);
+			Date endDate=((Date)o[2]);
+			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+			courseList.add(course);
+		}
+		return courseList;
+	}
+	@Override
+	public void setStatusOfDate(TacCourseDate courseDate)
+	{
+		tacCourseDateRepository.save(courseDate);
+	}
+
+
+
+	}
+
+
+

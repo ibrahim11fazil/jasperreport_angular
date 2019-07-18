@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TacActivation, ResponseTacActivation } from 'app/models/tac-activation';
+import { TacActivation, ResponseTacActivation, IActivationList, ActivationList } from 'app/models/tac-activation';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { TrainingService } from 'app/service/training/training.service';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
@@ -18,9 +18,9 @@ export class ActivationsComponent implements OnInit {
   form: FormGroup
   page = 0
   searchText: String;
-  ds: TacActivation[] = [];
+  ds: ActivationList[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['activationId', 'activationDate','Edit' ];
+  displayedColumns: string[] = ['activationId', 'courseName','activationDate','Edit' ];
 
   constructor(
     private trainingService: TrainingService,
@@ -41,7 +41,7 @@ export class ActivationsComponent implements OnInit {
 
   onSubmit() {;
     debugger
-    this.ds = new Array<TacActivation>();
+    this.ds = new Array<ActivationList>();
     this.ds = [...this.ds];
     this.page = 0
     this.firstSearch=true
@@ -56,12 +56,13 @@ export class ActivationsComponent implements OnInit {
     searchString.start = this.page
     this.trainingService.getAllActivationsByName(searchString).subscribe(
       data => {
-        var response = <ResponseTacActivation>data
+        var response = <IActivationList>data
         console.log(data);
         if (response.status) {
           response.data.forEach(item => {
             this.ds.push(item);
           })
+          debugger;
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
           if(this.firstSearch==true && response.data.length==0){
             this.toastr.info("Search result no found")

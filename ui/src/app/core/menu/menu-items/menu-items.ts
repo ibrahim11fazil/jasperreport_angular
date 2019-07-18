@@ -315,7 +315,7 @@ var m =
       {state: 'welcome', name: 'My Courses' },
       {state: 'activity', name: 'Activity' },
       {state: 'create-course', name: 'Create Courses'},
-      {state: 'search-course', name: 'Search Courses'},
+      {state: 'search-course', name: 'Manage Courses'},
       {state: 'course-link', name: 'Link Course'},
       {state: 'activations', name: 'Manage Activations'},
       {state: 'activate-course', name: 'Activate Course'}
@@ -331,7 +331,7 @@ var m =
     icon: 'book',
     children: [
       {state: 'create-instructor', name: 'Create Instructor'},
-      {state: 'search-instructor', name: 'Search Instructor'}
+      {state: 'search-instructor', name: 'Manage Instructor'}
     ]
   };
   var m2 = 
@@ -364,7 +364,8 @@ var m =
     type: 'sub',
     icon: 'book',
     children: [
-      {state: 'welcome', name: 'Welcome' }
+      {state: 'job-card-management', name: 'Create Job Card' },
+      {state: 'job-card-search', name: 'Search Job Card' }
     ]
   };
 
@@ -405,11 +406,11 @@ var m =
   var m8 = 
   {
     state: 'training',
-    name: 'Course Attendance',
+    name: 'Course Management',
     type: 'sub',
     icon: 'grade',
     children: [
-      {state: 'welcome', name: 'Welcome' }
+      {state: 'course-management', name: 'Manage Courses'},
     ]
   };
 

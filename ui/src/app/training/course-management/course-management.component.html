@@ -1,0 +1,73 @@
+<div fxLayout="row wrap" fxLayoutAlign="start stretch" class="dash-card">
+	<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" attr.tourAnchor="{{card.tourAnchor}}" *ngFor="let card of statsCard" (click)="getCourseManagement(card)">
+		<mat-card class="{{card.card_color}} mat-card">
+			<div mat-card-widget>
+				<button mat-mini-fab class="inline-block gene-fab-flat-icon" mat-card-icon>
+               <mat-icon>{{card.icon}}</mat-icon>
+            </button>
+				<div class="inline-block vertical-align-mid pad-wrap">
+					<h5 mat-card-widget-title class="mrgn-b-none">{{card.title}}</h5>
+					<h5>{{card.number}}</h5>
+				</div>
+			</div>
+		</mat-card>
+	</div>
+
+
+
+<div fxFlex="100" >
+	<ngx-datatable #table
+				   class='material mrgn-all-md'
+				   
+				   [columnMode]="'force'"
+				   [headerHeight]="50"
+				   [footerHeight]="50"
+				   [rowHeight]="'auto'"
+				   [limit]="10"
+				   [rows]='rows'
+				   [count]="page.totalElements"
+				   [offset]="page.pageNumber"
+				   
+				   >
+
+	  <ngx-datatable-column min-width="50px">
+		<ng-template ngx-datatable-header-template>
+		  <span>Course Name</span>
+		</ng-template>
+		<ng-template let-row="row" ngx-datatable-cell-template>
+		  {{row.courseName}}
+		</ng-template>
+	  </ngx-datatable-column>
+
+	  <ngx-datatable-column min-width="50px">
+		<ng-template ngx-datatable-header-template>
+		  <span>Course Start Date</span>
+		</ng-template>
+		<ng-template let-row="row" ngx-datatable-cell-template>
+		  {{row.course_date}}
+		</ng-template>
+	  </ngx-datatable-column>
+
+	  <ngx-datatable-column min-width="50px" >
+		  <ng-template ngx-datatable-header-template>
+			<span>Course End Date</span>
+		  </ng-template>
+		  <ng-template let-row="row" ngx-datatable-cell-template>
+			{{row.end_date}}
+		  </ng-template>
+	  </ngx-datatable-column>
+
+	  <ngx-datatable-column *ngIf="displayManage"  min-width="50px" >
+		  <ng-template ngx-datatable-header-template>
+			<span>Manage</span>
+		  </ng-template>
+		  <ng-template let-row="row" ngx-datatable-cell-template>
+			<button  mat-raised-button color="accent" class="m-1" type="button" (click)=getActivationData(element)>Manage</button>
+		  </ng-template>
+	  </ngx-datatable-column>
+
+	</ngx-datatable>
+  </div>
+
+
+</div>

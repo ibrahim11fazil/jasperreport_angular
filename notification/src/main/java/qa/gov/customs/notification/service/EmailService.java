@@ -7,24 +7,16 @@ import java.util.Date;
 import java.util.Properties;
 
 
-        import java.io.IOException;
-        import java.util.Date;
-        import java.util.Properties;
-
-        import javax.mail.Message;
+import javax.mail.Message;
         import javax.mail.MessagingException;
-        import javax.mail.Multipart;
-        import javax.mail.PasswordAuthentication;
+import javax.mail.PasswordAuthentication;
         import javax.mail.Session;
         import javax.mail.Transport;
         import javax.mail.internet.AddressException;
         import javax.mail.internet.InternetAddress;
-        import javax.mail.internet.MimeBodyPart;
-        import javax.mail.internet.MimeMessage;
-        import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeMessage;
 
-        import org.springframework.stereotype.Service;
-import qa.gov.customs.notification.model.EmailModel;
+import qa.gov.customs.notification.model.NotificationModel;
 
 
 @Service
@@ -49,7 +41,7 @@ public class EmailService {
         Transport.send(msg);
     }
 
-    public void sendmail(EmailModel model) throws AddressException, MessagingException, IOException {
+    public void sendmail(NotificationModel model) throws AddressException, MessagingException, IOException {
         Properties props = new Properties();
         props.put("mail.smtp.host", "HQ-MAILSERV1.cpga.net.qa");
         props.put("mail.smtp.port", "25"); // 25

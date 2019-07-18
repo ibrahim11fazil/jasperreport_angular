@@ -59,10 +59,9 @@ public class InstructorController {
 		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.DATA_ALREADY_EXISTS, false, null);
 		System.out.println(MessageUtil.DATA_ALREADY_EXISTS);
 		return response;
-
-
-
 	}
+	
+	
 	@PreAuthorize("hasAnyAuthority('search_instructor')")
 	@PostMapping("/search-instructor")
 	public ResponseType searchInstructor(@RequestBody TacInstructorMaster instructor)

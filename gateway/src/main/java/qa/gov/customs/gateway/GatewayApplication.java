@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+//import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -29,18 +29,19 @@ import java.util.Optional;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableZuulProxy
-@EnableHystrixDashboard
+//@EnableHystrixDashboard
 public class GatewayApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-    @Bean
-    public Filter filter()
-    {
-        return new Filter();
-    }
+//    @Bean
+//    public Filter filter()
+//    {
+//        return new Filter();
+//    }
+
 
     private EurekaInstanceConfigBean eurekaInstanceConfig;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -74,11 +75,11 @@ public class GatewayApplication {
         try{
             eurekaInstanceConfig= new EurekaInstanceConfigBean(inetUtils);
 
-            final String HostName = System.getenv("HOSTNAME"); //container hostname 가져옴, container_id 일 것임.
+            final String HostName = System.getenv("HOSTNAME"); //container hostname x, container_id y
             logger.info("HOSTNAME : " + HostName);
 
 
-            Optional<NetworkInterface> net = Optional.of(NetworkInterface.getByName("eth2"));
+            Optional<NetworkInterface> net = Optional.of(NetworkInterface.getByName("mybridge"));
 
             logger.info("Network instance inetaddress: " + net.get().getInetAddresses());
             logger.info("Network instance name: " + net.get().getName());

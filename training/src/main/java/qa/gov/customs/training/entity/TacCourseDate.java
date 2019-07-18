@@ -34,6 +34,7 @@ public class TacCourseDate implements java.io.Serializable {
 	private TacCourseMaster tacCourseMaster;
 	private TacActivity tacActivity;
 	private Date courseDate;
+	private Date endDate;
 	private BigDecimal status;
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
 
@@ -44,12 +45,13 @@ public class TacCourseDate implements java.io.Serializable {
 		this.dateId = dateId;
 	}
 
-	public TacCourseDate(BigDecimal dateId, TacCourseMaster tacCourseMaster, Date courseDate, BigDecimal status,
+	public TacCourseDate(BigDecimal dateId, TacCourseMaster tacCourseMaster, Date courseDate, Date endDate,BigDecimal status,
 						 Set<TacCourseActivation> tacCourseActivations) {
 		this.dateId = dateId;
 		this.tacCourseMaster = tacCourseMaster;
 		this.courseDate = courseDate;
 		this.status = status;
+		this.endDate=endDate;
 		this.tacCourseActivations = tacCourseActivations;
 	}
 
@@ -115,6 +117,15 @@ public class TacCourseDate implements java.io.Serializable {
 
 	public void setTacCourseActivations(Set<TacCourseActivation> tacCourseActivations) {
 		this.tacCourseActivations = tacCourseActivations;
+	}
+
+	@Column(name = "END_DATE", length = 7)
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 }

@@ -17,7 +17,7 @@ security:
 
 server:
 #  servlet:
-#    context-path: /training
+#    context-path: /cis
   port: 9071
 
 feign:
@@ -68,7 +68,7 @@ logging:
     qa:
       gov:
         customs:
-          authentication: DEBUG
+          cis: DEBUG
   file: logs/cis.log
 
 #eureka:
@@ -77,6 +77,17 @@ logging:
 #  client:
 #    serviceUrl:
 #      defaultZone: http://${REGISTRY_URL:registry}:8761/eureka/
+
+#eureka:
+#  client:
+#    healthcheck: true
+#    registryFetchIntervalSeconds: 5
+#    fetch-registry: true
+#    serviceUrl:
+#      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://${REGISTRY_URL:registry}:8761}/eureka/
+#  instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
 
 eureka:
   client:
@@ -88,6 +99,7 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
+    ip-address: cis
 
 management:
   endpoint:
@@ -99,3 +111,8 @@ management:
       exposure:
         include: ["health","routes","metrics","info"]
       enabled: true
+
+cloud:
+  inetutils:
+    prefered-networks:
+      - 10.0

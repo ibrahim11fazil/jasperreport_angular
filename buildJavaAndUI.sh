@@ -11,6 +11,9 @@ mvn clean install -f registry
 mvn clean install -f gateway
 [ $? -eq 0 ] || exit 1
 
+mvn clean install -f gateway-cloud
+[ $? -eq 0 ] || exit 1
+
 mvn clean install -f authentication
 [ $? -eq 0 ] || exit 1
 

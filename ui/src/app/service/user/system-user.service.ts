@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SystemUser, SearchUser, SearchUserByRole } from 'app/models/system-user';
 import { Observable } from 'rxjs';
-import { SAVE_SYSTEM_USER, GET_ALL_SYSTEM_ROLES, GET_ALL_SYSTEM_USERS, DISABLE_SYSTEM_USER, ENABLE_SYSTEM_USER, GET_SYSTEM_USER, GET_ALL_USERS_BY_ROLE_ID, GET_EMPLOYEE_BY_ID } from 'app/app.constants';
+import { SAVE_SYSTEM_USER, GET_ALL_SYSTEM_ROLES, GET_ALL_SYSTEM_USERS, DISABLE_SYSTEM_USER, ENABLE_SYSTEM_USER, GET_SYSTEM_USER, GET_ALL_USERS_BY_ROLE_ID, GET_EMPLOYEE_BY_ID, GET_JOB_TITLE, GET_JOB_FAMILY, GET_JOB_GRADES } from 'app/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,16 @@ export class SystemUserService {
     return this.httpClient.post(GET_EMPLOYEE_BY_ID+"/"+`${jobId}`, null);
   }
 
+  getJobTitles(): Observable<Object> {
+    return this.httpClient.get(GET_JOB_TITLE);
+  }
+
+  getJobFamily(): Observable<Object> {
+    return this.httpClient.get(GET_JOB_FAMILY);
+  }
   
+  getGrades(): Observable<Object> {
+    return this.httpClient.get(GET_JOB_GRADES);
+  }
 
 }

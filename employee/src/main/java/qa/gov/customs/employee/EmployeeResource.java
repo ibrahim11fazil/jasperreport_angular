@@ -1,6 +1,7 @@
 package qa.gov.customs.employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,7 +20,7 @@ public class EmployeeResource extends ResourceServerConfigurerAdapter {
     public TokenStore tokenStore;
 
     @Autowired
-    public EmployeeResource(TokenStore tokenStore) {
+    public EmployeeResource(@Qualifier("jwtTokenStore") TokenStore tokenStore) {
         this.tokenStore = tokenStore;
     }
 
@@ -31,7 +32,6 @@ public class EmployeeResource extends ResourceServerConfigurerAdapter {
                 )
                 .accessDeniedHandler(
                         (request,response,authException)->response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
-
                 );
     }
 

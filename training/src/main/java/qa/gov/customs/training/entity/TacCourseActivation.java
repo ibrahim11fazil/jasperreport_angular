@@ -44,7 +44,8 @@ public class TacCourseActivation implements java.io.Serializable {
 	private Date dateModified;
 	private BigDecimal status;
 	private Set<TacCourseAttendees> tacCourseAttendeeses = new HashSet<TacCourseAttendees>(0);
-	private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
+	//private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
+	private Set<TacInstructorMaster> tacCourseInstructors = new HashSet<TacInstructorMaster>(0);
 	private  BigDecimal cordinatorJobcode;
 
 	public TacCourseActivation() {
@@ -63,7 +64,7 @@ public class TacCourseActivation implements java.io.Serializable {
 							   BigDecimal costAirticket, BigDecimal costHospitality, BigDecimal costGift, BigDecimal costVenue,
 							   BigDecimal costBonus, BigDecimal costTranslation, String userCreated, Date dateCreated, String userModified,
 							   Date dateModified, BigDecimal status, Set<TacCourseAttendees> tacCourseAttendeeses,
-							   Set<TacCourseInstructor> tacCourseInstructors, BigDecimal cordinatorJobcode) {
+							   Set<TacInstructorMaster> tacCourseInstructors, BigDecimal cordinatorJobcode) {
 		this.activationId = activationId;
 
 		this.tacCourseMaster = tacCourseMaster;
@@ -298,12 +299,16 @@ public class TacCourseActivation implements java.io.Serializable {
 		this.tacCourseAttendeeses = tacCourseAttendeeses;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseActivation")
-	public Set<TacCourseInstructor> getTacCourseInstructors() {
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseActivation")
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TAC_COURSE_INSTRUCTOR",
+			joinColumns = { @JoinColumn(name = "activationId") },
+			inverseJoinColumns = { @JoinColumn(name = "instructorId") })
+	public Set<TacInstructorMaster> getTacCourseInstructors() {
 		return this.tacCourseInstructors;
 	}
 
-	public void setTacCourseInstructors(Set<TacCourseInstructor> tacCourseInstructors) {
+	public void setTacCourseInstructors(Set<TacInstructorMaster> tacCourseInstructors) {
 		this.tacCourseInstructors = tacCourseInstructors;
 	}
 	@Column(name = "CORDINATOR_JOBCODE", precision = 22, scale = 0)
