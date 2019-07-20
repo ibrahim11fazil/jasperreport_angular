@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import qa.gov.customs.training.config.Auditable;
@@ -46,6 +47,8 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 
 	private Set<TacCourseOutcome> tacCourseOutcomes = new HashSet<TacCourseOutcome>(0);
 	private Set<TacCourseDate> tacCourseDates = new HashSet<TacCourseDate>(0);
+
+	//private Set<TacJobcard> jobcard = new HashSet<TacJobcard>(0);
 
 	public TacCourseMaster() {
 	}
@@ -264,7 +267,32 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseAudiences = tacCourseAudiences;
 	}
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
+//	@JsonManagedReference
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
+//	public Set<TacJobcard> getJobcard() {
+//		return jobcard;
+//	}
+//
+//	public void setJobcard(Set<TacJobcard> jobcard) {
+//		this.jobcard = jobcard;
+//	}
+
+//	private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
+
+
+//	@OneToMany(
+//			mappedBy = "primaryKey.tacCourseMaster",
+//			cascade = CascadeType.ALL
+//	)
+//	public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
+//		return tacJobcardCourseLink;
+//	}
+//
+//	public void setTacJobcardCourseLink(Set<TacJobcardCourseLink> tacJobcardCourseLink) {
+//		this.tacJobcardCourseLink = tacJobcardCourseLink;
+//	}
+
+	//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster")
 //	public Set<TacActivityCourseLink> getTacActivityCourseLinks() {
 //		return this.tacActivityCourseLinks;
 //	}

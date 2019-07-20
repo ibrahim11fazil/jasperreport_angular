@@ -46,6 +46,8 @@ spring:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     properties:
       hibernate:
+        type: trace
+        format_sql: true
         dialect: org.hibernate.dialect.Oracle10gDialect
         max_fetch_depth: 1
 

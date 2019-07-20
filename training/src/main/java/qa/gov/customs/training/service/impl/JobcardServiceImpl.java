@@ -1,8 +1,7 @@
 package qa.gov.customs.training.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,29 +10,37 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import qa.gov.customs.training.entity.TacActivity;
-import qa.gov.customs.training.entity.TacCourseMaster;
-import qa.gov.customs.training.entity.TacInstructorMaster;
-import qa.gov.customs.training.entity.TacJobcard;
-import qa.gov.customs.training.entity.TacJobcardConditions;
-import qa.gov.customs.training.entity.TacJobcardDuties;
-import qa.gov.customs.training.entity.TacJobcardSkills;
-import qa.gov.customs.training.repository.InstructorRepository;
-import qa.gov.customs.training.repository.JobcardConditionsRepository;
-import qa.gov.customs.training.repository.JobcardRepository;
-import qa.gov.customs.training.repository.jobcardDutiesRepository;
-import qa.gov.customs.training.repository.jobcardSkillsRepository;
+import qa.gov.customs.training.entity.*;
+import qa.gov.customs.training.models.JobCardCourseLinkModel;
+import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.JobcardService;
 @Service
 public class JobcardServiceImpl implements JobcardService{
 	@Autowired
 	JobcardRepository jobcardRepository;
+	@Autowired
 	JobcardConditionsRepository jobcardConditionsRepository;
+
+	@Autowired
+	CourseRepository courseRepository;
 	@Override
 	public TacJobcard createJobcard(TacJobcard jobcard)
 	{
-		TacJobcard myjobcard=jobcardRepository.save(jobcard);
-		return myjobcard;
+		Optional<TacCourseMaster> master1 =courseRepository.findById(new BigDecimal(84));
+		//Optional<TacCourseMaster> master2 =courseRepository.findById(new BigDecimal(84));
+		TacJobcard insertedJobCardUpdated = jobcardRepository.save(jobcard);
+		Optional<TacJobcard> inserted = jobcardRepository.findById(insertedJobCardUpdated.getJobcardNo());
+		TacJobcardCourseLink jobCourse = new TacJobcardCourseLink();
+		jobCourse.setTacJobcardTransiant(inserted.get());
+		jobCourse.setTacCourseMasterTransiant(master1.get());
+		jobCourse.setMandatoryFlag(new BigDecimal(1));
+		Set<TacJobcardCourseLink> links = new HashSet<>();
+		links.add(jobCourse);
+		inserted.get().setTacJobcardCourseLink(links);
+		TacJobcard insertedJobCardUpdated1 =   jobcardRepository.save(inserted.get());
+		List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(insertedJobCardUpdated.getJobcardNo());
+		insertedJobCardUpdated1.setJobCardCourseLinkModelList(list);
+		return insertedJobCardUpdated1;
 	}
 	
 //	@Override
@@ -118,10 +125,22 @@ public class JobcardServiceImpl implements JobcardService{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
-	
+
+	@Override
+	public List<JobCardCourseLinkModel> findAllCoursesForJobCard(BigDecimal jobCardNumber) {
+		List<JobCardCourseLinkModel> list = new ArrayList<>();
+		List<Object[]>  objects = jobcardRepository.findAllCoursesForJobCard(jobCardNumber);
+		for (Object[] o : objects) {
+			JobCardCourseLinkModel fArea = new JobCardCourseLinkModel();
+			fArea.setJobCardId((BigDecimal) o[0]);
+			fArea.setCourseId((BigDecimal) o[1]);
+			fArea.setMandatoryFlag((BigDecimal) o[2]);
+			list.add(fArea);
+		}
+		return list;
+	}
+
+
 //	@Override
 //	public TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions) {
 //		// TODO Auto-generated method stub
