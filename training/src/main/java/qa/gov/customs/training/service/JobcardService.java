@@ -10,6 +10,7 @@ import qa.gov.customs.training.entity.TacJobcard;
 import qa.gov.customs.training.entity.TacJobcardConditions;
 import qa.gov.customs.training.entity.TacJobcardDuties;
 import qa.gov.customs.training.entity.TacJobcardSkills;
+import qa.gov.customs.training.models.JobCardCourseLinkModel;
 
 public interface JobcardService 
 {
@@ -30,4 +31,6 @@ public interface JobcardService
 	 TacJobcardSkills CreateJobcardSkills(TacJobcardSkills jobcardSkills);
 	 List<TacJobcardSkills> searchJobcardSkills(BigDecimal jobcardno);
 	 void deleteJobcardSkills(TacJobcardSkills jobcardSkills);
+
+	List<JobCardCourseLinkModel> findAllCoursesForJobCard(BigDecimal jobCardNumber);
 }

@@ -21,5 +21,8 @@ public interface JobcardRepository   extends PagingAndSortingRepository<TacJobca
 
 	@Query(value="select * from TAC_JOBCARD where TAC_JOBCARD.JOB_GRADE Like :JOB_GRADE order by TAC_JOBCARD.JOB",nativeQuery=true)
 	List<TacJobcard> findByGrade(String JOB_GRADE);
+
+	@Query(value="select * from TAC_JOBCARD_COURSE_LINK where JOBCARD_NO=:jobCardNumber ",nativeQuery=true)
+	List<Object[]> findAllCoursesForJobCard(BigDecimal jobCardNumber);
 	
 }
