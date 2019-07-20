@@ -132,7 +132,7 @@ public class JobcardServiceImpl implements JobcardService{
 		List<Object[]>  objects = jobcardRepository.findAllCoursesForJobCard(jobCardNumber);
 		for (Object[] o : objects) {
 			JobCardCourseLinkModel fArea = new JobCardCourseLinkModel();
-			fArea.setJobCardId((BigDecimal) o[0]);
+			fArea.setJobcardNo((BigDecimal) o[0]);
 			fArea.setCourseId((BigDecimal) o[1]);
 			fArea.setMandatoryFlag((BigDecimal) o[2]);
 			list.add(fArea);

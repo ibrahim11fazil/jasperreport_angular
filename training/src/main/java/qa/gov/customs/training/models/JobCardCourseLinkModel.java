@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class JobCardCourseLinkModel {
 
     BigDecimal courseId;
-    BigDecimal jobCardId;
+    BigDecimal jobcardNo;
     BigDecimal mandatoryFlag;
 
     public BigDecimal getCourseId() {
@@ -16,12 +16,12 @@ public class JobCardCourseLinkModel {
         this.courseId = courseId;
     }
 
-    public BigDecimal getJobCardId() {
-        return jobCardId;
+    public BigDecimal getJobcardNo() {
+        return jobcardNo;
     }
 
-    public void setJobCardId(BigDecimal jobCardId) {
-        this.jobCardId = jobCardId;
+    public void setJobcardNo(BigDecimal jobcardNo) {
+        this.jobcardNo = jobcardNo;
     }
 
     public BigDecimal getMandatoryFlag() {
