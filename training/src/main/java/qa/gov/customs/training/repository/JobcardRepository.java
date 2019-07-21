@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -24,5 +25,9 @@ public interface JobcardRepository   extends PagingAndSortingRepository<TacJobca
 
 	@Query(value="select * from TAC_JOBCARD_COURSE_LINK where JOBCARD_NO=:jobCardNumber ",nativeQuery=true)
 	List<Object[]> findAllCoursesForJobCard(BigDecimal jobCardNumber);
+
+	@Modifying
+	@Query(value="delete from TAC_JOBCARD_COURSE_LINK where JOBCARD_NO=:jobCardNumber AND COURSE_ID=:courseId",nativeQuery=true)
+	void deleteJobCardByJobCardNumberAndCourseId(BigDecimal jobCardNumber,BigDecimal courseId);
 	
 }
