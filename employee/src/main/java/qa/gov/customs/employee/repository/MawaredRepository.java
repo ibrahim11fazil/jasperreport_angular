@@ -29,4 +29,8 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
     @Query(value="SELECT distinct JOB_FAMILY,JOB_FAMILY_SHORT,JOB_FAMILY_TEXT FROM USER_SAP_MASTERDETAILS where JOB_FAMILY is not null order by JOB_FAMILY",nativeQuery = true)
     List<Object[]> listFullJobFamily();
     
+    @Query(value="select * from SAP_ORG_DETAILS where OTYPE='FN' and LANG='A'",nativeQuery = true)
+    List<Object[]> listFunctionalArea();
+    
+    
 }

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { JobGrades, JobFamily, JobFamilyListResponses, JobTitle, JobGradesListResponse, JobTitleListResponse } from 'app/models/job-card-data';
+import { JobGrades, JobFamily, JobFamilyListResponses, JobTitle, JobGradesListResponse, JobTitleListResponse, FunctionalArea, FunctionalAreaResponseList } from 'app/models/job-card-data';
 
 @Component({
   selector: 'ms-job-card',
@@ -17,6 +17,7 @@ export class JobCardComponent implements OnInit {
   jobGrades:JobGrades[]=[]
   jobFamilies:JobFamily[]=[]
   jobTitles:JobTitle[]=[]
+  functionalAreas:FunctionalArea[]=[]
 
   jobId:String=""
   constructor(  
@@ -92,7 +93,20 @@ export class JobCardComponent implements OnInit {
       },
       error=>  this.toastr.error(error.message) 
     )
+
+
+    this.userService.getFunctionalArea().subscribe(
+      data=>  {
+        var response =  <FunctionalAreaResponseList>data
+        if(response.status) {
+        this.functionalAreas =  response.data 
+        }
+        else {
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
+        }
+      },
+      error=>  this.toastr.error(error.message) 
+    )
   }
-
-
-}
+  }

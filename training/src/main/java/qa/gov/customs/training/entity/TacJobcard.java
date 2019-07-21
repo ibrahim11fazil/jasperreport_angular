@@ -7,23 +7,21 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import qa.gov.customs.training.models.JobCardCourseLinkModel;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-	
-	@Entity
+
+@Entity
 	@Table(name = "TAC_JOBCARD", schema = "CUST_TAC")
 	public class TacJobcard  implements java.io.Serializable
 	{
@@ -100,7 +98,7 @@ import java.util.Set;
 		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
 		private Set<TacJobcardSkills> tacJobcardSkills = new HashSet<TacJobcardSkills>(0);
 		
-//		private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
+
 //		
 		
 		
@@ -161,6 +159,9 @@ import java.util.Set;
 //		@JoinTable(name = "TAC_JOBCARD_COURSE_LINK",
 //				joinColumns = { @JoinColumn(name = "JOBCARD_NO") },
 //				inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
+		
+//		@JsonManagedReference(value="courseLink")
+//		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
 //		public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
 //			return tacJobcardCourseLink;
 //		}
@@ -169,9 +170,61 @@ import java.util.Set;
 //			this.tacJobcardCourseLink = tacJobcardCourseLink;
 //		}
 //		
-		
-		
-		
+
+
+		private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
+
+		//@JsonManagedReference(value="tacJobcard")
+		@OneToMany(
+				mappedBy = "primaryKey.tacJobcard",
+				cascade = CascadeType.ALL
+		)
+		public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
+			return tacJobcardCourseLink;
+		}
+
+		public void setTacJobcardCourseLink(Set<TacJobcardCourseLink> tacJobcardCourseLink) {
+			this.tacJobcardCourseLink = tacJobcardCourseLink;
+		}
+
+
+		public void addCourse(TacJobcardCourseLink... courseMasters) {
+			for(TacJobcardCourseLink link: courseMasters) {
+				link.setTacJobcardTransiant(this);
+				this.tacJobcardCourseLink = Stream.of(link).collect(Collectors.toSet());
+			}
+
+
+		}
+
+
+
+//		public void removeCourse(TacCourseMaster courseMaster) {
+//			for (Iterator<TacJobcardCourseLink> iterator = tacJobcardCourseLink.iterator();
+//				 iterator.hasNext(); ) {
+//				 TacJobcardCourseLink jobcardCourseLink = iterator.next();
+//
+//				if (jobcardCourseLink.getPrimaryKey().equals(this) &&
+//						jobcardCourseLink.getPrimaryKey().equals(courseMaster)) {
+//					iterator.remove();
+//					jobcardCourseLink.setTacCourseMaster(null);
+//					jobcardCourseLink.setTacJobcard(null);
+//				}
+//			}
+//		}
+
+
+		List<JobCardCourseLinkModel> jobCardCourseLinkModelList = new ArrayList<>();
+
+		@Transient
+		public List<JobCardCourseLinkModel> getJobCardCourseLinkModelList() {
+			return jobCardCourseLinkModelList;
+		}
+
+		public void setJobCardCourseLinkModelList(List<JobCardCourseLinkModel> jobCardCourseLinkModelList) {
+			this.jobCardCourseLinkModelList = jobCardCourseLinkModelList;
+		}
+
 		@Transient
 		int start;
 
