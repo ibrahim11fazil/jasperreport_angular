@@ -1,5 +1,6 @@
 package qa.gov.customs.training.models;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class CourseManagement {
@@ -7,6 +8,15 @@ public class CourseManagement {
     private String courseName;
     private String course_date;
     private String end_date;
+    private BigDecimal activation_id;
+
+    public BigDecimal getActivation_id() {
+        return activation_id;
+    }
+
+    public void setActivation_id(BigDecimal activation_id) {
+        this.activation_id = activation_id;
+    }
 
     public String getCourseName() {
         return courseName;

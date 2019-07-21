@@ -4,8 +4,10 @@ import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
-import { CourseManagementRes, ITacCourseManagementList } from 'app/models/tac-course-master';
+import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster } from 'app/models/tac-course-master';
 import { Page } from 'app/models/paged-data';
+import { TacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
+import { DURATION_FLAG_LIST } from 'app/app.constants';
 
 @Component({
   selector: 'ms-course-management',
@@ -15,8 +17,14 @@ import { Page } from 'app/models/paged-data';
 export class CourseManagementComponent implements OnInit {
 
   rows:CourseManagementRes[];
+  displayCourseDetails:boolean=false;
+  activation:TacActivation;
   page = new Page();
-  form: FormGroup
+  estimatedCost:Number;
+  courseDetail:TacCourseMaster;
+  durationValueString:String;
+  form: FormGroup;
+  durationFlagList = DURATION_FLAG_LIST;
   displayManage:boolean=false;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
@@ -26,6 +34,7 @@ export class CourseManagementComponent implements OnInit {
     private pageTitleService: PageTitleService) { }
 
   ngOnInit() {
+    this.pageTitleService.setTitle("COURSE MANAGEMENT")
   }
   statsCard : any [] = [
   
@@ -95,7 +104,46 @@ this.trainingService.getPreviousCourses().subscribe(
         })
     }
   }
+  getActivationData(row)
+  {
+    debugger;
 
-
+  let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+  courseActivation.activationId = row.activation_id
+  this.trainingService.getActivationById(courseActivation).subscribe(
+    data => 
+    {
+      var response = <ResponseActivationDetail>data
+      this.activation = response.data
+      this.estimatedCost=+this.activation.costHospitality + +this.activation.costInstructor+ +this.activation.costTranslation
+      + +this.activation.costTransport + +this.activation.costVenue + +this.activation.costAirticket+ +this.activation.costBonus
+      + +this.activation.costFood + +this.activation.costGift;
+      if(this.activation!=null)
+      {
+        this.displayCourseDetails=true
+        var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value==this.activation.tacCourseMaster.durationFlag)
+        if(durationItemsArray[0]!=null){
+          this.durationValueString=durationItemsArray[0].viewValue
+        }
+//getCourseById
+let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+    courseMaster.courseId=this.activation.dependentId;
+this.trainingService.getCourseById(courseMaster).subscribe(
+  data => {
+    var response = <ResponseTacCourseMaster>data
+    this.courseDetail=response.data;
+    
+  })
+      }
+      console.log(this.activation)
+    },
   
+    error => {
+      console.log(error)
+      this.toastr.error(error.message)
+    }
+  )
+  
+}
+
 }
