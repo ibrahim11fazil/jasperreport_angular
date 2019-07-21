@@ -49,7 +49,6 @@ public class JobcardServiceImpl implements JobcardService{
 				jobCourse.setMandatoryFlag(item.getMandatoryFlag());
 				links.add(jobCourse);
 				inserted.get().setTacJobcardCourseLink(links);
-
 			});
 		}
 		TacJobcard insertedJobCardUpdated1 =   jobcardRepository.save(inserted.get());

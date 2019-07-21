@@ -22,7 +22,9 @@ import { MatCardModule,
   MatDialog,
   MatDialogModule,
   MatRadioButton,
-  MatRadioModule
+  MatRadioModule,
+  MatCheckbox,
+  MatCheckboxModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
@@ -120,6 +122,7 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
     MatDialogModule,
     MatSelectModule,
     MatRadioModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,

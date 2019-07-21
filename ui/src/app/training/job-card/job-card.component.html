@@ -73,6 +73,143 @@
                </div>
 
 
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <h5>Job Duties</h5>
+                  </div>
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <button class="mrgn-all-xs" mat-icon-button (click)="addMoreJobDuties()" type="button">
+                              <mat-icon>add</mat-icon>
+                        </button>   
+                  </div>
+            </div>  
+
+            <div formArrayName="jobDutiesOptions">
+               <div *ngFor="let ff of form.get('jobDutiesOptions')['controls']; let in=index"
+                  fxLayout="row wrap" fxLayoutAlign="space-between center">
+                  <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                   
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                           <input matInput placeholder="Job Duties" formControlName="dutyDescription">
+                        </mat-form-field>
+                     </div>
+
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        <button class="mrgn-all-xs" mat-icon-button (click)="removeJobDuties(in)"
+                           type="button">
+                           <mat-icon>delete</mat-icon>
+                        </button>
+                     </div>
+                  </div>
+            </div>
+
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <h5>Condition To get Job</h5>
+               </div>
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <button class="mrgn-all-xs" mat-icon-button (click)="addMoreConditions()" type="button">
+                           <mat-icon>add</mat-icon>
+                     </button>   
+               </div>
+         </div>  
+
+         <div formArrayName="conditonOptions">
+            <div *ngFor="let ff of form.get('conditonOptions')['controls']; let in=index"
+               fxLayout="row wrap" fxLayoutAlign="space-between center">
+               <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                
+                     <mat-form-field class="full-wid mrgn-b-lg">
+                        <input matInput placeholder="Condition To get Job" formControlName="jobConditions">
+                     </mat-form-field>
+                  </div>
+
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                     <button class="mrgn-all-xs" mat-icon-button (click)="removeConditions(in)"
+                        type="button">
+                        <mat-icon>delete</mat-icon>
+                     </button>
+                  </div>
+               </div>
+         </div>
+
+
+         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <h5>Skills</h5>
+            </div>
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <button class="mrgn-all-xs" mat-icon-button (click)="addMoreSkills()" type="button">
+                        <mat-icon>add</mat-icon>
+                  </button>   
+            </div>
+         </div>  
+
+      <div formArrayName="jobSkillsOptions">
+         <div *ngFor="let ff of form.get('jobSkillsOptions')['controls']; let in=index"
+            fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+             
+                  <mat-form-field class="full-wid mrgn-b-lg">
+                     <input matInput placeholder="Job Skills" formControlName="jobSkills">
+                  </mat-form-field>
+               </div>
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <button class="mrgn-all-xs" mat-icon-button (click)="removeSkills(in)"
+                     type="button">
+                     <mat-icon>delete</mat-icon>
+                  </button>
+               </div>
+            </div>
+      </div>
+
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+               <h5>Training Courses</h5>
+         </div>
+         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+               <button class="mrgn-all-xs" mat-icon-button (click)="addMoreTrainingCourses()" type="button">
+                     <mat-icon>add</mat-icon>
+               </button>   
+         </div>
+   </div>  
+   
+
+   
+   <div formArrayName="courseOptions">
+      <div *ngFor="let ff of form.get('courseOptions')['controls']; let in=index"
+         fxLayout="row wrap" fxLayoutAlign="space-between center">
+         <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-select placeholder="Training Courses" matInput formControlName="courseId">
+                        <mat-option *ngFor="let item of courses" [value]="item.courseId">
+                           {{item.courseName}}
+                        </mat-option>
+                  </mat-select>
+                  
+         </div>
+
+         <div [formGroupName]="in" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="30" fxFlex.gt-md="30">
+            <mat-checkbox class="remember-me" checked="true" formControlName="mandatoryFlag"   >Required</mat-checkbox>
+            <!-- <mat-select placeholder="Status" matInput formControlName="mandatoryFlag">
+               <mat-option *ngFor="let item of optionsCourse" [value]="item.mandatoryFlag">
+                  {{item.viewValue}}
+               </mat-option>
+            </mat-select> -->
+         </div>
+
+         <div fxFlex.gt-sm="19" fxFlex.gt-xs="19" fxFlex="19" fxFlex.gt-md="19">
+               <button class="mrgn-all-xs" mat-icon-button (click)="removeMoretargetAudienceTextarea(in)"
+                  type="button">
+                  <mat-icon>delete</mat-icon>
+               </button>
+         </div>
+
+      </div>
+   </div>
+
+
             
               <div fxLayout="row" fxLayoutAlign="start">
                  <button mat-raised-button color="primary"   type="submit">Save
