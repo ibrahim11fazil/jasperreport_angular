@@ -24,6 +24,7 @@ export interface JobCardData {
     tacJobcardConditions: TacJobcardCondition[];
     tacJobcardSkills: TacJobcardSkill[];
     tacJobcardDuties: TacJobcardDuty[];
+    jobCardCourseLinkModelList:CourseJobCard[];
 }
 
 export interface IJobCardDataResponse {
@@ -100,4 +101,11 @@ export interface FunctionalAreaResponseList {
     status: boolean;
     count: number;
     data: FunctionalArea[];
+}
+
+
+export interface CourseJobCard{
+courseId: number;
+jobcardNo: number;
+mandatoryFlag: number;
 }

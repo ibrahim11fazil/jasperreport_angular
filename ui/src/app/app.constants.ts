@@ -29,6 +29,11 @@ export const IS_SUB_COURSES=[
     { value: 1, viewValue: 'Yes' },
   ];
 
+export const OPTIONAL_OR_NOT = [
+    { value: 0, viewValue: 'Mandatory' },
+    { value: 1, viewValue: 'Optional' },
+];
+
 
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"

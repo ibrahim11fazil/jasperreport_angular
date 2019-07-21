@@ -30,6 +30,7 @@ export class CreateCourseComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST
   param:any;
   public form: FormGroup;
+  
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
@@ -137,6 +138,7 @@ export class CreateCourseComponent implements OnInit {
       durationItemsArray[0] 
    )
    }
+   
    if(this.tacCourseMaster.tacCourseCategory!=null){
    var courseCategoryArray = this.courseCategories.filter(i => i.categoryId==this.tacCourseMaster.tacCourseCategory.categoryId)
     if(courseCategoryArray[0]!=null){
