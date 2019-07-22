@@ -10,7 +10,7 @@
         <mat-divider></mat-divider>
      </div>
      <div class="gene-card-content">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
            <div fxLayout="column">
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               {{jobId}}
@@ -30,7 +30,7 @@
 
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                  <mat-form-field class="full-wid mrgn-b-lg">
-                    <input matInput placeholder="Job Id"    formControlName="jobNumber" required (change)="onJobIdChange($event)" >
+                    <input matInput placeholder="Job Id"    formControlName="jobNumber" required>
                  </mat-form-field>   
               </div>
 
@@ -191,7 +191,7 @@
          </div>
 
          <div [formGroupName]="in" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="30" fxFlex.gt-md="30">
-            <mat-checkbox class="remember-me" checked="true" formControlName="mandatoryFlag"   >Required</mat-checkbox>
+            <mat-checkbox class="remember-me" checked="1" formControlName="mandatoryFlag"   >Required</mat-checkbox>
             <!-- <mat-select placeholder="Status" matInput formControlName="mandatoryFlag">
                <mat-option *ngFor="let item of optionsCourse" [value]="item.mandatoryFlag">
                   {{item.viewValue}}
@@ -212,7 +212,7 @@
 
             
               <div fxLayout="row" fxLayoutAlign="start">
-                 <button mat-raised-button color="primary"   type="submit">Save
+                 <button mat-raised-button color="primary"    (click)="onSubmit('save')" type="submit">Save
                  </button>
               </div>
             

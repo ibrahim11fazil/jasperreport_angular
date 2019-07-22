@@ -34,9 +34,9 @@ export class CreateInstructorComponent implements OnInit {
      private toastr : ToastrService,
      private userService:SystemUserService,
      private activatedRoute: ActivatedRoute) {
-      this.pageTitleService.setTitle("Instructor Registration")
-      this.loadForm()
-
+     this.pageTitleService.setTitle("Instructor Registration")
+     this.loadForm()
+     
    
     //this.patch()
    // this.formSetup()
@@ -173,6 +173,7 @@ export class CreateInstructorComponent implements OnInit {
         this.toastr.error("Please fill required fields") 
       }
   }
+  
   successSaveInstructor(data){
     if(data.status==true){
       this.toastr.success(data.message)

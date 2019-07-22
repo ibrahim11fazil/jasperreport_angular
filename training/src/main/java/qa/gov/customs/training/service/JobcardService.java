@@ -19,6 +19,7 @@ public interface JobcardService
 //	 List<TacJobcard> searchJobcard(TacJobcard jobcard);
 	 List<TacJobcard> listJobcards(String job, int page, int limit);
 	 List<TacJobcard> listJobcards();
+	 TacJobcard findByJobcards(BigDecimal jobcardno);
 	 	
 	 TacJobcardConditions createJobcardConditions(TacJobcardConditions jobcardConditions);
 	 List<TacJobcardConditions> searchJobcardConditions(BigDecimal jobcardno);
