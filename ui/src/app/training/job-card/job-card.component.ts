@@ -52,12 +52,12 @@ export class JobCardComponent implements OnInit {
       jobDutiesOptions:this.fb.array([]),
       conditonOptions:this.fb.array([]),
       jobSkillsOptions:this.fb.array([]),
-      courseOptions:this.fb.array([])
-      // enabledUser:[null, Validators.compose([Validators.required])],
-     // jobId:[null, Validators.compose([Validators.required])],
-     // userRole:[null, Validators.compose([Validators.required])],
-     // password: [null, Validators.compose([Validators.required])],
-     // enabledUser:[null, Validators.compose([Validators.required])]
+      courseOptions:this.fb.array([]),
+      jobTitles:[null, Validators.compose([Validators.required])],
+      jobNumber:[null, Validators.compose([Validators.required])],
+      jobGrade:[null, Validators.compose([Validators.required])],
+      jobFamily:[null, Validators.compose([Validators.required])],
+      functionalArea:[null, Validators.compose([Validators.required])]
     });
   }
 
