@@ -24,6 +24,15 @@ export interface JobCardData {
     tacJobcardConditions: TacJobcardCondition[];
     tacJobcardSkills: TacJobcardSkill[];
     tacJobcardDuties: TacJobcardDuty[];
+    jobCardCourseLinkModelList:CourseJobCard[];
+    trainingCenterStatus?:Boolean;
+}
+
+export interface IJobCardDataListResponse {
+    status: Boolean;
+    code:number;
+    message:String;
+    data: JobCardData[];
 }
 
 export interface IJobCardDataResponse {
@@ -100,4 +109,18 @@ export interface FunctionalAreaResponseList {
     status: boolean;
     count: number;
     data: FunctionalArea[];
+}
+
+
+export interface CourseJobCard{
+courseId: number;
+jobcardNo: number;
+mandatoryFlag: number;
+}
+
+
+export class SearchJobCard{
+    job?: any;
+    page: number;
+    limit: number;
 }
