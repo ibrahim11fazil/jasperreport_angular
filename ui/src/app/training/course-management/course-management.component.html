@@ -29,7 +29,14 @@
 				   [offset]="page.pageNumber"
 				   
 				   >
-
+				   <!-- <ngx-datatable-column min-width="50px">
+					<ng-template ngx-datatable-header-template>
+					  <span>Activation Id</span>
+					</ng-template>
+					<ng-template let-row="row" ngx-datatable-cell-template>
+					  {{row.activation_id}}
+					</ng-template>
+				  </ngx-datatable-column> -->
 	  <ngx-datatable-column min-width="50px">
 		<ng-template ngx-datatable-header-template>
 		  <span>Course Name</span>
@@ -62,12 +69,69 @@
 			<span>Manage</span>
 		  </ng-template>
 		  <ng-template let-row="row" ngx-datatable-cell-template>
-			<button  mat-raised-button color="accent" class="m-1" type="button" (click)=getActivationData(element)>Manage</button>
+			<button  mat-raised-button color="accent" class="m-1" type="button" (click)=getActivationData(row)>Manage</button>
 		  </ng-template>
 	  </ngx-datatable-column>
 
 	</ngx-datatable>
   </div>
+
+  
+  <div *ngIf="displayCourseDetails" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+  fxFlex.gt-md="100" class="notEditableField">
+  <mat-card>
+  
+ 
+		<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+  <h4>Course Name</h4>
+  <!-- {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}} -->
+  {{activation.tacCourseMaster.courseName}}
+  </div>
+
+  <div *ngIf="displayCourseDetails" fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+  fxFlex.gt-md="100" fxLayoutAlign="space-between center"
+  class="notEditableField">
+
+  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+		<h4>Course Period</h4>
+
+		{{activation.tacCourseMaster.duration}}
+
+
+  </div>
+
+  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+	<h4>Duration Type</h4>
+	{{durationValueString}}
+
+
+</div>
+
+
+</div>
+
+<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
+fxFlex.gt-md="49">
+		<h4>Belongs To</h4>
+		{{courseDetail.courseName}}
+	</div>
+
+	<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
+fxFlex.gt-md="49">
+		<h4>Estimated Cost</h4>
+		{{estimatedCost}}
+	</div>
+	<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+			<h4>Location</h4>
+			{{activation.tacCourseDates.courseDate}}
+		</div>
+	
+
+
+
+</mat-card>
+</div>
+
 
 
 </div>

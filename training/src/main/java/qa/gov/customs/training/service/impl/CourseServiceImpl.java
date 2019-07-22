@@ -401,10 +401,9 @@ public class CourseServiceImpl  implements CourseService {
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();
 			course.setCourseName((String) o[0]);
-//			course.setCourse_date((Date) o[1]);
-//			course.setEnd_date((Date) o[2]);
 			Date courseDate=((Date)o[1]);
 			Date endDate=((Date)o[2]);
+			course.setActivation_id((BigDecimal)o[3]);
 			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
 			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
 			courseList.add(course);
@@ -426,10 +425,9 @@ public class CourseServiceImpl  implements CourseService {
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();
 			course.setCourseName((String) o[0]);
-//			course.setCourse_date((Date) o[1]);
-//			course.setEnd_date((Date) o[2]);
 			Date courseDate=((Date)o[1]);
 			Date endDate=((Date)o[2]);
+			course.setActivation_id((BigDecimal)o[3]);
 			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
 			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
 			courseList.add(course);
@@ -450,10 +448,9 @@ public class CourseServiceImpl  implements CourseService {
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();
 			course.setCourseName((String) o[0]);
-//			course.setCourse_date((Date) o[1]);
-//			course.setEnd_date((Date) o[2]);
 			Date courseDate=((Date)o[1]);
 			Date endDate=((Date)o[2]);
+			course.setActivation_id((BigDecimal)o[3]);
 			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
 			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
 			courseList.add(course);
