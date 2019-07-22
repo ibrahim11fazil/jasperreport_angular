@@ -108,7 +108,9 @@ export const  GET_CURRENT_COURSES=BASE_URL+training+"/get-current-courses"
 export const  GET_PREVIOUS_COURSES=BASE_URL+training+"/get-previous-courses"
 export const  GET_FUTURE_COURSES=BASE_URL+training+"/get-future-courses"
 export const  CREATE_JOB_CARD=BASE_URL+training+"/create-job-card"
+export const  GET_JOB_CARD_BY_ID=BASE_URL+training+"/get-job-card-byid"
 export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
+export const  GET_JOB_CARD_BYID=BASE_URL+training+"/get-job-card-byid"
 
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"

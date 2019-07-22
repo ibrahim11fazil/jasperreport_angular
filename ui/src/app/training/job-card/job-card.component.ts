@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { JobGrades, JobFamily, JobFamilyListResponses, JobTitle, JobGradesListResponse, JobTitleListResponse, FunctionalArea, FunctionalAreaResponseList } from 'app/models/job-card-data';
+import { JobGrades, JobFamily, JobFamilyListResponses, JobTitle, JobGradesListResponse, JobTitleListResponse, FunctionalArea, FunctionalAreaResponseList, JobCardData, TacJobcardDuty, TacJobcardSkill, TacJobcardCondition, CourseJobCard, JobCardDataSearch } from 'app/models/job-card-data';
 import { TacCourseMaster, ITacCourseList, Course } from 'app/models/tac-course-master';
 import { OPTIONAL_OR_NOT } from 'app/app.constants';
 import { TrainingService } from 'app/service/training/training.service';
@@ -22,6 +22,7 @@ export class JobCardComponent implements OnInit {
   jobTitles:JobTitle[]=[]
   functionalAreas:FunctionalArea[]=[]
   courses:Course[]=[]
+  jobCard:JobCardData;
   optionsCourse=OPTIONAL_OR_NOT
   
 
@@ -34,10 +35,23 @@ export class JobCardComponent implements OnInit {
     private toastr : ToastrService,
     private activatedRoute: ActivatedRoute){
     this.pageTitleService.setTitle("Job Card Creation")  
+    this.loadForm();
   }
 
-  blankUser(){
-    //this.systemUser = {id:0,password:"",roleId:0,enabled:0}
+  loadForm(){
+    this.jobCard={
+    job: "",
+    jobGrade: "",
+    jobGroup: "",
+    jobTitle: "",
+    specialGroup: "",
+    jobcardNo: 0,
+    tacJobcardConditions: [],
+    tacJobcardSkills: [],
+    tacJobcardDuties: [],
+    jobCardCourseLinkModelList:[],
+    trainingCenterStatus:false
+    } 
   }
 
   ngOnInit() {
@@ -53,12 +67,37 @@ export class JobCardComponent implements OnInit {
       conditonOptions:this.fb.array([]),
       jobSkillsOptions:this.fb.array([]),
       courseOptions:this.fb.array([]),
-      jobTitles:[null, Validators.compose([Validators.required])],
-      jobNumber:[null, Validators.compose([Validators.required])],
+      jobTitles:[this.jobCard.jobTitle, Validators.compose([Validators.required])],
+      jobNumber:[this.jobCard.jobcardNo, Validators.compose([Validators.required])],
+      
       jobGrade:[null, Validators.compose([Validators.required])],
       jobFamily:[null, Validators.compose([Validators.required])],
-      functionalArea:[null, Validators.compose([Validators.required])]
+      functionalArea:[null, Validators.compose([Validators.required])] //special group
+
     });
+  }
+
+  patch(){
+    const jobDutiesOptions = this.getControlOfAddMore('jobDutiesOptions');
+    this.jobCard.tacJobcardDuties.forEach(x => {
+      jobDutiesOptions.push(this.patchJobDuties(x.dutiesId,x.dutyDescription))
+    })
+
+    const conditonOptions = this.getControlOfAddMore('conditonOptions');
+    this.jobCard.tacJobcardConditions.forEach(x => {
+      conditonOptions.push(this.patchCondition(x.conditionsId,x.jobConditions))
+    })
+
+    const jobSkillsOptions = this.getControlOfAddMore('jobSkillsOptions');
+    this.jobCard.tacJobcardSkills.forEach(x => {
+      conditonOptions.push(this.patchSkills(x.skillsID,x.jobSkills))
+    })
+
+    const courseOptions = this.getControlOfAddMore('courseOptions');
+    this.jobCard.jobCardCourseLinkModelList.forEach(x => {
+      courseOptions.push(this.patchCourses(x.courseId,x.mandatoryFlag,x.jobcardNo))
+    })
+    
   }
 
   formSetup(){
@@ -160,8 +199,9 @@ export class JobCardComponent implements OnInit {
 
   addMoreTrainingCourses(){
     const control = this.getControlOfAddMore('courseOptions');
-    control.push(this.patchCourses(0, 0,0))
+    control.push(this.patchCourses(0,0,0))
   }
+
   removeMoretargetAudienceTextarea(input){
     const control = this.getControlOfAddMore('courseOptions');
     control.removeAt(input)
@@ -171,20 +211,21 @@ export class JobCardComponent implements OnInit {
     return <FormArray>this.form.get(name);
   }
 
-  patchJobDuties(dutyDescription, dutiesId) {
+  patchJobDuties(dutiesId,dutyDescription) {
     return this.fb.group({
       dutyDescription: [dutyDescription],
       dutiesId: [dutiesId]
     })
   }
 
-  patchSkills(jobSkills,skillsID) {
+  patchSkills(skillsID,jobSkills) {
     return this.fb.group({
       jobSkills: [jobSkills],
       skillsID: [skillsID]
     })
   }
-  patchCondition(jobConditions, conditionsId) {
+
+  patchCondition(conditionsId,jobConditions) {
     return this.fb.group({
       jobConditions: [jobConditions],
       conditionsId: [conditionsId]
@@ -198,5 +239,96 @@ export class JobCardComponent implements OnInit {
       jobcardNo: [jobcardNo]
     })
   }
+
+  onSubmit(buttonType):void{
+    if (buttonType==="save") 
+    {this.saveJobCard()}
+    else if (buttonType==="search")
+    {//this.searchInstructor()
+    }
+  }
+
+  saveJobCard(){
+    if(this.form.valid)
+    {
+    const jobCardDuties = this.getControlOfAddMore('jobDutiesOptions');
+    var jobCardDutiesArray = <TacJobcardDuty[]>jobCardDuties.value
+
+    const jobSkills = this.getControlOfAddMore('jobSkillsOptions');
+    var jobSkillsArray = <TacJobcardSkill[]>jobSkills.value
+
+    const jobConditions = this.getControlOfAddMore('conditonOptions');
+    var jobConditionsArray = <TacJobcardCondition[]>jobConditions.value
+
+    const courseOptions = this.getControlOfAddMore('courseOptions');
+    var courseOptionsArray = <CourseJobCard[]>courseOptions.value
+    var courseOptionsArrayUpdated:CourseJobCard[] =[]
+    courseOptionsArray.forEach( item => {
+      if(item.mandatoryFlag){
+        item.mandatoryFlag=1
+      }
+      courseOptionsArrayUpdated.push(item)
+    })
+    courseOptionsArray = courseOptionsArrayUpdated
+    this.jobCard={
+      job: this.form.value.jobNumber,
+      jobGrade: this.form.value.jobGrade.psLevel,
+      jobGroup: this.form.value.jobFamily.jobFamily,
+      jobTitle: this.form.value.jobTitles.job,
+      specialGroup: this.form.value.functionalArea.objid,
+      jobcardNo: this.form.value.jobId,
+      tacJobcardConditions: jobConditionsArray,
+      tacJobcardSkills: jobSkillsArray,
+      tacJobcardDuties: jobCardDutiesArray,
+      jobCardCourseLinkModelList:courseOptionsArray,
+      trainingCenterStatus:false
+      } 
+       debugger
+      this.trainingService.createJobCard(this.jobCard).subscribe(
+        data=>this.successSaveInstructor(data),
+        error=>{
+          console.log(error)
+          this.toastr.error(error.message)
+        }
+      );
+      }else{
+        this.toastr.error("Please fill required fields") 
+      }
+  }
+  
+  successSaveInstructor(data){
+    if(data.status==true){
+      this.toastr.success(data.message)
+      this.form.reset()
+    }else{
+      this.toastr.error(data.message)
+    }
+  }
+
+  loadDataFromParam(){
+    //console.log(this.param);
+    this.activatedRoute.params.subscribe(params => {
+      if(params['id']){
+          this.param = params['id'];
+      }
+     });  
+      if(this.param!='' && this.param!=undefined){
+        let jobCard=new JobCardDataSearch()
+        jobCard.job= this.param
+        this.trainingService.getJobCardById(jobCard).subscribe(
+          data => this.loadData(data),
+          error => {
+            this.toastr.error(error.message)
+          }
+        )
+      }
+  }
+
+  loadData(data){
+    this.jobCard = data.data;
+    this.formInit()
+    this.patch() 
+  }
+
 
   }
