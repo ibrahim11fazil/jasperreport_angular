@@ -1,10 +1,11 @@
 <div fxLayout="row wrap" fxLayoutAlign="start stretch" class="dash-card">
-	<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" attr.tourAnchor="{{card.tourAnchor}}" *ngFor="let card of statsCard" (click)="getCourseManagement(card)">
+	<div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" attr.tourAnchor="{{card.tourAnchor}}"
+		*ngFor="let card of statsCard" (click)="getCourseManagement(card)">
 		<mat-card class="{{card.card_color}} mat-card">
 			<div mat-card-widget>
 				<button mat-mini-fab class="inline-block gene-fab-flat-icon" mat-card-icon>
-               <mat-icon>{{card.icon}}</mat-icon>
-            </button>
+					<mat-icon>{{card.icon}}</mat-icon>
+				</button>
 				<div class="inline-block vertical-align-mid pad-wrap">
 					<h5 mat-card-widget-title class="mrgn-b-none">{{card.title}}</h5>
 					<h5>{{card.number}}</h5>
@@ -15,21 +16,11 @@
 
 
 
-<div fxFlex="100" >
-	<ngx-datatable #table
-				   class='material mrgn-all-md'
-				   
-				   [columnMode]="'force'"
-				   [headerHeight]="50"
-				   [footerHeight]="50"
-				   [rowHeight]="'auto'"
-				   [limit]="10"
-				   [rows]='rows'
-				   [count]="page.totalElements"
-				   [offset]="page.pageNumber"
-				   
-				   >
-				   <!-- <ngx-datatable-column min-width="50px">
+	<div fxFlex="100">
+		<ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
+			[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' [count]="page.totalElements"
+			[offset]="page.pageNumber">
+			<!-- <ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
 					  <span>Activation Id</span>
 					</ng-template>
@@ -37,100 +28,118 @@
 					  {{row.activation_id}}
 					</ng-template>
 				  </ngx-datatable-column> -->
-	  <ngx-datatable-column min-width="50px">
-		<ng-template ngx-datatable-header-template>
-		  <span>Course Name</span>
-		</ng-template>
-		<ng-template let-row="row" ngx-datatable-cell-template>
-		  {{row.courseName}}
-		</ng-template>
-	  </ngx-datatable-column>
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>Course Name</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.courseName}}
+				</ng-template>
+			</ngx-datatable-column>
 
-	  <ngx-datatable-column min-width="50px">
-		<ng-template ngx-datatable-header-template>
-		  <span>Course Start Date</span>
-		</ng-template>
-		<ng-template let-row="row" ngx-datatable-cell-template>
-		  {{row.course_date}}
-		</ng-template>
-	  </ngx-datatable-column>
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>Course Start Date</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.course_date}}
+				</ng-template>
+			</ngx-datatable-column>
 
-	  <ngx-datatable-column min-width="50px" >
-		  <ng-template ngx-datatable-header-template>
-			<span>Course End Date</span>
-		  </ng-template>
-		  <ng-template let-row="row" ngx-datatable-cell-template>
-			{{row.end_date}}
-		  </ng-template>
-	  </ngx-datatable-column>
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>Course End Date</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.end_date}}
+				</ng-template>
+			</ngx-datatable-column>
 
-	  <ngx-datatable-column *ngIf="displayManage"  min-width="50px" >
-		  <ng-template ngx-datatable-header-template>
-			<span>Manage</span>
-		  </ng-template>
-		  <ng-template let-row="row" ngx-datatable-cell-template>
-			<button  mat-raised-button color="accent" class="m-1" type="button" (click)=getActivationData(row)>Manage</button>
-		  </ng-template>
-	  </ngx-datatable-column>
+			<ngx-datatable-column *ngIf="displayManage" min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>Manage</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					<button mat-raised-button color="accent" class="m-1" type="button"
+						(click)=getActivationData(row)>Manage</button>
+				</ng-template>
+			</ngx-datatable-column>
 
-	</ngx-datatable>
-  </div>
-
-  
-  <div *ngIf="displayCourseDetails" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
-  fxFlex.gt-md="100" class="notEditableField">
-  <mat-card>
-  
- 
-		<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-  <h4>Course Name</h4>
-  <!-- {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}} -->
-  {{activation.tacCourseMaster.courseName}}
-  </div>
-
-  <div *ngIf="displayCourseDetails" fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
-  fxFlex.gt-md="100" fxLayoutAlign="space-between center"
-  class="notEditableField">
-
-  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-		<h4>Course Period</h4>
-
-		{{activation.tacCourseMaster.duration}}
-
-
-  </div>
-
-  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-	<h4>Duration Type</h4>
-	{{durationValueString}}
-
-
-</div>
-
-
-</div>
-
-<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
-fxFlex.gt-md="49">
-		<h4>Belongs To</h4>
-		{{courseDetail.courseName}}
+		</ngx-datatable>
 	</div>
 
-	<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
-fxFlex.gt-md="49">
-		<h4>Estimated Cost</h4>
-		{{estimatedCost}}
-	</div>
-	<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-			<h4>Location</h4>
-			{{activation.tacCourseDates.courseDate}}
+	<div fxFlex="100" class="gene-card-content">
+		<mat-card>
+		<div *ngIf="displayCourseDetails" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
+			fxLayout="column">
+
+
+
+			<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+				<h4>Course Name</h4>
+				{{activation.tacCourseMaster.courseName}}
+			</div>
+
+
+			<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center"
+				class="notEditableField" style="display: inline">
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+					<h4>Belongs To</h4>
+					{{courseDetail.courseName}}
+				</div>
+			</div>
+
+
+			<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+				fxFlex.gt-md="100" fxLayoutAlign="space-between center" class="notEditableField">
+
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+					<h4>Course Period</h4>
+					{{activation.tacCourseMaster.duration}}
+				</div>
+
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+					<h4>Duration Type</h4>
+					{{durationValueString}}
+				</div>
+			</div>
+
+
+			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+				<h4>Course Date</h4>
+				{{activation.tacCourseDate.courseDate}}
+			</div>
+
+			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+				<h4>locationName</h4>
+				{{trainingRoomDetail.locationName}}
+			</div>
+
+			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+				<h4>Course Room</h4>
+				{{activation.tacCourseRoom.roomName}}
+			</div>
+
+			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+				<h4>Trainer</h4>
+				{{tacInstructorString}}
+			</div>
+			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+				<h4>Co-ordinator</h4>
+				{{tacCoordinatorString}}
+			</div>
+
+			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+				<h4>Estimated Cost</h4>
+				{{estimatedCost}}
+			</div>
+
+
 		</div>
-	
-
-
 
 </mat-card>
-</div>
+	</div>
+
 
 
 
