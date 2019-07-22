@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES, SEARCH_JOB_CARD, CREATE_JOB_CARD } from "../../app.constants";
 import { Location,ResponseLocation, ResponseLocationDetail } from 'app/models/location';
 
 import { BehaviorSubject } from 'rxjs';
@@ -14,6 +14,7 @@ import { TacInstructor, TacInstructorRequest } from '../../models/tac-instructor
 
 import { CiSystemUsersRequest, CiCourseRequestedUsers } from 'app/models/ci-system-user';
 import { SearchUser } from 'app/models/system-user';
+import { SearchJobCard, JobCardData, JobCardDataSearch } from 'app/models/job-card-data';
 @Injectable({
   providedIn: 'root'
 })
@@ -171,6 +172,14 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   }
   getFutureCourses():Observable<Object> {
     return this.httpClient.get(GET_FUTURE_COURSES);
+  }
+
+  searchJobCard(search:JobCardDataSearch):Observable<Object> {
+    return this.httpClient.post(SEARCH_JOB_CARD,search);
+  }
+
+  createJobCard(jobCard:JobCardData):Observable<Object> {
+    return this.httpClient.post(CREATE_JOB_CARD,jobCard);
   }
   
 
