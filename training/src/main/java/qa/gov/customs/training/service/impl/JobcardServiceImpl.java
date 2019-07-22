@@ -84,11 +84,21 @@ public class JobcardServiceImpl implements JobcardService{
 						page, limit, Sort.by("job"));
 		if(job==null ||  job.equals("")){
 			Page<TacJobcard> pages = jobcardRepository.findAll(pageable);
-			pages.forEach(item ->jobcards.add(item));
+			pages.forEach(item ->{
+				List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(item.getJobcardNo());
+				item.setJobCardCourseLinkModelList(list);
+				jobcards.add(item);
+			});
 			return jobcards;
 		}
 		else {
-			return jobcardRepository.findByJob(job,pageable);
+			List<TacJobcard> jobcardsSelected =  jobcardRepository.findByJob(job,pageable);
+			for (TacJobcard tacJobcard : jobcardsSelected) {
+				List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(tacJobcard.getJobcardNo());
+				tacJobcard.setJobCardCourseLinkModelList(list);
+				jobcards.add(tacJobcard);
+			}
+			return jobcards;
 		}
 	}
 

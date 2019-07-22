@@ -15,9 +15,6 @@ import { Router } from '@angular/router';
 })
 export class SearchInstructorComponent implements OnInit {
 
-  
-  
-
   form: FormGroup
   page = 0
   ds: TacInstructor[] = [];
