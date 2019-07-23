@@ -35,6 +35,21 @@ export const OPTIONAL_OR_NOT = [
 ];
 
 
+export const ROLE_TRAINING_ADMIN="train_admin"
+export const ROLE_SYS_ADMIN="sys_admin"
+export const ROLE_TRAINING_MANAGER="train_mgr"
+export const ROLE_TRAINING_ASSIS_MANAGER="train_asst_mgr"
+export const ROLE_TRAINING_COORDINATOR="train_coordinator"
+export const ROLE_TRAINING_HEAD_TCE="head_tce"
+export const ROLE_HR_DEPT="hr_dept"
+export const ROLE_CHAIRMAN_ASSISTANT="chairman_asst"
+export const ROLE_CI_SYSTEM="ci_system"
+export const ROLE_AUDI_DEPT="audi_dept"
+export const ROLE_DEPT_MGR="dept_mgr"
+export const ROLE_DEPT_HEAD="dept_head"
+export const ROLE_EMPLOYEE="employee"
+
+
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
 // export const BASE_URL ="http://172.16.0.254:9000"

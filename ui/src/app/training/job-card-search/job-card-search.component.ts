@@ -28,7 +28,7 @@ export class JobCardSearchComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
-    private router:Router,) {
+    private router:Router) {
     this.pageTitleService.setTitle("Search JobCard")
   }
 

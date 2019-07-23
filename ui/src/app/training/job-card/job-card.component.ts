@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { SystemUserService } from 'app/service/user/system-user.service';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobGrades, JobFamily, JobFamilyListResponses, JobTitle, JobGradesListResponse, JobTitleListResponse, FunctionalArea, FunctionalAreaResponseList, JobCardData, TacJobcardDuty, TacJobcardSkill, TacJobcardCondition, CourseJobCard, JobCardDataSearch } from 'app/models/job-card-data';
 import { TacCourseMaster, ITacCourseList, Course } from 'app/models/tac-course-master';
 import { OPTIONAL_OR_NOT } from 'app/app.constants';
 import { TrainingService } from 'app/service/training/training.service';
 import { debug } from 'util';
+import { DISABLED } from '@angular/forms/src/model';
+import { AuthService } from 'app/service/auth-service/auth.service';
 
 @Component({
   selector: 'ms-job-card',
@@ -25,7 +27,8 @@ export class JobCardComponent implements OnInit {
   courses:Course[]=[]
   jobCard:JobCardData;
   optionsCourse=OPTIONAL_OR_NOT
-  
+  trainingSelectDisable = true;
+  hrSelectDisable = true;
 
   jobId:String=""
   constructor(  
@@ -34,9 +37,21 @@ export class JobCardComponent implements OnInit {
     private fb:FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr : ToastrService,
-    private activatedRoute: ActivatedRoute){
+    private activatedRoute: ActivatedRoute,
+    private router:Router,
+    private authService:AuthService){
     this.pageTitleService.setTitle("Job Card Creation")  
     this.loadForm();
+    if(this.authService.checktheRoleisHR()){
+      this.hrSelectDisable=false
+    }
+    if(this.authService.checktheRoleisTrainingDept()){
+      this.trainingSelectDisable=false
+    }
+    if(this.authService.checktheRoleisSystemAdmin()){
+      this.hrSelectDisable=false
+      this.trainingSelectDisable=false
+    }
   }
 
   loadForm(){
@@ -313,6 +328,7 @@ export class JobCardComponent implements OnInit {
     if(data.status==true){
       this.toastr.success(data.message)
       this.form.reset()
+      this.router.navigate(["/training/job-card-search"]);
     }else{
       this.toastr.error(data.message)
     }
