@@ -188,7 +188,7 @@ export class JobCardComponent implements OnInit {
       error=>  this.toastr.error(error.message) 
     )
 
-    this.trainingService.getAllCourseList().subscribe(
+    this.trainingService.getAllCourseListWithCategoryAndHour().subscribe(
       data => {
         var response = <ITacCourseList>data
         this.courses = response.data
@@ -199,6 +199,7 @@ export class JobCardComponent implements OnInit {
         this.toastr.error(error.message)
       }
     )
+    
   }
 
   addMoreJobDuties(){
