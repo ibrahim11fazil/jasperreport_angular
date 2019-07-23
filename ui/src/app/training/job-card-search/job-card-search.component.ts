@@ -87,7 +87,7 @@ export class JobCardSearchComponent implements OnInit {
   }
 
   updateRow(row){
-    this.router.navigate(["/training/create-instructor/",row.instructorId]);
+    this.router.navigate(["/training/job-card-management/",row.jobcardNo]);
   }
 
 }
