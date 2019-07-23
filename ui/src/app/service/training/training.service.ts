@@ -65,6 +65,10 @@ export class TrainingService {
     return this.httpClient.get(GET_ALL_COURSES);
   }
 
+  getAllCourseListWithCategoryAndHour(): Observable<Object> {
+    return this.httpClient.get(GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY);
+  }
+
   getCourseById(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(GET_COURSE_BY_ID, course);
   }
