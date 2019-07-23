@@ -8,6 +8,7 @@ import { JobGrades, JobFamily, JobFamilyListResponses, JobTitle, JobGradesListRe
 import { TacCourseMaster, ITacCourseList, Course } from 'app/models/tac-course-master';
 import { OPTIONAL_OR_NOT } from 'app/app.constants';
 import { TrainingService } from 'app/service/training/training.service';
+import { debug } from 'util';
 
 @Component({
   selector: 'ms-job-card',
@@ -57,23 +58,25 @@ export class JobCardComponent implements OnInit {
   ngOnInit() {
     this.formSetup()
     this.formInit()
-    //this.loadDataFromParam()
+    this.loadDataFromParam()
   }
 
   formInit()
   {
+    var jobGradeSelected = this.jobGrades.find(i => i.psLevel==this.jobCard.jobGrade)
+    var jobFamilySelected = this.jobFamilies.find(i => i.jobFamily==this.jobCard.jobGroup)
+    var jobFunctionalAreaSelected = this.functionalAreas.find(i => i.objid==this.jobCard.specialGroup)
+    var jobTitlesSelected = this.jobTitles.find(i=>i.job==this.jobCard.jobTitle)
     this.form = this.fb.group({
       jobDutiesOptions:this.fb.array([]),
       conditonOptions:this.fb.array([]),
       jobSkillsOptions:this.fb.array([]),
       courseOptions:this.fb.array([]),
-      jobTitles:[this.jobCard.jobTitle, Validators.compose([Validators.required])],
-      jobNumber:[this.jobCard.jobcardNo, Validators.compose([Validators.required])],
-      
-      jobGrade:[null, Validators.compose([Validators.required])],
-      jobFamily:[null, Validators.compose([Validators.required])],
-      functionalArea:[null, Validators.compose([Validators.required])] //special group
-
+      job:[this.jobCard.job, Validators.compose([Validators.required])],
+      jobTitle:[jobTitlesSelected, Validators.compose([Validators.required])],
+      jobGrade:[jobGradeSelected, Validators.compose([Validators.required])],
+      jobFamily:[jobFamilySelected, Validators.compose([Validators.required])],
+      functionalArea:[jobFunctionalAreaSelected, Validators.compose([Validators.required])]
     });
   }
 
@@ -83,16 +86,19 @@ export class JobCardComponent implements OnInit {
       jobDutiesOptions.push(this.patchJobDuties(x.dutiesId,x.dutyDescription))
     })
 
+    // debugger
     const conditonOptions = this.getControlOfAddMore('conditonOptions');
     this.jobCard.tacJobcardConditions.forEach(x => {
       conditonOptions.push(this.patchCondition(x.conditionsId,x.jobConditions))
     })
 
+    // debugger
     const jobSkillsOptions = this.getControlOfAddMore('jobSkillsOptions');
     this.jobCard.tacJobcardSkills.forEach(x => {
-      conditonOptions.push(this.patchSkills(x.skillsID,x.jobSkills))
+      jobSkillsOptions.push(this.patchSkills(x.skillsID,x.jobSkills))
     })
 
+    debugger
     const courseOptions = this.getControlOfAddMore('courseOptions');
     this.jobCard.jobCardCourseLinkModelList.forEach(x => {
       courseOptions.push(this.patchCourses(x.courseId,x.mandatoryFlag,x.jobcardNo))
@@ -163,7 +169,7 @@ export class JobCardComponent implements OnInit {
       data => {
         var response = <ITacCourseList>data
         this.courses = response.data
-        console.log(response)
+        //console.log(response)
       },
       error => {
         console.log(error)
@@ -174,7 +180,7 @@ export class JobCardComponent implements OnInit {
 
   addMoreJobDuties(){
     const control = this.getControlOfAddMore('jobDutiesOptions');
-    control.push(this.patchJobDuties( "",0))
+    control.push(this.patchJobDuties( 0,""))
   }
   removeJobDuties(input){
     const control = this.getControlOfAddMore('jobDutiesOptions');
@@ -182,7 +188,7 @@ export class JobCardComponent implements OnInit {
   }
   addMoreConditions(){
     const control = this.getControlOfAddMore('conditonOptions');
-    control.push(this.patchCondition( "",0))
+    control.push(this.patchCondition( 0,""))
   }
   removeConditions(input){
     const control = this.getControlOfAddMore('conditonOptions');
@@ -190,7 +196,7 @@ export class JobCardComponent implements OnInit {
   }
   addMoreSkills(){
     const control = this.getControlOfAddMore('jobSkillsOptions');
-    control.push(this.patchSkills( "",0))
+    control.push(this.patchSkills( 0,""))
   }
   removeSkills(input){
     const control = this.getControlOfAddMore('jobSkillsOptions');
@@ -264,19 +270,18 @@ export class JobCardComponent implements OnInit {
     var courseOptionsArray = <CourseJobCard[]>courseOptions.value
     var courseOptionsArrayUpdated:CourseJobCard[] =[]
     courseOptionsArray.forEach( item => {
-      if(item.mandatoryFlag){
-        item.mandatoryFlag=1
-      }
+      if(item.mandatoryFlag){item.mandatoryFlag=1}
       courseOptionsArrayUpdated.push(item)
     })
     courseOptionsArray = courseOptionsArrayUpdated
+    var id= this.jobCard.jobcardNo
     this.jobCard={
-      job: this.form.value.jobNumber,
+      job: this.form.value.job,
+      jobcardNo:id,
       jobGrade: this.form.value.jobGrade.psLevel,
       jobGroup: this.form.value.jobFamily.jobFamily,
-      jobTitle: this.form.value.jobTitles.job,
+      jobTitle: this.form.value.jobTitle.job,
       specialGroup: this.form.value.functionalArea.objid,
-      jobcardNo: this.form.value.jobId,
       tacJobcardConditions: jobConditionsArray,
       tacJobcardSkills: jobSkillsArray,
       tacJobcardDuties: jobCardDutiesArray,

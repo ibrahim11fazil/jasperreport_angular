@@ -78,7 +78,10 @@ public class JobcardServiceImpl implements JobcardService{
 
 	@Override
 	public TacJobcard findByJobcards(BigDecimal jobcardno) {
-		return jobcardRepository.findByJobcardNo(jobcardno);
+		TacJobcard jobCard=  jobcardRepository.findByJobcardNo(jobcardno);
+		List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(jobCard.getJobcardNo());
+		jobCard.setJobCardCourseLinkModelList(list);
+		return jobCard;
 	}
 
 	@Override

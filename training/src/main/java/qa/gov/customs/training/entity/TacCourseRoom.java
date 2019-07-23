@@ -60,7 +60,7 @@ public class TacCourseRoom implements java.io.Serializable {
 	public void setRoomId(BigDecimal roomId) {
 		this.roomId = roomId;
 	}
-@JsonBackReference
+    @JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "LOCATION_ID")
 	public TacCourseLocation getTacCourseLocation() {
