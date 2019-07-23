@@ -12,6 +12,7 @@ import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -64,6 +65,22 @@ public class JobCardController {
             return response;
         }
     }
+
+    @PreAuthorize("hasAnyAuthority('get_job_card_byid')")
+    @PostMapping("/get-job-card-byid")
+    public ResponseType getJobCardById(@RequestBody TacJobcard jobcard) {
+        TacJobcard jobcardList = null;
+        jobcardList = jobcardService.findByJobcards(new BigDecimal(jobcard.getJob()));
+        if (jobcardList != null) {
+            ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);
+            return response;
+        } else {
+            ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+            return response;
+        }
+    }
+
+
 }
 //Add
 //	

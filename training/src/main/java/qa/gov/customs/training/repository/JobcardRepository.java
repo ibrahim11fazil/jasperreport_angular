@@ -19,6 +19,8 @@ public interface JobcardRepository   extends PagingAndSortingRepository<TacJobca
 	//@Query(value="from TacJobcard where job = :job")
 	List<TacJobcard> findByJob(String job, Pageable pageable);
 
+	TacJobcard findByJobcardNo(BigDecimal jobcardNo);
+
 
 	@Query(value="select * from TAC_JOBCARD where TAC_JOBCARD.JOB_GRADE Like :JOB_GRADE order by TAC_JOBCARD.JOB",nativeQuery=true)
 	List<TacJobcard> findByGrade(String JOB_GRADE);

@@ -108,6 +108,10 @@ export const TrainingRoutes: Routes = [
                 component: JobCardComponent
             },
             {
+                path: 'job-card-management/:id',
+                component: JobCardComponent
+            },
+            {
                 path: 'job-card-search',
                 component: JobCardSearchComponent
             }

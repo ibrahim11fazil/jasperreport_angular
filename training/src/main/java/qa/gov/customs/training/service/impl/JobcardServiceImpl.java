@@ -75,7 +75,15 @@ public class JobcardServiceImpl implements JobcardService{
 		jobcardRepository.findAll().forEach(item -> jobcards.add(item));
 		 return jobcards;
 	}
-	
+
+	@Override
+	public TacJobcard findByJobcards(BigDecimal jobcardno) {
+		TacJobcard jobCard=  jobcardRepository.findByJobcardNo(jobcardno);
+		List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(jobCard.getJobcardNo());
+		jobCard.setJobCardCourseLinkModelList(list);
+		return jobCard;
+	}
+
 	@Override
 	public List<TacJobcard> listJobcards(String job, int page, int limit) {
 		List<TacJobcard> jobcards =  new ArrayList<>();
