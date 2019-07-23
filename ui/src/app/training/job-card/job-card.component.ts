@@ -113,6 +113,8 @@ export class JobCardComponent implements OnInit {
         var response =  <JobGradesListResponse>data
         if(response.status) {
         this.jobGrades =  response.data 
+        this.formInit()
+        this.patch() 
         }
         else {
           console.log(response.message)
@@ -127,6 +129,8 @@ export class JobCardComponent implements OnInit {
         var response =  <JobFamilyListResponses>data
         if(response.status) {
         this.jobFamilies =  response.data 
+        this.formInit()
+        this.patch() 
         }
         else {
           console.log(response.message)
@@ -141,6 +145,8 @@ export class JobCardComponent implements OnInit {
         var response =  <JobTitleListResponse>data
         if(response.status) {
         this.jobTitles =  response.data 
+        this.formInit()
+        this.patch() 
         }
         else {
           console.log(response.message)
@@ -156,6 +162,8 @@ export class JobCardComponent implements OnInit {
         var response =  <FunctionalAreaResponseList>data
         if(response.status) {
         this.functionalAreas =  response.data 
+        this.formInit()
+        this.patch() 
         }
         else {
           console.log(response.message)
