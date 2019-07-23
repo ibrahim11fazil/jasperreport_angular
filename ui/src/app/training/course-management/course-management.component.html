@@ -17,17 +17,17 @@
 
 
 	<div fxFlex="100">
-		<ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
-			[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' [count]="page.totalElements"
-			[offset]="page.pageNumber">
-			<!-- <ngx-datatable-column min-width="50px">
-					<ng-template ngx-datatable-header-template>
-					  <span>Activation Id</span>
-					</ng-template>
-					<ng-template let-row="row" ngx-datatable-cell-template>
-					  {{row.activation_id}}
-					</ng-template>
-				  </ngx-datatable-column> -->
+		<ngx-datatable 
+		#table class='material mrgn-all-md' 
+		[columnMode]="'force'" 
+		[headerHeight]="50"
+		[footerHeight]="50"
+		[rowHeight]="'auto'" 
+		[limit]="10" 
+		[rows]='rows' 
+		[count]="page.totalElements"
+		[offset]="page.pageNumber">
+
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
 					<span>Course Name</span>
@@ -36,7 +36,6 @@
 					{{row.courseName}}
 				</ng-template>
 			</ngx-datatable-column>
-
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
 					<span>Course Start Date</span>
@@ -45,7 +44,6 @@
 					{{row.course_date}}
 				</ng-template>
 			</ngx-datatable-column>
-
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
 					<span>Course End Date</span>
@@ -54,7 +52,6 @@
 					{{row.end_date}}
 				</ng-template>
 			</ngx-datatable-column>
-
 			<ngx-datatable-column *ngIf="displayManage" min-width="50px">
 				<ng-template ngx-datatable-header-template>
 					<span>Manage</span>
@@ -64,83 +61,118 @@
 						(click)=getActivationData(row)>Manage</button>
 				</ng-template>
 			</ngx-datatable-column>
-
 		</ngx-datatable>
 	</div>
 
-	<div fxFlex="100" class="gene-card-content">
+
+	<div *ngIf="displayCourseDetails" fxFlex="100" class="gene-card-content">
 		<mat-card>
-		<div *ngIf="displayCourseDetails" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
-			fxLayout="column">
+			<div *ngIf="displayCourseDetails" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
+				fxLayout="column">
+				<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+					<h4>Course Name</h4>
+					{{activation.tacCourseMaster.courseName}}
+				</div>
+				<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center"
+					class="notEditableField" style="display: inline">
+					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+						<h4>Belongs To</h4>
+						{{courseDetail.courseName}}
+					</div>
+				</div>
+				<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+					fxFlex.gt-md="100" fxLayoutAlign="space-between center" class="notEditableField">
 
+					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+						<h4>Course Period</h4>
+						{{activation.tacCourseMaster.duration}}
+					</div>
 
-
-			<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-				<h4>Course Name</h4>
-				{{activation.tacCourseMaster.courseName}}
-			</div>
-
-
-			<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center"
-				class="notEditableField" style="display: inline">
-				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-					<h4>Belongs To</h4>
-					{{courseDetail.courseName}}
+					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+						<h4>Duration Type</h4>
+						{{durationValueString}}
+					</div>
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Course Date</h4>
+					{{activation.tacCourseDate.courseDate}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>locationName</h4>
+					{{trainingRoomDetail.locationName}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Course Room</h4>
+					{{activation.tacCourseRoom.roomName}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Trainer</h4>
+					{{tacInstructorString}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Co-ordinator</h4>
+					{{tacCoordinatorString}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Estimated Cost</h4>
+					{{estimatedCost}}
 				</div>
 			</div>
-
-
-			<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
-				fxFlex.gt-md="100" fxLayoutAlign="space-between center" class="notEditableField">
-
-				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-					<h4>Course Period</h4>
-					{{activation.tacCourseMaster.duration}}
-				</div>
-
-				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-					<h4>Duration Type</h4>
-					{{durationValueString}}
-				</div>
-			</div>
-
-
-			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-				<h4>Course Date</h4>
-				{{activation.tacCourseDate.courseDate}}
-			</div>
-
-			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-				<h4>locationName</h4>
-				{{trainingRoomDetail.locationName}}
-			</div>
-
-			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-				<h4>Course Room</h4>
-				{{activation.tacCourseRoom.roomName}}
-			</div>
-
-			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-				<h4>Trainer</h4>
-				{{tacInstructorString}}
-			</div>
-			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-				<h4>Co-ordinator</h4>
-				{{tacCoordinatorString}}
-			</div>
-
-			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-				<h4>Estimated Cost</h4>
-				{{estimatedCost}}
-			</div>
-
-
-		</div>
-
-</mat-card>
+		</mat-card>
+		<mat-card class="mat-pad-none gene-calender">
+				<ng-template ngbModalContainer></ng-template>
+				<ng-template #modalContent let-close="close">
+						<div class="modal-header">
+						   <h5 class="modal-title">Event action occurred</h5>
+						   <button color="primary" class="close" (click)="close()">
+							  <mat-icon>close</mat-icon>
+						   </button>
+						</div>
+						<div class="modal-body">
+						   <div>
+							  Action: 
+							  <pre>{{ modalData?.action }}</pre>
+						   </div>
+						   <div>
+							  Event: 
+							  <pre>{{ modalData?.event | json }}</pre>
+						   </div>
+						</div>
+						<mat-icon (click)="close()" class="modal-confirm-btn">done</mat-icon>
+					 </ng-template>
+	
+					 <div class="text-center primary-bg overflow-hidden">
+							<div class="cal-col">
+							   <div class="gene-btn-group">
+								  <mat-icon class="" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"> chevron_left
+								  </mat-icon>
+								  <mat-icon class="" mwlCalendarToday [(viewDate)]="viewDate"> today </mat-icon>
+								  <mat-icon class="" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"> chevron_right
+								  </mat-icon>
+							   </div>
+							</div> <div class="cal-col">
+									<h3 class="gene-cal-head">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+								 </div>
+								 <div class="right-tab cal-col">
+									<div class="gene-btn-group">
+									   <mat-icon class="" (click)="view = 'month'" [class.active]="view === 'month'"> view_comfy </mat-icon>
+									   <mat-icon class="" (click)="view = 'week'" [class.active]="view === 'week'"> view_week </mat-icon>
+									   <mat-icon class="" (click)="view = 'day'" [class.active]="view === 'day'"> view_day </mat-icon>
+									</div>
+								 </div>
+							  </div>
+							  <br>
+							  <div [ngSwitch]="view">
+									
+									<mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-month-view>
+									<!-- <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-week-view>
+									<mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-day-view> -->
+								 </div>
+							
+								 
+		</mat-card>
+	
 	</div>
-
-
 
 
 </div>
