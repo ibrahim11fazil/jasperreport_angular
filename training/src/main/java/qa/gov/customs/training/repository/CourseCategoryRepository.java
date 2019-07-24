@@ -11,4 +11,6 @@ import java.math.BigDecimal;
 @Repository
 public interface CourseCategoryRepository  extends JpaRepository<TacCourseCategory, BigDecimal> {
 
+
+
 }

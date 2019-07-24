@@ -70,8 +70,9 @@ export class TacCourseMaster {
     }
 
     export interface Course{
-
-
+         hours:Number;
+         categoryId:Number;
+         categoryName:String;
          courseId:Number;
          tacCourseCategory:Categories;
          courseName:String;

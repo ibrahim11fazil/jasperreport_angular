@@ -305,6 +305,24 @@ public class CourseController {
 			return response;
 		}
 	}
+	@PreAuthorize("hasAnyAuthority('list_courses')")
+	@GetMapping("/list-courses-with-hour-and-category")
+	public ResponseType listCoursesWithHourAndCategory() {
+		List<Course> coursesList = null;
+		coursesList = courseService.listCoursesWithHourAndCategory();
+		if(coursesList!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, coursesList);
+			return response;
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", false, null);
+			return response;
+		}
+	}
+
+
 
 	@PreAuthorize("hasAnyAuthority('get_course_by_name')")
 	@PostMapping("/get_course_by_name")

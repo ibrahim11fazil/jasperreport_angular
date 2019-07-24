@@ -9,7 +9,26 @@ public class Course {
     private BigDecimal courseId;
     private String courseName;
     private BigDecimal status;
+    private BigDecimal hours;
+    private BigDecimal categoryId;
+    private String categoryName;
 
+
+    public BigDecimal getHours() {
+        return hours;
+    }
+
+    public void setHours(BigDecimal hours) {
+        this.hours = hours;
+    }
+
+    public BigDecimal getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(BigDecimal categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public BigDecimal getCourseId() {
         return courseId;
@@ -33,5 +52,13 @@ public class Course {
 
     public void setStatus(BigDecimal status) {
         this.status = status;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

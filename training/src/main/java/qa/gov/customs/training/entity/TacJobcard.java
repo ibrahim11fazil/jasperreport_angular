@@ -93,6 +93,10 @@ import java.util.stream.Stream;
 		private String jobGroup;
 		private String specialGroup; 
 		private BigDecimal jobcardNo;
+		private BigDecimal adminHours;
+		private BigDecimal specialisedHours;
+		private BigDecimal workshopHours;
+		private BigDecimal hourFlag;
 		
 		private Set<TacJobcardConditions> tacJobcardConditions = new HashSet<TacJobcardConditions>(0);
 		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
@@ -154,8 +158,44 @@ import java.util.stream.Stream;
 		public void setTacJobcardDuties(Set<TacJobcardDuties> tacJobcardDuties) {
 			this.tacJobcardDuties = tacJobcardDuties;
 		}
-		
-//		@ManyToMany(fetch = FetchType.LAZY)
+
+		@Column(name = "ADMIN_HOURS")
+		public BigDecimal getAdminHours() {
+			return adminHours;
+		}
+
+		public void setAdminHours(BigDecimal adminHours) {
+			this.adminHours = adminHours;
+		}
+
+		@Column(name = "SPECIALISED_HOURS")
+		public BigDecimal getSpecialisedHours() {
+			return specialisedHours;
+		}
+
+		public void setSpecialisedHours(BigDecimal specialisedHours) {
+			this.specialisedHours = specialisedHours;
+		}
+
+		@Column(name = "WORKSHOP_HOURS")
+		public BigDecimal getWorkshopHours() {
+			return workshopHours;
+		}
+
+		public void setWorkshopHours(BigDecimal workshopHours) {
+			this.workshopHours = workshopHours;
+		}
+
+		@Column(name = "HOUR_ERROR_FLAG")
+		public BigDecimal getHourFlag() {
+			return hourFlag;
+		}
+
+		public void setHourFlag(BigDecimal hourFlag) {
+			this.hourFlag = hourFlag;
+		}
+
+		//		@ManyToMany(fetch = FetchType.LAZY)
 //		@JoinTable(name = "TAC_JOBCARD_COURSE_LINK",
 //				joinColumns = { @JoinColumn(name = "JOBCARD_NO") },
 //				inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })

@@ -35,6 +35,27 @@ export const OPTIONAL_OR_NOT = [
 ];
 
 
+export const ROLE_TRAINING_ADMIN="train_admin"
+export const ROLE_SYS_ADMIN="sys_admin"
+export const ROLE_TRAINING_MANAGER="train_mgr"
+export const ROLE_TRAINING_ASSIS_MANAGER="train_asst_mgr"
+export const ROLE_TRAINING_COORDINATOR="train_coordinator"
+export const ROLE_TRAINING_HEAD_TCE="head_tce"
+export const ROLE_HR_DEPT="hr_dept"
+export const ROLE_CHAIRMAN_ASSISTANT="chairman_asst"
+export const ROLE_CI_SYSTEM="ci_system"
+export const ROLE_AUDI_DEPT="audi_dept"
+export const ROLE_DEPT_MGR="dept_mgr"
+export const ROLE_DEPT_HEAD="dept_head"
+export const ROLE_EMPLOYEE="employee"
+
+
+export const	ADMINISTRATIVE_COURSE= 1
+export const	SPECIALISED_COURSE= 2
+export const	WORKSHOP_COURSE=3
+export const	GENERAL_COURSE =4
+
+
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
 // export const BASE_URL ="http://172.16.0.254:9000"
@@ -86,6 +107,7 @@ export const GET_ALL_COURSE_CATEGORIES = BASE_URL + training +"/get-all-course-c
 export const GET_ALL_COURSE_TARGET = BASE_URL + training +"/get-all-course-target-groups"
 export const  GET_ALL_ACTIVITIES =BASE_URL + training +"/list-activity"
 export const  GET_ALL_COURSES=BASE_URL+training+"/list-courses"
+export const GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY = BASE_URL+training+"/list-courses-with-hour-and-category"
 export const  GET_LOCATION=BASE_URL+training+"/get-all-courseLocation"
 export const   GET_PREREQUISITES=BASE_URL+training+"/get-all-course-prerequisites"
 export const  LINK_COURSE = BASE_URL + training + "/link-course-with-activity"
