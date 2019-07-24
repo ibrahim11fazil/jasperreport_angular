@@ -17,8 +17,8 @@
             </div>
 
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-              <mat-form-field class="full-wid mrgn-b-md">
-                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitle" required>
+              <mat-form-field class="full-wid mrgn-b-md" >
+                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitle" required [disabled]="hrSelectDisable">
                     <option [ngValue]="null">Select Job Titles</option>
                     <mat-option *ngFor="let obj of jobTitles" [value]="obj">
                        {{obj.jobDescAr}}
@@ -29,14 +29,14 @@
 
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                  <mat-form-field class="full-wid mrgn-b-lg">
-                    <input matInput placeholder="Job Number"    formControlName="job" required>
+                    <input matInput placeholder="Job Number"    formControlName="job" required readonly="hrSelectDisable" >
                  </mat-form-field>   
               </div>
 
               
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    <mat-form-field class="full-wid mrgn-b-md">
-                      <mat-select placeholder="Job Grade" matInput formControlName="jobGrade" required>
+                      <mat-select placeholder="Job Grade" matInput formControlName="jobGrade" (selectionChange)="calculator()" required [disabled]="hrSelectDisable">
                          <option [ngValue]="null">Select Job Grade</option>
                          <mat-option *ngFor="let obj of jobGrades"
                           [value]="obj">
@@ -49,7 +49,7 @@
 
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Job Family" matInput formControlName="jobFamily" required>
+                     <mat-select placeholder="Job Family" matInput formControlName="jobFamily" required [disabled]="hrSelectDisable">
                         <option [ngValue]="null">Select Role</option>
                         <mat-option *ngFor="let obj of jobFamilies"
                          [value]="obj">
@@ -61,7 +61,7 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Functional Area" matInput formControlName="functionalArea" required>
+                     <mat-select placeholder="Functional Area" matInput formControlName="functionalArea" required [disabled]="hrSelectDisable">
                         <option [ngValue]="null">Functional Area</option>
                         <mat-option *ngFor="let obj of functionalAreas"
                          [value]="obj">
@@ -77,7 +77,7 @@
                         <h5>Job Duties</h5>
                   </div>
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                        <button class="mrgn-all-xs" mat-icon-button (click)="addMoreJobDuties()" type="button">
+                        <button class="mrgn-all-xs" mat-icon-button (click)="addMoreJobDuties()" type="button" [disabled]="hrSelectDisable">
                               <mat-icon>add</mat-icon>
                         </button>   
                   </div>
@@ -89,13 +89,13 @@
                   <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    
                         <mat-form-field class="full-wid mrgn-b-lg">
-                           <input matInput placeholder="Job Duties" formControlName="dutyDescription">
+                           <input matInput placeholder="Job Duties" formControlName="dutyDescription" [disabled]="hrSelectDisable" readonly="hrSelectDisable">
                         </mat-form-field>
                      </div>
 
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <button class="mrgn-all-xs" mat-icon-button (click)="removeJobDuties(in)"
-                           type="button">
+                           type="button" [disabled]="hrSelectDisable">
                            <mat-icon>delete</mat-icon>
                         </button>
                      </div>
@@ -108,7 +108,7 @@
                      <h5>Condition To get Job</h5>
                </div>
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                     <button class="mrgn-all-xs" mat-icon-button (click)="addMoreConditions()" type="button">
+                     <button class="mrgn-all-xs" mat-icon-button (click)="addMoreConditions()" type="button" [disabled]="hrSelectDisable">
                            <mat-icon>add</mat-icon>
                      </button>   
                </div>
@@ -120,13 +120,13 @@
                <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                 
                      <mat-form-field class="full-wid mrgn-b-lg">
-                        <input matInput placeholder="Condition To get Job" formControlName="jobConditions">
+                        <input matInput placeholder="Condition To get Job" formControlName="jobConditions" readonly="hrSelectDisable">
                      </mat-form-field>
                   </div>
 
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                      <button class="mrgn-all-xs" mat-icon-button (click)="removeConditions(in)"
-                        type="button">
+                        type="button" [disabled]="hrSelectDisable">
                         <mat-icon>delete</mat-icon>
                      </button>
                   </div>
@@ -139,7 +139,7 @@
                   <h5>Skills</h5>
             </div>
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                  <button class="mrgn-all-xs" mat-icon-button (click)="addMoreSkills()" type="button">
+                  <button class="mrgn-all-xs" mat-icon-button (click)="addMoreSkills()" type="button" [disabled]="hrSelectDisable">
                         <mat-icon>add</mat-icon>
                   </button>   
             </div>
@@ -150,46 +150,46 @@
             fxLayout="row wrap" fxLayoutAlign="space-between center">
             <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg">
-                     <input matInput placeholder="Job Skills" formControlName="jobSkills">
+                     <input matInput placeholder="Job Skills" formControlName="jobSkills" readonly="hrSelectDisable">
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <button class="mrgn-all-xs" mat-icon-button (click)="removeSkills(in)"
-                     type="button">
+                     type="button" [disabled]="hrSelectDisable">
                      <mat-icon>delete</mat-icon>
                   </button>
                </div>
             </div>
       </div>
-
+     
       <div fxLayout="row wrap" fxLayoutAlign="space-between center">
          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                <h5>Training Courses</h5>
          </div>
          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-               <button class="mrgn-all-xs" mat-icon-button (click)="addMoreTrainingCourses()" type="button">
+               <button class="mrgn-all-xs" mat-icon-button (click)="addMoreTrainingCourses()" type="button"  [disabled]="trainingSelectDisable">
                      <mat-icon>add</mat-icon>
                </button>   
          </div>
    </div>  
    
-
+   
    
    <div formArrayName="courseOptions">
       <div *ngFor="let ff of form.get('courseOptions')['controls']; let in=index"
          fxLayout="row wrap" fxLayoutAlign="space-between center">
          <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                  <mat-select placeholder="Training Courses" matInput formControlName="courseId">
+                  <mat-select placeholder="Training Courses" matInput formControlName="courseId"  [disabled]="trainingSelectDisable" (selectionChange)="calculator()"  >
                         <mat-option *ngFor="let item of courses" [value]="item.courseId">
-                           {{item.courseName}}
+                              {{item.categoryName}} /  {{item.courseName}} / (Hrs:) {{item.hours}}
                         </mat-option>
                   </mat-select>
                   
          </div>
 
          <div [formGroupName]="in" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="30" fxFlex.gt-md="30">
-            <mat-checkbox class="remember-me" checked="true" formControlName="mandatoryFlag"> Required </mat-checkbox>
+            <mat-checkbox class="remember-me" checked="true" formControlName="mandatoryFlag"  [disabled]="trainingSelectDisable"> Required </mat-checkbox>
             <!-- <mat-select placeholder="Status" matInput formControlName="mandatoryFlag">
                <mat-option *ngFor="let item of optionsCourse" [value]="item.mandatoryFlag">
                   {{item.viewValue}}
@@ -199,13 +199,27 @@
 
          <div fxFlex.gt-sm="19" fxFlex.gt-xs="19" fxFlex="19" fxFlex.gt-md="19">
                <button class="mrgn-all-xs" mat-icon-button (click)="removeMoretargetAudienceTextarea(in)"
-                  type="button">
+                  type="button"  [disabled]="trainingSelectDisable">
                   <mat-icon>delete</mat-icon>
                </button>
          </div>
 
       </div>
    </div>
+
+   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+         <div *ngFor="let ele of itemStatus">
+            <div  *ngIf="!ele.isText">
+           <i  *ngIf="ele.isFinished" color="primary"> {{ele.status }} <mat-icon  >check </mat-icon>   </i> 
+           <i  *ngIf="!ele.isFinished" color="warning"> {{ele.status }} <mat-icon  >close </mat-icon>   </i> 
+            </div> 
+            <div  *ngIf="ele.isText">
+                  <b color="primary"> {{ele.status }}    </b>    
+            </div> 
+         </div>
+   </div>
+
+
 
 
             

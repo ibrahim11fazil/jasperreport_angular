@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL} from "../../app.constants";
+import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADMIN, ROLE_TRAINING_MANAGER, ROLE_TRAINING_ASSIS_MANAGER, ROLE_TRAINING_COORDINATOR, ROLE_TRAINING_HEAD_TCE, ROLE_SYS_ADMIN} from "../../app.constants";
+import { LoginResponseObj } from 'app/models/system-user';
+import { isNgTemplate } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -152,4 +154,55 @@ export class AuthService {
             return null;
         }
     }
+
+    checktheRoleisHR(){
+      this.userData = JSON.parse(localStorage.getItem("userProfile"));
+      var loginObj=<LoginResponseObj> this.userData 
+      var roleAvailable=false
+      if(loginObj.roles.length!=0){
+         loginObj.roles.forEach(item =>  {
+         if(item ==ROLE_HR_DEPT){
+            roleAvailable=true
+         }});
+      return roleAvailable
+      }else{
+         return false
+      }
+    }
+
+    checktheRoleisTrainingDept(){
+      this.userData = JSON.parse(localStorage.getItem("userProfile"));
+      var loginObj=<LoginResponseObj> this.userData 
+      var roleAvailable=false
+      if(loginObj.roles.length!=0){
+         loginObj.roles.forEach(item =>  {
+         if(item ==ROLE_TRAINING_ADMIN || 
+            item == ROLE_TRAINING_MANAGER || 
+            item == ROLE_TRAINING_ASSIS_MANAGER || 
+            item == ROLE_TRAINING_COORDINATOR || 
+            item == ROLE_TRAINING_HEAD_TCE
+            ){
+               roleAvailable=true
+         }});
+      return roleAvailable
+      }else{
+         return false
+      }
+    }
+    checktheRoleisSystemAdmin(){
+      this.userData = JSON.parse(localStorage.getItem("userProfile"));
+      var loginObj=<LoginResponseObj> this.userData 
+      var roleAvailable=false
+      if(loginObj.roles.length!=0){
+         loginObj.roles.forEach(item =>  {
+         if(item == ROLE_SYS_ADMIN){
+            roleAvailable=true
+         }});
+      return roleAvailable
+      }else{
+         return false
+      }
+    }
+
+
 }

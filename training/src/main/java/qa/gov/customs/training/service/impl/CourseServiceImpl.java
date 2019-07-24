@@ -210,6 +210,26 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
+	public List<Course> listCoursesWithHourAndCategory() {
+		List<Object[]> objects = courseRepository.findAllCoursesWithHoursAndCategoryId();
+		List<Course> courses = new ArrayList<>();
+		for (Object[] o : objects) {
+			Course course = new Course();
+			course.setCourseId((BigDecimal) o[0]);
+			course.setCourseName((String) o[1]);
+			course.setHours((BigDecimal) o[2]);
+			course.setCategoryId((BigDecimal) o[3]);
+			if((BigDecimal) o[3]!=null) {
+				Optional<TacCourseCategory> category = courseCategoryRepository.findById((BigDecimal) o[3]);
+				if (category.isPresent())
+					course.setCategoryName(category.get().getDescription());
+			}
+			courses.add(course);
+		}
+		return courses;
+	}
+
+	@Override
 	public List<TacCourseMaster> getCourseByCourseName(TacCourseMaster course) {
 		List<TacCourseMaster> courseList = courseRepository.findByCourseName(course.getCourseName());
 		return courseList;

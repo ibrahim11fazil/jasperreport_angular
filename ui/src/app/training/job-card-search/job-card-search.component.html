@@ -83,6 +83,15 @@
                     
                     </td>  
                 </ng-container> 
+
+                <ng-container matColumnDef="HStatus">  
+                    <th mat-header-cell *matHeaderCellDef> Hours Error </th>  
+                    <td mat-cell *matCellDef="let element">
+                        <mat-chip-list>
+                            <mat-chip color="{{element.hourFlag==0?'primary':'warn'}}" selected> {{element.hourFlag==0?"OK":"Error"}} </mat-chip>
+                         </mat-chip-list> 
+                      </td>  
+                  </ng-container>
                   
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>    
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    

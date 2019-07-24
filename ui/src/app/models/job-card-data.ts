@@ -26,6 +26,10 @@ export interface JobCardData {
     tacJobcardDuties: TacJobcardDuty[];
     jobCardCourseLinkModelList:CourseJobCard[];
     trainingCenterStatus?:Boolean;
+    adminHours:Number;
+    specialisedHours:Number;
+    workshopHours:Number;
+    hourFlag:Number;
 }
 
 export interface IJobCardDataListResponse {
@@ -123,4 +127,10 @@ export class SearchJobCard{
     job?: any;
     page: number;
     limit: number;
+}
+
+export class JobGradeStatus{
+    status:String
+    isText:Boolean
+    isFinished:Boolean
 }
