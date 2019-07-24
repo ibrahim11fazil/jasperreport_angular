@@ -36,7 +36,7 @@
               
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    <mat-form-field class="full-wid mrgn-b-md">
-                      <mat-select placeholder="Job Grade" matInput formControlName="jobGrade" required [disabled]="hrSelectDisable">
+                      <mat-select placeholder="Job Grade" matInput formControlName="jobGrade" (selectionChange)="calculator()" required [disabled]="hrSelectDisable">
                          <option [ngValue]="null">Select Job Grade</option>
                          <mat-option *ngFor="let obj of jobGrades"
                           [value]="obj">
@@ -180,9 +180,9 @@
       <div *ngFor="let ff of form.get('courseOptions')['controls']; let in=index"
          fxLayout="row wrap" fxLayoutAlign="space-between center">
          <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                  <mat-select placeholder="Training Courses" matInput formControlName="courseId"  [disabled]="trainingSelectDisable">
+                  <mat-select placeholder="Training Courses" matInput formControlName="courseId"  [disabled]="trainingSelectDisable" (selectionChange)="calculator()"  >
                         <mat-option *ngFor="let item of courses" [value]="item.courseId">
-                           {{item.courseName}}
+                              {{item.categoryName}} /  {{item.courseName}} / (Hrs:) {{item.hours}}
                         </mat-option>
                   </mat-select>
                   
@@ -206,6 +206,20 @@
 
       </div>
    </div>
+
+   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+         <div *ngFor="let ele of itemStatus">
+            <div  *ngIf="!ele.isText">
+           <i  *ngIf="ele.isFinished" color="primary"> {{ele.status }} <mat-icon  >check </mat-icon>   </i> 
+           <i  *ngIf="!ele.isFinished" color="warning"> {{ele.status }} <mat-icon  >close </mat-icon>   </i> 
+            </div> 
+            <div  *ngIf="ele.isText">
+                  <b color="primary"> {{ele.status }}    </b>    
+            </div> 
+         </div>
+   </div>
+
+
 
 
             

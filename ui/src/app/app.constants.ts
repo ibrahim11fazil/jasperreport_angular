@@ -50,6 +50,12 @@ export const ROLE_DEPT_HEAD="dept_head"
 export const ROLE_EMPLOYEE="employee"
 
 
+export const	ADMINISTRATIVE_COURSE= 1
+export const	SPECIALISED_COURSE= 2
+export const	WORKSHOP_COURSE=3
+export const	GENERAL_COURSE =4
+
+
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
 // export const BASE_URL ="http://172.16.0.254:9000"

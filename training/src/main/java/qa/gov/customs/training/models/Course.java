@@ -11,6 +11,7 @@ public class Course {
     private BigDecimal status;
     private BigDecimal hours;
     private BigDecimal categoryId;
+    private String categoryName;
 
 
     public BigDecimal getHours() {
@@ -51,5 +52,13 @@ public class Course {
 
     public void setStatus(BigDecimal status) {
         this.status = status;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

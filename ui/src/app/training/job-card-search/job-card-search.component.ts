@@ -21,7 +21,7 @@ export class JobCardSearchComponent implements OnInit {
   page = 0
   ds: JobCardData[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['jobTitle', 'jobGrade', 'jobGroup','job','jobcardNo', 'Edit','Status' ];
+  displayedColumns: string[] = ['jobTitle', 'jobGrade', 'jobGroup','job','jobcardNo', 'Edit','Status','HStatus' ];
   constructor(
     private trainingService: TrainingService,
     private userService:SystemUserService,

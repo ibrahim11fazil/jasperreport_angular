@@ -219,6 +219,11 @@ public class CourseServiceImpl  implements CourseService {
 			course.setCourseName((String) o[1]);
 			course.setHours((BigDecimal) o[2]);
 			course.setCategoryId((BigDecimal) o[3]);
+			if((BigDecimal) o[3]!=null) {
+				Optional<TacCourseCategory> category = courseCategoryRepository.findById((BigDecimal) o[3]);
+				if (category.isPresent())
+					course.setCategoryName(category.get().getDescription());
+			}
 			courses.add(course);
 		}
 		return courses;
