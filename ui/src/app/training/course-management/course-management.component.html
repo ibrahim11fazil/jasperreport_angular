@@ -67,20 +67,20 @@
 
 	<div *ngIf="displayCourseDetails" fxFlex="100" class="gene-card-content">
 		<mat-card>
-			<div *ngIf="displayCourseDetails" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
+			<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
 				fxLayout="column">
 				<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
 					<h4>Course Name</h4>
 					{{activation.tacCourseMaster.courseName}}
 				</div>
-				<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center"
+				<div fxLayout="row wrap" fxLayoutAlign="space-between center"
 					class="notEditableField" style="display: inline">
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
 						<h4>Belongs To</h4>
 						{{courseDetail.courseName}}
 					</div>
 				</div>
-				<div *ngIf="displayCourseDetails" fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+				<div  fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
 					fxFlex.gt-md="100" fxLayoutAlign="space-between center" class="notEditableField">
 
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
@@ -119,6 +119,8 @@
 				</div>
 			</div>
 		</mat-card>
+	</div>
+	<div *ngIf="displayCalendar" fxFlex="100" class="gene-card-content">
 		<mat-card class="mat-pad-none gene-calender">
 				<ng-template ngbModalContainer></ng-template>
 				<ng-template #modalContent let-close="close">
@@ -165,8 +167,8 @@
 							  <div [ngSwitch]="view">
 									
 									<mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-month-view>
-									<!-- <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-week-view>
-									<mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-day-view> -->
+									<mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-week-view>
+									<mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"> </mwl-calendar-day-view> 
 								 </div>
 							
 								 

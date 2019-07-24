@@ -13,9 +13,12 @@ import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { TrainingRoom } from 'app/models/training-room';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
+import { Subject } from 'rxjs';
 import { CalendarEvent,
   CalendarEventAction,
-  CalendarEventTimesChangedEvent
+  CalendarEventTimesChangedEvent,
+  DAYS_OF_WEEK,
+  
 } from 'angular-calendar';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { startOfDay,
@@ -57,6 +60,7 @@ export class CourseManagementComponent implements OnInit {
   tacInstructorResult: TacInstructor[] = [];
   userList: SystemUserResponseArray[] = [];
   displayCourseDetails: boolean = false;
+  customEvent:CalendarEvent;
   activation: TacActivation;
   page = new Page();
   estimatedCost: Number;
@@ -70,19 +74,23 @@ export class CourseManagementComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST;
   displayManage: boolean = false;
   eventCourseDetail:CourseManagementRes;
-
+  courseStartDate:Date;
+  courseEndDate:Date;
+displayCalendar:boolean=false;
   activeDayIsOpen: boolean = true;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   view: string = 'month';
   viewDate: Date = new Date();
 
-  modalData: {
-     action: string,
-     event: CalendarEvent
-  };
-  
- 
 
+  modalData: {
+    action: string,
+    event: CalendarEvent
+ };
+ excludeDays: number[] = [0, 6];
+
+ weekStartsOn = DAYS_OF_WEEK.SUNDAY;
+refresh: Subject<any> = new Subject();
 
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
@@ -180,8 +188,24 @@ export class CourseManagementComponent implements OnInit {
     }
   }
   getActivationData(row) {
-    debugger;
+ debugger;
+ 
    this.eventCourseDetail=row;
+   console.log(this.eventCourseDetail.course_date);
+   const str = this.eventCourseDetail.course_date.split('-');
+      const year = Number(str[2]);
+      const date = Number(str[1]);
+      const month = Number(str[0])-1;
+      this.courseStartDate=new Date(year,month,date);
+      console.log(this.courseStartDate)
+
+      const strENd=this.eventCourseDetail.end_date.split('-');
+      const yearEnd = Number(strENd[2]);
+      const dateEnd = Number(strENd[1]);
+      const monthEnd = Number(strENd[0])-1;
+      this.courseEndDate=new Date(yearEnd,monthEnd,dateEnd);
+
+   console.log(this.courseEndDate   )
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = row.activation_id
     this.trainingService.getActivationById(courseActivation).subscribe(
@@ -198,6 +222,9 @@ export class CourseManagementComponent implements OnInit {
         if (durationItemsArray[0] != null) {
           this.durationValueString = durationItemsArray[0].viewValue
         }
+
+        
+        
         this.tacInstructorResult.forEach(i => {
           var item = this.tacInstructor.filter(item => item.instructorId == i.instructorId)
           if (item[0] != null) {
@@ -228,9 +255,14 @@ export class CourseManagementComponent implements OnInit {
           this.tacCoordinatorString.push(item[0].username);
 
         }
-        
-
+        debugger;
+       
+       //console.log(this.courseStartDate+"course start date");
+    
+      this.addEvent();
+      
         console.log(this.activation)
+
       },
 
       error => {
@@ -263,9 +295,11 @@ export class CourseManagementComponent implements OnInit {
      * eventTimesChanged method is used to change the calendar Event time.
      */   
    eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
+  
       event.start = newStart;
       event.end = newEnd;
       this.handleEvent('Dropped or resized', event);
+      this.refresh.next();
     
    }
 
@@ -273,18 +307,63 @@ export class CourseManagementComponent implements OnInit {
      * handleEvent method is used to handle the event and action.
      */
    handleEvent(action: string, event: CalendarEvent): void {
+console.log("handle event")
       this.modalData = {event, action};
       this.modal.open(this.modalContent, {size: 'lg'});
    }
+   
 
    events: CalendarEvent[] = [{
-    
-    // start: new Date(this.eventCourseDetail.course_date.toString()),
-    // end: new Date(this.eventCourseDetail.end_date.toString()),
-     start:subDays(startOfDay(new Date()), 5),
-     end:new Date(),
+  
+    start: this.courseStartDate,
+    end:this.courseEndDate,
     title: "Currenr Event" ,
     color: colors.red,
  }];
 
+ addEvent(): void {
+ console.log(this.courseStartDate.getDay())
+ var i=new Date;
+while(this.courseStartDate<=this.courseEndDate)
+{
+// if (this.courseStartDate.getDay()==5) this.courseStartDate.setDate(this.courseStartDate.getDate()+1);
+// else if (this.courseStartDate.getDay()==6) this.courseStartDate.setDate(this.courseStartDate.getDate()+2);
+if(this.courseStartDate.getDay()==5)
+{
+  this.courseStartDate.setDate(this.courseStartDate.getDate()+2)
+}
+else if(this.courseStartDate.getDay()==6)
+{
+  this.courseStartDate.setDate(this.courseStartDate.getDate()+1)
+}
+  this.events.push({
+     title: 'Course Schedule',
+     start: startOfDay(new Date(this.courseStartDate)),
+     //end: endOfDay(new Date(this.courseEndDate)),
+     color: colors.blue,
+     draggable: true,
+     allDay: false,
+     resizable: {
+       beforeStart: true,
+       afterEnd: true
+     }
+  });
+  this.courseStartDate.setDate(this.courseStartDate.getDate()+1)
+
+}
+//   this.events.push({
+//     title: 'Course Schedule',
+//     start: startOfDay(new Date()),
+//     end: endOfDay(new Date()),
+//     color: colors.red,
+//     draggable: true,
+//     resizable: {
+//       beforeStart: true,
+//       afterEnd: true
+//     }
+//  });
+  this.refresh.next();
+  this.displayCalendar=true;
+  
+}
 }
