@@ -326,18 +326,18 @@ console.log("handle event")
  var i=new Date;
 while(this.courseStartDate<=this.courseEndDate)
 {
-// if (this.courseStartDate.getDay()==5) this.courseStartDate.setDate(this.courseStartDate.getDate()+1);
-// else if (this.courseStartDate.getDay()==6) this.courseStartDate.setDate(this.courseStartDate.getDate()+2);
-if(this.courseStartDate.getDay()==5)
-{
-  this.courseStartDate.setDate(this.courseStartDate.getDate()+2)
-}
-else if(this.courseStartDate.getDay()==6)
-{
-  this.courseStartDate.setDate(this.courseStartDate.getDate()+1)
-}
+if (this.courseStartDate.getDay()==5) this.courseStartDate.setDate(this.courseStartDate.getDate()+2);
+else if (this.courseStartDate.getDay()==6) this.courseStartDate.setDate(this.courseStartDate.getDate()+1);
+// if(this.courseStartDate.getDay()==5)
+// {
+//   this.courseStartDate.setDate(this.courseStartDate.getDate()+2)
+// }
+// else if(this.courseStartDate.getDay()==6)
+// {
+//   this.courseStartDate.setDate(this.courseStartDate.getDate()+1)
+// }
   this.events.push({
-     title: 'Course Schedule',
+    title:this.eventCourseDetail.courseName.toString() ,
      start: startOfDay(new Date(this.courseStartDate)),
      //end: endOfDay(new Date(this.courseEndDate)),
      color: colors.blue,
@@ -351,17 +351,6 @@ else if(this.courseStartDate.getDay()==6)
   this.courseStartDate.setDate(this.courseStartDate.getDate()+1)
 
 }
-//   this.events.push({
-//     title: 'Course Schedule',
-//     start: startOfDay(new Date()),
-//     end: endOfDay(new Date()),
-//     color: colors.red,
-//     draggable: true,
-//     resizable: {
-//       beforeStart: true,
-//       afterEnd: true
-//     }
-//  });
   this.refresh.next();
   this.displayCalendar=true;
   
