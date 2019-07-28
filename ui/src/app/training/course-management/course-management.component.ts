@@ -30,6 +30,7 @@ import { startOfDay,
   isSameMonth,
   addHours
 } from 'date-fns';
+import { ResponseEmpData, EmpData } from 'app/models/emp-data';
 
 
 const colors: any = {
@@ -56,6 +57,7 @@ const colors: any = {
 export class CourseManagementComponent implements OnInit {
 
   rows: CourseManagementRes[];
+  empRows:EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
   userList: SystemUserResponseArray[] = [];
@@ -289,6 +291,19 @@ refresh: Subject<any> = new Subject();
             this.viewDate = date;
          }
       }
+      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    courseActivation.activationId=this.eventCourseDetail.activation_id;
+      this.trainingService.getEmpData(courseActivation).subscribe(
+        data => {
+          var response = <ResponseEmpData>data
+          this.empRows = response.data
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
+
+      
    }
 
    /**
@@ -308,8 +323,22 @@ refresh: Subject<any> = new Subject();
      */
    handleEvent(action: string, event: CalendarEvent): void {
 console.log("handle event")
+debugger;
       this.modalData = {event, action};
-      this.modal.open(this.modalContent, {size: 'lg'});
+      //this.modal.open(this.modalContent, {size: 'lg'});
+
+      // eventCourseDetail
+      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    courseActivation.activationId=this.eventCourseDetail.activation_id;
+      this.trainingService.getEmpData(courseActivation).subscribe(
+        data => {
+          var response = <ResponseEmpData>data
+          this.empRows = response.data
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
    }
    
 
@@ -328,14 +357,6 @@ while(this.courseStartDate<=this.courseEndDate)
 {
 if (this.courseStartDate.getDay()==5) this.courseStartDate.setDate(this.courseStartDate.getDate()+2);
 else if (this.courseStartDate.getDay()==6) this.courseStartDate.setDate(this.courseStartDate.getDate()+1);
-// if(this.courseStartDate.getDay()==5)
-// {
-//   this.courseStartDate.setDate(this.courseStartDate.getDate()+2)
-// }
-// else if(this.courseStartDate.getDay()==6)
-// {
-//   this.courseStartDate.setDate(this.courseStartDate.getDate()+1)
-// }
   this.events.push({
     title:this.eventCourseDetail.courseName.toString() ,
      start: startOfDay(new Date(this.courseStartDate)),

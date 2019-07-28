@@ -177,4 +177,61 @@
 	</div>
 
 
+	<div fxFlex="100">
+			<ngx-datatable 
+			#table class='material mrgn-all-md' 
+			[columnMode]="'force'" 
+			[headerHeight]="50"
+			[footerHeight]="50"
+			[rowHeight]="'auto'" 
+			[limit]="10" 
+			[rows]='empRows' 
+			[count]="page.totalElements"
+			[offset]="page.pageNumber">
+	
+				<ngx-datatable-column min-width="50px">
+					<ng-template ngx-datatable-header-template>
+						<span>Job ID</span>
+					</ng-template>
+					<ng-template let-row="row" ngx-datatable-cell-template>
+						{{row.jobId}}
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column min-width="50px">
+					<ng-template ngx-datatable-header-template>
+						<span>Name</span>
+					</ng-template>
+					<ng-template let-row="row" ngx-datatable-cell-template>
+						{{row.cnameAr}}
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column min-width="50px">
+					<ng-template ngx-datatable-header-template>
+						<span>Department</span>
+					</ng-template>
+					<ng-template let-row="row" ngx-datatable-cell-template>
+						{{row.department}}
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column min-width="50px">
+						<ng-template ngx-datatable-header-template>
+							<span>Job Title</span>
+						</ng-template>
+						<ng-template let-row="row" ngx-datatable-cell-template>
+							{{row.jobTitle}}
+						</ng-template>
+					</ngx-datatable-column>
+					<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>Mobile</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.mobile}}
+							</ng-template>
+						</ngx-datatable-column>
+				
+			</ngx-datatable>
+		</div> 
+
+
 </div>

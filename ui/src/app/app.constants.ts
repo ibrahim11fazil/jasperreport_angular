@@ -133,6 +133,7 @@ export const  CREATE_JOB_CARD=BASE_URL+training+"/create-job-card"
 export const  GET_JOB_CARD_BY_ID=BASE_URL+training+"/get-job-card-byid"
 export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
 export const  GET_JOB_CARD_BYID=BASE_URL+training+"/get-job-card-byid"
+export const   GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data-attendance"
 
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
