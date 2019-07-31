@@ -1,4 +1,11 @@
 package qa.gov.customs.training.service;
 
-public class AttendanceService {
+import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.models.EmployeeData;
+
+import java.util.Set;
+
+public interface AttendanceService {
+
+   Set<EmployeeData> getEmployeeDataForAttendance(TacCourseActivation activation);
 }

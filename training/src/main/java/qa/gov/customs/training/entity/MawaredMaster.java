@@ -1,4 +1,4 @@
-package qa.gov.customs.training.models;
+package qa.gov.customs.training.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import java.util.Date;
 
 
     @Entity
-    @Table(name="USER_SAP_WS_MINI")
+    @Table(name="USER1_SAP_WS_MINI")
     public class MawaredMaster {
 
         @Id
