@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @Table(name = "TAC_COURSE_ATTENDEES", schema = "CUST_TAC")
 public class TacCourseAttendees implements java.io.Serializable {
 
-	private BigDecimal attendanceId;
+	private BigDecimal attendeesId;
 	private TacCourseActivation tacCourseActivation;
 	private String jobId;
 	private BigDecimal courseStatus;
@@ -37,7 +37,7 @@ public class TacCourseAttendees implements java.io.Serializable {
 	}
 
 	public TacCourseAttendees(BigDecimal attendanceId, TacCourseActivation tacCourseActivation, String jobId) {
-		this.attendanceId = attendanceId;
+		this.attendeesId = attendanceId;
 		this.tacCourseActivation = tacCourseActivation;
 		this.jobId = jobId;
 	}
@@ -45,7 +45,7 @@ public class TacCourseAttendees implements java.io.Serializable {
 	public TacCourseAttendees(BigDecimal attendanceId, TacCourseActivation tacCourseActivation, String jobId,
 			BigDecimal courseStatus, BigDecimal attendancePercentage, Clob remark, BigDecimal certificateSerialNo,
 			Set<TacCourseAttendence> tacCourseAttendences) {
-		this.attendanceId = attendanceId;
+		this.attendeesId = attendanceId;
 		this.tacCourseActivation = tacCourseActivation;
 		this.jobId = jobId;
 		this.courseStatus = courseStatus;
@@ -57,15 +57,15 @@ public class TacCourseAttendees implements java.io.Serializable {
 
 	@Id
 
-	@Column(name = "ATTENDANCE_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	@Column(name = "ATTENDEES_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ATTENDEES_SEQ",allocationSize = 1)
 	public BigDecimal getAttendanceId() {
-		return this.attendanceId;
+		return this.attendeesId;
 	}
 
 	public void setAttendanceId(BigDecimal attendanceId) {
-		this.attendanceId = attendanceId;
+		this.attendeesId = attendanceId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
