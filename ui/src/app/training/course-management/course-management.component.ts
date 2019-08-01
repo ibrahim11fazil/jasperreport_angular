@@ -14,14 +14,16 @@ import { TrainingRoom } from 'app/models/training-room';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { Subject } from 'rxjs';
-import { CalendarEvent,
+import {
+  CalendarEvent,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
   DAYS_OF_WEEK,
-  
+
 } from 'angular-calendar';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { startOfDay,
+import {
+  startOfDay,
   endOfDay,
   subDays,
   addDays,
@@ -33,18 +35,19 @@ import { startOfDay,
 import { ResponseEmpData, EmpData } from 'app/models/emp-data';
 
 
+
 const colors: any = {
   red: {
-     primary: '#ad2121',
-     secondary: '#FAE3E3'
+    primary: '#ad2121',
+    secondary: '#FAE3E3'
   },
   blue: {
-     primary: '#1e90ff',
-     secondary: '#D1E8FF'
+    primary: '#1e90ff',
+    secondary: '#D1E8FF'
   },
   yellow: {
-     primary: '#e3bc08',
-     secondary: '#FDF1BA'
+    primary: '#e3bc08',
+    secondary: '#FDF1BA'
   }
 };
 @Component({
@@ -57,12 +60,12 @@ const colors: any = {
 export class CourseManagementComponent implements OnInit {
 
   rows: CourseManagementRes[];
-  empRows:EmpData[];
+  empRows: EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
   userList: SystemUserResponseArray[] = [];
   displayCourseDetails: boolean = false;
-  customEvent:CalendarEvent;
+  customEvent: CalendarEvent;
   activation: TacActivation;
   page = new Page();
   estimatedCost: Number;
@@ -75,24 +78,28 @@ export class CourseManagementComponent implements OnInit {
   public form: FormGroup;
   durationFlagList = DURATION_FLAG_LIST;
   displayManage: boolean = false;
-  eventCourseDetail:CourseManagementRes;
-  courseStartDate:Date;
-  courseEndDate:Date;
-displayCalendar:boolean=false;
+  eventCourseDetail: CourseManagementRes;
+  courseStartDate: Date;
+  courseEndDate: Date;
+  displayCalendar: boolean = false;
   activeDayIsOpen: boolean = true;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   view: string = 'month';
   viewDate: Date = new Date();
+  checkboxList: EmpData[] = [];
+  isSelected: boolean = false;
+  displayCourseCompletionForm:boolean=false;
+  Follow_list: any;
 
 
   modalData: {
     action: string,
     event: CalendarEvent
- };
- excludeDays: number[] = [0, 6];
+  };
+  excludeDays: number[] = [0, 6];
 
- weekStartsOn = DAYS_OF_WEEK.SUNDAY;
-refresh: Subject<any> = new Subject();
+  weekStartsOn = DAYS_OF_WEEK.SUNDAY;
+  refresh: Subject<any> = new Subject();
 
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
@@ -101,7 +108,8 @@ refresh: Subject<any> = new Subject();
     private userService: SystemUserService,
 
     private activatedRoute: ActivatedRoute,
-    private pageTitleService: PageTitleService) { }
+    private pageTitleService: PageTitleService) {
+  }
 
   ngOnInit() {
     this.pageTitleService.setTitle("COURSE MANAGEMENT")
@@ -190,24 +198,24 @@ refresh: Subject<any> = new Subject();
     }
   }
   getActivationData(row) {
- debugger;
- 
-   this.eventCourseDetail=row;
-   console.log(this.eventCourseDetail.course_date);
-   const str = this.eventCourseDetail.course_date.split('-');
-      const year = Number(str[2]);
-      const date = Number(str[1]);
-      const month = Number(str[0])-1;
-      this.courseStartDate=new Date(year,month,date);
-      console.log(this.courseStartDate)
+    debugger;
 
-      const strENd=this.eventCourseDetail.end_date.split('-');
-      const yearEnd = Number(strENd[2]);
-      const dateEnd = Number(strENd[1]);
-      const monthEnd = Number(strENd[0])-1;
-      this.courseEndDate=new Date(yearEnd,monthEnd,dateEnd);
+    this.eventCourseDetail = row;
+    console.log(this.eventCourseDetail.course_date);
+    const str = this.eventCourseDetail.course_date.split('-');
+    const year = Number(str[2]);
+    const date = Number(str[1]);
+    const month = Number(str[0]) - 1;
+    this.courseStartDate = new Date(year, month, date);
+    console.log(this.courseStartDate)
 
-   console.log(this.courseEndDate   )
+    const strENd = this.eventCourseDetail.end_date.split('-');
+    const yearEnd = Number(strENd[2]);
+    const dateEnd = Number(strENd[1]);
+    const monthEnd = Number(strENd[0]) - 1;
+    this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
+
+    console.log(this.courseEndDate)
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = row.activation_id
     this.trainingService.getActivationById(courseActivation).subscribe(
@@ -225,8 +233,8 @@ refresh: Subject<any> = new Subject();
           this.durationValueString = durationItemsArray[0].viewValue
         }
 
-        
-        
+
+
         this.tacInstructorResult.forEach(i => {
           var item = this.tacInstructor.filter(item => item.instructorId == i.instructorId)
           if (item[0] != null) {
@@ -258,11 +266,11 @@ refresh: Subject<any> = new Subject();
 
         }
         debugger;
-       
-       //console.log(this.courseStartDate+"course start date");
-    
-      this.addEvent();
-      
+
+        //console.log(this.courseStartDate+"course start date");
+
+        this.addEvent();
+
         console.log(this.activation)
 
       },
@@ -276,104 +284,123 @@ refresh: Subject<any> = new Subject();
 
 
   }
- /**
-     * dayClicked method is used to open the active day.
-     */
-    dayClicked({date, events}: {date: Date, events: CalendarEvent[]}): void {
-      if (isSameMonth(date, this.viewDate)) {
-         if (
-            (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-            events.length === 0
-         ) {
-            this.activeDayIsOpen = false;
-         } else {
-            this.activeDayIsOpen = true;
-            this.viewDate = date;
-         }
+  /**
+      * dayClicked method is used to open the active day.
+      */
+  dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
+    this.empRows = null;
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
       }
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
-    courseActivation.activationId=this.eventCourseDetail.activation_id;
-      this.trainingService.getEmpData(courseActivation).subscribe(
-        data => {
-          var response = <ResponseEmpData>data
-          this.empRows = response.data
-        },
-        error => {
-          console.log(error)
-          this.toastr.error(error.message)
-        })
+    }
+    
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    courseActivation.activationId = this.eventCourseDetail.activation_id;
+    this.trainingService.getEmpData(courseActivation).subscribe(
+      data => {
+        var response = <ResponseEmpData>data
+        this.empRows = response.data
 
       
-   }
 
-   /**
-     * eventTimesChanged method is used to change the calendar Event time.
-     */   
-   eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
-  
-      event.start = newStart;
-      event.end = newEnd;
-      this.handleEvent('Dropped or resized', event);
-      this.refresh.next();
-    
-   }
 
-   /**
-     * handleEvent method is used to handle the event and action.
-     */
-   handleEvent(action: string, event: CalendarEvent): void {
-console.log("handle event")
-debugger;
-      this.modalData = {event, action};
-      //this.modal.open(this.modalContent, {size: 'lg'});
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      })
+  }
 
-      // eventCourseDetail
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
-    courseActivation.activationId=this.eventCourseDetail.activation_id;
-      this.trainingService.getEmpData(courseActivation).subscribe(
-        data => {
-          var response = <ResponseEmpData>data
-          this.empRows = response.data
-        },
-        error => {
-          console.log(error)
-          this.toastr.error(error.message)
-        })
-   }
-   
+  /**
+    * eventTimesChanged method is used to change the calendar Event time.
+    */
+  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
 
-   events: CalendarEvent[] = [{
-  
+    event.start = newStart;
+    event.end = newEnd;
+    this.handleEvent('Dropped or resized', event);
+    this.refresh.next();
+
+  }
+
+  /**
+    * handleEvent method is used to handle the event and action.
+    */
+  handleEvent(action: string, event: CalendarEvent): void {
+    console.log("handle event")
+    debugger;
+    this.modalData = { event, action };
+    //this.modal.open(this.modalContent, {size: 'lg'});
+
+    // eventCourseDetail
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    courseActivation.activationId = this.eventCourseDetail.activation_id;
+    this.trainingService.getEmpData(courseActivation).subscribe(
+      data => {
+        var response = <ResponseEmpData>data
+        this.empRows = response.data
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      })
+  }
+
+
+  events: CalendarEvent[] = [{
+
     start: this.courseStartDate,
-    end:this.courseEndDate,
-    title: "Currenr Event" ,
+    end: this.courseEndDate,
+    title: "Currenr Event",
     color: colors.red,
- }];
+  }];
 
- addEvent(): void {
- console.log(this.courseStartDate.getDay())
- var i=new Date;
-while(this.courseStartDate<=this.courseEndDate)
-{
-if (this.courseStartDate.getDay()==5) this.courseStartDate.setDate(this.courseStartDate.getDate()+2);
-else if (this.courseStartDate.getDay()==6) this.courseStartDate.setDate(this.courseStartDate.getDate()+1);
-  this.events.push({
-    title:this.eventCourseDetail.courseName.toString() ,
-     start: startOfDay(new Date(this.courseStartDate)),
-     //end: endOfDay(new Date(this.courseEndDate)),
-     color: colors.blue,
-     draggable: true,
-     allDay: false,
-     resizable: {
-       beforeStart: true,
-       afterEnd: true
-     }
-  });
-  this.courseStartDate.setDate(this.courseStartDate.getDate()+1)
+  addEvent(): void {
+    console.log(this.courseStartDate.getDay())
+    var i = new Date;
+    while (this.courseStartDate <= this.courseEndDate) {
+      if (this.courseStartDate.getDay() == 5) this.courseStartDate.setDate(this.courseStartDate.getDate() + 2);
+      else if (this.courseStartDate.getDay() == 6) this.courseStartDate.setDate(this.courseStartDate.getDate() + 1);
+      this.events.push({
+        title: this.eventCourseDetail.courseName.toString(),
+        start: startOfDay(new Date(this.courseStartDate)),
+        //end: endOfDay(new Date(this.courseEndDate)),
+        color: colors.blue,
+        draggable: true,
+        allDay: false,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true
+        }
+      });
+      this.courseStartDate.setDate(this.courseStartDate.getDate() + 1)
 
-}
-  this.refresh.next();
-  this.displayCalendar=true;
-  
-}
+    }
+    this.refresh.next();
+    this.displayCalendar = true;
+
+  }
+
+  checkboxValue(row, event) {
+    debugger;
+
+    const checked = event.checked;
+    if (checked) {
+      this.checkboxList.push(row);
+      console.log(this.checkboxList)
+    }
+    else {
+ var index=this.checkboxList.indexOf(row);
+      this.checkboxList.splice(index, 1);
+      console.log(this.checkboxList)
+    }
+  }
+
 }
