@@ -25,6 +25,7 @@ import { MatCardModule,
   MatRadioModule,
   MatCheckbox,
   MatCheckboxModule
+  
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {TranslateModule} from "@ngx-translate/core";
@@ -64,6 +65,10 @@ import { ActivationsComponent } from './activations/activations.component';
 import { CourseManagementComponent } from './course-management/course-management.component';   
 import { JobCardComponent } from './job-card/job-card.component';
 import { JobCardSearchComponent } from './job-card-search/job-card-search.component';
+import { CalendarRoutes } from 'app/calendar/calendar.routing';
+import { CalendarModule,DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarComponent } from 'app/calendar/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +91,7 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
      CourseManagementComponent,
      JobCardComponent,
      JobCardSearchComponent,
+     CalendarComponent,
 
      ],
   imports: [
@@ -123,11 +129,17 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
     MatSelectModule,
     MatRadioModule,
     MatCheckboxModule,
+  
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,
     RouterModule.forChild(TrainingRoutes),
-    TranslateModule
+    TranslateModule,
+    RouterModule.forChild(CalendarRoutes),
+		CalendarModule.forRoot({
+   		provide: DateAdapter,
+   		useFactory: adapterFactory
+    	}),
   ],
 	entryComponents : [
 		CourseActionDialog

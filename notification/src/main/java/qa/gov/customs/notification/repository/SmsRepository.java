@@ -9,4 +9,5 @@ public interface SmsRepository  extends JpaRepository<Dummy,String> {
 
      @Query(value = "select FNSEND_SMS(:message,:numberData) from dual",nativeQuery = true)
      void sendSMS(String numberData,String message);
+
 }
