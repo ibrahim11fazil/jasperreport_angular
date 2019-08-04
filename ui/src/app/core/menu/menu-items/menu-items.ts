@@ -337,11 +337,13 @@ var m =
   var m2 = 
   {
     state: 'training',
-    name: 'Requests',
+    name: 'Training Requests',
     type: 'sub',
     icon: 'book',
     children: [
-      {state: 'welcome', name: 'Welcome' }
+      {state: 'welcome', name: 'courses' },
+      {state: 'welcome', name: 'My Requests' },
+      {state: 'welcome', name: 'My Approvals' }
     ]
   };
 
