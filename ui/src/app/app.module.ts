@@ -122,7 +122,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ToastrModule.forRoot(),
 		WidgetComponentModule,
 		LoadingBarRouterModule,
-		LoadingBarRouterModule
+		LoadingBarRouterModule,
+		
 	],
 	declarations: [
 		GeneAppComponent, 

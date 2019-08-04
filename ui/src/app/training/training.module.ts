@@ -65,10 +65,10 @@ import { ActivationsComponent } from './activations/activations.component';
 import { CourseManagementComponent } from './course-management/course-management.component';   
 import { JobCardComponent } from './job-card/job-card.component';
 import { JobCardSearchComponent } from './job-card-search/job-card-search.component';
-import { CalendarRoutes } from 'app/calendar/calendar.routing';
+//import { CalendarRoutes } from 'app/calendar/calendar.routing';
 import { CalendarModule,DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { CalendarComponent } from 'app/calendar/calendar/calendar.component';
+
 
 @NgModule({
   declarations: [
@@ -91,7 +91,6 @@ import { CalendarComponent } from 'app/calendar/calendar/calendar.component';
      CourseManagementComponent,
      JobCardComponent,
      JobCardSearchComponent,
-     CalendarComponent,
 
      ],
   imports: [
@@ -135,7 +134,7 @@ import { CalendarComponent } from 'app/calendar/calendar/calendar.component';
     MatMenuModule,
     RouterModule.forChild(TrainingRoutes),
     TranslateModule,
-    RouterModule.forChild(CalendarRoutes),
+   // RouterModule.forChild(CalendarRoutes),
 		CalendarModule.forRoot({
    		provide: DateAdapter,
    		useFactory: adapterFactory
