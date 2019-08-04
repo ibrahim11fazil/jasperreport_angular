@@ -28,11 +28,21 @@ export class SystemUserResponse{
     fullName:String
 }
 
+export interface UserRole{
+  id:Number
+  name:String
+  remark:String
+}
+
+
+
 export interface SystemUserResponseArray{
     id:Number
     enabled?:Number
     username?:String
     fullName?:String
+    roles?:UserRole[]
+    roleName?:String
 }
 
 

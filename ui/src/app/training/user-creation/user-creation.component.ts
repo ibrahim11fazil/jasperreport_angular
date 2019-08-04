@@ -78,6 +78,7 @@ export class UserCreationComponent implements OnInit {
       roleId:this.form.value.userRole.id,
       enabled:Number(this.form.value.enabledUser)
     }
+    debugger
       this.userService.saveUser( this.systemUser).subscribe(
         data=>  {
           debugger

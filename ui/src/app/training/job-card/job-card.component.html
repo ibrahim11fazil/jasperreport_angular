@@ -18,7 +18,7 @@
 
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               <mat-form-field class="full-wid mrgn-b-md" >
-                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitle" required [disabled]="hrSelectDisable">
+                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitle" required [disabled]=hrSelectDisable>
                     <option [ngValue]="null">Select Job Titles</option>
                     <mat-option *ngFor="let obj of jobTitles" [value]="obj">
                        {{obj.jobDescAr}}
@@ -29,11 +29,10 @@
 
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                  <mat-form-field class="full-wid mrgn-b-lg">
-                    <input matInput placeholder="Job Number"    formControlName="job" required readonly="hrSelectDisable" >
+                    <input matInput placeholder="Job Number"    formControlName="job" required readonly="{{hrSelectDisable}}"   >
                  </mat-form-field>   
               </div>
 
-              
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    <mat-form-field class="full-wid mrgn-b-md">
                       <mat-select placeholder="Job Grade" matInput formControlName="jobGrade" (selectionChange)="calculator()" required [disabled]="hrSelectDisable">
@@ -89,7 +88,7 @@
                   <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    
                         <mat-form-field class="full-wid mrgn-b-lg">
-                           <input matInput placeholder="Job Duties" formControlName="dutyDescription" [disabled]="hrSelectDisable" readonly="hrSelectDisable">
+                           <input matInput placeholder="Job Duties" formControlName="dutyDescription" [disabled]="hrSelectDisable" readonly="{{hrSelectDisable}}">
                         </mat-form-field>
                      </div>
 
@@ -120,7 +119,7 @@
                <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                 
                      <mat-form-field class="full-wid mrgn-b-lg">
-                        <input matInput placeholder="Condition To get Job" formControlName="jobConditions" readonly="hrSelectDisable">
+                        <input matInput placeholder="Condition To get Job" formControlName="jobConditions" readonly="{{hrSelectDisable}}">
                      </mat-form-field>
                   </div>
 
@@ -150,7 +149,7 @@
             fxLayout="row wrap" fxLayoutAlign="space-between center">
             <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg">
-                     <input matInput placeholder="Job Skills" formControlName="jobSkills" readonly="hrSelectDisable">
+                     <input matInput placeholder="Job Skills" formControlName="jobSkills" readonly="{{hrSelectDisable}}">
                   </mat-form-field>
                </div>
 
