@@ -46,6 +46,7 @@ import { WidgetComponentModule } from './widget-component/widget-component.modul
 import { HorizontalLayoutComponent } from './horizontal-layout/horizontal-layout.component';
 import { PagesModule } from './pages/pages.module';
 import {HttpInterceptorJwtauthService} from "./service/http/http-interceptor-jwtauth.service";
+import { LanguageUtil } from './app.language';
 
 
 
@@ -134,6 +135,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	providers: [
 		D3ChartService,
 		MenuItems,
+		LanguageUtil,
 		HorizontalMenuItems,
 		BreadcrumbService,
 		PageTitleService,

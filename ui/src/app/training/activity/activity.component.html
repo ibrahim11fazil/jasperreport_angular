@@ -13,7 +13,7 @@
         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
             <mat-form-field class="full-wid mrgn-b-md">
-              <input matInput placeholder="Activity Name" formControlName="activityName">
+              <input matInput placeholder="{{language.label_ActivityName}}" formControlName="activityName">
             </mat-form-field>
             <small class="gene-block" *ngIf="form.controls['activityName'].hasError('required') && form.controls['activityName'].touched"
                    class="warn-text">
