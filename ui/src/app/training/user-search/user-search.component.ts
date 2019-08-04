@@ -18,7 +18,7 @@ export class UserSearchComponent implements OnInit {
   page = 0
   ds: SystemUserResponseArray[] = [];
   firstSearch=false
-  displayedColumns: string[] = ['id', 'fullName', 'username', 'Edit', 'Status'];
+  displayedColumns: string[] = ['id', 'fullName', 'username','roleName', 'Edit', 'Status'];
   constructor(
     private userService: SystemUserService,
     private fb: FormBuilder,
@@ -55,6 +55,11 @@ export class UserSearchComponent implements OnInit {
         var response = <ISystemUserResponseList>data
         if (response.status) {
           response.data.forEach(item => {
+            var rName=""
+            if(item.roles!=null && item.roles.length>0){
+              item.roles.forEach(r => {  rName = rName + " " +  r.remark})
+              item.roleName =rName
+            }
             this.ds.push(item);
           })
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI

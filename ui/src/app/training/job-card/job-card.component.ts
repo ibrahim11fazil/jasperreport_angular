@@ -48,10 +48,11 @@ export class JobCardComponent implements OnInit {
     if (this.authService.checktheRoleisTrainingDept()) {
       this.trainingSelectDisable = false
     }
-    if (this.authService.checktheRoleisSystemAdmin()) {
-      this.hrSelectDisable = false
-      this.trainingSelectDisable = false
-    }
+    // if (this.authService.checktheRoleisSystemAdmin()) {
+    //   debugger
+    //   this.hrSelectDisable = false
+    //   this.trainingSelectDisable = false
+    // }
   }
 
   loadForm() {

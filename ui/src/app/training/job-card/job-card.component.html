@@ -18,7 +18,7 @@
 
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               <mat-form-field class="full-wid mrgn-b-md" >
-                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitle" required [disabled]="hrSelectDisable">
+                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitle" required [disabled]=hrSelectDisable>
                     <option [ngValue]="null">Select Job Titles</option>
                     <mat-option *ngFor="let obj of jobTitles" [value]="obj">
                        {{obj.jobDescAr}}
@@ -29,7 +29,7 @@
 
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                  <mat-form-field class="full-wid mrgn-b-lg">
-                    <input matInput placeholder="Job Number"    formControlName="job" required readonly="hrSelectDisable" >
+                    <input matInput placeholder="Job Number"    formControlName="job" required readonly="hrSelectDisable"  >
                  </mat-form-field>   
               </div>
 
