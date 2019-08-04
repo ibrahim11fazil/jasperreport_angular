@@ -6,6 +6,8 @@ import {TacActivity} from "../../models/tac-activity";
 import {ToastrService} from "ngx-toastr";
 import {PageTitleService} from "../../core/page-title/page-title.service";
 import {Page} from "../../models/paged-data";
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
   selector: 'ms-activity',
@@ -13,13 +15,19 @@ import {Page} from "../../models/paged-data";
   styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit {
-
+  private language:LanguageUtil
   public form: FormGroup;
   constructor(private fb: FormBuilder,
               private trainingService:TrainingService,
               private toastr : ToastrService,
-              private pageTitleService: PageTitleService
+              private pageTitleService: PageTitleService,
+              private mainComponent:MainComponent
               ) {
+                this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
