@@ -6,9 +6,16 @@ public class NotificationModel {
     String emailSubject;
     String smsBody;
     String phoneNumber;
-    boolean isSMS;
-    boolean isEmail;
+    int isSMS;
+    int isEmail;
 
+    public String getToAddress() {
+        return toAddress;
+    }
+
+    public void setToAddress(String toAddress) {
+        this.toAddress = toAddress;
+    }
 
     public String getEmailBody() {
         return emailBody;
@@ -16,6 +23,14 @@ public class NotificationModel {
 
     public void setEmailBody(String emailBody) {
         this.emailBody = emailBody;
+    }
+
+    public String getEmailSubject() {
+        return emailSubject;
+    }
+
+    public void setEmailSubject(String emailSubject) {
+        this.emailSubject = emailSubject;
     }
 
     public String getSmsBody() {
@@ -34,43 +49,19 @@ public class NotificationModel {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isSMS() {
+    public int getIsSMS() {
         return isSMS;
     }
 
-    public void setSMS(boolean SMS) {
-        isSMS = SMS;
+    public void setIsSMS(int isSMS) {
+        this.isSMS = isSMS;
     }
 
-    public boolean isEmail() {
+    public int getIsEmail() {
         return isEmail;
     }
 
-    public void setEmail(boolean email) {
-        isEmail = email;
-    }
-
-    public String getToAddress() {
-        return toAddress;
-    }
-
-    public void setToAddress(String toAddress) {
-        this.toAddress = toAddress;
-    }
-
-    public String getEmailbody() {
-        return emailBody;
-    }
-
-    public void setEmailbody(String emailbody) {
-        this.emailBody = emailbody;
-    }
-
-    public String getEmailSubject() {
-        return emailSubject;
-    }
-
-    public void setEmailSubject(String emailSubject) {
-        this.emailSubject = emailSubject;
+    public void setIsEmail(int isEmail) {
+        this.isEmail = isEmail;
     }
 }

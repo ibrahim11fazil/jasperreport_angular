@@ -54,7 +54,7 @@ public class EmailService {
         msg.setFrom(new InternetAddress("ci-test@customs.gov.qa", true));
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(model.getToAddress()));
         msg.setSubject(model.getEmailSubject());
-        msg.setContent(model.getEmailbody(), "text/html");
+        msg.setContent(model.getEmailBody(), "text/html");
         msg.setSentDate(new Date());
         Transport.send(msg);
     }
