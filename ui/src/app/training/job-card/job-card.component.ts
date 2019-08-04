@@ -29,6 +29,7 @@ export class JobCardComponent implements OnInit {
   optionsCourse = OPTIONAL_OR_NOT
   trainingSelectDisable = true;
   hrSelectDisable = true;
+  //textReadonly="readonly=true"
   itemStatus: JobGradeStatus[] = []
   jobId: String = ""
   constructor(
@@ -48,11 +49,10 @@ export class JobCardComponent implements OnInit {
     if (this.authService.checktheRoleisTrainingDept()) {
       this.trainingSelectDisable = false
     }
-    // if (this.authService.checktheRoleisSystemAdmin()) {
-    //   debugger
-    //   this.hrSelectDisable = false
-    //   this.trainingSelectDisable = false
-    // }
+    if (this.authService.checktheRoleisSystemAdmin()) {
+      this.hrSelectDisable = false
+      this.trainingSelectDisable = false
+    }
   }
 
   loadForm() {
