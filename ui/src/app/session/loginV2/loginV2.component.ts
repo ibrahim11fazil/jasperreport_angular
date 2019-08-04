@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth-service/auth.service';
 import { ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {VERSION_UI} from "../../app.constants";
 
 @Component({
    selector: 'ms-loginV2-session',
@@ -16,6 +17,7 @@ export class LoginV2Component {
 
    email    : string = "user";
    password : string = "password@2018";
+   version =VERSION_UI
 
 
    constructor( public authService: AuthService,
