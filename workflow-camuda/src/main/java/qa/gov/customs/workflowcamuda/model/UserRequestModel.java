@@ -8,6 +8,7 @@ public class UserRequestModel implements Serializable {
     String fullName;
     String userId;
     String email;
+    String mobile;
     String department;
     String courseId;
     String courseName;
@@ -71,5 +72,27 @@ public class UserRequestModel implements Serializable {
         this.processKey = processKey;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 }
