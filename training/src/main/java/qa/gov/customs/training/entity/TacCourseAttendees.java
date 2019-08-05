@@ -1,6 +1,8 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.math.BigDecimal;
 import java.sql.Clob;
 import java.util.HashSet;
@@ -60,12 +62,12 @@ public class TacCourseAttendees implements java.io.Serializable {
 	@Column(name = "ATTENDEES_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
     @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ATTENDEES_SEQ",allocationSize = 1)
-	public BigDecimal getAttendanceId() {
-		return this.attendeesId;
+	public BigDecimal getAttendeesId() {
+		return attendeesId;
 	}
 
-	public void setAttendanceId(BigDecimal attendanceId) {
-		this.attendeesId = attendanceId;
+	public void setAttendeesId(BigDecimal attendeesId) {
+		this.attendeesId = attendeesId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -122,7 +124,7 @@ public class TacCourseAttendees implements java.io.Serializable {
 	public void setCertificateSerialNo(BigDecimal certificateSerialNo) {
 		this.certificateSerialNo = certificateSerialNo;
 	}
-
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseAttendees")
 	public Set<TacCourseAttendence> getTacCourseAttendences() {
 		return this.tacCourseAttendences;
@@ -131,5 +133,6 @@ public class TacCourseAttendees implements java.io.Serializable {
 	public void setTacCourseAttendences(Set<TacCourseAttendence> tacCourseAttendences) {
 		this.tacCourseAttendences = tacCourseAttendences;
 	}
+
 
 }

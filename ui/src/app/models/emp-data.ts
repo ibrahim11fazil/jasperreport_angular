@@ -1,11 +1,12 @@
 export class EmpData {
-
+   attendeesId:Number
    jobId:String
    jobTitle:String
    cnameAr:String
    mobile:String
    department:String
-   constructor(jobId:String,jobTitle:String,cnameAr:String,mobile:String,department:String) {
+   constructor(attendeesId:Number,jobId:String,jobTitle:String,cnameAr:String,mobile:String,department:String) {
+    this.attendeesId=attendeesId;
     this.jobId=jobId;
     this.jobTitle=jobTitle;
     this.cnameAr=cnameAr;

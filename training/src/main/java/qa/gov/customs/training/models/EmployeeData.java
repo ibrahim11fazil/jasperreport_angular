@@ -2,12 +2,12 @@ package qa.gov.customs.training.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.math.BigDecimal;
 import java.util.Date;
-//@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmployeeData {
 
 
-
+        private BigDecimal attendeesId;
         private String jobId;
         private String jobTitle;
         private String pernr;
@@ -162,5 +162,11 @@ public class EmployeeData {
             this.jobTitle = jobTitle;
         }
 
+        public BigDecimal getAttendeesId() {
+        return attendeesId;
+        }
 
+        public void setAttendeesId(BigDecimal attendeesId) {
+        this.attendeesId = attendeesId;
+        }
 }

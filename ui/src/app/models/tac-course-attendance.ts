@@ -16,4 +16,13 @@ export class TacCourseAttendance {
     this.attendanceFlag=attendanceFlag;
 }
 
+
+
+}
+export interface ITacCourseAttendance {
+    status: Boolean;
+    code:number;
+    message:String;
+    data: TacCourseAttendance[];
+    count:number;
 }

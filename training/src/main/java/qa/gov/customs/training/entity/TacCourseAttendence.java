@@ -1,6 +1,8 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -34,7 +36,7 @@ public class TacCourseAttendence implements java.io.Serializable {
 
 	@Column(name = "ATTENDANCE_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ATTENDENCE_SEQ",allocationSize = 1)
+	@SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_ATTENDANCE_SEQ",allocationSize = 1)
 
 	public BigDecimal getAttendenceId() {
 		return attendenceId;
@@ -57,9 +59,9 @@ public class TacCourseAttendence implements java.io.Serializable {
 //	public void setId(TacCourseAttendenceId id) {
 //		this.id = id;
 //	}
-
+     @JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ATTENDEES_ID", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "ATTENDEES_ID")
 	public TacCourseAttendees getTacCourseAttendees() {
 		return this.tacCourseAttendees;
 	}

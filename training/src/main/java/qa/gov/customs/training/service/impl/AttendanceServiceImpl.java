@@ -3,7 +3,9 @@ package qa.gov.customs.training.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.EmployeeData;
+import qa.gov.customs.training.repository.TacAttendanceRepository;
 import qa.gov.customs.training.service.AttendanceService;
 
 import java.math.BigDecimal;
@@ -21,6 +23,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Autowired
     MawaredRepository mawaredRepo;
+    @Autowired
+    TacAttendanceRepository attendanceRepo;
 
     @Override
     public Set<EmployeeData> getEmployeeDataForAttendance(TacCourseActivation activation)
@@ -35,9 +39,18 @@ public class AttendanceServiceImpl implements AttendanceService {
             emp.setDepartment((String) o[2]);
             emp.setJobTitle((String) o[3]);
             emp.setMobile((String) o[4]);
+            emp.setAttendeesId((BigDecimal) o[6]);
 
             empdata.add(emp);
         }
         return empdata;
+    }
+
+    @Override
+    public List<TacCourseAttendence>  markInitialAttendance(List<TacCourseAttendence> attendance) {
+
+        List<TacCourseAttendence> attendanceData=attendanceRepo.saveAll(attendance);
+        return  attendanceData;
+
     }
 }

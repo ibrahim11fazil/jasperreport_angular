@@ -480,8 +480,11 @@ public class CourseServiceImpl  implements CourseService {
 	@Override
 	public void setStatusOfDate(TacCourseDate courseDate)
 	{
+
 		tacCourseDateRepository.save(courseDate);
 	}
+
+
 
 
 

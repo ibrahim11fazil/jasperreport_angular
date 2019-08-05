@@ -33,6 +33,8 @@ import {
   addHours
 } from 'date-fns';
 import { ResponseEmpData, EmpData } from 'app/models/emp-data';
+import { TacCourseAttendance, ITacCourseAttendance } from 'app/models/tac-course-attendance';
+import { TacCourseAttendees } from 'app/models/tac-course-attendees';
 
 
 
@@ -88,8 +90,9 @@ export class CourseManagementComponent implements OnInit {
   viewDate: Date = new Date();
   checkboxList: EmpData[] = [];
   isSelected: boolean = false;
-  displayCourseCompletionForm:boolean=false;
+  displayCourseCompletionForm: boolean = false;
   Follow_list: any;
+  courseAttendanceList:TacCourseAttendance[]=[];
 
 
   modalData: {
@@ -265,13 +268,8 @@ export class CourseManagementComponent implements OnInit {
           this.tacCoordinatorString.push(item[0].username);
 
         }
-        debugger;
-
-        //console.log(this.courseStartDate+"course start date");
 
         this.addEvent();
-
-        console.log(this.activation)
 
       },
 
@@ -300,15 +298,31 @@ export class CourseManagementComponent implements OnInit {
         this.viewDate = date;
       }
     }
-    
+
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = this.eventCourseDetail.activation_id;
     this.trainingService.getEmpData(courseActivation).subscribe(
       data => {
         var response = <ResponseEmpData>data
         this.empRows = response.data
-
-      
+debugger;
+       this.empRows.forEach(emp => {
+        let courseAttendance=new TacCourseAttendance(0,null,null,null)
+        let tacCourseAttendees=new TacCourseAttendees(emp.attendeesId,null,0,0,0,0)
+        courseAttendance.tacCourseAttendees=tacCourseAttendees;
+        courseAttendance.attendanceDate=new Date();
+        courseAttendance.attendanceFlag=0;//marking as absent initially
+        this.courseAttendanceList.push(courseAttendance)
+        
+        
+});
+debugger;
+this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
+  data=>
+  {
+var Response=<ITacCourseAttendance>data
+  }
+)
 
 
       },
@@ -335,25 +349,20 @@ export class CourseManagementComponent implements OnInit {
     */
   handleEvent(action: string, event: CalendarEvent): void {
     console.log("handle event")
-    debugger;
     this.modalData = { event, action };
-    //this.modal.open(this.modalContent, {size: 'lg'});
-
-    // eventCourseDetail
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = this.eventCourseDetail.activation_id;
     this.trainingService.getEmpData(courseActivation).subscribe(
       data => {
         var response = <ResponseEmpData>data
         this.empRows = response.data
-      },
+      }
+      ,
       error => {
         console.log(error)
         this.toastr.error(error.message)
       })
   }
-
-
   events: CalendarEvent[] = [{
 
     start: this.courseStartDate,
@@ -371,7 +380,6 @@ export class CourseManagementComponent implements OnInit {
       this.events.push({
         title: this.eventCourseDetail.courseName.toString(),
         start: startOfDay(new Date(this.courseStartDate)),
-        //end: endOfDay(new Date(this.courseEndDate)),
         color: colors.blue,
         draggable: true,
         allDay: false,
@@ -389,18 +397,18 @@ export class CourseManagementComponent implements OnInit {
   }
 
   checkboxValue(row, event) {
-    debugger;
-
     const checked = event.checked;
+  console.log(row);
     if (checked) {
       this.checkboxList.push(row);
       console.log(this.checkboxList)
     }
     else {
- var index=this.checkboxList.indexOf(row);
+      var index = this.checkboxList.indexOf(row);
       this.checkboxList.splice(index, 1);
-      console.log(this.checkboxList)
     }
   }
+
+  
 
 }
