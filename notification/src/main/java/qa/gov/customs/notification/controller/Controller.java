@@ -17,20 +17,18 @@ public class Controller {
     SmsService smsService;
 
     @PreAuthorize("hasAnyAuthority('send_notification')")
-    @RequestMapping(method = RequestMethod.POST ,path="/send_notification")
+    @RequestMapping(method = RequestMethod.POST ,path="/send-notification")
     public String sendEmail(@RequestBody NotificationModel model) {
-        if(model.isEmail()) {
+        if(model.getIsEmail()==1 && model.getToAddress()!=null && model.getEmailBody()!=null) {
             try {
                 emailService.sendmail(model);
             } catch (Exception e) {
                 e.printStackTrace();
                 //TODO log it
-                return "failure";
             }
-            return "success";
         }
 
-         if(model.isSMS())
+         if(model.getIsSMS()==1 && model.getPhoneNumber()!=null && model.getSmsBody()!=null)
         {
             try
             {
@@ -39,11 +37,8 @@ public class Controller {
             catch (Exception e) {
                 e.printStackTrace();
                 //TODO log it
-                return "failure";
             }
-
-            return "success";
         }
-        return "failure";
+        return "success";
     }
 }

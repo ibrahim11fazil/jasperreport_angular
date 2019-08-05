@@ -36,7 +36,7 @@ public class UserMaster  {
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
 
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
@@ -115,7 +115,7 @@ public class UserMaster  {
 //        return null;
 //    }
 
-    @JsonIgnore
+
     public String getPassword() {
         return password;
     }

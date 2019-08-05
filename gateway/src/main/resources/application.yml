@@ -120,6 +120,12 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+    notification:
+      path: /notification/**
+      serviceId: notification
+      stripPrefix: true
+      sensitiveHeaders:
+
 #hystrix:
 #  command:
 #    training:

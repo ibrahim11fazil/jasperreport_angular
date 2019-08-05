@@ -484,6 +484,13 @@ export class MainComponent implements OnInit, OnDestroy{
       }
    }
 
+   layoutIsRTL(){
+      if( this.layout=="rtl")
+      return true
+      else 
+      return false
+   }
+
    /**
      * toggleSidebar method is used a toggle a side nav bar.
      */

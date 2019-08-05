@@ -29,6 +29,7 @@ export class JobCardComponent implements OnInit {
   optionsCourse = OPTIONAL_OR_NOT
   trainingSelectDisable = true;
   hrSelectDisable = true;
+  //textReadonly="readonly=true"
   itemStatus: JobGradeStatus[] = []
   jobId: String = ""
   constructor(
