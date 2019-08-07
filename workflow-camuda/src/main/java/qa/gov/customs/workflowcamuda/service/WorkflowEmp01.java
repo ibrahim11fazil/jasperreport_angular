@@ -4,12 +4,14 @@ package qa.gov.customs.workflowcamuda.service;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
 import org.camunda.bpm.engine.history.UserOperationLogEntry;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
+import org.camunda.bpm.model.bpmn.instance.UserTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -48,6 +50,18 @@ public class WorkflowEmp01 {
 
     public List<Task> getTasks(String assignee) {
         return  taskService.createTaskQuery().taskAssignee(assignee).list();
+    }
+
+    public List<Task> getCandidateTasks(String delegations) {
+        //return  taskService.createTaskQuery().taskCandidateUser(delegations).list();
+
+        return taskService.createTaskQuery()
+                .or()
+                .taskAssignee(delegations)
+                .taskCandidateUser(delegations)
+                .includeAssignedTasks()
+                .endOr()
+                .list();
     }
 
     public UserRequestModel getProcessDetails(String executionId) {
@@ -122,8 +136,22 @@ public class WorkflowEmp01 {
     }
 
 
-    public String findHeadOfSectionForEmployee(UserRequestModel model){
-        return "fatma-4";
+    public void findHeadOfSectionForEmployee(UserRequestModel model, DelegateTask task){
+       // UserTask userTask = task.getBpmnModelElementInstance();
+        List<String> candidateUsers = new ArrayList<String>();
+        candidateUsers.add("eman-1");
+        candidateUsers.add("eman-2");
+        System.out.println("Error in request" + task.getAssignee());
+        task.setAssignee("fatma-6");
+        task.addCandidateUsers(candidateUsers);
+        task.addCandidateUser("eman-3");
+        task.addCandidateGroup("itdev");
+    }
+
+
+    public void findHeadOfSectionForEmployeeDelegation(UserRequestModel model, DelegateTask task){
+        System.out.println("Error in request" + task.getAssignee());
+        task.addCandidateUser("eman");
     }
 
     public String findHeadOfSectionForEmployeeCandidate(UserRequestModel model){
@@ -171,6 +199,7 @@ public class WorkflowEmp01 {
 
 
     public void checkTheUserIsHeadOfTraining(UserRequestModel model,DelegateExecution execution){
+
         System.out.println("checkTheUserIsHeadOfTraining" + model.getEmail());
        // String data= (String)execution.getVariable("resultcheck");
        // execution.setVariable("resultcheckval","yes" );

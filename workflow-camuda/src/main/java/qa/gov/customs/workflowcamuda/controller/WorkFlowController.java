@@ -68,6 +68,22 @@ public class WorkFlowController {
         return dtos;
     }
 
+    @RequestMapping(value="/my-tasks-delegation", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<TaskRepresentation> getTasksDelegations(@RequestParam String assignee) {
+        List<Task> tasks = workflowServiceEmp.getCandidateTasks(assignee);
+        List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
+        for (Task task : tasks) {
+            TaskRepresentation taskRepresentation=   new TaskRepresentation(
+                    task.getId(),
+                    task.getName(),
+                    task.getProcessInstanceId(),
+                    task.getExecutionId());
+            taskRepresentation.setUserRequestModel(workflowServiceEmp.getProcessDetails( task.getExecutionId()));
+            dtos.add(taskRepresentation);
+        }
+        return dtos;
+    }
+
 
     @RequestMapping(value="/execute-task", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public UserTaskModel getTasks(@RequestBody UserTaskModel assignee) {
