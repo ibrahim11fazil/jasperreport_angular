@@ -1,5 +1,9 @@
 package qa.gov.customs.workflowcamuda.controller;
 
+import org.camunda.bpm.engine.history.HistoricDetail;
+import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
+import org.camunda.bpm.engine.history.HistoricTaskInstance;
+import org.camunda.bpm.engine.history.UserOperationLogEntry;
 import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
+import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.service.WorkflowEmp01;
 
 import java.util.ArrayList;
@@ -52,7 +57,6 @@ public class WorkFlowController {
         List<Task> tasks = workflowServiceEmp.getTasks(assignee);
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
-            //task.getExecutionId();
             TaskRepresentation taskRepresentation=   new TaskRepresentation(
                     task.getId(),
                     task.getName(),
@@ -64,6 +68,45 @@ public class WorkFlowController {
         return dtos;
     }
 
+
+    @RequestMapping(value="/execute-task", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public UserTaskModel getTasks(@RequestBody UserTaskModel assignee) {
+        boolean tasks = workflowServiceEmp.processTask(
+                assignee.getTaskId(),
+                assignee.getAssigne(),
+                assignee.getProcessId(),
+                assignee.getRole(),
+                assignee.getAction(),assignee.getExecutionId());
+        assignee.setStatus(tasks);
+        return assignee;
+    }
+
+   // TODO: Note-Get the history based on processId
+    @RequestMapping(value="/process-history", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<HistoricDetail> getHistoryByProcessId(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getUserTaskByProcessId(assignee.getProcessId());
+        //return assignee;
+    }
+
+    @RequestMapping(value="/process-history-execution-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<HistoricDetail> getHistoryByExecutionId(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getUserTaskByExecutionIdId(assignee.getExecutionId());
+        //return assignee;
+    }
+
+    //TODO: Note-Get the task based on execution Id, This is important
+    @RequestMapping(value="/process-history-task-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<HistoricTaskInstance> getHistoryByTaskId(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getUserTaskByTaskIdId(assignee.getExecutionId());
+        //return assignee;
+    }
+
+    //Get the user task details based on processId
+    @RequestMapping(value="/process-user-tasks-process-id", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<HistoricIdentityLinkLog> getHistoryUserTaskByProcessId(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getUserTasksByprocessId(assignee.getProcessId());
+        //return assignee;
+    }
 
     static class TaskRepresentation {
 

@@ -1,6 +1,7 @@
 package qa.gov.customs.workflowcamuda.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class UserRequestModel implements Serializable {
 
@@ -14,6 +15,8 @@ public class UserRequestModel implements Serializable {
     String courseName;
     String processId;
     String processKey;
+    String   createdOn;
+
 
 
     public String getWorkflowType() {
@@ -94,5 +97,14 @@ public class UserRequestModel implements Serializable {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = new Date().toString();
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
     }
 }

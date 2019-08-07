@@ -151,11 +151,21 @@ public class HodService {
 
 
     public List<HistoricDetail> getUserTaskByProcessId(String processId){
-
-      //return  historyService.createUserOperationLogQuery().processDefinitionId(processId).list();
        return historyService.createHistoricDetailQuery()
                 .variableUpdates()
                 .processInstanceId(processId)
+                .orderByVariableName().asc()
+                .list();
+
+    }
+
+
+    public List<HistoricDetail> getUserTaskByExecutionIdId(String executionId){
+        return historyService.createHistoricDetailQuery()
+                .variableUpdates()
+                .disableCustomObjectDeserialization()
+                .disableBinaryFetching()
+                .caseExecutionId(executionId)
                 .orderByVariableName().asc()
                 .list();
 
