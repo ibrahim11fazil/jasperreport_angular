@@ -285,7 +285,7 @@ export class CourseManagementComponent implements OnInit {
 
 
   }
-  /**
+      /**
       * dayClicked method is used to open the active day.
       */
   dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
