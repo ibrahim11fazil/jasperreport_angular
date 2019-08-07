@@ -3,20 +3,19 @@ package qa.gov.customs.training.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import java.text.DateFormat;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.GregorianCalendar;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import qa.gov.customs.training.models.CourseManagement;
+import qa.gov.customs.training.entity.ActivationData;
+import qa.gov.customs.training.models.LocationData;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
@@ -41,6 +40,8 @@ public class CourseServiceImpl  implements CourseService {
 	PrerequisitesRepository prerequisitesRepo;
 	@Autowired
 	ActivationRepository activationRepo;
+	@Autowired
+	ActivationDataRepository activationDataRepo;
 
 	@Autowired
 	CourseRoomRepository courseRoomRepo;
@@ -51,6 +52,8 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Autowired
 	TacCourseDateRepository tacCourseDateRepository;
+	@Autowired
+	InstructorRepository instructorRepo;
 
 	@Override
 	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -270,8 +273,19 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public List<TacCourseLocation> getAllCourseLocation() {
-		List<TacCourseLocation> locationList = locationRepo.findAll();
+	public List<LocationData> getAllCourseLocation() {
+
+
+		List<Object[]> objects = locationRepo.getAllLocation();
+		List<LocationData> locationList = new ArrayList<>();
+		for (Object[] o : objects) {
+			LocationData location=new LocationData();
+			location.setLocationId((BigDecimal) o[0]);
+			location.setLocationName((String) o[1]);
+			locationList.add(location);
+
+
+		}
 		return locationList;
 	}
 
@@ -331,11 +345,17 @@ public class CourseServiceImpl  implements CourseService {
 		return course;
 	}
 	@Override
-	public TacCourseActivation getCourseActivationByActivationId(TacCourseActivation activation)
+	public ActivationData getCourseActivationByActivationId(TacCourseActivation activation)
 	{
-		TacCourseActivation course=activationRepo.findByActivationId(activation.getActivationId());
 
-		return course;
+       List<TacInstructorMaster> instructorMasterList= new ArrayList<>();
+		ActivationData activationData = activationDataRepo.findByActivationId(activation.getActivationId());
+
+		instructorMasterList=instructorRepo.listInstructorForActivation(activation.getActivationId());
+
+		activationData.setInstructors(instructorMasterList);
+
+		return activationData;
 	}
 	@Override
 	public TacCourseLocation getCourseroom(BigDecimal locationId)

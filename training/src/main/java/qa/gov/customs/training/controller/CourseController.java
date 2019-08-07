@@ -20,6 +20,8 @@ import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
+import qa.gov.customs.training.entity.ActivationData;
+import qa.gov.customs.training.models.LocationData;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -391,9 +393,9 @@ public class CourseController {
 		}
 	}
 	@PreAuthorize("hasAnyAuthority('get_all_course_location')")
-	@GetMapping("/get-all-courseLocation")
+	@GetMapping("/get-all-course-location")
 	public ResponseType getAllCourseLocation() {
-		List<TacCourseLocation> location = null;
+		List<LocationData> location = null;
 		location = courseService.getAllCourseLocation();
 
 		if (location != null && !location.isEmpty()) {
@@ -483,10 +485,10 @@ public class CourseController {
 		}
 	}
 	@PreAuthorize("hasAnyAuthority('courseActivation_list')")
-	@PostMapping("/get-all-activationList")
+	@PostMapping("/get-all-activation-list")
 	public ResponseType getActivationsById(@RequestBody TacCourseActivation courseActivation)
 	{
-		TacCourseActivation course = null;
+		ActivationData course = null;
 		course = courseService.getCourseActivationByActivationId(courseActivation);
 
 		if (course != null) {

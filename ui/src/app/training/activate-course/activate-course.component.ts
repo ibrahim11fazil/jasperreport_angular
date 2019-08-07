@@ -13,6 +13,7 @@ import { SystemUser, ISystemUserResponse, ISystemUserResponseList, SystemUserRes
 import { TacActivation, ResponseTacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
 import { CourseDate, ResponseDateDetail } from "app/models/courseDate";
 import { PageTitleService } from 'app/core/page-title/page-title.service';
+import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class ActivateCourseComponent implements OnInit {
   tacInstructor: TacInstructor[] = [];
   user: SystemUser;
   tacCourseActivation: TacActivation;
+  activationData:ActivationData;
   courseCategories: Categories[] = [];
   displayCourseDetails: boolean = false;
   editable: true;
@@ -107,6 +109,7 @@ export class ActivateCourseComponent implements OnInit {
       data => {
         var response = <ITacCourseList>data
         this.courseList = response.data
+        console.log("formSetUp courselist", this.courseList)
         console.log(response)
       },
       error => {
@@ -133,6 +136,7 @@ export class ActivateCourseComponent implements OnInit {
 
         var instructor = <ITacInstructorList>data
         this.tacInstructor = instructor.data
+        console.log("formSetUp instructor", this.tacInstructor)
       },
       error => {
         console.log(error)
@@ -143,6 +147,7 @@ export class ActivateCourseComponent implements OnInit {
       data => {
         var response = <ITacCourseList>data
         this.mainCourseList = response.data
+        console.log("formSetUp main course", this.mainCourseList)
         console.log(response)
       },
       error => {
@@ -156,6 +161,7 @@ export class ActivateCourseComponent implements OnInit {
       data => {
         var response = <ISystemUserResponseList>data
         this.userList = response.data
+        console.log("formSetUp userlist", this.userList)
       },
       error => {
         console.log(error)
@@ -179,48 +185,38 @@ export class ActivateCourseComponent implements OnInit {
   }
 
   patch() {
-    var courseArray = this.courseList.filter(i => i.courseId == this.tacCourseActivation.tacCourseMaster.courseId)
+    debugger
+    var courseArray = this.courseList.filter(i => i.courseId == this.activationData.courseId)
     if (courseArray[0] != null) {
       this.form.controls['courseSelect'].patchValue(
         courseArray[0]
       )
 
     }
-    const instrcutorControl = this.getControlOfAddMore('instructorSelect');
-    this.tacCourseActivation.tacCourseInstructors.forEach(x => {
-  
-      console.log(x.instructorId)
-      instrcutorControl.push(this.patchValues(x.instructorId,x.name))
-    })
+    
 
-    var cordinatorArray = this.userList.filter(i => i.id == this.tacCourseActivation.coordinatorId)
+    var cordinatorArray = this.userList.filter(i => i.id == this.activationData.coordinator)
     if (cordinatorArray[0] != null) {
       this.form.controls['userSelect'].patchValue(
         cordinatorArray[0]
       )
     }
-    var belongsArray = this.mainCourseList.filter(i => i.courseId == this.tacCourseActivation.dependentId)
+    var belongsArray = this.mainCourseList.filter(i => i.courseId == this.activationData.belongsTo)
     if (belongsArray[0] != null) {
       this.form.controls['belongsSelect'].patchValue(
         belongsArray[0]
       )
     }
-    var dateArray = this.tacCourseActivation.tacCourseMaster.tacCourseDates.filter(i => i.dateId == this.tacCourseActivation.tacCourseDate.dateId)
-    if (dateArray[0] != null) {
+  
 
-      this.form.controls['dateSelect'].patchValue(
-        dateArray[0]
-      )
-    }
-
-    var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.tacCourseActivation.tacCourseMaster.locationType)
+    var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.activationData.locationId)
     if (locationArray[0] != null) {
       this.form.controls['locationSelect'].patchValue(
         locationArray[0]
       )
     }
 
-    var roomArray = this.roomDetails.filter(i => i.roomId == this.tacCourseActivation.tacCourseRoom.roomId)
+    var roomArray = this.roomDetails.filter(i => i.roomId == this.activationData.roomID)
     if (roomArray[0] != null) {
       this.form.controls['roomSelect'].patchValue(
         roomArray[0]
@@ -249,6 +245,8 @@ export class ActivateCourseComponent implements OnInit {
         locationArray[0]
       )
     }
+    
+   
 
     
   }
@@ -300,7 +298,13 @@ export class ActivateCourseComponent implements OnInit {
   getCourseRoomDetail(location) {
    // debugger
     let courseLocation = new Location(location.value.locationId, "")
-    this.roomDetails = location.value.tacCourseRooms
+    //this.roomDetails = location.value.tacCourseRooms
+
+    this.trainingService.getCourseRoomDetail(courseLocation).subscribe(
+      data => {
+        var response = <ResponseLocationDetail>data
+        this.trainingRoomDetail = response.data
+        this.roomDetails=this.trainingRoomDetail .tacCourseRooms})
   }
 
   addMoreInstructor() {
@@ -393,32 +397,68 @@ export class ActivateCourseComponent implements OnInit {
     if (this.param != '' && this.param != undefined) {
       let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
       courseActivation.activationId = this.param
+     
       this.trainingService.getActivationById(courseActivation).subscribe(
-        data => this.loadData(data),
+        // data => this.loadData(data)
+        data => {
+          var response = <ResponseActivationData>data
+          this.activationData = response.data
+          console.log(this.activationData)
+   
+  
+          let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, this.activationData.costInstructor, this.activationData.costFood,this.activationData.costTransport
+            , this.activationData.costAirticket, this.activationData.costHospitality, this.activationData.costGift, 
+            this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0)
+            this.tacCourseActivation=courseActivation;
+
+            let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+            this.trainingService.getCourseById(courseMaster).subscribe(
+              data => {
+                debugger
+                var response = <ResponseTacCourseMaster>data
+                this.courseDetails = response.data
+                this.tacCourseDateList = this.courseDetails.tacCourseDates})
+
+                  this.formInit()
+                  this.patch()
+                this.getCourseroom(this.activationData)
+  
+        })
+        ,
         error => {
           console.log(error)
           this.toastr.error(error.message)
         }
-      )
+      
 
 
     }
   }
 
   loadData(data) {
-    this.tacCourseActivation = data.data
-    this.tacCourseDateList = this.tacCourseActivation.tacCourseMaster.tacCourseDates
+    this.activationData = data.data
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, this.activationData.costInstructor, this.activationData.costFood,this.activationData.costTransport
+      , this.activationData.costAirticket, this.activationData.costHospitality, this.activationData.costGift, 
+      this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0)
+      this.tacCourseActivation=courseActivation;
+      let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+      this.trainingService.getCourseById(courseMaster).subscribe(
+        data => {
+          debugger
+          var response = <ResponseTacCourseMaster>data
+          this.courseDetails = response.data
+          this.tacCourseDateList = this.courseDetails.tacCourseDates})
+    
+  // this.getCourseRoomDetail(this.activationData.courseId)
+    //this.tacCourseDateList = this.tacCourseActivation.tacCourseMaster.tacCourseDates
     this.formInit()
     this.patch()
-    this.getCourseroom(this.tacCourseActivation.tacCourseMaster.locationType)
-    this.trainingRoomDetail=this.trainingRoomDetail;
+     this.getCourseroom(this.activationData)
+     //this.trainingRoomDetail=this.trainingRoomDetail
     
   }
 
   getCourseActivationById(courseMaster) {
-
-
-
     this.trainingService.getCourseActivationById(courseMaster).subscribe(
       data => this.loadData(data),
       error => {
@@ -427,29 +467,44 @@ export class ActivateCourseComponent implements OnInit {
       }
     )
   }
-  getCourseroom(locationType) {
-//debugger;
+  getCourseroom(activation) {
+debugger;
     let location = new Location(0, "");
-    location.locationId = locationType;
+    location.locationId = activation.locationId;
     this.trainingService.getCourseRoomDetail(location).subscribe(
       data => {
         var response = <ResponseLocationDetail>data
         this.trainingRoomDetail = response.data
         this.roomDetails=this.trainingRoomDetail .tacCourseRooms
+      this.patch()
         
-        var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.tacCourseActivation.tacCourseMaster.locationType)
-        if (locationArray[0] != null) {
-          this.form.controls['locationSelect'].patchValue(
-            locationArray[0]
-          )
-        }
-    
-        var roomArray = this.roomDetails.filter(i => i.roomId == this.tacCourseActivation.tacCourseRoom.roomId)
+    //     var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.activationData.locationId)
+    //     if (locationArray[0] != null) {
+    //       this.form.controls['locationSelect'].patchValue(
+    //         locationArray[0]
+    //       )
+    //     }
+    const instrcutorControl = this.getControlOfAddMore('instructorSelect');
+    this.activationData.instructors.forEach(x => {
+  
+      console.log(x.instructorId)
+      instrcutorControl.push(this.patchValues(x.instructorId,x.name))
+    })
+    debugger
+        var roomArray = this.roomDetails.filter(i => i.roomId == this.activationData.roomID)
         if (roomArray[0] != null) {
           this.form.controls['roomSelect'].patchValue(
             roomArray[0]
           )
         }
+        var dateArray = this.tacCourseDateList.filter(i => i.dateId == this.activationData.dateId)
+        if (dateArray[0] != null) {
+    
+          this.form.controls['dateSelect'].patchValue(
+            dateArray[0]
+          )
+        }
+       
 
       },
       error => {

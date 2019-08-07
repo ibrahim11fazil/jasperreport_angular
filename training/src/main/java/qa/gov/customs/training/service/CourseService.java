@@ -12,6 +12,8 @@ import java.util.Set;
 import org.springframework.data.domain.Pageable;
 import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.models.CourseManagement;
+import qa.gov.customs.training.entity.ActivationData;
+import qa.gov.customs.training.models.LocationData;
 
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
@@ -38,7 +40,7 @@ public interface CourseService {
     void createOutcome(TacCourseOutcome outcome);
     void createAudience(TacCourseAudience audience);
     List<TacCoursePrerequisites>   getAllCoursePrerequisites();
-    List<TacCourseLocation>    getAllCourseLocation();
+    List<LocationData>    getAllCourseLocation();
 
     TacCourseActivation saveCourseActivation(TacCourseActivation courseActivation);
     List<TacCourseRoom> getCourseRoom(TacCourseLocation location);
@@ -51,7 +53,7 @@ public interface CourseService {
     TacCourseLocation getCourseroom(BigDecimal locationId);
     TacCourseDate getCourseDate(BigDecimal courseId);
 
- TacCourseActivation getCourseActivationByActivationId(TacCourseActivation courseActivation);
+    ActivationData getCourseActivationByActivationId(TacCourseActivation courseActivation);
     List<CourseManagement> getAllCurrentCourses();
     List<CourseManagement> getAllFutureCourses();
     List<CourseManagement>  getAllPreviousCourses();

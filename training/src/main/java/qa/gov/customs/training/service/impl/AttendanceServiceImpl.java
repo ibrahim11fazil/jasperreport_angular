@@ -49,6 +49,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public List<TacCourseAttendence>  markInitialAttendance(List<TacCourseAttendence> attendance) {
 
+
+
         List<TacCourseAttendence> attendanceData=attendanceRepo.saveAll(attendance);
         return  attendanceData;
 
