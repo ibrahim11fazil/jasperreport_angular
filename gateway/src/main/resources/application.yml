@@ -126,6 +126,12 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+    workflow:
+      path: /workflow/**
+      serviceId: workflow
+      stripPrefix: true
+      sensitiveHeaders:
+
 #hystrix:
 #  command:
 #    training:

@@ -66,4 +66,10 @@ public class UserTaskModel {
     public void setExecutionId(String executionId) {
         this.executionId = executionId;
     }
+
+
+    @Override
+    public String toString() {
+        return taskId.toString();
+    }
 }

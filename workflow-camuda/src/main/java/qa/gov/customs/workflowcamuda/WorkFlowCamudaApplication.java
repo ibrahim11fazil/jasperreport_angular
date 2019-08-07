@@ -20,6 +20,4 @@ public class WorkFlowCamudaApplication {
     public static void main(String... args) {
         SpringApplication.run(WorkFlowCamudaApplication.class, args);
     }
-
-
 }
