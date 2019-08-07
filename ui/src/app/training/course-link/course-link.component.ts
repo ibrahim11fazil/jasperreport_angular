@@ -408,6 +408,12 @@ export class CourseLinkComponent implements OnInit {
         console.log(this.targetAudienceString);
         this.fetchDates();
         this.patch();
+        var courseArray = this.courseList.filter(i => i.courseId == this.courseDetails.courseId)
+    if (courseArray[0] != null) {
+      this.form.controls['courseSelect'].patchValue(
+        courseArray[0]
+      )
+    }
 
       },
       error => {
