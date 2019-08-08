@@ -107,8 +107,6 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_119kgx3" sourceRef="Task_0vrckqa" targetRef="EndEvent_1hvqlax" />
     <bpmn:sequenceFlow id="SequenceFlow_10co7ao" sourceRef="Task_Check_User_Type" targetRef="ExclusiveGateway_2" />
-    <bpmn:textAnnotation id="TextAnnotation_1yqk4g5" />
-    <bpmn:association id="Association_06rr3qy" sourceRef="Task_Save_comments" targetRef="TextAnnotation_1yqk4g5" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_emp_01">
@@ -234,13 +232,6 @@
       <bpmndi:BPMNEdge id="SequenceFlow_10co7ao_di" bpmnElement="SequenceFlow_10co7ao">
         <di:waypoint x="829" y="327" />
         <di:waypoint x="918" y="327" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_1yqk4g5_di" bpmnElement="TextAnnotation_1yqk4g5">
-        <dc:Bounds x="701" y="207" width="100" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_06rr3qy_di" bpmnElement="Association_06rr3qy">
-        <di:waypoint x="689" y="287" />
-        <di:waypoint x="737" y="237" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
