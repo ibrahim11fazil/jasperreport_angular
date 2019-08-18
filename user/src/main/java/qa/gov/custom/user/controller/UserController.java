@@ -81,6 +81,31 @@ public class UserController {
 	}
 
 
+	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
+	@RequestMapping(method = RequestMethod.POST,value = "all-system-permissions-for-role")
+	public ResponseType getAllPermissionForRole(@RequestBody  UserMaster user) {
+		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+				userService.findAllPermissionForRole(user.getRoleId()));
+		return response;
+	}
+
+	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
+	@RequestMapping(method = RequestMethod.POST,value = "all-system-permissions")
+	public ResponseType getAllPermissions() {
+		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+				userService.findAllPermissions());
+		return response;
+	}
+
+	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
+	@RequestMapping(method = RequestMethod.POST,value = "update-role-and-permission")
+	public ResponseType updateRoleAndPermission(Role role) {
+		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+				userService.updateRoleAndPermission(role));
+		return response;
+	}
+
+
 	//TODO need to add pagination
 	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
 	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-users")

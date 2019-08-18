@@ -135,7 +135,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	providers: [
 		D3ChartService,
 		MenuItems,
-		LanguageUtil,
 		HorizontalMenuItems,
 		BreadcrumbService,
 		PageTitleService,

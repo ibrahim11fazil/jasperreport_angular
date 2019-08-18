@@ -61,14 +61,11 @@ public class EmployeeWorkflowController {
                 ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SYSTEM_USER_CREATED, true,
                         employeeJobId);
                 return response;
-
             }else{
                 ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
                 return response;
             }
-
-
         }else{
             ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                     null);

@@ -30,7 +30,7 @@ then
      TAG=qa_$(git describe --abbrev=0)
 
       docker build --file ui/Dockerfile  ui -t 172.16.0.253:5000/ui:$TAG
-      docker build --file workflow/Dockerfile  workflow-camuda -t 172.16.0.253:5000/workflow:$TAG
+      docker build --file workflow-camuda/Dockerfile  workflow-camuda -t 172.16.0.253:5000/workflow:$TAG
       docker build --file notification/Dockerfile notification -t 172.16.0.253:5000/notification:$TAG
       docker build --file user/Dockerfile user -t 172.16.0.253:5000/user:$TAG
       docker build --file employee/Dockerfile employee -t 172.16.0.253:5000/employee:$TAG

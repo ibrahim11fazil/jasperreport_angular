@@ -10,6 +10,8 @@ public class Permission {
     static final long serialVersionUID = 1L;
     private BigInteger id;
     private String name;
+    private String remark;
+    private BigInteger rpId;
     private Collection<PermissionRole> permissionRolesById;
 
     @Id
@@ -53,5 +55,24 @@ public class Permission {
 
     public void setPermissionRolesById(Collection<PermissionRole> permissionRolesById) {
         this.permissionRolesById = permissionRolesById;
+    }
+
+    @Transient
+    public String getRemark() {
+        return remark;
+    }
+
+    @Transient
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Transient
+    public BigInteger getRpId() {
+        return rpId;
+    }
+    @Transient
+    public void setRpId(BigInteger rpId) {
+        this.rpId = rpId;
     }
 }

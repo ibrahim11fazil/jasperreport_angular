@@ -355,7 +355,8 @@ var m =
     icon: 'book',
     children: [
       {state: 'user-creation', name: 'New User'},
-      {state: 'user-search', name: 'Search User'}
+      {state: 'user-search', name: 'Search User'},
+      {state: 'user-search', name: 'Roles and Permissions'}
     ]
   };
 
