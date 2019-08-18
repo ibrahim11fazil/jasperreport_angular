@@ -1,18 +1,26 @@
 package qa.gov.customs.workflowcamuda.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
-import org.camunda.bpm.engine.history.UserOperationLogEntry;
 import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import qa.gov.customs.workflowcamuda.model.ResponseType;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
+import qa.gov.customs.workflowcamuda.proxy.EmpModel;
+import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
+import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
 import qa.gov.customs.workflowcamuda.service.WorkflowEmp01;
+import qa.gov.customs.workflowcamuda.utils.Constants;
+import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,27 +36,69 @@ public class WorkFlowController {
     @Autowired
     private WorkflowEmp01 workflowServiceEmp;
 
+    private final UserProxyService userProxyService;
+
+    @Autowired
+    public WorkFlowController( UserProxyService userProxyService) {
+        this.userProxyService=userProxyService;
+    }
+
 
     //Permission All User have the permission to create a request
     @RequestMapping(value="/workflow-start-request", method= RequestMethod.POST)
-    public void startProcessInstance(@RequestBody UserRequestModel request) {
+    public ResponseType startProcessInstance(@RequestBody UserRequestModel request,@RequestHeader(name="Authorization") String token,@AuthenticationPrincipal CustomPrincipal principal) {
+        EmpModel requestedEmployee = null;
         if(request!=null && request.getWorkflowType()!=null){
-            switch (request.getWorkflowType()){
-                case TYPE_1_EMPLOYEE_REQUEST:
-                    workflowServiceEmp.startProcess(request);
-                    break;
-                case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
 
-                    break;
+            ResponseType userdata = userProxyService.getUserById(principal.getJid(),token);
+            if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
+                ObjectMapper mapper = new ObjectMapper();
+                requestedEmployee = mapper.convertValue(
+                        userdata.getData(),
+                        new TypeReference<EmpModel>() {  });
+                request.setDepartment(requestedEmployee.getDepartment());
+                request.setDepartmentId(requestedEmployee.getDepartmentId());
+                request.setEmail(requestedEmployee.getEmail());
+                request.setCnameAr(requestedEmployee.getCnameAr());
+                request.setCnameEn(requestedEmployee.getCnameEn());
+                request.setJobId(requestedEmployee.getJobId());
+                request.setMobile(requestedEmployee.getMobile());
+                request.setPositionId(requestedEmployee.getPositionId());
+                request.setSecionCode(requestedEmployee.getSecionCode());
+                request.setJobId(requestedEmployee.getJobId());
+                request.setJobTitle(requestedEmployee.getJobTitle());
 
-                default:
-                    logger.info("no action created");
+            }else{
+                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                        null);
+                return response;
             }
-
-           // myService.startProcess(model);
+            try {
+                switch (request.getWorkflowType()) {
+                    case TYPE_1_EMPLOYEE_REQUEST:
+                        workflowServiceEmp.startProcess(request,token);
+                        break;
+                    case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
+                        break;
+                    default:
+                        logger.info("no action created");
+                 }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                        null);
+                return response;
+            }
+            ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, true,
+                    null);
+            return response;
         }else{
-            //return "invalid";
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                    null);
+            return response;
         }
+
 
     }
 

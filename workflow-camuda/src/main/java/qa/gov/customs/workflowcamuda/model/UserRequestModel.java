@@ -11,6 +11,7 @@ public class UserRequestModel implements Serializable {
     String email;
     String mobile;
     String department;
+    String departmentId;
     String courseId;
     String courseName;
     String processId;
@@ -18,6 +19,132 @@ public class UserRequestModel implements Serializable {
     String   createdOn;
 
 
+    private String jobId;
+    private String jobTitle;
+    private String pernr;
+    private String cnameAr;
+    private String cnameEn;
+    private String qid;
+    private String activeFlag;
+    private String positionId;
+    private String secionCode;
+    private String gender;
+    private Date   dateofbirth;
+    private String passport;
+    private String iban;
+
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getPernr() {
+        return pernr;
+    }
+
+    public void setPernr(String pernr) {
+        this.pernr = pernr;
+    }
+
+    public String getCnameAr() {
+        return cnameAr;
+    }
+
+    public void setCnameAr(String cnameAr) {
+        this.cnameAr = cnameAr;
+    }
+
+    public String getCnameEn() {
+        return cnameEn;
+    }
+
+    public void setCnameEn(String cnameEn) {
+        this.cnameEn = cnameEn;
+    }
+
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
+    }
+
+    public String getActiveFlag() {
+        return activeFlag;
+    }
+
+    public void setActiveFlag(String activeFlag) {
+        this.activeFlag = activeFlag;
+    }
+
+    public String getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(String positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getSecionCode() {
+        return secionCode;
+    }
+
+    public void setSecionCode(String secionCode) {
+        this.secionCode = secionCode;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getDateofbirth() {
+        return dateofbirth;
+    }
+
+    public void setDateofbirth(Date dateofbirth) {
+        this.dateofbirth = dateofbirth;
+    }
+
+    public String getPassport() {
+        return passport;
+    }
+
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public String getWorkflowType() {
         return workflowType;
@@ -107,4 +234,55 @@ public class UserRequestModel implements Serializable {
     public String getCreatedOn() {
         return createdOn;
     }
+
+//    public static class ResponseType {
+//     private int code;
+//     private String message;
+//     private boolean status;
+//     private int count;
+//     private Object data;
+//
+//
+//
+//
+//    public ResponseType(int code, String message, boolean status, Object data) {
+//        super();
+//        this.code = code;
+//        this.message = message;
+//        this.status = status;
+//        this.data = data;
+//    }
+//    public ResponseType() {
+//    }
+//    public int getCode() {
+//        return code;
+//    }
+//    public void setCode(int code) {
+//        this.code = code;
+//    }
+//    public String getMessage() {
+//        return message;
+//    }
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+//    public boolean isStatus() {
+//        return status;
+//    }
+//    public void setStatus(boolean status) {
+//        this.status = status;
+//    }
+//    public Object getData() {
+//        return data;
+//    }
+//    public void setData(Object data) {
+//        this.data = data;
+//    }
+//    public int getCount() {
+//        return count;
+//    }
+//    public void setCount(int count) {
+//        this.count = count;
+//    }
+//    }
 }

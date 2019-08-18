@@ -36,15 +36,14 @@ public class WorkflowEmp01 {
     private TaskService taskService;
 
 
-
     @Autowired
     private HistoryService historyService;
 
-    public void startProcess(UserRequestModel model) {
+    public void startProcess(UserRequestModel model,String token) {
         model.setCreatedOn(new Date().toString());
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
-        //TODO service for notification as PROCESS-STARTED
+
         System.out.println(">>>>>>>> " + processInstance.getId());
     }
 

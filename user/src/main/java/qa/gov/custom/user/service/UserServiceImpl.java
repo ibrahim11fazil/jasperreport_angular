@@ -8,10 +8,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import qa.gov.custom.user.entity.Permission;
 import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 import qa.gov.custom.user.proxy.EmpEmployeeMaster;
 import qa.gov.custom.user.proxy.EmpModel;
+import qa.gov.custom.user.repository.PermissionRepository;
 import qa.gov.custom.user.repository.RoleRepository;
 import qa.gov.custom.user.repository.RoleUserRepository;
 import qa.gov.custom.user.repository.UserRepository;
@@ -31,6 +33,9 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
 
     @Autowired
+    PermissionRepository permissionRepository;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -45,6 +50,39 @@ public class UserServiceImpl implements UserService {
             role.setId(new BigInteger(o[0].toString()));
             role.setName((String)o[1]);
             role.setRemark((String)o[2]);
+            roles.add(role);
+        }
+        return roles;
+    }
+
+    @Override
+    public Role updateRoleAndPermission(Role role) {
+        return roleRepository.save(role);
+    }
+
+    @Override
+    public List<Permission> findAllPermissions() {
+        List<Object[]> roleObjects = roleRepository.findallAllRolesWithIDAndName();
+        List<Permission> roles=new ArrayList<>();
+        for (Object[] o :roleObjects) {
+            Permission role = new Permission();
+            role.setId(new BigInteger(o[0].toString()));
+            role.setName((String)o[1]);
+            roles.add(role);
+        }
+        return roles;
+    }
+
+    @Override
+    public List<Permission> findAllPermissionForRole(BigInteger roleId) {
+      //  ID,PERMISSION_ID,ROLE_ID,REMARK
+        List<Object[]> roleObjects = roleRepository.findAllPermissionForRole(roleId);
+        List<Permission> roles=new ArrayList<>();
+        for (Object[] o :roleObjects) {
+            Permission role = new Permission();
+            role.setRpId(new BigInteger(o[0].toString()));
+            role.setId(new BigInteger(o[1].toString()));
+            role.setRemark((String)o[3]);
             roles.add(role);
         }
         return roles;

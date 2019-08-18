@@ -15,7 +15,7 @@ import { MainComponent } from 'app/main/main.component';
   styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit {
-  private language:LanguageUtil
+  language:LanguageUtil
   public form: FormGroup;
   constructor(private fb: FormBuilder,
               private trainingService:TrainingService,

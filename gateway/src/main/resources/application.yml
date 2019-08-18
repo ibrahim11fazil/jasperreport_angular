@@ -190,6 +190,7 @@ logging:
 #  instance:
 #    prefer-ip-address: true
 #    hostname: gateway
+
 eureka:
   client:
     fetchRegistry: true
