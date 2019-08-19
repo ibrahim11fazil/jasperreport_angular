@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import qa.gov.customs.training.config.Auditable;
 
@@ -38,7 +40,9 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 
 	private Set<TacCoursePrerequisites> tacCoursePrerequisiteses = new HashSet<TacCoursePrerequisites>(0);
 	private Set<TacCourseGuidelines> tacCourseGuidelineses = new HashSet<TacCourseGuidelines>(0);
+@JsonIgnore
 	private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
+
 	private Set<TacCourseAudience> tacCourseAudiences = new HashSet<TacCourseAudience>(0);
 	//Many to many
 	//private Set<TacActivityCourseLink> tacActivityCourseLinks = new HashSet<TacActivityCourseLink>(0);
@@ -249,15 +253,17 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 	}
 
 	//@JsonManagedReference(value="activation")
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;
 	}
-
+	@JsonIgnore
 	public void setTacCourseActivations(Set<TacCourseActivation> tacCourseActivations) {
 		this.tacCourseActivations = tacCourseActivations;
 	}
 	//@JsonManagedReference
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseMaster",cascade = CascadeType.ALL)
 	public Set<TacCourseAudience> getTacCourseAudiences() {
 		return this.tacCourseAudiences;

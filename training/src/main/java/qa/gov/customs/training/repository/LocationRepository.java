@@ -13,4 +13,7 @@ public interface LocationRepository extends JpaRepository<TacCourseLocation, Big
     @Query(value="select *  from TAC_COURSE_LOCATION where location_Id=:locationId",nativeQuery=true)
     TacCourseLocation findByLocationId(BigDecimal locationId);
 
+    @Query(value="select location_id,location_name from TAC_COURSE_LOCATION",nativeQuery=true)
+   List<Object[]>  getAllLocation();
+
 }

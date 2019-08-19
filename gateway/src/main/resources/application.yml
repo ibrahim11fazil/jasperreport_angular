@@ -126,6 +126,12 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+    workflow:
+      path: /workflow/**
+      serviceId: workflow
+      stripPrefix: true
+      sensitiveHeaders:
+
 #hystrix:
 #  command:
 #    training:
@@ -184,6 +190,7 @@ logging:
 #  instance:
 #    prefer-ip-address: true
 #    hostname: gateway
+
 eureka:
   client:
     fetchRegistry: true

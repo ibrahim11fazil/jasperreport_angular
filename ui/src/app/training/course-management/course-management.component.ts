@@ -35,6 +35,7 @@ import {
 import { ResponseEmpData, EmpData } from 'app/models/emp-data';
 import { TacCourseAttendance, ITacCourseAttendance } from 'app/models/tac-course-attendance';
 import { TacCourseAttendees } from 'app/models/tac-course-attendees';
+import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
 
 
 
@@ -68,7 +69,7 @@ export class CourseManagementComponent implements OnInit {
   userList: SystemUserResponseArray[] = [];
   displayCourseDetails: boolean = false;
   customEvent: CalendarEvent;
-  activation: TacActivation;
+  activation: ActivationData;
   page = new Page();
   estimatedCost: Number;
   trainingRoomDetail: Location;
@@ -223,15 +224,17 @@ export class CourseManagementComponent implements OnInit {
     courseActivation.activationId = row.activation_id
     this.trainingService.getActivationById(courseActivation).subscribe(
       data => {
-        var response = <ResponseActivationDetail>data
+        var response = <ResponseActivationData>data
         this.activation = response.data
         this.estimatedCost = +this.activation.costHospitality + +this.activation.costInstructor + +this.activation.costTranslation
           + +this.activation.costTransport + +this.activation.costVenue + +this.activation.costAirticket + +this.activation.costBonus
           + +this.activation.costFood + +this.activation.costGift;
-        this.tacInstructorResult = this.activation.tacCourseInstructors;
-        this.locationType = this.activation.tacCourseMaster.locationType;
+        this.tacInstructorResult = this.activation.instructors;
+        //get Instructors usimg activationId
+        
+        this.locationType = this.activation.locationId;
         this.displayCourseDetails = true
-        var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value == this.activation.tacCourseMaster.durationFlag)
+        var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value == this.activation.durationFlag)
         if (durationItemsArray[0] != null) {
           this.durationValueString = durationItemsArray[0].viewValue
         }
@@ -248,7 +251,7 @@ export class CourseManagementComponent implements OnInit {
 
         //getCourseById
         let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
-        courseMaster.courseId = this.activation.dependentId;
+        courseMaster.courseId = this.activation.belongsTo;
         this.trainingService.getCourseById(courseMaster).subscribe(
           data => {
             var response = <ResponseTacCourseMaster>data
@@ -263,7 +266,7 @@ export class CourseManagementComponent implements OnInit {
             this.trainingRoomDetail = response.data
           })
 
-        var item = this.userList.filter(item => item.id == this.activation.coordinatorId)
+        var item = this.userList.filter(item => item.id == this.activation.coordinator)
         if (item != null) {
           this.tacCoordinatorString.push(item[0].username);
 
@@ -282,7 +285,7 @@ export class CourseManagementComponent implements OnInit {
 
 
   }
-  /**
+      /**
       * dayClicked method is used to open the active day.
       */
   dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
@@ -397,6 +400,7 @@ var Response=<ITacCourseAttendance>data
   }
 
   checkboxValue(row, event) {
+    debugger;
     const checked = event.checked;
   console.log(row);
     if (checked) {

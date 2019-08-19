@@ -30,7 +30,7 @@ then
      TAG=qa_$(git describe --abbrev=0)
 
       docker build --file ui/Dockerfile  ui -t 172.16.0.253:5000/ui:$TAG
-      docker build --file workflow/Dockerfile  workflow -t 172.16.0.253:5000/workflow:$TAG
+      docker build --file workflow-camuda/Dockerfile  workflow-camuda -t 172.16.0.253:5000/workflow:$TAG
       docker build --file notification/Dockerfile notification -t 172.16.0.253:5000/notification:$TAG
       docker build --file user/Dockerfile user -t 172.16.0.253:5000/user:$TAG
       docker build --file employee/Dockerfile employee -t 172.16.0.253:5000/employee:$TAG
@@ -41,7 +41,7 @@ then
       docker build --file authentication/Dockerfile authentication -t 172.16.0.253:5000/authentication:$TAG
       docker build --file registry/Dockerfile registry -t 172.16.0.253:5000/registry:$TAG
       docker build --file gateway/Dockerfile gateway -t 172.16.0.253:5000/gateway:$TAG
-      docker build --file gateway-cloud/Dockerfile gateway-cloud -t 172.16.0.253:5000/gateway-cloud:$TAG
+      #docker build --file gateway-cloud/Dockerfile gateway-cloud -t 172.16.0.253:5000/gateway-cloud:$TAG
       echo "QA build done"
 
       echo "Pushing to server "

@@ -57,7 +57,7 @@ public class EmployeeController {
 //        return employee;
 //    }
 
-    @PreAuthorize("hasAnyAuthority('get_employee_by_jobid')")
+    @PreAuthorize("hasAnyAuthority('get_employee_by_jobid','user_details_course_request')")
     @PostMapping("/get-employee-by-jobid/{id}")
     public ResponseType getEmployeeById(@PathVariable("id") String id){
         logger.info("Recieved ### " + id);

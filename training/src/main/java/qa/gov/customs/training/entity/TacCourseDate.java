@@ -110,6 +110,7 @@ public class TacCourseDate implements java.io.Serializable {
 	}
 
 	//@JsonManagedReference(value="date")
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseDate")
 	public Set<TacCourseActivation> getTacCourseActivations() {
 		return this.tacCourseActivations;
