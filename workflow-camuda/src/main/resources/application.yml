@@ -21,6 +21,10 @@ server:
 #    context-path: /workflow
   port: 9061
 
+feign:
+  hystrix:
+    enabled: true
+
 spring:
   application:
     name: workflow
@@ -118,3 +122,5 @@ cloud:
   inetutils:
     prefered-networks:
       - 10.0
+
+workflowtoken:${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}

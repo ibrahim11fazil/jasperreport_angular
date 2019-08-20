@@ -9,7 +9,9 @@ import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
@@ -33,6 +35,7 @@ public class WorkFlowController {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkFlowController.class);
 
+
     @Autowired
     private WorkflowEmp01 workflowServiceEmp;
 
@@ -45,11 +48,15 @@ public class WorkFlowController {
 
 
     //Permission All User have the permission to create a request
+    @PreAuthorize("hasAnyAuthority('start-workflow')")
     @RequestMapping(value="/workflow-start-request", method= RequestMethod.POST)
     public ResponseType startProcessInstance(@RequestBody UserRequestModel request,@RequestHeader(name="Authorization") String token,@AuthenticationPrincipal CustomPrincipal principal) {
         EmpModel requestedEmployee = null;
+        boolean createdStatus=false;
         if(request!=null && request.getWorkflowType()!=null){
-
+            try {
+                logger.info("### Request started for user" + principal.getJid());
+                //TODO need to change the request.getUserId() to  principal.getJid()
             ResponseType userdata = userProxyService.getUserById(principal.getJid(),token);
             if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
                 ObjectMapper mapper = new ObjectMapper();
@@ -73,10 +80,10 @@ public class WorkFlowController {
                         null);
                 return response;
             }
-            try {
+
                 switch (request.getWorkflowType()) {
                     case TYPE_1_EMPLOYEE_REQUEST:
-                        workflowServiceEmp.startProcess(request,token);
+                        createdStatus =   workflowServiceEmp.startProcess(request,token);
                         break;
                     case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
                         break;
@@ -90,9 +97,16 @@ public class WorkFlowController {
                         null);
                 return response;
             }
-            ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, true,
-                    null);
-            return response;
+            if(createdStatus) {
+                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, createdStatus,
+                        null);
+                return response;
+            }else{
+                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, false,
+                        null);
+                return response;
+            }
+
         }else{
             ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
                     null);
@@ -142,7 +156,9 @@ public class WorkFlowController {
                 assignee.getAssigne(),
                 assignee.getProcessId(),
                 assignee.getRole(),
-                assignee.getAction(),assignee.getExecutionId());
+                assignee.getAction(),assignee.getExecutionId(),
+                assignee.getProcessInstanceId()!=null?assignee.getProcessInstanceId():null,
+                assignee.getCommandMessage()!=null?assignee.getCommandMessage():null);
         assignee.setStatus(tasks);
         return assignee;
     }
