@@ -183,8 +183,6 @@ public class WorkflowEmp01 {
 //        task.addCandidateUsers(candidateUsers);
 //        task.addCandidateUser("eman-3");
 //        task.addCandidateGroup("itdev");
-//
-//
     }
 
     //Find the Training Head
@@ -212,6 +210,27 @@ public class WorkflowEmp01 {
                 }
             }else{
                 //TODO cancel Task Report to server
+            }
+        }else{
+            //TODO cancel Task Report to server
+        }
+    }
+
+    public void checkTheUserIsHeadOfTraining(UserRequestModel model,DelegateExecution execution){
+        Boolean status=false;
+        String errorCase="";
+        System.out.println("checkTheUserIsHeadOfTraining" + model.getEmail());
+        ResponseType userdata=  userProxyService.checkUserIsHeadOfTraining(model.getJobId(),workflowToken);
+        if(userdata!=null && userdata.getData()!=null && userdata.isStatus()) {
+            ObjectMapper mapper = new ObjectMapper();
+            status  = mapper.convertValue(
+                    userdata.getData(),
+                    new TypeReference<Boolean>() {
+                    });
+            if(status){
+                execution.setVariable("resultcheckval","yes" );
+            }else{
+                execution.setVariable("resultcheckval","no" );
             }
         }else{
             //TODO cancel Task Report to server
@@ -266,17 +285,7 @@ public class WorkflowEmp01 {
     }
 
 
-    public void checkTheUserIsHeadOfTraining(UserRequestModel model,DelegateExecution execution){
 
-        System.out.println("checkTheUserIsHeadOfTraining" + model.getEmail());
-       // String data= (String)execution.getVariable("resultcheck");
-       // execution.setVariable("resultcheckval","yes" );
-
-        execution.setVariable("resultcheckval","no" );
-
-       // return "yes";
-
-    }
 
     public void processInput(UserRequestModel model){
         System.out.println("processinput" + model.getEmail());

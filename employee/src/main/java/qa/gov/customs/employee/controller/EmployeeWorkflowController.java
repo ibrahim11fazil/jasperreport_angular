@@ -107,6 +107,30 @@ public class EmployeeWorkflowController {
         }
     }
 
+    @PostMapping("/check-the-user-is-head-of-training/{id}/{token}")
+    public ResponseType checkUserIsHeadOfTraining(@PathVariable("id") String id,@PathVariable("token") String token){
+        if(token!=null && token.equals(training_token)) {
+            logger.info("Recieved ### request received");
+            List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-2");
+            if (immediateManagers != null && immediateManagers.size() > 0) {
+
+                if(immediateManagers.get(0).getLegacyCode().equals(id)){
+                    return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                            true);
+                }else{
+                    return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                            false);
+                }
+            } else {
+                return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+                        null);
+            }
+        }else{
+            return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
+                    null);
+        }
+    }
+
     ResponseType  get(int code, String message, boolean status, Object data){
         ResponseType response = new ResponseType(code,message, status,
                 data);
