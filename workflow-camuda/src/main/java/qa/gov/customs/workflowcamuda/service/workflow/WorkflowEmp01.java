@@ -1,4 +1,4 @@
-package qa.gov.customs.workflowcamuda.service;
+package qa.gov.customs.workflowcamuda.service.workflow;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,13 +19,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.model.ImmediateManager;
+import qa.gov.customs.workflowcamuda.model.NotificationModel;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.variable.value.ObjectValue;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
+import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
+import qa.gov.customs.workflowcamuda.service.RequestService;
+import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -51,12 +55,19 @@ public class WorkflowEmp01 {
     private String workflowToken;
 
 
+    @Autowired
+    private RequestService requestService;
+
+
 
 
     private final UserProxyService userProxyService;
+    private final NotificationProxyService notificationProxyService;
     @Autowired
-    public WorkflowEmp01( UserProxyService userProxyService) {
+    public WorkflowEmp01( UserProxyService userProxyService,
+                          NotificationProxyService notificationProxyService) {
         this.userProxyService=userProxyService;
+        this.notificationProxyService=notificationProxyService;
     }
 
 
@@ -66,7 +77,12 @@ public class WorkflowEmp01 {
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
         System.out.println(">>>>>>>> " + processInstance.getId());
-        return userRequestAndCompleteTask(model,processInstance.getId());
+        boolean status =  userRequestAndCompleteTask(model,processInstance.getId());
+        if(status)
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.CREATED);
+        else
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
+        return status;
     }
 
     public List<Task> getTasks(String assignee) {
@@ -92,11 +108,11 @@ public class WorkflowEmp01 {
     }
 
     @Transactional
-    public boolean processTask(String taskId, String userId,String processId,String role,String action,String executionId,String processInstanceId,String messge) {
+    public boolean processTask(String taskId, String userId,String processId,String role,String action,String executionId,String processInstanceId,String message) {
         try {
             runtimeService.setVariable(executionId , role , action);
-            if(messge!=null && processInstanceId!=null)
-            taskService.createComment(taskId,processInstanceId,messge);
+            if(message!=null && processInstanceId!=null)
+            taskService.createComment(taskId,processInstanceId,message);
             taskService.complete(taskId, null );
             return true;
         }catch (Exception e){
@@ -203,20 +219,22 @@ public class WorkflowEmp01 {
             if(manager!=null && manager.getLegacyCode()!=null){
                 List<String> candidateUsers = new ArrayList<String>();
                 task.setAssignee(manager.getLegacyCode());
+                task.setDescription(manager.getcNameAr());
                 if(manager.getDelegations()!=null && manager.getDelegations().size()>0){
                     manager.getDelegations().forEach(item -> {
                         task.addCandidateUser(item.getLegacyCode());
                     });
                 }
             }else{
-                //TODO cancel Task Report to server
+                //TODO cancel Task Report to server , error case
+
             }
         }else{
-            //TODO cancel Task Report to server
+            //TODO cancel Task Report to server, error case
         }
     }
 
-    public void checkTheUserIsHeadOfTraining(UserRequestModel model,DelegateExecution execution){
+    public void checkTheUserIsHeadOfTraining(UserRequestModel model,DelegateExecution execution) {
         Boolean status=false;
         String errorCase="";
         System.out.println("checkTheUserIsHeadOfTraining" + model.getEmail());
@@ -227,15 +245,55 @@ public class WorkflowEmp01 {
                     userdata.getData(),
                     new TypeReference<Boolean>() {
                     });
-            if(status){
+            if(status) {
                 execution.setVariable("resultcheckval","yes" );
-            }else{
+            } else {
                 execution.setVariable("resultcheckval","no" );
             }
-        }else{
-            //TODO cancel Task Report to server
+        } else {
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+            //TODO cancel Task Report to server, error case
         }
     }
+
+
+    public void rejectionAction(UserRequestModel model){
+        System.out.println("Rejected" + model.getEmail());
+        String message = "Request rejected for course "+model.getCourseName();
+        notificationProxyService.sendNotification(createNotification(model,message),workflowToken);
+        requestService.saveOrUpdateWorkflow(model, WorkflowStatus.REJECTED);
+        //TODO send the status to training module
+    }
+
+    public void acceptAction(UserRequestModel model){
+        System.out.println("Accepted" + model.getEmail());
+        String message = "Request accepted for course "+model.getCourseName();
+        notificationProxyService.sendNotification(createNotification(model,message),workflowToken);
+        requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
+        //TODO send the status to training module
+    }
+
+    NotificationModel createNotification(UserRequestModel model,String message){
+        NotificationModel notificationModel = new NotificationModel();
+        notificationModel.setEmailBody(message);
+        notificationModel.setSmsBody(message);
+        notificationModel.setEmailBody(model.getEmail());
+        notificationModel.setPhoneNumber(model.getMobile());
+
+        if(model.getEmail()!=null){
+            notificationModel.setIsEmail(1);
+        }else{
+            notificationModel.setIsEmail(0);
+        }
+        if(model.getMobile()!=null){
+            notificationModel.setIsSMS(1);
+        }else{
+            notificationModel.setIsSMS(0);
+        }
+        return notificationModel;
+    }
+
+
 
 
     public void findHeadOfSectionForEmployeeDelegation(UserRequestModel model, DelegateTask task){
@@ -260,13 +318,8 @@ public class WorkflowEmp01 {
 
 
 
-    public void rejectionAction(UserRequestModel model){
-        System.out.println("Rejected" + model.getEmail());
-    }
 
-    public void acceptAction(UserRequestModel model){
-        System.out.println("Accepted" + model.getEmail());
-    }
+
 
     public void checkRequesterAndApprovalAreSame(UserRequestModel model){
         System.out.println("check for Approval" + model.getEmail());

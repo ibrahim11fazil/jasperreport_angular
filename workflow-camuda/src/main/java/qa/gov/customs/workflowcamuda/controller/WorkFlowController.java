@@ -9,7 +9,6 @@ import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +19,7 @@ import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
-import qa.gov.customs.workflowcamuda.service.WorkflowEmp01;
+import qa.gov.customs.workflowcamuda.service.workflow.WorkflowEmp01;
 import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 
