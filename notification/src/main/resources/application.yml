@@ -119,3 +119,5 @@ logging:
         customs:
           authentication: DEBUG
   file: logs/notificaiton.log
+
+workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}

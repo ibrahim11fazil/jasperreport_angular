@@ -16,7 +16,8 @@ public class UserRequestModel implements Serializable {
     String courseName;
     String processId;
     String processKey;
-    String   createdOn;
+    String createdOn;
+    String trainingRequestId;
 
 
     private String jobId;
@@ -285,4 +286,13 @@ public class UserRequestModel implements Serializable {
 //        this.count = count;
 //    }
 //    }
+
+
+    public String getTrainingRequestId() {
+        return trainingRequestId;
+    }
+
+    public void setTrainingRequestId(String trainingRequestId) {
+        this.trainingRequestId = trainingRequestId;
+    }
 }

@@ -14,7 +14,7 @@ import qa.gov.customs.workflowcamuda.model.ResponseType;
 public interface NotificationProxyService {
 
 
-    @PostMapping(value="/send-notification",consumes= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/send-notification-by-workflow/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)
     @Headers("Content-Type: application/json")
-    void getUserById(@RequestBody NotificationModel model, @RequestHeader(name = "Authorization") String token);
+    void sendNotification(@RequestBody NotificationModel model,@PathVariable("wtoken") String wtoken);
 }
