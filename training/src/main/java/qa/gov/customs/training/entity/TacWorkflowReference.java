@@ -3,6 +3,7 @@ package qa.gov.customs.training.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name="TAC_WORKFLOW_REFERENCE")
@@ -10,23 +11,32 @@ import java.math.BigDecimal;
 public class TacWorkflowReference {
 
     @Id
-    @Column(name = "WORKFLOW_ID", unique = true, nullable = false, precision = 22, scale = 0)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_WORKFLOW_SEQ", allocationSize = 1)
-    BigDecimal workflowId;
-    @Column(name="TYPE")
+    @Column(name = "WORKFLOW_ID")
+    String workflowId;
+    @Column(name="WORKFLOW_TYPE")
     String type;
-    @Column(name="DATA")
+    @Lob
+    @Column(name="JSON_DATA")
     String  data;
-    @Column(name="PROCESS_ID")
-    String processId;
+
+    @Column(name="RESPONSE_STATUS")
+    String  responseStatus;
 
 
-    public BigDecimal getWorkflowId() {
+    @Column(name="COURSE_STATUS")
+    String  courseStatus;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="CREATED_ON")
+    Date createdOn;
+
+
+
+    public String getWorkflowId() {
         return workflowId;
     }
 
-    public void setWorkflowId(BigDecimal workflowId) {
+    public void setWorkflowId(String workflowId) {
         this.workflowId = workflowId;
     }
 
@@ -46,11 +56,27 @@ public class TacWorkflowReference {
         this.data = data;
     }
 
-    public String getProcessId() {
-        return processId;
+    public String getResponseStatus() {
+        return responseStatus;
     }
 
-    public void setProcessId(String processId) {
-        this.processId = processId;
+    public void setResponseStatus(String responseStatus) {
+        this.responseStatus = responseStatus;
+    }
+
+    public String getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(String courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 }
