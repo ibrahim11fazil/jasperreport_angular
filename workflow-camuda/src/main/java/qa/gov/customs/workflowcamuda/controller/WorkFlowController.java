@@ -82,7 +82,7 @@ public class WorkFlowController {
 
                 switch (request.getWorkflowType()) {
                     case TYPE_1_EMPLOYEE_REQUEST:
-                        createdStatus =   workflowServiceEmp.startProcess(request,token);
+                        createdStatus =   workflowServiceEmp.startProcess(request);
                         break;
                     case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
                         break;
