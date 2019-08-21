@@ -2,8 +2,13 @@ package qa.gov.customs.training.service;
 
 
 import qa.gov.customs.training.entity.TacWorkflowReference;
+import qa.gov.customs.training.models.UserRequestModel;
+
+import java.util.Optional;
 
 public interface EmployeeRequestService {
 
-    TacWorkflowReference saveRequest(TacWorkflowReference request);
+    UserRequestModel saveRequest(UserRequestModel request);
+    TacWorkflowReference updateRequest(TacWorkflowReference request);
+    TacWorkflowReference findById(String id);
 }

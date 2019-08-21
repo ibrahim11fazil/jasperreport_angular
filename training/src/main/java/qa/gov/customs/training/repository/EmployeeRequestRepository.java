@@ -7,7 +7,7 @@ import qa.gov.customs.training.entity.TacWorkflowReference;
 import java.math.BigDecimal;
 
 @Repository
-public interface EmployeeRequestRepository extends JpaRepository <TacWorkflowReference, BigDecimal> {
+public interface EmployeeRequestRepository extends JpaRepository <TacWorkflowReference, String> {
 }
 
 
