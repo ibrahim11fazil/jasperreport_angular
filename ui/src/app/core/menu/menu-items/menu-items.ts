@@ -343,6 +343,7 @@ var m =
     children: [
       {state: 'welcome', name: 'courses' },
       {state: 'welcome', name: 'My Requests' },
+      {state: 'welcome', name: 'Employee Requests'},
       {state: 'welcome', name: 'My Approvals' }
     ]
   };

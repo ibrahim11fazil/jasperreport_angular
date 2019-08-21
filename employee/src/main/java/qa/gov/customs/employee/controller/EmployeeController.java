@@ -77,8 +77,6 @@ public class EmployeeController {
                employee.setDepartmentId(masterData.get(0).getORGUNIT()!=null?masterData.get(0).getORGUNIT():"");
                employee.setJobTitle(masterData.get(0).getPOSITION_DESC_AR()!=null?masterData.get(0).getPOSITION_DESC_AR():"");
                employee.setIban(masterData.get(0).getBACNO()!=null?masterData.get(0).getBACNO():"");
-
-
                ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SYSTEM_USER_CREATED, true,
                        employee);
                return response;

@@ -68,6 +68,7 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
 //import { CalendarRoutes } from 'app/calendar/calendar.routing';
 import { CalendarModule,DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { EmpRequestComponent } from './emp-request/emp-request.component';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
      CourseManagementComponent,
      JobCardComponent,
      JobCardSearchComponent,
+     EmpRequestComponent,
 
      ],
   imports: [
