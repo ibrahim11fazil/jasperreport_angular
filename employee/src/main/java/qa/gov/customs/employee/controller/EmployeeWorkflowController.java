@@ -38,22 +38,28 @@ public class EmployeeWorkflowController {
                     List<ImmediateManager> immediateManagers = mawaredService.getImmediateManager(id);
                     // TODO here to check the immediate manager is on vacation
                     // TODO  Get Delegation too and set to the Request
+                    logger.info("RESOURCE_CHECKING ###" );
                     if (immediateManagers.size() > 0) {
+                        logger.info("RESOURCE_CHECKING ###" + immediateManagers.get(0).getLegacyCode());
                         return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                                 immediateManagers.get(0));
                     } else {
+                        logger.info("RESOURCE_NOT_FOUND ###" );
                         return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                                 null);
                     }
                 } else {
+                    logger.info("RESOURCE_NOT_FOUND ###" );
                     return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                             null);
                 }
             } else {
+                logger.info("RESOURCE_NOT_FOUND ###" );
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
         }else{
+            logger.info("UNAUTHORIZED ###" );
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
@@ -138,7 +144,7 @@ public class EmployeeWorkflowController {
     }
 
 
-    @PostMapping("/get-employee-by-jobid/{id}/{token}")
+    @PostMapping("/get-employee-by-jobid-workflow/{id}/{token}")
     public ResponseType getEmployeeById(@PathVariable("id") String id,@PathVariable("token") String token){
         logger.info("Recieved ### " + id);
         if(token!=null && token.equals(training_token)) {
@@ -157,22 +163,26 @@ public class EmployeeWorkflowController {
                     employee.setDepartmentId(masterData.get(0).getORGUNIT() != null ? masterData.get(0).getORGUNIT() : "");
                     employee.setJobTitle(masterData.get(0).getPOSITION_DESC_AR() != null ? masterData.get(0).getPOSITION_DESC_AR() : "");
                     employee.setIban(masterData.get(0).getBACNO() != null ? masterData.get(0).getBACNO() : "");
+                    logger.info("SUCCESS ### ");
                     ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SYSTEM_USER_CREATED, true,
                             employee);
                     return response;
 
                 } else {
+                    logger.info("RESOURCE_NOT_FOUND 1### ");
                     ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                             null);
                     return response;
                 }
 
             } else {
+                logger.info("RESOURCE_NOT_FOUND 2### ");
                 ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
                 return response;
             }
         }else{
+            logger.info("UNAUTHORIZED 2### ");
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }

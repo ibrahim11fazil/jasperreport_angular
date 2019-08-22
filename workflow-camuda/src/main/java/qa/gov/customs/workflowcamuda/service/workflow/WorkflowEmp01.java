@@ -13,10 +13,13 @@ import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import qa.gov.customs.workflowcamuda.controller.WorkFlowController;
 import qa.gov.customs.workflowcamuda.model.ImmediateManager;
 import qa.gov.customs.workflowcamuda.model.NotificationModel;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
@@ -50,6 +53,9 @@ public class WorkflowEmp01 {
     @Autowired
     private RequestService requestService;
 
+
+    private static final Logger logger = LoggerFactory.getLogger(WorkflowEmp01.class);
+
     @Autowired
     public WorkflowEmp01(UserProxyService userProxyService,
                          NotificationProxyService notificationProxyService,
@@ -80,7 +86,6 @@ public class WorkflowEmp01 {
 
     public List<Task> getCandidateTasks(String delegations) {
         //return  taskService.createTaskQuery().taskCandidateUser(delegations).list();
-
         return taskService.createTaskQuery()
                 .or()
                 .taskAssignee(delegations)
@@ -102,6 +107,7 @@ public class WorkflowEmp01 {
             runtimeService.setVariable(executionId, role, action);
             if (message != null && processInstanceId != null)
                 taskService.createComment(taskId, processInstanceId, message);
+            logger.info("Task ### "+taskId );
             taskService.complete(taskId, null);
             return true;
         } catch (Exception e) {
@@ -160,8 +166,8 @@ public class WorkflowEmp01 {
     }
 
     //get Current User set for the task
-    public String startUserRequest(UserRequestModel model) {
-        return model.getJobId();
+    public void startUserRequest(UserRequestModel model, final DelegateTask task) {
+        task.setAssignee(model.getJobId());
     }
 
     //Find the head of section for the employee or immediate head
@@ -187,8 +193,8 @@ public class WorkflowEmp01 {
                     });
             if (manager != null && manager.getLegacyCode() != null) {
                 List<String> candidateUsers = new ArrayList<String>();
-                task.setAssignee(manager.getLegacyCode());
-                task.setDescription(manager.getcNameAr());
+                task.setAssignee(manager.getImLegacyCode());
+                task.setDescription(manager.getImCnameAr());
                 if (manager.getDelegations() != null && manager.getDelegations().size() > 0) {
                     manager.getDelegations().forEach(item -> {
                         task.addCandidateUser(item.getLegacyCode());
