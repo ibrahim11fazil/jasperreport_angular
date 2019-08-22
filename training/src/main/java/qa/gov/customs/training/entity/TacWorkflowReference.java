@@ -31,7 +31,7 @@ public class TacWorkflowReference {
     Date createdOn;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="CREATED_ON")
+    @Column(name="UPDATED_ON")
     Date updatedOn;
 
 
