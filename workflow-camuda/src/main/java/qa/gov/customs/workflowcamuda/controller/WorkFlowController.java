@@ -9,10 +9,14 @@ import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
@@ -34,6 +38,8 @@ public class WorkFlowController {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkFlowController.class);
 
+    @Value("${workflowtoken}")
+    private String training_token;
 
     @Autowired
     private WorkflowEmp01 workflowServiceEmp;
@@ -53,10 +59,29 @@ public class WorkFlowController {
         EmpModel requestedEmployee = null;
         boolean createdStatus=false;
         if(request!=null && request.getWorkflowType()!=null){
-            try {
-                logger.info("### Request started for user" + principal.getJid());
-                //TODO need to change the request.getUserId() to  principal.getJid()
-            ResponseType userdata = userProxyService.getUserById(principal.getJid(),token);
+            asyncWorkflowStartAction( request,  token,  principal);
+            logger.info("Success ###");
+            ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, createdStatus,
+                    null);
+            return response;
+        }else{
+            logger.info("Failed ###");
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                    null);
+            return response;
+        }
+
+
+    }
+
+    @Async("asynchronousListenerExecutor")
+    public void asyncWorkflowStartAction(UserRequestModel request, String token, CustomPrincipal principal){
+        EmpModel requestedEmployee = null;
+        boolean createdStatus=false;
+        try {
+            logger.info("### Request started for user" + principal.getJid());
+            //TODO need to change the request.getUserId() to  principal.getJid()
+            ResponseType userdata = userProxyService.getUserById(principal.getJid(),training_token);
             if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
                 ObjectMapper mapper = new ObjectMapper();
                 requestedEmployee = mapper.convertValue(
@@ -73,47 +98,36 @@ public class WorkFlowController {
                 request.setSecionCode(requestedEmployee.getSecionCode());
                 request.setJobId(requestedEmployee.getJobId());
                 request.setJobTitle(requestedEmployee.getJobTitle());
-
-            }else{
-                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-                        null);
-                return response;
-            }
-
                 switch (request.getWorkflowType()) {
                     case TYPE_1_EMPLOYEE_REQUEST:
                         createdStatus =   workflowServiceEmp.startProcess(request);
+                        logger.info("TYPE_1_EMPLOYEE_REQUEST ###");
                         break;
                     case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
+
                         break;
                     default:
                         logger.info("no action created");
-                 }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-                        null);
-                return response;
-            }
-            if(createdStatus) {
-                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, createdStatus,
-                        null);
-                return response;
+                }
             }else{
-                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, false,
-                        null);
-                return response;
+//                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+//                        null);
+//                return response;
+                //TODO log error
+                logger.info("error in async2 ");
             }
-
-        }else{
-            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-                    null);
-            return response;
         }
-
-
+        catch (Exception e){
+            e.printStackTrace();
+//            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+//                    null);
+//            return response;
+            //TODO log error
+            logger.info("error in async");
+        }
     }
+
+
 
     @RequestMapping(value="/my-tasks", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<TaskRepresentation> getTasks(@RequestParam String assignee) {

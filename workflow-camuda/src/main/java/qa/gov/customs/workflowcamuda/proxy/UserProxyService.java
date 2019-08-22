@@ -14,7 +14,7 @@ import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 public interface UserProxyService {
 
 
-    @PostMapping(value="/get-employee-by-jobid/{id}/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/get-employee-by-jobid-workflow/{id}/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)
     ResponseType getUserById(@PathVariable("id") String id,@PathVariable("wtoken") String wtoken);
 
 
