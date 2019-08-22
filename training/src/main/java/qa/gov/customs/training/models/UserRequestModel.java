@@ -1,7 +1,8 @@
-package qa.gov.customs.workflowcamuda.model;
+package qa.gov.customs.training.models;
 
 import java.io.Serializable;
 import java.util.Date;
+
 
 public class UserRequestModel implements Serializable {
 
@@ -30,10 +31,9 @@ public class UserRequestModel implements Serializable {
     private String positionId;
     private String secionCode;
     private String gender;
-    private Date   dateofbirth;
+    private Date dateofbirth;
     private String passport;
     private String iban;
-
 
     private String courseActivationId;
 

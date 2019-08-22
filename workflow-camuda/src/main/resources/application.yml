@@ -13,7 +13,7 @@ security:
           YwIDAQAB
           -----END PUBLIC KEY-----
     client:
-      clientId: training
+      clientId: workflow
 
 debug: false
 server:
