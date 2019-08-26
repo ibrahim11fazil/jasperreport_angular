@@ -251,9 +251,11 @@ public class WorkflowEmp01 {
     public void acceptAction(UserRequestModel model) {
         System.out.println("Accepted" + model.getEmail());
         String message = "Request accepted for course " + model.getCourseName();
-        notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
-        trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.APPROVED, workflowToken);
+        //notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
+        //trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.APPROVED, workflowToken);
+        publisher.sendNotification(createNotification(model, message));
+        publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(),WorkflowStatus.APPROVED));
     }
 
     NotificationModel createNotification(UserRequestModel model, String message) {
