@@ -1,7 +1,9 @@
-package qa.gov.customs.workflowcamuda.model;
+package qa.gov.customs.training.models;
 
 public class TrainingRequestStatus {
 
+    public TrainingRequestStatus() {
+    }
 
     public TrainingRequestStatus(String requestId, String status) {
         this.requestId = requestId;

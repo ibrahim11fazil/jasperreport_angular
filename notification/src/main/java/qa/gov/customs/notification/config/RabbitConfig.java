@@ -1,4 +1,4 @@
-package qa.gov.customs.workflowcamuda.config;
+package qa.gov.customs.notification.config;
 
 
 import org.springframework.amqp.core.*;
@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-    @Value("${workflow.rabbitmq.queue}")
+    @Value("${notification.rabbitmq.queue}")
     private String queueName;
 
-    @Value("${workflow.rabbitmq.exchange}")
+    @Value("${notification.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${workflow.rabbitmq.routingkey}")
+    @Value("${notification.rabbitmq.routingkey}")
     private String routingKey;
 
     @Bean

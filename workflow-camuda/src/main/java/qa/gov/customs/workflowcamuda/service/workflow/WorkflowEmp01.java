@@ -3,6 +3,7 @@ package qa.gov.customs.workflowcamuda.service.workflow;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.discovery.converters.Auto;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
@@ -19,11 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import qa.gov.customs.workflowcamuda.config.Publisher;
 import qa.gov.customs.workflowcamuda.controller.WorkFlowController;
-import qa.gov.customs.workflowcamuda.model.ImmediateManager;
-import qa.gov.customs.workflowcamuda.model.NotificationModel;
-import qa.gov.customs.workflowcamuda.model.ResponseType;
-import qa.gov.customs.workflowcamuda.model.UserRequestModel;
+import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
 import qa.gov.customs.workflowcamuda.proxy.TrainingProxyService;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
@@ -52,6 +51,9 @@ public class WorkflowEmp01 {
     private String workflowToken;
     @Autowired
     private RequestService requestService;
+
+    @Autowired
+    private Publisher publisher;
 
 
     private static final Logger logger = LoggerFactory.getLogger(WorkflowEmp01.class);
@@ -222,6 +224,7 @@ public class WorkflowEmp01 {
                     userdata.getData(),
                     new TypeReference<Boolean>() {
                     });
+            logger.info("checkTheUserIsHeadOfTraining" + status.toString() );
             if (status) {
                 execution.setVariable("resultcheckval", "yes");
             } else {
@@ -237,9 +240,12 @@ public class WorkflowEmp01 {
     public void rejectionAction(UserRequestModel model) {
         System.out.println("Rejected" + model.getEmail());
         String message = "Request rejected for course " + model.getCourseName();
-        notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.REJECTED);
-        trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.REJECTED, workflowToken);
+        logger.info("Rejected ### ");
+        publisher.sendNotification(createNotification(model, message));
+        publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(),WorkflowStatus.REJECTED));
+        //notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
+        //trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.REJECTED, workflowToken);
     }
 
     public void acceptAction(UserRequestModel model) {
@@ -254,9 +260,9 @@ public class WorkflowEmp01 {
         NotificationModel notificationModel = new NotificationModel();
         notificationModel.setEmailBody(message);
         notificationModel.setSmsBody(message);
-        notificationModel.setEmailBody(model.getEmail());
+        notificationModel.setToAddress(model.getEmail());
+        notificationModel.setEmailSubject("Customs Notification");
         notificationModel.setPhoneNumber(model.getMobile());
-
         if (model.getEmail() != null) {
             notificationModel.setIsEmail(1);
         } else {

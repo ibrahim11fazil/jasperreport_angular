@@ -55,7 +55,11 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS : false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
-
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 logging:
   pattern:
@@ -113,3 +117,12 @@ cloud:
       - 10.0
 
 workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
+training:
+  rabbitmq:
+    queue: training_queue
+    queue_workflow_status: training_queue_workflow_status
+    exchange: training_exchange
+    routingkey: training_routingkey
+    routingkey_workflowresponse: training_routingkey_workflow_status
+
+

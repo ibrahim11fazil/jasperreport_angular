@@ -48,7 +48,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @ComponentScan(basePackages="qa.gov.customs.workflowcamuda")
 @EnableAsync
-public class AsynchConfiguration {
+public class AsyncConfiguration {
 
     /**
      *  used by  asynchronous event listener.

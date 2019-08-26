@@ -40,7 +40,7 @@ public class EmployeeWorkflowController {
                     // TODO  Get Delegation too and set to the Request
                     logger.info("RESOURCE_CHECKING ###" );
                     if (immediateManagers.size() > 0) {
-                        logger.info("RESOURCE_CHECKING ###" + immediateManagers.get(0).getLegacyCode());
+                        logger.info("RESOURCE_CHECKING ###" + immediateManagers.get(0).getImLegacyCode());
                         return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                                 immediateManagers.get(0));
                     } else {

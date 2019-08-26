@@ -1,4 +1,4 @@
-package qa.gov.customs.workflowcamuda.config;
+package qa.gov.customs.notification.config;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,10 @@ public class Publisher {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    @Value("${workflow.rabbitmq.exchange}")
+    @Value("${notification.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${workflow.rabbitmq.routingkey}")
+    @Value("${notification.rabbitmq.routingkey}")
     private String routingKey;
 
     public void produceMsg(String msg){

@@ -29,6 +29,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.Oracle10gDialect
         max_fetch_depth: 1
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 security:
   oauth2:
@@ -121,3 +126,9 @@ logging:
   file: logs/notificaiton.log
 
 workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
+
+notification:
+  rabbitmq:
+    queue: notification_queue
+    exchange: notification_exchange
+    routingkey: notification_routingkey

@@ -59,7 +59,7 @@ public class WorkFlowController {
         EmpModel requestedEmployee = null;
         boolean createdStatus=false;
         if(request!=null && request.getWorkflowType()!=null){
-            asyncWorkflowStartAction( request,  token,  principal);
+            asyncWorkflowStartAction( request);
             logger.info("Success ###");
             ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, createdStatus,
                     null);
@@ -74,14 +74,14 @@ public class WorkFlowController {
 
     }
 
-    @Async("asynchronousListenerExecutor")
-    public void asyncWorkflowStartAction(UserRequestModel request, String token, CustomPrincipal principal){
+//    @Async("asynchronousListenerExecutor")
+    public void asyncWorkflowStartAction(UserRequestModel request){
         EmpModel requestedEmployee = null;
         boolean createdStatus=false;
         try {
-            logger.info("### Request started for user" + principal.getJid());
+            logger.info("### Request started for user" + request.getJobId());
             //TODO need to change the request.getUserId() to  principal.getJid()
-            ResponseType userdata = userProxyService.getUserById(principal.getJid(),training_token);
+            ResponseType userdata = userProxyService.getUserById(request.getJobId(),training_token);
             if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
                 ObjectMapper mapper = new ObjectMapper();
                 requestedEmployee = mapper.convertValue(

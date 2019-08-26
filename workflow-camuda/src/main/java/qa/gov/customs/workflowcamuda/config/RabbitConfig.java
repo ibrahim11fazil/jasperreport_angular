@@ -1,33 +1,39 @@
-package qa.gov.customs.training.config;
+package qa.gov.customs.workflowcamuda.config;
 
 
-import org.springframework.amqp.core.AmqpTemplate;
-        import org.springframework.amqp.core.Binding;
-        import org.springframework.amqp.core.BindingBuilder;
-        import org.springframework.amqp.core.DirectExchange;
-        import org.springframework.amqp.core.Queue;
-        import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-        import org.springframework.amqp.rabbit.core.RabbitTemplate;
-        import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-        import org.springframework.amqp.support.converter.MessageConverter;
-        import org.springframework.beans.factory.annotation.Value;
-        import org.springframework.context.annotation.Bean;
-        import org.springframework.context.annotation.Configuration;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-    @Value("${training.rabbitmq.queue}")
+
+    @Value("${workflow.rabbitmq.queue}")
     private String queueName;
 
-    @Value("${training.rabbitmq.exchange}")
+    @Value("${workflow.rabbitmq.queue_user_request}")
+    private String queueUserRequest;
+
+    @Value("${workflow.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${training.rabbitmq.routingkey}")
+    @Value("${workflow.rabbitmq.routingkey}")
     private String routingKey;
+
 
     @Bean
     Queue queue() {
         return new Queue(queueName, false);
+    }
+
+    @Bean
+    Queue queueUserRequest() {
+        return new Queue(queueUserRequest, false);
     }
 
     @Bean
