@@ -89,7 +89,6 @@ if(gateway){
     fileUploading="/fileupload"
     cis="/cis"
     employee="/employee"
-
 }
 
 //http://localhost:9000/authentication/oauth/token
