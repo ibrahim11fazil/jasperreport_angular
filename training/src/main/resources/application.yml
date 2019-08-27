@@ -58,8 +58,8 @@ spring:
   rabbitmq:
     host: ${RABBITMQ_HOST:172.16.0.254}
     port: 5672
-    username: ${RABBITMQ_USER:quest}
-    password: ${RABBITMQ_PASSWORD:quest}
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
 
 logging:
   pattern:
