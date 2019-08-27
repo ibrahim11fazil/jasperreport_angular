@@ -8,6 +8,7 @@ public class ResponseException {
 	public String message;
 	public String details;
 	public boolean status;
+
 	
 	
 	public ResponseException(Date timestamp, String message, String details, boolean status) {

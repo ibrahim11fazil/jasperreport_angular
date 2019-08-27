@@ -45,7 +45,7 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
             "where m1.LEGACYCODE=:jobId " +
             "and D1.PERNR=M1.EMPNO " +
             "and D1.SUPERVISOR=M2.EMPNO ",nativeQuery = true)
-    List<Object[]> getImmediateManager(String jobId);
+    List<Object[]> getImmediateManager(@Param("jobId") String jobId);
 
 
     @Query(value = "select DISTINCT M1.empno as EMPNO,  M1.FNAME_EN as  FNAME_EN ,M1.LNAME_EN as LNAME_EN, " +
@@ -53,10 +53,10 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
             "m2.empno as IM_EMPNO,M2.FNAME_EN IM_FNAME_EN,m2.LNAME_EN IM_LNAME_EN,m2.LEGACYCODE as IM_LEGACYCODE " +
             ",m2.cname_ar as IM_CNAME_AR , M1.cname_ar as CNAME_AR , m1.LEGACYCODE as LEGACYCODE " +
             "from XXGDC_SAP_WS_MINI M1,XXGDC_SAP_MASTERDETAILS D1 ,XXGDC_SAP_WS_MINI m2 " +
-            "where m1.orgunit=:departmentId and  JOB_FAMILY_SHORT=:jobFamilyShort" +
+            "where m1.orgunit=:departmentId and  JOB_FAMILY_SHORT=:jobFamilyShort " +
             "and D1.PERNR=M1.EMPNO " +
             "and D1.SUPERVISOR=M2.EMPNO ",nativeQuery = true)
-    List<Object[]> getDepartmentHead(String departmentId,String jobFamilyShort);
+    List<Object[]> getDepartmentHead(@Param("departmentId") String departmentId,@Param("jobFamilyShort") String jobFamilyShort);
 
 
 }

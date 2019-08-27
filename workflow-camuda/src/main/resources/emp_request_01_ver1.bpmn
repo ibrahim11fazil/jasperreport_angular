@@ -32,11 +32,17 @@
       <bpmn:incoming>SequenceFlow_13</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_13" sourceRef="Task_Rejection" targetRef="EndEvent_1" />
-    <bpmn:userTask id="User_Task_Head_Of_Training" name="Head Of Traininig Approval" camunda:assignee="${workflowEmp01.findHeadofTrainingAndContinousEducation(applicant,task)} ">
+    <bpmn:userTask id="User_Task_Head_Of_Training" name="Head Of Traininig Approval">
+      <bpmn:extensionElements>
+        <camunda:taskListener expression="${workflowEmp01.findHeadofTrainingAndContinousEducation(applicant,task)} " event="create" />
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_10</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="Task_Check_User_Type" name="check the user is HT &#38; C" camunda:expression="${workflowEmp01.checkTheUserIsHeadOfTraining(applicant,execution)} ">
+      <bpmn:extensionElements>
+        <camunda:executionListener expression="${workflowEmp01.checkTheUserIsHeadOfTraining(applicant,execution)} " event="start" />
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0fzpcg2</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_10co7ao</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -63,7 +69,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_10" sourceRef="User_Task_Head_Of_Training" targetRef="ExclusiveGateway_3" />
     <bpmn:sequenceFlow id="SequenceFlow_11" name="yes" sourceRef="ExclusiveGateway_3" targetRef="Task_Approved">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${th_head == 'approved'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${immanager == 'approved'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="EndEvent_2">
       <bpmn:incoming>SequenceFlow_14</bpmn:incoming>
@@ -90,7 +96,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${immanager == 'approved'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0j7ui4p" sourceRef="ExclusiveGateway_3" targetRef="Task_Rejection_1">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${th_head == 'rejected'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${immanager == 'rejected'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Task_Rejection_1" name="Rejected" camunda:expression="${workflowEmp01.rejectionAction(applicant)}">
       <bpmn:incoming>SequenceFlow_0j7ui4p</bpmn:incoming>

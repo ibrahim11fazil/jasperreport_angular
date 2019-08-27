@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import qa.gov.customs.training.config.Publisher;
 import qa.gov.customs.training.entity.TacInstructorMaster;
 import qa.gov.customs.training.entity.TacWorkflowReference;
 import qa.gov.customs.training.models.UserRequestModel;
@@ -26,6 +27,8 @@ import java.math.BigDecimal;
 @RestController
 public class EmployeeRequestController {
 
+    @Autowired
+    Publisher publisher;
 
     @Autowired
     EmployeeRequestService requestService;
@@ -49,8 +52,10 @@ public class EmployeeRequestController {
                 if(submitedRequest!=null) {
                     logger.info("Course request Created");
                     //TODO send to the workflow server --- check
-                    workFlowProxyService.startProcessInstance(
-                            createUserRequestForWorkflow(submitedRequest,principal),token);
+                    submitedRequest.setJobId(principal.getJid());
+                    publisher.produceWorkFlowRequest(submitedRequest);
+//                    workFlowProxyService.startProcessInstance(
+//                            createUserRequestForWorkflow(submitedRequest,principal),token);
                     return  get(201, MessageUtil.REQUEST_CREATED, true, submitedRequest);
                 }
                 else {
