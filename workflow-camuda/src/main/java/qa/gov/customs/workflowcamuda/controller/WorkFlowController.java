@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
+import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -193,6 +194,22 @@ public class WorkFlowController {
     @RequestMapping(value="/process-history-task-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<HistoricTaskInstance> getHistoryByTaskId(@RequestBody UserTaskModel assignee) {
         return workflowServiceEmp.getUserTaskByTaskIdId(assignee.getExecutionId());
+        //return assignee;
+    }
+
+
+    //TODO: Note-Get the task based on execution Id, This is important
+    @RequestMapping(value="/task-comments", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<Comment> getComments(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getComments(assignee.getTaskId());
+        //return assignee;
+    }
+
+
+    @RequestMapping(value="/save-comment", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public Comment saveComment(@RequestBody UserTaskModel assignee) {
+        //TODO check all fields are not null
+        return workflowServiceEmp.saveComment(assignee.getTaskId(),assignee.getProcessInstanceId(),assignee.getCommandMessage());
         //return assignee;
     }
 

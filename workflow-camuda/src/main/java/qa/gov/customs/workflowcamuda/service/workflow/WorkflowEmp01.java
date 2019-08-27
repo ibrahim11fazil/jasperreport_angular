@@ -13,6 +13,7 @@ import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,6 +127,17 @@ public class WorkflowEmp01 {
                 .orderByVariableName().asc()
                 .list();
 
+    }
+
+
+    public List<Comment> getComments(String taskId) {
+        return taskService.getTaskComments(taskId);
+
+    }
+
+
+    public Comment saveComment(String taskId,String processInstanceId, String message){
+        return taskService.createComment(taskId,processInstanceId,message);
     }
 
     public List<HistoricDetail> getUserTaskByExecutionIdId(String executionId) {
