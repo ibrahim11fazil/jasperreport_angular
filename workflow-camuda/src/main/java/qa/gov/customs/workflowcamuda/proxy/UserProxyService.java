@@ -32,4 +32,7 @@ public interface UserProxyService {
     @PostMapping("/check-the-user-is-head-of-training/{id}/{wtoken}")
     ResponseType checkUserIsHeadOfTraining(@PathVariable("id") String id,@PathVariable("wtoken") String wtoken);
 
+    @PostMapping("/check-the-user-is-manager/{id}/{did}/{wtoken}")
+    ResponseType checkUserIsManager(@PathVariable("id") String id,@PathVariable("did") String did,@PathVariable("wtoken") String wtoken);
+
 }

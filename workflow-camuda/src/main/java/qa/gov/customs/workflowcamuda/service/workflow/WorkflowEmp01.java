@@ -249,6 +249,30 @@ public class WorkflowEmp01 {
     }
 
 
+    public void checkTheUserIsManager(UserRequestModel model, DelegateExecution execution) {
+        Boolean status = false;
+        String errorCase = "";
+        System.out.println("checkUserIsManager" + model.getEmail());
+        ResponseType userdata = userProxyService.checkUserIsManager(model.getJobId(),model.getDepartmentId(), workflowToken);
+        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
+            ObjectMapper mapper = new ObjectMapper();
+            status = mapper.convertValue(
+                    userdata.getData(),
+                    new TypeReference<Boolean>() {
+                    });
+            logger.info("checkUserIsManager" + status.toString() );
+            if (status) {
+                execution.setVariable("resultcheckval_manager", "yes");
+            } else {
+                execution.setVariable("resultcheckval_manager", "no");
+            }
+        } else {
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+        }
+    }
+
+
     public void rejectionAction(UserRequestModel model) {
         System.out.println("Rejected" + model.getEmail());
         String message = "Request rejected for course " + model.getCourseName();
