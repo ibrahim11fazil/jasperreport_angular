@@ -57,7 +57,7 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
   rabbitmq:
-    host: ${RABBITMQ_HOST:localhost}
+    host: ${RABBITMQ_HOST:172.16.0.254}
     port: 5672
     username: ${RABBITMQ_USER:quest}
     password: ${RABBITMQ_PASSWORD:quest}
