@@ -139,7 +139,7 @@ public class EmployeeWorkflowController {
 
 
     @PostMapping("/check-the-user-is-manager/{id}/{did}/{token}")
-    ResponseType checkUserIsManager(@PathVariable("id") String id,@PathVariable("did") String did,@PathVariable("wtoken") String token)
+    ResponseType checkUserIsManager(@PathVariable("id") String id,@PathVariable("did") String did,@PathVariable("token") String token)
     {
         if(token!=null && token.equals(training_token)) {
             logger.info("Received ### request received deptid" + did + "jobid: "+ id);
