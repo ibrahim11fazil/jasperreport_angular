@@ -40,7 +40,7 @@ public class EmployeeWorkflowController {
                     // TODO  Get Delegation too and set to the Request
                     logger.info("RESOURCE_CHECKING ###" );
                     if (immediateManagers.size() > 0) {
-                        logger.info("RESOURCE_CHECKING ###" + immediateManagers.get(0).getLegacyCode());
+                        logger.info("RESOURCE_CHECKING ###" + immediateManagers.get(0).getImLegacyCode());
                         return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                                 immediateManagers.get(0));
                     } else {
@@ -117,7 +117,7 @@ public class EmployeeWorkflowController {
     public ResponseType checkUserIsHeadOfTraining(@PathVariable("id") String id,@PathVariable("token") String token){
         if(token!=null && token.equals(training_token)) {
             logger.info("Recieved ### request received");
-            List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-2");
+            List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-1");
             if (immediateManagers != null && immediateManagers.size() > 0) {
 
                 if(immediateManagers.get(0).getLegacyCode().equals(id)){

@@ -38,6 +38,7 @@ public class UserRequestModel implements Serializable {
     private String courseActivationId;
 
 
+
     public String getCourseActivationId() {
         return courseActivationId;
     }

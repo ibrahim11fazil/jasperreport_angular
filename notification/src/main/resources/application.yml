@@ -11,9 +11,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: ${TAC_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
-    username: ${TAC_DB_URL_USER:Cust_Tac}
-    password: ${TAC_DB_URL_PASWORD:tac4tst123}
+    url: ${EMPLOYEE_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
+    username: ${EMPLOYEE_DB_URL_USER:CUST_EMPLOYEE}
+    password: ${EMPLOYEE_DB_URL_PASWORD:cemp4tst123}
     driver-class-name: oracle.jdbc.OracleDriver
   dbcp2:
     test-while-idle: true
@@ -29,6 +29,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.Oracle10gDialect
         max_fetch_depth: 1
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: 5672
+    username: ${RABBITMQ_USER:quest}
+    password: ${RABBITMQ_PASSWORD:quest}
 
 security:
   oauth2:
@@ -121,3 +126,9 @@ logging:
   file: logs/notificaiton.log
 
 workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
+
+notification:
+  rabbitmq:
+    queue: notification_queue
+    exchange: notification_exchange
+    routingkey: notification_routingkey

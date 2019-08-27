@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
+import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,7 @@ public class WorkFlowController {
         EmpModel requestedEmployee = null;
         boolean createdStatus=false;
         if(request!=null && request.getWorkflowType()!=null){
-            asyncWorkflowStartAction( request,  token,  principal);
+            asyncWorkflowStartAction( request);
             logger.info("Success ###");
             ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, createdStatus,
                     null);
@@ -74,14 +75,14 @@ public class WorkFlowController {
 
     }
 
-    @Async("asynchronousListenerExecutor")
-    public void asyncWorkflowStartAction(UserRequestModel request, String token, CustomPrincipal principal){
+//    @Async("asynchronousListenerExecutor")
+    public void asyncWorkflowStartAction(UserRequestModel request){
         EmpModel requestedEmployee = null;
         boolean createdStatus=false;
         try {
-            logger.info("### Request started for user" + principal.getJid());
+            logger.info("### Request started for user" + request.getJobId());
             //TODO need to change the request.getUserId() to  principal.getJid()
-            ResponseType userdata = userProxyService.getUserById(principal.getJid(),training_token);
+            ResponseType userdata = userProxyService.getUserById(request.getJobId(),training_token);
             if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
                 ObjectMapper mapper = new ObjectMapper();
                 requestedEmployee = mapper.convertValue(
@@ -193,6 +194,22 @@ public class WorkFlowController {
     @RequestMapping(value="/process-history-task-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<HistoricTaskInstance> getHistoryByTaskId(@RequestBody UserTaskModel assignee) {
         return workflowServiceEmp.getUserTaskByTaskIdId(assignee.getExecutionId());
+        //return assignee;
+    }
+
+
+    //TODO: Note-Get the task based on execution Id, This is important
+    @RequestMapping(value="/task-comments", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<Comment> getComments(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getComments(assignee.getTaskId());
+        //return assignee;
+    }
+
+
+    @RequestMapping(value="/save-comment", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public Comment saveComment(@RequestBody UserTaskModel assignee) {
+        //TODO check all fields are not null
+        return workflowServiceEmp.saveComment(assignee.getTaskId(),assignee.getProcessInstanceId(),assignee.getCommandMessage());
         //return assignee;
     }
 

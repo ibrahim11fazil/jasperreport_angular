@@ -33,7 +33,9 @@ public class WorkflowController {
     private static final Logger logger = LoggerFactory.getLogger(WorkflowController.class);
 
     @PostMapping(value="/update-workflow/{id}/{status}/{token}")
-    ResponseType updateWorkFlow(@PathVariable("id") String id, @PathVariable("status") String status, @PathVariable("token") String token){
+    ResponseType updateWorkFlow(@PathVariable("id") String id,
+                                @PathVariable("status") String status,
+                                @PathVariable("token") String token){
         if(token!=null && token.equals(workflowToken)) {
             logger.info("Recieved ### request received");
             TacWorkflowReference reference = requestService.findById(id);
