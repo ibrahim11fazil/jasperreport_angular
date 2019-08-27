@@ -5,6 +5,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.notification.model.NotificationModel;
 
+import java.util.Date;
+
 @Service
 public class NotificationService {
 
@@ -14,13 +16,19 @@ public class NotificationService {
     @Autowired
     SmsService smsService;
 
+
+
+
     public void sendNotification(NotificationModel model){
+        int emailError=0;
+        int smsError=0;
         if (model.getIsEmail() == 1 && model.getToAddress() != null && model.getEmailBody() != null) {
             try {
                 emailService.sendmail(model);
             } catch (Exception e) {
                 e.printStackTrace();
                 //TODO log it
+                emailError=1;
             }
         }
 
@@ -29,8 +37,17 @@ public class NotificationService {
                 smsService.sendSms(model);
             } catch (Exception e) {
                 e.printStackTrace();
+                smsError=1;
                 //TODO log it
             }
         }
+
+        //TODO save to DB
+        // save with current time
+        //TODO Date createdOn = new Date();
+
     }
+
+
+
 }
