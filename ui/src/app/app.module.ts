@@ -45,7 +45,7 @@ import { HorizontalMenuItems } from './core/menu/horizontal-menu-items/horizonta
 import { WidgetComponentModule } from './widget-component/widget-component.module';
 import { HorizontalLayoutComponent } from './horizontal-layout/horizontal-layout.component';
 import { PagesModule } from './pages/pages.module';
-import {HttpInterceptorJwtauthService} from "./service/http/http-interceptor-jwtauth.service";
+import {HttpInterceptorJwtauthService, HttpResponseInterceptor} from "./service/http/http-interceptor-jwtauth.service";
 import { LanguageUtil } from './app.language';
 //import { EmpRequestComponent } from './triaing/emp-request/emp-request.component';
 
@@ -145,6 +145,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
 		},
 		{provide: HTTP_INTERCEPTORS,useClass:HttpInterceptorJwtauthService,multi:true},
+		{provide: HTTP_INTERCEPTORS,useClass:HttpResponseInterceptor,multi:true},
 		AuthGuard
 	],
    schemas: [CUSTOM_ELEMENTS_SCHEMA]

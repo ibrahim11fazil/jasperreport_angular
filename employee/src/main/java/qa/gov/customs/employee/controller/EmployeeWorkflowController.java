@@ -116,7 +116,7 @@ public class EmployeeWorkflowController {
     @PostMapping("/check-the-user-is-head-of-training/{id}/{token}")
     public ResponseType checkUserIsHeadOfTraining(@PathVariable("id") String id,@PathVariable("token") String token){
         if(token!=null && token.equals(training_token)) {
-            logger.info("Recieved ### request received");
+            logger.info("Received ### request received");
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-1");
             if (immediateManagers != null && immediateManagers.size() > 0) {
 
@@ -136,6 +136,35 @@ public class EmployeeWorkflowController {
                     null);
         }
     }
+
+
+    @PostMapping("/check-the-user-is-manager/{id}/{did}/{token}")
+    ResponseType checkUserIsManager(@PathVariable("id") String id,@PathVariable("did") String did,@PathVariable("token") String token)
+    {
+        if(token!=null && token.equals(training_token)) {
+            logger.info("Received ### request received deptid" + did + "jobid: "+ id);
+            List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager(did, "1-1");
+            if (immediateManagers != null && immediateManagers.size() > 0) {
+                if(immediateManagers.get(0).getLegacyCode().equals(id)){
+                    return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                            true);
+                }else{
+                    return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                            false);
+                }
+            } else {
+                return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+                        null);
+            }
+        }else{
+            return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
+                    null);
+        }
+    }
+
+
+
+
 
     ResponseType  get(int code, String message, boolean status, Object data){
         ResponseType response = new ResponseType(code,message, status,
