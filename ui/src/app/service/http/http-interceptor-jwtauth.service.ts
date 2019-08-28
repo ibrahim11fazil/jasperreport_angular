@@ -12,7 +12,7 @@ export class HttpInterceptorJwtauthService implements HttpInterceptor {
   
  
    token=''
-  constructor(private loginService:AuthService,toast:ToastrService) {
+  constructor(private loginService:AuthService,private toast:ToastrService) {
     this.token ='Bearer ' +this.loginService.getToken();
 
   }
@@ -27,37 +27,44 @@ export class HttpInterceptorJwtauthService implements HttpInterceptor {
      
     }})
   }
+   
+   if(request instanceof HttpResponse){
+    if(request.status==401 || request.status==403){
+      //TODO toast and redirect
+      this.toast.error("Session Expired")
+    }
+   }
+
    return next.handle(request);
   }
 
 }
 
 
-export class HttpResponseInterceptor implements HttpInterceptor {
+// export class HttpResponseInterceptor implements HttpInterceptor {
 
-  constructor(private toast:ToastrService) {
+//   constructor(private toast:ToastrService) {
 
-  }
+//   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): import("rxjs").Observable<import("@angular/common/http").HttpEvent<any>> 
-  {
-    
-    return next.handle(req).pipe(
-        tap(evt => {
-            if (evt instanceof HttpResponse) {
-              if(evt.status==401 || evt.status==403){
-                   //TODO toast and redirect
-                   this.toast.error("Session Expired")
-              }
-            }
-        }),
-        catchError((err: any) => {
-            if(err instanceof HttpErrorResponse) {
-                   //Error TODO toast and redirect
-                   this.toast.error("Session Expired")
-            }
-            return of(err);
-        }));
+//   intercept(req: HttpRequest<any>, next: HttpHandler)
+//   { 
 
-  }
-}
+//     return next.handle(req).pipe(
+//         tap(evt => {
+//             if (evt instanceof HttpResponse) {
+//               if(evt.status==401 || evt.status==403){
+//                    //TODO toast and redirect
+//                    this.toast.error("Session Expired")
+//               }
+//             }
+//         }),
+//         catchError((err: any) => {
+//             if(err instanceof HttpErrorResponse) {
+//                    //Error TODO toast and redirect
+//                    this.toast.error("Session Expired")
+//             }
+//             return of(err);
+//         }));
+//   }
+// }
