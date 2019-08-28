@@ -144,6 +144,7 @@ export class AuthService {
    }
 
     getToken(){
+       try{
         this.userData = JSON.parse(localStorage.getItem("userProfile"));
         if(this.userData) {
             var json = this.userData;
@@ -153,6 +154,9 @@ export class AuthService {
         } else {
             return null;
         }
+      }catch(ex){
+         return null
+      }
     }
 
     checktheRoleisHR(){
