@@ -37,7 +37,42 @@ public class UserRequestModel implements Serializable {
 
     private String courseActivationId;
 
+    private String forUserJobId;
+    private String forUserjobTitle;
+    private String forUsercnameAr;
+    private String forUserQid;
 
+    public String getForUserJobId() {
+        return forUserJobId;
+    }
+
+    public void setForUserJobId(String forUserJobId) {
+        this.forUserJobId = forUserJobId;
+    }
+
+    public String getForUserjobTitle() {
+        return forUserjobTitle;
+    }
+
+    public void setForUserjobTitle(String forUserjobTitle) {
+        this.forUserjobTitle = forUserjobTitle;
+    }
+
+    public String getForUsercnameAr() {
+        return forUsercnameAr;
+    }
+
+    public void setForUsercnameAr(String forUsercnameAr) {
+        this.forUsercnameAr = forUsercnameAr;
+    }
+
+    public String getForUserQid() {
+        return forUserQid;
+    }
+
+    public void setForUserQid(String forUserQid) {
+        this.forUserQid = forUserQid;
+    }
 
     public String getCourseActivationId() {
         return courseActivationId;
