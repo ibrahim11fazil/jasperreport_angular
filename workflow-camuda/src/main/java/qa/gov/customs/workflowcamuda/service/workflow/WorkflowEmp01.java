@@ -33,7 +33,8 @@ import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 import javax.transaction.Transactional;
 import java.util.*;
 
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_1_PROCESS;
+import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
+import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_4_CIS_COURSE_REQUEST;
 
 @Component
 @Qualifier("workflowEmp01")
@@ -70,10 +71,11 @@ public class WorkflowEmp01 {
 
 
     //Initial process for all requests
-    public boolean startProcess(UserRequestModel model) {
+    public boolean startProcessWFType1(UserRequestModel model,String type) {
         model.setCreatedOn(new Date().toString());
+        logger.info("workflow started of type " + type);
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(type, vars);
         System.out.println(">>>>>>>> " + processInstance.getId());
         boolean status = userRequestAndCompleteTask(model, processInstance.getId());
         if (status)

@@ -31,8 +31,7 @@ import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST;
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION;
+import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 
 @RestController
 public class WorkFlowController {
@@ -99,17 +98,9 @@ public class WorkFlowController {
                 request.setSecionCode(requestedEmployee.getSecionCode());
                 request.setJobId(requestedEmployee.getJobId());
                 request.setJobTitle(requestedEmployee.getJobTitle());
-                switch (request.getWorkflowType()) {
-                    case TYPE_1_EMPLOYEE_REQUEST:
-                        createdStatus =   workflowServiceEmp.startProcess(request);
-                        logger.info("TYPE_1_EMPLOYEE_REQUEST ###");
-                        break;
-                    case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
+                createdStatus =   workflowServiceEmp.startProcessWFType1(request,request.getWorkflowType());
 
-                        break;
-                    default:
-                        logger.info("no action created");
-                }
+
             }else{
 //                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
 //                        null);
