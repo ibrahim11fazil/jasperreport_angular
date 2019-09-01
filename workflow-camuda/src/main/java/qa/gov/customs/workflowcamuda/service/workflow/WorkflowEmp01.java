@@ -80,7 +80,10 @@ public class WorkflowEmp01 {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
         }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
-        }else if(type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
+        }else if(type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_3_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_4_PROCESS, vars);
         }
         System.out.println(">>>>>>>> " + processInstance.getId());
