@@ -29,6 +29,9 @@ public interface UserProxyService {
     @PostMapping(value="/get-head-of-training-and-continuing-edu/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)
     ResponseType getTrainingDepartmentHead(@PathVariable("wtoken") String wtoken);
 
+    @PostMapping(value="/get-legal-head/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)
+    ResponseType getLegalManager(@PathVariable("wtoken") String wtoken);
+
     @PostMapping("/check-the-user-is-head-of-training/{id}/{wtoken}")
     ResponseType checkUserIsHeadOfTraining(@PathVariable("id") String id,@PathVariable("wtoken") String wtoken);
 

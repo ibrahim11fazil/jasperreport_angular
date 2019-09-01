@@ -22,19 +22,20 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.config.Publisher;
-import qa.gov.customs.workflowcamuda.controller.WorkFlowController;
+
 import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
 import qa.gov.customs.workflowcamuda.proxy.TrainingProxyService;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
 import qa.gov.customs.workflowcamuda.service.RequestService;
+import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import javax.transaction.Transactional;
 import java.util.*;
 
 import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_4_CIS_COURSE_REQUEST;
+
 
 @Component
 @Qualifier("workflowEmp01")
@@ -73,9 +74,15 @@ public class WorkflowEmp01 {
     //Initial process for all requests
     public boolean startProcessWFType1(UserRequestModel model,String type) {
         model.setCreatedOn(new Date().toString());
-        logger.info("workflow started of type " + type);
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(type, vars);
+        ProcessInstance processInstance = null;
+        if(type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)){
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+        }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
+        }else if(type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_4_PROCESS, vars);
+        }
         System.out.println(">>>>>>>> " + processInstance.getId());
         boolean status = userRequestAndCompleteTask(model, processInstance.getId());
         if (status)
@@ -195,6 +202,13 @@ public class WorkflowEmp01 {
     //Find the Training Head
     public void findHeadofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
         ResponseType userdata = userProxyService.getTrainingDepartmentHead(workflowToken);
+        taskActionByUser(model, userdata, task);
+        //return "Jijo-3";
+    }
+
+    //Find the Legal Head
+    public void findLegalManager(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getLegalManager(workflowToken);
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
     }

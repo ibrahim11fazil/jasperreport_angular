@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -100,6 +101,25 @@ public class EmployeeWorkflowController {
         if(token!=null && token.equals(training_token)) {
             logger.info("Recieved ### request received");
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-2");
+            if (immediateManagers != null && immediateManagers.size() > 0) {
+                return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                        immediateManagers.get(0));
+            } else {
+                return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+                        null);
+            }
+        }else{
+            return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
+                    null);
+        }
+    }
+
+
+    @PostMapping(value="/get-legal-head/{token}",consumes= MediaType.APPLICATION_JSON_VALUE)
+    ResponseType getLegalManager(@PathVariable("wtoken") String token){
+        if(token!=null && token.equals(training_token)) {
+            logger.info("Recieved ### request received");
+            List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10001727", "1-2");
             if (immediateManagers != null && immediateManagers.size() > 0) {
                 return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                         immediateManagers.get(0));
