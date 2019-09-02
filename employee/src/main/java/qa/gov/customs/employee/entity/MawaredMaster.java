@@ -186,7 +186,6 @@ public class MawaredMaster {
     String PSLEVEL	;
 //    @Column(name="DEPTYPE")
 //    String DEPTYPE	;
-
 //    @Column(name="DEPTYPE_DESC")
 //    String DEPTYPE_DESC	;
 //    @Column(name="DEPNAME")

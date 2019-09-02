@@ -5,11 +5,13 @@ import org.springframework.data.repository.query.Param;
 import qa.gov.customs.employee.entity.MawaredMaster;
 import qa.gov.customs.employee.models.Department;
 import qa.gov.customs.employee.models.ImmediateManager;
+import qa.gov.customs.employee.repository.MawaredAbsentRepository;
 import qa.gov.customs.employee.utils.models.MawaredGrades;
 import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MawaredService {
@@ -23,6 +25,7 @@ public interface MawaredService {
     List<ImmediateManager> getImmediateManager(String jobId);
     List<Department> getDepartments(String jobId);
     List<ImmediateManager> getDepartmentManager(String departmentId,String jobFamilyShort);
+    Boolean findByQidInDateIn(String qid, Date date);
 
     
 }

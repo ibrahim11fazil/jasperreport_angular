@@ -17,6 +17,7 @@ import qa.gov.customs.employee.utils.Constants;
 import qa.gov.customs.employee.utils.MessageUtil;
 import qa.gov.customs.employee.utils.models.ResponseType;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -151,6 +152,21 @@ public class EmployeeWorkflowController {
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
+        }else{
+            return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
+                    null);
+        }
+    }
+
+
+
+    @PostMapping("/check-the-user-is-absent/{id}/{token}")
+    public ResponseType checkTheUserIsAbsent(@PathVariable("id") String id,@PathVariable("token") String token){
+        if(token!=null && token.equals(training_token)) {
+            logger.info("Received ### request received");
+            Boolean status = mawaredService.findByQidInDateIn(id, new Date());
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    status);
         }else{
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);

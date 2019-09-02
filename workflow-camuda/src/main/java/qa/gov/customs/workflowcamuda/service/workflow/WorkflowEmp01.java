@@ -86,6 +86,13 @@ public class WorkflowEmp01 {
         else if(type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_4_PROCESS, vars);
         }
+        else if(type.equals(TYPE_5_AUDIT_MANAGER_COURSE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_5_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_8_EMPLOYEE_SUBSTITUTE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_8_PROCESS, vars);
+        }
+
         System.out.println(">>>>>>>> " + processInstance.getId());
         boolean status = userRequestAndCompleteTask(model, processInstance.getId());
         if (status)
@@ -293,6 +300,7 @@ public class WorkflowEmp01 {
 
 
     public void rejectionAction(UserRequestModel model) {
+        //TODO rejection based on the workflow
         System.out.println("Rejected" + model.getEmail());
         String message = "Request rejected for course " + model.getCourseName();
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.REJECTED);
@@ -304,6 +312,7 @@ public class WorkflowEmp01 {
     }
 
     public void acceptAction(UserRequestModel model) {
+        //TODO accept based on workflow
         System.out.println("Accepted" + model.getEmail());
         String message = "Request accepted for course " + model.getCourseName();
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);

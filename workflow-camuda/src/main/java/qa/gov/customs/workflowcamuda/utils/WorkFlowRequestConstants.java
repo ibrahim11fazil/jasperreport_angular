@@ -15,4 +15,16 @@ public class WorkFlowRequestConstants {
     public static final String TYPE_4_CIS_COURSE_REQUEST="04_cis_course_request_v_1";
     public static final String TYPE_4_PROCESS="Process_emp_04";
 
+
+    public static final String TYPE_5_AUDIT_MANAGER_COURSE_REQUEST="05_audit_manger_course_request_v_1";
+    public static final String TYPE_5_PROCESS="Process_emp_05";
+
+
+
+    public static final String TYPE_8_EMPLOYEE_SUBSTITUTE_REQUEST="08_emp_substitute_request_v_1";
+    public static final String TYPE_8_PROCESS="Process_emp_08";
+
+
+
+
 }
