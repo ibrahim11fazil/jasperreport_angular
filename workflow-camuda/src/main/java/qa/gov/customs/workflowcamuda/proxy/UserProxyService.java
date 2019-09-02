@@ -42,4 +42,8 @@ public interface UserProxyService {
     @PostMapping("/check-the-user-is-absent/{id}/{wtoken}")
     public ResponseType checkTheUserIsAbsent(@PathVariable("id") String id,@PathVariable("wtoken") String wtoken);
 
+
+    @PostMapping("/get-delegation-for-employee/{id}/{wtoken}")
+    ResponseType getDelegationForEmployee(@PathVariable("id") String id,@PathVariable("wtoken") String wtoken);
+
 }

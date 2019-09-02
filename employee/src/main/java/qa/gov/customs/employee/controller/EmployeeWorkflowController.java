@@ -17,6 +17,7 @@ import qa.gov.customs.employee.utils.Constants;
 import qa.gov.customs.employee.utils.MessageUtil;
 import qa.gov.customs.employee.utils.models.ResponseType;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -167,6 +168,40 @@ public class EmployeeWorkflowController {
             Boolean status = mawaredService.findByQidInDateIn(id, new Date());
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     status);
+        }else{
+            return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
+                    null);
+        }
+    }
+
+
+    @PostMapping("/get-delegation-for-employee/{id}/{token}")
+    public ResponseType getDelegationForEmployee(@PathVariable("id") String id,@PathVariable("token") String token){
+        if(token!=null && token.equals(training_token)) {
+            logger.info("Received ### request received");
+
+            // TODO need to get from the Mawared DB
+            List<ImmediateManager> managers = new ArrayList<>();
+            ImmediateManager one = new ImmediateManager();
+            one.setLegacyCode("4077");
+            one.setcNameAr("Sarath Raj");
+
+            ImmediateManager two = new ImmediateManager();
+            two.setLegacyCode("591");
+            two.setcNameAr("Shahin Olakara");
+
+            ImmediateManager three = new ImmediateManager();
+            three.setLegacyCode("4130");
+            three.setcNameAr("Ajna");
+
+            managers.add(one);
+            managers.add(two);
+            managers.add(three);
+
+            // TODO if no delegation ,add admin also for future delegations
+
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    managers);
         }else{
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
