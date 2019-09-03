@@ -4,18 +4,18 @@
     <bpmn:startEvent id="StartEvent_1xz5da4">
       <bpmn:outgoing>SequenceFlow_0n42ep4</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="ServiceTask_0ng8t8v" name="process Input" camunda:expression="${workflowEmp01.processInput(applicant)} ">
+    <bpmn:serviceTask id="ServiceTask_0ng8t8v" name="process Input" camunda:expression="${workflowImpl.processInput(applicant)} ">
       <bpmn:incoming>SequenceFlow_0n42ep4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0v0l6tm</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:userTask id="UserTask_1kvgero" name="Head Of Traininig Approval">
       <bpmn:extensionElements>
-        <camunda:taskListener expression="${workflowEmp01.findHeadofTrainingAndContinousEducation(applicant,task)} " event="create" />
+        <camunda:taskListener expression="${workflowImpl.findHeadofTrainingAndContinousEducation(applicant,task)} " event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1xhviz8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0vnx7e2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="ServiceTask_03cp7hc" name="Approved and Notification" camunda:expression="${workflowEmp01.acceptAction(applicant)} ">
+    <bpmn:serviceTask id="ServiceTask_03cp7hc" name="Approved and Notification" camunda:expression="${workflowImpl.acceptAction(applicant)} ">
       <bpmn:incoming>SequenceFlow_07ayl5e</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1mwa2v4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1y8hxe8</bpmn:outgoing>
@@ -28,7 +28,7 @@
     <bpmn:endEvent id="EndEvent_0vvnbxq">
       <bpmn:incoming>SequenceFlow_1y8hxe8</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="ServiceTask_11r4i3g" name="Rejected" camunda:expression="${workflowEmp01.rejectionAction(applicant)}">
+    <bpmn:serviceTask id="ServiceTask_11r4i3g" name="Rejected" camunda:expression="${workflowImpl.rejectionAction(applicant)}">
       <bpmn:incoming>SequenceFlow_07iyolx</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1ptvw5b</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_16t5hwj</bpmn:outgoing>
@@ -38,7 +38,7 @@
     </bpmn:endEvent>
     <bpmn:userTask id="UserTask_0j1rl19" name="User Start Request">
       <bpmn:extensionElements>
-        <camunda:taskListener expression="${workflowEmp01.startUserRequest(applicant,task)} " event="create" />
+        <camunda:taskListener expression="${workflowImpl.startUserRequest(applicant,task)} " event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0v0l6tm</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ne52ss</bpmn:outgoing>
@@ -55,7 +55,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_16t5hwj" sourceRef="ServiceTask_11r4i3g" targetRef="EndEvent_17mz9o3" />
     <bpmn:sequenceFlow id="SequenceFlow_1ne52ss" sourceRef="UserTask_0j1rl19" targetRef="ServiceTask_1om9kks" />
-    <bpmn:serviceTask id="ServiceTask_1om9kks" name="check the user is HT &#38; C" camunda:expression="${workflowEmp01.checkTheUserIsHeadOfTraining(applicant,execution)} ">
+    <bpmn:serviceTask id="ServiceTask_1om9kks" name="check the user is HT &#38; C" camunda:expression="${workflowImpl.checkTheUserIsHeadOfTraining(applicant,execution)} ">
       <bpmn:extensionElements>
         <camunda:executionListener expression="${workflowEmp01.checkTheUserIsHeadOfTraining(applicant,execution)} " event="start" />
       </bpmn:extensionElements>
@@ -73,7 +73,7 @@
     </bpmn:sequenceFlow>
     <bpmn:userTask id="UserTask_0hdxg94" name="Immediate Head Approval">
       <bpmn:extensionElements>
-        <camunda:taskListener expression="${workflowEmp01.findHeadOfSectionForEmployee(applicant,task)}" event="create" />
+        <camunda:taskListener expression="${workflowImpl.findHeadOfSectionForEmployee(applicant,task)}" event="create" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0qegeko</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0iup3n4</bpmn:outgoing>

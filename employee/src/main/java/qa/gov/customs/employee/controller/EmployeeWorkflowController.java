@@ -180,32 +180,38 @@ public class EmployeeWorkflowController {
         if(token!=null && token.equals(training_token)) {
             logger.info("Received ### request received");
 
-            // TODO need to get from the Mawared DB
-            List<ImmediateManager> managers = new ArrayList<>();
-            ImmediateManager one = new ImmediateManager();
-            one.setLegacyCode("4077");
-            one.setcNameAr("Sarath Raj");
 
-            ImmediateManager two = new ImmediateManager();
-            two.setLegacyCode("591");
-            two.setcNameAr("Shahin Olakara");
-
-            ImmediateManager three = new ImmediateManager();
-            three.setLegacyCode("4130");
-            three.setcNameAr("Ajna");
-
-            managers.add(one);
-            managers.add(two);
-            managers.add(three);
 
             // TODO if no delegation ,add admin also for future delegations
 
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-                    managers);
+                    getDummyUser());
         }else{
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
+    }
+
+
+    List<ImmediateManager> getDummyUser(){
+        // TODO need to get from the Mawared DB
+        List<ImmediateManager> managers = new ArrayList<>();
+        ImmediateManager one = new ImmediateManager();
+        one.setLegacyCode("4077");
+        one.setcNameAr("Sarath Raj");
+
+        ImmediateManager two = new ImmediateManager();
+        two.setLegacyCode("591");
+        two.setcNameAr("Shahin Olakara");
+
+        ImmediateManager three = new ImmediateManager();
+        three.setLegacyCode("4130");
+        three.setcNameAr("Ajna");
+
+        managers.add(one);
+        managers.add(two);
+        managers.add(three);
+        return managers;
     }
 
 

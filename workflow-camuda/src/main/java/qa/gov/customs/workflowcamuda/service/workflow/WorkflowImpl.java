@@ -3,7 +3,6 @@ package qa.gov.customs.workflowcamuda.service.workflow;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.netflix.discovery.converters.Auto;
 import org.camunda.bpm.engine.HistoryService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
@@ -38,8 +37,8 @@ import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 
 
 @Component
-@Qualifier("workflowEmp01")
-public class WorkflowEmp01 {
+@Qualifier("workflowImpl")
+public class WorkflowImpl {
 
     private final UserProxyService userProxyService;
     private final NotificationProxyService notificationProxyService;
@@ -59,12 +58,12 @@ public class WorkflowEmp01 {
     private Publisher publisher;
 
 
-    private static final Logger logger = LoggerFactory.getLogger(WorkflowEmp01.class);
+    private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
 
     @Autowired
-    public WorkflowEmp01(UserProxyService userProxyService,
-                         NotificationProxyService notificationProxyService,
-                         TrainingProxyService trainingProxyService) {
+    public WorkflowImpl(UserProxyService userProxyService,
+                        NotificationProxyService notificationProxyService,
+                        TrainingProxyService trainingProxyService) {
         this.userProxyService = userProxyService;
         this.notificationProxyService = notificationProxyService;
         this.trainingProxyService = trainingProxyService;
@@ -223,6 +222,22 @@ public class WorkflowEmp01 {
         //return "Jijo-3";
     }
 
+
+    public Boolean getDelegationStatus(String userId){
+        try {
+            ResponseType userdata = userProxyService.checkTheUserIsAbsent(userId, workflowToken);
+            ObjectMapper mapper = new ObjectMapper();
+            Boolean status = mapper.convertValue(
+                    userdata.getData(),
+                    new TypeReference<Boolean>() {
+                    });
+            return status;
+        }catch (Exception e){
+            logger.error(e.toString());
+            return false;
+        }
+    }
+
     public void taskActionByUser(UserRequestModel model, ResponseType userdata, final DelegateTask task) {
         ImmediateManager manager = null;
         if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
@@ -232,18 +247,24 @@ public class WorkflowEmp01 {
                     new TypeReference<ImmediateManager>() {
                     });
             if (manager != null && manager.getLegacyCode() != null) {
-                List<String> candidateUsers = new ArrayList<String>();
                 task.setAssignee(manager.getImLegacyCode());
                 task.setDescription(manager.getImCnameAr());
-                if (manager.getDelegations() != null && manager.getDelegations().size() > 0) {
-                    manager.getDelegations().forEach(item -> {
-                        task.addCandidateUser(item.getLegacyCode());
-                    });
+                if(getDelegationStatus(manager.getImLegacyCode())) {
+                  ResponseType delegations=   userProxyService.getDelegationForEmployee(manager.getImLegacyCode(),workflowToken);
+                    List<ImmediateManager> otherUsers = null;
+                    otherUsers = mapper.convertValue(
+                            delegations.getData(),
+                            new TypeReference<List<ImmediateManager>>() {
+                            });
+                    if (otherUsers != null && otherUsers.size() > 0) {
+                        otherUsers.forEach(item -> {
+                            task.addCandidateUser(item.getLegacyCode());
+                        });
+                    }
                 }
             } else {
                 requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                 trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
-
             }
         } else {
             requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
