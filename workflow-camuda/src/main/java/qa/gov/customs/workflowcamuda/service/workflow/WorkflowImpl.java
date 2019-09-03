@@ -208,9 +208,31 @@ public class WorkflowImpl {
         taskActionByUser(model, userdata, task);
     }
 
+    //Find the employee manager
+    public void findEmployeeManager(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getEmployeeManager(model.getJobId(), workflowToken);
+        taskActionByUser(model, userdata, task);
+    }
+
+
+    //Find Assistant GM
+    public void findAssistantGM(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getAssistantGeneralManager(workflowToken);
+        taskActionByUser(model, userdata, task);
+    }
+
+
     //Find the Training Head
     public void findHeadofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
         ResponseType userdata = userProxyService.getTrainingDepartmentHead(workflowToken);
+        taskActionByUser(model, userdata, task);
+        //return "Jijo-3";
+    }
+
+
+    //Find the Training Center Manager
+    public void findManagerofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getHeadOfTrainingCenterManager(workflowToken);
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
     }

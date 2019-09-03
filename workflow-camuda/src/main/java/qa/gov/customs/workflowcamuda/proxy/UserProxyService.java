@@ -29,6 +29,9 @@ public interface UserProxyService {
     @PostMapping(value="/get-head-of-training-and-continuing-edu/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)
     ResponseType getTrainingDepartmentHead(@PathVariable("wtoken") String wtoken);
 
+    @PostMapping("/get-head-of-training-center-manager/{wtoken}")
+    public ResponseType getHeadOfTrainingCenterManager(@PathVariable("wtoken") String wtoken);
+
     @PostMapping(value="/get-legal-head/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)
     ResponseType getLegalManager(@PathVariable("wtoken") String wtoken);
 
@@ -45,5 +48,9 @@ public interface UserProxyService {
 
     @PostMapping("/get-delegation-for-employee/{id}/{wtoken}")
     ResponseType getDelegationForEmployee(@PathVariable("id") String id,@PathVariable("wtoken") String wtoken);
+
+
+    @PostMapping("/get-general-manager/{wtoken}")
+    public ResponseType getAssistantGeneralManager(@PathVariable("wtoken") String wtoken);
 
 }

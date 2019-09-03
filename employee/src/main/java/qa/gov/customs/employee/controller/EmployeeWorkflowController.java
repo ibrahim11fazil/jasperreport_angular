@@ -117,6 +117,44 @@ public class EmployeeWorkflowController {
     }
 
 
+    @PostMapping("/get-head-of-training-center-manager/{token}")
+    public ResponseType getHeadOfTrainingCenterManager(@PathVariable("token") String token){
+        if(token!=null && token.equals(training_token)) {
+            logger.info("Recieved ### request received");
+            List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-1");
+            if (immediateManagers != null && immediateManagers.size() > 0) {
+                return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                        immediateManagers.get(0));
+            } else {
+                return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+                        null);
+            }
+        }else{
+            return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
+                    null);
+        }
+    }
+
+    //TODO need to check who is GM
+    @PostMapping("/get-general-manager/{token}")
+    public ResponseType getAssistantGeneralManager(@PathVariable("token") String token){
+        if(token!=null && token.equals(training_token)) {
+            logger.info("Recieved ### request received");
+            List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-1");
+            if (immediateManagers != null && immediateManagers.size() > 0) {
+                return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                        immediateManagers.get(0));
+            } else {
+                return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+                        null);
+            }
+        }else{
+            return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
+                    null);
+        }
+    }
+
+
     @PostMapping(value="/get-legal-head/{token}",consumes= MediaType.APPLICATION_JSON_VALUE)
     ResponseType getLegalManager(@PathVariable("wtoken") String token){
         if(token!=null && token.equals(training_token)) {
