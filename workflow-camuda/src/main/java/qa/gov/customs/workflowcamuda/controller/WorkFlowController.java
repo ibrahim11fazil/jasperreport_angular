@@ -12,27 +12,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.DeferredResult;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
-import qa.gov.customs.workflowcamuda.service.workflow.WorkflowEmp01;
+import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST;
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION;
 
 @RestController
 public class WorkFlowController {
@@ -43,7 +37,7 @@ public class WorkFlowController {
     private String training_token;
 
     @Autowired
-    private WorkflowEmp01 workflowServiceEmp;
+    private WorkflowImpl workflowServiceEmp;
 
     private final UserProxyService userProxyService;
 
@@ -99,17 +93,9 @@ public class WorkFlowController {
                 request.setSecionCode(requestedEmployee.getSecionCode());
                 request.setJobId(requestedEmployee.getJobId());
                 request.setJobTitle(requestedEmployee.getJobTitle());
-                switch (request.getWorkflowType()) {
-                    case TYPE_1_EMPLOYEE_REQUEST:
-                        createdStatus =   workflowServiceEmp.startProcess(request);
-                        logger.info("TYPE_1_EMPLOYEE_REQUEST ###");
-                        break;
-                    case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
+                createdStatus =   workflowServiceEmp.startProcessWFType1(request,request.getWorkflowType());
 
-                        break;
-                    default:
-                        logger.info("no action created");
-                }
+
             }else{
 //                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
 //                        null);

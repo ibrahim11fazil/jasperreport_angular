@@ -3,8 +3,10 @@ package qa.gov.customs.employee.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.employee.entity.MawaredMaster;
+import qa.gov.customs.employee.entity.MawaredUserAbsent;
 import qa.gov.customs.employee.models.Department;
 import qa.gov.customs.employee.models.ImmediateManager;
+import qa.gov.customs.employee.repository.MawaredAbsentRepository;
 import qa.gov.customs.employee.repository.MawaredRepository;
 import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.utils.models.MawaredGrades;
@@ -13,6 +15,7 @@ import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +23,9 @@ public class MawaredServiceImpl implements MawaredService {
 
 	@Autowired
 	MawaredRepository mawaredRepository;
+
+	@Autowired
+	MawaredAbsentRepository mawaredAbsentRepository;
 
 	@Override
 	public List<MawaredMaster> findByLegacyCode(String jobCode) {
@@ -135,6 +141,7 @@ public class MawaredServiceImpl implements MawaredService {
 		return processManagers (objects);
 	}
 
+
 	List<ImmediateManager> processManagers(List<Object[]> objects){
 		List<ImmediateManager> fAreas = new ArrayList<>();
 		for (Object[] o : objects) {
@@ -155,6 +162,19 @@ public class MawaredServiceImpl implements MawaredService {
 			fAreas.add(fArea);
 		}
 		return fAreas;
+	}
+
+
+	@Override
+	public Boolean findByQidInDateIn(String qid, Date date) {
+		Boolean status=false;
+		List<MawaredUserAbsent> absentRepositories = mawaredAbsentRepository.findAllByQidEquals(qid);
+		for (MawaredUserAbsent absent : absentRepositories) {
+			if( date.after(absent.getStartDate()) && date.before(absent.getEndDate())){
+				status=true;
+			}
+		}
+		return status;
 	}
 
 }

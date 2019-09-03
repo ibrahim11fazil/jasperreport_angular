@@ -1,8 +1,7 @@
-package qa.gov.customs.training.models;
+package qa.gov.customs.cis.models;
 
 import java.io.Serializable;
 import java.util.Date;
-
 
 public class UserRequestModel implements Serializable {
 
@@ -31,7 +30,7 @@ public class UserRequestModel implements Serializable {
     private String positionId;
     private String secionCode;
     private String gender;
-    private Date dateofbirth;
+    private Date   dateofbirth;
     private String passport;
     private String iban;
 
