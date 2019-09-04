@@ -58,10 +58,15 @@ export const	GENERAL_COURSE =4
 
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
+<<<<<<< HEAD
  export const BASE_URL ="http://172.16.0.254:9000"
  export const BASE_URL_FILE ="http://172.16.0.254:9000"
 //  export const BASE_URL ="http://10.64.3.32:9000"
 //  export const BASE_URL_FILE ="http://10.64.3.32:9000"
+=======
+//  export const BASE_URL ="http://172.16.0.254:9000"
+//  export const BASE_URL_FILE ="http://172.16.0.254:9000"
+>>>>>>> a99a92aa2c0e8ec122cc3dddf1a3c0a372090194
 //export const BASE_URL ="http://localhost:7777"
 //export const BASE_URL ="http://172.16.0.254:7777"
 
@@ -69,8 +74,8 @@ export const	GENERAL_COURSE =4
 //export const BASE_URL_FILE ="http://172.16.0.254:9021"
 //export const BASE_URL_FILE ="http://172.16.0.254:7777"
 
-//export const BASE_URL ="http://localhost:9000"
-//export const BASE_URL_FILE ="http://localhost:9000"
+export const BASE_URL ="http://localhost:9000"
+export const BASE_URL_FILE ="http://localhost:9000"
 
 //export const BASE_URL ="http://localhost:9000"
 
@@ -91,7 +96,6 @@ if(gateway){
     fileUploading="/fileupload"
     cis="/cis"
     employee="/employee"
-
 }
 
 //http://localhost:9000/authentication/oauth/token

@@ -26,6 +26,52 @@ public class CisCourseRequest {
     String remark;
 
 
+    @Column(name="WORKFLOW_UID")
+    String workFlowUid;
+
+    @Column(name="WORKFLOW_REMARK")
+    String workFlowRemark;
+
+    @Column(name="FROM_USER_CNAME")
+    String fromUserCname;
+
+    @Column(name="TO_USER_CNAME")
+    String toUserCname;
+
+
+
+    public String getWorkFlowUid() {
+        return workFlowUid;
+    }
+
+    public void setWorkFlowUid(String workFlowUid) {
+        this.workFlowUid = workFlowUid;
+    }
+
+    public String getWorkFlowRemark() {
+        return workFlowRemark;
+    }
+
+    public void setWorkFlowRemark(String workFlowRemark) {
+        this.workFlowRemark = workFlowRemark;
+    }
+
+    public String getFromUserCname() {
+        return fromUserCname;
+    }
+
+    public void setFromUserCname(String fromUserCname) {
+        this.fromUserCname = fromUserCname;
+    }
+
+    public String getToUserCname() {
+        return toUserCname;
+    }
+
+    public void setToUserCname(String toUserCname) {
+        this.toUserCname = toUserCname;
+    }
+
     public Long getRequestId() {
         return requestId;
     }

@@ -34,6 +34,81 @@ public class UserRequestModel implements Serializable {
     private String passport;
     private String iban;
 
+    private String courseActivationId;
+
+    private String forUserJobId;
+    private String forUserjobTitle;
+    private String forUsercnameAr;
+    private String forUserQid;
+
+    private String fromUserJobId;
+    private String fromUserCnameAr;
+
+    private String investigationId;
+
+    public String getInvestigationId() {
+        return investigationId;
+    }
+
+    public void setInvestigationId(String investigationId) {
+        this.investigationId = investigationId;
+    }
+
+    public String getFromUserJobId() {
+        return fromUserJobId;
+    }
+
+    public void setFromUserJobId(String fromUserJobId) {
+        this.fromUserJobId = fromUserJobId;
+    }
+
+    public String getFromUserCnameAr() {
+        return fromUserCnameAr;
+    }
+
+    public void setFromUserCnameAr(String fromUserCnameAr) {
+        this.fromUserCnameAr = fromUserCnameAr;
+    }
+
+    public String getForUserJobId() {
+        return forUserJobId;
+    }
+
+    public void setForUserJobId(String forUserJobId) {
+        this.forUserJobId = forUserJobId;
+    }
+
+    public String getForUserjobTitle() {
+        return forUserjobTitle;
+    }
+
+    public void setForUserjobTitle(String forUserjobTitle) {
+        this.forUserjobTitle = forUserjobTitle;
+    }
+
+    public String getForUsercnameAr() {
+        return forUsercnameAr;
+    }
+
+    public void setForUsercnameAr(String forUsercnameAr) {
+        this.forUsercnameAr = forUsercnameAr;
+    }
+
+    public String getForUserQid() {
+        return forUserQid;
+    }
+
+    public void setForUserQid(String forUserQid) {
+        this.forUserQid = forUserQid;
+    }
+
+    public String getCourseActivationId() {
+        return courseActivationId;
+    }
+
+    public void setCourseActivationId(String courseActivationId) {
+        this.courseActivationId = courseActivationId;
+    }
 
     public String getJobId() {
         return jobId;
@@ -235,57 +310,6 @@ public class UserRequestModel implements Serializable {
     public String getCreatedOn() {
         return createdOn;
     }
-
-//    public static class ResponseType {
-//     private int code;
-//     private String message;
-//     private boolean status;
-//     private int count;
-//     private Object data;
-//
-//
-//
-//
-//    public ResponseType(int code, String message, boolean status, Object data) {
-//        super();
-//        this.code = code;
-//        this.message = message;
-//        this.status = status;
-//        this.data = data;
-//    }
-//    public ResponseType() {
-//    }
-//    public int getCode() {
-//        return code;
-//    }
-//    public void setCode(int code) {
-//        this.code = code;
-//    }
-//    public String getMessage() {
-//        return message;
-//    }
-//    public void setMessage(String message) {
-//        this.message = message;
-//    }
-//    public boolean isStatus() {
-//        return status;
-//    }
-//    public void setStatus(boolean status) {
-//        this.status = status;
-//    }
-//    public Object getData() {
-//        return data;
-//    }
-//    public void setData(Object data) {
-//        this.data = data;
-//    }
-//    public int getCount() {
-//        return count;
-//    }
-//    public void setCount(int count) {
-//        this.count = count;
-//    }
-//    }
 
 
     public String getTrainingRequestId() {

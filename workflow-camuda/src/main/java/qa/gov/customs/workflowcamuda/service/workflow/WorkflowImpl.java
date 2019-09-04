@@ -12,29 +12,33 @@ import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import qa.gov.customs.workflowcamuda.model.ImmediateManager;
-import qa.gov.customs.workflowcamuda.model.NotificationModel;
-import qa.gov.customs.workflowcamuda.model.ResponseType;
-import qa.gov.customs.workflowcamuda.model.UserRequestModel;
+import qa.gov.customs.workflowcamuda.config.Publisher;
+
+import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
 import qa.gov.customs.workflowcamuda.proxy.TrainingProxyService;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
 import qa.gov.customs.workflowcamuda.service.RequestService;
+import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import javax.transaction.Transactional;
 import java.util.*;
 
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_1_PROCESS;
+import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
+
 
 @Component
-@Qualifier("workflowEmp01")
-public class WorkflowEmp01 {
+@Qualifier("workflowImpl")
+public class WorkflowImpl {
 
     private final UserProxyService userProxyService;
     private final NotificationProxyService notificationProxyService;
@@ -51,9 +55,15 @@ public class WorkflowEmp01 {
     private RequestService requestService;
 
     @Autowired
-    public WorkflowEmp01(UserProxyService userProxyService,
-                         NotificationProxyService notificationProxyService,
-                         TrainingProxyService trainingProxyService) {
+    private Publisher publisher;
+
+
+    private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
+
+    @Autowired
+    public WorkflowImpl(UserProxyService userProxyService,
+                        NotificationProxyService notificationProxyService,
+                        TrainingProxyService trainingProxyService) {
         this.userProxyService = userProxyService;
         this.notificationProxyService = notificationProxyService;
         this.trainingProxyService = trainingProxyService;
@@ -61,10 +71,27 @@ public class WorkflowEmp01 {
 
 
     //Initial process for all requests
-    public boolean startProcess(UserRequestModel model) {
+    public boolean startProcessWFType1(UserRequestModel model,String type) {
         model.setCreatedOn(new Date().toString());
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+        ProcessInstance processInstance = null;
+        if(type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)){
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+        }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
+        }else if(type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_3_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_4_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_5_AUDIT_MANAGER_COURSE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_5_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_8_EMPLOYEE_SUBSTITUTE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_8_PROCESS, vars);
+        }
+
         System.out.println(">>>>>>>> " + processInstance.getId());
         boolean status = userRequestAndCompleteTask(model, processInstance.getId());
         if (status)
@@ -80,7 +107,6 @@ public class WorkflowEmp01 {
 
     public List<Task> getCandidateTasks(String delegations) {
         //return  taskService.createTaskQuery().taskCandidateUser(delegations).list();
-
         return taskService.createTaskQuery()
                 .or()
                 .taskAssignee(delegations)
@@ -102,6 +128,7 @@ public class WorkflowEmp01 {
             runtimeService.setVariable(executionId, role, action);
             if (message != null && processInstanceId != null)
                 taskService.createComment(taskId, processInstanceId, message);
+            logger.info("Task ### "+taskId );
             taskService.complete(taskId, null);
             return true;
         } catch (Exception e) {
@@ -118,6 +145,17 @@ public class WorkflowEmp01 {
                 .orderByVariableName().asc()
                 .list();
 
+    }
+
+
+    public List<Comment> getComments(String taskId) {
+        return taskService.getTaskComments(taskId);
+
+    }
+
+
+    public Comment saveComment(String taskId,String processInstanceId, String message){
+        return taskService.createComment(taskId,processInstanceId,message);
     }
 
     public List<HistoricDetail> getUserTaskByExecutionIdId(String executionId) {
@@ -160,8 +198,8 @@ public class WorkflowEmp01 {
     }
 
     //get Current User set for the task
-    public String startUserRequest(UserRequestModel model) {
-        return model.getJobId();
+    public void startUserRequest(UserRequestModel model, final DelegateTask task) {
+        task.setAssignee(model.getJobId());
     }
 
     //Find the head of section for the employee or immediate head
@@ -170,11 +208,56 @@ public class WorkflowEmp01 {
         taskActionByUser(model, userdata, task);
     }
 
+    //Find the employee manager
+    public void findEmployeeManager(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getEmployeeManager(model.getJobId(), workflowToken);
+        taskActionByUser(model, userdata, task);
+    }
+
+
+    //Find Assistant GM
+    public void findAssistantGM(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getAssistantGeneralManager(workflowToken);
+        taskActionByUser(model, userdata, task);
+    }
+
+
     //Find the Training Head
     public void findHeadofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
         ResponseType userdata = userProxyService.getTrainingDepartmentHead(workflowToken);
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
+    }
+
+
+    //Find the Training Center Manager
+    public void findManagerofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getHeadOfTrainingCenterManager(workflowToken);
+        taskActionByUser(model, userdata, task);
+        //return "Jijo-3";
+    }
+
+    //Find the Legal Head
+    public void findLegalManager(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getLegalManager(workflowToken);
+        taskActionByUser(model, userdata, task);
+        //return "Jijo-3";
+    }
+
+
+    public Boolean getDelegationStatus(String userId){
+        try {
+            ResponseType userdata = userProxyService.checkTheUserIsAbsent(userId, workflowToken);
+            ObjectMapper mapper = new ObjectMapper();
+            Boolean status = mapper.convertValue(
+                    userdata.getData(),
+                    new TypeReference<Boolean>() {
+                    });
+            return status;
+        }catch (Exception e){
+            logger.error(e.toString());
+            return false;
+        }
     }
 
     public void taskActionByUser(UserRequestModel model, ResponseType userdata, final DelegateTask task) {
@@ -186,18 +269,24 @@ public class WorkflowEmp01 {
                     new TypeReference<ImmediateManager>() {
                     });
             if (manager != null && manager.getLegacyCode() != null) {
-                List<String> candidateUsers = new ArrayList<String>();
-                task.setAssignee(manager.getLegacyCode());
-                task.setDescription(manager.getcNameAr());
-                if (manager.getDelegations() != null && manager.getDelegations().size() > 0) {
-                    manager.getDelegations().forEach(item -> {
-                        task.addCandidateUser(item.getLegacyCode());
-                    });
+                task.setAssignee(manager.getImLegacyCode());
+                task.setDescription(manager.getImCnameAr());
+                if(getDelegationStatus(manager.getImLegacyCode())) {
+                  ResponseType delegations=   userProxyService.getDelegationForEmployee(manager.getImLegacyCode(),workflowToken);
+                    List<ImmediateManager> otherUsers = null;
+                    otherUsers = mapper.convertValue(
+                            delegations.getData(),
+                            new TypeReference<List<ImmediateManager>>() {
+                            });
+                    if (otherUsers != null && otherUsers.size() > 0) {
+                        otherUsers.forEach(item -> {
+                            task.addCandidateUser(item.getLegacyCode());
+                        });
+                    }
                 }
             } else {
                 requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                 trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
-
             }
         } else {
             requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
@@ -216,6 +305,7 @@ public class WorkflowEmp01 {
                     userdata.getData(),
                     new TypeReference<Boolean>() {
                     });
+            logger.info("checkTheUserIsHeadOfTraining" + status.toString() );
             if (status) {
                 execution.setVariable("resultcheckval", "yes");
             } else {
@@ -228,29 +318,60 @@ public class WorkflowEmp01 {
     }
 
 
+    public void checkTheUserIsManager(UserRequestModel model, DelegateExecution execution) {
+        Boolean status = false;
+        String errorCase = "";
+        System.out.println("checkUserIsManager" + model.getEmail());
+        ResponseType userdata = userProxyService.checkUserIsManager(model.getJobId(),model.getDepartmentId(), workflowToken);
+        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
+            ObjectMapper mapper = new ObjectMapper();
+            status = mapper.convertValue(
+                    userdata.getData(),
+                    new TypeReference<Boolean>() {
+                    });
+            logger.info("checkUserIsManager" + status.toString() );
+            if (status) {
+                execution.setVariable("resultcheckval_manager", "yes");
+            } else {
+                execution.setVariable("resultcheckval_manager", "no");
+            }
+        } else {
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+        }
+    }
+
+
     public void rejectionAction(UserRequestModel model) {
+        //TODO rejection based on the workflow
         System.out.println("Rejected" + model.getEmail());
         String message = "Request rejected for course " + model.getCourseName();
-        notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.REJECTED);
-        trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.REJECTED, workflowToken);
+        logger.info("Rejected ### ");
+        publisher.sendNotification(createNotification(model, message));
+        publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(),WorkflowStatus.REJECTED));
+        //notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
+        //trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.REJECTED, workflowToken);
     }
 
     public void acceptAction(UserRequestModel model) {
+        //TODO accept based on workflow
         System.out.println("Accepted" + model.getEmail());
         String message = "Request accepted for course " + model.getCourseName();
-        notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
-        trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.APPROVED, workflowToken);
+        //notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
+        //trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.APPROVED, workflowToken);
+        publisher.sendNotification(createNotification(model, message));
+        publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(),WorkflowStatus.APPROVED));
     }
 
     NotificationModel createNotification(UserRequestModel model, String message) {
         NotificationModel notificationModel = new NotificationModel();
         notificationModel.setEmailBody(message);
         notificationModel.setSmsBody(message);
-        notificationModel.setEmailBody(model.getEmail());
+        notificationModel.setToAddress(model.getEmail());
+        notificationModel.setEmailSubject("Customs Notification");
         notificationModel.setPhoneNumber(model.getMobile());
-
         if (model.getEmail() != null) {
             notificationModel.setIsEmail(1);
         } else {

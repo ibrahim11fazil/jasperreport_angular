@@ -30,7 +30,18 @@ public class TacWorkflowReference {
     @Column(name="CREATED_ON")
     Date createdOn;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name="UPDATED_ON")
+    Date updatedOn;
 
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
+    }
 
     public String getWorkflowId() {
         return workflowId;

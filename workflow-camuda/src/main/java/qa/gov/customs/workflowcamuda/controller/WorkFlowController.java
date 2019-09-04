@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
+import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,24 +21,23 @@ import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
-import qa.gov.customs.workflowcamuda.service.workflow.WorkflowEmp01;
+import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST;
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION;
-
 @RestController
 public class WorkFlowController {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkFlowController.class);
 
+    @Value("${workflowtoken}")
+    private String training_token;
 
     @Autowired
-    private WorkflowEmp01 workflowServiceEmp;
+    private WorkflowImpl workflowServiceEmp;
 
     private final UserProxyService userProxyService;
 
@@ -53,10 +54,29 @@ public class WorkFlowController {
         EmpModel requestedEmployee = null;
         boolean createdStatus=false;
         if(request!=null && request.getWorkflowType()!=null){
-            try {
-                logger.info("### Request started for user" + principal.getJid());
-                //TODO need to change the request.getUserId() to  principal.getJid()
-            ResponseType userdata = userProxyService.getUserById(principal.getJid(),token);
+            asyncWorkflowStartAction( request);
+            logger.info("Success ###");
+            ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, createdStatus,
+                    null);
+            return response;
+        }else{
+            logger.info("Failed ###");
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                    null);
+            return response;
+        }
+
+
+    }
+
+//    @Async("asynchronousListenerExecutor")
+    public void asyncWorkflowStartAction(UserRequestModel request){
+        EmpModel requestedEmployee = null;
+        boolean createdStatus=false;
+        try {
+            logger.info("### Request started for user" + request.getJobId());
+            //TODO need to change the request.getUserId() to  principal.getJid()
+            ResponseType userdata = userProxyService.getUserById(request.getJobId(),training_token);
             if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
                 ObjectMapper mapper = new ObjectMapper();
                 requestedEmployee = mapper.convertValue(
@@ -73,47 +93,28 @@ public class WorkFlowController {
                 request.setSecionCode(requestedEmployee.getSecionCode());
                 request.setJobId(requestedEmployee.getJobId());
                 request.setJobTitle(requestedEmployee.getJobTitle());
+                createdStatus =   workflowServiceEmp.startProcessWFType1(request,request.getWorkflowType());
+
 
             }else{
-                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-                        null);
-                return response;
+//                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+//                        null);
+//                return response;
+                //TODO log error
+                logger.info("error in async2 ");
             }
-
-                switch (request.getWorkflowType()) {
-                    case TYPE_1_EMPLOYEE_REQUEST:
-                        createdStatus =   workflowServiceEmp.startProcess(request);
-                        break;
-                    case TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SESION:
-                        break;
-                    default:
-                        logger.info("no action created");
-                 }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-                        null);
-                return response;
-            }
-            if(createdStatus) {
-                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, createdStatus,
-                        null);
-                return response;
-            }else{
-                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, false,
-                        null);
-                return response;
-            }
-
-        }else{
-            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-                    null);
-            return response;
         }
-
-
+        catch (Exception e){
+            e.printStackTrace();
+//            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+//                    null);
+//            return response;
+            //TODO log error
+            logger.info("error in async");
+        }
     }
+
+
 
     @RequestMapping(value="/my-tasks", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<TaskRepresentation> getTasks(@RequestParam String assignee) {
@@ -179,6 +180,22 @@ public class WorkFlowController {
     @RequestMapping(value="/process-history-task-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<HistoricTaskInstance> getHistoryByTaskId(@RequestBody UserTaskModel assignee) {
         return workflowServiceEmp.getUserTaskByTaskIdId(assignee.getExecutionId());
+        //return assignee;
+    }
+
+
+    //TODO: Note-Get the task based on execution Id, This is important
+    @RequestMapping(value="/task-comments", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<Comment> getComments(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getComments(assignee.getTaskId());
+        //return assignee;
+    }
+
+
+    @RequestMapping(value="/save-comment", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public Comment saveComment(@RequestBody UserTaskModel assignee) {
+        //TODO check all fields are not null
+        return workflowServiceEmp.saveComment(assignee.getTaskId(),assignee.getProcessInstanceId(),assignee.getCommandMessage());
         //return assignee;
     }
 

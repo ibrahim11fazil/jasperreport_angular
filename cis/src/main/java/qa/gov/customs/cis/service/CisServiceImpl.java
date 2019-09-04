@@ -12,6 +12,7 @@ import qa.gov.customs.cis.entity.EmployeeCaseDetails;
 import qa.gov.customs.cis.repository.CisCourseRequestRepository;
 import qa.gov.customs.cis.repository.EmployeeCaseDetailsRepository;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,4 +64,36 @@ public class CisServiceImpl implements CisService {
             return users;
         }
     }
+
+    @Override
+    public List<CisCourseRequest> findAllByStatusFlagEquals(BigInteger statusFlag) {
+       int  page =0 ;
+       int limit =10;
+        Pageable pageable =
+                PageRequest.of(
+                        page, limit, Sort.by("requestId"));
+        if(statusFlag!=null){
+            List<CisCourseRequest> requests = cisCourseRequestRepository.findAllByStatusFlagEquals(statusFlag,pageable);
+            return requests;
+        }
+        else {
+            List<CisCourseRequest> users =  new ArrayList<>();
+            return users;
+        }
+    }
+
+    @Override
+    public CisCourseRequest saveAndUpdate(CisCourseRequest courseRequest) {
+        if(courseRequest.getRequestId()!=null)
+        return cisCourseRequestRepository.save(courseRequest);
+        else
+        return null;
+    }
+
+    @Override
+    public List<CisCourseRequest> findAllByWorkFlowUidEquals(String workFlowUid) {
+        return cisCourseRequestRepository.findAllByWorkFlowUidEquals(workFlowUid);
+    }
+
+
 }
