@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingService } from 'app/service/training/training.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Page } from 'app/models/paged-data';
@@ -41,6 +41,9 @@ export class EmpRequestComponent implements OnInit {
   trainingRoomDetail: Location;
   userList: SystemUserResponseArray[] = [];
   tacCoordinatorString: String[] = [];
+  public form: FormGroup;
+  searchText: String;
+
   
 
   constructor(private fb: FormBuilder,
@@ -52,7 +55,12 @@ export class EmpRequestComponent implements OnInit {
 
   ngOnInit() {
   
-
+    this.form = this.fb.group
+    (
+      {
+      courseName: null,
+    }
+    )
   //else if (card.title == "Future Courses") {
     this.trainingService.getFutureCourses().subscribe(
       data => {
@@ -63,9 +71,50 @@ export class EmpRequestComponent implements OnInit {
       error => {
         console.log(error)
         this.toastr.error(error.message)
-      })
+      }
+      )
   }
 
+  searchFutureCourse() {
+    this.searchText = this.form.value.courseName;
+    let course: TacCourseMaster = {
+       courseId: 0, 
+       tacCourseCategory: null,
+       courseName: this.form.value.courseName, 
+       duration: 0, 
+       objective: null, 
+       durationFlag: 0,
+       numberofhours: 0,
+       tacCourseGuidelineses: null, 
+       tacCourseAudiences: null, 
+       tacCourseOutcomes: null,
+       tacCoursePrerequisiteses:[],
+       subcourseFlag:0,
+       locationType:0,
+       tacCourseDates:null,
+       tacActivities:null
+       
+    }
+    this.trainingService.searchCourse(course).subscribe(
+      data => this.successSearch(data),
+      error => this.errorWhileSearching(error)
+    )
+  }
+
+  
+  successSearch(data) {
+    if (data.status == true) {
+       //var result = <ITacCourseList>data.data
+      this.rows = data.data;
+     } else {
+      this.toastr.error(data.message)
+    }
+  }
+  
+  errorWhileSearching(error) {
+    console.log(error);
+    this.toastr.error(error.message)
+  }
 
 getActivationData(row) {
   debugger;
@@ -154,4 +203,7 @@ getActivationData(row) {
 
 
 }
+
+
+
 }
