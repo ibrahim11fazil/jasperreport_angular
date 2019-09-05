@@ -40,6 +40,7 @@ export class EmpRequestComponent implements OnInit {
   courseDetail: TacCourseMaster;
   trainingRoomDetail: Location;
   userList: SystemUserResponseArray[] = [];
+  selectedItem:TacActivation;
   tacCoordinatorString: String[] = [];
   
 
@@ -88,6 +89,7 @@ getActivationData(row) {
   console.log(this.courseEndDate)
   let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
   courseActivation.activationId = row.activation_id
+  this.selectedItem = courseActivation;
   this.trainingService.getActivationById(courseActivation).subscribe(
     data => {
       var response = <ResponseActivationData>data
@@ -124,7 +126,10 @@ getActivationData(row) {
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
           var response = <ResponseTacCourseMaster>data
+          debugger
           this.courseDetail = response.data;
+          this.selectedItem.courseName = this.courseDetail.courseName;
+          this.selectedItem.courseId= this.courseDetail.courseId;
 
         })
       let location = new Location(0, "");
@@ -136,7 +141,7 @@ getActivationData(row) {
         })
 
       var item = this.userList.filter(item => item.id == this.activation.coordinator)
-      if (item != null) {
+      if (item != null && item.length>0) {
         this.tacCoordinatorString.push(item[0].username);
 
       }
@@ -154,4 +159,12 @@ getActivationData(row) {
 
 
 }
+
+onSubmit(){
+  
+  console.log("Testing")
+  console.log(this.selectedItem); 
+
+}
+
 }

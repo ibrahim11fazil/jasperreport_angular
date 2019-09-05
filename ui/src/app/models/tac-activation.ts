@@ -23,7 +23,10 @@ export class TacActivation {
 	public  costGift:Number;
 	public  costVenue:Number;
 	public  costBonus:Number;
-	public  costTranslation:Number;
+    public  costTranslation:Number;
+
+    public courseName?:String;
+    public courseId?:Number;
 	
 	public  status:Number;
 	//public tacCourseAttendeeses = TacCourseAttendees[];

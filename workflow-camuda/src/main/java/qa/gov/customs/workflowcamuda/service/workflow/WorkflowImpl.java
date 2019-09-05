@@ -3,14 +3,13 @@ package qa.gov.customs.workflowcamuda.service.workflow;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.camunda.bpm.engine.HistoryService;
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
@@ -58,6 +57,8 @@ public class WorkflowImpl {
     private Publisher publisher;
 
 
+
+
     private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
 
     @Autowired
@@ -75,8 +76,15 @@ public class WorkflowImpl {
         model.setCreatedOn(new Date().toString());
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
         ProcessInstance processInstance = null;
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         if(type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)){
-            processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+
+            ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
+                    .processDefinitionKey(TYPE_1_PROCESS)
+                    .versionTag("v1").singleResult();
+            processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
+
+            //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
         }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
         }else if(type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {
@@ -92,13 +100,17 @@ public class WorkflowImpl {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_8_PROCESS, vars);
         }
 
-        System.out.println(">>>>>>>> " + processInstance.getId());
-        boolean status = userRequestAndCompleteTask(model, processInstance.getId());
-        if (status)
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.CREATED);
-        else
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
-        return status;
+        if(processInstance.getId()!=null) {
+            boolean status = userRequestAndCompleteTask(model, processInstance.getId());
+            if (status) {
+                requestService.saveOrUpdateWorkflow(model, WorkflowStatus.CREATED);
+            } else {
+                requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
+            }
+            return status;
+        }
+        return  false;
+
     }
 
     public List<Task> getTasks(String assignee) {
@@ -117,9 +129,16 @@ public class WorkflowImpl {
     }
 
     public UserRequestModel getProcessDetails(String executionId) {
-        UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId, "applicant");
-        System.out.println(variables.getEmail());
-        return variables;
+        try {
+            UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId, "applicant");
+            logger.info(variables.getEmail());
+            return variables;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            //TODO log and
+        }
+        return null;
     }
 
     @Transactional
@@ -133,6 +152,7 @@ public class WorkflowImpl {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            //TODO log error
             return false;
         }
 
