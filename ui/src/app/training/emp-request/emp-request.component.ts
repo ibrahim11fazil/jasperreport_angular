@@ -9,11 +9,12 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
-import { DURATION_FLAG_LIST } from 'app/app.constants';
+import { DURATION_FLAG_LIST, WORKFLOW_1_EMP_REQUEST } from 'app/app.constants';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster } from 'app/models/tac-course-master';
 import { TacActivation } from 'app/models/tac-activation';
+import { EmployeeCourseRequest } from 'app/models/workflow';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class EmpRequestComponent implements OnInit {
   courseDetail: TacCourseMaster;
   trainingRoomDetail: Location;
   userList: SystemUserResponseArray[] = [];
+  selectedItem:TacActivation;
   tacCoordinatorString: String[] = [];
   public form: FormGroup;
   searchText: String;
@@ -137,6 +139,7 @@ getActivationData(row) {
   console.log(this.courseEndDate)
   let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
   courseActivation.activationId = row.activation_id
+  this.selectedItem = courseActivation;
   this.trainingService.getActivationById(courseActivation).subscribe(
     data => {
       var response = <ResponseActivationData>data
@@ -173,7 +176,10 @@ getActivationData(row) {
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
           var response = <ResponseTacCourseMaster>data
+          debugger
           this.courseDetail = response.data;
+          this.selectedItem.courseName = this.courseDetail.courseName;
+          this.selectedItem.courseId= this.courseDetail.courseId;
 
         })
       let location = new Location(0, "");
@@ -185,7 +191,7 @@ getActivationData(row) {
         })
 
       var item = this.userList.filter(item => item.id == this.activation.coordinator)
-      if (item != null) {
+      if (item != null && item.length>0) {
         this.tacCoordinatorString.push(item[0].username);
 
       }
@@ -204,6 +210,18 @@ getActivationData(row) {
 
 }
 
+onSubmit(){
+  
+  console.log("Testing")
+  console.log(this.selectedItem);
+  var empRequest = new EmployeeCourseRequest()
+  empRequest.courseId = this.selectedItem.courseId
+  empRequest.courseName= this.selectedItem.courseName
+  empRequest.courseActivationId=this.selectedItem.activationId
+  empRequest.workflowType= WORKFLOW_1_EMP_REQUEST
+  
 
+
+}
 
 }
