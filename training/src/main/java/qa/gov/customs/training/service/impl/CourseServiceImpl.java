@@ -499,13 +499,13 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public List<CourseManagement> searchAllFutureCourses() {
+	public List<CourseManagement> searchAllFutureCourses(String courseName) {
 		int page =0;
 		int limit=20;
 		Pageable pageable =
 				PageRequest.of(
 						page, limit, Sort.by("course_Id"));
-		List<Object[]> objects=courseRepository.searchAllFutureCourses(pageable);
+		List<Object[]> objects=courseRepository.searchAllFutureCourses(courseName,pageable);
 		List<CourseManagement> courseList = new ArrayList<>();
 		for (Object[] o : objects) {
 			CourseManagement course = new CourseManagement();

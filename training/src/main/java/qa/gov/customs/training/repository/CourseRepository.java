@@ -62,11 +62,11 @@ void enableOrDisableCourse(BigDecimal courseId , BigDecimal flag);
     List<Object[]> getAllPreviousCourses(Pageable pageable);
 
     @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
-            "(SELECT b.course_id FROM Tac_course_date b WHERE sysdate<b.course_date and status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-            "where sysdate<b.course_date and b.status=1 and a.course_id=b.course_id" +
+            " (SELECT b.course_id FROM Tac_course_date b WHERE sysdate<b.course_date and status=1) " +
+            " join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
+            " where sysdate<b.course_date and b.status=1 and a.course_id=b.course_id " +
             " and lower(a.course_name) LIKE %:courseName%",nativeQuery=true)
-    List<Object[]> searchAllFutureCourses(Pageable pageable);
+    List<Object[]> searchAllFutureCourses(String courseName, Pageable pageable);
 
 }
 

@@ -59,8 +59,8 @@ export const	GENERAL_COURSE =4
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
 
- export const BASE_URL ="http://172.16.0.254:9000"
- export const BASE_URL_FILE ="http://172.16.0.254:9000"
+//  export const BASE_URL ="http://172.16.0.254:9000"
+//  export const BASE_URL_FILE ="http://172.16.0.254:9000"
 //  export const BASE_URL ="http://10.64.3.32:9000"
 //  export const BASE_URL_FILE ="http://10.64.3.32:9000"
 
@@ -71,8 +71,8 @@ export const	GENERAL_COURSE =4
 //export const BASE_URL_FILE ="http://172.16.0.254:9021"
 //export const BASE_URL_FILE ="http://172.16.0.254:7777"
 
-// export const BASE_URL ="http://localhost:9000"
-// export const BASE_URL_FILE ="http://localhost:9000"
+export const BASE_URL ="http://localhost:9000"
+export const BASE_URL_FILE ="http://localhost:9000"
 
 //export const BASE_URL ="http://localhost:9000"
 
@@ -140,6 +140,7 @@ export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
 export const  GET_JOB_CARD_BYID=BASE_URL+training+"/get-job-card-byid"
 export const   GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data-attendance"
 export const MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
+export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses" 
 
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
@@ -168,4 +169,5 @@ export const  GET_JOB_TITLE=BASE_URL+employee+"/list-jobs"
 export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
 export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"
 export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
+
 

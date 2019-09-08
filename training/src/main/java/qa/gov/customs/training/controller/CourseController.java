@@ -618,10 +618,10 @@ public class CourseController {
 
 	@PreAuthorize("hasAnyAuthority('search_future_courses')")
 	@PostMapping ("/search-future-courses")
-	public ResponseType searchFutureCourses()
+	public ResponseType searchFutureCourses(@RequestBody  TacCourseMaster courseMaster)
 	{
 		List<CourseManagement> courseManagement=null;
-		courseManagement=courseService.searchAllFutureCourses();
+		courseManagement=courseService.searchAllFutureCourses(courseMaster.getCourseName());
 		if(courseManagement!=null || !courseManagement.isEmpty()) {
 
 			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);

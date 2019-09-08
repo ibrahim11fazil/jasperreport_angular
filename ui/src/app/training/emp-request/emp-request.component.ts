@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingService } from 'app/service/training/training.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -12,8 +11,9 @@ import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/l
 import { DURATION_FLAG_LIST } from 'app/app.constants';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
-import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster } from 'app/models/tac-course-master';
+import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster, TacCourseMasterSub } from 'app/models/tac-course-master';
 import { TacActivation } from 'app/models/tac-activation';
+import { TrainingService } from 'app/service/training/training.service';
 
 
 @Component({
@@ -62,7 +62,7 @@ export class EmpRequestComponent implements OnInit {
     }
     )
   //else if (card.title == "Future Courses") {
-    this.trainingService.getFutureCourses().subscribe(
+    /*this.trainingService.getFutureCourses().subscribe(
       data => {
         var response = <ITacCourseManagementList>data
         this.rows = response.data
@@ -72,50 +72,26 @@ export class EmpRequestComponent implements OnInit {
         console.log(error)
         this.toastr.error(error.message)
       }
-      )
+    )*/
   }
 
-  searchFutureCourse() {
-    this.searchText = this.form.value.courseName;
-    let course: TacCourseMaster = {
-       courseId: 0, 
-       tacCourseCategory: null,
-       courseName: this.form.value.courseName, 
-       duration: 0, 
-       objective: null, 
-       durationFlag: 0,
-       numberofhours: 0,
-       tacCourseGuidelineses: null, 
-       tacCourseAudiences: null, 
-       tacCourseOutcomes: null,
-       tacCoursePrerequisiteses:[],
-       subcourseFlag:0,
-       locationType:0,
-       tacCourseDates:null,
-       tacActivities:null
-       
+  searchFutureCourses() {
+     
+     var course = new TacCourseMasterSub()
+     course.courseName=this.form.value.courseName
+     this.trainingService.searchFutureCourseWithName(course).subscribe(
+      data => {
+        var response = <ITacCourseManagementList>data
+        this.rows = response.data
+        console.log(this.rows)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      })
+
     }
-    this.trainingService.searchCourse(course).subscribe(
-      data => this.successSearch(data),
-      error => this.errorWhileSearching(error)
-    )
-  }
-
   
-  successSearch(data) {
-    if (data.status == true) {
-       //var result = <ITacCourseList>data.data
-      this.rows = data.data;
-     } else {
-      this.toastr.error(data.message)
-    }
-  }
-  
-  errorWhileSearching(error) {
-    console.log(error);
-    this.toastr.error(error.message)
-  }
-
 getActivationData(row) {
   debugger;
 

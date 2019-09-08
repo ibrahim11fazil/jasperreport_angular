@@ -57,6 +57,6 @@ public interface CourseService {
     List<CourseManagement> getAllCurrentCourses();
     List<CourseManagement> getAllFutureCourses();
     List<CourseManagement>  getAllPreviousCourses();
-    List<CourseManagement>  searchAllFutureCourses();
+    List<CourseManagement>  searchAllFutureCourses(String courseName);
    void setStatusOfDate(TacCourseDate courseDate);
 }
