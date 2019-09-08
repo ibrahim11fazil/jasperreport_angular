@@ -9,11 +9,12 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
-import { DURATION_FLAG_LIST } from 'app/app.constants';
+import { DURATION_FLAG_LIST, WORKFLOW_1_EMP_REQUEST } from 'app/app.constants';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster } from 'app/models/tac-course-master';
 import { TacActivation } from 'app/models/tac-activation';
+import { EmployeeCourseRequest } from 'app/models/workflow';
 
 
 @Component({
@@ -163,7 +164,14 @@ getActivationData(row) {
 onSubmit(){
   
   console.log("Testing")
-  console.log(this.selectedItem); 
+  console.log(this.selectedItem);
+  var empRequest = new EmployeeCourseRequest()
+  empRequest.courseId = this.selectedItem.courseId
+  empRequest.courseName= this.selectedItem.courseName
+  empRequest.courseActivationId=this.selectedItem.activationId
+  empRequest.workflowType= WORKFLOW_1_EMP_REQUEST
+  
+
 
 }
 
