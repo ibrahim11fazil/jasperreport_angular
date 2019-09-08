@@ -8,12 +8,14 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
-import { DURATION_FLAG_LIST } from 'app/app.constants';
+import { DURATION_FLAG_LIST, WORKFLOW_1_EMP_REQUEST } from 'app/app.constants';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster, TacCourseMasterSub } from 'app/models/tac-course-master';
 import { TacActivation } from 'app/models/tac-activation';
 import { TrainingService } from 'app/service/training/training.service';
+import { EmployeeCourseRequest, WorkflowResponse } from 'app/models/workflow';
+
 
 
 @Component({
@@ -40,6 +42,7 @@ export class EmpRequestComponent implements OnInit {
   courseDetail: TacCourseMaster;
   trainingRoomDetail: Location;
   userList: SystemUserResponseArray[] = [];
+  selectedItem:TacActivation;
   tacCoordinatorString: String[] = [];
   public form: FormGroup;
   searchText: String;
@@ -93,8 +96,6 @@ export class EmpRequestComponent implements OnInit {
     }
   
 getActivationData(row) {
-  debugger;
-
   this.eventCourseDetail = row;
   console.log(this.eventCourseDetail.course_date);
   const str = this.eventCourseDetail.course_date.split('-');
@@ -113,44 +114,38 @@ getActivationData(row) {
   console.log(this.courseEndDate)
   let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
   courseActivation.activationId = row.activation_id
+  this.selectedItem = courseActivation;
   this.trainingService.getActivationById(courseActivation).subscribe(
     data => {
       var response = <ResponseActivationData>data
-      debugger
       this.activation = response.data
       this.estimatedCost = +this.activation.costHospitality + +this.activation.costInstructor + +this.activation.costTranslation
         + +this.activation.costTransport + +this.activation.costVenue + +this.activation.costAirticket + +this.activation.costBonus
         + +this.activation.costFood + +this.activation.costGift;
       this.tacInstructorResult = this.activation.instructors;
       //get Instructors usimg activationId
-      
       this.locationType = this.activation.locationId;
-
-      debugger
       this.displayCourseDetails = true
       var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value == this.activation.durationFlag)
       if (durationItemsArray[0] != null) {
         this.durationValueString = durationItemsArray[0].viewValue
       }
 
-
-
       this.tacInstructorResult.forEach(i => {
         var item = this.tacInstructor.filter(item => item.instructorId == i.instructorId)
         if (item[0] != null) {
           this.tacInstructorString.push(item[0].name)
-
         }
       })
-
-      //getCourseById
       let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       courseMaster.courseId = this.activation.belongsTo;
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
           var response = <ResponseTacCourseMaster>data
+          debugger
           this.courseDetail = response.data;
-
+          this.selectedItem.courseName = this.courseDetail.courseName;
+          this.selectedItem.courseId= this.courseDetail.courseId;
         })
       let location = new Location(0, "");
       location.locationId = this.locationType;
@@ -159,27 +154,38 @@ getActivationData(row) {
           var response = <ResponseLocationDetail>data
           this.trainingRoomDetail = response.data
         })
-
       var item = this.userList.filter(item => item.id == this.activation.coordinator)
-      if (item != null) {
+      if (item != null && item.length>0) {
         this.tacCoordinatorString.push(item[0].username);
-
       }
-
-      //this.addEvent();
-
     },
-
     error => {
       console.log(error)
       this.toastr.error(error.message)
     }
   )
-
-
-
 }
 
+onSubmit(){
+  //console.log("Testing")
+  //console.log(this.selectedItem);
+  var empRequest = new EmployeeCourseRequest()
+  empRequest.courseId = this.selectedItem.courseId
+  empRequest.courseName= this.selectedItem.courseName
+  empRequest.courseActivationId=this.selectedItem.activationId
+  empRequest.workflowType= WORKFLOW_1_EMP_REQUEST
 
+  this.trainingService.saveEmployeeRequest(empRequest).subscribe(
+      data => {
+        var response = <WorkflowResponse>data
+        //.this.rows = response.data
+        this.toastr.info(response.message.toString())
+        console.log(this.rows)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      })
+}
 
 }

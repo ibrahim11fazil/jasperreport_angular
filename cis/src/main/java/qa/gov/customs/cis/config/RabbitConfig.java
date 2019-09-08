@@ -12,21 +12,21 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-    @Value("${training.rabbitmq.queue}")
+    @Value("${cis.rabbitmq.queue}")
     private String queueName;
 
-    @Value("${training.rabbitmq.queue_workflow_status}")
+    @Value("${cis.rabbitmq.queue_workflow_status}")
     private String queueNameWorkFlowStatus;
 
 
 
-    @Value("${training.rabbitmq.exchange}")
+    @Value("${cis.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${training.rabbitmq.routingkey}")
+    @Value("${cis.rabbitmq.routingkey}")
     private String routingKey;
 
-    @Value("${training.rabbitmq.routingkey_workflowresponse}")
+    @Value("${cis.rabbitmq.routingkey_workflowresponse}")
     private String routingKeyWorkFlow;
 
     @Bean

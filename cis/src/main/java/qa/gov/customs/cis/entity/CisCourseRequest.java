@@ -2,6 +2,7 @@ package qa.gov.customs.cis.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Date;
 
 @Entity
 @Table(name="CIS_COURSE_REQUESTS")
@@ -18,8 +19,10 @@ public class CisCourseRequest {
     BigInteger statusFlag;
     @Column(name="INVESTIAGTION_ID")
     BigInteger investigationId;
+
+    @Temporal(TemporalType.DATE)
     @Column(name="CREATED_DATE")
-    String createdDate;
+    Date createdDate;
     @Column(name="COURSE_NUMBER")
     BigInteger courseNumber;
     @Column(name="REMARK")
@@ -112,11 +115,11 @@ public class CisCourseRequest {
         this.investigationId = investigationId;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 

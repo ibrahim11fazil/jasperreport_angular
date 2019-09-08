@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class UserRequestModel implements Serializable {
 
+    private static final long serialversionUID = 129348938L;
+
     String workflowType;
     String fullName;
     String userId;
@@ -45,6 +47,9 @@ public class UserRequestModel implements Serializable {
     private String fromUserCnameAr;
 
     private String investigationId;
+
+
+
 
     public String getInvestigationId() {
         return investigationId;

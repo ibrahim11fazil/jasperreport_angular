@@ -34,6 +34,14 @@ export const OPTIONAL_OR_NOT = [
     { value: 1, viewValue: 'Optional' },
 ];
 
+export const WORKFLOW_1_EMP_REQUEST="01_employee_training_req_v_1";
+export const WORKFLOW_2_EMP_REQUEST="02_head_of_section_course_suggestion_v_1";
+export const WORKFLOW_3_EMP_REQUEST="03_training_request_from_head_v_1";
+export const WORKFLOW_4_EMP_REQUEST="04_cis_course_request_v_1";
+export const WORKFLOW_5_EMP_REQUEST="05_audit_manger_course_request_v_1";
+
+
+
 
 export const ROLE_TRAINING_ADMIN="train_admin"
 export const ROLE_SYS_ADMIN="sys_admin"
@@ -141,6 +149,8 @@ export const  GET_JOB_CARD_BYID=BASE_URL+training+"/get-job-card-byid"
 export const   GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data-attendance"
 export const MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
 export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses" 
+export const WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
+
 
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
