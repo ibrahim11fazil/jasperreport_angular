@@ -94,6 +94,7 @@ var user=""
 var fileUploading=""
 var cis=""
 var employee=""
+var workflow=""
 if(gateway){
     authentication="/authentication"
     training="/training"
@@ -101,6 +102,7 @@ if(gateway){
     fileUploading="/fileupload"
     cis="/cis"
     employee="/employee"
+    workflow="/workflow"
 }
 
 //http://localhost:9000/authentication/oauth/token
@@ -179,5 +181,15 @@ export const  GET_JOB_TITLE=BASE_URL+employee+"/list-jobs"
 export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
 export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"
 export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
+
+
+//WORKFLOW
+export const  GET_MY_TASKS=BASE_URL+workflow+"/my-tasks"
+export const  GET_MY_WITH_DELEGATIONS=BASE_URL+workflow+"/my-tasks-delegation"
+export const  EXECUTE_TASK=BASE_URL+workflow+"/execute-task"
+export const  SAVE_COMMENT=BASE_URL+workflow+"/save-comment"
+export const  GET_COMMENTS=BASE_URL+workflow+"/task-comments"
+export const  PROCESS_TASK_DETAILS=BASE_URL+workflow+"/process-history-task-details"
+
 
 
