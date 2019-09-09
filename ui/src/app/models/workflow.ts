@@ -14,7 +14,7 @@ export interface WorkflowResponse{
     code:number;
     message:String;
     data:WorkflowResponseData
-    
+
 }
 
 export interface WorkflowResponseData {
@@ -263,3 +263,36 @@ export interface UserTaskResponseHistory {
 }
 
 //User Task executions Response starts 
+
+
+//User Task execute  Task 
+export interface UserTaskExecuteRequest {
+    taskId: string;
+    processId: string;
+    assigne: string;
+    role: string;
+    action: string;
+    executionId: string;
+}
+
+//User Task execute Response Model
+export interface UserTaskExecuteResponseModel {
+    taskId: string;
+    processId: string;
+    assigne: string;
+    role: string;
+    action: string;
+    executionId: string;
+    processInstanceId?: any;
+    commandMessage?: any;
+    status: boolean;
+}
+
+//
+export interface UserTaskExecuteResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:UserTaskExecuteResponseModel
+  
+}
