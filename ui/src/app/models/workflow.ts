@@ -14,7 +14,7 @@ export interface WorkflowResponse{
     code:number;
     message:String;
     data:WorkflowResponseData
-  
+    
 }
 
 export interface WorkflowResponseData {
@@ -85,8 +85,17 @@ export interface UserRequestModel {
     investigationId?: any;
 }
 
+
 //Task Response
-export interface TaskResponse {
+export interface TaskResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:TaskResponseData[]
+  
+}
+
+export interface TaskResponseData {
     id: string;
     name: string;
     processId: string;
@@ -102,6 +111,15 @@ export interface CommentSaveModel {
 }
 
 //Comment Saved for Task
+export interface CommentSaveResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:CommentSaveResponseModel
+  
+}
+
+
 export interface CommentSaveResponseModel {
     id: string;
     type: string;
@@ -126,8 +144,17 @@ export interface CommentsForTask {
     taskId: string;
 }
 
+
+export interface CommentsForTaskResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:CommentsForTaskModel[]
+  
+}
+
 //get comments for task  response
-export interface CommentsForTaskResponse {
+export interface CommentsForTaskModel {
     id: string;
     type: string;
     userId?: any;
@@ -146,12 +173,20 @@ export interface CommentsForTaskResponse {
 }
 
 //User task execution Details Request history
-export interface RootObject {
+export interface UserTaskHistoryExecutionsDetails {
     executionId: string;
 }
 
 
 //User Task executions Response history
+
+export interface UserTaskHistoryResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:UserTaskResponseHistory[]
+  
+}
 
 export interface TypeData {
     name: string;
