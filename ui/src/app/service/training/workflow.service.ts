@@ -19,11 +19,11 @@ export class WorkflowService {
   constructor(private httpClient: HttpClient) { }
 
   listMyTasks(): Observable<Object> {
-    return this.httpClient.post(GET_MY_TASKS,null);
+    return this.httpClient.get(GET_MY_TASKS);
   }
 
   listMyTasksWithDelegations(): Observable<Object> {
-    return this.httpClient.post(GET_MY_WITH_DELEGATIONS,null);
+    return this.httpClient.get(GET_MY_WITH_DELEGATIONS);
   }
 
   executeTask(request:UserTaskExecuteRequest): Observable<Object> {
@@ -38,11 +38,8 @@ export class WorkflowService {
     return this.httpClient.post(GET_COMMENTS,request);
   }
 
-
   processHistory(request:CommentSaveModel): Observable<Object> {
     return this.httpClient.post(PROCESS_TASK_DETAILS,request);
   }
-
-
 
 }

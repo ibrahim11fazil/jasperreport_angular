@@ -152,12 +152,15 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   getAllDatesForCourseAndActivity(course:CourseActivityDatesRequest): Observable<Object> {
     return this.httpClient.post(GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID,course);
   }
+  
   getCourseActivationById(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(GET_ALL_COURSE_ACTIVATION, course);
   }
+
   getCourseDateDetail(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(GET_COURSE_DATE_DETAIL, course);
   }
+
   getCourseRoomDetail(location:Location): Observable<Object> {
     return this.httpClient.post(GET_COURSE_ROOM_DETAIL, location);
   }
@@ -169,9 +172,11 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   getActivationById(activation:TacActivation):Observable<Object> {
     return this.httpClient.post(GET_ACTIVATIONS_BY_ID,activation);
   }
+
   getCurrentCourses():Observable<Object> {
     return this.httpClient.get(GET_CURRENT_COURSES);
   }
+
   getPreviousCourses():Observable<Object> {
     return this.httpClient.get(GET_PREVIOUS_COURSES);
   }
@@ -194,12 +199,15 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   getEmpData(activation:TacActivation):Observable<Object> {
     return this.httpClient.post(GET_EMPLOYEE_DATA_ATTENDANCE,activation);
   }
+
   markInitialAttendance(attendance:TacCourseAttendance[]):Observable<Object> {
     return this.httpClient.post(MARK_INITIAL_ATTENDANCE,attendance);
   }
+
   searchFutureCourse(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(SEARCH_FUTURE_COURSES, course);
   }
+
   searchFutureCourseWithName(course: TacCourseMasterSub): Observable<Object> {
     return this.httpClient.post(SEARCH_FUTURE_COURSES, course);
   }

@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Task Details</h2>
+
+<mat-dialog-content>
+	<p>{{data.name}}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="right">
+	<button mat-raised-button (click)="dialogRef.close()" color="primary">Close</button>
+	<!-- <button mat-raised-button (click)="yes()"  color="warn">YES</button> -->
+</mat-dialog-actions>

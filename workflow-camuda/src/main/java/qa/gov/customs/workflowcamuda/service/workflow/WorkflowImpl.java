@@ -81,7 +81,8 @@ public class WorkflowImpl {
 
             ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
                     .processDefinitionKey(TYPE_1_PROCESS)
-                    .versionTag("v1").singleResult();
+                    .versionTag("Process_emp_01_v1")
+                    .singleResult();
             processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
 
             //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
