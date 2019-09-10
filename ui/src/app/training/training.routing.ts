@@ -119,8 +119,11 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'emp-request',
                 component:EmpRequestComponent
+            },
+            {
+                path: 'emp-request:/head-section',
+                component:EmpRequestComponent
             }
-
             
 
         ]

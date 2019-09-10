@@ -71,6 +71,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EmpRequestComponent } from './emp-request/emp-request.component';
 
 
+
 @NgModule({
   declarations: [
     WelcomeComponent, 
@@ -93,6 +94,7 @@ import { EmpRequestComponent } from './emp-request/emp-request.component';
      JobCardComponent,
      JobCardSearchComponent,
      EmpRequestComponent,
+  
 
      ],
   imports: [

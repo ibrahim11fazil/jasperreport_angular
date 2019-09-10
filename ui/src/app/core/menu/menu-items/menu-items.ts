@@ -344,6 +344,7 @@ var m =
       {state: 'welcome', name: 'courses' },
       {state: 'welcome', name: 'My Requests' },
       {state: 'emp-request', name: 'Employee Requests'},
+      {state: 'emp-request:/head-section', name: 'Course Suggestion by head'},
       {state: 'welcome', name: 'My Approvals' }
     ]
   };
