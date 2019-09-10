@@ -69,6 +69,7 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
 import { CalendarModule,DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EmpRequestComponent } from './emp-request/emp-request.component';
+import { MyTasksComponent } from './my-tasks/my-tasks.component';
 
 
 
@@ -94,8 +95,7 @@ import { EmpRequestComponent } from './emp-request/emp-request.component';
      JobCardComponent,
      JobCardSearchComponent,
      EmpRequestComponent,
-  
-
+     MyTasksComponent
      ],
   imports: [
     InfiniteScrollModule,
