@@ -341,11 +341,14 @@ var m =
     type: 'sub',
     icon: 'book',
     children: [
-      { state: 'welcome', name: 'courses' },
-      { state: 'welcome', name: 'Request for Employee' },
-      { state: 'emp-request', name: 'Course Requests'},
+
+      {state: 'welcome', name: 'courses' },
+      {state: 'welcome', name: 'My Requests' },
+      {state: 'emp-request', name: 'Employee Requests'},
+      {state: 'emp-request:/head-section', name: 'Course Suggestion by head'},
       { state: 'my-tasks', name: 'My Tasks' },
       { state: 'welcome', name: 'History' } 
+
     ]
   };
 

@@ -73,6 +73,7 @@ import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { ViewTaskDetailsComponent } from './popup/view-task-details/view-task-details.component';
 
 
+
 @NgModule({
   declarations: [
     WelcomeComponent, 
@@ -95,8 +96,7 @@ import { ViewTaskDetailsComponent } from './popup/view-task-details/view-task-de
      JobCardComponent,
      JobCardSearchComponent,
      EmpRequestComponent,
-     MyTasksComponent,
-
+     MyTasksComponent
      ],
   imports: [
     InfiniteScrollModule,
