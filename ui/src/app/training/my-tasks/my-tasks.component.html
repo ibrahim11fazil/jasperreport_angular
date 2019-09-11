@@ -105,11 +105,11 @@
                   </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <h5>Course Date</h5>
-                     {{activation.courseDate}} 
+                     {{activation!=null && activation.courseDate!=null?activation.courseDate:""}} 
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <h5>Estimated Duration</h5>
-                    {{activation.duration}}  -  {{durationValueString}} 
+                    {{activation!=null && activation.duration!=null ? activation.duration:""}}  -  {{durationValueString}} 
                 </div>
           
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
@@ -146,7 +146,7 @@
                               <input  matInput placeholder="Comment" [(ngModel)]="commentTxt" >
                       </mat-form-field>
                 </div>
-                
+
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <button mat-raised-button  color="primary" (click)="approve()"  color="accent">Approve</button>
                     <button mat-raised-button  color="primary" (click)="reject()" color="warn">Reject</button>

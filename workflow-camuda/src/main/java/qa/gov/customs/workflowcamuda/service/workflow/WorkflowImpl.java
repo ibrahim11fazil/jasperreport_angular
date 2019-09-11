@@ -79,13 +79,14 @@ public class WorkflowImpl {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         if(type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)){
 
-            ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
-                    .processDefinitionKey(TYPE_1_PROCESS)
-                    .versionTag("Process_emp_01_v1")
-                    .singleResult();
-            processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
+//            ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
+//                    .processDefinitionKey(TYPE_1_PROCESS)
+//                    .versionTag("Process_emp_01_v1")
+//                    .singleResult();
+//            processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
 
             //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
         }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
         }else if(type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {

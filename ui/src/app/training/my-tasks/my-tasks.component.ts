@@ -157,18 +157,18 @@ export class MyTasksComponent implements OnInit {
     }
   }
   approve(){
-    this.saveComment()
-   // this.approveOrRejectAction("approved")
+     this.saveComment()
+     this.approveOrRejectAction("approved")
   }
 
   reject(){
     this.saveComment()
-  //  this.approveOrRejectAction("rejected")
+    this.approveOrRejectAction("rejected")
   }
  
 
   approveOrRejectAction(actionTaken:string){
-     if(this.commentTxt!="" && actionTaken!=""){
+     if(actionTaken!=""){
       if(this.data.id!=null){
         var action =  new UserTaskExecuteRequest()
         action.executionId= this.data.executionId
