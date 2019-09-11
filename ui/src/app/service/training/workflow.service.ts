@@ -8,7 +8,7 @@ import { CiSystemUsersRequest, CiCourseRequestedUsers } from 'app/models/ci-syst
 import { SearchUser } from 'app/models/system-user';
 import { SearchJobCard, JobCardData, JobCardDataSearch } from 'app/models/job-card-data';
 import { TacCourseAttendance } from 'app/models/tac-course-attendance';
-import { EmployeeCourseRequest, UserTaskExecuteRequest, CommentSaveModel, CommentsForTask } from 'app/models/workflow';
+import { EmployeeCourseRequest, UserTaskExecuteRequest, CommentSaveModel, CommentsForTask, UserTaskHistoryExecutionsDetailsRequest } from 'app/models/workflow';
 import { HttpClient } from '@angular/common/http';
 import { WORK_FLOW_REQUEST, GET_MY_TASKS ,GET_MY_WITH_DELEGATIONS, EXECUTE_TASK, SAVE_COMMENT, GET_COMMENTS, PROCESS_TASK_DETAILS} from 'app/app.constants';
 @Injectable({
@@ -38,7 +38,7 @@ export class WorkflowService {
     return this.httpClient.post(GET_COMMENTS,request);
   }
 
-  processHistory(request:CommentSaveModel): Observable<Object> {
+  processHistory(request:UserTaskHistoryExecutionsDetailsRequest): Observable<Object> {
     return this.httpClient.post(PROCESS_TASK_DETAILS,request);
   }
 

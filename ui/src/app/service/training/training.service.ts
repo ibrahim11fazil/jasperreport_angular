@@ -93,9 +93,10 @@ export class TrainingService {
 // getAllMainCourses():Observable<Object> {
 //   return this.httpClient.get(GET_MAIN_COURSES);
 // }
-saveCourseActivation(activation:TacActivation): Observable<Object> {
+  saveCourseActivation(activation:TacActivation): Observable<Object> {
   return this.httpClient.post(SAVE_ACTIVATION,activation);
-}
+  }
+  
   getCourseRoom(location: Location): Observable<Object> {
     return this.httpClient.post(GET_TRAINING_ROOM, location);
   }
@@ -152,7 +153,7 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   getAllDatesForCourseAndActivity(course:CourseActivityDatesRequest): Observable<Object> {
     return this.httpClient.post(GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID,course);
   }
-  
+
   getCourseActivationById(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(GET_ALL_COURSE_ACTIVATION, course);
   }

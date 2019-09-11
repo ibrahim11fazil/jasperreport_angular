@@ -1,10 +1,61 @@
-<h2 mat-dialog-title>Task Details</h2>
+<h2 mat-dialog-title style="direction: rtl">Task Details</h2>
 
-<mat-dialog-content>
-	<p>{{data.name}}</p>
+<mat-dialog-content style="direction: rtl">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100" fxLayout="column">
+		<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+					<h5>Course Name</h5> 
+					{{data.userRequestModel.courseName}}
+        </div>
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <h5>Requested By</h5>
+            {{data.userRequestModel.cnameAr}}  -   {{data.userRequestModel.jobId}} 
+        </div>
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <h5>Department</h5>
+            {{data.userRequestModel.department}} 
+        </div>
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <h5>Course Date</h5>
+           {{activation.courseDate}} 
+      </div>
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <h5>Estimated Duration</h5>
+          {{activation.duration}}  -  {{durationValueString}} 
+      </div>
+
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <h5>Approvals</h5>
+            <mat-list-item *ngFor="let item of items">
+                    {{item}}
+            </mat-list-item>
+      </div>
+
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <h5>Comments</h5>
+              <mat-list-item *ngFor="let item of items">
+                    {{item}}
+              </mat-list-item>
+      </div>
+
+     
+
+      <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+            <h5>Add Comment</h5>
+            <mat-form-field class="full-wid mrgn-b-md">
+                    <input style="direction: rtl" matInput placeholder="Comment" >
+            </mat-form-field>
+      </div>
+
+  </div> 
+
+  
+ 
+             
 </mat-dialog-content>
 
 <mat-dialog-actions align="right">
-	<button mat-raised-button (click)="dialogRef.close()" color="primary">Close</button>
+    <button mat-raised-button  color="primary"  color="accent">Approve</button>
+    <button mat-raised-button  color="primary"  color="warn">Reject</button>
+    <button mat-raised-button  (click)="dialogRef.close()"  color="primary"  color="warn">Close</button>
 	<!-- <button mat-raised-button (click)="yes()"  color="warn">YES</button> -->
 </mat-dialog-actions>

@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 import { TaskResponseData } from 'app/models/workflow';
+import { ActivationData } from 'app/models/activation-data';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +20,14 @@ export class TrainingSystemServiceService {
 		private http : HttpClient ) {
 	}
 
-  viewDetailsOfTasks(data:TaskResponseData){
-		let dialogRef : MatDialogRef<ViewTaskDetailsComponent>;
+  viewDetailsOfTasks(data:TaskResponseData,activation:ActivationData,estimatedCost:Number,durationValueString:String){
+	    let dialogRef : MatDialogRef<ViewTaskDetailsComponent>;
 		dialogRef = this.dialog.open(ViewTaskDetailsComponent);
 		dialogRef.componentInstance.data = data;
+		dialogRef.componentInstance.activation=activation;
+		dialogRef.componentInstance.estimatedCost=estimatedCost;
+		dialogRef.componentInstance.durationValueString=durationValueString;
+		dialogRef.updateSize('80%', '80%');
 		return dialogRef.afterClosed();
   }
   

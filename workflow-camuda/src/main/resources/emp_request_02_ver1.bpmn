@@ -57,7 +57,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1ne52ss" sourceRef="UserTask_0j1rl19" targetRef="ServiceTask_1om9kks" />
     <bpmn:serviceTask id="ServiceTask_1om9kks" name="check the user is HT &#38; C" camunda:expression="${workflowImpl.checkTheUserIsHeadOfTraining(applicant,execution)} ">
       <bpmn:extensionElements>
-        <camunda:executionListener expression="${workflowEmp01.checkTheUserIsHeadOfTraining(applicant,execution)} " event="start" />
+        <camunda:executionListener expression="${workflowImpl.checkTheUserIsHeadOfTraining(applicant,execution)} " event="start" />
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1ne52ss</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1d166vj</bpmn:outgoing>

@@ -308,7 +308,6 @@ export class CourseManagementComponent implements OnInit {
       data => {
         var response = <ResponseEmpData>data
         this.empRows = response.data
-debugger;
        this.empRows.forEach(emp => {
         let courseAttendance=new TacCourseAttendance(0,null,null,null)
         let tacCourseAttendees=new TacCourseAttendees(emp.attendeesId,null,0,0,0,0)
@@ -316,10 +315,7 @@ debugger;
         courseAttendance.attendanceDate=new Date();
         courseAttendance.attendanceFlag=0;//marking as absent initially
         this.courseAttendanceList.push(courseAttendance)
-        
-        
 });
-debugger;
 this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
   data=>
   {
