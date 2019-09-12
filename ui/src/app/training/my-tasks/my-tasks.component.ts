@@ -44,6 +44,7 @@ export class MyTasksComponent implements OnInit {
     private trainingSystemService:TrainingSystemServiceService,
     private trainingService: TrainingService) {
     this.pageTitleService.setTitle("User Tasks")
+   
   }
 
   ngOnInit() {
@@ -54,6 +55,7 @@ export class MyTasksComponent implements OnInit {
     this.form = this.fb.group({
       searchControl: [""]
     });
+    this.search()
   }
   onSubmit() {
     this.ds = new Array<TaskResponseData>();
@@ -64,6 +66,7 @@ export class MyTasksComponent implements OnInit {
   }
 
   search() {
+    this.ds=[]
     var searchString = new SearchUser()
     searchString.jobId = this.form.value.searchControl
     searchString.limit = PAGE_LIMIT
@@ -100,38 +103,10 @@ export class MyTasksComponent implements OnInit {
   onScroll() {
     this.page = this.page + 1;
     this.firstSearch=false
-    this.search();
+    this.search()
   }
 
-  deleteRow(element) {
-    var user = new SystemUser()
-    user.id = element.id
-    user.enabled=element.enabled
-    debugger
-    if (user.enabled == 1) {
-      this.disableUser(user)
-    }
-    else {
-      this.enableUser(user)
-    }
-  }
 
-  enableUser(user) {
-    // this.userService.enableUser(user).subscribe(
-    //   data => {
-    //     var response = <GenericResponse>data
-    //     if (response.status) {
-    //       this.toastr.success(response.message.toString())
-    //       this.ds.find(item => item.id == user.id).enabled = 1;
-    //       this.ds = [...this.ds];
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error)
-    //     this.toastr.error(error.message)
-    //   }
-    // )
-  }
 
   saveComment(){
     if(this.commentTxt!=""){
@@ -182,6 +157,8 @@ export class MyTasksComponent implements OnInit {
             var response = <UserTaskExecuteResponse>data
            if(response.status){
             this.toastr.info(String(response.message))
+            this.dataStatus=false
+            this.search()
            }else{
             this.toastr.error(String(response.message))
            }

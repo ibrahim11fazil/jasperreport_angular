@@ -1,38 +1,3 @@
-<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
-  <mat-card fxFlex="100%">
-    <div class="gene-card-title">
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <div fxLayout="column">
-          <h4>Users</h4>
-        </div> <span fxFlex></span>
-      </div>
-      <mat-divider></mat-divider>
-    </div>
-    <div class="gene-card-content">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-            <mat-form-field class="full-wid mrgn-b-md">
-              <input matInput placeholder="QID/JOBID" formControlName="searchControl">
-            </mat-form-field>
-            <!-- <small class="gene-block" *ngIf="form.controls['searchControl'].hasError('required') && form.controls['searchControl'].touched"
-                   class="warn-text">
-              Enter jobid or Qid for searching
-            </small> -->
-          </div>
-        </div>
-
-        <div class="pad-wrap">
-          <div fxLayout="row" fxLayoutAlign="start">
-            <button mat-raised-button color="secondary"  type="submit">Search</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </mat-card>
-</div>
-
-
 <div fxLayout="row wrap" fxLayoutAlign="start" >
     <div fxFlex="100"> 
             <div class="row data-table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"  
@@ -72,16 +37,8 @@
                       </button>
                     </td>  
                 </ng-container> 
-
-      
-
-                 
-               
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>    
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    
-               
-
-
         </table> 
      </div>  
     </div>
@@ -89,7 +46,6 @@
 
   <div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard" *ngIf="dataStatus">
       <mat-card fxFlex="100%">
-
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100" fxLayout="column">
               <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <h5>Course Name</h5> 
@@ -111,7 +67,6 @@
                     <h5>Estimated Duration</h5>
                     {{activation!=null && activation.duration!=null ? activation.duration:""}}  -  {{durationValueString}} 
                 </div>
-          
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                       <h5>Approvals</h5>
                       <table border="1">
@@ -130,32 +85,22 @@
                     
                     </table>
                 </div>
-          
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                       <h5>Comments</h5>
                         <mat-list-item *ngFor="let item of items">
                               {{item}}
                         </mat-list-item>
                 </div>
-          
-               
-          
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                       <h5>Add Comment</h5>
                       <mat-form-field class="full-wid mrgn-b-md">
                               <input  matInput placeholder="Comment" [(ngModel)]="commentTxt" >
                       </mat-form-field>
                 </div>
-
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <button mat-raised-button  color="primary" (click)="approve()"  color="accent">Approve</button>
                     <button mat-raised-button  color="primary" (click)="reject()" color="warn">Reject</button>
                 </div>
-              </div> 
-            
+              </div>   
       </mat-card>
-  </div>        
-
-
-      
-
+  </div>

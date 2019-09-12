@@ -90,6 +90,10 @@ camunda:
         enabled: true
        database:
         jdbc-batch-processing: false
+       job-execution:
+         max-jobs-per-acquisition: 20
+         queue-capacity: 20
+         max-pool-size: 40
 
 #eureka:
 #  client:
