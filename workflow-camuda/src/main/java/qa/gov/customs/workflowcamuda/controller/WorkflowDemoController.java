@@ -172,6 +172,8 @@ public class WorkflowDemoController {
         //return assignee;
     }
 
+
+
     @RequestMapping(value="/demo/process-history-execution-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<HistoricDetail> getHistoryByExecutionId(@RequestBody UserTaskModel assignee) {
         return workflowServiceEmp.getUserTaskByExecutionIdId(assignee.getExecutionId());
@@ -205,6 +207,12 @@ public class WorkflowDemoController {
     @RequestMapping(value="/demo/process-user-tasks-process-id", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<HistoricIdentityLinkLog> getHistoryUserTaskByProcessId(@RequestBody UserTaskModel assignee) {
         return workflowServiceEmp.getUserTasksByprocessId(assignee.getProcessId());
+        //return assignee;
+    }
+
+    @RequestMapping(value="/demo/process-history-by-user-id", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public List<HistoricIdentityLinkLog> getHistoryByUserId(@RequestBody UserTaskModel assignee) {
+        return workflowServiceEmp.getUserTasksByAssignee(assignee.getAssigne());
         //return assignee;
     }
 

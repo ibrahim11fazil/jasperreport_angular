@@ -205,6 +205,13 @@ public class WorkflowImpl {
                 .list();
     }
 
+
+    public List<HistoricIdentityLinkLog> getUserTasksByAssignee(String assignee) {
+        return historyService.createHistoricIdentityLinkLogQuery()
+                .userId(assignee)
+                .list();
+    }
+
     //Inital User can set the Task as Requested
     public boolean userRequestAndCompleteTask(UserRequestModel model, String processId) {
         List<Task> tasks = getTasks(model.getJobId());
