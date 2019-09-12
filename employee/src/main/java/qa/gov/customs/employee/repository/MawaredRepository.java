@@ -62,7 +62,7 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
             "from xxgdc_sap_ws_mini m, xxgdc_sap_masterdetails d where m.empno=d.pernr " +
             "and m.run_date=(select max(run_date)from user_sap_ws_mini where empno=m.empno) " +
             "and d.run_date=(select max(run_date) from xxgdc_sap_masterdetails where pernr=d.pernr) " +
-            "and d.supervisor=(select empno  from xxgdc_sap_ws_mini emp where emp.legacycode=:jobid " +
+            "and d.supervisor=(select empno  from xxgdc_sap_ws_mini emp where emp.legacycode=:jobId " +
             "and emp.run_date=(select max(run_date)from user_sap_ws_mini where legacycode=emp.legacycode)) ",nativeQuery = true)
     List<Object[]> employeesUnderSupervisor(@Param("jobId") String jobId);
 }

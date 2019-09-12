@@ -168,10 +168,10 @@ public class EmployeeController {
 		}
 
 	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
-	@PostMapping("/employees_under_supervisor")
+	@PostMapping("/employees_under_supervisor/{id}")
 	public ResponseType employeesUnderSupervisor(@PathVariable("id") String id)
 	{
-		List<EmployeeUnderSupervisor> submittedRequest  =mawaredService.employeesUnderSupervisor(id);
+		List<EmployeeUnderSupervisor> submittedRequest  = mawaredService.employeesUnderSupervisor(id);
 		if(submittedRequest!=null)
 		{
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
