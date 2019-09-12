@@ -59,6 +59,7 @@ public class WorkFlowController {
                     null);
         }else{
             logger.info("Failed ###");
+            //TODO log the request
             return get(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
                     null);
         }
@@ -108,7 +109,7 @@ public class WorkFlowController {
 
     @PreAuthorize("hasAnyAuthority('my_tasks')")
     @RequestMapping(value="/my-tasks", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getTasks(@RequestParam String assignee,@AuthenticationPrincipal CustomPrincipal principal) {
+    public ResponseType getTasks(@AuthenticationPrincipal CustomPrincipal principal) {
         List<Task> tasks = workflowServiceEmp.getTasks(principal.getJid());
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
@@ -124,14 +125,15 @@ public class WorkFlowController {
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     dtos);
         }else{
-            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
                     dtos);
         }
     }
 
     @PreAuthorize("hasAnyAuthority('my_tasks')")
     @RequestMapping(value="/my-tasks-delegation", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getTasksDelegations(@RequestParam String assignee,@AuthenticationPrincipal CustomPrincipal principal) {
+    public ResponseType getTasksDelegations(@AuthenticationPrincipal CustomPrincipal principal) {
         List<Task> tasks = workflowServiceEmp.getCandidateTasks(principal.getJid());
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
@@ -147,7 +149,8 @@ public class WorkFlowController {
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     dtos);
         }else{
-            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
                     dtos);
         }
     }
@@ -184,7 +187,8 @@ public class WorkFlowController {
            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                    historicDetails);
        }else{
-           return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+           //TODO log the request
+           return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
                    null);
        }
     }
@@ -197,7 +201,8 @@ public class WorkFlowController {
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     historicDetails);
         }else{
-            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
                     null);
         }
     }
@@ -211,7 +216,8 @@ public class WorkFlowController {
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     historicDetails);
         }else{
-            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
                     null);
         }
     }
@@ -226,7 +232,8 @@ public class WorkFlowController {
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     comments);
         }else{
-            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
                     null);
         }
     }
@@ -244,6 +251,7 @@ public class WorkFlowController {
              return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                      comment);
          }else{
+             //TODO log the request
              return get(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
                      null);
          }
@@ -259,7 +267,7 @@ public class WorkFlowController {
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     historicDetails);
         }else{
-            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
                     null);
         }
     }

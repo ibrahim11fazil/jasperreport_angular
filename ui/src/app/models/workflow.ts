@@ -104,7 +104,7 @@ export interface TaskResponseData {
 }
 
 //Comment Save for task
-export interface CommentSaveModel {
+export class CommentSaveModel {
     taskId: string;
     processInstanceId: string;
     commandMessage: string;
@@ -140,7 +140,7 @@ export interface CommentSaveResponseModel {
 
 
 //get comments for task  request
-export interface CommentsForTask {
+export class CommentsForTask {
     taskId: string;
 }
 
@@ -173,7 +173,7 @@ export interface CommentsForTaskModel {
 }
 
 //User task execution Details Request history
-export interface UserTaskHistoryExecutionsDetails {
+export class UserTaskHistoryExecutionsDetailsRequest {
     executionId: string;
 }
 
@@ -266,7 +266,7 @@ export interface UserTaskResponseHistory {
 
 
 //User Task execute  Task 
-export interface UserTaskExecuteRequest {
+export class UserTaskExecuteRequest {
     taskId: string;
     processId: string;
     assigne: string;

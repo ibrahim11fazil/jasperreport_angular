@@ -14,7 +14,8 @@ export class CardComponent implements OnInit {
 	popupDeleteRespone : any;
 	popupAddNumberCard : any;
 
-	constructor(public ecommerceService : EcommerceService,
+	constructor(
+		public ecommerceService : EcommerceService,
 		private pageTItleService : PageTitleService,
 		private translate : TranslateService) { }
 
@@ -27,8 +28,11 @@ export class CardComponent implements OnInit {
 	  */
 	onRemoveCard(productNumberCard){
 		this.ecommerceService.deleteDialog('Are you sure you want to delete this card permanently?').
-			subscribe( res=>{ this.popupDeleteRespone = res },
-						  err=>console.log(err),
+			subscribe( res=> 
+				        { 
+						  this.popupDeleteRespone = res
+						}
+						,err=>console.log(err),
 				        ()=>this.getPopupDeleteResponse(this.popupDeleteRespone,productNumberCard)
 				      );
 	}
@@ -49,9 +53,10 @@ export class CardComponent implements OnInit {
 	  */
 	addNewCard(){
 		this.ecommerceService.addNumberCard().
-			subscribe( res => {this.popupAddNumberCard = res},
-						  err => console.log(err),
-						  ()  => this.getPopupResponse(this.popupAddNumberCard))
+			subscribe( res => 
+				{this.popupAddNumberCard = res},
+				err => console.log(err),
+				()  => this.getPopupResponse(this.popupAddNumberCard))
    }
 
 	/**
