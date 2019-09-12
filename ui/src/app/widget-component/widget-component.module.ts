@@ -80,6 +80,7 @@ import { EmailStatisticsComponent } from './chart/email-statistics/email-statist
 import { BrowserStackComponent } from './chart/browser-stack/browser-stack.component';
 import { LiveChartSupportComponent } from './chart/live-chart-support/live-chart-support.component';
 import { MixedChartComponent } from './chart/mixed-chart/mixed-chart.component';
+import { ViewTaskDetailsComponent } from 'app/training/popup/view-task-details/view-task-details.component';
 
 @NgModule({
 	declarations: [
@@ -130,6 +131,7 @@ import { MixedChartComponent } from './chart/mixed-chart/mixed-chart.component';
 		CourseDetailBillingComponent, 
 		CourseDetailOverviewComponent, 
 		CourseDetailLearnComponent, 
+		ViewTaskDetailsComponent,
 		FullWidthGraphComponent, YearlySaleComponent, SalesReportComponent, EmailStatisticsComponent, BrowserStackComponent, LiveChartSupportComponent, MixedChartComponent
 	],
 	imports: [
@@ -216,7 +218,8 @@ import { MixedChartComponent } from './chart/mixed-chart/mixed-chart.component';
 		PaymentMessageComponent,
 		TradeDialogComponent,
 		AddNewClientComponent,
-		EditNewClientComponent
+		EditNewClientComponent,
+		ViewTaskDetailsComponent
 	]
 })
 

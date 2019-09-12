@@ -70,6 +70,7 @@ import { CalendarModule,DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EmpRequestComponent } from './emp-request/emp-request.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { ViewTaskDetailsComponent } from './popup/view-task-details/view-task-details.component';
 
 
 
@@ -145,7 +146,7 @@ import { MyTasksComponent } from './my-tasks/my-tasks.component';
     	}),
   ],
 	entryComponents : [
-		CourseActionDialog
+    CourseActionDialog
 	]
 })
 export class TrainingModule { }
