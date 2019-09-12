@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import qa.gov.customs.employee.entity.MawaredMaster;
 import qa.gov.customs.employee.entity.MawaredUserAbsent;
 import qa.gov.customs.employee.models.Department;
+import qa.gov.customs.employee.models.EmployeeUnderSupervisor;
 import qa.gov.customs.employee.models.ImmediateManager;
 import qa.gov.customs.employee.repository.MawaredAbsentRepository;
 import qa.gov.customs.employee.repository.MawaredRepository;
@@ -14,9 +15,11 @@ import qa.gov.customs.employee.utils.models.MawaredJobs;
 import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MawaredServiceImpl implements MawaredService {
@@ -176,5 +179,31 @@ public class MawaredServiceImpl implements MawaredService {
 		}
 		return status;
 	}
+
+	@Override
+	public List<EmployeeUnderSupervisor> employeesUnderSupervisor(String id) {
+		List<Object[]> employeeObjects= mawaredRepository.employeesUnderSupervisor(id);
+		if(employeeObjects!=null && employeeObjects.size()>0){
+			return processEmployeesUnderSupervisor(employeeObjects);
+		}else
+			return null;
+	}
+
+	List<EmployeeUnderSupervisor> processEmployeesUnderSupervisor(List<Object[]> objects){
+		List<EmployeeUnderSupervisor> fAreas = new ArrayList<>();
+		for (Object[] o : objects) {
+			EmployeeUnderSupervisor fArea = new EmployeeUnderSupervisor();
+			fArea.setEmpNo((String) o[0]);
+			fArea.setLegacyCode((String) o[1]);
+			fArea.setcNameAr((String) o[2]);
+			fArea.setQid((String) o[3]);
+			fArea.setPositionAr((String) o[4]);
+			fArea.setQualification((String) o[5]);
+			fArea.setGrade((String) o[6]);
+			fAreas.add(fArea);
+		}
+		return fAreas;
+	}
+
 
 }
