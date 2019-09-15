@@ -41,6 +41,8 @@ public class AttendanceController {
     @PostMapping("/mark-initial-attendance")
     public ResponseType markInitialAttendance(@RequestBody List<TacCourseAttendence> attendance) {
 
+
+
         List<TacCourseAttendence> attendanceData = attendanceService.markInitialAttendance(attendance);
         ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
                 attendanceData);
