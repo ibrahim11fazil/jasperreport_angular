@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.employee.entity.*;
 import qa.gov.customs.employee.service.MawaredService;
+import qa.gov.customs.employee.service.EmployeeService;
 import qa.gov.customs.employee.utils.Constants;
 import qa.gov.customs.employee.utils.MessageUtil;
 import qa.gov.customs.employee.utils.models.MawaredGrades;
@@ -25,6 +26,7 @@ public class EmployeeController {
 
     @Autowired
     MawaredService mawaredService;
+    EmployeeService employeeService;
 //
 //    @PreAuthorize("hasAnyAuthority('get_employee_by_jobid')")
 //    @PostMapping("/get-employee-by-jobid")
@@ -162,4 +164,40 @@ public class EmployeeController {
 				return response;
 			}
 		}
+		
+	    @GetMapping("/list-university")
+		public ResponseType listuniversity() {
+			List<EmpUniverstity> university = null;
+			university = employeeService.findAlluniversity();
+			if(university!=null && university.size()>0)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, university);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
+	        
+	    @GetMapping("/list-major")
+		public ResponseType listmajor() {
+			List<EmpMajor> major = null;
+			major = employeeService.findAllMajor();
+			if(major!=null && major.size()>0)
+			{
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, major);
+				return response;
+			}
+			else
+			{
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}
+	    
+	        
+	    
+		
 }
