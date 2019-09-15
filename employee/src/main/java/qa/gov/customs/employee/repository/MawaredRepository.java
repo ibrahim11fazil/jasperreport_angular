@@ -58,5 +58,11 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
             "and D1.SUPERVISOR=M2.EMPNO ",nativeQuery = true)
     List<Object[]> getDepartmentHead(@Param("departmentId") String departmentId,@Param("jobFamilyShort") String jobFamilyShort);
 
-
+    @Query(value = "select m.empno,m.legacycode,m.cname_ar,m.qid,m.position_desc_ar,m.certf_t_a,pslevel " +
+            "from xxgdc_sap_ws_mini m, xxgdc_sap_masterdetails d where m.empno=d.pernr " +
+            "and m.run_date=(select max(run_date)from user_sap_ws_mini where empno=m.empno) " +
+            "and d.run_date=(select max(run_date) from xxgdc_sap_masterdetails where pernr=d.pernr) " +
+            "and d.supervisor=(select empno  from xxgdc_sap_ws_mini emp where emp.legacycode=:jobId " +
+            "and emp.run_date=(select max(run_date)from user_sap_ws_mini where legacycode=emp.legacycode)) ",nativeQuery = true)
+    List<Object[]> employeesUnderSupervisor(@Param("jobId") String jobId);
 }

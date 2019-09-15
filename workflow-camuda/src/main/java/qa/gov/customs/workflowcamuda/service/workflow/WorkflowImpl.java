@@ -3,15 +3,13 @@ package qa.gov.customs.workflowcamuda.service.workflow;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.netflix.discovery.converters.Auto;
-import org.camunda.bpm.engine.HistoryService;
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.history.HistoricDetail;
 import org.camunda.bpm.engine.history.HistoricIdentityLinkLog;
 import org.camunda.bpm.engine.history.HistoricTaskInstance;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
@@ -22,22 +20,24 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.config.Publisher;
-import qa.gov.customs.workflowcamuda.controller.WorkFlowController;
+
 import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
 import qa.gov.customs.workflowcamuda.proxy.TrainingProxyService;
 import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
 import qa.gov.customs.workflowcamuda.service.RequestService;
+import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import javax.transaction.Transactional;
 import java.util.*;
 
-import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.TYPE_1_PROCESS;
+import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
+
 
 @Component
-@Qualifier("workflowEmp01")
-public class WorkflowEmp01 {
+@Qualifier("workflowImpl")
+public class WorkflowImpl {
 
     private final UserProxyService userProxyService;
     private final NotificationProxyService notificationProxyService;
@@ -57,12 +57,14 @@ public class WorkflowEmp01 {
     private Publisher publisher;
 
 
-    private static final Logger logger = LoggerFactory.getLogger(WorkflowEmp01.class);
+
+
+    private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
 
     @Autowired
-    public WorkflowEmp01(UserProxyService userProxyService,
-                         NotificationProxyService notificationProxyService,
-                         TrainingProxyService trainingProxyService) {
+    public WorkflowImpl(UserProxyService userProxyService,
+                        NotificationProxyService notificationProxyService,
+                        TrainingProxyService trainingProxyService) {
         this.userProxyService = userProxyService;
         this.notificationProxyService = notificationProxyService;
         this.trainingProxyService = trainingProxyService;
@@ -70,17 +72,49 @@ public class WorkflowEmp01 {
 
 
     //Initial process for all requests
-    public boolean startProcess(UserRequestModel model) {
+    public boolean startProcessWFType1(UserRequestModel model,String type) {
         model.setCreatedOn(new Date().toString());
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
-        System.out.println(">>>>>>>> " + processInstance.getId());
-        boolean status = userRequestAndCompleteTask(model, processInstance.getId());
-        if (status)
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.CREATED);
-        else
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
-        return status;
+        ProcessInstance processInstance = null;
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        if(type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)){
+
+            ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
+                    .processDefinitionKey(TYPE_1_PROCESS)
+                    .latestVersion() //now 46
+                    //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
+                    .versionTag("Process_emp_01_v1") // This should be changed for new versions
+                    .singleResult();
+            processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
+
+            //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+           // processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+        }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
+        }else if(type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_3_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_4_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_5_AUDIT_MANAGER_COURSE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_5_PROCESS, vars);
+        }
+        else if(type.equals(TYPE_8_EMPLOYEE_SUBSTITUTE_REQUEST)) {
+            processInstance = runtimeService.startProcessInstanceByKey(TYPE_8_PROCESS, vars);
+        }
+
+        if(processInstance.getId()!=null) {
+            boolean status = userRequestAndCompleteTask(model, processInstance.getId());
+            if (status) {
+                requestService.saveOrUpdateWorkflow(model, WorkflowStatus.CREATED);
+            } else {
+                requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
+            }
+            return status;
+        }
+        return  false;
+
     }
 
     public List<Task> getTasks(String assignee) {
@@ -99,9 +133,16 @@ public class WorkflowEmp01 {
     }
 
     public UserRequestModel getProcessDetails(String executionId) {
-        UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId, "applicant");
-        System.out.println(variables.getEmail());
-        return variables;
+        try {
+            UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId, "applicant");
+            logger.info(variables.getEmail());
+            return variables;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            //TODO log and
+        }
+        return null;
     }
 
     @Transactional
@@ -115,6 +156,7 @@ public class WorkflowEmp01 {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            //TODO log error
             return false;
         }
 
@@ -163,6 +205,13 @@ public class WorkflowEmp01 {
                 .list();
     }
 
+
+    public List<HistoricIdentityLinkLog> getUserTasksByAssignee(String assignee) {
+        return historyService.createHistoricIdentityLinkLogQuery()
+                .userId(assignee)
+                .list();
+    }
+
     //Inital User can set the Task as Requested
     public boolean userRequestAndCompleteTask(UserRequestModel model, String processId) {
         List<Task> tasks = getTasks(model.getJobId());
@@ -190,11 +239,56 @@ public class WorkflowEmp01 {
         taskActionByUser(model, userdata, task);
     }
 
+    //Find the employee manager
+    public void findEmployeeManager(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getEmployeeManager(model.getJobId(), workflowToken);
+        taskActionByUser(model, userdata, task);
+    }
+
+
+    //Find Assistant GM
+    public void findAssistantGM(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getAssistantGeneralManager(workflowToken);
+        taskActionByUser(model, userdata, task);
+    }
+
+
     //Find the Training Head
     public void findHeadofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
         ResponseType userdata = userProxyService.getTrainingDepartmentHead(workflowToken);
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
+    }
+
+
+    //Find the Training Center Manager
+    public void findManagerofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getHeadOfTrainingCenterManager(workflowToken);
+        taskActionByUser(model, userdata, task);
+        //return "Jijo-3";
+    }
+
+    //Find the Legal Head
+    public void findLegalManager(UserRequestModel model, final DelegateTask task) {
+        ResponseType userdata = userProxyService.getLegalManager(workflowToken);
+        taskActionByUser(model, userdata, task);
+        //return "Jijo-3";
+    }
+
+
+    public Boolean getDelegationStatus(String userId){
+        try {
+            ResponseType userdata = userProxyService.checkTheUserIsAbsent(userId, workflowToken);
+            ObjectMapper mapper = new ObjectMapper();
+            Boolean status = mapper.convertValue(
+                    userdata.getData(),
+                    new TypeReference<Boolean>() {
+                    });
+            return status;
+        }catch (Exception e){
+            logger.error(e.toString());
+            return false;
+        }
     }
 
     public void taskActionByUser(UserRequestModel model, ResponseType userdata, final DelegateTask task) {
@@ -206,18 +300,24 @@ public class WorkflowEmp01 {
                     new TypeReference<ImmediateManager>() {
                     });
             if (manager != null && manager.getLegacyCode() != null) {
-                List<String> candidateUsers = new ArrayList<String>();
                 task.setAssignee(manager.getImLegacyCode());
                 task.setDescription(manager.getImCnameAr());
-                if (manager.getDelegations() != null && manager.getDelegations().size() > 0) {
-                    manager.getDelegations().forEach(item -> {
-                        task.addCandidateUser(item.getLegacyCode());
-                    });
+                if(getDelegationStatus(manager.getImLegacyCode())) {
+                  ResponseType delegations=   userProxyService.getDelegationForEmployee(manager.getImLegacyCode(),workflowToken);
+                    List<ImmediateManager> otherUsers = null;
+                    otherUsers = mapper.convertValue(
+                            delegations.getData(),
+                            new TypeReference<List<ImmediateManager>>() {
+                            });
+                    if (otherUsers != null && otherUsers.size() > 0) {
+                        otherUsers.forEach(item -> {
+                            task.addCandidateUser(item.getLegacyCode());
+                        });
+                    }
                 }
             } else {
                 requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                 trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
-
             }
         } else {
             requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
@@ -249,7 +349,32 @@ public class WorkflowEmp01 {
     }
 
 
+    public void checkTheUserIsManager(UserRequestModel model, DelegateExecution execution) {
+        Boolean status = false;
+        String errorCase = "";
+        System.out.println("checkUserIsManager" + model.getEmail());
+        ResponseType userdata = userProxyService.checkUserIsManager(model.getJobId(),model.getDepartmentId(), workflowToken);
+        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
+            ObjectMapper mapper = new ObjectMapper();
+            status = mapper.convertValue(
+                    userdata.getData(),
+                    new TypeReference<Boolean>() {
+                    });
+            logger.info("checkUserIsManager" + status.toString() );
+            if (status) {
+                execution.setVariable("resultcheckval_manager", "yes");
+            } else {
+                execution.setVariable("resultcheckval_manager", "no");
+            }
+        } else {
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+        }
+    }
+
+
     public void rejectionAction(UserRequestModel model) {
+        //TODO rejection based on the workflow
         System.out.println("Rejected" + model.getEmail());
         String message = "Request rejected for course " + model.getCourseName();
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.REJECTED);
@@ -261,6 +386,7 @@ public class WorkflowEmp01 {
     }
 
     public void acceptAction(UserRequestModel model) {
+        //TODO accept based on workflow
         System.out.println("Accepted" + model.getEmail());
         String message = "Request accepted for course " + model.getCourseName();
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);

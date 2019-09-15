@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.aspectj.bridge.MessageUtil;
+//import org.aspectj.bridge.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +16,15 @@ import qa.gov.customs.employee.entity.EmpUniverstity;
 import qa.gov.customs.employee.models.empSelfStudyRecord;
 import qa.gov.customs.employee.service.EmpSelfStudyService;
 import qa.gov.customs.employee.utils.Constants;
+import qa.gov.customs.employee.utils.MessageUtil;
 import qa.gov.customs.employee.utils.models.ResponseType;
-import qa.gov.customs.training.entity.TacCommSubjects;
+
 
 public class EmpSelfstudyController {
 
 	@Autowired
 	  EmpSelfStudyService empSelfStudyService;
+		MessageUtil messageUtil;
 	@GetMapping("/list-selfstudyRecords")
 	public ResponseType listJobs() 
 	{
@@ -49,9 +51,9 @@ public class EmpSelfstudyController {
 	        if (empSelfstudy != null) {
 	        	newSelfstudy = empSelfStudyService.createSelfstudy(empSelfstudy);
 	            if (newSelfstudy != null) {
-	                response = new ResponseType(201, MessageUtil.SELFSTUDY_CREATED, true, newSelfstudy);
+	                response = new ResponseType(201, messageUtil.SELFSTUDY_CREATED, true, newSelfstudy);
 	            } else {
-	                response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+	                response = new ResponseType(Constants.BAD_REQUEST, messageUtil.BAD_REQUEST, false, null);
 	            }
 	        }
 	        return response;

@@ -54,7 +54,17 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS : false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
-
+  rabbitmq:
+    host: ${RABBITMQ_HOST:172.16.0.254}
+    port: 5672
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
+#  quartz:
+#    auto-startup: true
+#    job-store-type: memory
+#    overwrite-existing-jobs: false
+#    scheduler-name: quartzCisScheduler
+#    startup-delay: 5s
 
 logging:
   pattern:
@@ -116,3 +126,11 @@ cloud:
   inetutils:
     prefered-networks:
       - 10.0
+      -
+cis:
+  rabbitmq:
+    queue: cis_queue
+    queue_workflow_status: cis_queue_workflow_status
+    exchange: cis_exchange
+    routingkey: cis_routingkey
+    routingkey_workflowresponse: cis_routingkey_workflow_status

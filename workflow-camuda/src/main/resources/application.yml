@@ -57,10 +57,10 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
   rabbitmq:
-    host: ${RABBITMQ_HOST:localhost}
+    host: ${RABBITMQ_HOST:172.16.0.254}
     port: 5672
-    username: ${RABBITMQ_USER:quest}
-    password: ${RABBITMQ_PASSWORD:quest}
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
 
 
 
@@ -90,6 +90,10 @@ camunda:
         enabled: true
        database:
         jdbc-batch-processing: false
+       job-execution:
+         max-jobs-per-acquisition: 20
+         queue-capacity: 20
+         max-pool-size: 40
 
 #eureka:
 #  client:

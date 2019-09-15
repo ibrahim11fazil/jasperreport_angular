@@ -2,6 +2,7 @@ package qa.gov.customs.cis.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Date;
 
 @Entity
 @Table(name="CIS_COURSE_REQUESTS")
@@ -18,13 +19,61 @@ public class CisCourseRequest {
     BigInteger statusFlag;
     @Column(name="INVESTIAGTION_ID")
     BigInteger investigationId;
+
+    @Temporal(TemporalType.DATE)
     @Column(name="CREATED_DATE")
-    String createdDate;
+    Date createdDate;
     @Column(name="COURSE_NUMBER")
     BigInteger courseNumber;
     @Column(name="REMARK")
     String remark;
 
+
+    @Column(name="WORKFLOW_UID")
+    String workFlowUid;
+
+    @Column(name="WORKFLOW_REMARK")
+    String workFlowRemark;
+
+    @Column(name="FROM_USER_CNAME")
+    String fromUserCname;
+
+    @Column(name="TO_USER_CNAME")
+    String toUserCname;
+
+
+
+    public String getWorkFlowUid() {
+        return workFlowUid;
+    }
+
+    public void setWorkFlowUid(String workFlowUid) {
+        this.workFlowUid = workFlowUid;
+    }
+
+    public String getWorkFlowRemark() {
+        return workFlowRemark;
+    }
+
+    public void setWorkFlowRemark(String workFlowRemark) {
+        this.workFlowRemark = workFlowRemark;
+    }
+
+    public String getFromUserCname() {
+        return fromUserCname;
+    }
+
+    public void setFromUserCname(String fromUserCname) {
+        this.fromUserCname = fromUserCname;
+    }
+
+    public String getToUserCname() {
+        return toUserCname;
+    }
+
+    public void setToUserCname(String toUserCname) {
+        this.toUserCname = toUserCname;
+    }
 
     public Long getRequestId() {
         return requestId;
@@ -66,11 +115,11 @@ public class CisCourseRequest {
         this.investigationId = investigationId;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 

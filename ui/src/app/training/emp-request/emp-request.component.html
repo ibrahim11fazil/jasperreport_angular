@@ -1,3 +1,153 @@
-<p>
-  emp-request works!
-</p>
+
+<div fxLayout="row wrap" fxLayoutAlign="start stretch" class="dash-card">
+
+		<mat-card fxFlex="100%">
+				<div class="gene-card-title">
+				  <div fxLayout="row" fxLayoutAlign="start center">
+					<div fxLayout="column">
+					  <h4>Search Course</h4>
+					</div> <span fxFlex></span>
+				  </div>
+				  <mat-divider></mat-divider>
+				</div>
+				<div class="gene-card-content">
+				  <form [formGroup]="form" (ngSubmit)="searchFutureCourses()">
+				<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+				  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+						<mat-form-field class="full-wid mrgn-b-md">
+						  <input matInput placeholder="Course Name" formControlName="courseName">
+						</mat-form-field>
+						
+					  </div>
+					</div>
+			
+					<div class="pad-wrap">
+					  <div fxLayout="row" fxLayoutAlign="start">
+						  		<!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
+				   <!-- <button mat-raised-button color="primary" (click)="onSubmit('searchFutureCourses()')" type="submit">Search</button>-->
+				   <button mat-raised-button color="primary" type="submit">Search</button>
+						<!--<button mat-raised-button color="primary"  type="submit" [disabled]="!form.valid">Search</button>-->
+					
+					  </div>
+					</div>
+				  </form>
+				</div>
+			
+			
+			  </mat-card>
+			
+
+
+	<div fxFlex="100">
+		<ngx-datatable 
+		#table class='material mrgn-all-md' 
+		[columnMode]="'force'" 
+		[headerHeight]="50"
+		[footerHeight]="50"
+		[rowHeight]="'auto'" 
+		[limit]="10" 
+		[rows]='rows' 
+		[count]="page.totalElements"
+		[offset]="page.pageNumber">
+
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>Course Name</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.courseName}}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>Course Start Date</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.course_date}}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>Course End Date</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.end_date}}
+				</ng-template>
+			</ngx-datatable-column>
+	
+
+				<ngx-datatable-column min-width="50px" >
+					<ng-template ngx-datatable-header-template>
+					  <span>Display</span>
+					</ng-template>
+					<ng-template let-row="row" ngx-datatable-cell-template>
+			
+					  <button mat-raised-button color="primary" class="m-1" type="button"
+					  (click)=getActivationData(row)>Display</button>
+			  
+					</ng-template>
+				  </ngx-datatable-column>
+				</ngx-datatable>	
+	</div>
+	<div *ngIf="displayCourseDetails" fxFlex="100" class="gene-card-content">
+		<mat-card>
+			<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
+				fxLayout="column">
+				<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+					<h4>Course Name</h4>
+					{{activation.courseName}}
+				</div>
+				<div fxLayout="row wrap" fxLayoutAlign="space-between center"
+					class="notEditableField" style="display: inline">
+					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+						<h4>Belongs To</h4>
+						{{courseDetail!=undefined?courseDetail.courseName:""}}
+					</div>
+				</div>
+				<div  fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+					fxFlex.gt-md="100" fxLayoutAlign="space-between center" class="notEditableField">
+
+					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+						<h4>Course Period</h4>
+						{{activation.duration}}
+					</div>
+
+					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+						<h4>Duration Type</h4>
+						{{durationValueString}}
+					</div>
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Course Date</h4>
+					{{activation.courseDate}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>locationName</h4>
+					{{activation.locationName}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Course Room</h4>
+					{{activation.roomName}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Trainer</h4>
+					{{tacInstructorString}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Co-ordinator</h4>
+					{{tacCoordinatorString}}
+				</div>
+				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<h4>Estimated Cost</h4>
+					{{estimatedCost}}
+				</div>
+			</div>
+		</mat-card>
+		<div fxLayout="row" fxLayoutAlign="center">
+
+				<!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
+				<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">Submit</button>
+				<!-- <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button> -->
+			 </div>
+	</div>
+</div>

@@ -3,10 +3,10 @@ package qa.gov.customs.employee.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.employee.entity.*;
+import qa.gov.customs.employee.models.EmployeeUnderSupervisor;
 import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.service.EmployeeService;
 import qa.gov.customs.employee.utils.Constants;
@@ -164,6 +164,7 @@ public class EmployeeController {
 				return response;
 			}
 		}
+
 		
 	    @GetMapping("/list-university")
 		public ResponseType listuniversity() {
@@ -197,7 +198,27 @@ public class EmployeeController {
 			}
 		}
 	    
-	        
-	    
-		
+
+	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
+	@PostMapping("/employees_under_supervisor/{id}")
+	public ResponseType employeesUnderSupervisor(@PathVariable("id") String id)
+	{
+		List<EmployeeUnderSupervisor> submittedRequest  = mawaredService.employeesUnderSupervisor(id);
+		if(submittedRequest!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+					submittedRequest);
+			return response;
+		}
+		else {
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+					null);
+			return response;
+		}
+	}
+
+
+
+
+
 }

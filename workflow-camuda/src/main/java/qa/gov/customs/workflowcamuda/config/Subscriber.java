@@ -25,9 +25,9 @@ public class Subscriber {
 
     @RabbitListener(queues="${workflow.rabbitmq.queue_user_request}")
     public void receivedUserRequest(UserRequestModel request) {
-        System.out.println("Received Message: " + request);
+        logger.info("Received Message: " + request);
         if(request!=null && request.getWorkflowType()!=null){
-            workFlowController.asyncWorkflowStartAction( request);
+            workFlowController.asyncWorkflowStartAction(request);
             logger.info("TODO Success ###");
         }else{
             logger.info("Failed ###");

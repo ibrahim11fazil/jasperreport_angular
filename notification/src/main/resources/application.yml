@@ -30,10 +30,11 @@ spring:
         dialect: org.hibernate.dialect.Oracle10gDialect
         max_fetch_depth: 1
   rabbitmq:
-    host: ${RABBITMQ_HOST:localhost}
+    host: ${RABBITMQ_HOST:172.16.0.254}
     port: 5672
-    username: ${RABBITMQ_USER:quest}
-    password: ${RABBITMQ_PASSWORD:quest}
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
+
 
 security:
   oauth2:
