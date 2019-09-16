@@ -49,7 +49,7 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
                     b,
                     b1);
             principal.setQid(map.get(QID).toString());
-            principal.setQid(map.get(JID).toString());
+            principal.setJid(map.get(JID).toString());
             principal.setcNameAr(map.get(USER_NAME).toString());
             return new UsernamePasswordAuthenticationToken(principal
 

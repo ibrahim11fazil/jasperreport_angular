@@ -29,6 +29,8 @@ public class EmployeeController {
 
     @Autowired
     MawaredService mawaredService;
+	private String training_token;
+
 //
 //    @PreAuthorize("hasAnyAuthority('get_employee_by_jobid')")
 //    @PostMapping("/get-employee-by-jobid")
@@ -167,25 +169,49 @@ public class EmployeeController {
 			}
 		}
 
+//	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
+//	@PostMapping("/employees_under_supervisor/{id}")
+//	public ResponseType employeesUnderSupervisor(@PathVariable("id") String id)
+//	{
+//		List<EmployeeUnderSupervisor> submittedRequest  = mawaredService.employeesUnderSupervisor(id);
+//		if(submittedRequest!=null)
+//		{
+//			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+//					submittedRequest);
+//			return response;
+//		}
+//		else {
+//			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+//					null);
+//			return response;
+//		}
+//	}
+
 	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
-	@PostMapping("/employees_under_supervisor/{id}")
-	public ResponseType employeesUnderSupervisor(@PathVariable("id") String id)
-	{
-		List<EmployeeUnderSupervisor> submittedRequest  = mawaredService.employeesUnderSupervisor(id);
-		if(submittedRequest!=null)
-		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
-					submittedRequest);
-			return response;
-		}
-		else {
-			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-					null);
-			return response;
-		}
+	@PostMapping("/employees_under_supervisor")
+	public ResponseType employeesUnderSupervisor(@AuthenticationPrincipal CustomPrincipal principal) {
+
+    	   logger.info("$$$$$$------>  "+principal.getJid());
+           int cnt= mawaredService.getCountOfHead(principal.getJid());
+           if (cnt>0) {
+			   List<EmployeeUnderSupervisor> submittedRequest = mawaredService.employeesUnderSupervisor(principal.getJid());
+			   if (submittedRequest != null && submittedRequest.size()>0) {
+				   ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+						   submittedRequest);
+				   return response;
+			   } else {
+				   ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+						   null);
+				   return response;
+			   }
+		   }
+           else
+		   {
+			   ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+					   null);
+			   return response;
+		   }
+
 	}
-
-
-
 
 }
