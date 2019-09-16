@@ -20,7 +20,7 @@ public class EmpUniverstity implements java.io.Serializable {
 
 	private BigDecimal universityCode;
 	private String universityNameEn;
-	private String eniversityNameAr;
+	private String universityNameAr;
 	private Set<EmpSelfstudyMaster> empSelfstudyMasters = new HashSet<EmpSelfstudyMaster>(0);
 
 	public EmpUniverstity() {
@@ -34,7 +34,7 @@ public class EmpUniverstity implements java.io.Serializable {
 			Set<EmpSelfstudyMaster> empSelfstudyMasters) {
 		this.universityCode = universityCode;
 		this.universityNameEn = universityNameEn;
-		this.eniversityNameAr = eniversityNameAr;
+		this.universityNameAr = eniversityNameAr;
 		this.empSelfstudyMasters = empSelfstudyMasters;
 	}
 
@@ -59,12 +59,12 @@ public class EmpUniverstity implements java.io.Serializable {
 	}
 
 	@Column(name = "ENIVERSITY_NAME_AR", length = 200)
-	public String getEniversityNameAr() {
-		return this.eniversityNameAr;
+	public String getUniversityNameAr() {
+		return this.universityNameAr;
 	}
 
-	public void setEniversityNameAr(String eniversityNameAr) {
-		this.eniversityNameAr = eniversityNameAr;
+	public void setUniversityNameAr(String eniversityNameAr) {
+		this.universityNameAr = eniversityNameAr;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empUniverstity")

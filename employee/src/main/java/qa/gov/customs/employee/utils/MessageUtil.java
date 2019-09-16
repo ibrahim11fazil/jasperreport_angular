@@ -26,4 +26,5 @@ public class MessageUtil {
     public static String  SYSTEM_USER_CREATED="User Created";
     public static String  FAILED="Failed";
     public static String  SUCCESS="Success";
+    public static String SELFSTUDY_CREATED="Self study record created";
 }
