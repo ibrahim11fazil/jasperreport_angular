@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import qa.gov.customs.employee.entity.EmpEducationLevel;
 
 
-public interface educatiuonLevelRepository  extends JpaRepository<EmpEducationLevel, BigDecimal> {
+public interface EducatiuonLevelRepository  extends JpaRepository<EmpEducationLevel, BigDecimal> {
 
 	ArrayList<EmpEducationLevel> findAll();
 

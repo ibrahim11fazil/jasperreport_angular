@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import qa.gov.customs.employee.entity.EmpEducationLevel;
 import qa.gov.customs.employee.entity.EmpMajor;
 
-public interface majorRepository  extends JpaRepository<EmpMajor, BigDecimal>  
+public interface MajorRepository  extends JpaRepository<EmpMajor, BigDecimal>  
 {
 
 	
