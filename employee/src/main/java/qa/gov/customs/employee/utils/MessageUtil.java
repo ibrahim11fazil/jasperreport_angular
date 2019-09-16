@@ -27,4 +27,6 @@ public class MessageUtil {
     public static String  FAILED="Failed";
     public static String  SUCCESS="Success";
     public static String SELFSTUDY_CREATED="Self study record created";
+    public static String ExternalStudy_CREATED="External study record created";
+    
 }

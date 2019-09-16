@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import qa.gov.customs.employee.entity.EmpUniverstity;
 import qa.gov.customs.employee.models.empSelfStudyRecord;
 
-public interface universityRepository extends JpaRepository<EmpUniverstity, BigDecimal> {
+public interface UniversityRepository extends JpaRepository<EmpUniverstity, BigDecimal> {
 
 	List<EmpUniverstity> findAll();
 

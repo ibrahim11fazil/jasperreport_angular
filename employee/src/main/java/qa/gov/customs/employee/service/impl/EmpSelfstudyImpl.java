@@ -11,15 +11,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import qa.gov.customs.employee.entity.EmpEducationLevel;
-import qa.gov.customs.employee.entity.EmpMajor;
+
 import qa.gov.customs.employee.entity.EmpSelfstudyMaster;
-import qa.gov.customs.employee.entity.EmpUniverstity;
 import qa.gov.customs.employee.models.empSelfStudyRecord;
-import qa.gov.customs.employee.repository.educatiuonLevelRepository;
-import qa.gov.customs.employee.repository.empSelfstudyRepository;
-import qa.gov.customs.employee.repository.majorRepository;
-import qa.gov.customs.employee.repository.universityRepository;
+import qa.gov.customs.employee.repository.EmpSelfstudyRepository;
+
 
 
 
@@ -29,10 +25,9 @@ public class EmpSelfstudyImpl {
 	//  List<EmpSelfstudyMaster> listAllEmpSelfStudyRecords (String jobCode);
 	
 	@Autowired
-	empSelfstudyRepository empSelfstudyRepository;
+	EmpSelfstudyRepository empSelfstudyRepository;
 	
-	@Autowired
-	universityRepository universityRepository;
+
 	
 	  
 	public List<empSelfStudyRecord> listAllEmpSelfStudyRecords()
@@ -56,9 +51,11 @@ public class EmpSelfstudyImpl {
 			{
 				EmpSelfstudyMaster empSelfstudyUpdated=empSelfstudyRepository.save(empSelfstudy);
 				return empSelfstudyUpdated;
-
 			}
-		
+			else
+			{
+			return null;
+			}
 	}
 	
 	
