@@ -221,23 +221,23 @@ public class EmployeeController {
 		}
 	    
 
-	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
-	@PostMapping("/employees_under_supervisor/{id}")
-	public ResponseType employeesUnderSupervisor(@PathVariable("id") String id)
-	{
-		List<EmployeeUnderSupervisor> submittedRequest  = mawaredService.employeesUnderSupervisor(id);
-		if(submittedRequest!=null)
-		{
-			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
-					submittedRequest);
-			return response;
-		}
-		else {
-			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-					null);
-			return response;
-		}
-	}
+//	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
+//	@PostMapping("/employees_under_supervisor/{id}")
+//	public ResponseType employeesUnderSupervisor(@PathVariable("id") String id)
+//	{
+//		List<EmployeeUnderSupervisor> submittedRequest  = mawaredService.employeesUnderSupervisor(id);
+//		if(submittedRequest!=null)
+//		{
+//			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+//					submittedRequest);
+//			return response;
+//		}
+//		else {
+//			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+//					null);
+//			return response;
+//		}
+//	}
 
 
 
@@ -261,7 +261,7 @@ public class EmployeeController {
 		   }
            else
 		   {
-			   ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+			   ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.NO_DATA_FOUND, false,
 					   null);
 			   return response;
 		   }
