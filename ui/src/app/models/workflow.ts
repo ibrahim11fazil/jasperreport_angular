@@ -296,3 +296,140 @@ export interface UserTaskExecuteResponse{
     data:UserTaskExecuteResponseModel
   
 }
+
+
+//History User Request{}
+
+export class HistoryUserRequest{
+    firstResult?:number;
+    maxResult?:number;
+    executionId?:String;
+    processId?:String;
+}
+
+
+//History User Response {}
+export interface HistoryUserResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:HistoryUserResponseByUser[]
+}
+
+
+export interface HistoryUserResponseByUser {
+    id: string;
+    rootProcessInstanceId: string;
+    processInstanceId?: any;
+    executionId?: any;
+    processDefinitionId: string;
+    processDefinitionKey: string;
+    processDefinitionName?: any;
+    processDefinitionVersion?: any;
+    caseInstanceId?: any;
+    caseExecutionId?: any;
+    caseDefinitionId?: any;
+    caseDefinitionKey?: any;
+    caseDefinitionName?: any;
+    eventType?: any;
+    sequenceCounter: number;
+    removalTime?: any;
+    time: Date;
+    type: string;
+    userId: string;
+    groupId?: any;
+    taskId: string;
+    operationType: string;
+    assignerId?: any;
+    tenantId?: any;
+    persistentState: string;
+}
+
+
+//History ProcessId Response {}
+export interface HistoryProcessResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:HistoryUserResponseByProcess[]
+}
+
+
+export interface PrimitiveType {
+    name: string;
+    javaType: string;
+    primitiveValueType: boolean;
+    abstract: boolean;
+    parent?: any;
+}
+
+export interface TypedUserValue {
+    value: any;
+    type: PrimitiveType;
+    transient: boolean;
+    objectTypeName: string;
+    serializationDataFormat: string;
+    objectType: string;
+    deserialized?: boolean;
+    valueSerialized: string;
+}
+
+export interface TypePrimitive2 {
+    name: string;
+    javaType: string;
+    primitiveValueType: boolean;
+    abstract: boolean;
+    parent?: any;
+}
+
+export interface SerializerData {
+    name: string;
+    type: TypePrimitive2;
+    serializationDataformat: string;
+}
+
+export interface HistoryUserResponseByProcess {
+    id: string;
+    rootProcessInstanceId: string;
+    processInstanceId: string;
+    executionId: string;
+    processDefinitionId: string;
+    processDefinitionKey: string;
+    processDefinitionName?: any;
+    processDefinitionVersion?: any;
+    caseInstanceId?: any;
+    caseExecutionId?: any;
+    caseDefinitionId?: any;
+    caseDefinitionKey?: any;
+    caseDefinitionName?: any;
+    eventType?: any;
+    sequenceCounter: number;
+    removalTime?: any;
+    activityInstanceId: string;
+    taskId?: any;
+    timestamp: Date;
+    tenantId?: any;
+    userOperationId?: any;
+    revision: number;
+    variableName: string;
+    variableInstanceId: string;
+    scopeActivityInstanceId?: any;
+    serializerName: string;
+    longValue?: any;
+    doubleValue?: any;
+    textValue: string;
+    textValue2: string;
+    byteValue?: any;
+    byteArrayId?: any;
+    name: string;
+    value: any;
+    typeName: string;
+    time: Date;
+    typedValue: TypedUserValue;
+    serializer: SerializerData;
+    errorMessage?: any;
+    byteArrayValueId: string;
+    byteArrayValue: string;
+    variableTypeName: string;
+    persistentState: string;
+}
