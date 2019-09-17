@@ -206,10 +206,10 @@ public class WorkflowImpl {
     }
 
 
-    public List<HistoricIdentityLinkLog> getUserTasksByAssignee(String assignee) {
+    public List<HistoricIdentityLinkLog> getUserTasksByAssignee(String assignee,int firstResult,int maxResult) {
         return historyService.createHistoricIdentityLinkLogQuery()
                 .userId(assignee)
-                .list();
+                .listPage(firstResult,maxResult);
     }
 
     //Inital User can set the Task as Requested

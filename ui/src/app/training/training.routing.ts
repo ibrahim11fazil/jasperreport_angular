@@ -18,6 +18,7 @@ import { JobCardComponent } from './job-card/job-card.component';
 import { JobCardSearchComponent } from './job-card-search/job-card-search.component';
 import { EmpRequestComponent } from './emp-request/emp-request.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { MyTasksHistoryComponent } from './my-tasks-history/my-tasks-history.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -129,9 +130,11 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'my-tasks',
                 component:MyTasksComponent
+            },
+            {
+                path: 'my-tasks-history',
+                component:MyTasksHistoryComponent
             }
-            
-
         ]
     }
 ];

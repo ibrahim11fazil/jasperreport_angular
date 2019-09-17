@@ -8,33 +8,34 @@ import { Page } from "../../models/paged-data";
 import { PAGE_LIMIT, DURATION_FLAG_LIST } from 'app/app.constants';
 import { Router } from '@angular/router';
 import { WorkflowService } from 'app/service/training/workflow.service';
-import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse } from 'app/models/workflow';
+import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse, HistoryUserRequest, HistoryUserResponse, HistoryUserResponseByUser, HistoryProcessResponse, HistoryUserResponseByProcess, UserRequestModel } from 'app/models/workflow';
 import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
 import { TrainingService } from 'app/service/training/training.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
 import { TacActivation } from 'app/models/tac-activation';
 @Component({
-  selector: 'ms-my-tasks',
-  templateUrl: './my-tasks.component.html',
-  styleUrls: ['./my-tasks.component.scss']
+  selector: 'ms-my-tasks-history',
+  templateUrl: './my-tasks-history.component.html',
+  styleUrls: ['./my-tasks-history.component.scss']
 })
-export class MyTasksComponent implements OnInit {
+export class MyTasksHistoryComponent implements OnInit {
 
   systemUser: SystemUser
   form: FormGroup
   page = 0
   commentTxt=""
-  ds: TaskResponseData[] = [];
+  ds: HistoryUserResponseByUser[] = [];
   firstSearch=false
   activation: ActivationData;
   estimatedCost: Number;
   durationFlagList = DURATION_FLAG_LIST;
   durationValueString: String;
   dataStatus = false;
-  displayedColumns: string[] = ['id', 'name', 'workflowType','jobId', 'cnameAr', 'edit'];
-  data : TaskResponseData;
+  displayedColumns: string[] = [ 'id', 'time', 'userId' , 'edit'];
+  data : UserRequestModel;
   items: string[] = [];
-  historyExecutions:UserTaskResponseHistory[]=[]
+  historyExecutions:HistoryUserResponseByProcess[]=[]
+  historyExecutionsApprovals:UserTaskResponseHistory[]=[]
   constructor(
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
@@ -43,8 +44,7 @@ export class MyTasksComponent implements OnInit {
     private router:Router,
     private trainingSystemService:TrainingSystemServiceService,
     private trainingService: TrainingService) {
-    this.pageTitleService.setTitle("User Tasks")
-   
+    this.pageTitleService.setTitle("User Tasks History")
   }
 
   ngOnInit() {
@@ -59,7 +59,7 @@ export class MyTasksComponent implements OnInit {
   }
   
   onSubmit() {
-    this.ds = new Array<TaskResponseData>();
+    this.ds = new Array<HistoryUserResponseByUser>();
     this.ds = [...this.ds];
     this.page = 0
     this.firstSearch=true
@@ -68,13 +68,12 @@ export class MyTasksComponent implements OnInit {
 
   search() {
     this.ds=[]
-    var searchString = new SearchUser()
-    searchString.jobId = this.form.value.searchControl
-    searchString.limit = PAGE_LIMIT
-    searchString.start = this.page
-    this.workflowService.listMyTasks().subscribe(
+    var searchString = new HistoryUserRequest()
+    searchString.maxResult = PAGE_LIMIT
+    searchString.firstResult = this.page
+    this.workflowService.processHistoryByUser(searchString).subscribe(
       data => {
-        var response = <TaskResponse>data
+        var response = <HistoryUserResponse>data
         if (response.status && response.data.length>0) {
           response.data.forEach(item => {
             // var rName=""
@@ -84,6 +83,7 @@ export class MyTasksComponent implements OnInit {
             // }
             this.ds.push(item);
           })
+          debugger
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
           if(this.firstSearch==true && response.data.length==0){
             this.toastr.info("Search result no found")
@@ -102,86 +102,22 @@ export class MyTasksComponent implements OnInit {
   }
 
   onScroll() {
-    this.page = this.page + 1;
+    this.page = this.page + PAGE_LIMIT; // + 1 is old
     this.firstSearch=false
     this.search()
   }
 
-
-
-  saveComment(){
-    if(this.commentTxt!=""){
-      if(this.data.id!=null){
-        var comment =  new CommentSaveModel()
-        comment.taskId= this.data.id
-        comment.commandMessage= this.commentTxt
-        comment.processInstanceId= this.data.processId
-        this.workflowService.saveComment(comment).subscribe(
-          data=>{
-            var response = <CommentSaveResponse>data
-            if( response.status)
-            this.commentTxt=""
-            this.getComment();
-          },
-          error => {
-            console.log(error)
-           // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-          this.toastr.error(error.message)
-          }
-        )
-        }
-    }
-  }
-  approve(){
-     this.saveComment()
-     this.approveOrRejectAction("approved")
-  }
-
-  reject(){
-    this.saveComment()
-    this.approveOrRejectAction("rejected")
+  viewProcessDetails(row){
+    this.commentTxt=""
+    this.getHistoryByProcessId(row.rootProcessInstanceId)
+    this.getHistoryTasks(row.rootProcessInstanceId) 
   }
  
-
-  approveOrRejectAction(actionTaken:string){
-     if(actionTaken!=""){
-      if(this.data.id!=null){
-        var action =  new UserTaskExecuteRequest()
-        action.executionId= this.data.executionId
-        action.processId=this.data.processId
-        action.taskId=this.data.id
-        action.role="immanager"
-        action.action=actionTaken
-    
-        this.workflowService.executeTask(action).subscribe(
-          data=>{
-            var response = <UserTaskExecuteResponse>data
-           if(response.status){
-            this.toastr.info(String(response.message))
-            this.dataStatus=false
-            this.search()
-           }else{
-            this.toastr.error(String(response.message))
-           }
-          },
-          error => {
-            console.log(error)
-            this.toastr.error(error)
-           // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-           // this.toastr.error(error.message)
-          }
-        )
-        }
-     }
-  }
-
-
   viewDetails(row){
-    this.data=row
-    this.commentTxt=""
-    this.dataStatus=true
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
-      courseActivation.activationId = Number( row.userRequestModel.courseActivationId)
+      this.data=row
+      this.dataStatus=true
+      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+      courseActivation.activationId = Number( this.data.courseActivationId)
       this.trainingService.getActivationById(courseActivation).subscribe(
         data => {
           var response = <ResponseActivationData>data
@@ -202,45 +138,46 @@ export class MyTasksComponent implements OnInit {
          // this.toastr.error(error.message)
         }
       )
-      this.getComment();
-      this.getHistoryTasks();
+      //this.getComment();
+      //this.getHistoryTasks();
   }
 
 
-  getComment(){
-    if(this.data.id!=null){
+  getComments(historyExecutionsApprovals){
+    debugger
+    if(historyExecutionsApprovals!=null){
       this.items =[]
-      var task = new CommentsForTask()
-      task.taskId= this.data.id
-      this.workflowService.getComments(task).subscribe(
-        data=>{
-          var response = <CommentsForTaskResponse>data
-          if(response.data!=null && response.status && response.data.length>0){
-            response.data.forEach(item =>  {
-              this.items.push(item.message)
-            }) 
+      historyExecutionsApprovals.forEach(item => {
+        var task = new CommentsForTask()
+        task.taskId= item.id
+        this.workflowService.getComments(task).subscribe(
+          data => {
+            var response = <CommentsForTaskResponse>data
+            if(response.data!=null && response.status && response.data.length>0){
+              response.data.forEach(item =>  {
+                this.items.push(item.message)
+              }) 
+            }
+          },
+          error => {
+            console.log(error)
           }
-        }
-        ,
-        error => {
-          console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
-        }
-      )
-      }
+        )
+      })
+    }
   }
 
-  getHistoryTasks(){
-    if(this.data.id!=null){
+  getHistoryTasks(executionId:String){
+    if(executionId!=null){
       this.items =[]
       var history =  new UserTaskHistoryExecutionsDetailsRequest()
-      history.executionId= this.data.executionId
+      history.executionId= executionId.toString()
       this.workflowService.processHistory(history).subscribe(
         data=>{
           var response = <UserTaskHistoryResponse>data
           if(response.data!=null && response.status && response.data.length>0){
-           this.historyExecutions=response.data
+           this.historyExecutionsApprovals=response.data
+           this.getComments(this.historyExecutionsApprovals)
           }
         },
         error => {
@@ -249,7 +186,35 @@ export class MyTasksComponent implements OnInit {
          // this.toastr.error(error.message)
         }
       )
-      }
+    }
+  }
+
+
+  getHistoryByProcessId(processId:String){
+    debugger
+    if(processId!=null){
+      this.items =[]
+      var history =  new HistoryUserRequest()
+      history.processId= processId
+      this.workflowService.processHistoryByProcess(history).subscribe(
+        data=>{
+          var response = <HistoryProcessResponse>data
+          if(response.data!=null && response.status && response.data.length>0){
+           this.historyExecutions=response.data
+           this.historyExecutions.forEach(item =>{
+             if(item.name=="applicant"){
+              this.viewDetails(item.value)
+             }
+           })
+          }
+        },
+        error => {
+          console.log(error)
+         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
+           this.toastr.error(error.message)
+        }
+      )
+    }
   }
 
 }

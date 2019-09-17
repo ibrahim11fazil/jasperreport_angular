@@ -189,7 +189,9 @@ export const  GET_MY_WITH_DELEGATIONS=BASE_URL+workflow+"/my-tasks-delegation"
 export const  EXECUTE_TASK=BASE_URL+workflow+"/execute-task"
 export const  SAVE_COMMENT=BASE_URL+workflow+"/save-comment"
 export const  GET_COMMENTS=BASE_URL+workflow+"/task-comments"
-export const  PROCESS_TASK_DETAILS=BASE_URL+workflow+"/process-history-task-details"
-
+//export const  PROCESS_TASK_DETAILS=BASE_URL+workflow+"/process-history-task-details"
+export const  PROCESS_HISTORY_BY_EXECUTION_ID=BASE_URL+workflow+"/process-history-task-details"
+export const  PROCESS_HISTORY_BY_USER=BASE_URL+workflow+"/process-history-by-user-id"
+export const  PROCESS_HISTORY_BY_PROCESS_ID=BASE_URL+workflow+"/process-history"
 
 
