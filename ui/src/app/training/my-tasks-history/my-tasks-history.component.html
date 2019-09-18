@@ -47,6 +47,27 @@
                       <h5>Requested By</h5>
                       {{data.cnameAr}}  -   {{data.jobId}} 
                   </div>
+                  <div *ngIf="isrequestedFor" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                      <h5>Requested For</h5>
+                      <table border="1">
+
+                          <tr>
+                            <th>User</th>
+                            <th>Job Code</th>
+                            <th>Qatar ID</th>
+                            <th>Position</th>
+                          </tr>
+
+                          <tr>
+                            <td>{{data.forUsercnameAr}}</td>
+                            <td>{{data.forUserJobId}}</td>
+                            <td>{{data.forUserQid }}</td>
+                            <td>{{data.forUserjobTitle}}</td>
+                          </tr> 
+                    
+                    </table>
+                </div>
+
                   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                       <h5>Department</h5>
                       {{data.department}} 

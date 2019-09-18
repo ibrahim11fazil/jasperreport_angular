@@ -5,7 +5,7 @@ import { SystemUserService } from 'app/service/user/system-user.service';
 import { ToastrService } from 'ngx-toastr';
 import { SystemUser, SystemUserResponse, SearchUser, ISystemUserResponseList, SystemUserResponseArray, GenericResponse } from 'app/models/system-user';
 import { Page } from "../../models/paged-data";
-import { PAGE_LIMIT, DURATION_FLAG_LIST } from 'app/app.constants';
+import { PAGE_LIMIT, DURATION_FLAG_LIST, WORKFLOW_2_EMP_REQUEST } from 'app/app.constants';
 import { Router } from '@angular/router';
 import { WorkflowService } from 'app/service/training/workflow.service';
 import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse } from 'app/models/workflow';
@@ -26,6 +26,7 @@ export class MyTasksComponent implements OnInit {
   commentTxt=""
   ds: TaskResponseData[] = [];
   firstSearch=false
+  isrequestedFor=false
   activation: ActivationData;
   estimatedCost: Number;
   durationFlagList = DURATION_FLAG_LIST;
@@ -102,7 +103,7 @@ export class MyTasksComponent implements OnInit {
   }
 
   onScroll() {
-    this.page = this.page + 1;
+    this.page = this.page  + PAGE_LIMIT //+ 1;
     this.firstSearch=false
     this.search()
   }
@@ -125,8 +126,8 @@ export class MyTasksComponent implements OnInit {
           },
           error => {
             console.log(error)
-           // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-          this.toastr.error(error.message)
+           //this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
+             this.toastr.error(error.message)
           }
         )
         }
@@ -178,6 +179,11 @@ export class MyTasksComponent implements OnInit {
 
   viewDetails(row){
     this.data=row
+    if(this.data.userRequestModel.workflowType==WORKFLOW_2_EMP_REQUEST){
+      this.isrequestedFor=true
+    }else{
+      this.isrequestedFor=false
+    }
     this.commentTxt=""
     this.dataStatus=true
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)

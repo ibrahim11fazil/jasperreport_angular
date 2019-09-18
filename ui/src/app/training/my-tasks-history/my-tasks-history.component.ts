@@ -5,7 +5,7 @@ import { SystemUserService } from 'app/service/user/system-user.service';
 import { ToastrService } from 'ngx-toastr';
 import { SystemUser, SystemUserResponse, SearchUser, ISystemUserResponseList, SystemUserResponseArray, GenericResponse } from 'app/models/system-user';
 import { Page } from "../../models/paged-data";
-import { PAGE_LIMIT, DURATION_FLAG_LIST } from 'app/app.constants';
+import { PAGE_LIMIT, DURATION_FLAG_LIST, WORKFLOW_2_EMP_REQUEST } from 'app/app.constants';
 import { Router } from '@angular/router';
 import { WorkflowService } from 'app/service/training/workflow.service';
 import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse, HistoryUserRequest, HistoryUserResponse, HistoryUserResponseByUser, HistoryProcessResponse, HistoryUserResponseByProcess, UserRequestModel } from 'app/models/workflow';
@@ -36,6 +36,7 @@ export class MyTasksHistoryComponent implements OnInit {
   items: string[] = [];
   historyExecutions:HistoryUserResponseByProcess[]=[]
   historyExecutionsApprovals:UserTaskResponseHistory[]=[]
+  isrequestedFor=false
   constructor(
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
@@ -114,6 +115,11 @@ export class MyTasksHistoryComponent implements OnInit {
  
   viewDetails(row){
       this.data=row
+      if(this.data.workflowType==WORKFLOW_2_EMP_REQUEST){
+        this.isrequestedFor=true
+      }else{
+        this.isrequestedFor=false
+      }
       this.dataStatus=true
       let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
       courseActivation.activationId = Number( this.data.courseActivationId)

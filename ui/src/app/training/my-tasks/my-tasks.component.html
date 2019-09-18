@@ -55,6 +55,28 @@
                       <h5>Requested By</h5>
                       {{data.userRequestModel.cnameAr}}  -   {{data.userRequestModel.jobId}} 
                   </div>
+                  <div *ngIf="isrequestedFor" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                      <h5>Requested For</h5>
+                      <table border="1">
+
+                          <tr>
+                            <th>User</th>
+                            <th>Job Code</th>
+                            <th>Qatar ID</th>
+                            <th>Position</th>
+                          </tr>
+
+                          <tr  *ngFor="let item of historyExecutions">
+                            <td>{{data.userRequestModel.forUsercnameAr}}</td>
+                            <td>{{data.userRequestModel.forUserJobId}}</td>
+                            <td>{{data.userRequestModel.forUserQid }}</td>
+                            <td>{{data.userRequestModel.forUserjobTitle}}</td>
+                          </tr> 
+                    
+                    </table>
+                </div>
+
+
                   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                       <h5>Department</h5>
                       {{data.userRequestModel.department}} 
