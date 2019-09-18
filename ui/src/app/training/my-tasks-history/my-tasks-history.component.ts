@@ -67,7 +67,7 @@ export class MyTasksHistoryComponent implements OnInit {
   }
 
   search() {
-    this.ds=[]
+    //this.ds=[]
     var searchString = new HistoryUserRequest()
     searchString.maxResult = PAGE_LIMIT
     searchString.firstResult = this.page
@@ -83,7 +83,6 @@ export class MyTasksHistoryComponent implements OnInit {
             // }
             this.ds.push(item);
           })
-          debugger
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
           if(this.firstSearch==true && response.data.length==0){
             this.toastr.info("Search result no found")
@@ -91,12 +90,12 @@ export class MyTasksHistoryComponent implements OnInit {
         }
         else {
           console.log(response.message)
-          this.toastr.error(response.message.toString())
+          this.toastr.info(response.message.toString())
         }
       },
       error => {
         console.log(error.message)
-        this.toastr.error(error.message)
+        //this.toastr.error(error.message)
       }
     )
   }
@@ -143,8 +142,7 @@ export class MyTasksHistoryComponent implements OnInit {
   }
 
 
-  getComments(historyExecutionsApprovals){
-    debugger
+  getComments(historyExecutionsApprovals){    
     if(historyExecutionsApprovals!=null){
       this.items =[]
       historyExecutionsApprovals.forEach(item => {

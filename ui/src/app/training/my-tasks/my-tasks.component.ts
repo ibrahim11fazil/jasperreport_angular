@@ -57,7 +57,7 @@ export class MyTasksComponent implements OnInit {
     });
     this.search()
   }
-  
+
   onSubmit() {
     this.ds = new Array<TaskResponseData>();
     this.ds = [...this.ds];
@@ -91,7 +91,7 @@ export class MyTasksComponent implements OnInit {
         }
         else {
           console.log(response.message)
-          this.toastr.error(response.message.toString())
+          this.toastr.info(response.message.toString())
         }
       },
       error => {
