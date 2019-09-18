@@ -17,7 +17,7 @@ import { SearchUser } from 'app/models/system-user';
 import { SearchJobCard, JobCardData, JobCardDataSearch } from 'app/models/job-card-data';
 import { TacCourseAttendance } from 'app/models/tac-course-attendance';
 import { EmployeeCourseRequest } from 'app/models/workflow';
-import { CourseRequest } from 'app/models/course-request';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -218,9 +218,8 @@ export class TrainingService {
     return this.httpClient.post(WORK_FLOW_REQUEST, course);
   }
 
-  employeeUnderSupervisor(employeerequest :CourseRequest ):Observable<Object>
-  {
-    return this.httpClient.post(EMP_UNDER_SUPERVSIOR,employeerequest);
+  employeeUnderSupervisor():Observable<Object>{
+    return this.httpClient.post(EMP_UNDER_SUPERVSIOR,null);
   }
 
 }

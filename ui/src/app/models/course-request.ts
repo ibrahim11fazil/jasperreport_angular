@@ -1,5 +1,4 @@
-export class CourseRequest {
-
+export class SupervisorResponseData {
     empNo: String;
     legacyCode: String;
     cNameAr: String;
@@ -10,9 +9,9 @@ export class CourseRequest {
 }
 
     //To bind data
-export interface CourseRequestResponse {
+export class SupervisorResponse {
     status: Boolean;
     code: number;
     message: String;
-    data: CourseRequest;
+    data: SupervisorResponseData[];
 }

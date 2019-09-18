@@ -8,14 +8,15 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
-import { DURATION_FLAG_LIST, WORKFLOW_1_EMP_REQUEST } from 'app/app.constants';
+import { DURATION_FLAG_LIST, WORKFLOW_1_EMP_REQUEST,WORKFLOW_2_EMP_REQUEST } from 'app/app.constants';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster, TacCourseMasterSub } from 'app/models/tac-course-master';
 import { TacActivation } from 'app/models/tac-activation';
 import { TrainingService } from 'app/service/training/training.service';
 import { EmployeeCourseRequest, WorkflowResponse } from 'app/models/workflow';
-import { CourseRequestResponse } from 'app/models/course-request';
+import { SupervisorResponse, SupervisorResponseData } from 'app/models/course-request';
+import { AuthService } from 'app/service/auth-service/auth.service';
 
 
 
@@ -46,14 +47,18 @@ export class EmpRequestComponent implements OnInit {
   selectedItem:TacActivation;
   tacCoordinatorString: String[] = [];
   public form: FormGroup;
+  public formDetails:FormGroup;
   searchText: String;
+  employeesUnderSupervisor:SupervisorResponseData[]=[]
+  isHead=false
 
   
 
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
     private trainingService: TrainingService,
-    private toastr:ToastrService )
+    private toastr:ToastrService,
+    private authService:AuthService)
   {
   }
 
@@ -62,21 +67,20 @@ export class EmpRequestComponent implements OnInit {
     this.form = this.fb.group
     (
       {
+
       courseName: null,
     }
+
     )
-  //else if (card.title == "Future Courses") {
-    /*this.trainingService.getFutureCourses().subscribe(
-      data => {
-        var response = <ITacCourseManagementList>data
-        this.rows = response.data
-        console.log(this.rows)
-      },
-      error => {
-        console.log(error)
-        this.toastr.error(error.message)
-      }
-    )*/
+    this.formDetails = this.fb.group
+    (
+      {
+      supervisorsCtrl:null , 
+    }
+
+    )
+
+    this.getEmployeesUnderSupervisor()
   }
 
   searchFutureCourses() {
@@ -169,28 +173,34 @@ getActivationData(row) {
 
 // to display job id list
 
-onJobIdChange(event){
-  if( this.form.value.jobId!=null && this.form.value.jobId!="" ){
-    this.getUserById(this.form.value.jobId)
-  }
-}
+// onJobIdChange(event){
+//   if( this.form.value.jobId!=null && this.form.value.jobId!="" ){
+//     this.getEmployeesUnderSupervisor()
+//   }
+// }
 
-getUserById(jobId){
-  this.trainingService.employeeUnderSupervisor(jobId).subscribe(
+getEmployeesUnderSupervisor(){
+  this.trainingService.employeeUnderSupervisor().subscribe(
     data=>{
       //this.toastr.info("Valid User")
       debugger
-      var response = <CourseRequestResponse>data
-      if(response.data!=null){
-      this.form.value.legacyCode= response.data.legacyCode
+      var response = <SupervisorResponse>data
+      if(response.data!=null && response.data.length>0){  
+        this.isHead=true
+        var headData = new SupervisorResponseData()
+        headData.legacyCode = this.authService.getLegacyCode()
+        headData.cNameAr =this.authService.getCNameAr() + "(Self)"
+        this.employeesUnderSupervisor.push(headData)
+        response.data.forEach(item => {
+          this.employeesUnderSupervisor.push(item)
+        })
       }else{
-        this.form.value.legacyCode= "Invalid Employee"
+        this.isHead=false
       }
-
     },
     error=>{
       console.log(error.message)
-      this.form.value.legacyCode= "Invalid Employee"
+      //this.form.value.legacyCode= "Invalid Employee"
     }
   )
 }
@@ -198,14 +208,24 @@ getUserById(jobId){
 // end of job id list
 
 onSubmit(){
-  //console.log("Testing")
-  //console.log(this.selectedItem);
   var empRequest = new EmployeeCourseRequest()
   empRequest.courseId = this.selectedItem.courseId
   empRequest.courseName= this.selectedItem.courseName
   empRequest.courseActivationId=this.selectedItem.activationId
-  empRequest.workflowType= WORKFLOW_1_EMP_REQUEST
-
+  if(this.isHead && 
+    this.formDetails.value.supervisorsCtrl!=null &&
+    this.formDetails.value.supervisorsCtrl.legacyCode != this.authService.getLegacyCode()
+    )
+  {
+    empRequest.workflowType  =  WORKFLOW_2_EMP_REQUEST
+    empRequest.forUserJobId  =  this.formDetails.value.supervisorsCtrl.legacyCode
+    empRequest.forUsercnameAr=this.formDetails.value.supervisorsCtrl.cNameAr
+    empRequest.forUserQid= this.formDetails.value.supervisorsCtrl.qid
+    empRequest.forUserjobTitle=this.formDetails.value.supervisorsCtrl.positionAr
+  }else{
+    empRequest.workflowType = WORKFLOW_1_EMP_REQUEST
+  }
+  debugger;
   this.trainingService.saveEmployeeRequest(empRequest).subscribe(
       data => {
         var response = <WorkflowResponse>data

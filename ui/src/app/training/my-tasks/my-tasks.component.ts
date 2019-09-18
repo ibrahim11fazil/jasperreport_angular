@@ -67,7 +67,7 @@ export class MyTasksComponent implements OnInit {
   }
 
   search() {
-    this.ds=[]
+    //this.ds=[]
     var searchString = new SearchUser()
     searchString.jobId = this.form.value.searchControl
     searchString.limit = PAGE_LIMIT

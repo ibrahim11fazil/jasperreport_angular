@@ -89,7 +89,8 @@
 				  </ngx-datatable-column>
 				</ngx-datatable>	
 	</div>
-	<div *ngIf="displayCourseDetails" fxFlex="100" class="gene-card-content">
+	<form [formGroup]="formDetails" fxFlex="100" class="gene-card-content">
+	<div *ngIf="displayCourseDetails" >
 		<mat-card>
 			<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
 				fxLayout="column">
@@ -142,24 +143,27 @@
 					{{estimatedCost}}
 				</div>
 			</div>
-			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+			
+
+			  <div *ngIf="isHead" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
 					<mat-form-field class="full-wid mrgn-b-md">
-					   <input matInput placeholder="JobId" formControlName="jobId" (change)="onJobIdChange($event)" >
+					   <mat-select placeholder="Course Suggession for Employee" matInput formControlName="supervisorsCtrl">
+						  <option [ngValue]="null">Select Employee</option>
+						  <mat-option *ngFor="let obj of employeesUnderSupervisor"
+						   [value]="obj">
+							 {{obj.legacyCode}} -  {{obj.cNameAr}} 
+						  </mat-option>
+					   </mat-select>
 					</mat-form-field>
 				 </div>
+
 		</mat-card>
 
 		
 		<div fxLayout="row" fxLayoutAlign="center">
-
-				<!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
-				<button mat-raised-button color="primary" (click)="onSubmit('save')" type="Submit"> Request Submit</button>
-				<!-- <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button> -->
-			 </div>
-
-
-
-
-				
+				<button mat-raised-button color="primary" (click)="onSubmit()" type="button"> Request Submit</button>
+		</div>
+	
 	</div>
+</form>
 </div>

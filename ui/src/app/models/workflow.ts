@@ -3,10 +3,15 @@ export class Workflow {
 
 
 export class EmployeeCourseRequest {
-    courseId: Number;
-    courseName: String;
-    courseActivationId: Number;
-    workflowType: String;
+    courseId: Number
+    courseName: String
+    courseActivationId: Number
+    workflowType: String
+
+    forUserJobId?: String
+    forUserjobTitle?: String
+    forUsercnameAr?: String
+    forUserQid?:String
 }
 
 export interface WorkflowResponse{

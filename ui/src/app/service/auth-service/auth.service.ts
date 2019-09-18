@@ -143,6 +143,39 @@ export class AuthService {
       this.isLoggedIn = true;
    }
 
+   getLegacyCode(){
+      try{
+       this.userData = JSON.parse(localStorage.getItem("userProfile"));
+       if(this.userData) {
+           var json = this.userData;
+           //console.log(JSON.stringify(json));
+           let body = JSON.parse(JSON.stringify(json));
+           return body.jid;
+       } else {
+           return null;
+       }
+     }catch(ex){
+        return null
+     }
+   }
+
+
+   getCNameAr(){
+      try{
+       this.userData = JSON.parse(localStorage.getItem("userProfile"));
+       if(this.userData) {
+           var json = this.userData;
+           //console.log(JSON.stringify(json));
+           let body = JSON.parse(JSON.stringify(json));
+           return body.cNameAr;
+       } else {
+           return null;
+       }
+     }catch(ex){
+        return null
+     }
+   }
+
     getToken(){
        try{
         this.userData = JSON.parse(localStorage.getItem("userProfile"));
