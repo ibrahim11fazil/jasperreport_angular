@@ -15,6 +15,7 @@ import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, Respons
 import { TacActivation } from 'app/models/tac-activation';
 import { TrainingService } from 'app/service/training/training.service';
 import { EmployeeCourseRequest, WorkflowResponse } from 'app/models/workflow';
+import { CourseRequestResponse } from 'app/models/course-request';
 
 
 
@@ -165,6 +166,36 @@ getActivationData(row) {
     }
   )
 }
+
+// to display job id list
+
+onJobIdChange(event){
+  if( this.form.value.jobId!=null && this.form.value.jobId!="" ){
+    this.getUserById(this.form.value.jobId)
+  }
+}
+
+getUserById(jobId){
+  this.trainingService.employeeUnderSupervisor(jobId).subscribe(
+    data=>{
+      //this.toastr.info("Valid User")
+      debugger
+      var response = <CourseRequestResponse>data
+      if(response.data!=null){
+      this.form.value.legacyCode= response.data.legacyCode
+      }else{
+        this.form.value.legacyCode= "Invalid Employee"
+      }
+
+    },
+    error=>{
+      console.log(error.message)
+      this.form.value.legacyCode= "Invalid Employee"
+    }
+  )
+}
+
+// end of job id list
 
 onSubmit(){
   //console.log("Testing")

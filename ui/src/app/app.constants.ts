@@ -154,6 +154,7 @@ export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses"
 export const WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 
 
+
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
@@ -181,6 +182,7 @@ export const  GET_JOB_TITLE=BASE_URL+employee+"/list-jobs"
 export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
 export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"
 export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
+export const EMP_UNDER_SUPERVSIOR=BASE_URL+employee+"/employees_under_supervisor"
 
 
 //WORKFLOW

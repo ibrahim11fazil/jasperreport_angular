@@ -142,12 +142,24 @@
 					{{estimatedCost}}
 				</div>
 			</div>
+			<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+					<mat-form-field class="full-wid mrgn-b-md">
+					   <input matInput placeholder="JobId" formControlName="jobId" (change)="onJobIdChange($event)" >
+					</mat-form-field>
+				 </div>
 		</mat-card>
+
+		
 		<div fxLayout="row" fxLayoutAlign="center">
 
 				<!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
-				<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">Submit</button>
+				<button mat-raised-button color="primary" (click)="onSubmit('save')" type="Submit"> Request Submit</button>
 				<!-- <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button> -->
 			 </div>
+
+
+
+
+				
 	</div>
 </div>
