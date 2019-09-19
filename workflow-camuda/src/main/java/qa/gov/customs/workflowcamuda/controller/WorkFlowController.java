@@ -178,20 +178,7 @@ public class WorkFlowController {
         }
     }
 
-   // TODO: Note-Get the history based on processId
-   @PreAuthorize("hasAnyAuthority('workflow_history')")
-    @RequestMapping(value="/process-history", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getHistoryByProcessId(@RequestBody UserTaskModel assignee,@AuthenticationPrincipal CustomPrincipal principal) {
-       List<HistoricDetail>  historicDetails =  workflowServiceEmp.getUserTaskByProcessId(assignee.getProcessId());
-       if(historicDetails!=null && historicDetails.size()>0){
-           return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-                   historicDetails);
-       }else{
-           //TODO log the request
-           return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
-                   null);
-       }
-    }
+
 
     @PreAuthorize("hasAnyAuthority('workflow_history')")
     @RequestMapping(value="/process-history-execution-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
@@ -207,20 +194,7 @@ public class WorkFlowController {
         }
     }
 
-    //TODO: Note-Get the task based on execution Id, This is important
-    @PreAuthorize("hasAnyAuthority('workflow_history')")
-    @RequestMapping(value="/process-history-task-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getHistoryByTaskId(@RequestBody UserTaskModel assignee,@AuthenticationPrincipal CustomPrincipal principal) {
-        List<HistoricTaskInstance>  historicDetails = workflowServiceEmp.getUserTaskByTaskIdId(assignee.getExecutionId());
-        if(historicDetails!=null && historicDetails.size()>0){
-            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-                    historicDetails);
-        }else{
-            //TODO log the request
-            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
-                    null);
-        }
-    }
+
 
 
     //TODO: Note-Get the task based on execution Id, This is important
@@ -271,6 +245,53 @@ public class WorkFlowController {
                     null);
         }
     }
+
+    //TODO get the history ---> part 1
+    @PreAuthorize("hasAnyAuthority('workflow_history')")
+    @RequestMapping(value="/process-history-by-user-id", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getHistoryByUserId(@RequestBody UserTaskModel assignee,@AuthenticationPrincipal CustomPrincipal principal) {
+        List<HistoricIdentityLinkLog> historicDetails =  workflowServiceEmp.getUserTasksByAssignee(principal.getJid(),assignee.getFirstResult(),assignee.getMaxResult());
+        if(historicDetails!=null && historicDetails.size()>0){
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    historicDetails);
+        }else{
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
+                    null);
+        }
+    }
+
+    // TODO: Note-Get the history based on processId ---> part 2
+    @PreAuthorize("hasAnyAuthority('workflow_history')")
+    @RequestMapping(value="/process-history", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getHistoryByProcessId(@RequestBody UserTaskModel assignee,@AuthenticationPrincipal CustomPrincipal principal) {
+        List<HistoricDetail>  historicDetails =  workflowServiceEmp.getUserTaskByProcessId(assignee.getProcessId());
+        if(historicDetails!=null && historicDetails.size()>0){
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    historicDetails);
+        }else{
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
+                    null);
+        }
+    }
+
+
+    //TODO: Note-Get the task based on execution Id, This is important ---> part 3
+    @PreAuthorize("hasAnyAuthority('workflow_history')")
+    @RequestMapping(value="/process-history-task-details", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getHistoryByTaskId(@RequestBody UserTaskModel assignee,@AuthenticationPrincipal CustomPrincipal principal) {
+        List<HistoricTaskInstance>  historicDetails = workflowServiceEmp.getUserTaskByTaskIdId(assignee.getExecutionId());
+        if(historicDetails!=null && historicDetails.size()>0){
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    historicDetails);
+        }else{
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
+                    null);
+        }
+    }
+
+
 
     static class TaskRepresentation {
 

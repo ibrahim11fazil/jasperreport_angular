@@ -1,6 +1,7 @@
 package qa.gov.customs.employee.repository;
 
 
+import com.sun.org.apache.xpath.internal.objects.XObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -65,4 +66,11 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
             "and d.supervisor=(select empno  from xxgdc_sap_ws_mini emp where emp.legacycode=:jobId " +
             "and emp.run_date=(select max(run_date)from user_sap_ws_mini where legacycode=emp.legacycode)) ",nativeQuery = true)
     List<Object[]> employeesUnderSupervisor(@Param("jobId") String jobId);
+
+
+
+     @Query(value = "select count(*) from supervisor_list where legacycode=:jobId ",nativeQuery = true)
+     int getCountOfHead(@Param("jobId") String jobId);
+
+
 }

@@ -347,7 +347,7 @@ var m =
       {state: 'emp-request', name: 'Employee Requests'},
       {state: 'emp-request:/head-section', name: 'Course Suggestion by head'},
       { state: 'my-tasks', name: 'My Tasks' },
-      { state: 'welcome', name: 'History' } 
+      { state: 'my-tasks-history', name: 'History' } 
 
     ]
   };

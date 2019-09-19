@@ -71,6 +71,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { EmpRequestComponent } from './emp-request/emp-request.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { ViewTaskDetailsComponent } from './popup/view-task-details/view-task-details.component';
+import { MyTasksHistoryComponent } from './my-tasks-history/my-tasks-history.component';
 
 
 
@@ -96,7 +97,8 @@ import { ViewTaskDetailsComponent } from './popup/view-task-details/view-task-de
      JobCardComponent,
      JobCardSearchComponent,
      EmpRequestComponent,
-     MyTasksComponent
+     MyTasksComponent,
+     MyTasksHistoryComponent
      ],
   imports: [
     InfiniteScrollModule,

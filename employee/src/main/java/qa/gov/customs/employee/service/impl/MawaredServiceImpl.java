@@ -1,6 +1,7 @@
 package qa.gov.customs.employee.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.employee.entity.MawaredMaster;
 import qa.gov.customs.employee.entity.MawaredUserAbsent;
@@ -205,5 +206,14 @@ public class MawaredServiceImpl implements MawaredService {
 		return fAreas;
 	}
 
+	@Override
+	public int getCountOfHead(String jobId) {
+		int num = mawaredRepository.getCountOfHead(jobId);
+		if (num > 0) {
+			return num;
+		} else
+			return 0;
+
+	}
 
 }

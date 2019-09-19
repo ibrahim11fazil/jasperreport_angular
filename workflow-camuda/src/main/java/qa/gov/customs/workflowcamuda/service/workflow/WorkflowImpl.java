@@ -83,14 +83,24 @@ public class WorkflowImpl {
                     .processDefinitionKey(TYPE_1_PROCESS)
                     .latestVersion() //now 46
                     //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
-                    .versionTag("Process_emp_01_v1") // This should be changed for new versions
+                    .versionTag(TYPE_1_PROCESS_VERSION) // This should be changed for new versions
                     .singleResult();
             processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
 
             //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
            // processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
         }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
-            processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
+
+            ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
+                    .processDefinitionKey(TYPE_2_PROCESS)
+                    .latestVersion() //now 46
+                    //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
+                    .versionTag(TYPE_2_PROCESS_VERSION) // This should be changed for new versions
+                    .singleResult();
+            processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
+
+
+            //processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
         }else if(type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {
             processInstance = runtimeService.startProcessInstanceByKey(TYPE_3_PROCESS, vars);
         }
@@ -206,10 +216,10 @@ public class WorkflowImpl {
     }
 
 
-    public List<HistoricIdentityLinkLog> getUserTasksByAssignee(String assignee) {
+    public List<HistoricIdentityLinkLog> getUserTasksByAssignee(String assignee,int firstResult,int maxResult) {
         return historyService.createHistoricIdentityLinkLogQuery()
                 .userId(assignee)
-                .list();
+                .listPage(firstResult,maxResult);
     }
 
     //Inital User can set the Task as Requested

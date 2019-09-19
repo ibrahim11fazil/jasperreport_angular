@@ -212,7 +212,7 @@ public class WorkflowDemoController {
 
     @RequestMapping(value="/demo/process-history-by-user-id", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public List<HistoricIdentityLinkLog> getHistoryByUserId(@RequestBody UserTaskModel assignee) {
-        return workflowServiceEmp.getUserTasksByAssignee(assignee.getAssigne());
+        return workflowServiceEmp.getUserTasksByAssignee(assignee.getAssigne(),assignee.getFirstResult(),assignee.getMaxResult()); //start // limit
         //return assignee;
     }
 

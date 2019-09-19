@@ -148,10 +148,11 @@ export const  CREATE_JOB_CARD=BASE_URL+training+"/create-job-card"
 export const  GET_JOB_CARD_BY_ID=BASE_URL+training+"/get-job-card-byid"
 export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
 export const  GET_JOB_CARD_BYID=BASE_URL+training+"/get-job-card-byid"
-export const   GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data-attendance"
-export const MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
+export const  GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data-attendance"
+export const  MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
 export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses" 
-export const WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
+export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
+
 
 
 //USER MANAGEMENT
@@ -162,7 +163,7 @@ export const  FIND_SYSTEM_USER_BYID=BASE_URL+user+"/find-system-user-by-id"
 export const  DISABLE_SYSTEM_USER=BASE_URL+user+"/disable-system-user"
 export const  ENABLE_SYSTEM_USER=BASE_URL+user+"/enable-system-user"
 export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
-export const GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
+export const  GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
 
 //FILE UPLOADING
 export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
@@ -181,6 +182,7 @@ export const  GET_JOB_TITLE=BASE_URL+employee+"/list-jobs"
 export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
 export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"
 export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
+export const  EMP_UNDER_SUPERVSIOR=BASE_URL+employee+"/employees_under_supervisor"
 
 
 //WORKFLOW
@@ -189,7 +191,9 @@ export const  GET_MY_WITH_DELEGATIONS=BASE_URL+workflow+"/my-tasks-delegation"
 export const  EXECUTE_TASK=BASE_URL+workflow+"/execute-task"
 export const  SAVE_COMMENT=BASE_URL+workflow+"/save-comment"
 export const  GET_COMMENTS=BASE_URL+workflow+"/task-comments"
-export const  PROCESS_TASK_DETAILS=BASE_URL+workflow+"/process-history-task-details"
-
+//export const  PROCESS_TASK_DETAILS=BASE_URL+workflow+"/process-history-task-details"
+export const  PROCESS_HISTORY_BY_EXECUTION_ID=BASE_URL+workflow+"/process-history-task-details"
+export const  PROCESS_HISTORY_BY_USER=BASE_URL+workflow+"/process-history-by-user-id"
+export const  PROCESS_HISTORY_BY_PROCESS_ID=BASE_URL+workflow+"/process-history"
 
 

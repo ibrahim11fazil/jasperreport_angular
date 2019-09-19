@@ -259,18 +259,22 @@ public class EmployeeWorkflowController {
         if(token!=null && token.equals(training_token)) {
             logger.info("Received ### request received deptid" + did + "jobid: "+ id);
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager(did, "1-1");
-            if (immediateManagers != null && immediateManagers.size() > 0) {
-                if(immediateManagers.get(0).getLegacyCode().equals(id)){
+            if (immediateManagers != null && immediateManagers.size() > 0)
+              {
+                if(immediateManagers.get(0).getLegacyCode().equals(id))
+                    {
                     return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                             true);
-                }else{
+                    }else
+                    {
                     return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                             false);
-                }
-            } else {
-                return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+                    }
+               } else
+                   {
+                   return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
-            }
+                   }
         }else{
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
