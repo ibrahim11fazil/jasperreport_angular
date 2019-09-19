@@ -438,3 +438,16 @@ export interface HistoryUserResponseByProcess {
     variableTypeName: string;
     persistentState: string;
 }
+
+export class EmployeeAbsentCheckBetweenDates{
+    startDate:Date;
+    endDate:Date;
+    qid:String; 
+}
+
+export interface EmployeeAbsentCheckBetweenDatesResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:Boolean
+}

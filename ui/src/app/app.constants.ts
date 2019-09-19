@@ -183,6 +183,8 @@ export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
 export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"
 export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
 export const  EMP_UNDER_SUPERVSIOR=BASE_URL+employee+"/employees_under_supervisor"
+//WORKFLOW validations in Employee
+export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
 
 
 //WORKFLOW
@@ -195,5 +197,12 @@ export const  GET_COMMENTS=BASE_URL+workflow+"/task-comments"
 export const  PROCESS_HISTORY_BY_EXECUTION_ID=BASE_URL+workflow+"/process-history-task-details"
 export const  PROCESS_HISTORY_BY_USER=BASE_URL+workflow+"/process-history-by-user-id"
 export const  PROCESS_HISTORY_BY_PROCESS_ID=BASE_URL+workflow+"/process-history"
+
+
+//WORKFLOW VALIDATIONS IN TRAINING
+export const  CHECK_THE_REQUEST_IS_OVERRIDING=BASE_URL+training +"/check-the-request-is-overriding"
+export const  CHECK_THE_REQUEST_IS_VALID=BASE_URL+training +"/check-the-user-is-already-applied-with-activation-id"
+//export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
+
 
 

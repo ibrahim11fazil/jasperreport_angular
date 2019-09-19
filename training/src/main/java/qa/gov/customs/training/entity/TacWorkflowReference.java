@@ -3,6 +3,7 @@ package qa.gov.customs.training.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
@@ -34,6 +35,71 @@ public class TacWorkflowReference {
     @Column(name="UPDATED_ON")
     Date updatedOn;
 
+
+    @Column(name="FROM_USER")
+    String  fromUser;
+
+    @Column(name="TO_USER")
+    String  toUser;
+
+    @Column(name="ACTIVATION_ID")
+    BigInteger activationId;
+
+    @Column(name="COURSE_ID")
+    BigInteger  courseId;
+
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="COURSE_START_DATE")
+    Date courseStartDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="COURSE_END_DATE")
+    Date courseEndDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="DURATION")
+    Date duration;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="DURATION_FLAG")
+    Date durationFlag;
+
+
+
+
+
+    public String getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(String toUser) {
+        this.toUser = toUser;
+    }
+
+    public BigInteger getActivationId() {
+        return activationId;
+    }
+
+    public void setActivationId(BigInteger activationId) {
+        this.activationId = activationId;
+    }
+
+    public BigInteger getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(BigInteger courseId) {
+        this.courseId = courseId;
+    }
 
     public Date getUpdatedOn() {
         return updatedOn;
