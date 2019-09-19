@@ -445,7 +445,7 @@ export class EmployeeAbsentCheckBetweenDates{
     qid:String; 
 }
 
-export interface EmployeeAbsentCheckBetweenDatesResponse{
+export interface EmployeeWorkflowValidationResponse{
     status: Boolean;
     code:number;
     message:String;

@@ -277,7 +277,7 @@ public class EmployeeController {
 			logger.info("Received ### request received");
 			Boolean status = mawaredService.findByQidInDateInBetween(absentInfo.getQid()
 					,absentInfo.getStartDate(),absentInfo.getEndDate());
-			return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+			return get(Constants.SUCCESS, MessageUtil.SUCCESS, status,
 					status);
 
 	}
