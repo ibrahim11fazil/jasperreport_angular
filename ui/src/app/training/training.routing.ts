@@ -16,6 +16,8 @@ import { ActivationsComponent } from './activations/activations.component';
 import { CourseManagementComponent } from './course-management/course-management.component';
 import { JobCardComponent } from './job-card/job-card.component';
 import { JobCardSearchComponent } from './job-card-search/job-card-search.component';
+import { EmpRequestComponent } from './emp-request/emp-request.component';
+import { MyTasksComponent } from './my-tasks/my-tasks.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -114,8 +116,20 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'job-card-search',
                 component: JobCardSearchComponent
-            }
+            },
+            {
+                path: 'emp-request',
+                component:EmpRequestComponent
+            },
+            {
 
+                path: 'emp-request:/head-section',
+                component:EmpRequestComponent
+            },
+            {
+                path: 'my-tasks',
+                component:MyTasksComponent
+            }
             
 
         ]

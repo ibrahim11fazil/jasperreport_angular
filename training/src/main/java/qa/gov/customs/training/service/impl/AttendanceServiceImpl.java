@@ -47,24 +47,25 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<TacCourseAttendence>  markInitialAttendance(List<TacCourseAttendence> attendance) {
-        List<TacCourseAttendence> attendanceDetails= new ArrayList<>();
-
-        for(TacCourseAttendence  attend :attendance)
-        {
-           BigDecimal attendeesId= attend.getTacCourseAttendees().getAttendeesId();
-            TacCourseAttendence attendanceDataExists=attendanceRepo.findAttendanceForToday(attendeesId);
-            if(attendanceDataExists==null)
-            {
-                TacCourseAttendence saveInitialAttendance=attendanceRepo.save(attend);
-                attendanceDetails.add(saveInitialAttendance);
-            }
-
-        }
-
-
-
-       // List<TacCourseAttendence> attendanceData=attendanceRepo.saveAll(attendance);
-        return  attendanceDetails;
+//        List<TacCourseAttendence> attendanceDetails= new ArrayList<>();
+//
+//        for(TacCourseAttendence  attend :attendance)
+//        {
+//           BigDecimal attendeesId= attend.getTacCourseAttendees().getAttendeesId();
+//           // TacCourseAttendence attendanceDataExists=attendanceRepo.findAttendanceForToday(attendeesId);
+//            if(attendanceDataExists==null)
+//            {
+//                TacCourseAttendence saveInitialAttendance=attendanceRepo.save(attend);
+//                attendanceDetails.add(saveInitialAttendance);
+//            }
+//
+//        }
+//
+//
+//
+//        List<TacCourseAttendence> attendanceData=attendanceRepo.saveAll(attendance);
+//        return  attendanceDetails;
+        return null;
 
     }
 }

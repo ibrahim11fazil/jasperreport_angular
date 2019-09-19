@@ -34,6 +34,14 @@ export const OPTIONAL_OR_NOT = [
     { value: 1, viewValue: 'Optional' },
 ];
 
+export const WORKFLOW_1_EMP_REQUEST="01_employee_training_req_v_1";
+export const WORKFLOW_2_EMP_REQUEST="02_head_of_section_course_suggestion_v_1";
+export const WORKFLOW_3_EMP_REQUEST="03_training_request_from_head_v_1";
+export const WORKFLOW_4_EMP_REQUEST="04_cis_course_request_v_1";
+export const WORKFLOW_5_EMP_REQUEST="05_audit_manger_course_request_v_1";
+
+
+
 
 export const ROLE_TRAINING_ADMIN="train_admin"
 export const ROLE_SYS_ADMIN="sys_admin"
@@ -58,8 +66,12 @@ export const	GENERAL_COURSE =4
 
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
+
 //  export const BASE_URL ="http://172.16.0.254:9000"
 //  export const BASE_URL_FILE ="http://172.16.0.254:9000"
+//  export const BASE_URL ="http://10.64.3.32:9000"
+//  export const BASE_URL_FILE ="http://10.64.3.32:9000"
+
 //export const BASE_URL ="http://localhost:7777"
 //export const BASE_URL ="http://172.16.0.254:7777"
 
@@ -72,7 +84,7 @@ export const BASE_URL_FILE ="http://localhost:9000"
 
 //export const BASE_URL ="http://localhost:9000"
 
-export const VERSION_UI ="qa_0.6.6"
+export const VERSION_UI ="qa_0.6.8"
 
 //Disable if gateway is down -- for development
 var gateway = true
@@ -82,6 +94,7 @@ var user=""
 var fileUploading=""
 var cis=""
 var employee=""
+var workflow=""
 if(gateway){
     authentication="/authentication"
     training="/training"
@@ -89,7 +102,7 @@ if(gateway){
     fileUploading="/fileupload"
     cis="/cis"
     employee="/employee"
-
+    workflow="/workflow"
 }
 
 //http://localhost:9000/authentication/oauth/token
@@ -137,6 +150,9 @@ export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
 export const  GET_JOB_CARD_BYID=BASE_URL+training+"/get-job-card-byid"
 export const   GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data-attendance"
 export const MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
+export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses" 
+export const WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
+
 
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
@@ -165,4 +181,15 @@ export const  GET_JOB_TITLE=BASE_URL+employee+"/list-jobs"
 export const  GET_JOB_GRADES=BASE_URL+employee+"/list-grades"
 export const  GET_JOB_FAMILY=BASE_URL+employee+"/list-jobfamily"
 export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
+
+
+//WORKFLOW
+export const  GET_MY_TASKS=BASE_URL+workflow+"/my-tasks"
+export const  GET_MY_WITH_DELEGATIONS=BASE_URL+workflow+"/my-tasks-delegation"
+export const  EXECUTE_TASK=BASE_URL+workflow+"/execute-task"
+export const  SAVE_COMMENT=BASE_URL+workflow+"/save-comment"
+export const  GET_COMMENTS=BASE_URL+workflow+"/task-comments"
+export const  PROCESS_TASK_DETAILS=BASE_URL+workflow+"/process-history-task-details"
+
+
 

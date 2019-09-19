@@ -13,13 +13,17 @@ security:
           YwIDAQAB
           -----END PUBLIC KEY-----
     client:
-      clientId: training
+      clientId: workflow
 
 debug: false
 server:
 #  servlet:
 #    context-path: /workflow
   port: 9061
+
+feign:
+  hystrix:
+    enabled: true
 
 spring:
   application:
@@ -50,7 +54,14 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS : false
+      FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
+  rabbitmq:
+    host: ${RABBITMQ_HOST:172.16.0.254}
+    port: 5672
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
+
 
 
 logging:
@@ -79,6 +90,10 @@ camunda:
         enabled: true
        database:
         jdbc-batch-processing: false
+       job-execution:
+         max-jobs-per-acquisition: 20
+         queue-capacity: 20
+         max-pool-size: 40
 
 #eureka:
 #  client:
@@ -118,3 +133,13 @@ cloud:
   inetutils:
     prefered-networks:
       - 10.0
+
+workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
+
+workflow:
+  rabbitmq:
+    queue: workflow_queue
+    queue_user_request: workflow_queue_userrequest
+    exchange: workflow_exchange
+    routingkey: workflow_routingkey
+    routingkey_user_request: workflow_routingkey_userrequest

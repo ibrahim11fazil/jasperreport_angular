@@ -5,7 +5,7 @@
     <parent>
         <artifactId>app</artifactId>
         <groupId>qa.gov.customs</groupId>
-        <version>0.6.6</version>
+        <version>0.6.8</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <description>This service is for employee for all other services</description>
@@ -18,6 +18,12 @@
             <!--<artifactId>utils</artifactId>-->
             <!--<version>0.0.3</version>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>

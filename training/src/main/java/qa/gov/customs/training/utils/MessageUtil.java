@@ -31,6 +31,11 @@ public class MessageUtil {
     public static String  JOBCARDCONDITIONS_CREATED="JOBCARD CONDITIONS CREATED";
     public static String  JOBCARDSKILLS_CREATED="JOBCARD SKILLS CREATED";
     public static String  JOBCARDDUTIES_CREATED="JOBCARD DUTIES CREATED";
+
+    public static  String REQUEST_CREATED=" Request Created";
+    public static String  REQUEST_CREATION_FAILED = "Request Creation Failed";
+
+
     
     
     

@@ -8,8 +8,26 @@ public class UserTaskModel {
    private String role;
    private String action;
    private String executionId;
+   private String processInstanceId;
+   private String commandMessage;
 
-   private boolean status;
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
+
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
+
+    public String getCommandMessage() {
+        return commandMessage;
+    }
+
+    public void setCommandMessage(String commandMessage) {
+        this.commandMessage = commandMessage;
+    }
+
+    private boolean status;
 
     public String getProcessId() {
         return processId;

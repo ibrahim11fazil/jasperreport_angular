@@ -55,6 +55,11 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS : false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
+  rabbitmq:
+    host: ${RABBITMQ_HOST:172.16.0.254}
+    port: 5672
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
 
 
 logging:
@@ -111,3 +116,14 @@ cloud:
   inetutils:
     prefered-networks:
       - 10.0
+
+workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
+training:
+  rabbitmq:
+    queue: training_queue
+    queue_workflow_status: training_queue_workflow_status
+    exchange: training_exchange
+    routingkey: training_routingkey
+    routingkey_workflowresponse: training_routingkey_workflow_status
+
+

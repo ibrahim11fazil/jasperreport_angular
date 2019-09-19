@@ -31,6 +31,38 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
     
     @Query(value="select * from SAP_ORG_DETAILS where OTYPE='FN' and LANG='A'",nativeQuery = true)
     List<Object[]> listFunctionalArea();
-    
-    
+
+
+    @Query(value = "SELECT DISTINCT ORGUNIT, CASE WHEN case WHEN orgunit_desc_ar IS NULL THEN orgunit_desc ELSE orgunit_desc_ar END IS NULL THEN ORGUNIT ELSE CASE WHEN  orgunit_desc_ar IS NULL THEN orgunit_desc ELSE orgunit_desc_ar END END AS  orgunit_desc_ar, CASE WHEN CASE WHEN orgunit_desc IS NULL THEN orgunit_desc_ar ELSE orgunit_desc END IS NULL THEN ORGUNIT ELSE case when orgunit_desc is null then orgunit_desc_ar else orgunit_desc END end AS orgunit_desc  from USER_SAP_WS_MINI ",nativeQuery = true)
+    List<Object[]> listAllDepartments();
+
+
+    @Query(value = "select DISTINCT M1.empno as EMPNO,  M1.FNAME_EN as  FNAME_EN ,M1.LNAME_EN as LNAME_EN, " +
+            "D1.JOB_FAMILY_TEXT as JOB_FAMILY_TEXT ,D1.JOB_FAMILY as JOB_FAMILY ,D1.JOB_FAMILY_SHORT as JOB_FAMILY_SHORT, " +
+            "m2.empno as IM_EMPNO,M2.FNAME_EN IM_FNAME_EN,m2.LNAME_EN IM_LNAME_EN,m2.LEGACYCODE as IM_LEGACYCODE " +
+            ",m2.cname_ar as IM_CNAME_AR , M1.cname_ar as CNAME_AR ,m1.LEGACYCODE as LEGACYCODE " +
+            "from XXGDC_SAP_WS_MINI M1,XXGDC_SAP_MASTERDETAILS D1 ,XXGDC_SAP_WS_MINI m2 " +
+            "where m1.LEGACYCODE=:jobId " +
+            "and D1.PERNR=M1.EMPNO " +
+            "and D1.SUPERVISOR=M2.EMPNO ",nativeQuery = true)
+    List<Object[]> getImmediateManager(@Param("jobId") String jobId);
+
+
+    @Query(value = "select DISTINCT M1.empno as EMPNO,  M1.FNAME_EN as  FNAME_EN ,M1.LNAME_EN as LNAME_EN, " +
+            "D1.JOB_FAMILY_TEXT as JOB_FAMILY_TEXT ,D1.JOB_FAMILY as JOB_FAMILY ,D1.JOB_FAMILY_SHORT as JOB_FAMILY_SHORT, " +
+            "m2.empno as IM_EMPNO,M2.FNAME_EN IM_FNAME_EN,m2.LNAME_EN IM_LNAME_EN,m2.LEGACYCODE as IM_LEGACYCODE " +
+            ",m2.cname_ar as IM_CNAME_AR , M1.cname_ar as CNAME_AR , m1.LEGACYCODE as LEGACYCODE " +
+            "from XXGDC_SAP_WS_MINI M1,XXGDC_SAP_MASTERDETAILS D1 ,XXGDC_SAP_WS_MINI m2 " +
+            "where m1.orgunit=:departmentId and  JOB_FAMILY_SHORT=:jobFamilyShort " +
+            "and D1.PERNR=M1.EMPNO " +
+            "and D1.SUPERVISOR=M2.EMPNO ",nativeQuery = true)
+    List<Object[]> getDepartmentHead(@Param("departmentId") String departmentId,@Param("jobFamilyShort") String jobFamilyShort);
+
+    @Query(value = "select m.empno,m.legacycode,m.cname_ar,m.qid,m.position_desc_ar,m.certf_t_a,pslevel " +
+            "from xxgdc_sap_ws_mini m, xxgdc_sap_masterdetails d where m.empno=d.pernr " +
+            "and m.run_date=(select max(run_date)from user_sap_ws_mini where empno=m.empno) " +
+            "and d.run_date=(select max(run_date) from xxgdc_sap_masterdetails where pernr=d.pernr) " +
+            "and d.supervisor=(select empno  from xxgdc_sap_ws_mini emp where emp.legacycode=:jobId " +
+            "and emp.run_date=(select max(run_date)from user_sap_ws_mini where legacycode=emp.legacycode)) ",nativeQuery = true)
+    List<Object[]> employeesUnderSupervisor(@Param("jobId") String jobId);
 }

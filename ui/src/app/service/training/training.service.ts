@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES, SEARCH_JOB_CARD, CREATE_JOB_CARD, GET_JOB_CARD_BY_ID, GET_JOB_CARD_BYID, GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY, GET_EMPLOYEE_DATA_ATTENDANCE, MARK_INITIAL_ATTENDANCE } from "../../app.constants";
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES, SEARCH_JOB_CARD, CREATE_JOB_CARD, GET_JOB_CARD_BY_ID, GET_JOB_CARD_BYID, GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY, GET_EMPLOYEE_DATA_ATTENDANCE, MARK_INITIAL_ATTENDANCE,SEARCH_FUTURE_COURSES, WORK_FLOW_REQUEST } from "../../app.constants";
 import { Location,ResponseLocation, ResponseLocationDetail } from 'app/models/location';
 
 import { BehaviorSubject } from 'rxjs';
-import { TacCourseMaster, CourseActivityDatesRequest, SearchCourse } from 'app/models/tac-course-master';
+import { TacCourseMaster, CourseActivityDatesRequest, SearchCourse, TacCourseMasterSub } from 'app/models/tac-course-master';
 
 import { TacActivation } from 'app/models/tac-activation';
 
@@ -16,6 +16,7 @@ import { CiSystemUsersRequest, CiCourseRequestedUsers } from 'app/models/ci-syst
 import { SearchUser } from 'app/models/system-user';
 import { SearchJobCard, JobCardData, JobCardDataSearch } from 'app/models/job-card-data';
 import { TacCourseAttendance } from 'app/models/tac-course-attendance';
+import { EmployeeCourseRequest } from 'app/models/workflow';
 @Injectable({
   providedIn: 'root'
 })
@@ -92,9 +93,10 @@ export class TrainingService {
 // getAllMainCourses():Observable<Object> {
 //   return this.httpClient.get(GET_MAIN_COURSES);
 // }
-saveCourseActivation(activation:TacActivation): Observable<Object> {
+  saveCourseActivation(activation:TacActivation): Observable<Object> {
   return this.httpClient.post(SAVE_ACTIVATION,activation);
-}
+  }
+  
   getCourseRoom(location: Location): Observable<Object> {
     return this.httpClient.post(GET_TRAINING_ROOM, location);
   }
@@ -151,12 +153,15 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   getAllDatesForCourseAndActivity(course:CourseActivityDatesRequest): Observable<Object> {
     return this.httpClient.post(GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID,course);
   }
+
   getCourseActivationById(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(GET_ALL_COURSE_ACTIVATION, course);
   }
+
   getCourseDateDetail(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(GET_COURSE_DATE_DETAIL, course);
   }
+
   getCourseRoomDetail(location:Location): Observable<Object> {
     return this.httpClient.post(GET_COURSE_ROOM_DETAIL, location);
   }
@@ -168,9 +173,11 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   getActivationById(activation:TacActivation):Observable<Object> {
     return this.httpClient.post(GET_ACTIVATIONS_BY_ID,activation);
   }
+
   getCurrentCourses():Observable<Object> {
     return this.httpClient.get(GET_CURRENT_COURSES);
   }
+
   getPreviousCourses():Observable<Object> {
     return this.httpClient.get(GET_PREVIOUS_COURSES);
   }
@@ -193,9 +200,21 @@ saveCourseActivation(activation:TacActivation): Observable<Object> {
   getEmpData(activation:TacActivation):Observable<Object> {
     return this.httpClient.post(GET_EMPLOYEE_DATA_ATTENDANCE,activation);
   }
+
   markInitialAttendance(attendance:TacCourseAttendance[]):Observable<Object> {
     return this.httpClient.post(MARK_INITIAL_ATTENDANCE,attendance);
   }
-  
+
+  searchFutureCourse(course: TacCourseMaster): Observable<Object> {
+    return this.httpClient.post(SEARCH_FUTURE_COURSES, course);
+  }
+
+  searchFutureCourseWithName(course: TacCourseMasterSub): Observable<Object> {
+    return this.httpClient.post(SEARCH_FUTURE_COURSES, course);
+  }
+
+  saveEmployeeRequest(course: EmployeeCourseRequest): Observable<Object> {
+    return this.httpClient.post(WORK_FLOW_REQUEST, course);
+  }
 
 }

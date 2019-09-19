@@ -68,6 +68,10 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
 //import { CalendarRoutes } from 'app/calendar/calendar.routing';
 import { CalendarModule,DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { EmpRequestComponent } from './emp-request/emp-request.component';
+import { MyTasksComponent } from './my-tasks/my-tasks.component';
+import { ViewTaskDetailsComponent } from './popup/view-task-details/view-task-details.component';
+
 
 
 @NgModule({
@@ -91,7 +95,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
      CourseManagementComponent,
      JobCardComponent,
      JobCardSearchComponent,
-
+     EmpRequestComponent,
+     MyTasksComponent
      ],
   imports: [
     InfiniteScrollModule,
@@ -141,7 +146,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     	}),
   ],
 	entryComponents : [
-		CourseActionDialog
+    CourseActionDialog
 	]
 })
 export class TrainingModule { }

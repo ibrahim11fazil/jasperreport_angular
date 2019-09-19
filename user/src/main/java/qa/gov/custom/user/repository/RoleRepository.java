@@ -20,4 +20,7 @@ public interface RoleRepository extends JpaRepository<Role, BigInteger> {
     @Query(value="select ID,NAME,REMARK from ROLE ",nativeQuery=true)
     List<Object[]> findallAllRolesWithIDAndName();
 
+    @Query(value="select ID,PERMISSION_ID,ROLE_ID,REMARK from PERMISSION_ROLE where ROLE_ID=:roleId ",nativeQuery=true)
+    List<Object[]> findAllPermissionForRole(BigInteger roleId);
+
 }

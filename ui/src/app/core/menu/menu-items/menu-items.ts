@@ -341,9 +341,14 @@ var m =
     type: 'sub',
     icon: 'book',
     children: [
+
       {state: 'welcome', name: 'courses' },
       {state: 'welcome', name: 'My Requests' },
-      {state: 'welcome', name: 'My Approvals' }
+      {state: 'emp-request', name: 'Employee Requests'},
+      {state: 'emp-request:/head-section', name: 'Course Suggestion by head'},
+      { state: 'my-tasks', name: 'My Tasks' },
+      { state: 'welcome', name: 'History' } 
+
     ]
   };
 
@@ -355,7 +360,8 @@ var m =
     icon: 'book',
     children: [
       {state: 'user-creation', name: 'New User'},
-      {state: 'user-search', name: 'Search User'}
+      {state: 'user-search', name: 'Search User'},
+      {state: 'user-search', name: 'Roles and Permissions'}
     ]
   };
 

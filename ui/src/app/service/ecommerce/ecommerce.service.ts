@@ -148,7 +148,6 @@ export class EcommerceService {
 		let dialogRef : MatDialogRef<DeleteDialogComponent>;
 		dialogRef = this.dialog.open(DeleteDialogComponent);
 		dialogRef.componentInstance.data = data;
-		
 		return dialogRef.afterClosed();
 	}
 

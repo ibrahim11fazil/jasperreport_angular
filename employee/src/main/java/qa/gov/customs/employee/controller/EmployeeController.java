@@ -5,8 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.employee.entity.*;
+import qa.gov.customs.employee.models.EmployeeUnderSupervisor;
+import qa.gov.customs.employee.security.CustomPrincipal;
 import qa.gov.customs.employee.service.MawaredService;
 import qa.gov.customs.employee.utils.Constants;
 import qa.gov.customs.employee.utils.MessageUtil;
@@ -16,6 +19,7 @@ import qa.gov.customs.employee.utils.models.ResponseType;
 import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -57,7 +61,7 @@ public class EmployeeController {
 //        return employee;
 //    }
 
-    @PreAuthorize("hasAnyAuthority('get_employee_by_jobid')")
+    @PreAuthorize("hasAnyAuthority('get_employee_by_jobid','user_details_course_request')")
     @PostMapping("/get-employee-by-jobid/{id}")
     public ResponseType getEmployeeById(@PathVariable("id") String id){
         logger.info("Recieved ### " + id);
@@ -77,8 +81,6 @@ public class EmployeeController {
                employee.setDepartmentId(masterData.get(0).getORGUNIT()!=null?masterData.get(0).getORGUNIT():"");
                employee.setJobTitle(masterData.get(0).getPOSITION_DESC_AR()!=null?masterData.get(0).getPOSITION_DESC_AR():"");
                employee.setIban(masterData.get(0).getBACNO()!=null?masterData.get(0).getBACNO():"");
-
-
                ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SYSTEM_USER_CREATED, true,
                        employee);
                return response;
@@ -164,4 +166,26 @@ public class EmployeeController {
 				return response;
 			}
 		}
+
+	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
+	@PostMapping("/employees_under_supervisor/{id}")
+	public ResponseType employeesUnderSupervisor(@PathVariable("id") String id)
+	{
+		List<EmployeeUnderSupervisor> submittedRequest  = mawaredService.employeesUnderSupervisor(id);
+		if(submittedRequest!=null)
+		{
+			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+					submittedRequest);
+			return response;
+		}
+		else {
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+					null);
+			return response;
+		}
+	}
+
+
+
+
 }

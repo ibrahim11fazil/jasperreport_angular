@@ -59,6 +59,10 @@ export class TacCourseMaster {
         message:String;
         data: TacCourseMaster;
     }
+
+    export class TacCourseMasterSub{
+        public courseName?:String
+    }
     
     
     export interface ITacCourseMasterList {
