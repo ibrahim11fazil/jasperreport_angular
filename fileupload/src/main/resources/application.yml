@@ -33,6 +33,8 @@ spring:
 file:
   upload-dir: ./uploads
 
+
+
 server:
 #  servlet:
 #    context-path: /fileupload

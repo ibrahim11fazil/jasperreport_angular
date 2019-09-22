@@ -1,4 +1,4 @@
-package qa.gov.customs.fileupload;
+package qa.gov.customs.fileupload.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -6,6 +6,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import qa.gov.customs.fileupload.utils.CrsUtil;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

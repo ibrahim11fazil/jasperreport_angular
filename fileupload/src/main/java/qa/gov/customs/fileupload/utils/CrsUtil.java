@@ -1,4 +1,4 @@
-package qa.gov.customs.fileupload;
+package qa.gov.customs.fileupload.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 
