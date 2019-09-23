@@ -11,7 +11,7 @@ public interface FileService {
 
     List<CertificateRequest> getEmployeeCertificates(String jobId);
     CertificateRequest saveCertificates(CertificateRequest certificateRequest);
-    CertificateRequest vertifyCertificate(BigDecimal certificateId);
+    CertificateRequest verifyCertificate(BigDecimal certificateId);
 
     List<EmployeeUpload> getUserFiles(String jobId);
     EmployeeUpload saveEmployeeUpload(EmployeeUpload certificateRequest);

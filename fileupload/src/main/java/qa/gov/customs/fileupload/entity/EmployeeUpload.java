@@ -1,13 +1,15 @@
 package qa.gov.customs.fileupload.entity;
 
 
+import qa.gov.customs.fileupload.config.Auditable;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "EMP_UPLOADS")
-public class EmployeeUpload {
+public class EmployeeUpload extends Auditable<String> implements java.io.Serializable {
 
     @Id
     @Column(name = "FILE_ID", unique = true, nullable = false, precision = 22, scale = 0)
@@ -18,11 +20,7 @@ public class EmployeeUpload {
     String fileUrl;
     @Column(name = "FILE_NAME", length = 200)
     String fileName;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "CREATED_ON")
-    Date createdOn;
-    @Column(name = "CREATED_BY", length = 20)
-    String createdBy;
+
 
     public BigDecimal getFileId() {
         return fileId;
@@ -48,19 +46,5 @@ public class EmployeeUpload {
         this.fileName = fileName;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
-    }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
 }

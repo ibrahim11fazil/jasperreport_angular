@@ -1,6 +1,8 @@
 package qa.gov.customs.fileupload.entity;
 
 
+import qa.gov.customs.fileupload.config.Auditable;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -8,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "EMP_CERTIFICATES")
-public class EmployeeCertificate {
+public class EmployeeCertificate extends Auditable<String> implements java.io.Serializable {
 
     @Id
     @Column(name = "CERTIFICATE_ID", unique = true, nullable = false, precision = 22, scale = 0)
@@ -34,11 +36,6 @@ public class EmployeeCertificate {
     String objective;
     @Column(name = "CERTIFICATE_UUID", length = 100)
     String certificateUid;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "CREATED_ON")
-    Date createdOn;
-    @Column(name = "CREATED_BY", length = 20)
-    String createdBy;
 
     public BigDecimal getCertificateId() {
         return certificateId;
@@ -120,19 +117,4 @@ public class EmployeeCertificate {
         this.certificateUid = certificateUid;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
 }
