@@ -8,5 +8,5 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface EmployeeUploadsRepository extends JpaRepository<EmployeeUpload, BigDecimal> {
-    List<EmployeeUpload> findByCreatedBy(String jobId);
+    List<EmployeeUpload> findByUserCreatedEquals(String jobId);
 }

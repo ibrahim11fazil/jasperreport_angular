@@ -3,6 +3,7 @@ package qa.gov.customs.fileupload.service;
 
 import qa.gov.customs.fileupload.entity.EmployeeUpload;
 import qa.gov.customs.fileupload.models.CertificateRequest;
+import qa.gov.customs.fileupload.models.EmployeeUploadRequest;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,6 @@ public interface FileService {
     CertificateRequest saveCertificates(CertificateRequest certificateRequest);
     CertificateRequest verifyCertificate(BigDecimal certificateId);
 
-    List<EmployeeUpload> getUserFiles(String jobId);
-    EmployeeUpload saveEmployeeUpload(EmployeeUpload certificateRequest);
+    List<EmployeeUploadRequest> getUserFiles(String jobId);
+    EmployeeUploadRequest saveEmployeeUpload(EmployeeUpload certificateRequest);
 }
