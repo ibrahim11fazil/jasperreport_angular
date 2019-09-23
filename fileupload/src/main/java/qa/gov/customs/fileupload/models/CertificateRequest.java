@@ -1,22 +1,43 @@
 package qa.gov.customs.fileupload.models;
 
+import java.math.BigDecimal;
+
 public class CertificateRequest {
 
 
-    String certificateId;
+    BigDecimal certificateId;
     String certificateUrl;
+    String courseDate;
     String courseName;
     String userName;
     String jobId;
     String qId;
     String duration;
     String objective;
+    String certificateUid;
 
-    public String getCertificateId() {
+    public String getCertificateUid() {
+        return certificateUid;
+    }
+
+    public void setCertificateUid(String certificateUid) {
+        this.certificateUid = certificateUid;
+    }
+
+    public String getCourseDate() {
+        return courseDate;
+    }
+
+    public void setCourseDate(String courseDate) {
+        this.courseDate = courseDate;
+    }
+
+
+    public BigDecimal getCertificateId() {
         return certificateId;
     }
 
-    public void setCertificateId(String certificateId) {
+    public void setCertificateId(BigDecimal certificateId) {
         this.certificateId = certificateId;
     }
 

@@ -9,12 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.jasperreports.JasperReportsUtils;
 import qa.gov.customs.fileupload.models.CertificateRequest;
 import qa.gov.customs.fileupload.service.ReportService;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
@@ -33,7 +30,6 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public void generateCertificate(CertificateRequest certificateRequest) throws IOException {
-
 
         try
         {
@@ -70,6 +66,8 @@ public class ReportServiceImpl implements ReportService {
         parameters.put("logo", getClass().getResourceAsStream(logo_path));
         parameters.put("nameField",  certificateRequest.getUserName());
         parameters.put("courseName", certificateRequest.getCourseName());
+        parameters.put("courseDate",certificateRequest.getCourseDate());
+        parameters.put("certificateId",certificateRequest.getCertificateId());
         return parameters;
     }
 }
