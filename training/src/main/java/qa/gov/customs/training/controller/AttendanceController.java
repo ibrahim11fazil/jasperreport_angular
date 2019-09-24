@@ -14,6 +14,9 @@ import qa.gov.customs.training.service.AttendanceService;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -40,13 +43,43 @@ public class AttendanceController {
     @PreAuthorize("hasAnyAuthority('mark_initial_attendance')")
     @PostMapping("/mark-initial-attendance")
     public ResponseType markInitialAttendance(@RequestBody List<TacCourseAttendence> attendance) {
+        List<TacCourseAttendence> attendanceData=new ArrayList<>();
 
-        List<TacCourseAttendence> attendanceData = attendanceService.markInitialAttendance(attendance);
+        for(TacCourseAttendence attendanceList:attendance) {
+            TacCourseAttendence attendancePresent = attendanceService.checkIfAlreadyMarked(attendanceList, new Date());
+            if (attendancePresent == null) {
+
+
+                TacCourseAttendence attendanceUpdated = attendanceService.markAttendance(attendanceList);
+                attendanceData.add(attendanceUpdated);
+
+            }
+        }
         ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
                 attendanceData);
         return response;
 
     }
+    @PreAuthorize("hasAnyAuthority('mark_attendance')")
+    @PostMapping("/mark-attendance")
+    public ResponseType markAttendance(@RequestBody List<TacCourseAttendence> attendance) {
+        List<TacCourseAttendence> attendanceData=new ArrayList<>();
 
+        for(TacCourseAttendence attendanceList:attendance) {
+            TacCourseAttendence attendancePresent = attendanceService.checkIfAlreadyMarked(attendanceList, new Date());
+            if (attendancePresent != null) {
+                attendancePresent.setAttendanceFlag(attendanceList.getAttendanceFlag());
+                TacCourseAttendence attendanceUpdated = attendanceService.markAttendance(attendanceList);
+
+                //TacCourseAttendence attendanceUpdated = attendanceService.markInitialAttendance(attendanceList);
+                //attendanceData.add(attendanceUpdated);
+
+            }
+        }
+        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
+                attendanceData);
+        return response;
+
+    }
 
 }

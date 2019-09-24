@@ -47,12 +47,19 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<TacCourseAttendence>  markInitialAttendance(List<TacCourseAttendence> attendance) {
+    public TacCourseAttendence  markAttendance(TacCourseAttendence attendance) {
 
 
 
-        List<TacCourseAttendence> attendanceData=attendanceRepo.saveAll(attendance);
+        TacCourseAttendence attendanceData=attendanceRepo.save(attendance);
         return  attendanceData;
 
+    }
+
+    @Override
+    public TacCourseAttendence  checkIfAlreadyMarked(TacCourseAttendence attendance,Date date)
+    {
+        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId());
+                return attendancePresent;
     }
 }
