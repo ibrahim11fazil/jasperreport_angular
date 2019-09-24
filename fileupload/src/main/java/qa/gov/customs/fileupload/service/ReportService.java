@@ -5,6 +5,5 @@ import qa.gov.customs.fileupload.models.CertificateRequest;
 import java.io.IOException;
 
 public interface ReportService {
-
-     void generateCertificate(CertificateRequest certificateRequest) throws IOException;
+     String generateCertificate(CertificateRequest certificateRequest) throws IOException;
 }

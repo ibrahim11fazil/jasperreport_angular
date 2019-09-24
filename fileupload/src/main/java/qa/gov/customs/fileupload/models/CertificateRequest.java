@@ -15,6 +15,15 @@ public class CertificateRequest {
     String duration;
     String objective;
     String certificateUid;
+    BigDecimal activationId;
+
+    public BigDecimal getActivationId() {
+        return activationId;
+    }
+
+    public void setActivationId(BigDecimal activationId) {
+        this.activationId = activationId;
+    }
 
     public String getCertificateUid() {
         return certificateUid;

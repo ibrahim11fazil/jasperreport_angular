@@ -21,7 +21,7 @@ security:
 
 spring:
   application:
-    name: employee
+    name: fileupload
   servlet:
     multipart:
       enabled: true

@@ -36,6 +36,16 @@ public class EmployeeCertificate extends Auditable<String> implements java.io.Se
     String objective;
     @Column(name = "CERTIFICATE_UUID", length = 100)
     String certificateUid;
+    @Column(name = "ACTIVATION_ID")
+    BigDecimal activationId;
+
+    public BigDecimal getActivationId() {
+        return activationId;
+    }
+
+    public void setActivationId(BigDecimal activationId) {
+        this.activationId = activationId;
+    }
 
     public BigDecimal getCertificateId() {
         return certificateId;

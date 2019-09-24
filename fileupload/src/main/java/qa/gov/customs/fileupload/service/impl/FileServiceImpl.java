@@ -1,6 +1,7 @@
 package qa.gov.customs.fileupload.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import qa.gov.customs.fileupload.entity.EmployeeCertificate;
 import qa.gov.customs.fileupload.entity.EmployeeUpload;
 import qa.gov.customs.fileupload.models.CertificateRequest;
@@ -15,6 +16,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static qa.gov.customs.fileupload.utils.FileUploadUtil.stringToDateForCertifiate;
+
+@Service
 public class FileServiceImpl implements FileService {
 
 
@@ -29,25 +33,28 @@ public class FileServiceImpl implements FileService {
     public List<CertificateRequest> getEmployeeCertificates(String jobId) {
         List<EmployeeCertificate> items =  employeeCertificateRepository.findByJobIdEquals(jobId);
         if(items!=null && items.size()>0){
-            List<CertificateRequest> certificates = new ArrayList<>();
-            for (EmployeeCertificate item:
-            items) {
-                CertificateRequest certificate = new CertificateRequest();
-                certificate.setCertificateId(item.getCertificateId());
-                certificate.setCertificateUrl(item.getCertificateUrl());
-                certificates.add(certificate);
-            }
-            return certificates;
+            return generateCertificateList(items);
         }
-        else return  null;
+        else return null;
     }
 
     @Override
-    public CertificateRequest saveCertificates(CertificateRequest certificateRequest) {
+    public CertificateRequest saveCertificates(CertificateRequest certificateRequest)   {
+        Date converted = null;
+        try {
+            converted = stringToDateForCertifiate(certificateRequest.getCourseDate());
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
         EmployeeCertificate certificate = new EmployeeCertificate();
         certificate.setCertificateUrl(certificateRequest.getCertificateUrl());
         certificate.setJobId(certificateRequest.getJobId());
         certificate.setqId(certificateRequest.getqId()!=null?certificateRequest.getqId():"");
+        certificate.setUserName(certificateRequest.getUserName());
+        certificate.setJobId(certificateRequest.getJobId());
+        certificate.setCourseDate(converted);
+        certificate.setActivationId(certificateRequest.getActivationId());
         EmployeeCertificate certificateInserted =  employeeCertificateRepository.save(certificate);
         if(certificateInserted!=null){
             CertificateRequest certificateIns = new CertificateRequest();
@@ -72,8 +79,39 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<EmployeeUploadRequest> getUserFiles(String jobId)
-    {
+    public List<CertificateRequest> findByJobIdAndActivationId(String jobId, BigDecimal activationId) {
+        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByJobIdAndActivationId(jobId,activationId);
+        if(certificates!=null &&  !certificates.isEmpty()) {
+            return generateCertificateList(certificates);
+        }
+        return null;
+    }
+
+    @Override
+    public List<CertificateRequest> findAllByactivationId(BigDecimal activationId) {
+        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByActivationId(activationId);
+        if(certificates!=null &&  !certificates.isEmpty()) {
+            return generateCertificateList(certificates);
+        }
+        return null;
+    }
+
+
+    List<CertificateRequest> generateCertificateList(List<EmployeeCertificate> certificates){
+        List<CertificateRequest> certis = new ArrayList<>();
+        for (EmployeeCertificate item:
+                certificates) {
+            CertificateRequest response = new CertificateRequest();
+            response.setCertificateId(item.getCertificateId());
+            response.setCertificateUrl(item.getCertificateUrl());
+            certis.add(response);
+        }
+        return certis;
+    }
+
+
+    @Override
+    public List<EmployeeUploadRequest> getUserFiles(String jobId) {
         List<EmployeeUpload> items= employeeUploadsRepository.findByUserCreatedEquals(jobId);
         if(items!=null && items.size()>0){
             List<EmployeeUploadRequest> certificates = new ArrayList<>();
@@ -90,8 +128,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public EmployeeUploadRequest saveEmployeeUpload(EmployeeUpload certificateRequest)
-    {
+    public EmployeeUploadRequest saveEmployeeUpload(EmployeeUpload certificateRequest) {
         EmployeeUpload certificate = new EmployeeUpload();
         certificate.setFileName(certificateRequest.getFileName());
         EmployeeUpload fileInserted =  employeeUploadsRepository.save(certificate);
@@ -102,4 +139,6 @@ public class FileServiceImpl implements FileService {
             return fileIns;
         }else return null;
     }
+
+
 }

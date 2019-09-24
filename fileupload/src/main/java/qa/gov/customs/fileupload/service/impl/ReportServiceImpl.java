@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static qa.gov.customs.fileupload.utils.FileUploadUtil.getDateInString;
+
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -29,30 +31,32 @@ public class ReportServiceImpl implements ReportService {
     private String pdfFolderLocation;
 
     @Override
-    public void generateCertificate(CertificateRequest certificateRequest) throws IOException {
-
+    public String generateCertificate(CertificateRequest certificateRequest) throws IOException {
         try
         {
-             String fileName = pdfFolderLocation+"/certifcate77.pdf";
+            String fileNameSelected= certificateRequest.getJobId()+"_"+
+                     certificateRequest.getActivationId() + "_" +
+                     getDateInString()+".pdf";
+            String fileName = pdfFolderLocation+"/"+fileNameSelected;
             // Load the invoice jrxml template.
-           final JasperReport jReport = loadCertificateTemplate();
+            final JasperReport jReport = loadCertificateTemplate();
             // Create parameters map.
             final Map<String, Object> parameters = parameters(certificateRequest);
             // Create an empty datasource.
             final JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList("Certificate"));
             JasperPrint jPrint = JasperFillManager.fillReport(jReport, parameters, dataSource);
-            JasperExportManager.exportReportToPdfFile(jPrint,fileName
-                    );
+            JasperExportManager.exportReportToPdfFile(jPrint,fileName);
+            return fileNameSelected;
 
         }
-        catch (final Exception e)
-        {
+        catch (final Exception e){
             e.printStackTrace();
             logger.error(String.format("An error occured during PDF creation: %s", e));
+            return null;
         }
     }
 
-//    // Load invoice jrxml template
+    // Load invoice jrxml template
     private JasperReport loadCertificateTemplate() throws JRException {
         logger.info(String.format("certificate template path : %s", certificateTemplateUrl));
         final InputStream reportInputStream = getClass().getResourceAsStream(certificateTemplateUrl);
@@ -67,7 +71,8 @@ public class ReportServiceImpl implements ReportService {
         parameters.put("nameField",  certificateRequest.getUserName());
         parameters.put("courseName", certificateRequest.getCourseName());
         parameters.put("courseDate",certificateRequest.getCourseDate());
-        parameters.put("certificateId",certificateRequest.getCertificateId());
+        parameters.put("certificateId",certificateRequest.getCertificateUid());
         return parameters;
     }
+
 }
