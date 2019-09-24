@@ -1,4 +1,4 @@
-## SSO based api v.1
+ ## SSO based api v.1
 
    |  SNO | API_NAME  | TYPE |  URL | REQUEST  | RESPONSE  |
    |---|---|---|---|---|---|
