@@ -1,4 +1,4 @@
-package qa.gov.customs.fileupload;
+package qa.gov.customs.fileupload.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

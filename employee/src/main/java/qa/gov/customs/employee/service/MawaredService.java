@@ -28,6 +28,7 @@ public interface MawaredService {
     List<Department> getDepartments(String jobId);
     List<ImmediateManager> getDepartmentManager(String departmentId,String jobFamilyShort);
     Boolean findByQidInDateIn(String qid, Date date);
+    Boolean findByQidInDateInBetween(String qid, Date startDate , Date endDate);
     List<EmployeeUnderSupervisor> employeesUnderSupervisor(String id);
     int getCountOfHead(String jobId);
 

@@ -64,6 +64,39 @@ public class EmployeeRequestController {
             }
 
 
+    @PreAuthorize("hasAnyAuthority('workflow-validations')")
+    @PostMapping("/check-the-user-is-already-applied-with-activation-id")
+    public ResponseType checkTheUserIsAlreadyAppliedWithActivationId(
+                                    @Valid @RequestBody UserRequestModel request,
+                                    @AuthenticationPrincipal CustomPrincipal principal) {
+        if(request!=null) {
+            request.setJobId(principal.getJid());
+            Boolean status = requestService.checkTheEmployeeAlreadyAppliedWithActivationId(request);
+            return  get(201, MessageUtil.REQUEST_CREATED, true, status);
+        }
+        else {
+            return get(Constants.BAD_REQUEST, MessageUtil.REQUEST_CREATION_FAILED, false, null);
+        }
+    }
+
+
+    @PreAuthorize("hasAnyAuthority('workflow-validations')")
+    @PostMapping("/check-the-request-is-overriding")
+    public ResponseType checkTheRequestIsOverriding(
+            @Valid @RequestBody UserRequestModel request,
+            @AuthenticationPrincipal CustomPrincipal principal) {
+        if(request!=null) {
+            request.setJobId(principal.getJid());
+            // Boolean status = requestService.checkTheEmployeeAlreadyAppliedWithActivationId(request);
+            //TODO need to update this code when sql is ready
+            return  get(201, MessageUtil.REQUEST_CREATED, true, false);
+        }
+        else {
+            return get(Constants.BAD_REQUEST, MessageUtil.REQUEST_CREATION_FAILED, false, null);
+        }
+    }
+
+
     UserRequestModel createUserRequestForWorkflow(UserRequestModel reference,CustomPrincipal principal){
         reference.setJobId(principal.getJid());
         reference.setEmail(principal.getEmail());

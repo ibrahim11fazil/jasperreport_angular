@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.employee.entity.*;
+import qa.gov.customs.employee.models.AbsentInfo;
 import qa.gov.customs.employee.models.EmployeeUnderSupervisor;
 import qa.gov.customs.employee.security.CustomPrincipal;
 import qa.gov.customs.employee.service.MawaredService;
@@ -19,6 +20,7 @@ import qa.gov.customs.employee.utils.models.ResponseType;
 import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -266,6 +268,24 @@ public class EmployeeController {
 			   return response;
 		   }
 
+	}
+
+
+	@PreAuthorize("hasAnyAuthority('workflow-validations')")
+	@PostMapping("/check-the-user-is-absent-between-dates")
+	public ResponseType checkTheUserIsAbsentBetweenDates(@RequestBody AbsentInfo absentInfo){
+			logger.info("Received ### request received");
+			Boolean status = mawaredService.findByQidInDateInBetween(absentInfo.getQid()
+					,absentInfo.getStartDate(),absentInfo.getEndDate());
+			return get(Constants.SUCCESS, MessageUtil.SUCCESS, status,
+					status);
+
+	}
+
+	ResponseType  get(int code, String message, boolean status, Object data){
+		ResponseType response = new ResponseType(code,message, status,
+				data);
+		return response;
 	}
 
 

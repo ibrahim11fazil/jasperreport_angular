@@ -6,7 +6,6 @@ import qa.gov.customs.workflowcamuda.entity.RequestActions;
 
 @Repository
 public interface RequestRepository  extends JpaRepository<RequestActions,String>  {
-
 }
 
 

@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-
 @Component
 public class CustomAccessTokenConverter implements AccessTokenConverter, JwtAccessTokenConverterConfigurer {
 
@@ -114,7 +113,7 @@ public class CustomAccessTokenConverter implements AccessTokenConverter, JwtAcce
         Object auds =map.get(AUD);
         if(auds instanceof  Collection){
             @SuppressWarnings("unchecked")
-             Collection<String> result = (Collection<String>)auds;
+            Collection<String> result = (Collection<String>)auds;
             return result;
 
         }
@@ -130,7 +129,7 @@ public class CustomAccessTokenConverter implements AccessTokenConverter, JwtAcce
                 scope = new LinkedHashSet<String>(Arrays.asList(String.class.cast(scopeObj).split(" ")));
             else if(Collection.class.isAssignableFrom(scopeObj.getClass())){
                 @SuppressWarnings("unchecked")
-                        Collection<String> scopeCollection = (Collection<String>)scopeObj;
+                Collection<String> scopeCollection = (Collection<String>)scopeObj;
                 scope =new LinkedHashSet<String>(scopeCollection);
             }
         }
