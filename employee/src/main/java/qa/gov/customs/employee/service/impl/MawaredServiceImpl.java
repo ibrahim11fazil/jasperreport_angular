@@ -182,6 +182,22 @@ public class MawaredServiceImpl implements MawaredService {
 	}
 
 	@Override
+	public Boolean findByQidInDateInBetween(String qid, Date startDate, Date endDate) {
+		Boolean status=false;
+		List<MawaredUserAbsent> absentRepositories = mawaredAbsentRepository.findAllByQidEquals(qid);
+		for (MawaredUserAbsent absent : absentRepositories) {
+			if( (startDate.before(absent.getStartDate()) &&
+				endDate.before(absent.getStartDate())) ||
+				(startDate.after(absent.getEndDate()) &&
+				endDate.after(absent.getEndDate()))
+			){
+				status=true;
+			}
+		}
+		return status;
+	}
+
+	@Override
 	public List<EmployeeUnderSupervisor> employeesUnderSupervisor(String id) {
 		List<Object[]> employeeObjects= mawaredRepository.employeesUnderSupervisor(id);
 		if(employeeObjects!=null && employeeObjects.size()>0){

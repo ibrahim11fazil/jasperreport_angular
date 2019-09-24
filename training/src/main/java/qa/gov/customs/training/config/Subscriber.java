@@ -35,6 +35,7 @@ public class Subscriber {
         System.out.println("Received Message: " + msg);
         UserRequestModel model =  employeeRequestService.UpdateCourseRequest(msg);
         if(model!=null){
+            //Request Id , status ......
            //TODO insert data to the course attendies table
         }else{
             //TODO: Log this for future purposes

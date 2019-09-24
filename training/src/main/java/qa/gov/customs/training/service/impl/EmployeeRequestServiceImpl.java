@@ -16,7 +16,9 @@ import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.SystemUtil;
 
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,7 +37,18 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
         tacWorkflowReference.setType(requestModel.getWorkflowType());
         tacWorkflowReference.setWorkflowId(idGenerated);
         tacWorkflowReference.setData(jsonProcessing(requestModel));
-        requestRepository.save(tacWorkflowReference);
+        tacWorkflowReference.setFromUser(requestModel.getJobId());
+        if(requestModel.getForUserJobId()!=null) {
+            tacWorkflowReference.setToUser(requestModel.getForUserJobId());
+        }
+        else{
+         tacWorkflowReference.setToUser(requestModel.getJobId());
+        }
+        if(tacWorkflowReference.getActivationId()!=null)
+            tacWorkflowReference.setActivationId(tacWorkflowReference.getActivationId());
+        if(tacWorkflowReference.getCourseId()!=null)
+            tacWorkflowReference.setCourseId(tacWorkflowReference.getCourseId());
+            requestRepository.save(tacWorkflowReference);
         requestModel.setTrainingRequestId(idGenerated);
         return requestModel;
     }
@@ -69,6 +82,25 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
             return  requestModel;
         }else{
             return null;
+        }
+    }
+
+    @Override
+    public Boolean checkTheEmployeeAlreadyAppliedWithActivationId(UserRequestModel request) {
+        BigInteger activationId=new BigInteger(request.getCourseActivationId());
+        String userId=null;
+        if(request.getJobId()!=null){
+            userId=request.getJobId();
+        }
+        if(request.getForUserJobId()!=null){
+            userId=request.getForUserJobId();
+        }
+        List<TacWorkflowReference> items =
+                requestRepository.findByToUserAndActivationId(userId,activationId);
+        if(items!=null && items.size()>0){
+           return true;
+        } else{
+           return false;
         }
     }
 

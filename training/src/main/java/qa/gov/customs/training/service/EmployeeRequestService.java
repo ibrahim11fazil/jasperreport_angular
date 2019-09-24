@@ -13,5 +13,6 @@ public interface EmployeeRequestService {
     TacWorkflowReference updateRequest(TacWorkflowReference request);
     TacWorkflowReference findById(String id);
     UserRequestModel UpdateCourseRequest(TrainingRequestStatus status);
+    Boolean checkTheEmployeeAlreadyAppliedWithActivationId(UserRequestModel request);
 
 }

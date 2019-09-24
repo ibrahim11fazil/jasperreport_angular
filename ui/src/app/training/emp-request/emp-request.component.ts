@@ -225,6 +225,12 @@ onSubmit(){
   }else{
     empRequest.workflowType = WORKFLOW_1_EMP_REQUEST
   }
+  //TODO here to get the dates for actiation
+  //TODO get qid of the person 
+  //1. check the user is absent or not 
+  //2. check the user is already requested
+  //3. Check course requested is overriding other courses . already overriding.
+  //4. if all ok save the data
   debugger;
   this.trainingService.saveEmployeeRequest(empRequest).subscribe(
       data => {
