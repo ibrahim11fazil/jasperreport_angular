@@ -325,21 +325,7 @@ export class CourseManagementComponent implements OnInit {
             var Response = <ITacCourseAttendance>data
           }
         )
-//        this.empRows.forEach(emp => {
-//         let courseAttendance=new TacCourseAttendance(0,null,null,null)
-//         let tacCourseAttendees=new TacCourseAttendees(emp.attendeesId,null,0,0,0,0)
-//         courseAttendance.tacCourseAttendees=tacCourseAttendees;
-//         courseAttendance.attendanceDate=new Date();
-//         courseAttendance.attendanceFlag=0;//marking as absent initially
-//         this.courseAttendanceList.push(courseAttendance)
-// });
-// this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
-//   data=>
-//   {
-// var Response=<ITacCourseAttendance>data
-//   }
-// )
-// >>>>>>> 90316358d90fabd83b24f4ac9106152e76ce7b33
+
 
 
       },
@@ -425,6 +411,24 @@ export class CourseManagementComponent implements OnInit {
       var index = this.checkboxList.indexOf(row);
       this.checkboxList.splice(index, 1);
     }
+
+
+
+    this.checkboxList.forEach(emp => {
+      let courseAttendance = new TacCourseAttendance(0, null, null, null)
+      let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
+      courseAttendance.tacCourseAttendees = tacCourseAttendees;
+      courseAttendance.attendanceDate = new Date();
+      courseAttendance.attendanceFlag = 0;//marking as absent initially
+      this.courseAttendanceList.push(courseAttendance)
+
+
+    });
+    this.trainingService.markAttendanceOfEach(this.courseAttendanceList).subscribe(
+      data => {
+        var Response = <ITacCourseAttendance>data
+      }
+    )
   }
 
 

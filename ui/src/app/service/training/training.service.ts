@@ -205,6 +205,9 @@ export class TrainingService {
   markInitialAttendance(attendance:TacCourseAttendance[]):Observable<Object> {
     return this.httpClient.post(MARK_INITIAL_ATTENDANCE,attendance);
   }
+  markAttendanceOfEach(attendance:TacCourseAttendance[]):Observable<Object> {
+    return this.httpClient.post(MARK_ATTENDANCE,attendance);
+  }
 
   searchFutureCourse(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(SEARCH_FUTURE_COURSES, course);
