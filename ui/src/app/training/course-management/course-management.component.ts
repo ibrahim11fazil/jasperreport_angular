@@ -414,6 +414,11 @@ export class CourseManagementComponent implements OnInit {
 
 
 
+    
+  }
+
+  MarkAttendance()
+  {
     this.checkboxList.forEach(emp => {
       let courseAttendance = new TacCourseAttendance(0, null, null, null)
       let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
@@ -430,7 +435,6 @@ export class CourseManagementComponent implements OnInit {
       }
     )
   }
-
 
 
 }
