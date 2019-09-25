@@ -241,8 +241,16 @@
 					</ng-template>
 				</ngx-datatable-column> 
 		
+				<!-- <button mat-raised-button color="accent" class="m-1" type="button"
+						(click)=MarkAttendance()>MarkAttendance</button>  -->
 	</ngx-datatable>
 		</div> 
+		 <div class="pad-wrap">
+			<div fxLayout="row" fxLayoutAlign="start">
+			  <button mat-raised-button color="primary" (click)="markAttendance()" type="submit" >Mark Attendance</button>
+			  <button mat-raised-button color="primary"  type="submit">Mark Course Completion</button>
+			</div>
+		  </div> 
 
 
 </div>

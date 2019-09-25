@@ -50,11 +50,13 @@ public class AttendanceController {
             if (attendancePresent == null) {
 
 
+
                 TacCourseAttendence attendanceUpdated = attendanceService.markAttendance(attendanceList);
                 attendanceData.add(attendanceUpdated);
 
             }
         }
+
         ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
                 attendanceData);
         return response;
@@ -69,11 +71,7 @@ public class AttendanceController {
             TacCourseAttendence attendancePresent = attendanceService.checkIfAlreadyMarked(attendanceList, new Date());
             if (attendancePresent != null) {
                 attendancePresent.setAttendanceFlag(attendanceList.getAttendanceFlag());
-                TacCourseAttendence attendanceUpdated = attendanceService.markAttendance(attendanceList);
-
-                //TacCourseAttendence attendanceUpdated = attendanceService.markInitialAttendance(attendanceList);
-                //attendanceData.add(attendanceUpdated);
-
+                TacCourseAttendence attendanceUpdated = attendanceService.markAttendance(attendancePresent);
             }
         }
         ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,

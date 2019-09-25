@@ -150,6 +150,7 @@ export const  SEARCH_JOB_CARD=BASE_URL+training+"/list-job-card-by-job"
 export const  GET_JOB_CARD_BYID=BASE_URL+training+"/get-job-card-byid"
 export const  GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data-attendance"
 export const  MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
+export const   MARK_ATTENDANCE=BASE_URL+training+"/mark-attendance"
 export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses" 
 export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 
