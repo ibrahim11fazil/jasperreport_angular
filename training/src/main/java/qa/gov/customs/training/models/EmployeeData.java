@@ -25,6 +25,7 @@ public class EmployeeData {
         private String departmentId;
         private String passport;
         private String iban;
+        private int count;
 
         public String getJobId() {
             return jobId;
@@ -169,4 +170,11 @@ public class EmployeeData {
         public void setAttendeesId(BigDecimal attendeesId) {
         this.attendeesId = attendeesId;
         }
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

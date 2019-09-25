@@ -164,6 +164,8 @@ export class CourseManagementComponent implements OnInit {
   getCourseManagement(card) {
     this.displayManage = false;
     if (card.title == "Previous Courses") {
+      this.displayCalendar = false;
+      this.displayCourseDetails=false;
       this.trainingService.getPreviousCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -189,6 +191,8 @@ export class CourseManagementComponent implements OnInit {
         })
     }
     else if (card.title == "Future Courses") {
+      this.displayCalendar = false;
+      this.displayCourseDetails=false;
       this.trainingService.getFutureCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -437,6 +441,8 @@ export class CourseManagementComponent implements OnInit {
       }
     )
   }
+
+  
 
 
 }
