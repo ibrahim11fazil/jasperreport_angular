@@ -459,7 +459,9 @@ export class CourseManagementComponent implements OnInit {
     this.courseCompletion=true;
     }
   }
-
+/**
+    * markCourseCompletion() method for course completion form for previous courses
+    */
   markCourseCompletion(row)
   { 
     this.displayCourseCompletionForm=true;
@@ -503,13 +505,15 @@ export class CourseManagementComponent implements OnInit {
       })
     }
 
-
+/**
+    * markCourseCompletionForCurrent() method for course completion form on end date
+    */
      markCourseCompletionForCurrent()
    { 
      
-  if(this.courseEndDate= new Date()){
-    this.displayCourseCompletionForm=true;
-    
+     if(this.courseEndDate= new Date()){
+     this.displayCourseCompletionForm=true;
+
      let course=new FindAttendance(0,null,null)
      course.activation_id=this.eventCourseDetail.activation_id;
      course.course_date=this.courseStartDate;
