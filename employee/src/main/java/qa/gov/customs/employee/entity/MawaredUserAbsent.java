@@ -34,11 +34,11 @@ public class MawaredUserAbsent {
     @Column(name = "NUMBER_DAYS")
     BigDecimal numberOfDays;
 
-    //@Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "RETURN_LEAVE")
     String returnLeave;
 
-    //@Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "PLAN_RETURN_LEAVE")
     String plannedReturnLeave;
 
@@ -98,6 +98,22 @@ public class MawaredUserAbsent {
     public void setNumberOfDays(BigDecimal numberOfDays) {
         this.numberOfDays = numberOfDays;
     }
+
+//    public Date getReturnLeave() {
+//        return returnLeave;
+//    }
+//
+//    public void setReturnLeave(Date returnLeave) {
+//        this.returnLeave = returnLeave;
+//    }
+//
+//    public Date getPlannedReturnLeave() {
+//        return plannedReturnLeave;
+//    }
+//
+//    public void setPlannedReturnLeave(Date plannedReturnLeave) {
+//        this.plannedReturnLeave = plannedReturnLeave;
+//    }
 
 
     public String getReturnLeave() {

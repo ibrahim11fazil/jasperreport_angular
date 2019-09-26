@@ -6,3 +6,12 @@ export class AbsentInfo{
     endDate:Date
     qid:String
 }
+
+export interface AbsentInfoResponse {
+    status: Boolean;
+    code:number;
+    message:String;
+    data: Boolean;
+}
+
+
