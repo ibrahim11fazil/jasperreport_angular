@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.*;
+import qa.gov.customs.training.models.ActivationDate;
 import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
@@ -527,11 +528,25 @@ public class CourseServiceImpl  implements CourseService {
 		tacCourseDateRepository.save(courseDate);
 	}
 
+	@Override
+	public ActivationDate getDatesForActivation(BigDecimal activationId) {
+		List<Object[]> objects = courseRepository.getDatesForActivation(activationId);
 
-
-
-
+		if(objects==null || objects.size()==0){
+			return null;
+		}else{
+			ActivationDate dates = new ActivationDate();
+			for (Object[] o : objects) {
+				dates.setActivationId(activationId);
+				dates.setStartDate((Date) o[0]);
+				dates.setStartDate((Date) o[1]);
+			}
+			return dates;
+		}
 	}
+
+
+}
 
 
 

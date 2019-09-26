@@ -15,7 +15,7 @@ import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, Respons
 import { TacActivation } from 'app/models/tac-activation';
 import { TrainingService } from 'app/service/training/training.service';
 import { EmployeeCourseRequest, WorkflowResponse } from 'app/models/workflow';
-import { SupervisorResponse, SupervisorResponseData } from 'app/models/course-request';
+import { SupervisorResponse, SupervisorResponseData, ActivationDateRequest, ActivationDateResponse, ActivationDateDetails } from 'app/models/course-request';
 import { AuthService } from 'app/service/auth-service/auth.service';
 import { AbsentInfo, AbsentInfoResponse } from 'app/models/employee-data';
 
@@ -232,9 +232,11 @@ onSubmit(){
   //2. check the user is already requested
   //3. Check course requested is overriding other courses . already overriding.
   //4. if all ok save the data
-
+  this.getActivationDatesByActivationId(empRequest)
   
 }
+
+
 
 saveRequest(empRequest:EmployeeCourseRequest){
   this.trainingService.saveEmployeeRequest(empRequest).subscribe(
@@ -250,14 +252,40 @@ saveRequest(empRequest:EmployeeCourseRequest){
     })
 }
 
+getActivationDatesByActivationId(request:EmployeeCourseRequest){
+  var req= new ActivationDateRequest()
+  req.activationId =request.courseActivationId
+  this.trainingService.getActivationDatesByActivationId(req).subscribe(
+    data => {
+      var response = <ActivationDateResponse>data
+      //.this.rows = response.data
+      if(response.status){
+        this.checkUserIsAbsentOrNot(request,response.data)
+      }else{
+      this.toastr.error("No Activation dates found")
+      }
+    },
+    error => {
+      console.log(error)
+      this.toastr.error(error.message)
+    })
+}
 
-checkUserIsAbsentOrNot(request:EmployeeCourseRequest){
+checkUserIsAbsentOrNot(request:EmployeeCourseRequest,details:ActivationDateDetails){
   var absentInfo = new AbsentInfo()
+  absentInfo.startDate=details.startDate
+  absentInfo.endDate=details.endDate
+  if(request.forUserQid!=null)
+  absentInfo.qid =request.forUserQid
+  else
+  absentInfo.qid =this.authService.getQid()
+
+  
   this.trainingService.checktheEmployeeAbsentOrNot(absentInfo).subscribe(
     data=>{
       var response =<AbsentInfoResponse>data
       if(response.data){
-        this.toastr.error("The use is absent on the date,Try another date")
+        this.toastr.error("The user is absent on the date,Try another date.")
       }else{
         this.checkUserIsAlreadyRequested(request)
       }    
