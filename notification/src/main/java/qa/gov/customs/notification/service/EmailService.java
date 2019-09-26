@@ -35,8 +35,8 @@ public class EmailService {
         msg.setFrom(new InternetAddress("ci-test@customs.gov.qa", true));
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("sraj@customs.gov.qa"));
-        msg.setSubject("Tutorials point email");
-        msg.setContent("Tutorials point email", "text/html");
+        msg.setSubject("Test email");
+        msg.setContent("Test email body", "text/html");
         msg.setSentDate(new Date());
         Transport.send(msg);
     }

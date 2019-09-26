@@ -20,6 +20,7 @@ import qa.gov.customs.employee.utils.models.ResponseType;
 import qa.gov.customs.employee.utils.models.mawaredJobFamily;
 import qa.gov.customs.employee.utils.models.mawaredOrgDetails;
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -271,15 +272,19 @@ public class EmployeeController {
 	}
 
 
-	@PreAuthorize("hasAnyAuthority('workflow-validations')")
+	@PreAuthorize("hasAnyAuthority('workflow_validations')")
 	@PostMapping("/check-the-user-is-absent-between-dates")
 	public ResponseType checkTheUserIsAbsentBetweenDates(@RequestBody AbsentInfo absentInfo){
 			logger.info("Received ### request received");
-			Boolean status = mawaredService.findByQidInDateInBetween(absentInfo.getQid()
-					,absentInfo.getStartDate(),absentInfo.getEndDate());
-			return get(Constants.SUCCESS, MessageUtil.SUCCESS, status,
-					status);
-
+			if(absentInfo!=null && absentInfo.getQid()!=null && absentInfo.getStartDate()!=null && absentInfo.getStartDate()!=null) {
+				Boolean status = mawaredService.findByQidInDateInBetween(absentInfo.getQid()
+						, absentInfo.getStartDate(), absentInfo.getEndDate());
+				return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+						status);
+			}else{
+				return get(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+						false);
+			}
 	}
 
 	ResponseType  get(int code, String message, boolean status, Object data){
