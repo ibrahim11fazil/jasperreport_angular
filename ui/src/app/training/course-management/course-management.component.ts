@@ -36,6 +36,8 @@ import { ResponseEmpData, EmpData } from 'app/models/emp-data';
 import { TacCourseAttendance, ITacCourseAttendance } from 'app/models/tac-course-attendance';
 import { TacCourseAttendees } from 'app/models/tac-course-attendees';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
+import { CourseManagement } from 'app/models/course-management';
+import { FindAttendance, FindAttendanceResponse } from 'app/models/find-attendance';
 
 
 
@@ -85,6 +87,7 @@ export class CourseManagementComponent implements OnInit {
   courseStartDate: Date;
   courseEndDate: Date;
   displayCalendar: boolean = false;
+  courseCompletion:boolean=false;
   activeDayIsOpen: boolean = true;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   view: string = 'month';
@@ -94,6 +97,7 @@ export class CourseManagementComponent implements OnInit {
   displayCourseCompletionForm: boolean = false;
   Follow_list: any;
   courseAttendanceList: TacCourseAttendance[] = [];
+  courseCompletionData:FindAttendance[];
 
 
   modalData: {
@@ -137,6 +141,8 @@ export class CourseManagementComponent implements OnInit {
         this.toastr.error(error.message)
       }
     )
+
+  
   }
   statsCard: any[] = [
 
@@ -222,7 +228,10 @@ export class CourseManagementComponent implements OnInit {
     const dateEnd = Number(strENd[1]);
     const monthEnd = Number(strENd[0]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
-
+    if (this.courseEndDate=new Date())
+    {
+    this.courseCompletion=true;
+    }
     console.log(this.courseEndDate)
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = row.activation_id
@@ -440,9 +449,35 @@ export class CourseManagementComponent implements OnInit {
         var Response = <ITacCourseAttendance>data
       }
     )
+    if (this.courseEndDate=new Date())
+    {
+    this.courseCompletion=true;
+    }
   }
 
-  
+  markCourseCompletion()
+  { if (this.courseEndDate>=new Date())
+    {
+    let course=new FindAttendance(0,null,null)
+    course.activation_id=this.eventCourseDetail.activation_id;
+    course.course_date=this.courseStartDate;
+    course.end_date=this.courseEndDate;
+    this.trainingService.getCourseCompletionDetails(course).subscribe(
+      data=>{
+        var Response=<FindAttendanceResponse>data
+       this.courseCompletionData=Response.data;
+      
+      }
+        
+        )
+      }
+    
+
+    }
+
+  }
 
 
-}
+
+
+
