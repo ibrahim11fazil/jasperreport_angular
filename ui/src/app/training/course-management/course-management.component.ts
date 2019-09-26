@@ -95,9 +95,11 @@ export class CourseManagementComponent implements OnInit {
   checkboxList: EmpData[] = [];
   isSelected: boolean = false;
   displayCourseCompletionForm: boolean = false;
+  
+  previousCourse: boolean = false;
   Follow_list: any;
   courseAttendanceList: TacCourseAttendance[] = [];
-  courseCompletionData:FindAttendance[];
+  courseCompletionData:EmpData[];
 
 
   modalData: {
@@ -172,6 +174,7 @@ export class CourseManagementComponent implements OnInit {
     if (card.title == "Previous Courses") {
       this.displayCalendar = false;
       this.displayCourseDetails=false;
+      this.previousCourse=true;
       this.trainingService.getPreviousCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -185,6 +188,7 @@ export class CourseManagementComponent implements OnInit {
     }
     else if (card.title == "Current Courses") {
       this.displayManage = true;
+      this.previousCourse=false;
       this.trainingService.getCurrentCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -199,6 +203,7 @@ export class CourseManagementComponent implements OnInit {
     else if (card.title == "Future Courses") {
       this.displayCalendar = false;
       this.displayCourseDetails=false;
+      this.previousCourse=false;
       this.trainingService.getFutureCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -455,26 +460,64 @@ export class CourseManagementComponent implements OnInit {
     }
   }
 
-  markCourseCompletion()
-  { if (this.courseEndDate>=new Date())
-    {
+  markCourseCompletion(row)
+  { 
+    this.displayCourseCompletionForm=true;
+    debugger;
+    this.eventCourseDetail = row;
+    const str = this.eventCourseDetail.course_date.split('-');
+    const year = Number(str[2]);
+    const date = Number(str[1]);
+    const month = Number(str[0]) - 1;
+    this.courseStartDate = new Date(year, month, date);
+   
+
+    const strENd = this.eventCourseDetail.end_date.split('-');
+    const yearEnd = Number(strENd[2]);
+    const dateEnd = Number(strENd[1]);
+    const monthEnd = Number(strENd[0]) - 1;
+    this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
+
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    courseActivation.activationId = row.activation_id
+    this.trainingService.getActivationById(courseActivation).subscribe(
+      data => {
+        var response = <ResponseActivationData>data
+        this.activation = response.data
+        var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value == this.activation.durationFlag)
+        if (durationItemsArray[0] != null) {
+          this.durationValueString = durationItemsArray[0].viewValue
+        }
+      })
+    
     let course=new FindAttendance(0,null,null)
     course.activation_id=this.eventCourseDetail.activation_id;
     course.course_date=this.courseStartDate;
     course.end_date=this.courseEndDate;
-    this.trainingService.getCourseCompletionDetails(course).subscribe(
+    debugger;
+    this.trainingService.courseCompletionDetails(course).subscribe(
       data=>{
-        var Response=<FindAttendanceResponse>data
+        var Response= <ResponseEmpData>data
        this.courseCompletionData=Response.data;
       
-      }
-        
-        )
-      }
-    
-
+      })
     }
 
+
+     markCourseCompletionForCurrent()
+   { 
+  
+     let course=new FindAttendance(0,null,null)
+     course.activation_id=this.eventCourseDetail.activation_id;
+     course.course_date=this.courseStartDate;
+     course.end_date=this.courseEndDate;
+     this.trainingService.courseCompletionDetails(course).subscribe(
+      data=>{
+        var Response= <ResponseEmpData>data
+      this.courseCompletionData=Response.data;     
+      })
+     }
+     
   }
 
 

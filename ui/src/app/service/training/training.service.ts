@@ -210,7 +210,7 @@ export class TrainingService {
     return this.httpClient.post(MARK_ATTENDANCE,attendance);
   }
 
-  getCourseCompletionDetails(course:FindAttendance):Observable<Object> {
+  courseCompletionDetails(course:FindAttendance):Observable<Object> {
     return this.httpClient.post(GET_COURSE_COMPLETION,course);
   }
 

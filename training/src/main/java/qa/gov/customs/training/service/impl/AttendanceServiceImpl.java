@@ -1,11 +1,13 @@
 package qa.gov.customs.training.service.impl;
 
+import jdk.nashorn.internal.ir.IdentNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseActivation;
 import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.EmployeeData;
+import qa.gov.customs.training.models.FindAttendance;
 import qa.gov.customs.training.repository.TacAttendanceRepository;
 import qa.gov.customs.training.service.AttendanceService;
 
@@ -82,5 +84,54 @@ public class AttendanceServiceImpl implements AttendanceService {
     {
         TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId());
                 return attendancePresent;
+    }
+   @ Override
+    public int getWorkingDays(FindAttendance getAttendance)
+   {
+       int workDays=0;
+       Calendar startCal = Calendar.getInstance();
+       startCal.setTime(getAttendance.getCourse_date());
+
+       Calendar endCal = Calendar.getInstance();
+       endCal.setTime(getAttendance.getEnd_date());
+
+       do {
+           if (startCal.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY && startCal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+               ++workDays;
+           }
+           startCal.add(Calendar.DAY_OF_MONTH, 1);
+       } while (startCal.getTimeInMillis() <= endCal.getTimeInMillis());
+
+
+
+//        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
+//                workDays);
+       return workDays;
+   }
+
+    @Override
+    public Set<EmployeeData> getCourseCompletionAttendance(FindAttendance getAttendance)
+    {
+        List<Object[]> objects =mawaredRepo.getEmpDataforAttendance(getAttendance.getActivation_id());
+        int workDays=getWorkingDays(getAttendance);
+
+        Set<EmployeeData> empdata=new HashSet<EmployeeData>();
+
+        for (Object[] o : objects) {
+            EmployeeData emp = new EmployeeData();
+            emp.setJobId((String)o[0]);
+            emp.setCnameAr((String)o[1]);
+            emp.setDepartment((String) o[2]);
+            emp.setJobTitle((String) o[3]);
+            emp.setMobile((String) o[4]);
+            emp.setAttendeesId((BigDecimal) o[6]);
+            emp.setCount((BigDecimal) o[7]);
+
+             Double percentageAttendance=(emp.getCount().doubleValue()/workDays)*100;
+
+            emp.setPercentage(percentageAttendance.intValue());
+            empdata.add(emp);
+        }
+        return empdata;
     }
 }

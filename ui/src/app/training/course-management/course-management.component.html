@@ -61,6 +61,16 @@
 						(click)=getActivationData(row)>Manage</button>
 				</ng-template>
 			</ngx-datatable-column>
+
+			<ngx-datatable-column *ngIf="previousCourse" min-width="50px">
+					<ng-template ngx-datatable-header-template>
+						<span>Status</span>
+					</ng-template>
+					<ng-template let-row="row" ngx-datatable-cell-template>
+						<button mat-raised-button color="accent" class="m-1" type="button"
+							(click)=markCourseCompletion(row)>Status</button>
+					</ng-template>
+				</ngx-datatable-column>
 		</ngx-datatable>
 	</div>
 
@@ -248,15 +258,14 @@
 		 
 
 		 <div class="pad-wrap left" >
-				<button mat-raised-button color="primary" (click)="markCourseCompletion()"  type="submit">Status</button> 		
-			  <button mat-raised-button color="primary" (click)="markAttendance()" type="submit" >Mark Attendance</button>
-			  		
+				<button mat-raised-button color="primary" (click)="markCourseCompletionForCurrent()"  type="submit">Status</button> 		
+			  <button mat-raised-button color="primary" (click)="markAttendance()" type="submit" >Mark Attendance</button>  		
 		  </div> 
 		  </mat-card></div>
 
 
 
-		  <div *ngIf="displayCalendar" fxFlex="100" class="gene-card-content">
+		  <div *ngIf="displayCourseCompletionForm" fxFlex="100" class="gene-card-content">
 				<mat-card class="mat-pad-none gene-calender">
 		
 					<ngx-datatable 
@@ -266,7 +275,7 @@
 					[footerHeight]="50"
 					[rowHeight]="'auto'" 
 					[limit]="10" 
-					[rows]='empRows' 
+					[rows]='courseCompletionData' 
 					[count]="page.totalElements"
 					[offset]="page.pageNumber">
 			
@@ -323,7 +332,7 @@
 												<span>Attendance %</span>
 											</ng-template>
 											<ng-template let-row="row" ngx-datatable-cell-template>
-													
+													{{row.percentage}}	
 											</ng-template>
 										</ngx-datatable-column>
 										<ngx-datatable-column min-width="50px">
