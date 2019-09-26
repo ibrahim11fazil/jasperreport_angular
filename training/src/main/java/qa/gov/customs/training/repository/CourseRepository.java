@@ -68,6 +68,7 @@ void enableOrDisableCourse(BigDecimal courseId , BigDecimal flag);
             " and lower(a.course_name) LIKE %:courseName%",nativeQuery=true)
     List<Object[]> searchAllFutureCourses(String courseName, Pageable pageable);
 
+
 }
 
 

@@ -79,7 +79,7 @@ export class EmpRequestComponent implements OnInit {
     }
 
     )
-
+    this.searchFutureCourses()
     this.getEmployeesUnderSupervisor()
   }
 

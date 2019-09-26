@@ -17,7 +17,7 @@
 
       <ngx-datatable-column min-width="50px">
         <ng-template ngx-datatable-header-template>
-          <span>Id</span>
+          <span>{{language.label_Id}}</span>
         </ng-template>
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row.activityId}}
@@ -26,7 +26,7 @@
 
       <ngx-datatable-column min-width="50px">
         <ng-template ngx-datatable-header-template>
-          <span>Activity Name</span>
+          <span>{{language.label_ActivityName}}</span>
         </ng-template>
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row.activityName}}
@@ -35,11 +35,11 @@
 
       <ngx-datatable-column min-width="50px" >
         <ng-template ngx-datatable-header-template>
-          <span>Delete</span>
+          <span>{{language.label_delete}}</span>
         </ng-template>
         <ng-template let-row="row" ngx-datatable-cell-template>
 
-          <button mat-raised-button color="primary" class="m-1" (click)="deleteRow(row)">Delete</button>
+          <button mat-raised-button color="primary" class="m-1" (click)="deleteRow(row)">{{language.btn_delete}}</button>
   
         </ng-template>
       </ngx-datatable-column>
