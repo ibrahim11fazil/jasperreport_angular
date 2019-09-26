@@ -506,7 +506,10 @@ export class CourseManagementComponent implements OnInit {
 
      markCourseCompletionForCurrent()
    { 
-  
+     
+  if(this.courseEndDate= new Date()){
+    this.displayCourseCompletionForm=true;
+    
      let course=new FindAttendance(0,null,null)
      course.activation_id=this.eventCourseDetail.activation_id;
      course.course_date=this.courseStartDate;
@@ -516,7 +519,8 @@ export class CourseManagementComponent implements OnInit {
         var Response= <ResponseEmpData>data
       this.courseCompletionData=Response.data;     
       })
-     }
+     }}
+    
      
   }
 
