@@ -75,11 +75,18 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
             reference.setResponseStatus(status.getStatus());
             reference = updateRequest(reference);
             ObjectMapper mapper = new ObjectMapper();
-            UserRequestModel requestModel   = mapper.convertValue(
-                    reference.getData(),
-                    new TypeReference<UserRequestModel>() {
-                    });
-            return  requestModel;
+//            UserRequestModel requestModel   = mapper.convertValue(
+//                    reference.getData(),
+//                    new TypeReference<UserRequestModel>() {
+//                    });
+
+            try {
+                UserRequestModel requestModel = mapper.readValue(reference.getData(), UserRequestModel.class);
+                return requestModel;
+            }catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
         }else{
             return null;
         }

@@ -65,10 +65,6 @@ public class TacWorkflowReference {
 //    Date durationFlag;
 
 
-us
-
-
-
     public String getFromUser() {
         return fromUser;
     }
