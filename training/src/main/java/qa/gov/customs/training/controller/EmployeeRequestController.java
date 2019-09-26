@@ -64,7 +64,7 @@ public class EmployeeRequestController {
             }
 
 
-    @PreAuthorize("hasAnyAuthority('workflow-validations')")
+    @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/check-the-user-is-already-applied-with-activation-id")
     public ResponseType checkTheUserIsAlreadyAppliedWithActivationId(
                                     @Valid @RequestBody UserRequestModel request,
@@ -80,7 +80,7 @@ public class EmployeeRequestController {
     }
 
 
-    @PreAuthorize("hasAnyAuthority('workflow-validations')")
+    @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/check-the-request-is-overriding")
     public ResponseType checkTheRequestIsOverriding(
             @Valid @RequestBody UserRequestModel request,

@@ -271,7 +271,7 @@ public class EmployeeController {
 	}
 
 
-	@PreAuthorize("hasAnyAuthority('workflow-validations')")
+	@PreAuthorize("hasAnyAuthority('workflow_validations')")
 	@PostMapping("/check-the-user-is-absent-between-dates")
 	public ResponseType checkTheUserIsAbsentBetweenDates(@RequestBody AbsentInfo absentInfo){
 			logger.info("Received ### request received");
