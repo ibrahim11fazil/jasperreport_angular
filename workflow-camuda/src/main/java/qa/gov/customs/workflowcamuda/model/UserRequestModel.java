@@ -48,8 +48,8 @@ public class UserRequestModel implements Serializable {
 
     private String investigationId;
 
-
-
+    public UserRequestModel() {
+    }
 
     public String getInvestigationId() {
         return investigationId;
