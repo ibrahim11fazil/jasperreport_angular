@@ -85,6 +85,7 @@ export class CourseManagementComponent implements OnInit {
   courseStartDate: Date;
   courseEndDate: Date;
   displayCalendar: boolean = false;
+  courseCompletion:boolean=false;
   activeDayIsOpen: boolean = true;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   view: string = 'month';
@@ -440,9 +441,13 @@ export class CourseManagementComponent implements OnInit {
         var Response = <ITacCourseAttendance>data
       }
     )
+    if (this.courseEndDate=new Date())
+    {
+    this.courseCompletion=true;
+    }
   }
 
-  
+
 
 
 }
