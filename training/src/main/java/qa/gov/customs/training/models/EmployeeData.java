@@ -25,7 +25,8 @@ public class EmployeeData {
         private String departmentId;
         private String passport;
         private String iban;
-        private int count;
+        private BigDecimal count;
+        private int percentage;
 
         public String getJobId() {
             return jobId;
@@ -63,7 +64,15 @@ public class EmployeeData {
             return qid;
         }
 
-        public void setQid(String qid) {
+    public int getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(int percentage) {
+        this.percentage = percentage;
+    }
+
+    public void setQid(String qid) {
             this.qid = qid;
         }
 
@@ -170,11 +179,11 @@ public class EmployeeData {
         public void setAttendeesId(BigDecimal attendeesId) {
         this.attendeesId = attendeesId;
         }
-    public int getCount() {
+    public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(BigDecimal count) {
         this.count = count;
     }
 }
