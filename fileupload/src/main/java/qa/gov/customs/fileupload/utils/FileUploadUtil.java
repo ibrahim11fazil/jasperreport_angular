@@ -40,7 +40,7 @@ public class FileUploadUtil {
 
 	static public Date stringToDateForCertifiate(String certDate) throws Exception{
 		//String sDate1="31/12/1998";
-		Date date=new SimpleDateFormat("dd/mm/yyyy").parse(certDate);
+		Date date=new SimpleDateFormat("mm-dd-yyyy").parse(certDate);
 		return date;
 	}
 	
