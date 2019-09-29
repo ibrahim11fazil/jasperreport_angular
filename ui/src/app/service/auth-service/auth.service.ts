@@ -66,13 +66,13 @@ export class AuthService {
       let options = {
          headers: new HttpHeaders()
                .set('Content-Type', 'application/x-www-form-urlencoded')
-               .set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
+             //  .set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
              //.set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
       };
       let body = new URLSearchParams()
       body.set('username', value.email)
       body.set('password', value.password)
-      body.set('grant_type', 'password')
+      //body.set('grant_type', 'password')
       body.set('', '')
       this.http.post(LOGIN_URL,body.toString(),options)
           .subscribe(
