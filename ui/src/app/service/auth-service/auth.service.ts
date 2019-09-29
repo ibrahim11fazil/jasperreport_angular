@@ -160,6 +160,22 @@ export class AuthService {
    }
 
 
+   getQid(){
+      try{
+       this.userData = JSON.parse(localStorage.getItem("userProfile"));
+       if(this.userData) {
+           var json = this.userData;
+           //console.log(JSON.stringify(json));
+           let body = JSON.parse(JSON.stringify(json));
+           return body.qid;
+       } else {
+           return null;
+       }
+     }catch(ex){
+        return null
+     }
+   }
+
    getCNameAr(){
       try{
        this.userData = JSON.parse(localStorage.getItem("userProfile"));

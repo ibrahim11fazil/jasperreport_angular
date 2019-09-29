@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.domain.Pageable;
+import qa.gov.customs.training.models.ActivationDate;
 import qa.gov.customs.training.models.Course;
 import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.entity.ActivationData;
@@ -59,4 +60,5 @@ public interface CourseService {
     List<CourseManagement>  getAllPreviousCourses();
     List<CourseManagement>  searchAllFutureCourses(String courseName);
    void setStatusOfDate(TacCourseDate courseDate);
+    ActivationDate getDatesForActivation(BigDecimal activationId);
 }

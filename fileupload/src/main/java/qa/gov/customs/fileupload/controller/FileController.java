@@ -1,4 +1,4 @@
-package qa.gov.customs.fileupload;
+package qa.gov.customs.fileupload.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import qa.gov.customs.fileupload.storage.FileStorageService;
+import qa.gov.customs.fileupload.storage.UploadFileResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

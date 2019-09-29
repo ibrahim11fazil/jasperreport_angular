@@ -176,8 +176,9 @@
 	
 	</div>
 
+	<div *ngIf="displayCalendar" fxFlex="100" class="gene-card-content">
+		<mat-card class="mat-pad-none gene-calender">
 
-	<div fxFlex="100">
 			<ngx-datatable 
 			#table class='material mrgn-all-md' 
 			[columnMode]="'force'" 
@@ -241,8 +242,120 @@
 					</ng-template>
 				</ngx-datatable-column> 
 		
+				<!-- <button mat-raised-button color="accent" class="m-1" type="button"
+						(click)=MarkAttendance()>MarkAttendance</button>  -->
 	</ngx-datatable>
-		</div> 
+		 
+
+		 <div class="pad-wrap left" >
+				<button mat-raised-button color="primary" (click)="markCourseCompletion()"  type="submit">Status</button> 		
+			  <button mat-raised-button color="primary" (click)="markAttendance()" type="submit" >Mark Attendance</button>
+			  		
+		  </div> 
+		  </mat-card></div>
+
+
+
+		  <div *ngIf="displayCalendar" fxFlex="100" class="gene-card-content">
+				<mat-card class="mat-pad-none gene-calender">
+		
+					<ngx-datatable 
+					#table class='material mrgn-all-md' 
+					[columnMode]="'force'" 
+					[headerHeight]="50"
+					[footerHeight]="50"
+					[rowHeight]="'auto'" 
+					[limit]="10" 
+					[rows]='empRows' 
+					[count]="page.totalElements"
+					[offset]="page.pageNumber">
+			
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>Job ID</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.jobId}}
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>Name</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.cnameAr}}
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>Department</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.department}}
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column min-width="50px">
+								<ng-template ngx-datatable-header-template>
+									<span>Job Title</span>
+								</ng-template>
+								<ng-template let-row="row" ngx-datatable-cell-template>
+									{{row.jobTitle}}
+								</ng-template>
+							</ngx-datatable-column>
+							<ngx-datatable-column min-width="50px">
+									<ng-template ngx-datatable-header-template>
+										<span>Mobile</span>
+									</ng-template>
+									<ng-template let-row="row" ngx-datatable-cell-template>
+										{{row.mobile}}
+									</ng-template>
+								</ngx-datatable-column>
+								<ngx-datatable-column min-width="50px">
+										<ng-template ngx-datatable-header-template>
+											<span>Course Period</span>
+										</ng-template>
+										<ng-template let-row="row" ngx-datatable-cell-template>
+												{{activation.duration}}{{durationValueString}}
+										</ng-template>
+									</ngx-datatable-column>
+									<ngx-datatable-column min-width="50px">
+											<ng-template ngx-datatable-header-template>
+												<span>Attendance %</span>
+											</ng-template>
+											<ng-template let-row="row" ngx-datatable-cell-template>
+													
+											</ng-template>
+										</ngx-datatable-column>
+										<ngx-datatable-column min-width="50px">
+												<ng-template ngx-datatable-header-template>
+													<span>Pass/Fail</span>
+												</ng-template>
+												<ng-template let-row="row" ngx-datatable-cell-template>
+														
+												</ng-template>
+											</ngx-datatable-column>
+
+											<ngx-datatable-column min-width="50px">
+													<ng-template ngx-datatable-header-template>
+														<span>Remark</span>
+													</ng-template>
+													<ng-template let-row="row" ngx-datatable-cell-template>
+															
+													</ng-template>
+												</ngx-datatable-column>
+												<ngx-datatable-column min-width="50px">
+														<ng-template ngx-datatable-header-template>
+															<span>Certificate</span>
+														</ng-template>
+														<ng-template let-row="row" ngx-datatable-cell-template>
+																
+														</ng-template>
+													</ngx-datatable-column>
+	
+
+
+
+								</ngx-datatable></mat-card></div>
 
 
 </div>

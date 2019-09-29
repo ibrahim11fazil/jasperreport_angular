@@ -3,6 +3,7 @@ package qa.gov.customs.training.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.EmployeeData;
 import qa.gov.customs.training.repository.TacAttendanceRepository;
@@ -10,10 +11,8 @@ import qa.gov.customs.training.service.AttendanceService;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.List;
+import java.util.*;
+
 import qa.gov.customs.training.repository.MawaredRepository;
 
 
@@ -47,12 +46,41 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<TacCourseAttendence>  markInitialAttendance(List<TacCourseAttendence> attendance) {
+
+    public TacCourseAttendence  markAttendance(TacCourseAttendence attendance) {
+
+
+        TacCourseAttendence attendanceData = attendanceRepo.save(attendance);
+        return attendanceData;
+    }
+
+   // public List<TacCourseAttendence>  markInitialAttendance(List<TacCourseAttendence> attendance) {
+//        List<TacCourseAttendence> attendanceDetails= new ArrayList<>();
+//
+//        for(TacCourseAttendence  attend :attendance)
+//        {
+//           BigDecimal attendeesId= attend.getTacCourseAttendees().getAttendeesId();
+//           // TacCourseAttendence attendanceDataExists=attendanceRepo.findAttendanceForToday(attendeesId);
+//            if(attendanceDataExists==null)
+//            {
+//                TacCourseAttendence saveInitialAttendance=attendanceRepo.save(attend);
+//                attendanceDetails.add(saveInitialAttendance);
+//            }
+//
+//        }
+//
+//
+//
+//        List<TacCourseAttendence> attendanceData=attendanceRepo.saveAll(attendance);
+//        return  attendanceDetails;
 
 
 
-        List<TacCourseAttendence> attendanceData=attendanceRepo.saveAll(attendance);
-        return  attendanceData;
 
+    @Override
+    public TacCourseAttendence  checkIfAlreadyMarked(TacCourseAttendence attendance,Date date)
+    {
+        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId());
+                return attendancePresent;
     }
 }

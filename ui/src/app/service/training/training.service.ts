@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES, SEARCH_JOB_CARD, CREATE_JOB_CARD, GET_JOB_CARD_BY_ID, GET_JOB_CARD_BYID, GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY, GET_EMPLOYEE_DATA_ATTENDANCE, MARK_INITIAL_ATTENDANCE,SEARCH_FUTURE_COURSES, WORK_FLOW_REQUEST, EMP_UNDER_SUPERVSIOR } from "../../app.constants";
+
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES, SEARCH_JOB_CARD, CREATE_JOB_CARD, GET_JOB_CARD_BY_ID, GET_JOB_CARD_BYID, GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY, GET_EMPLOYEE_DATA_ATTENDANCE, MARK_INITIAL_ATTENDANCE,SEARCH_FUTURE_COURSES, WORK_FLOW_REQUEST, EMP_UNDER_SUPERVSIOR, MARK_ATTENDANCE,GET_COURSE_COMPLETION, CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES, CHECK_THE_REQUEST_IS_VALID, CHECK_THE_REQUEST_IS_OVERRIDING, GET_ACTIVATION_DATES_BY_ACTIVATIONID } from "../../app.constants";
 import { Location,ResponseLocation, ResponseLocationDetail } from 'app/models/location';
 
 import { BehaviorSubject } from 'rxjs';
@@ -17,6 +18,10 @@ import { SearchUser } from 'app/models/system-user';
 import { SearchJobCard, JobCardData, JobCardDataSearch } from 'app/models/job-card-data';
 import { TacCourseAttendance } from 'app/models/tac-course-attendance';
 import { EmployeeCourseRequest } from 'app/models/workflow';
+import { AbsentInfo } from 'app/models/employee-data';
+import { FindAttendance } from 'app/models/find-attendance';
+import { ActivationDateRequest } from 'app/models/course-request';
+
 
 @Injectable({
   providedIn: 'root'
@@ -205,6 +210,13 @@ export class TrainingService {
   markInitialAttendance(attendance:TacCourseAttendance[]):Observable<Object> {
     return this.httpClient.post(MARK_INITIAL_ATTENDANCE,attendance);
   }
+  markAttendanceOfEach(attendance:TacCourseAttendance[]):Observable<Object> {
+    return this.httpClient.post(MARK_ATTENDANCE,attendance);
+  }
+
+  getCourseCompletionDetails(course:FindAttendance):Observable<Object> {
+    return this.httpClient.post(GET_COURSE_COMPLETION,course);
+  }
 
   searchFutureCourse(course: TacCourseMaster): Observable<Object> {
     return this.httpClient.post(SEARCH_FUTURE_COURSES, course);
@@ -221,5 +233,25 @@ export class TrainingService {
   employeeUnderSupervisor():Observable<Object>{
     return this.httpClient.post(EMP_UNDER_SUPERVSIOR,null);
   }
+
+  //Employee service absent
+  checktheEmployeeAbsentOrNot(input:AbsentInfo):Observable<Object>{
+    return this.httpClient.post(CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES,input);
+  }
+
+  //Training service
+  checktheRequestIsvalid(input:EmployeeCourseRequest):Observable<Object>{
+    return this.httpClient.post(CHECK_THE_REQUEST_IS_VALID,input);
+  }
+
+  //Check the request is overriding
+  checktheRequestIsOverriding(input:EmployeeCourseRequest):Observable<Object>{
+    return this.httpClient.post(CHECK_THE_REQUEST_IS_OVERRIDING,input);
+  }
+
+  getActivationDatesByActivationId(input:ActivationDateRequest){
+    return this.httpClient.post(GET_ACTIVATION_DATES_BY_ACTIVATIONID,input);
+  }
+
 
 }

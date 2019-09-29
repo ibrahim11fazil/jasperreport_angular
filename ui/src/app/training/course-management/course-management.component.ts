@@ -36,6 +36,8 @@ import { ResponseEmpData, EmpData } from 'app/models/emp-data';
 import { TacCourseAttendance, ITacCourseAttendance } from 'app/models/tac-course-attendance';
 import { TacCourseAttendees } from 'app/models/tac-course-attendees';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
+import { CourseManagement } from 'app/models/course-management';
+import { FindAttendance, FindAttendanceResponse } from 'app/models/find-attendance';
 
 
 
@@ -85,6 +87,7 @@ export class CourseManagementComponent implements OnInit {
   courseStartDate: Date;
   courseEndDate: Date;
   displayCalendar: boolean = false;
+  courseCompletion:boolean=false;
   activeDayIsOpen: boolean = true;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   view: string = 'month';
@@ -93,7 +96,8 @@ export class CourseManagementComponent implements OnInit {
   isSelected: boolean = false;
   displayCourseCompletionForm: boolean = false;
   Follow_list: any;
-  courseAttendanceList:TacCourseAttendance[]=[];
+  courseAttendanceList: TacCourseAttendance[] = [];
+  courseCompletionData:FindAttendance[];
 
 
   modalData: {
@@ -137,6 +141,8 @@ export class CourseManagementComponent implements OnInit {
         this.toastr.error(error.message)
       }
     )
+
+  
   }
   statsCard: any[] = [
 
@@ -164,6 +170,8 @@ export class CourseManagementComponent implements OnInit {
   getCourseManagement(card) {
     this.displayManage = false;
     if (card.title == "Previous Courses") {
+      this.displayCalendar = false;
+      this.displayCourseDetails=false;
       this.trainingService.getPreviousCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -189,6 +197,8 @@ export class CourseManagementComponent implements OnInit {
         })
     }
     else if (card.title == "Future Courses") {
+      this.displayCalendar = false;
+      this.displayCourseDetails=false;
       this.trainingService.getFutureCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -218,7 +228,10 @@ export class CourseManagementComponent implements OnInit {
     const dateEnd = Number(strENd[1]);
     const monthEnd = Number(strENd[0]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
-
+    if (this.courseEndDate=new Date())
+    {
+    this.courseCompletion=true;
+    }
     console.log(this.courseEndDate)
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = row.activation_id
@@ -231,7 +244,7 @@ export class CourseManagementComponent implements OnInit {
           + +this.activation.costFood + +this.activation.costGift;
         this.tacInstructorResult = this.activation.instructors;
         //get Instructors usimg activationId
-        
+
         this.locationType = this.activation.locationId;
         this.displayCourseDetails = true
         var durationItemsArray = this.durationFlagList.filter(durationItemsArray => durationItemsArray.value == this.activation.durationFlag)
@@ -285,9 +298,9 @@ export class CourseManagementComponent implements OnInit {
 
 
   }
-      /**
-      * dayClicked method is used to open the active day.
-      */
+  /**
+  * dayClicked method is used to open the active day.
+  */
   dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
     this.empRows = null;
     if (isSameMonth(date, this.viewDate)) {
@@ -308,20 +321,24 @@ export class CourseManagementComponent implements OnInit {
       data => {
         var response = <ResponseEmpData>data
         this.empRows = response.data
-       this.empRows.forEach(emp => {
-        let courseAttendance=new TacCourseAttendance(0,null,null,null)
-        let tacCourseAttendees=new TacCourseAttendees(emp.attendeesId,null,0,0,0,0)
-        courseAttendance.tacCourseAttendees=tacCourseAttendees;
-        courseAttendance.attendanceDate=new Date();
-        courseAttendance.attendanceFlag=0;//marking as absent initially
-        this.courseAttendanceList.push(courseAttendance)
-});
-this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
-  data=>
-  {
-var Response=<ITacCourseAttendance>data
-  }
-)
+        debugger;
+        this.empRows.forEach(emp => {
+          let courseAttendance = new TacCourseAttendance(0, null, null, null)
+          let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
+          courseAttendance.tacCourseAttendees = tacCourseAttendees;
+          courseAttendance.attendanceDate = new Date();
+          courseAttendance.attendanceFlag = 0;//marking as absent initially
+          this.courseAttendanceList.push(courseAttendance)
+
+
+        });
+        debugger;
+        this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
+          data => {
+            var Response = <ITacCourseAttendance>data
+          }
+        )
+
 
 
       },
@@ -398,7 +415,7 @@ var Response=<ITacCourseAttendance>data
   checkboxValue(row, event) {
     debugger;
     const checked = event.checked;
-  console.log(row);
+    console.log(row);
     if (checked) {
       this.checkboxList.push(row);
       console.log(this.checkboxList)
@@ -407,8 +424,60 @@ var Response=<ITacCourseAttendance>data
       var index = this.checkboxList.indexOf(row);
       this.checkboxList.splice(index, 1);
     }
+
+
+
+    
   }
 
+  markAttendance()
   
+  {
+    debugger
+    this.checkboxList.forEach(emp => {
+      let courseAttendance = new TacCourseAttendance(0, null, null, null)
+      let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
+      courseAttendance.tacCourseAttendees = tacCourseAttendees;
+      // courseAttendance.attendanceDate = new Date();
+      courseAttendance.attendanceFlag = 1;//marking as present 
+      this.courseAttendanceList.push(courseAttendance)
 
-}
+
+    });
+    this.trainingService.markAttendanceOfEach(this.courseAttendanceList).subscribe(
+      data => {
+        var Response = <ITacCourseAttendance>data
+      }
+    )
+    if (this.courseEndDate=new Date())
+    {
+    this.courseCompletion=true;
+    }
+  }
+
+  markCourseCompletion()
+  { if (this.courseEndDate>=new Date())
+    {
+    let course=new FindAttendance(0,null,null)
+    course.activation_id=this.eventCourseDetail.activation_id;
+    course.course_date=this.courseStartDate;
+    course.end_date=this.courseEndDate;
+    this.trainingService.getCourseCompletionDetails(course).subscribe(
+      data=>{
+        var Response=<FindAttendanceResponse>data
+       this.courseCompletionData=Response.data;
+      
+      }
+        
+        )
+      }
+    
+
+    }
+
+  }
+
+
+
+
+

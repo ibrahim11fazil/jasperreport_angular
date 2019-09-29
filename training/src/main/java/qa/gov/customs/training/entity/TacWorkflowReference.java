@@ -49,24 +49,20 @@ public class TacWorkflowReference {
     BigInteger  courseId;
 
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="COURSE_START_DATE")
-    Date courseStartDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name="COURSE_END_DATE")
-    Date courseEndDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name="DURATION")
-    Date duration;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name="DURATION_FLAG")
-    Date durationFlag;
-
-
-
+//    @Temporal(TemporalType.DATE)
+//    @Column(name="COURSE_START_DATE")
+//    Date courseStartDate;
+//
+//    @Temporal(TemporalType.DATE)
+//    @Column(name="COURSE_END_DATE")
+//    Date courseEndDate;
+//
+//    @Temporal(TemporalType.DATE)
+//    @Column(name="DURATION")
+//    Date duration;
+//
+//    @Column(name="DURATION_FLAG")
+//    Date durationFlag;
 
 
     public String getFromUser() {

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f7c6f59f-15dc-40f4-93ff-624f880eeafc">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="nameField" class="java.lang.String"/>
+	<parameter name="courseName" class="java.lang.String"/>
+	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="courseDate" class="java.lang.String"/>
+	<parameter name="certificateId" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="9" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="10" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="7" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="401" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement x="0" y="176" width="780" height="30" uuid="71067fed-4a3e-4e2c-b269-3e37b9e25454"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[has successfully completed]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="133" width="780" height="40" uuid="1b10261f-a75d-4911-8f17-fa43c882e89a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="30"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nameField}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="98" width="780" height="30" uuid="42c9648d-1bf8-465f-bd67-67dcad19b070"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[This Acknowledges that]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="212" width="780" height="30" uuid="d50c384f-9d28-49db-913b-bd3acfb1e359"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="253" width="780" height="30" uuid="dded16f4-0adc-4cd3-b6b4-cf57b8ad52a6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[On]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="289" width="780" height="30" uuid="a4c88cd9-f5dd-4eab-ae2d-a93851785824"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="25"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="370" width="590" height="30" uuid="9e0b5600-173a-479f-ab31-229b65ea755b"/>
+				<textFieldExpression><![CDATA[$P{certificateId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="370" width="100" height="31" uuid="fc2074b5-2290-4957-958f-84b3e2590cf9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Apple Chancery"/>
+				</textElement>
+				<text><![CDATA[Certificate ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="30" width="520" height="48" uuid="d1cd9935-5e7f-445d-8f30-5974d81e9d73"/>
+				<textElement textAlignment="Center">
+					<font fontName="SignPainter" size="45"/>
+				</textElement>
+				<text><![CDATA[Certificate of  Completion]]></text>
+			</staticText>
+			<image>
+				<reportElement x="20" y="10" width="130" height="68" uuid="2540f543-f54c-4575-ab4d-c1e16c3bd13b"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="7" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>
