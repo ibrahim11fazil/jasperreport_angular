@@ -73,4 +73,6 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
      int getCountOfHead(@Param("jobId") String jobId);
 
 
+
+
 }
