@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.entity.TacCourseActivation;
 import qa.gov.customs.training.entity.TacCourseAttendence;
-import qa.gov.customs.training.entity.TacCourseDate;
-
 import qa.gov.customs.training.models.EmployeeData;
+import qa.gov.customs.training.models.FindAttendance;
 import qa.gov.customs.training.service.AttendanceService;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
@@ -85,29 +84,43 @@ public class AttendanceController {
     }
     @PreAuthorize("hasAnyAuthority('attendance_percentage')")
     @PostMapping("/attendance-percentage")
-    public ResponseType attendancePercentage(@RequestBody TacCourseDate tacCourseDate)
+    public int attendancePercentage(@RequestBody FindAttendance getAttendance)
     {
-        int workDays=0;
-        Calendar startCal = Calendar.getInstance();
-        startCal.setTime(tacCourseDate.getCourseDate());
-
-        Calendar endCal = Calendar.getInstance();
-        endCal.setTime(tacCourseDate.getEndDate());
-
-        do {
-            if (startCal.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY && startCal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-                ++workDays;
-            }
-            startCal.add(Calendar.DAY_OF_MONTH, 1);
-        } while (startCal.getTimeInMillis() <= endCal.getTimeInMillis());
 
 
+        int workDays=attendanceService.getWorkingDays(getAttendance);
 
-        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
-                workDays);
-        return response;
+//        Calendar startCal = Calendar.getInstance();
+//        startCal.setTime(getAttendance.getCourse_date());
+//
+//        Calendar endCal = Calendar.getInstance();
+//        endCal.setTime(getAttendance.getEnd_date());
+//
+//        do {
+//            if (startCal.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY && startCal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+//                ++workDays;
+//            }
+//            startCal.add(Calendar.DAY_OF_MONTH, 1);
+//        } while (startCal.getTimeInMillis() <= endCal.getTimeInMillis());
+
+//        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
+//                workDays);
+        return workDays;
 
     }
 
+
+    @PreAuthorize("hasAnyAuthority('get_course_completion')")
+    @PostMapping("/get-course-completion")
+
+    public ResponseType getCourseCompletionAttendance(@RequestBody FindAttendance getAttendance)
+    {
+        Set<EmployeeData> empData = attendanceService.getCourseCompletionAttendance(getAttendance);
+
+
+        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
+                empData);
+        return response;
+    }
 
 }
