@@ -3,6 +3,8 @@ import { Page } from "../../models/paged-data";
 import { TacActivity } from "../../models/tac-activity";
 import { TrainingService } from "../../service/training/training.service";
 import { ToastrService } from "ngx-toastr";
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
   selector: 'ms-activity-list',
@@ -10,6 +12,7 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ['./activity-list.component.scss']
 })
 export class ActivityListComponent implements OnInit {
+  language:LanguageUtil;
   activities: TacActivity;
   searchText: string;
   page = new Page();
@@ -17,7 +20,13 @@ export class ActivityListComponent implements OnInit {
   totalData: number;
   tData: Boolean;
   constructor(private trainingService: TrainingService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private mainComponent:MainComponent) {
+      this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
