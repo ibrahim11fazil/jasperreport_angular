@@ -88,7 +88,7 @@ export class CourseManagementComponent implements OnInit {
   courseStartDate: Date;
   courseEndDate: Date;
   displayCalendar: boolean = false;
-  displayButton:boolean=false;
+  displayButton:boolean=false
   courseCompletion: boolean = false;
   activeDayIsOpen: boolean = true;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
@@ -104,6 +104,7 @@ export class CourseManagementComponent implements OnInit {
   courseCompletionData: EmpData[];
   employeeData:EmpData;
   certificateDetails:CertificateRequest;
+  
 
 
   modalData: {
@@ -501,7 +502,6 @@ export class CourseManagementComponent implements OnInit {
         var Response = <ResponseEmpData>data
         this.courseCompletionData = Response.data;
 
-
       })
 
 
@@ -540,9 +540,13 @@ debugger;
     
     this.trainingService.generateCertificate(certificateRequest).subscribe(
       data => {
-        var Response = <ResponseCertificate>data
-        this.certificateDetails=Response.data;
-        this.successCertificate(Response)  
+        var response = <ResponseCertificate>data
+        this.certificateDetails=response.data;
+        this.toastr.success(response.message.toString())
+        if(response.status && response.data!=null){
+        this.courseCompletionData.find(item => item.jobId == this.certificateDetails.jobId).generated=true
+        this.courseCompletionData.find(item => item.jobId == this.certificateDetails.jobId).url=  response.data.certificateUrl
+        }
       },
       error=>{
         console.log(error)
@@ -550,17 +554,6 @@ debugger;
       }
       )
 
-  }
-
-  successCertificate(data){
-    if(data.status==true){
-      this.displayButton=true;
-
-      this.toastr.success(data.message)
-      this.form.reset()
-    }else{
-      this.toastr.error(data.message)
-    }
   }
 
 }

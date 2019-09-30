@@ -220,6 +220,7 @@ export class TrainingService {
   }
 
   generateCertificate(certificateRequest:CertificateRequest):Observable<Object> {
+    debugger;
     return this.httpClient.post(GENERATE_CERTIFICATE,certificateRequest);
   }
 
