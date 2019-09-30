@@ -28,3 +28,10 @@ export interface ResponseCertificate
     message:String;
     data: CertificateRequest;
 }
+export interface ResponseCertificateList
+{
+    status: Boolean;
+    code:number;
+    message:String;
+    data: CertificateRequest[];
+}

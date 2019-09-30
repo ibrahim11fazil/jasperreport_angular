@@ -8,7 +8,7 @@ import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, Respons
 import { Page } from 'app/models/paged-data';
 import { TacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
-import { DURATION_FLAG_LIST } from 'app/app.constants';
+import { DURATION_FLAG_LIST, GET_CERTIFICATE } from 'app/app.constants';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { TrainingRoom } from 'app/models/training-room';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
@@ -38,7 +38,7 @@ import { TacCourseAttendees } from 'app/models/tac-course-attendees';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
 import { CourseManagement } from 'app/models/course-management';
 import { FindAttendance, FindAttendanceResponse } from 'app/models/find-attendance';
-import { CertificateRequest, ResponseCertificate } from 'app/models/certificate-request';
+import { CertificateRequest, ResponseCertificate, ResponseCertificateList } from 'app/models/certificate-request';
 
 
 
@@ -104,6 +104,7 @@ export class CourseManagementComponent implements OnInit {
   courseCompletionData: EmpData[];
   employeeData:EmpData;
   certificateDetails:CertificateRequest;
+  certificateList:CertificateRequest[];
   
 
 
@@ -180,6 +181,7 @@ export class CourseManagementComponent implements OnInit {
       this.displayCalendar = false;
       this.displayCourseDetails = false;
       this.previousCourse = true;
+      this.displayCourseCompletionForm=false;
       this.trainingService.getPreviousCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -194,6 +196,7 @@ export class CourseManagementComponent implements OnInit {
     else if (card.title == "Current Courses") {
       this.displayManage = true;
       this.previousCourse = false;
+      this.displayCourseCompletionForm=false;
       this.trainingService.getCurrentCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -209,6 +212,7 @@ export class CourseManagementComponent implements OnInit {
       this.displayCalendar = false;
       this.displayCourseDetails = false;
       this.previousCourse = false;
+      this.displayCourseCompletionForm=false;
       this.trainingService.getFutureCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -491,6 +495,7 @@ export class CourseManagementComponent implements OnInit {
           this.durationValueString = durationItemsArray[0].viewValue
         }
       })
+      
 
     let course = new FindAttendance(0, null, null)
     course.activation_id = this.eventCourseDetail.activation_id;
@@ -499,13 +504,39 @@ export class CourseManagementComponent implements OnInit {
     debugger;
     this.trainingService.courseCompletionDetails(course).subscribe(
       data => {
-        var Response = <ResponseEmpData>data
-        this.courseCompletionData = Response.data;
-
-      })
+        var response = <ResponseEmpData>data
+        
+        this.getCertificates(this.eventCourseDetail.activation_id,response.data)
+        
+        
+    })
+    this.courseCompletionData = [...this.courseCompletionData];
 
 
   }
+
+  getCertificates(activationId,responseList)
+  {
+    let certificateRequest=new CertificateRequest(0,null,null,null,null)
+        certificateRequest.activationId=activationId;
+       this.trainingService.getCertificateList(certificateRequest).subscribe(  
+      data=>{
+        var response=<ResponseCertificateList>data
+        this.certificateList=response.data
+
+        this.courseCompletionData = responseList;
+         this.certificateList.forEach(i=>{
+          // var certificateArray=this.courseCompletionData.filter(item=>item.jobId==i.jobId)
+          // if(certificateArray[0]!=null)
+          // {
+        this.courseCompletionData.find(item => item.jobId == i.jobId).generated=true
+        this.courseCompletionData.find(item => item.jobId == i.jobId).url= GET_CERTIFICATE+i.certificateUrl
+        // this.courseCompletionData = [...this.courseCompletionData];
+      })
+      })
+  }
+
+
 
   /**
   * markCourseCompletionForCurrent() method for course completion form on end date
@@ -521,10 +552,16 @@ export class CourseManagementComponent implements OnInit {
       course.end_date = this.courseEndDate;
       this.trainingService.courseCompletionDetails(course).subscribe(
         data => {
-          var Response = <ResponseEmpData>data
-          this.courseCompletionData = Response.data;
+          var response = <ResponseEmpData>data
+          //this.courseCompletionData = Response.data;
+          this.getCertificates(this.eventCourseDetail.activation_id,response.data)
+          
         })
+      
     }
+
+    
+
   }
 
   GenerateCertificate(row)
@@ -545,7 +582,7 @@ debugger;
         this.toastr.success(response.message.toString())
         if(response.status && response.data!=null){
         this.courseCompletionData.find(item => item.jobId == this.certificateDetails.jobId).generated=true
-        this.courseCompletionData.find(item => item.jobId == this.certificateDetails.jobId).url=  response.data.certificateUrl
+        this.courseCompletionData.find(item => item.jobId == this.certificateDetails.jobId).url= GET_CERTIFICATE+response.data.certificateUrl
         }
       },
       error=>{
