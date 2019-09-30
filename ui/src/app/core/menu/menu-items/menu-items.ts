@@ -305,7 +305,7 @@ const MENUITEMS = [
 
 ];
 
-var m = 
+var training_menu = 
   {
     state: 'training',
     name: 'Course',
@@ -323,7 +323,7 @@ var m =
     ]
   };
 
-  var m1 = 
+  var instructor_menu = 
   {
     state: 'training',
     name: 'Instructor',
@@ -334,25 +334,21 @@ var m =
       {state: 'search-instructor', name: 'Manage Instructor'}
     ]
   };
-  var m2 = 
+  var request_menu = 
   {
     state: 'training',
     name: 'Training Requests',
     type: 'sub',
     icon: 'book',
     children: [
-
-      {state: 'welcome', name: 'courses' },
-      {state: 'welcome', name: 'My Requests' },
       {state: 'emp-request', name: 'Employee Requests'},
       {state: 'emp-request:/head-section', name: 'Course Suggestion by head'},
       { state: 'my-tasks', name: 'My Tasks' },
       { state: 'my-tasks-history', name: 'History' } 
-
     ]
   };
 
-  var m3 = 
+  var user_menu = 
   {
     state: 'training',
     name: 'Users',
@@ -360,12 +356,11 @@ var m =
     icon: 'book',
     children: [
       {state: 'user-creation', name: 'New User'},
-      {state: 'user-search', name: 'Search User'},
-      {state: 'user-search', name: 'Roles and Permissions'}
+      {state: 'user-search', name: 'Search User'}
     ]
   };
 
-  var m4 = 
+  var jobcard_menu = 
   {
     state: 'training',
     name: 'Job Card',
@@ -377,7 +372,7 @@ var m =
     ]
   };
 
-  var m5 = 
+  var report_menu = 
   {
     state: 'training',
     name: 'Reports',
@@ -388,7 +383,7 @@ var m =
     ]
   };
 
-  var m6 = 
+  var welcome_menu = 
   {
     state: 'training',
     name: 'Dashboard',
@@ -399,7 +394,7 @@ var m =
     ]
   };
 
-  var m7 = 
+  var ci_system_menu = 
   {
     state: 'training',
     name: 'CI System',
@@ -411,7 +406,7 @@ var m =
     ]
   };
 
-  var m8 = 
+  var course_managment = 
   {
     state: 'training',
     name: 'Course Management',
@@ -433,21 +428,21 @@ export class MenuItems {
     //return MENUITEMS;
   }
   add(menu:any) {
-
     //m.push(menu);
   }
 
   update() {
     //TODO GET PERMISSIONS AND SET THE MENU
-    dynamicMenu.push(m6);
-    dynamicMenu.push(m);
-    dynamicMenu.push(m8);
-    dynamicMenu.push(m1);
-    dynamicMenu.push(m2);
-    dynamicMenu.push(m3);
-    dynamicMenu.push(m4);
-    dynamicMenu.push(m5);
-    dynamicMenu.push(m7);
-    dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
+    dynamicMenu =[]
+    dynamicMenu.push(welcome_menu);
+    dynamicMenu.push(training_menu);
+    dynamicMenu.push(course_managment);
+    dynamicMenu.push(instructor_menu);
+    dynamicMenu.push(request_menu);
+    dynamicMenu.push(user_menu);
+    dynamicMenu.push(jobcard_menu);
+    //dynamicMenu.push(report_menu);
+    dynamicMenu.push(ci_system_menu);
+    //dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
   }
 }
