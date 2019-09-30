@@ -172,7 +172,7 @@ export const  GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-
 //FILE UPLOADING
 export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
 export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"
-
+export const GET_CERTIFICATE=  BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
 
 //CIS Actions
 export const GET_CIS_USERS=BASE_URL+cis+"/find-all-users-cases-for-cis"
