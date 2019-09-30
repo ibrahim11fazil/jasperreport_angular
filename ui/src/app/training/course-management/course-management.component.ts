@@ -88,6 +88,7 @@ export class CourseManagementComponent implements OnInit {
   courseStartDate: Date;
   courseEndDate: Date;
   displayCalendar: boolean = false;
+  displayButton:boolean=false;
   courseCompletion: boolean = false;
   activeDayIsOpen: boolean = true;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
@@ -102,6 +103,7 @@ export class CourseManagementComponent implements OnInit {
   courseAttendanceList: TacCourseAttendance[] = [];
   courseCompletionData: EmpData[];
   employeeData:EmpData;
+  certificateDetails:CertificateRequest;
 
 
   modalData: {
@@ -501,6 +503,8 @@ export class CourseManagementComponent implements OnInit {
 
 
       })
+
+
   }
 
   /**
@@ -537,11 +541,27 @@ debugger;
     this.trainingService.generateCertificate(certificateRequest).subscribe(
       data => {
         var Response = <ResponseCertificate>data
-       
-      })
+        this.certificateDetails=Response.data;
+        this.successCertificate(Response)  
+      },
+      error=>{
+        console.log(error)
+        this.toastr.error(error.message)
+      }
+      )
 
   }
 
+  successCertificate(data){
+    if(data.status==true){
+      this.displayButton=true;
+
+      this.toastr.success(data.message)
+      this.form.reset()
+    }else{
+      this.toastr.error(data.message)
+    }
+  }
 
 }
 
