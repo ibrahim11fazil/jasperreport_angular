@@ -148,7 +148,7 @@ export class UpdateRoleResponse{
     message:String;
 }
 
-export class SystemPermissionByRoleREquest{
+export class SystemPermissionByRoleRequest{
     roleId:Number
 }
 

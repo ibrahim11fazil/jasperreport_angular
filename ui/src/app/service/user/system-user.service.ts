@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SystemUser, SearchUser, SearchUserByRole } from 'app/models/system-user';
+import { SystemUser, SearchUser, SearchUserByRole, SystemPermissionByRoleRequest, UpdateRoleRequest } from 'app/models/system-user';
 import { Observable } from 'rxjs';
-import { SAVE_SYSTEM_USER, GET_ALL_SYSTEM_ROLES, GET_ALL_SYSTEM_USERS, DISABLE_SYSTEM_USER, ENABLE_SYSTEM_USER, GET_SYSTEM_USER, GET_ALL_USERS_BY_ROLE_ID, GET_EMPLOYEE_BY_ID, GET_JOB_TITLE, GET_JOB_FAMILY, GET_JOB_GRADES, GET_FUNCTIONAL_AREA } from 'app/app.constants';
+import { SAVE_SYSTEM_USER, GET_ALL_SYSTEM_ROLES, GET_ALL_SYSTEM_USERS, DISABLE_SYSTEM_USER, ENABLE_SYSTEM_USER, GET_SYSTEM_USER, GET_ALL_USERS_BY_ROLE_ID, GET_EMPLOYEE_BY_ID, GET_JOB_TITLE, GET_JOB_FAMILY, GET_JOB_GRADES, GET_FUNCTIONAL_AREA, GET_ALL_PERMISSIONS_FOR_ROLE, UPDATE_ROLE_AND_PERMISSION } from 'app/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +58,18 @@ export class SystemUserService {
 
   getFunctionalArea(): Observable<Object> {
     return this.httpClient.get(GET_FUNCTIONAL_AREA);
+  }
+
+  getPermissions(): Observable<Object> {
+    return this.httpClient.get(GET_FUNCTIONAL_AREA);
+  }
+
+  getPermissionsByRole(data:SystemPermissionByRoleRequest): Observable<Object> {
+    return this.httpClient.post(GET_ALL_PERMISSIONS_FOR_ROLE,data);
+  }
+
+  updateRoleAndPermission(data:UpdateRoleRequest): Observable<Object> {
+    return this.httpClient.post(UPDATE_ROLE_AND_PERMISSION,data);
   }
 
 }
