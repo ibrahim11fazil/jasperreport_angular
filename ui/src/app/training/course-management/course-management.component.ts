@@ -8,7 +8,7 @@ import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, Respons
 import { Page } from 'app/models/paged-data';
 import { TacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
-import { DURATION_FLAG_LIST, GET_CERTIFICATE } from 'app/app.constants';
+import { DURATION_FLAG_LIST, GET_CERTIFICATE, COURSE_FILTER } from 'app/app.constants';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { TrainingRoom } from 'app/models/training-room';
 import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
@@ -66,6 +66,7 @@ const colors: any = {
 export class CourseManagementComponent implements OnInit {
 
   rows: CourseManagementRes[];
+  courseData:CourseManagementRes[];
   empRows: EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
@@ -83,6 +84,7 @@ export class CourseManagementComponent implements OnInit {
   tacCoordinatorString: String[] = [];
   public form: FormGroup;
   durationFlagList = DURATION_FLAG_LIST;
+  courseFilter = COURSE_FILTER;
   displayManage: boolean = false;
   eventCourseDetail: CourseManagementRes;
   courseStartDate: Date;
@@ -97,6 +99,8 @@ export class CourseManagementComponent implements OnInit {
   checkboxList: EmpData[] = [];
   isSelected: boolean = false;
   displayCourseCompletionForm: boolean = false;
+  futureFilter:boolean=false;
+  coursePeriod:String;
 
   previousCourse: boolean = false;
   Follow_list: any;
@@ -105,6 +109,8 @@ export class CourseManagementComponent implements OnInit {
   employeeData:EmpData;
   certificateDetails:CertificateRequest;
   certificateList:CertificateRequest[];
+   temp = [];
+  
   
 
 
@@ -125,6 +131,7 @@ export class CourseManagementComponent implements OnInit {
 
     private activatedRoute: ActivatedRoute,
     private pageTitleService: PageTitleService) {
+      
   }
 
   ngOnInit() {
@@ -182,10 +189,12 @@ export class CourseManagementComponent implements OnInit {
       this.displayCourseDetails = false;
       this.previousCourse = true;
       this.displayCourseCompletionForm=false;
+      this.futureFilter=false;
       this.trainingService.getPreviousCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
           this.rows = response.data
+          this.courseData=this.rows
           console.log(this.rows)
         },
         error => {
@@ -197,10 +206,12 @@ export class CourseManagementComponent implements OnInit {
       this.displayManage = true;
       this.previousCourse = false;
       this.displayCourseCompletionForm=false;
+      this.futureFilter=false;
       this.trainingService.getCurrentCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
           this.rows = response.data
+          this.courseData=this.rows
           console.log(this.rows)
         },
         error => {
@@ -211,12 +222,14 @@ export class CourseManagementComponent implements OnInit {
     else if (card.title == "Future Courses") {
       this.displayCalendar = false;
       this.displayCourseDetails = false;
+      this.futureFilter=true;
       this.previousCourse = false;
       this.displayCourseCompletionForm=false;
       this.trainingService.getFutureCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
           this.rows = response.data
+          this.courseData=this.rows
           console.log(this.rows)
         },
         error => {
@@ -225,6 +238,21 @@ export class CourseManagementComponent implements OnInit {
         })
     }
   }
+  /**
+     * updateFilter method is used to filter the data.
+     */
+    updateFilter(event) {
+      debugger
+      const val = event.target.value;
+
+      // filter our data
+      const temp = this.courseData.filter(function(d) {
+         return d.courseName.toLowerCase().indexOf(val) !== -1 || !val;
+      });
+
+      // update the rows
+      this.rows = temp;
+   }
   getActivationData(row) {
     debugger;
 
@@ -592,6 +620,30 @@ debugger;
       )
 
   }
+
+  getFutureCourseFilter(courseTime)
+  {
+    debugger;
+    this.displayCalendar = false;
+      this.displayCourseDetails = false;
+      this.futureFilter=true;
+      this.previousCourse = false;
+      this.displayCourseCompletionForm=false;
+       coursePeriod:String;
+     
+    this.trainingService.getFutureCourseFilter(courseTime.value).subscribe(
+      data => {
+        var response = <ITacCourseManagementList>data
+        this.rows = response.data
+        this.courseData=this.rows
+        console.log(this.rows)
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      })
+  }
+   
 
 }
 

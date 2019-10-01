@@ -2,8 +2,10 @@ package qa.gov.customs.training.service;
 
 import qa.gov.customs.training.entity.TacCourseActivation;
 import qa.gov.customs.training.entity.TacCourseAttendence;
+import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
 import qa.gov.customs.training.models.FindAttendance;
+import java.math.BigDecimal;
 
 import java.util.Date;
 import java.util.List;
@@ -16,4 +18,5 @@ public interface AttendanceService {
    TacCourseAttendence markAttendance(TacCourseAttendence attendance);
    Set<EmployeeData>  getCourseCompletionAttendance(FindAttendance getAttendance);
    int getWorkingDays(FindAttendance getAttendance);
+   List<CourseManagement> getCourseFilter(BigDecimal courseTime);
 }
