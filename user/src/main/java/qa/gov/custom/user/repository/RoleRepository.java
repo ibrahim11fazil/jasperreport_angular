@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional
 public interface RoleRepository extends JpaRepository<Role, BigInteger> {
 
-    @Query(value="select ID,NAME from ROLE ",nativeQuery=true)
+    @Query(value="select ID,NAME,REMARK from ROLE where PROJECT_ID=1 ",nativeQuery=true)
     List<Object[]> findallAllRolesWithIDAndName();
 
     @Query(value="select ID,PERMISSION_ID,ROLE_ID,REMARK from PERMISSION_ROLE where ROLE_ID=:roleId ",nativeQuery=true)

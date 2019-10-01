@@ -356,7 +356,8 @@ var training_menu =
     icon: 'book',
     children: [
       {state: 'user-creation', name: 'New User'},
-      {state: 'user-search', name: 'Search User'}
+      {state: 'user-search', name: 'Search User'},
+      {state: 'user-permissions', name: 'User Permissions'}
     ]
   };
 

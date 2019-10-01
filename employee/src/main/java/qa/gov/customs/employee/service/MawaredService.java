@@ -32,6 +32,4 @@ public interface MawaredService {
     List<EmployeeUnderSupervisor> employeesUnderSupervisor(String id);
     int getCountOfHead(String jobId);
 
-
-
 }
