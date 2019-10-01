@@ -171,6 +171,11 @@ export const  ENABLE_SYSTEM_USER=BASE_URL+user+"/enable-system-user"
 export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
 export const  GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
 
+export const  GET_ALL_PERMISSIONS = BASE_URL+user+"/find-all-system-permissions"
+export const  GET_ALL_PERMISSIONS_FOR_ROLE = BASE_URL+user+"/find-all-system-permissions-for-role"
+export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+user+"/update-role-and-permission"
+
+
 //FILE UPLOADING
 export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
 export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"

@@ -36,7 +36,6 @@ public class UserMaster  {
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
@@ -69,7 +68,7 @@ public class UserMaster  {
     public String getUsername() {
         return username;
     }
-//
+
 //    @Override
 //    public boolean isAccountNonExpired() {
 //        return !(this.accountExpired.intValue()!=0?true:false);
@@ -104,17 +103,13 @@ public class UserMaster  {
 //                 authorities.add(new SimpleGrantedAuthority(p.getName()));
 //             });
 //        });
-//
 //        return authorities;
-//
 //        //return null;
 //    }
-
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
 //        return null;
 //    }
-
 
     public String getPassword() {
         return password;
@@ -124,7 +119,6 @@ public class UserMaster  {
         this.password = password;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -132,7 +126,6 @@ public class UserMaster  {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public BigInteger getEnabled() {
         return enabled;
@@ -142,7 +135,6 @@ public class UserMaster  {
         this.enabled = enabled;
     }
 
-
     public BigInteger getAccountExpired() {
         return accountExpired;
     }
@@ -151,7 +143,6 @@ public class UserMaster  {
         this.accountExpired = accountExpired;
     }
 
-
     public BigInteger getCredentialsExpired() {
         return credentialsExpired;
     }
@@ -159,7 +150,6 @@ public class UserMaster  {
     public void setCredentialsExpired(BigInteger credentialsExpired) {
         this.credentialsExpired = credentialsExpired;
     }
-
 
     public BigInteger getAccountLocked() {
         return accountLocked;
@@ -196,8 +186,6 @@ public class UserMaster  {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
-
 
     public BigInteger getRoleId() {
         return roleId;
