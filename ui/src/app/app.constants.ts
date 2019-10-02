@@ -20,6 +20,7 @@ export const COURSE_FILTER = [
     { value: 1, viewValue: 'NEXT YEAR' },
     { value: 2, viewValue: 'NEXT MONTH' },
     { value: 3, viewValue: 'NEXT WEEK' },
+    { value: 4, viewValue: 'ALL COURSES' },
 ];
 
 export const PRIORITY_LIST = [

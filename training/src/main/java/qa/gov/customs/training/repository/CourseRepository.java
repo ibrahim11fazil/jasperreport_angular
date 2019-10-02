@@ -67,6 +67,13 @@ void enableOrDisableCourse(BigDecimal courseId , BigDecimal flag);
             "where b.course_date>=:nextMonth and b.course_date<:lastMnth and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
     List<Object[]>   getCourseForMonth(Date nextMonth,Date lastMnth,Pageable pageable);
 
+    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+            "(SELECT b.course_id FROM Tac_course_date b WHERE b.course_date>:weekend and b.course_date<=:nextWeek and status=1) " +
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
+            "where b.course_date>:weekend and b.course_date<=:nextWeek and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
+
+    List<Object[]>   getCourseForNextWeek(Date weekend,Date nextWeek,Pageable pageable);
+
 
     @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id  from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE sysdate>b.end_date and status=1) " +
