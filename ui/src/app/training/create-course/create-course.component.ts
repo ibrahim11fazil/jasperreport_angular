@@ -12,6 +12,8 @@ import { Categories, ResponseCategories } from 'app/models/categories';
 import { TargetAudience, ResponseTargetAudiences } from 'app/models/target-audience';
 import { ActivatedRoute } from '@angular/router';
 import {DURATION_FLAG_LIST} from "../../app.constants";
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 @Component({
   selector: 'ms-create-course',
   templateUrl: './create-course.component.html',
@@ -30,13 +32,19 @@ export class CreateCourseComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST
   param:any;
   public form: FormGroup;
+  language:LanguageUtil;
+
+
+ 
   
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private pageTitleService: PageTitleService
-  ) {
+    private pageTitleService: PageTitleService,
+    private mainComponent:MainComponent) 
+    {
+      this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
 
     this.tacCourseMaster =
       {
@@ -57,7 +65,10 @@ export class CreateCourseComponent implements OnInit {
         tacActivities:[]
       }
   }
-
+  
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
   ngOnInit() {
     this.pageTitleService.setTitle("COURSE DEFINITION")
     this.formInit()
