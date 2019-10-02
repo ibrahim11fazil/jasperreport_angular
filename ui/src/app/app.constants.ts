@@ -14,7 +14,13 @@ export const DURATION_FLAG_LIST = [
     { value: 1, viewValue: 'YEAR' },
     { value: 2, viewValue: 'MONTH' },
     { value: 3, viewValue: 'DAY' },
-    { value: 4, viewValue: 'HOUR' }
+    // { value: 4, viewValue: 'HOUR' }
+];
+export const COURSE_FILTER = [
+    { value: 1, viewValue: 'NEXT YEAR' },
+    { value: 2, viewValue: 'NEXT MONTH' },
+    { value: 3, viewValue: 'NEXT WEEK' },
+    { value: 4, viewValue: 'ALL COURSES' },
 ];
 
 export const PRIORITY_LIST = [
@@ -39,10 +45,6 @@ export const WORKFLOW_2_EMP_REQUEST="02_head_of_section_course_suggestion_v_1";
 export const WORKFLOW_3_EMP_REQUEST="03_training_request_from_head_v_1";
 export const WORKFLOW_4_EMP_REQUEST="04_cis_course_request_v_1";
 export const WORKFLOW_5_EMP_REQUEST="05_audit_manger_course_request_v_1";
-
-
-
-
 export const ROLE_TRAINING_ADMIN="train_admin"
 export const ROLE_SYS_ADMIN="sys_admin"
 export const ROLE_TRAINING_MANAGER="train_mgr"
@@ -153,6 +155,7 @@ export const  MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendanc
 export const  MARK_ATTENDANCE=BASE_URL+training+"/mark-attendance"
 export const  GET_COURSE_COMPLETION=BASE_URL+training+"/get-course-completion"
 export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses" 
+export const  FUTURE_COURSE_FILTER=BASE_URL+training+"/get-course-filter"
 export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-date-by-activation"
 

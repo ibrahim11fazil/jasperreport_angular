@@ -5,16 +5,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.entity.TacCourseActivation;
 import qa.gov.customs.training.entity.TacCourseAttendence;
+import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
 import qa.gov.customs.training.models.FindAttendance;
 import qa.gov.customs.training.service.AttendanceService;
+import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
+import java.math.BigDecimal;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +31,7 @@ public class AttendanceController {
 
     @Autowired
     AttendanceService attendanceService;
+
 
     private static final Logger logger = LoggerFactory.getLogger(AttendanceController.class);
 
@@ -122,5 +127,27 @@ public class AttendanceController {
                 empData);
         return response;
     }
+
+    @PreAuthorize("hasAnyAuthority('get_course_filter')")
+    @PostMapping("/get-course-filter")
+    public ResponseType getCourseNextYear(@RequestBody BigDecimal courseTime)
+    {
+
+        List<CourseManagement> courseManagement=null;
+
+        courseManagement=attendanceService.getCourseFilter(courseTime);
+        if(courseManagement!=null || !courseManagement.isEmpty()) {
+
+            ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
+            return response;
+        }
+        else
+        {
+            ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+            return response;
+        }
+
+    }
+
 
 }
