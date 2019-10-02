@@ -110,14 +110,20 @@ export class UserPermissionsComponent implements OnInit {
     this.systemPermissions.forEach(i=> i.status=true)
   }
   clearAll(){
-    this.systemPermissions.find(i=> i.status=false)
+    this.systemPermissions.forEach(i=> i.status=false)
   }
 
   updateRoleRequest(){
     if(this.systemRolesSelected !=null && this.systemPermissions!=null){
     var requestUpdate= new UpdateRoleRequest()
     requestUpdate.id =this.systemRolesSelected.id
-    var permissionsSelected =  this.systemPermissions
+    var permissionsSelected=[]
+    this.systemPermissions.forEach(i => 
+    {
+      if(i.status==true){
+         permissionsSelected.push(i)
+      }
+   })
     requestUpdate.newPermissions=permissionsSelected
     this.userService.updateRoleAndPermission(requestUpdate).subscribe(
       data=>  {

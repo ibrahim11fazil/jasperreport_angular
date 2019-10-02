@@ -13,7 +13,6 @@ export class GeneAppComponent {
       translate.addLangs(['en',  'ar']);
       //translate.setDefaultLang('en');
       translate.setDefaultLang('ar');
-
       const browserLang: string = translate.getBrowserLang();
       translate.use(browserLang.match(/en|ar/) ? browserLang : 'en');
    }

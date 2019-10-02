@@ -73,8 +73,6 @@ public class UserController {
 
 
 
-
-
 	//1) TODO find all roles
 	@RequestMapping(method = RequestMethod.POST,value = "all-system-roles")
 	public ResponseType findAllRoles() {
