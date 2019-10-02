@@ -2,12 +2,17 @@ package qa.gov.customs.training.service.impl;
 
 import jdk.nashorn.internal.ir.IdentNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseActivation;
 import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
+import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
 import qa.gov.customs.training.models.FindAttendance;
+import qa.gov.customs.training.repository.CourseRepository;
 import qa.gov.customs.training.repository.TacAttendanceRepository;
 import qa.gov.customs.training.service.AttendanceService;
 
@@ -26,6 +31,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     MawaredRepository mawaredRepo;
     @Autowired
     TacAttendanceRepository attendanceRepo;
+    @Autowired
+    CourseRepository courseRepository;
 
     @Override
     public Set<EmployeeData> getEmployeeDataForAttendance(TacCourseActivation activation)
@@ -133,5 +140,54 @@ public class AttendanceServiceImpl implements AttendanceService {
             empdata.add(emp);
         }
         return empdata;
+    }
+
+    @Override
+    public List<CourseManagement> getCourseFilter(BigDecimal courseTime)
+    {
+        int page =0;
+        int limit=20;
+        List<Object[]> objects=null;
+        Pageable pageable =
+                PageRequest.of(
+                        page, limit, Sort.by("course_Id"));
+if(courseTime.compareTo(new BigDecimal(1))==0){
+    Calendar c = Calendar.getInstance();
+    //c.add(Calendar.YEAR, 1);
+    c.set(Calendar.MONTH, 11);//11 = december
+    c.set(Calendar.DAY_OF_MONTH, 31);//dec 31
+
+    Date coursePeriod = c.getTime();
+
+    objects= courseRepository.getCourseForNextYear(coursePeriod, pageable);
+}
+       else  if(courseTime.compareTo(new BigDecimal(2))==0){
+
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.MONTH, 1);
+            c.set(Calendar.DAY_OF_MONTH, 1);//
+            Date NextMnth = c.getTime();
+
+            Calendar c1= Calendar.getInstance();
+            c1.add(Calendar.MONTH, 2);
+            c1.set(Calendar.DAY_OF_MONTH, 1);//
+             Date lastMnth = c1.getTime();
+
+    objects= courseRepository.getCourseForMonth(NextMnth,lastMnth,pageable);
+
+        }
+
+        List<CourseManagement> courseList = new ArrayList<>();
+        for (Object[] o : objects) {
+            CourseManagement course = new CourseManagement();
+            course.setCourseName((String) o[0]);
+            Date courseDate=((Date)o[1]);
+            Date endDate=((Date)o[2]);
+            course.setActivation_id((BigDecimal)o[3]);
+            course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+            course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+            courseList.add(course);
+        }
+        return courseList;
     }
 }

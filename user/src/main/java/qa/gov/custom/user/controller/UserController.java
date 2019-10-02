@@ -73,6 +73,9 @@ public class UserController {
 
 
 
+
+
+	//1) TODO find all roles
 	@RequestMapping(method = RequestMethod.POST,value = "all-system-roles")
 	public ResponseType findAllRoles() {
 		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
@@ -81,25 +84,28 @@ public class UserController {
 	}
 
 
-	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
-	@RequestMapping(method = RequestMethod.POST,value = "all-system-permissions-for-role")
-	public ResponseType getAllPermissionForRole(@RequestBody  UserMaster user) {
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
-				userService.findAllPermissionForRole(user.getRoleId()));
-		return response;
-	}
-
-	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
-	@RequestMapping(method = RequestMethod.POST,value = "all-system-permissions")
+	//2) TODO find all permissions
+	@PreAuthorize("hasAnyAuthority('find_all_permissions')")
+	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-permissions")
 	public ResponseType getAllPermissions() {
 		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
 				userService.findAllPermissions());
 		return response;
 	}
 
-	@PreAuthorize("hasAnyAuthority('find_all_system_users')")
+	//3) TODO find all permissions for role
+	@PreAuthorize("hasAnyAuthority('find_all_permissions')")
+	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-permissions-for-role")
+	public ResponseType getAllPermissionForRole(@RequestBody  UserMaster user) {
+		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+				userService.findAllPermissionForRole(user.getRoleId()));
+		return response;
+	}
+
+	//4) TODO update role and permissions
+	@PreAuthorize("hasAnyAuthority('update_role_and_permission')")
 	@RequestMapping(method = RequestMethod.POST,value = "update-role-and-permission")
-	public ResponseType updateRoleAndPermission(Role role) {
+	public ResponseType updateRoleAndPermission(@RequestBody  Role role) {
 		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
 				userService.updateRoleAndPermission(role));
 		return response;
@@ -170,7 +176,6 @@ public class UserController {
 					null);
 			return response;
 		}
-
 	}
 
 
