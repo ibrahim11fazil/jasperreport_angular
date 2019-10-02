@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { SystemUser, ISystemUserResponse, MawaredUserResponse } from 'app/models/system-user';
 import { ActivatedRoute } from '@angular/router';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
   selector: 'ms-user-creation',
@@ -17,6 +19,7 @@ export class UserCreationComponent implements OnInit {
 
   form:FormGroup
   param:any;
+  language:LanguageUtil
   systemRoles:SystemRoles[]=[]
   systemUser:SystemUser
   blankPassword:String="Password"
@@ -27,14 +30,19 @@ export class UserCreationComponent implements OnInit {
     private fb:FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr : ToastrService,
+    private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,){
     this.pageTitleService.setTitle("User Creation") 
     this.blankUser()
-    
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   blankUser(){
     this.systemUser = {id:0,password:"",roleId:0,enabled:0}
+  }
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {

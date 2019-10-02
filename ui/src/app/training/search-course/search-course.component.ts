@@ -9,6 +9,8 @@ import { Page } from "../../models/paged-data"
 import { TacCourseMaster, ITacCourseMasterList, ITacCourseList, Course } from 'app/models/tac-course-master';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
   selector: 'ms-search-course',
@@ -25,14 +27,21 @@ export class SearchCourseComponent implements OnInit {
 
    dialogRef : MatDialogRef<CourseActionDialog>;
    result    : string;
+   language:LanguageUtil;
 
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
     private router:Router,
     public dialog: MatDialog,
-  ) { }
+    private mainComponent:MainComponent)
+   {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+   }
 
+   ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
   ngOnInit() {
     this.form = this.fb.group({
       courseName: null,

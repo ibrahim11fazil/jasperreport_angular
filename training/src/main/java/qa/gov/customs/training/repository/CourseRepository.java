@@ -69,7 +69,6 @@ void enableOrDisableCourse(BigDecimal courseId , BigDecimal flag);
     List<Object[]> searchAllFutureCourses(String courseName, Pageable pageable);
 
 
-
     @Query(value = "select b.course_date,b.end_date from tac_course_activation a  RIGHT JOIN tac_course_date b on a.date_id=b.date_id where a.activation_id=:activationId",nativeQuery = true)
     List<Object[]> getDatesForActivation(BigDecimal activationId);
 
