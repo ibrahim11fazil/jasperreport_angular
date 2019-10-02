@@ -17,7 +17,8 @@ import { MainComponent } from 'app/main/main.component';
   templateUrl: './search-course.component.html',
   styleUrls: ['./search-course.component.scss']
 })
-export class SearchCourseComponent implements OnInit {
+export class SearchCourseComponent implements OnInit 
+{
   //rows = new Array<Course>();
   rows = new Array<Course>();
   //tData:Boolean;
@@ -39,15 +40,18 @@ export class SearchCourseComponent implements OnInit {
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
    }
 
-   ngDoCheck(): void {
+   ngDoCheck(): void
+   {
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
-  }
+   }
+  
   ngOnInit() {
     this.form = this.fb.group({
       courseName: null,
-    }
-    )
-  }
+    });
+  } 
+
+  
 
   searchCourse() {
     this.searchText = this.form.value.courseName;

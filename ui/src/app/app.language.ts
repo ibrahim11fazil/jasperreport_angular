@@ -26,7 +26,9 @@ export class LanguageUtil  {
 
     //Search Course
 
-    searchCourse:String=this.isArabic ? "Search Course" : "Search Course"
+    searchCourse:String=this.isArabic ? "Search Course1" : "Search Course"
+    courseId:String=this.isArabic ? "Id1" : "Id"
+    btn_linkCourse:String=this.isArabic ? "Link Course1" : "Link Course"
     //User Creation
 
     userCreation:String=this.isArabic ? "User Creation1" : "User Creation"
@@ -37,9 +39,10 @@ export class LanguageUtil  {
     status:String=this.isArabic ? "status1" : "status"
 
     //General
-    btn_search: String=this.isArabic ? "Search1" : "Search"
-    btn_save: String=this.isArabic ? "Save1" : "Save"
-    btn_delete: String=this.isArabic ? "Delete1" : "Delete"
+    btn_search:String=this.isArabic ? "Search1" : "Search"
+    btn_save:String=this.isArabic ? "Save1" : "Save"
+    btn_delete:String=this.isArabic ? "Delete1" : "Delete"
+    btn_update:String=this.isArabic ? "Update1" : "Update"
 
     //Titles
 
