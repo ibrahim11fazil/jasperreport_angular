@@ -9,10 +9,11 @@
           </div>
           <mat-divider></mat-divider>
        </div>
+
        <div class="gene-card-content">
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
              <div fxLayout="column">
- 
+
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    <mat-form-field class="full-wid mrgn-b-lg">
                       <input matInput placeholder="Job Id"    formControlName="jobId" required (change)="onJobIdChange($event)" >
@@ -36,10 +37,11 @@
                            </mat-option>
                         </mat-select>
                      </mat-form-field>
-                  </div>
+                </div>
  
  
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                   
                    <mat-form-field class="full-wid mrgn-b-lg ">
                       <input matInput type="password"  placeholder={{blankPassword}} formControlName="password" >
                      
@@ -53,7 +55,7 @@
                   <mat-radio-group class="radio-group" formControlName="enabledUser">
                         <mat-radio-button value="1" class="radio-button">Enable</mat-radio-button>
                         <mat-radio-button value="0" class="radio-button">Disable</mat-radio-button>
-                     </mat-radio-group>   
+                  </mat-radio-group>   
                 </div> 
 
                 <!-- <ms-file-uploader #fileUploaderComponent type="document" single="false"></ms-file-uploader>

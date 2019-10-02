@@ -78,7 +78,7 @@ public class UserController {
 	//1) TODO find all roles
 	@RequestMapping(method = RequestMethod.POST,value = "all-system-roles")
 	public ResponseType findAllRoles() {
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
 				userService.findAllRoles());
 		return response;
 	}
@@ -88,7 +88,7 @@ public class UserController {
 	@PreAuthorize("hasAnyAuthority('find_all_permissions')")
 	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-permissions")
 	public ResponseType getAllPermissions() {
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
 				userService.findAllPermissions());
 		return response;
 	}
@@ -97,7 +97,7 @@ public class UserController {
 	@PreAuthorize("hasAnyAuthority('find_all_permissions')")
 	@RequestMapping(method = RequestMethod.POST,value = "find-all-system-permissions-for-role")
 	public ResponseType getAllPermissionForRole(@RequestBody  UserMaster user) {
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
 				userService.findAllPermissionForRole(user.getRoleId()));
 		return response;
 	}
@@ -106,7 +106,7 @@ public class UserController {
 	@PreAuthorize("hasAnyAuthority('update_role_and_permission')")
 	@RequestMapping(method = RequestMethod.POST,value = "update-role-and-permission")
 	public ResponseType updateRoleAndPermission(@RequestBody  Role role) {
-		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SYSTEM_USER_CREATED, true,
+		ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
 				userService.updateRoleAndPermission(role));
 		return response;
 	}

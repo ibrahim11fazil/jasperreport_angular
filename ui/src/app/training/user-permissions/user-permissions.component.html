@@ -11,11 +11,11 @@
      </div>
      <h1>Don't upadate this form, only for developers</h1>
      <div class="gene-card-content">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form  (ngSubmit)="updateRoleRequest()">
            <div fxLayout="column">
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    <mat-form-field class="full-wid mrgn-b-md">
-                      <mat-select placeholder="Role" matInput formControlName="userRole">
+                      <mat-select placeholder="Role" matInput  (selectionChange)="onChangeEventRole($event)">
                          <option [ngValue]="null">Select Role</option>
                          <mat-option *ngFor="let obj of systemRoles"
                           [value]="obj">
@@ -25,19 +25,23 @@
                    </mat-form-field>
               </div>
               <div>
-                <table border="1">
-                  
+                  <button mat-raised-button color="primary" type="button" (click)="selectAll()" > check All </button>
+                  <button mat-raised-button color="primary" type="button" (click)="clearAll()" > clear All </button>
+                  <br/>
+                  <br/>
+                <table border="1">  
                   <tr><th>Permissions</th><th>Enabled/Disabled</th></tr>  
-                  <tr  *ngFor="let item of systemPermissions">
+                  <tr  *ngFor="let item of systemPermissions;let in=index">
                       <td>{{item.name}}</td>
                       <td>
-                          <mat-checkbox  class="example-margin">
+                          <mat-checkbox   [(ngModel)]="systemPermissions[in].status" name="{{systemPermissions[in].status}}"  [ngModelOptions]="{standalone: true}" >
                           </mat-checkbox> 
                       </td>
                   </tr>
                 
                 </table>
               </div>
+              <br/>
               <br/>
               <div fxLayout="row" fxLayoutAlign="start">
                  <button mat-raised-button color="primary"   type="submit">Update

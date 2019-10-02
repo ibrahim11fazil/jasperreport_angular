@@ -268,7 +268,11 @@ export class CreateCourseComponent implements OnInit {
      });  
       if(this.param!='' && this.param!=undefined){
         console.log(this.param);
-        let courseMaster=new TacCourseMaster(0,null,this.form.value.courseName,this.form.value.duration,null,0,this.form.value.numberofhours,null,null,null,null,0,0,null,null)
+        let courseMaster=new TacCourseMaster(
+          0,null,
+          this.form.value.courseName,
+          this.form.value.duration,null,0,
+          this.form.value.numberofhours,null,null,null,null,0,0,null,null)
         courseMaster.courseId= this.param
         this.trainingService.getCourseById(courseMaster).subscribe(
           data => this.loadData(data),
