@@ -122,9 +122,10 @@ export interface LoginResponseObj {
 
 export interface UserPermission{
      id:Number
-     rpId:Number;
+     rpId:Number
      name:String
      remark:String
+     status:Boolean
 }
 
 export interface UserPermissionResponse{
@@ -140,6 +141,7 @@ export class UpdateRoleRequest{
     name:String;
     remark:String;
     permissions:UserPermission[]
+    newPermissions:UserPermission[]
 }
 
 export class UpdateRoleResponse{

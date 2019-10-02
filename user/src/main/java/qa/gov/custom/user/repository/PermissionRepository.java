@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface PermissionRepository extends JpaRepository<Permission, BigInteger> {
+public interface PermissionRepository extends JpaRepository<Permission,BigInteger> {
 
     @Query(value="select ID,NAME,REMARKS from Permission ",nativeQuery=true)
     List<Object[]> findAllPermissions();

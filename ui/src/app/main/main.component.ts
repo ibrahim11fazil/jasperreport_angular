@@ -377,7 +377,9 @@ export class MainComponent implements OnInit, OnDestroy{
             this.sidenav.close();
          }
       });
-      this.menuItems.update()
+
+      var permissions =  this.authService.getPermissions()
+      this.menuItems.update(permissions)
    }
 
    ngOnDestroy() {
