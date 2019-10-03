@@ -231,7 +231,6 @@ onSubmit(){
   //2. check the user is already requested
   //3. Check course requested is overriding other courses . already overriding.
   //4. if all ok save the data
-  debugger;
   this.trainingService.saveEmployeeRequest(empRequest).subscribe(
       data => {
         var response = <WorkflowResponse>data

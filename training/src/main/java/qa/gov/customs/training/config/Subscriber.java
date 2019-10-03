@@ -1,14 +1,24 @@
 package qa.gov.customs.training.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import qa.gov.customs.training.controller.CourseController;
+import qa.gov.customs.training.models.AttendeesDetails;
 import qa.gov.customs.training.models.TrainingRequestStatus;
 import qa.gov.customs.training.models.UserRequestModel;
+import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.service.EmployeeRequestService;
+
+import java.math.BigInteger;
+import java.util.List;
+
+import static qa.gov.customs.training.utils.Constants.APPROVED_WORKFLOW;
 
 @Component
 public class Subscriber {
@@ -22,6 +32,10 @@ public class Subscriber {
      @Autowired
     EmployeeRequestService employeeRequestService;
 
+     @Autowired
+     CourseService courseService;
+    private static final Logger logger = LoggerFactory.getLogger(Subscriber.class);
+
     @RabbitListener(queues="${training.rabbitmq.queue}")
     public void receivedMessage(Message msg) {
         System.out.println("Received Message: ####" + msg.toString());
@@ -34,11 +48,22 @@ public class Subscriber {
     public void receivedMessageWorkFlowStatus(TrainingRequestStatus msg) {
         System.out.println("Received Message: " + msg);
         UserRequestModel model =  employeeRequestService.UpdateCourseRequest(msg);
-        if(model!=null){
-            //Request Id , status ......
-           //TODO insert data to the course attendies table
+        if(model!=null && msg.getStatus().equals(APPROVED_WORKFLOW)){
+            //Request Id , status .
+
+            if(model.getCourseId()!=null && model.getCourseActivationId()!=null && model.getForUserJobId()!=null){
+               List<AttendeesDetails> items =  courseService.findAttendeesWithJobIdAndActionId(new BigInteger(model.getCourseActivationId()),model.getForUserJobId());
+               if(items==null || items.size()==0){
+                   courseService.insertAttendeesFromWorkflow(new BigInteger(model.getCourseActivationId()),model.getForUserJobId(),msg.getRequestId());
+                   logger.info("Enrolled "+ msg.getRequestId());
+               }else{
+                   logger.info("Not Enrolled already entered "+ msg.getRequestId());
+               }
+            }else {
+                logger.info("Not Enrolled already entered input error " + msg.getRequestId());
+            }
         }else{
-            //TODO: Log this for future purposes
+             logger.info("Not Enrolled already entered, rejected " + msg.getRequestId());
         }
     }
 
