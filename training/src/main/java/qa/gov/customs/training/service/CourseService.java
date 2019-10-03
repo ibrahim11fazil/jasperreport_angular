@@ -1,6 +1,7 @@
 package qa.gov.customs.training.service;
 
 
+import org.springframework.data.repository.query.Param;
 import qa.gov.customs.training.entity.*;
 
 import java.math.BigDecimal;
@@ -10,11 +11,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.domain.Pageable;
-import qa.gov.customs.training.models.ActivationDate;
-import qa.gov.customs.training.models.Course;
-import qa.gov.customs.training.models.CourseManagement;
+import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.entity.ActivationData;
-import qa.gov.customs.training.models.LocationData;
 
 public interface CourseService {
     TacCourseMaster createAndUpdateCourse(TacCourseMaster course);
@@ -61,4 +59,7 @@ public interface CourseService {
     List<CourseManagement>  searchAllFutureCourses(String courseName);
    void setStatusOfDate(TacCourseDate courseDate);
     ActivationDate getDatesForActivation(BigDecimal activationId);
+
+    int insertAttendeesFromWorkflow( BigInteger activationId ,  String jobId,  String remark);
+    List<AttendeesDetails> findAttendeesWithJobIdAndActionId( BigInteger activationId ,  String jobId);
 }
