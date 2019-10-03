@@ -3,7 +3,7 @@
         <div class="gene-card-title">
             <div fxLayout="row" fxLayoutAlign="start center">
                <div fxLayout="column">
-                  <h4>ACTIVATE COURSE</h4>
+                  <h4>{{language.title_activateCourse}}</h4>
                </div>
                <span fxFlex></span>
             </div>
@@ -14,7 +14,7 @@
                 <div fxLayout="column">
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select (selectionChange)="getCourseDetails($event)" placeholder="Course Name" matInput formControlName="courseSelect" >
+                              <mat-select (selectionChange)="getCourseDetails($event)" placeholder={{language.courseName}}  matInput formControlName="courseSelect" >
                                     
                                        <mat-option *ngFor="let item of courseList" [value]="item" >
                                           {{item.courseName}} 
@@ -44,7 +44,7 @@
                      </div> -->
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
-                                 <mat-select  placeholder="Belongs To" matInput formControlName="belongsSelect">
+                                 <mat-select  placeholder={{language.belongsTo}} matInput formControlName="belongsSelect">
                                        <mat-option *ngFor="let item of mainCourseList" [value]="item" >
                                              {{item.courseName}} 
                                               </mat-option>
@@ -55,7 +55,7 @@
    
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Course Date" matInput formControlName="dateSelect" >
+                              <mat-select placeholder={{language.courseDate}} matInput formControlName="dateSelect" >
                                     <mat-option *ngFor="let item of tacCourseDateList" [value]="item" >
                                       {{item.courseDate}}
                                     </mat-option>
@@ -64,7 +64,7 @@
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select  (selectionChange)="getCourseRoomDetail($event)" placeholder="Location" matInput formControlName="locationSelect">
+                              <mat-select  (selectionChange)="getCourseRoomDetail($event)" placeholder={{language.courseLocation}} matInput formControlName="locationSelect">
                                     <mat-option *ngFor="let item of tacCourseLocation" [value]="item" >
                                           {{item.locationName}} 
                                            </mat-option>
@@ -76,7 +76,7 @@
          
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select  placeholder="Training Hall" matInput formControlName="roomSelect" >
+                              <mat-select  placeholder={{language.trainingHall}} matInput formControlName="roomSelect" >
                                     <mat-option  *ngFor="let item of roomDetails" [value]="item" >
                                           {{item.roomName}}
                                           
@@ -88,7 +88,7 @@
 
                      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                 <h5>Instructor</h5>
+                                 <h5>{{language.instructorName}}</h5>
                            </div>
                            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                  <button class="mrgn-all-xs" mat-icon-button (click)="addMoreInstructor()" type="button">
@@ -129,7 +129,7 @@
 
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
-                              <mat-select placeholder="Training Co-ordinator" matInput formControlName="userSelect">
+                              <mat-select placeholder={{language.trainingCoordinator}} matInput formControlName="userSelect">
                                     <mat-option  *ngFor="let item of userList" [value]="item" >
                                           {{item.username}}
                                           
@@ -141,55 +141,55 @@
                         </mat-form-field>
                      </div>
                      <div fxLayout="column">
-                        <h4>ESTIMATED COST</h4>
+                        <h4>{{language.estimatedCost}}</h4>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Instructor Cost" formControlName="instructorCost">
+                           <input matInput placeholder={{language.instructorCost}} formControlName="instructorCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Buffet Cost" formControlName="buffetCost">
+                           <input matInput placeholder={{language.buffetCost}} formControlName="buffetCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Internal Transport Cost"  formControlName="transportCost">
+                           <input matInput placeholder={{language.internalTransportCost}} formControlName="transportCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Ticket Cost" formControlName="ticketCost">
+                           <input matInput placeholder={{language.ticketCost}} formControlName="ticketCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Hospitality Cost" formControlName="hospitalityCost">
+                           <input matInput placeholder={{language.hospitalityCost}} formControlName="hospitalityCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Gift Cost"formControlName="giftCost" >
+                           <input matInput placeholder={{language.giftCost}} formControlName="giftCost" >
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Hall Reservation Cost" formControlName="reservationCost">
+                           <input matInput placeholder={{language.hallReservationCost}} formControlName="reservationCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Bonus Cost" formControlName="bonusCost">
+                           <input matInput placeholder={{language.bonusCost}} formControlName="bonusCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Translation Cost" formControlName="translationCost">
+                           <input matInput placeholder={{language.translationCost}} formControlName="translationCost">
                         </mat-form-field>
                      </div>
                      <div fxLayout="row" fxLayoutAlign="start">
-                        <button mat-raised-button color="primary" type="submit">Save
+                        <button mat-raised-button color="primary" type="submit">{{language.btn_save}}
                         </button>
                      </div>
 
