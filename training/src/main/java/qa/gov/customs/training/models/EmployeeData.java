@@ -27,6 +27,8 @@ public class EmployeeData {
         private String iban;
         private BigDecimal count;
         private int percentage;
+        private BigDecimal attendanceFlag;
+
 
         public String getJobId() {
             return jobId;
@@ -179,11 +181,14 @@ public class EmployeeData {
         public void setAttendeesId(BigDecimal attendeesId) {
         this.attendeesId = attendeesId;
         }
-    public BigDecimal getCount() {
+        public BigDecimal getCount() {
         return count;
     }
 
-    public void setCount(BigDecimal count) {
+       public void setCount(BigDecimal count) {
         this.count = count;
     }
+
+
+
 }

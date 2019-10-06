@@ -6,6 +6,7 @@ export class EmpData {
    mobile:String
    department:String
    count:Number
+   attendanceFlag:Number
    percentage:Number
    generated:Boolean
    url:String
