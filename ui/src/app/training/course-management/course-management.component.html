@@ -216,7 +216,7 @@
 
 	</div>
 
-	<div *ngIf="displayCalendar" fxFlex="100" class="gene-card-content">
+	<div *ngIf="displayAttendance" fxFlex="100" class="gene-card-content">
 		<mat-card class="mat-pad-none gene-calender">
 
 			<ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
@@ -282,9 +282,9 @@
 
 
 			<div class="pad-wrap left">
-				<button mat-raised-button color="primary" (click)="markCourseCompletionForCurrent()"
+				<button *ngIf="courseCompletion" mat-raised-button color="primary" (click)="markCourseCompletionForCurrent()"
 					type="submit">Status</button>
-				<button mat-raised-button color="primary" (click)="markAttendance()" type="submit">Mark
+				<button  mat-raised-button color="primary" (click)="markAttendance()" type="submit">Mark
 					Attendance</button>
 			</div>
 		</mat-card>

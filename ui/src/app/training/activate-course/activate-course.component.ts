@@ -14,6 +14,8 @@ import { TacActivation, ResponseTacActivation, ResponseActivationDetail } from '
 import { CourseDate, ResponseDateDetail } from "app/models/courseDate";
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 
 @Component({
@@ -42,13 +44,14 @@ export class ActivateCourseComponent implements OnInit {
   courseCategories: Categories[] = [];
   displayCourseDetails: boolean = false;
   editable: true;
+  language:LanguageUtil;
   public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private userService: SystemUserService,
     private toastr: ToastrService,
     private pageTitleService: PageTitleService,
-
+    private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute) {
     this.tacCourseActivation = {
       activationId: 0,
@@ -70,6 +73,12 @@ export class ActivateCourseComponent implements OnInit {
       tacCourseInstructors: [],
       status: 0
     }
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {

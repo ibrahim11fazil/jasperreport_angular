@@ -123,6 +123,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         Set<EmployeeData> empdata=new HashSet<EmployeeData>();
 
         for (Object[] o : objects) {
+
             EmployeeData emp = new EmployeeData();
             emp.setJobId((String)o[0]);
             emp.setCnameAr((String)o[1]);

@@ -4,7 +4,7 @@
   <div class="gene-card-title">
   <div fxLayout="row" fxLayoutAlign="start center">
   <div fxLayout="column">
-  <h4>Activation Search</h4>
+  <h4>{{language.activationSearch}}</h4>
   </div> <span fxFlex></span>
   </div>
   <mat-divider></mat-divider>
@@ -14,14 +14,14 @@
   <div fxLayout="row wrap" fxLayoutAlign="space-between center">
   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
   <mat-form-field class="full-wid mrgn-b-md">
-  <input matInput placeholder="Course Name" formControlName="searchControl">
+  <input matInput placeholder={{language.courseName}} formControlName="searchControl">
   </mat-form-field>
   </div>
   </div>
   
   <div class="pad-wrap">
   <div fxLayout="row" fxLayoutAlign="start">
-  <button mat-raised-button color="secondary" type="submit">Search</button>
+  <button mat-raised-button color="secondary" type="submit">{{language.btn_search}}</button>
   </div>
   </div>
   </form>
@@ -38,15 +38,15 @@
               <table mat-table [dataSource]="ds">  
 
                 <ng-container matColumnDef="activationId">  
-                  <th mat-header-cell *matHeaderCellDef> Activation ID </th>  
+                  <th mat-header-cell *matHeaderCellDef> {{language.activationId}} </th>  
                   <td mat-cell *matCellDef="let element"> {{element.activationId}} </td>  
                 </ng-container>  
                 <ng-container matColumnDef="courseName">  
-                  <th mat-header-cell *matHeaderCellDef> CourseName </th>  
+                  <th mat-header-cell *matHeaderCellDef>{{language.courseName}}</th>  
                   <td mat-cell *matCellDef="let element"> {{element.courseName}} </td>  
                 </ng-container> 
                 <ng-container matColumnDef="activationDate">  
-                  <th mat-header-cell *matHeaderCellDef> Activation Date </th>  
+                  <th mat-header-cell *matHeaderCellDef> {{language.activationDate}} </th>  
                   <td mat-cell *matCellDef="let element"> {{element.activationDate}} </td>  
                 </ng-container>  
 
@@ -66,7 +66,7 @@
                     </ng-container>  -->
                  
                 <ng-container matColumnDef="Edit">  
-                  <th mat-header-cell *matHeaderCellDef> Update </th>  
+                  <th mat-header-cell *matHeaderCellDef> {{language.label_update}} </th>  
                   <td mat-cell *matCellDef="let element">  
                       <button class="mrgn-all-xs" mat-icon-button (click)="updateRow(element)">
                           <mat-icon>edit</mat-icon>

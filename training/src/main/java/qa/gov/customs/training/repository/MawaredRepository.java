@@ -37,7 +37,7 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
             " and b.job_id=a.legacycode and b.activation_id=:activationId",nativeQuery = true)
     List<Object[]> getEmpData(BigDecimal activationId);
 
-    @Query(value="select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,count(attendance_flag)\n" +
+    @Query(value="select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,count(case when attendance_flag=1 then 1 end)\n" +
             "             from USER1_SAP_WS_MINI a,TAC_COURSE_ATTENDEES b,tac_course_attendence c\n" +
             "            where a.legacycode=b.job_id\n" +
             "            and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode)\n" +
