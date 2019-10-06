@@ -209,6 +209,7 @@ getEmployeesUnderSupervisor(){
 // end of job id list
 
 onSubmit(){
+  debugger
   var empRequest = new EmployeeCourseRequest()
   empRequest.courseId = this.selectedItem.courseId
   empRequest.courseName= this.selectedItem.courseName
@@ -245,34 +246,38 @@ onSubmit(){
   //     })
 
   //this.checkUserIsAbsentOrNot(empRequest) 
-  this.getActivationDatesByActivationId(empRequest)
+  debugger 
+  this.checkUserIsAbsentOrNot(empRequest)
 
 }
 
-getActivationDatesByActivationId(request:EmployeeCourseRequest){
-  var req= new ActivationDateRequest()
-  req.activationId =request.courseActivationId
-  this.trainingService.getActivationDatesByActivationId(req).subscribe(
-    data => {
-      var response = <ActivationDateResponse>data
-      //.this.rows = response.data
-      if(response.status){
-        this.checkUserIsAbsentOrNot(request,response.data)
-      }else{
-      this.toastr.error("No Activation dates found")
-      }
-    },
-    error => {
-      console.log(error)
-      this.toastr.error(error.message)
-    })
-}
+// getActivationDatesByActivationId(request:EmployeeCourseRequest){
+//   var req= new ActivationDateRequest()
+//   req.activationId =request.courseActivationId
+//   this.trainingService.getActivationDatesByActivationId(req).subscribe(
+//     data => {
+//       debugger
+//       var response = <ActivationDateResponse>data
+//       //.this.rows = response.data
+//       if(response.status){
+//         debugger
+//         this.checkUserIsAbsentOrNot(request,response.data)
+//       }else{
+//       this.toastr.error("No Activation dates found")
+//       }
+//     },
+//     error => {
+//       console.log(error)
+//       this.toastr.error(error.message)
+//     })
+// }
 
 
 
 saveRequest(empRequest:EmployeeCourseRequest){
   this.trainingService.saveEmployeeRequest(empRequest).subscribe(
     data => {
+      debugger
       var response = <WorkflowResponse>data
       //.this.rows = response.data
       this.toastr.info(response.message.toString())
@@ -284,17 +289,23 @@ saveRequest(empRequest:EmployeeCourseRequest){
     })
 }
 
-checkUserIsAbsentOrNot(request:EmployeeCourseRequest,details:ActivationDateDetails){
+checkUserIsAbsentOrNot(request:EmployeeCourseRequest){
   var absentInfo = new AbsentInfo()
-  absentInfo.startDate=details.startDate
-  absentInfo.endDate=details.endDate
-  if(request.forUserQid!=null)
+  absentInfo.startDate= this.courseStartDate
+  absentInfo.endDate=this.courseEndDate
+  if(request.forUserQid!=null){
   absentInfo.qid =request.forUserQid
-  else
+  request.forUserJobId=request.forUserJobId
+  }
+  else{
   absentInfo.qid =this.authService.getQid()
+  request.forUserJobId=this.authService.getLegacyCode()
+  }
   var absentInfo = new AbsentInfo()
+  debugger
   this.trainingService.checktheEmployeeAbsentOrNot(absentInfo).subscribe(
     data=>{
+      debugger
       var response =<AbsentInfoResponse>data
       if(response.data){
         this.toastr.error("The use is absent on the date,Try another date")
@@ -310,12 +321,14 @@ checkUserIsAbsentOrNot(request:EmployeeCourseRequest,details:ActivationDateDetai
 }
 
 checkUserIsAlreadyRequested(request:EmployeeCourseRequest){
+  debugger
   this.trainingService.checktheRequestIsvalid(request).subscribe(
     data=>{
       var response =<AbsentInfoResponse>data
       if(response.data){
         this.toastr.error("The request alredy exisit.")
       }else{
+        debugger
         //this.checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request)
         this.saveRequest(request)
       }    
@@ -328,12 +341,15 @@ checkUserIsAlreadyRequested(request:EmployeeCourseRequest){
 }
 
 checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request:EmployeeCourseRequest){
+  debugger
   this.trainingService.checktheRequestIsOverriding(request).subscribe(
     data=>{
       var response =<AbsentInfoResponse>data
       if(response.data){
+        debugger
         this.toastr.error("You are alraeady requested for another course in the same time. Try some other dates")
       }else{
+        debugger
         this.saveRequest(request)
       }    
     },
