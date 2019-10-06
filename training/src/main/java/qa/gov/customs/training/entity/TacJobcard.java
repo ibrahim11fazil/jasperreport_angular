@@ -108,7 +108,7 @@ import java.util.stream.Stream;
 
 //		
 		
-		
+
 
 		public TacJobcard(){
 			
@@ -207,7 +207,7 @@ import java.util.stream.Stream;
 			this.jobCardyear = jobCardyear;
 		}
 
-		@Column(name = "JOB_CARD_STATUS")
+		@Column(name = "STATUS_FLAG")
 		public BigDecimal getJobCardStatus() {
 			return jobCardStatus;
 		}
