@@ -97,6 +97,9 @@ import java.util.stream.Stream;
 		private BigDecimal specialisedHours;
 		private BigDecimal workshopHours;
 		private BigDecimal hourFlag;
+		private BigDecimal jobCardyear;
+		private BigDecimal jobCardStatus;
+
 		
 		private Set<TacJobcardConditions> tacJobcardConditions = new HashSet<TacJobcardConditions>(0);
 		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
@@ -193,6 +196,24 @@ import java.util.stream.Stream;
 
 		public void setHourFlag(BigDecimal hourFlag) {
 			this.hourFlag = hourFlag;
+		}
+
+		@Column(name = "JOB_CARD_YEAR")
+		public BigDecimal getJobCardyear() {
+			return jobCardyear;
+		}
+
+		public void setJobCardyear(BigDecimal jobCardyear) {
+			this.jobCardyear = jobCardyear;
+		}
+
+		@Column(name = "JOB_CARD_STATUS")
+		public BigDecimal getJobCardStatus() {
+			return jobCardStatus;
+		}
+
+		public void setJobCardStatus(BigDecimal jobCardStatus) {
+			this.jobCardStatus = jobCardStatus;
 		}
 
 		//		@ManyToMany(fetch = FetchType.LAZY)
