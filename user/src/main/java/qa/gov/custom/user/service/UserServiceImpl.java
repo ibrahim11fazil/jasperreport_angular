@@ -219,7 +219,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserMaster> findAllByRoles(List<Role> roles) {
-       return userRepository.findAllByRoles(roles);
+        List<UserMaster> updatedUser = new ArrayList<>();
+        List<UserMaster> users =  userRepository.findAllByRoles(roles);
+        if(users!=null && users.size()>0){
+            users.forEach(item -> {
+                UserMaster user = new UserMaster();
+                user.setJobId(item.getJobId());
+                user.setQid(item.getQid());
+                user.setcNameAr(item.getcNameAr());
+                user.setEmail(item.getEmail());
+                updatedUser.add(user);
+            });
+            return updatedUser;
+        }else{
+            return null;
+        }
     }
 
 

@@ -4,7 +4,7 @@
    |---|---|---|---|---|---|
    | 1  | CREATE_ACTIVITY  | POST | /create-activity | CREATE_ACTIVITY_REQ   | CREATE_ACTIVITY_RES  |
    | 2  | REMOVE_ACTIVITY  | POST | /remove-activity | REMOVE_ACTIVITY_REQ   | REMOVE_ACTIVITY_RES  |
-   | 2  | LIST_ACTIVITY  | POST | /list-activity | LIST_ACTIVITY_REQ   | LIST_ACTIVITY_RES  |
+   | 3  | LIST_ACTIVITY  | POST | /list-activity | LIST_ACTIVITY_REQ   | LIST_ACTIVITY_RES  |
 
 
 ## CREATE_ACTIVITY
