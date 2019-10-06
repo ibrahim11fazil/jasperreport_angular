@@ -3,7 +3,7 @@
     <div class="gene-card-title">
       <div fxLayout="row" fxLayoutAlign="start center">
         <div fxLayout="column">
-          <h4>Activity</h4>
+          <h4>{{language.title_activity}}</h4>
         </div> <span fxFlex></span>
       </div>
       <mat-divider></mat-divider>
@@ -17,13 +17,13 @@
             </mat-form-field>
             <small class="gene-block" *ngIf="form.controls['activityName'].hasError('required') && form.controls['activityName'].touched"
                    class="warn-text">
-              You must enter the activity Name
+              {{language.activity_message}}
             </small>
           </div>
         </div>
         <div class="pad-wrap">
           <div fxLayout="row" fxLayoutAlign="start">
-            <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [disabled]="!form.valid">Save</button>
+            <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [disabled]="!form.valid">{{language.btn_save}}</button>
             <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">{{language.btn_search}}</button>
           </div>
         </div>

@@ -1,10 +1,13 @@
 package qa.gov.customs.training.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.training.controller.WorkflowController;
 import qa.gov.customs.training.entity.*;
-import qa.gov.customs.training.models.Course;
+import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 import java.text.SimpleDateFormat;
@@ -13,9 +16,8 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
-import qa.gov.customs.training.models.CourseManagement;
+
 import qa.gov.customs.training.entity.ActivationData;
-import qa.gov.customs.training.models.LocationData;
 
 @Service
 public class CourseServiceImpl  implements CourseService {
@@ -54,6 +56,11 @@ public class CourseServiceImpl  implements CourseService {
 	TacCourseDateRepository tacCourseDateRepository;
 	@Autowired
 	InstructorRepository instructorRepo;
+
+	@Autowired
+	CourseAttendeesRepository courseAttendeesRepository;
+
+	private static final Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
 	@Override
 	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -527,11 +534,63 @@ public class CourseServiceImpl  implements CourseService {
 		tacCourseDateRepository.save(courseDate);
 	}
 
+	@Override
+	public ActivationDate getDatesForActivation(BigDecimal activationId) {
+		List<Object[]> objects = courseRepository.getDatesForActivation(activationId);
 
-
-
-
+		if(objects==null || objects.size()==0){
+			return null;
+		}else{
+			ActivationDate dates = new ActivationDate();
+			for (Object[] o : objects) {
+				dates.setActivationId(activationId);
+				dates.setStartDate((Date) o[0]);
+				dates.setStartDate((Date) o[1]);
+			}
+			return dates;
+		}
 	}
+
+	@Override
+	public int insertAttendeesFromWorkflow(BigInteger activationId, String jobId, String remark) {
+		try {
+			courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
+			return 1;
+		}catch (Exception e){
+			e.printStackTrace();
+			//TODO log error
+			logger.error(e.toString());
+			return 0;
+		}
+	}
+
+	@Override
+	public List<AttendeesDetails> findAttendeesWithJobIdAndActionId(BigInteger activationId, String jobId) {
+		try {
+			List<Object[]> objects = courseAttendeesRepository.findAttendeesWithJobIdAndActionId(activationId, jobId);
+			if(objects==null || objects.size()==0){
+				return null;
+			}else{
+				List<AttendeesDetails> dates = new ArrayList<>();
+				for (Object[] o : objects) {
+					AttendeesDetails obj = new AttendeesDetails();
+					obj.setActivationId((BigInteger) o[0]);
+					obj.setJobId((String) o[1]);
+					obj.setRemark((String) o[2]);
+					dates.add(obj);
+				}
+				return dates;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			//TODO log error
+			logger.error(e.toString());
+			return null;
+		}
+	}
+
+
+}
 
 
 

@@ -17,6 +17,8 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { TrainingRoom } from 'app/models/training-room';
 import { TacInstructor } from 'app/models/tac-instructor';
 import { ResponseTacActivation, TacActivation } from 'app/models/tac-activation';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 
 
@@ -51,12 +53,13 @@ export class CourseLinkComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST
   editable: true;
   existingActivity = "Empty";
+  language:LanguageUtil;
 
   public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
-
+    private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,
     private pageTitleService: PageTitleService) {
     this.tacCourseMaster =
@@ -78,6 +81,13 @@ export class CourseLinkComponent implements OnInit {
         tacActivities: []
 
       }
+      
+        this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+       
+  }
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {

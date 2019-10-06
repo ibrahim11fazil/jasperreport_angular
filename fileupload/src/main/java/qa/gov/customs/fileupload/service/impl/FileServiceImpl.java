@@ -97,13 +97,15 @@ public class FileServiceImpl implements FileService {
     }
 
 
-    List<CertificateRequest> generateCertificateList(List<EmployeeCertificate> certificates){
+        List<CertificateRequest> generateCertificateList(List<EmployeeCertificate> certificates){
         List<CertificateRequest> certis = new ArrayList<>();
         for (EmployeeCertificate item:
                 certificates) {
             CertificateRequest response = new CertificateRequest();
             response.setCertificateId(item.getCertificateId());
             response.setCertificateUrl(item.getCertificateUrl());
+            response.setActivationId(item.getActivationId());
+            response.setJobId((item.getJobId()));
             certis.add(response);
         }
         return certis;

@@ -15,8 +15,9 @@ import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, Respons
 import { TacActivation } from 'app/models/tac-activation';
 import { TrainingService } from 'app/service/training/training.service';
 import { EmployeeCourseRequest, WorkflowResponse } from 'app/models/workflow';
-import { SupervisorResponse, SupervisorResponseData } from 'app/models/course-request';
 import { AuthService } from 'app/service/auth-service/auth.service';
+import { AbsentInfo, AbsentInfoResponse } from 'app/models/employee-data';
+import { SupervisorResponse, SupervisorResponseData, ActivationDateRequest, ActivationDateResponse, ActivationDateDetails } from 'app/models/course-request';
 
 
 
@@ -79,7 +80,7 @@ export class EmpRequestComponent implements OnInit {
     }
 
     )
-
+   // this.searchFutureCourses()
     this.getEmployeesUnderSupervisor()
   }
 
@@ -208,6 +209,7 @@ getEmployeesUnderSupervisor(){
 // end of job id list
 
 onSubmit(){
+  debugger
   var empRequest = new EmployeeCourseRequest()
   empRequest.courseId = this.selectedItem.courseId
   empRequest.courseName= this.selectedItem.courseName
@@ -231,18 +233,134 @@ onSubmit(){
   //2. check the user is already requested
   //3. Check course requested is overriding other courses . already overriding.
   //4. if all ok save the data
-  debugger;
-  this.trainingService.saveEmployeeRequest(empRequest).subscribe(
-      data => {
-        var response = <WorkflowResponse>data
-        //.this.rows = response.data
-        this.toastr.info(response.message.toString())
-        console.log(this.rows)
-      },
-      error => {
-        console.log(error)
-        this.toastr.error(error.message)
-      })
-}
+  // this.trainingService.saveEmployeeRequest(empRequest).subscribe(
+  //     data => {
+  //       var response = <WorkflowResponse>data
+  //       //.this.rows = response.data
+  //       this.toastr.info(response.message.toString())
+  //       console.log(this.rows)
+  //     },
+  //     error => {
+  //       console.log(error)
+  //       this.toastr.error(error.message)
+  //     })
+
+  //this.checkUserIsAbsentOrNot(empRequest) 
+  debugger 
+  this.checkUserIsAbsentOrNot(empRequest)
 
 }
+
+// getActivationDatesByActivationId(request:EmployeeCourseRequest){
+//   var req= new ActivationDateRequest()
+//   req.activationId =request.courseActivationId
+//   this.trainingService.getActivationDatesByActivationId(req).subscribe(
+//     data => {
+//       debugger
+//       var response = <ActivationDateResponse>data
+//       //.this.rows = response.data
+//       if(response.status){
+//         debugger
+//         this.checkUserIsAbsentOrNot(request,response.data)
+//       }else{
+//       this.toastr.error("No Activation dates found")
+//       }
+//     },
+//     error => {
+//       console.log(error)
+//       this.toastr.error(error.message)
+//     })
+// }
+
+
+
+saveRequest(empRequest:EmployeeCourseRequest){
+  this.trainingService.saveEmployeeRequest(empRequest).subscribe(
+    data => {
+      debugger
+      var response = <WorkflowResponse>data
+      //.this.rows = response.data
+      this.toastr.info(response.message.toString())
+      console.log(this.rows)
+    },
+    error => {
+      console.log(error)
+      this.toastr.error(error.message)
+    })
+}
+
+checkUserIsAbsentOrNot(request:EmployeeCourseRequest){
+  var absentInfo = new AbsentInfo()
+  absentInfo.startDate= this.courseStartDate
+  absentInfo.endDate=this.courseEndDate
+  if(request.forUserQid!=null){
+  absentInfo.qid =request.forUserQid
+  request.forUserJobId=request.forUserJobId
+  }
+  else{
+  absentInfo.qid =this.authService.getQid()
+  request.forUserJobId=this.authService.getLegacyCode()
+  }
+  var absentInfo = new AbsentInfo()
+  debugger
+  this.trainingService.checktheEmployeeAbsentOrNot(absentInfo).subscribe(
+    data=>{
+      debugger
+      var response =<AbsentInfoResponse>data
+      if(response.data){
+        this.toastr.error("The use is absent on the date,Try another date")
+      }else{
+        this.checkUserIsAlreadyRequested(request)
+      }    
+    },
+    error=>{
+      console.log(error)
+      this.toastr.error(error.message)
+    }  
+  )
+}
+
+checkUserIsAlreadyRequested(request:EmployeeCourseRequest){
+  debugger
+  this.trainingService.checktheRequestIsvalid(request).subscribe(
+    data=>{
+      var response =<AbsentInfoResponse>data
+      if(response.data){
+        this.toastr.error("The request alredy exisit.")
+      }else{
+        debugger
+        //this.checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request)
+        this.saveRequest(request)
+      }    
+    },
+    error=>{
+      console.log(error)
+      this.toastr.error(error.message)
+    }  
+  )
+}
+
+checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request:EmployeeCourseRequest){
+  debugger
+  this.trainingService.checktheRequestIsOverriding(request).subscribe(
+    data=>{
+      var response =<AbsentInfoResponse>data
+      if(response.data){
+        debugger
+        this.toastr.error("You are alraeady requested for another course in the same time. Try some other dates")
+      }else{
+        debugger
+        this.saveRequest(request)
+      }    
+    },
+    error=>{
+      console.log(error)
+      this.toastr.error(error.message)
+    }  
+  )
+}
+
+
+
+}
+

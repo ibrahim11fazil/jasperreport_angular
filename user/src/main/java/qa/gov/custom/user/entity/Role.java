@@ -27,6 +27,18 @@ public class Role {
     private List<Permission> permissions;
 
 
+    @Transient
+    private List<Permission> newPermissions;
+
+
+    public List<Permission> getNewPermissions() {
+        return newPermissions;
+    }
+
+    public void setNewPermissions(List<Permission> newPermissions) {
+        this.newPermissions = newPermissions;
+    }
+
     public BigInteger getId() {
         return id;
     }

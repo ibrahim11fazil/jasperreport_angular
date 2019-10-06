@@ -3,7 +3,7 @@
       <div class="gene-card-title">
          <div fxLayout="row" fxLayoutAlign="start center">
             <div fxLayout="column">
-               <h4>COURSE DEFINITION</h4>
+               <h4>{{language.title_courseDefinition}}</h4>
             </div>
             <span fxFlex></span>
          </div>
@@ -15,22 +15,23 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg">
-                     <input matInput placeholder="Course Name" formControlName="courseName" required>
+
+                     <input matInput placeholder={{language.courseName}} formControlName="courseName" required>
                   </mat-form-field>
-                  
+
                </div>
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                   
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                      <mat-form-field class="full-wid mrgn-b-md">
-                        <input matInput placeholder="Course Period" formControlName="duration" required>
+                        <input matInput placeholder={{language.coursePeriod}} formControlName="duration" required>
                      </mat-form-field>
                   </div>
 
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                      <mat-form-field class="full-wid mrgn-b-md">
-                        <mat-select placeholder="Duration Type" matInput formControlName="durationFlagControl" required>
+                        <mat-select placeholder={{language.durationType}}  matInput formControlName="durationFlagControl" required>
                            <mat-option *ngFor="let durationFlag of durationFlagList" 
                                        [value]="durationFlag">
                               {{durationFlag.viewValue}}
@@ -44,13 +45,13 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg ">
-                     <input matInput placeholder="Objective" formControlName="objective" required>
+                     <input matInput placeholder={{language.courseObjective}} formControlName="objective" required>
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Categories" matInput formControlName="courseCategoriesSelect" required>
+                     <mat-select placeholder={{language.courseCategories}} matInput formControlName="courseCategoriesSelect" required>
                         <option [ngValue]="null">Select Category</option>
                         <mat-option *ngFor="let item of courseCategories"
                          [value]="item">
@@ -62,7 +63,7 @@
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <h5>Expected Results</h5>
+                           <h5>{{language.expectedResult}}</h5>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <button class="mrgn-all-xs" mat-icon-button (click)="addMoreExpectedResultsTextarea()" type="button">
@@ -76,7 +77,7 @@
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
-                              <input matInput placeholder="Expected Result" formControlName="result">
+                              <input matInput placeholder="Expected Results" formControlName="result">
                            </mat-form-field>
                         </div>
 
@@ -91,7 +92,7 @@
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                           <h5>Training Guidelines</h5>
+                           <h5>{{language.trainingGuidelines}}</h5>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <button class="mrgn-all-xs" mat-icon-button (click)="addMoreCourseGuideLinesTextarea()" type="button">
@@ -106,7 +107,7 @@
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                       
                            <mat-form-field class="full-wid mrgn-b-lg">
-                              <input matInput placeholder="Course Guidelines" formControlName="description">
+                              <input matInput placeholder="Training Guidelines" formControlName="description">
                            </mat-form-field>
                         </div>
 
@@ -123,7 +124,7 @@
 
                   <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                              <h5>Targeted Audiences</h5>
+                              <h5>{{language.targetedAudiences}}</h5>
                         </div>
                         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                               <button class="mrgn-all-xs" mat-icon-button (click)="addMoretargetAudienceTextarea()" type="button">
@@ -155,12 +156,12 @@
                   
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-lg ">
-                     <input matInput placeholder="No of hours" formControlName="numberofhours">
+                     <input matInput placeholder={{language.noOfHours}} formControlName="numberofhours">
                   </mat-form-field>
                </div>
 
                <div fxLayout="row" fxLayoutAlign="start">
-                  <button mat-raised-button color="primary" (click)="onSubmit('createCourse')"  type="submit">Save
+                  <button mat-raised-button color="primary" (click)="onSubmit('createCourse')"  type="submit">{{language.btn_save}}
                   </button>
                </div>
             </div>

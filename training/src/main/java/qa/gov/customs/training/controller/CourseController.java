@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.entity.*;
-import qa.gov.customs.training.models.Course;
-import qa.gov.customs.training.models.ActivationList;
-import qa.gov.customs.training.models.CourseManagement;
+import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.service.CourseService;
@@ -21,7 +19,7 @@ import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
 import qa.gov.customs.training.entity.ActivationData;
-import qa.gov.customs.training.models.LocationData;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -634,5 +632,29 @@ public class CourseController {
 		}
 
 	}
+
+	@PreAuthorize("hasAnyAuthority('course_date_by_activation')")
+	@PostMapping ("/course-date-by-activation")
+	public ResponseType courseDateByActivation(@RequestBody  ActivationDate activation)
+	{
+		if(activation!=null && activation.getActivationId()!=null) {
+			ActivationDate actDate = courseService.getDatesForActivation(activation.getActivationId());
+			if (actDate != null) {
+
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, actDate);
+				return response;
+			} else {
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}else{
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+			return response;
+		}
+
+	}
+
+
+
 
 	}

@@ -64,13 +64,16 @@ public interface MawaredRepository  extends JpaRepository<MawaredMaster,Long> {
             "and m.run_date=(select max(run_date)from user_sap_ws_mini where empno=m.empno) " +
             "and d.run_date=(select max(run_date) from xxgdc_sap_masterdetails where pernr=d.pernr) " +
             "and d.supervisor=(select empno  from xxgdc_sap_ws_mini emp where emp.legacycode=:jobId " +
-            "and emp.run_date=(select max(run_date)from user_sap_ws_mini where legacycode=emp.legacycode)) ",nativeQuery = true)
+            "and emp.run_date=(select max(run_date)from user_sap_ws_mini where legacycode=emp.legacycode)) " +
+            "and m.emp_stat='Active' ",nativeQuery = true)
     List<Object[]> employeesUnderSupervisor(@Param("jobId") String jobId);
 
 
 
      @Query(value = "select count(*) from supervisor_list where legacycode=:jobId ",nativeQuery = true)
      int getCountOfHead(@Param("jobId") String jobId);
+
+
 
 
 }

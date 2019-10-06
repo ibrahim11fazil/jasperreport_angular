@@ -42,11 +42,15 @@ public class ReportServiceImpl implements ReportService {
             final JasperReport jReport = loadCertificateTemplate();
             // Create parameters map.
             final Map<String, Object> parameters = parameters(certificateRequest);
-            // Create an empty datasource.
-            final JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList("Certificate"));
-            JasperPrint jPrint = JasperFillManager.fillReport(jReport, parameters, dataSource);
-            JasperExportManager.exportReportToPdfFile(jPrint,fileName);
-            return fileNameSelected;
+            if(parameters!=null) {
+                // Create an empty datasource.
+                final JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList("Certificate"));
+                JasperPrint jPrint = JasperFillManager.fillReport(jReport, parameters, dataSource);
+                JasperExportManager.exportReportToPdfFile(jPrint, fileName);
+                return fileNameSelected;
+            }else{
+                return null;
+            }
 
         }
         catch (final Exception e){
@@ -67,12 +71,18 @@ public class ReportServiceImpl implements ReportService {
     // Fill template order parametres
     private Map<String, Object> parameters(CertificateRequest certificateRequest) {
         final Map<String, Object> parameters = new HashMap<>();
-        parameters.put("logo", getClass().getResourceAsStream(logo_path));
-        parameters.put("nameField",  certificateRequest.getUserName());
-        parameters.put("courseName", certificateRequest.getCourseName());
-        parameters.put("courseDate",certificateRequest.getCourseDate());
-        parameters.put("certificateId",certificateRequest.getCertificateUid());
-        return parameters;
+        try {
+//            String name = new String(certificateRequest.getUserName().getBytes("UTF-8"), "ISO-8859-1");
+            parameters.put("logo", getClass().getResourceAsStream(logo_path));
+            parameters.put("nameField", certificateRequest.getUserName());
+            parameters.put("courseName", certificateRequest.getCourseName());
+            parameters.put("courseDate", certificateRequest.getCourseDate());
+            parameters.put("certificateId", certificateRequest.getCertificateUid());
+            return parameters;
+        }catch ( Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

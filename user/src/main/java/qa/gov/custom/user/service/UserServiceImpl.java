@@ -57,17 +57,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Role updateRoleAndPermission(Role role) {
-        return roleRepository.save(role);
+        try{
+            roleRepository.deletePermissionRole(Long.valueOf(role.getId().toString()));
+            if(role.getNewPermissions()!=null && role.getNewPermissions().size()>0){
+                for (Permission permission : role.getNewPermissions()) {
+                    roleRepository.updateRoleAndPermission(permission.getId(),role.getId());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            //TODO log error
+            return null;
+        }
+        return role;
     }
 
     @Override
     public List<Permission> findAllPermissions() {
-        List<Object[]> roleObjects = roleRepository.findallAllRolesWithIDAndName();
+        List<Object[]> roleObjects = permissionRepository.findAllPermissions();
         List<Permission> roles=new ArrayList<>();
         for (Object[] o :roleObjects) {
             Permission role = new Permission();
             role.setId(new BigInteger(o[0].toString()));
             role.setName((String)o[1]);
+            role.setRemark((String)o[2]);
             roles.add(role);
         }
         return roles;
@@ -206,7 +219,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserMaster> findAllByRoles(List<Role> roles) {
-       return userRepository.findAllByRoles(roles);
+        List<UserMaster> updatedUser = new ArrayList<>();
+        List<UserMaster> users =  userRepository.findAllByRoles(roles);
+        if(users!=null && users.size()>0){
+            users.forEach(item -> {
+                UserMaster user = new UserMaster();
+                user.setJobId(item.getJobId());
+                user.setQid(item.getQid());
+                user.setcNameAr(item.getcNameAr());
+                user.setEmail(item.getEmail());
+                updatedUser.add(user);
+            });
+            return updatedUser;
+        }else{
+            return null;
+        }
     }
 
 

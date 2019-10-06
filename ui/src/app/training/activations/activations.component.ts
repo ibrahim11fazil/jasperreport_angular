@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { PAGE_LIMIT } from 'app/app.constants';
 import { SearchCourse } from 'app/models/tac-course-master';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
   selector: 'ms-activations',
@@ -18,6 +20,7 @@ export class ActivationsComponent implements OnInit {
   form: FormGroup
   page = 0
   searchText: String;
+  language:LanguageUtil
   ds: ActivationList[] = [];
   firstSearch=false
   displayedColumns: string[] = ['activationId', 'courseName','activationDate','Edit' ];
@@ -27,8 +30,17 @@ export class ActivationsComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
+    private mainComponent:MainComponent,
     private router:Router,) {
-    this.pageTitleService.setTitle("Search Activation")}
+    this.pageTitleService.setTitle("Search Activation")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
 
   ngOnInit() {
     this.formInit()

@@ -19,6 +19,7 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
 import { EmpRequestComponent } from './emp-request/emp-request.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { MyTasksHistoryComponent } from './my-tasks-history/my-tasks-history.component';
+import { UserPermissionsComponent } from './user-permissions/user-permissions.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -93,6 +94,10 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'user-search',
                 component: UserSearchComponent
+            },
+            {
+                path: 'user-permissions',
+                component: UserPermissionsComponent
             },
             {
                 path: 'cis-system',

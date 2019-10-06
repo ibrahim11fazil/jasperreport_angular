@@ -1,9 +1,6 @@
 package qa.gov.customs.employee.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -20,9 +17,11 @@ public class MawaredUserAbsent {
     @Column(name = "QID")
     String qid;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "START_DATE")
     Date startDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "END_DATE")
     Date endDate;
 
@@ -35,11 +34,13 @@ public class MawaredUserAbsent {
     @Column(name = "NUMBER_DAYS")
     BigDecimal numberOfDays;
 
+    //@Temporal(TemporalType.DATE)
     @Column(name = "RETURN_LEAVE")
-    Date returnLeave;
+    String returnLeave;
 
+    //@Temporal(TemporalType.DATE)
     @Column(name = "PLAN_RETURN_LEAVE")
-    Date plannedReturnLeave;
+    String plannedReturnLeave;
 
 
     public String getPernr() {
@@ -98,19 +99,36 @@ public class MawaredUserAbsent {
         this.numberOfDays = numberOfDays;
     }
 
-    public Date getReturnLeave() {
+//    public Date getReturnLeave() {
+//        return returnLeave;
+//    }
+//
+//    public void setReturnLeave(Date returnLeave) {
+//        this.returnLeave = returnLeave;
+//    }
+//
+//    public Date getPlannedReturnLeave() {
+//        return plannedReturnLeave;
+//    }
+//
+//    public void setPlannedReturnLeave(Date plannedReturnLeave) {
+//        this.plannedReturnLeave = plannedReturnLeave;
+//    }
+
+
+    public String getReturnLeave() {
         return returnLeave;
     }
 
-    public void setReturnLeave(Date returnLeave) {
+    public void setReturnLeave(String returnLeave) {
         this.returnLeave = returnLeave;
     }
 
-    public Date getPlannedReturnLeave() {
+    public String getPlannedReturnLeave() {
         return plannedReturnLeave;
     }
 
-    public void setPlannedReturnLeave(Date plannedReturnLeave) {
+    public void setPlannedReturnLeave(String plannedReturnLeave) {
         this.plannedReturnLeave = plannedReturnLeave;
     }
 }

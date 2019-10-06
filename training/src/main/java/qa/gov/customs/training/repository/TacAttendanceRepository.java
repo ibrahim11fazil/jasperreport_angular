@@ -11,6 +11,6 @@ import java.util.Date;
 public interface TacAttendanceRepository extends JpaRepository<TacCourseAttendence, BigDecimal>  {
 
 
-    @Query(value="select * from Tac_Course_Attendence where attendees_id=:attendeesId and TO_CHAR(ATTENDANCE_DATE,'DD-MM-YY')=TO_CHAR(SYSDATE,'DD-MM-YY')",nativeQuery=true)
+    @Query(value="select * from Tac_Course_Attendence where attendees_id=:attendeesId and to_date(ATTENDANCE_DATE,'DD-MM-YY')=to_date(SYSDATE,'DD-MM-YY')",nativeQuery=true)
     TacCourseAttendence findAttendance(BigDecimal attendeesId);
 }
