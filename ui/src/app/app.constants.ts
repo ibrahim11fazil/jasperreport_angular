@@ -178,9 +178,9 @@ export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+user+"/update-role-and-permi
 
 
 //FILE UPLOADING
-export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
-export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"
-export const GET_CERTIFICATE=  BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
+export const  UPLOAD_FILE   =     BASE_URL_FILE+fileUploading+"/uploadFile"
+export const  DOWNLOAD_FILE =     BASE_URL_FILE+fileUploading+"/downloadFile"
+export const GET_CERTIFICATE=     BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
 export const GENERATE_CERTIFICATE=BASE_URL_FILE+fileUploading+"/generate-certificate"
 export const LIST_CERTIFICATE=BASE_URL_FILE+fileUploading+"/list-certificates"
 

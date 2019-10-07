@@ -4,15 +4,24 @@
               [scrollWindow]="false" style="height: 500px; overflow-y: scroll;">  
           
               <table mat-table [dataSource]="ds">  
-                <ng-container matColumnDef="id">  
+                <!-- <ng-container matColumnDef="id">  
                   <th mat-header-cell *matHeaderCellDef> WorkflowId </th>  
                   <td mat-cell *matCellDef="let element"> {{element.id}} </td>  
-                </ng-container>  
+                </ng-container>   -->
                  
+                <ng-container matColumnDef="createdOn">  
+                    <th mat-header-cell *matHeaderCellDef> createdOn </th>  
+                    <td mat-cell *matCellDef="let element"> {{element.userRequestModel.createdOn}} </td>  
+                  </ng-container> 
+
                 <ng-container matColumnDef="name">  
                   <th mat-header-cell *matHeaderCellDef> name </th>  
                   <td mat-cell *matCellDef="let element"> {{element.name}} </td>  
                 </ng-container>  
+
+               
+
+                
                 
                 <ng-container matColumnDef="workflowType">  
                   <th mat-header-cell *matHeaderCellDef> workflowType</th>  
