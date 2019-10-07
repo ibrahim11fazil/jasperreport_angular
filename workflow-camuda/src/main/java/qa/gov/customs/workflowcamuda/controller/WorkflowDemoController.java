@@ -52,7 +52,9 @@ public class WorkflowDemoController {
     //Permission All User have the permission to create a request
     @PreAuthorize("hasAnyAuthority('start-workflow')")
     @RequestMapping(value="/demo/workflow-start-request", method= RequestMethod.POST)
-    public ResponseType startProcessInstance(@RequestBody UserRequestModel request, @RequestHeader(name="Authorization") String token, @AuthenticationPrincipal CustomPrincipal principal) {
+    public ResponseType startProcessInstance(@RequestBody UserRequestModel request,
+                                             @RequestHeader(name="Authorization") String token,
+                                             @AuthenticationPrincipal CustomPrincipal principal) {
         EmpModel requestedEmployee = null;
         boolean createdStatus=false;
         if(request!=null && request.getWorkflowType()!=null){
