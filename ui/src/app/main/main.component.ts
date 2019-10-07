@@ -26,8 +26,8 @@ const screenfull = require('screenfull');
 export class MainComponent implements OnInit, OnDestroy{
 
    currentUrl            : any;
-   root                  : any = 'ltr';
-   layout                : any = 'ltr';
+   root                  : any = 'rtl';
+   layout                : any = 'rtl';
    currentLang           : any = 'ar'; //en
    customizerIn          : boolean = false;
    showSettings          : boolean = false;
@@ -145,7 +145,8 @@ export class MainComponent implements OnInit, OnDestroy{
                private activatedRoute: ActivatedRoute ) {
       this.layout = "rtl";   
       const browserLang: string = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+      //translate.use(browserLang.match(/en|fr/) ? browserLang : 'ar');
+      translate.use('ar');
 
       // this.tourService.initialize([{
       //    anchorId: 'start.tour',
