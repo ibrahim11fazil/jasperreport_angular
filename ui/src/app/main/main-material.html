@@ -79,13 +79,13 @@
          <a class="navbar-brand" href="#">{{header}}</a>
          <breadcrumb class="gene-breadcrumbs"></breadcrumb>
          <span fxFlex></span>
-         <div class="search-bar" fxFlex>
+         <!-- <div class="search-bar" fxFlex>
             <form class="search-form" fxShow="false" fxShow.gt-xs tourAnchor="tour-search">
                <mat-form-field>
                   <input matInput placeholder="Search">
                </mat-form-field>
             </form>
-         </div>
+         </div> -->
          <div class="secondary-menu">
             <button fxHide="true" fxHide.gt-sm="false" mat-button class="fullscreen-toggle" (click)="toggleFullscreen()" tourAnchor="tour-full-screen">
                <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
@@ -96,9 +96,9 @@
                   <mat-icon>account_circle</mat-icon>
                </div>
             </button>
-            <button (click)="end.toggle()" mat-icon-button class="overflow-visible">
+            <!-- <button (click)="end.toggle()" mat-icon-button class="overflow-visible">
                <mat-icon>notifications</mat-icon>
-            </button>
+            </button> -->
             <!-- <button mat-button [matMenuTriggerFor]="shopping_cart">
                <mat-icon class="material-icons icon-color" matBadge="{{ecommerceService.cartProductLength}}" matBadgeColor="warn" >shopping_cart</mat-icon>
             </button> -->
@@ -268,7 +268,7 @@
                <mat-checkbox [(ngModel)]="dark" (change) = "addClassOnBody($event)" [align]="end">{{'Dark Mode'| translate }}</mat-checkbox>
             </div>
             <div>
-               <mat-checkbox (change)="changeRTL($event.checked)" >{{'RTL'| translate }}</mat-checkbox>
+               <mat-checkbox (change)="changeRTL($event.checked)" >{{'Layout'| translate }}</mat-checkbox>
             </div>
             <div>
                <mat-select placeholder="Language" class="mt-1" [(ngModel)]="currentLang" #langSelect="ngModel" (ngModelChange)="translate.use(currentLang)">
@@ -472,14 +472,14 @@
          <mat-icon>account_circle</mat-icon>
          <span>{{'Profile'|translate}}</span>
       </button>
-      <button mat-menu-item>
+      <!-- <button mat-menu-item>
          <mat-icon>settings</mat-icon>
          <span>{{'Settings'|translate}}</span>
       </button>
       <button mat-menu-item>
          <mat-icon>help</mat-icon>
          <span>{{'Help'|translate}}</span>
-      </button>
+      </button> -->
       <mat-divider></mat-divider>
       <button (click)="logOut()" mat-menu-item>
          <mat-icon>exit_to_app</mat-icon>
