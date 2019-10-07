@@ -7,6 +7,7 @@ export class EmpData {
    department:String
    count:Number
    attendanceFlag:Number
+   checked:Boolean
    percentage:Number
    generated:Boolean
    url:String

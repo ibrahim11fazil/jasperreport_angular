@@ -117,6 +117,37 @@ public class AttendanceServiceImpl implements AttendanceService {
 //                workDays);
         return workDays;
     }
+    @Override
+    public List<EmployeeData> getPreviousAttendance(FindAttendance previousAttendance)
+    {
+
+        //List<EmployeeData> empPreviousDayAttendance
+
+        List<EmployeeData> empdata=new ArrayList<>();
+        List<Object[]> objects =mawaredRepo.getEmpPreviousAttendance(previousAttendance.getActivation_id(),previousAttendance.getCourse_date());
+        for (Object[] o : objects) {
+
+            EmployeeData emp = new EmployeeData();
+            emp.setJobId((String) o[0]);
+            emp.setCnameAr((String) o[1]);
+            emp.setDepartment((String) o[2]);
+            emp.setJobTitle((String) o[3]);
+            emp.setMobile((String) o[4]);
+            emp.setAttendeesId((BigDecimal) o[6]);
+            emp.setAttendanceFlag((BigDecimal) o[7]);
+            if(emp.getAttendanceFlag().compareTo(new BigDecimal(1))==0)
+            {
+            emp.setChecked(true);
+            }
+            else
+            {
+                emp.setChecked(false);
+            }
+            empdata.add(emp);
+        }
+        return empdata;
+
+    }
 
     @Override
     public Set<EmployeeData> getCourseCompletionAttendance(FindAttendance getAttendance)

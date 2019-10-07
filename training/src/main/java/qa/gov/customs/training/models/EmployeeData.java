@@ -28,7 +28,15 @@ public class EmployeeData {
     private BigDecimal count;
     private int percentage;
     private BigDecimal attendanceFlag;
+    private boolean isChecked;
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public String getJobId() {
         return jobId;
