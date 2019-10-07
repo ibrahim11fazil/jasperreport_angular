@@ -145,8 +145,9 @@ export class MainComponent implements OnInit, OnDestroy{
                private activatedRoute: ActivatedRoute ) {
       this.layout = "rtl";   
       const browserLang: string = translate.getBrowserLang();
+     
       //translate.use(browserLang.match(/en|fr/) ? browserLang : 'ar');
-      translate.use('ar');
+      translate.use('ar'); 
 
       // this.tourService.initialize([{
       //    anchorId: 'start.tour',
@@ -280,6 +281,12 @@ export class MainComponent implements OnInit, OnDestroy{
       breadcrumbService.addFriendlyNameForRoute('/crm/project-detail', 'Project Details');
       breadcrumbService.addFriendlyNameForRoute('/crm/clients', 'Clients');
       breadcrumbService.addFriendlyNameForRoute('/crm/reports', 'Reports');
+   }
+
+   ngDoCheck(): void {
+      //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+      //Add 'implements DoCheck' to the class.
+      this.translate.use('ar'); 
    }
 
    ngOnInit() {
