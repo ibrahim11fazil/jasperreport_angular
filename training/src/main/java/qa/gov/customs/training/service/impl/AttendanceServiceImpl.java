@@ -6,10 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
 import qa.gov.customs.training.models.FindAttendance;
+import qa.gov.customs.training.repository.CourseAttendeesRepository;
 import qa.gov.customs.training.repository.CourseRepository;
 import qa.gov.customs.training.repository.MawaredRepository;
 import qa.gov.customs.training.repository.TacAttendanceRepository;
@@ -31,6 +33,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     TacAttendanceRepository attendanceRepo;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    CourseAttendeesRepository attendeesRepo;
 
     @Override
     public Set<EmployeeData> getEmployeeDataForAttendance(TacCourseActivation activation)
@@ -137,6 +141,30 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             emp.setPercentage(percentageAttendance.intValue());
             empdata.add(emp);
+            if(percentageAttendance==100)
+            {
+                BigDecimal courseStatus=new BigDecimal(1);
+                try {
+                    attendeesRepo.updateCourseStatus(emp.getAttendeesId(), courseStatus);
+                }
+                catch(Exception e)
+                {
+
+                }
+
+            }
+            else
+            {
+                BigDecimal courseStatus=new BigDecimal(0);
+                try {
+                    attendeesRepo.updateCourseStatus(emp.getAttendeesId(), courseStatus);
+                }
+                catch(Exception e)
+                {
+
+                }
+
+            }
         }
         return empdata;
     }

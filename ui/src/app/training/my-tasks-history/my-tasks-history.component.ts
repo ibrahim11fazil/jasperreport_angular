@@ -31,7 +31,7 @@ export class MyTasksHistoryComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST;
   durationValueString: String;
   dataStatus = false;
-  displayedColumns: string[] = [ 'id', 'time', 'userId' , 'edit'];
+  displayedColumns: string[] = [  'time', 'userId' , 'edit'];
   data : UserRequestModel;
   items: string[] = [];
   historyExecutions:HistoryUserResponseByProcess[]=[]

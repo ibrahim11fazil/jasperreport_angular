@@ -328,7 +328,7 @@ export class CourseManagementComponent implements OnInit {
           })
 
         var item = this.userList.filter(item => item.id == this.activation.coordinator)
-        if (item != null) {
+        if (item != null && item.length>0) {
           this.tacCoordinatorString.push(item[0].username);
 
         }
@@ -352,16 +352,25 @@ export class CourseManagementComponent implements OnInit {
   dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
     debugger;
     this.empRows = null;
+    this.displayAttendance = true;
     this.displayCourseCompletionForm = false;
     var dateCheck = new Date();
     dateCheck.setDate(dateCheck.getDate() - 1);
     if (date <= dateCheck) {
-      this.displayAttendance = false;
+      let course = new FindAttendance(0, null, null)
+      course.activation_id = this.eventCourseDetail.activation_id;
+      course.course_date=date;
+
+      this.trainingService.previousDayAttendnace(course).subscribe(
+        data => {
+          var response = <ResponseEmpData>data
+        })
+     // this.displayAttendance = false;
       this.courseCompletion = false;
-      this.toastr.error("Could not mark attendance for Previous Dates")
+     // this.toastr.error("Could not mark attendance for Previous Dates")
     }
     else {
-      this.displayAttendance = true;
+     // this.displayAttendance = true;
       this.courseCompletion = false;
       if (isSameMonth(date, this.viewDate)) {
         if (
@@ -423,6 +432,7 @@ export class CourseManagementComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     console.log("handle event")
     debugger;
+    this.displayAttendance=true;
     this.modalData = { event, action };
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = this.eventCourseDetail.activation_id;

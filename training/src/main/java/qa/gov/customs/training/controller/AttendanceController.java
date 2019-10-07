@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
@@ -126,7 +127,21 @@ public class AttendanceController {
         ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
                 empData);
         return response;
+
+
     }
+
+
+
+    @PreAuthorize("hasAnyAuthority('get_previous_attendance')")
+    @PostMapping("/get-previous-attendance")
+    public ResponseType getPreviousDayAttendance(@RequestBody FindAttendance getPreviousAttendance) {
+
+        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
+                null);
+        return response;
+    }
+
 
     @PreAuthorize("hasAnyAuthority('get_course_filter')")
     @PostMapping("/get-course-filter")

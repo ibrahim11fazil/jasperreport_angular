@@ -158,8 +158,7 @@ export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses"
 export const  FUTURE_COURSE_FILTER=BASE_URL+training+"/get-course-filter"
 export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-date-by-activation"
-
-
+export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
 
 
 //USER MANAGEMENT
@@ -178,9 +177,9 @@ export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+user+"/update-role-and-permi
 
 
 //FILE UPLOADING
-export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
-export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"
-export const GET_CERTIFICATE=  BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
+export const  UPLOAD_FILE   =     BASE_URL_FILE+fileUploading+"/uploadFile"
+export const  DOWNLOAD_FILE =     BASE_URL_FILE+fileUploading+"/downloadFile"
+export const GET_CERTIFICATE=     BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
 export const GENERATE_CERTIFICATE=BASE_URL_FILE+fileUploading+"/generate-certificate"
 export const LIST_CERTIFICATE=BASE_URL_FILE+fileUploading+"/list-certificates"
 
