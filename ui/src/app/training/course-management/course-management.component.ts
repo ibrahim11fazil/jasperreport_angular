@@ -357,15 +357,17 @@ export class CourseManagementComponent implements OnInit {
     var dateCheck = new Date();
     dateCheck.setDate(dateCheck.getDate() - 1);
     if (date <= dateCheck) {
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
-      courseActivation.activationId = this.eventCourseDetail.activation_id;
-      this.trainingService.previousDayAttendnace(courseActivation).subscribe(
+      let course = new FindAttendance(0, null, null)
+      course.activation_id = this.eventCourseDetail.activation_id;
+      course.course_date=date;
+
+      this.trainingService.previousDayAttendnace(course).subscribe(
         data => {
           var response = <ResponseEmpData>data
         })
      // this.displayAttendance = false;
       this.courseCompletion = false;
-      this.toastr.error("Could not mark attendance for Previous Dates")
+     // this.toastr.error("Could not mark attendance for Previous Dates")
     }
     else {
      // this.displayAttendance = true;

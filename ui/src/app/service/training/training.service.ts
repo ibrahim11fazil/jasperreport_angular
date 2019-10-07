@@ -93,8 +93,8 @@ export class TrainingService {
     return this.httpClient.post(LINK_COURSE, course);
 
   }
-  previousDayAttendnace(activation: TacActivation): Observable<Object> {
-    return this.httpClient.post(PREVIOUS_ATTENDANCE, activation);
+  previousDayAttendnace(course: FindAttendance): Observable<Object> {
+    return this.httpClient.post(PREVIOUS_ATTENDANCE, course);
   }
 
 // getAllInstructor():Observable<Object> {

@@ -161,8 +161,6 @@ export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-da
 export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
 
 
-
-
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
