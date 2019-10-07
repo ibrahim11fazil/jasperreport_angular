@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
+import qa.gov.customs.workflowcamuda.model.SearchTask;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
@@ -108,9 +109,9 @@ public class WorkFlowController {
 
 
     @PreAuthorize("hasAnyAuthority('my_tasks')")
-    @RequestMapping(value="/my-tasks", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getTasks(@AuthenticationPrincipal CustomPrincipal principal) {
-        List<Task> tasks = workflowServiceEmp.getTasks(principal.getJid());
+    @RequestMapping(value="/my-tasks", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getTasks( @RequestBody SearchTask searchTask, @AuthenticationPrincipal CustomPrincipal principal) {
+        List<Task> tasks = workflowServiceEmp.getCandidateTasksPagenated(principal.getJid(),searchTask.getStart(),searchTask.getLimit());
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
             TaskRepresentation taskRepresentation=   new TaskRepresentation(
@@ -132,9 +133,10 @@ public class WorkFlowController {
     }
 
     @PreAuthorize("hasAnyAuthority('my_tasks')")
-    @RequestMapping(value="/my-tasks-delegation", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getTasksDelegations(@AuthenticationPrincipal CustomPrincipal principal) {
-        List<Task> tasks = workflowServiceEmp.getCandidateTasks(principal.getJid());
+    @RequestMapping(value="/my-tasks-delegation", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getTasksDelegations(@RequestBody SearchTask searchTask, @AuthenticationPrincipal CustomPrincipal principal) {
+        List<Task> tasks = workflowServiceEmp.getTasksPagenated(principal.getJid(),
+                searchTask.getStart(),searchTask.getLimit());
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
             TaskRepresentation taskRepresentation=   new TaskRepresentation(

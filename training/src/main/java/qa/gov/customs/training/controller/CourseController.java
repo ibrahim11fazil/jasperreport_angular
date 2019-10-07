@@ -635,17 +635,20 @@ public class CourseController {
 
 	@PreAuthorize("hasAnyAuthority('course_date_by_activation')")
 	@PostMapping ("/course-date-by-activation")
-	public ResponseType courseDateByActivation(@RequestBody  BigDecimal activationId)
+	public ResponseType courseDateByActivation(@RequestBody  ActivationDate activation)
 	{
-	    ActivationDate actDate=courseService.getDatesForActivation(activationId);
-		if(actDate!=null) {
+		if(activation!=null && activation.getActivationId()!=null) {
+			ActivationDate actDate = courseService.getDatesForActivation(activation.getActivationId());
+			if (actDate != null) {
 
-			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, actDate);
-			return response;
-		}
-		else
-		{
-			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				ResponseType response = new ResponseType(Constants.SUCCESS, "", true, actDate);
+				return response;
+			} else {
+				ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+				return response;
+			}
+		}else{
+			ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
 			return response;
 		}
 

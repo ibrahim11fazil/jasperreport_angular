@@ -44,10 +44,10 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
         else{
          tacWorkflowReference.setToUser(requestModel.getJobId());
         }
-        if(tacWorkflowReference.getActivationId()!=null)
-            tacWorkflowReference.setActivationId(tacWorkflowReference.getActivationId());
-        if(tacWorkflowReference.getCourseId()!=null)
-            tacWorkflowReference.setCourseId(tacWorkflowReference.getCourseId());
+        if(requestModel.getCourseActivationId()!=null)
+            tacWorkflowReference.setActivationId(new BigInteger(requestModel.getCourseActivationId()));
+        if(requestModel.getCourseId()!=null)
+            tacWorkflowReference.setCourseId(new BigInteger(requestModel.getCourseId()));
             requestRepository.save(tacWorkflowReference);
         requestModel.setTrainingRequestId(idGenerated);
         return requestModel;

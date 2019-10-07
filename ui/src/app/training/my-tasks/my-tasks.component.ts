@@ -32,7 +32,7 @@ export class MyTasksComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST;
   durationValueString: String;
   dataStatus = false;
-  displayedColumns: string[] = ['id', 'name', 'workflowType','jobId', 'cnameAr', 'edit'];
+  displayedColumns: string[] = ['createdOn', 'name',  'workflowType','jobId', 'cnameAr', 'edit'];
   data : TaskResponseData;
   items: string[] = [];
   historyExecutions:UserTaskResponseHistory[]=[]
@@ -73,7 +73,7 @@ export class MyTasksComponent implements OnInit {
     searchString.jobId = this.form.value.searchControl
     searchString.limit = PAGE_LIMIT
     searchString.start = this.page
-    this.workflowService.listMyTasks().subscribe(
+    this.workflowService.listMyTasksWithDelegations(searchString).subscribe(
       data => {
         var response = <TaskResponse>data
         if (response.status && response.data.length>0) {

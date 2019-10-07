@@ -135,6 +135,10 @@ public class WorkflowImpl {
         return taskService.createTaskQuery().taskAssignee(assignee).list();
     }
 
+    public List<Task> getTasksPagenated(String assignee,int firstResult,int maxResult) {
+        return taskService.createTaskQuery().taskAssignee(assignee).listPage(firstResult,maxResult);
+    }
+
     public List<Task> getCandidateTasks(String delegations) {
         //return  taskService.createTaskQuery().taskCandidateUser(delegations).list();
         return taskService.createTaskQuery()
@@ -146,6 +150,17 @@ public class WorkflowImpl {
                 .list();
     }
 
+    public List<Task> getCandidateTasksPagenated(String delegations,int firstResult,int maxResult) {
+        //return  taskService.createTaskQuery().taskCandidateUser(delegations).list();
+        return taskService.createTaskQuery()
+                .or()
+                .taskAssignee(delegations)
+                .taskCandidateUser(delegations)
+                .includeAssignedTasks()
+                .endOr()
+                .listPage(firstResult,maxResult);
+    }
+
     public UserRequestModel getProcessDetails(String executionId) {
         try {
             UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId, "applicant");
@@ -154,6 +169,7 @@ public class WorkflowImpl {
         }catch (Exception e)
         {
             e.printStackTrace();
+            logger.error(e.toString());
             //TODO log and
         }
         return null;
@@ -169,7 +185,7 @@ public class WorkflowImpl {
             taskService.complete(taskId, null);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString());
             //TODO log error
             return false;
         }

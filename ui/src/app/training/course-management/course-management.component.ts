@@ -328,7 +328,7 @@ export class CourseManagementComponent implements OnInit {
           })
 
         var item = this.userList.filter(item => item.id == this.activation.coordinator)
-        if (item != null) {
+        if (item != null && item.length>0) {
           this.tacCoordinatorString.push(item[0].username);
 
         }
