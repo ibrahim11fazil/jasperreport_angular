@@ -112,6 +112,7 @@ export class CourseManagementComponent implements OnInit {
   certificateList: CertificateRequest[];
   temp = [];
   attendanceMarked: boolean = false;
+  updateAttendance:boolean=false;
 
 
 
@@ -354,9 +355,11 @@ export class CourseManagementComponent implements OnInit {
     this.empRows = null;
     this.displayAttendance = true;
     this.displayCourseCompletionForm = false;
+
     var dateCheck = new Date();
     dateCheck.setDate(dateCheck.getDate() - 1);
     if (date <= dateCheck) {
+      this.updateAttendance=true;
       let course = new FindAttendance(0, null, null)
       course.activation_id = this.eventCourseDetail.activation_id;
       course.course_date=date;
@@ -364,12 +367,15 @@ export class CourseManagementComponent implements OnInit {
       this.trainingService.previousDayAttendnace(course).subscribe(
         data => {
           var response = <ResponseEmpData>data
+          this.empRows = response.data
+
         })
      // this.displayAttendance = false;
       this.courseCompletion = false;
      // this.toastr.error("Could not mark attendance for Previous Dates")
     }
     else {
+      this.updateAttendance=false;
      // this.displayAttendance = true;
       this.courseCompletion = false;
       if (isSameMonth(date, this.viewDate)) {

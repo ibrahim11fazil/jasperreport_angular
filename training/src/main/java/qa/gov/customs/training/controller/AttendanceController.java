@@ -137,8 +137,10 @@ public class AttendanceController {
     @PostMapping("/get-previous-attendance")
     public ResponseType getPreviousDayAttendance(@RequestBody FindAttendance getPreviousAttendance) {
 
+        List<EmployeeData> empPreviousAttendance=attendanceService.getPreviousAttendance(getPreviousAttendance);
+
         ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
-                null);
+                empPreviousAttendance);
         return response;
     }
 
