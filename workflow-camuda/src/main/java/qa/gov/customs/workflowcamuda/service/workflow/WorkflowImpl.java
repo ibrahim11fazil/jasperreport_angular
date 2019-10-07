@@ -169,6 +169,7 @@ public class WorkflowImpl {
         }catch (Exception e)
         {
             e.printStackTrace();
+            logger.error(e.toString());
             //TODO log and
         }
         return null;
@@ -184,7 +185,7 @@ public class WorkflowImpl {
             taskService.complete(taskId, null);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString());
             //TODO log error
             return false;
         }
