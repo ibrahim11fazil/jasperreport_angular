@@ -24,7 +24,7 @@ import qa.gov.customs.workflowcamuda.config.Publisher;
 import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
 import qa.gov.customs.workflowcamuda.proxy.TrainingProxyService;
-import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
+import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.proxy.UserSSOProxy;
 import qa.gov.customs.workflowcamuda.service.RequestService;
 import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
@@ -40,7 +40,7 @@ import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 @Qualifier("workflowImpl")
 public class WorkflowImpl {
 
-    private final UserProxyService userProxyService;
+    private final EmployeeProxyService userProxyService;
     private final UserSSOProxy userSSOProxy;
     private final NotificationProxyService notificationProxyService;
     private final TrainingProxyService trainingProxyService;
@@ -64,7 +64,7 @@ public class WorkflowImpl {
     private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
 
     @Autowired
-    public WorkflowImpl(UserProxyService userProxyService,
+    public WorkflowImpl(EmployeeProxyService userProxyService,
                         NotificationProxyService notificationProxyService,
                         TrainingProxyService trainingProxyService,
                         UserSSOProxy userSSOProxy) {

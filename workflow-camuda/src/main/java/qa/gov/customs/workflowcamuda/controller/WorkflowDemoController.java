@@ -19,7 +19,7 @@ import qa.gov.customs.workflowcamuda.model.ResponseType;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
-import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
+import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 import qa.gov.customs.workflowcamuda.utils.Constants;
@@ -41,10 +41,10 @@ public class WorkflowDemoController {
     @Autowired
     private WorkflowImpl workflowServiceEmp;
 
-    private final UserProxyService userProxyService;
+    private final EmployeeProxyService userProxyService;
 
     @Autowired
-    public WorkflowDemoController( UserProxyService userProxyService) {
+    public WorkflowDemoController(EmployeeProxyService userProxyService) {
         this.userProxyService=userProxyService;
     }
 
