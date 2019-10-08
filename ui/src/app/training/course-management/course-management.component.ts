@@ -432,6 +432,8 @@ export class CourseManagementComponent implements OnInit {
 
   }
 
+  
+
   /**
     * handleEvent method is used to handle the event and action.
     */
@@ -527,6 +529,33 @@ export class CourseManagementComponent implements OnInit {
       }
     )
 
+  }
+
+
+  updatePreviousAttendance(row)
+  {
+    debugger
+    this.displayCourseCompletionForm = false;
+    this.checkboxList.forEach(emp => {
+      let courseAttendance = new TacCourseAttendance(0, null, null, null)
+      let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
+      courseAttendance.tacCourseAttendees = tacCourseAttendees;
+      // courseAttendance.attendanceDate = new Date();
+      courseAttendance.attendanceFlag = 1;//marking as present 
+      this.courseAttendanceList.push(courseAttendance)
+
+
+    });
+    this.trainingService.updatePreviousAttendance(this.courseAttendanceList).subscribe(
+      data => {
+        debugger;
+        var Response = <ITacCourseAttendance>data
+        this.attendanceMarked = true
+        
+      }
+    )
+
+    
   }
   /**
       * markCourseCompletion() method for course completion form for previous courses
