@@ -10,6 +10,7 @@ import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +21,7 @@ import qa.gov.customs.workflowcamuda.model.SearchTask;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
-import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
+import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 import qa.gov.customs.workflowcamuda.utils.Constants;
@@ -40,10 +41,10 @@ public class WorkFlowController {
     @Autowired
     private WorkflowImpl workflowServiceEmp;
 
-    private final UserProxyService userProxyService;
+    private final EmployeeProxyService userProxyService;
 
     @Autowired
-    public WorkFlowController( UserProxyService userProxyService) {
+    public WorkFlowController(EmployeeProxyService userProxyService) {
         this.userProxyService=userProxyService;
     }
 

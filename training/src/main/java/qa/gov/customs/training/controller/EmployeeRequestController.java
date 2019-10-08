@@ -47,9 +47,9 @@ public class EmployeeRequestController {
     public ResponseType saveRequest(@Valid @RequestBody UserRequestModel request,
                                     @RequestHeader(name="Authorization") String token,
                                     @AuthenticationPrincipal CustomPrincipal principal) {
-                UserRequestModel submitedRequest = null;
+                 UserRequestModel submitedRequest = null;
                  submitedRequest =requestService.saveRequest(request);
-                if(submitedRequest!=null) {
+                 if(submitedRequest!=null) {
                     logger.info("Course request Created");
                     //TODO send to the workflow server --- check
                     submitedRequest.setJobId(principal.getJid());
