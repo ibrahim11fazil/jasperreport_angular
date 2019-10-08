@@ -19,11 +19,11 @@ public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttend
 
     @Query(value="select ACTIVATION_ID,JOB_ID,REMARK from TAC_COURSE_ATTENDEES where ACTIVATION_ID=:activationId and  JOB_ID=:jobId",nativeQuery=true)
     List<Object[]> findAttendeesWithJobIdAndActionId(@Param("activationId") BigInteger activationId ,@Param("jobId")  String jobId);
-
-    @Modifying
-    @Transactional
-    @Query(value="insert into TAC_COURSE_ATTENDEES(ACTIVATION_ID,JOB_ID,REMARK) values(:activationId,:jobId,:remark)",nativeQuery=true)
-    void insertAttendeesFromWorkflow(@Param("activationId") BigInteger activationId ,@Param("jobId")  String jobId,@Param("remark")  String remark);
+//
+//    @Modifying
+//    @Transactional
+//    @Query(value="insert into TAC_COURSE_ATTENDEES(ACTIVATION_ID,JOB_ID,REMARK) values(:activationId,:jobId,:remark)",nativeQuery=true)
+//    void insertAttendeesFromWorkflow(@Param("activationId") BigInteger activationId ,@Param("jobId")  String jobId,@Param("remark")  String remark);
 
     @Modifying
     @Transactional

@@ -10,6 +10,8 @@ import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
+
+import java.sql.Clob;
 import java.text.SimpleDateFormat;
 
 import javax.transaction.Transactional;
@@ -59,6 +61,9 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Autowired
 	CourseAttendeesRepository courseAttendeesRepository;
+
+	@Autowired
+	ActivationRepository activationRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
@@ -554,11 +559,21 @@ public class CourseServiceImpl  implements CourseService {
 	@Override
 	public int insertAttendeesFromWorkflow(BigInteger activationId, String jobId, String remark) {
 		try {
-			courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
+			TacCourseAttendees item = new TacCourseAttendees();
+			item.setAttendeesId(new BigDecimal("0"));
+			item.setJobId(jobId);
+			TacCourseActivation activation = activationRepository.findByCourseId(new BigDecimal(activationId));
+			if(activation==null)  { activation =new TacCourseActivation();  activation.setActivationId(new BigDecimal(activationId));   }
+			item.setTacCourseActivation(activation);
+			Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
+			item.setRemark(myClob);
+			courseAttendeesRepository.save(item);
+			//courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
 			return 1;
 		}catch (Exception e){
 			e.printStackTrace();
 			//TODO log error
+			logger.info("Error while enrolling workflowId:" + remark +" activationId: "+  activationId + " jobid: "+ jobId);
 			logger.error(e.toString());
 			return 0;
 		}
