@@ -23,9 +23,11 @@ import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
 import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
+import qa.gov.customs.workflowcamuda.service.RequestService;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
+import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,9 @@ public class WorkFlowController {
     private WorkflowImpl workflowServiceEmp;
 
     private final EmployeeProxyService userProxyService;
+
+    @Autowired
+    private RequestService requestService;
 
     @Autowired
     public WorkFlowController(EmployeeProxyService userProxyService) {
@@ -76,7 +81,7 @@ public class WorkFlowController {
         try {
             logger.info("### Request started for user" + request.getJobId());
             //TODO need to change the request.getUserId() to  principal.getJid()
-            ResponseType userdata = userProxyService.getUserById(request.getJobId(),training_token);
+            ResponseType userdata = userProxyService.getUserById(request.getForUserJobId(),training_token);
             if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
                 ObjectMapper mapper = new ObjectMapper();
                 requestedEmployee = mapper.convertValue(
@@ -98,13 +103,15 @@ public class WorkFlowController {
 
             }else{
                 //TODO log error
-                logger.info("error in async2 ");
+                requestService.saveOrUpdateWorkflow(request, WorkflowStatus.FAILED);
+                logger.error("asyncWorkflowStartAction : Error in before start processing ");
             }
         }
         catch (Exception e){
+            requestService.saveOrUpdateWorkflow(request, WorkflowStatus.FAILED);
                e.printStackTrace();
             //TODO log error
-             logger.info("error in async");
+             logger.error("error in async");
         }
     }
 

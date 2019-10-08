@@ -560,8 +560,11 @@ public class CourseServiceImpl  implements CourseService {
 	public int insertAttendeesFromWorkflow(BigInteger activationId, String jobId, String remark) {
 		try {
 			TacCourseAttendees item = new TacCourseAttendees();
+			item.setAttendeesId(new BigDecimal("0"));
 			item.setJobId(jobId);
-			item.setTacCourseActivation(activationRepository.findByCourseId(new BigDecimal(activationId)));
+			TacCourseActivation activation = activationRepository.findByCourseId(new BigDecimal(activationId));
+			if(activation==null)  { activation =new TacCourseActivation();  activation.setActivationId(new BigDecimal(activationId));   }
+			item.setTacCourseActivation(activation);
 			Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
 			item.setRemark(myClob);
 			courseAttendeesRepository.save(item);
@@ -570,6 +573,7 @@ public class CourseServiceImpl  implements CourseService {
 		}catch (Exception e){
 			e.printStackTrace();
 			//TODO log error
+			logger.info("Error while enrolling workflowId:" + remark +" activationId: "+  activationId + " jobid: "+ jobId);
 			logger.error(e.toString());
 			return 0;
 		}

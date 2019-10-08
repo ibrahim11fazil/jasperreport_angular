@@ -57,10 +57,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-
     public TacCourseAttendence  markAttendance(TacCourseAttendence attendance) {
-
-
         TacCourseAttendence attendanceData = attendanceRepo.save(attendance);
         return attendanceData;
     }

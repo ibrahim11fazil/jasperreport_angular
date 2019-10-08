@@ -117,7 +117,7 @@ public class WorkflowImpl {
             } else if (type.equals(TYPE_8_EMPLOYEE_SUBSTITUTE_REQUEST)) {
                 processInstance = runtimeService.startProcessInstanceByKey(TYPE_8_PROCESS, vars);
             }
-
+            //TODO here wait 1 min to create the project --> error some time
             if (processInstance.getId() != null) {
                 boolean status = userRequestAndCompleteTask(model, processInstance.getId());
                 if (status) {
