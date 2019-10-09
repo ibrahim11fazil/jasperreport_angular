@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
 import java.math.BigInteger;
 
-@FeignClient(name="user")
+@FeignClient(name="user",fallback = UserSSOProxyFallback.class)
 public interface UserSSOProxy {
 
     @PostMapping ("/find-all-system-users-by-role-role-id-workflow/{roleId}/{token}")

@@ -20,5 +20,6 @@ public interface AttendanceService {
    Set<EmployeeData>  getCourseCompletionAttendance(FindAttendance getAttendance);
    int getWorkingDays(FindAttendance getAttendance);
    List<CourseManagement> getCourseFilter(BigDecimal courseTime);
+  List<EmployeeData> getPreviousAttendance(FindAttendance previousAttendance);
 
 }

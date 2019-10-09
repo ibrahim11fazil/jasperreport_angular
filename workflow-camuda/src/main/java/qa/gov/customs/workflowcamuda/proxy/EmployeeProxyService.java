@@ -4,14 +4,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
-import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 
 
-@FeignClient(name="employee")
+@FeignClient(name="employee",fallback = EmployeeProxyFallback.class)
 //RibbonClient(name="employee")
-public interface UserProxyService {
+public interface EmployeeProxyService {
 
 
     @PostMapping(value="/get-employee-by-jobid-workflow/{id}/{wtoken}",consumes= MediaType.APPLICATION_JSON_VALUE)

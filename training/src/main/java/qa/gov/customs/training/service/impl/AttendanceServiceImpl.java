@@ -57,10 +57,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-
     public TacCourseAttendence  markAttendance(TacCourseAttendence attendance) {
-
-
         TacCourseAttendence attendanceData = attendanceRepo.save(attendance);
         return attendanceData;
     }
@@ -91,7 +88,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public TacCourseAttendence  checkIfAlreadyMarked(TacCourseAttendence attendance,Date date)
     {
-        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId());
+        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId(),date);
         return attendancePresent;
     }
     @ Override
@@ -116,6 +113,37 @@ public class AttendanceServiceImpl implements AttendanceService {
 //        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
 //                workDays);
         return workDays;
+    }
+    @Override
+    public List<EmployeeData> getPreviousAttendance(FindAttendance previousAttendance)
+    {
+
+        //List<EmployeeData> empPreviousDayAttendance
+
+        List<EmployeeData> empdata=new ArrayList<>();
+        List<Object[]> objects =mawaredRepo.getEmpPreviousAttendance(previousAttendance.getActivation_id(),previousAttendance.getCourse_date());
+        for (Object[] o : objects) {
+
+            EmployeeData emp = new EmployeeData();
+            emp.setJobId((String) o[0]);
+            emp.setCnameAr((String) o[1]);
+            emp.setDepartment((String) o[2]);
+            emp.setJobTitle((String) o[3]);
+            emp.setMobile((String) o[4]);
+            emp.setAttendeesId((BigDecimal) o[6]);
+            emp.setAttendanceFlag((BigDecimal) o[7]);
+            if(emp.getAttendanceFlag().compareTo(new BigDecimal(1))==0)
+            {
+            emp.setChecked(true);
+            }
+            else
+            {
+                emp.setChecked(false);
+            }
+            empdata.add(emp);
+        }
+        return empdata;
+
     }
 
     @Override

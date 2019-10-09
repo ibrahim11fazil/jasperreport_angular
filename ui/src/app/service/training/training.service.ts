@@ -217,6 +217,7 @@ export class TrainingService {
   markAttendanceOfEach(attendance:TacCourseAttendance[]):Observable<Object> {
     return this.httpClient.post(MARK_ATTENDANCE,attendance);
   }
+ 
 
   courseCompletionDetails(course:FindAttendance):Observable<Object> {
     return this.httpClient.post(GET_COURSE_COMPLETION,course);

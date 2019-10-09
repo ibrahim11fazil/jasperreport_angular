@@ -395,6 +395,17 @@ var welcome_menu =
   ]
 };
 
+var smart_menu =
+{
+  state: 'training',
+  name: 'Smart Engine',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'welcome', name: 'Welcome' }
+  ]
+};
+
 var ci_system_menu =
 {
   state: 'training',
@@ -443,6 +454,7 @@ export class MenuItems {
     jobcard_menu.children=[]
     ci_system_menu.children=[]
     request_menu.children=[]
+    smart_menu.children=[]
 
     if (permissions.length > 0) {
      // debugger
@@ -526,6 +538,11 @@ export class MenuItems {
           case "mn_req_history":
             request_menu.children.push({ state: 'my-tasks-history', name: 'History' })
             break
+
+          //SMART MENU
+          case "mn_smart_emp":
+              smart_menu.children.push({ state: 'smart-profile', name: 'Smart Profile' })
+              break 
         }
       })
     }
@@ -556,6 +573,9 @@ export class MenuItems {
             break
           case "mn_ci_main":
             dynamicMenu.push(ci_system_menu)
+            break
+          case "mn_smart_main":
+            dynamicMenu.push(smart_menu)
             break
         }
       })
