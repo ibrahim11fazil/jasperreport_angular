@@ -108,5 +108,19 @@ public class Constants {
 
 
 
+    public static String ROLE_TRAINING_ADMIN="train_admin";
+    public static String ROLE_SYS_ADMIN="sys_admin";
+    public static String ROLE_TRAINING_MANAGER="train_mgr";
+    public static String ROLE_TRAINING_ASSIS_MANAGER="train_asst_mgr";
+    public static String ROLE_TRAINING_COORDINATOR="train_coordinator";
+    public static String ROLE_TRAINING_HEAD_TCE="head_tce";
+    public static String ROLE_HR_DEPT="hr_dept";
+    public static String ROLE_CHAIRMAN_ASSISTANT="chairman_asst";
+    public static String ROLE_CI_SYSTEM="ci_system";
+    public static String ROLE_AUDI_DEPT="audi_dept";
+    public static String ROLE_DEPT_MGR="dept_mgr";
+    public static String ROLE_DEPT_HEAD="dept_head";
+    public static String ROLE_EMPLOYEE="employee";
+
 
 }

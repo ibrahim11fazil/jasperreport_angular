@@ -271,6 +271,38 @@ public class EmployeeController {
 
 	}
 
+	@PreAuthorize("hasAnyAuthority('employees_under_supervisor')")
+	@PostMapping("/employees_under_supervisor_check/{requestedUser}")
+	public ResponseType employeesUnderSupervisorCheck(@PathVariable("requestedUser") String requestedUser, @AuthenticationPrincipal CustomPrincipal principal) {
+    	Boolean isValid=false;
+		logger.info("$$$$$$------>  "+principal.getJid());
+		int cnt= mawaredService.getCountOfHead(principal.getJid());
+		if (cnt>0) {
+			List<EmployeeUnderSupervisor> submittedRequest = mawaredService.employeesUnderSupervisor(principal.getJid());
+			if (submittedRequest != null && submittedRequest.size()>0) {
+				for(EmployeeUnderSupervisor item : submittedRequest){
+					if(item.getLegacyCode().equals(requestedUser)){
+						isValid=true;
+					}
+				}
+				ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+						isValid);
+				return response;
+			} else {
+				ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+						isValid);
+				return response;
+			}
+		}
+		else
+		{
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.NO_DATA_FOUND, false,
+					isValid);
+			return response;
+		}
+
+	}
+
 
 	@PreAuthorize("hasAnyAuthority('workflow_validations')")
 	@PostMapping("/check-the-user-is-absent-between-dates")
