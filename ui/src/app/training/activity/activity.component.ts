@@ -33,7 +33,8 @@ export class ActivityComponent implements OnInit {
   ngOnInit() {
     this.pageTitleService.setTitle("COURSE DEFINITION");
     this.form = this.fb.group({
-      activityName: [null, Validators.required],
+      // activityName: [null, Validators.required],
+      activityName:  [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(25)])]
     });
     this.searchActivity()
   }

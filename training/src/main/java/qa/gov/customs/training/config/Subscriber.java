@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.training.controller.CourseController;
+import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.models.AttendeesDetails;
 import qa.gov.customs.training.models.TrainingRequestStatus;
 import qa.gov.customs.training.models.UserRequestModel;
@@ -54,8 +55,12 @@ public class Subscriber {
             if(model.getCourseId()!=null && model.getCourseActivationId()!=null && model.getForUserJobId()!=null){
                List<AttendeesDetails> items =  courseService.findAttendeesWithJobIdAndActionId(new BigInteger(model.getCourseActivationId()),model.getForUserJobId());
                if(items==null || items.size()==0){
-                   courseService.insertAttendeesFromWorkflow(new BigInteger(model.getCourseActivationId()),model.getForUserJobId(),msg.getRequestId());
-                   logger.info("Enrolled "+ msg.getRequestId());
+                 TacCourseAttendees attendees = courseService.insertAttendeesFromWorkflow(new BigInteger(model.getCourseActivationId()),model.getForUserJobId(),msg.getRequestId());
+                  if(attendees!=null){
+                      logger.info("Enrolled "+ msg.getRequestId());
+                  }else{
+                      logger.info("Not Enrolled DB insert error " + msg.getRequestId());
+                  }
                }else{
                    logger.info("Not Enrolled already entered "+ msg.getRequestId());
                }
