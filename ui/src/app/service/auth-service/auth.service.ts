@@ -258,6 +258,7 @@ export class AuthService {
          return false
       }
     }
+
     checktheRoleisSystemAdmin(){
       this.userData = JSON.parse(localStorage.getItem("userProfile"));
       var loginObj=<LoginResponseObj> this.userData 
@@ -272,6 +273,19 @@ export class AuthService {
          return false
       }
     }
+
+
+    getUserRoles(){
+      this.userData = JSON.parse(localStorage.getItem("userProfile"));
+      var loginObj=<LoginResponseObj> this.userData 
+     
+      if(loginObj.roles.length!=0)
+         return loginObj.roles
+      else
+         return []
+    }
+
+
 
 
 }
