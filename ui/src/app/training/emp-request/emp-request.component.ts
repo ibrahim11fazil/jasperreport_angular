@@ -88,6 +88,8 @@ export class EmpRequestComponent implements OnInit {
      
      var course = new TacCourseMasterSub()
      course.courseName=this.form.value.courseName
+     if (course.courseName!=null) 
+     {
      this.trainingService.searchFutureCourseWithName(course).subscribe(
       data => {
         var response = <ITacCourseManagementList>data
@@ -98,6 +100,19 @@ export class EmpRequestComponent implements OnInit {
         console.log(error)
         this.toastr.error(error.message)
       })
+    }
+    else{
+      this.trainingService.getFutureCourses().subscribe(
+        data => {
+          var response = <ITacCourseManagementList>data
+          this.rows = response.data
+          console.log(this.rows)
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
+    }
 
     }
   
