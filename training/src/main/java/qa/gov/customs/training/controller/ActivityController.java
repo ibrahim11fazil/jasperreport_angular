@@ -41,7 +41,6 @@ public class ActivityController {
         if(submitActivity!=null)
         {
         ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
-        
         return response;
         }
         else
