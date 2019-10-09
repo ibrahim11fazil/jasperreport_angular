@@ -19,6 +19,15 @@
                    class="warn-text">
               {{language.activity_message}}
             </small>
+            
+                  <small class="gene-block" *ngIf="form.controls['activityName'].hasError('minlength') && form.controls['activityName'].touched"
+                     class="warn-text">
+                     activity name must be at least 5 characters long.
+                  </small>
+                  <small class="gene-block" *ngIf="form.controls['activityName'].hasError('maxlength') && form.controls['activityName'].touched"
+                     class="warn-text">
+                     activity name cannot exceed 25 characters.
+                  </small>
           </div>
         </div>
         <div class="pad-wrap">

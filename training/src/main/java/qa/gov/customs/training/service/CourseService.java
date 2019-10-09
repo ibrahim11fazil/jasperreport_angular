@@ -60,6 +60,6 @@ public interface CourseService {
    void setStatusOfDate(TacCourseDate courseDate);
     ActivationDate getDatesForActivation(BigDecimal activationId);
 
-    int insertAttendeesFromWorkflow( BigInteger activationId ,  String jobId,  String remark);
+    TacCourseAttendees insertAttendeesFromWorkflow( BigInteger activationId ,  String jobId,  String remark);
     List<AttendeesDetails> findAttendeesWithJobIdAndActionId( BigInteger activationId ,  String jobId);
 }
