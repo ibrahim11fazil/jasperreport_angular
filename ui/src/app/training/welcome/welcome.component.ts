@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { SystemUserService } from 'app/service/user/system-user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 
 
@@ -20,11 +20,13 @@ export class WelcomeComponent implements OnInit {
     private trainingService: TrainingService,
     private toastr: ToastrService,
     private userService: SystemUserService,
-
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private pageTitleService: PageTitleService) { }
 
   ngOnInit() {
+
+
   }
   statsCard: any[] = [
 
@@ -63,4 +65,17 @@ export class WelcomeComponent implements OnInit {
   icon : "add_alert",
 }
   ]
+
+  getDashboardData(card)
+
+  {
+    debugger;
+    if(card.title == "Request Future Courses")
+    {
+      this.router.navigate(["training/emp-request"]);
+    }
+  }
+
+
+
 }

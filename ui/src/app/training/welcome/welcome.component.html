@@ -1,6 +1,6 @@
 <div fxLayout="row wrap" fxLayoutAlign="start stretch" class="dash-card">
     <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100" attr.tourAnchor="{{card.tourAnchor}}"
-      *ngFor="let card of statsCard" (click)="getCourseManagement(card)">
+      *ngFor="let card of statsCard" (click)="getDashboardData(card)">
       <mat-card class="{{card.card_color}} mat-card">
         <div mat-card-widget>
           <button mat-mini-fab class="inline-block gene-fab-flat-icon" mat-card-icon>
