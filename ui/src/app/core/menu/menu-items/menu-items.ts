@@ -541,7 +541,7 @@ export class MenuItems {
 
           //SMART MENU
           case "mn_smart_emp":
-              smart_menu.children.push({ state: 'emp-request', name: 'Employee Requests' })
+              smart_menu.children.push({ state: 'smart-profile', name: 'Smart Profile' })
               break 
         }
       })
