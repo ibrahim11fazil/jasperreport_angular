@@ -54,7 +54,7 @@ public class AttendanceController {
         List<TacCourseAttendence> attendanceData=new ArrayList<>();
 
         for(TacCourseAttendence attendanceList:attendance) {
-            TacCourseAttendence attendancePresent = attendanceService.checkIfAlreadyMarked(attendanceList, new Date());
+            TacCourseAttendence attendancePresent = attendanceService.checkIfAlreadyMarked(attendanceList, attendanceList.getAttendanceDate());
             if (attendancePresent == null) {
 
 
@@ -76,7 +76,7 @@ public class AttendanceController {
         List<TacCourseAttendence> attendanceData=new ArrayList<>();
 
         for(TacCourseAttendence attendanceList:attendance) {
-            TacCourseAttendence attendancePresent = attendanceService.checkIfAlreadyMarked(attendanceList, new Date());
+            TacCourseAttendence attendancePresent = attendanceService.checkIfAlreadyMarked(attendanceList, attendanceList.getAttendanceDate());
             if (attendancePresent != null) {
                 attendancePresent.setAttendanceFlag(attendanceList.getAttendanceFlag());
                 TacCourseAttendence attendanceUpdated = attendanceService.markAttendance(attendancePresent);

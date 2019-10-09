@@ -88,7 +88,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public TacCourseAttendence  checkIfAlreadyMarked(TacCourseAttendence attendance,Date date)
     {
-        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId());
+        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId(),date);
         return attendancePresent;
     }
     @ Override
