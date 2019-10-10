@@ -194,6 +194,7 @@ export class CourseManagementComponent implements OnInit {
 
 
   getCourseManagement(card) {
+    debugger;
     this.displayManage = false;
     if (card.title == "Previous Courses") {
       this.displayCalendar = false;
