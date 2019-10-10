@@ -67,6 +67,41 @@ export class LanguageUtil  {
     bonusCost:String=this.isArabic ? "Bonus Cost 1" : "Bonus Cost"
     translationCost:String=this.isArabic ?  "Translation Cost1" : "Translation Cost"
 
+    // Course Managemnet
+
+    courseStartDate:String=this.isArabic ? " Course Start Date1" : "Course Start Date"
+    courseEndDate:String=this.isArabic ? "Course End Date1" : "Course End Date"
+    manage:String=this.isArabic ? "Manage1" : "Manage"
+    empName:String=this.isArabic ? "Name1" :"Name"
+    department:String=this.isArabic ? "Department1" :"Department"
+    jobTitle:String=this.isArabic ? "Job Title1" :"Job Title"
+    mobile:String=this.isArabic ? "Mobile1" :"Mobile"
+    attendance:String=this.isArabic ? "Attendance1" :"Attendance"
+    filterColumn:String=this.isArabic ? "Type to filter the name column1...." : "Type to filter the name column...."
+    attendancePercentage:String=this.isArabic ? "Attendance % 1" :"Attendance %"
+    courseStatus:String=this.isArabic ? "Pass/Fail 1":"Pass/Fail" 
+    certificate:String=this.isArabic ? "Certificate 1" : "Certificate"
+    downloadCertificate:String=this.isArabic ? "Download Certificate1" : "Download Certificate"
+
+    //Create Instructor
+
+    title_instructorRegistration:String=this.isArabic ? " Instructor Registration 1" : "Instructor Registration"
+    instructorType:String=this.isArabic ? "Instructor Type 1" : "Instructor Type"
+    instructorEmployee:String=this.isArabic ? "Employee 1" : "Employee "
+    instructorExternal:String=this.isArabic ? "External 1" : "External "
+    organization:String=this.isArabic ?  "Organization 1" : "Organization"
+    qid:String=this.isArabic ?  "QID 1" : "QID"
+    passport:String=this.isArabic ?  "Passport 1" : "Passport"
+    iBanNo:String=this.isArabic ?  "IBAN No 1" : "IBAN No"
+    email:String=this.isArabic ? "Email 1" : "Email"
+    phone:String=this.isArabic ? "Phone 1" : "Phone"
+    subjects:String=this.isArabic ? "Subjects 1" : "Subjects"
+    subjectName:String=this.isArabic ? "Subject 1" : "Subject"
+    qualifications:String=this.isArabic ? "Qualifications 1" : "Qualifications"
+    qualificationName:String=this.isArabic ? "Qualification Name 1":"Qualification Name"
+    priority:String=this.isArabic ? "Priority 1" : "Priority"
+
+
 
 
     //User Creation
@@ -83,6 +118,13 @@ export class LanguageUtil  {
     btn_save:String=this.isArabic ? "Save1" : "Save"
     btn_delete:String=this.isArabic ? "Delete1" : "Delete"
     btn_update:String=this.isArabic ? "Update1" : "Update"
+    btn_manage:String=this.isArabic ? "Manage1" : "Manage"
+    btn_status:String=this.isArabic ? "Status1" : "Status"
+    btn_certificate:String=this.isArabic ? "Certificate 1" : "Certificate"
+    btn_markAttendance:String=this.isArabic ? "Mark Attendance 1" : "Mark Attendance"
+    btn_updateAttendance:String=this.isArabic ? "Update Attendance 1" : "Update Attendance"
+    btn_add:String=this.isArabic ? "Add 1" : "Add"
+
 
     //Titles
 

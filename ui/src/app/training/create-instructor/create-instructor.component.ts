@@ -9,6 +9,9 @@ import { PRIORITY_LIST } from 'app/app.constants';
 import { ActivatedRoute } from '@angular/router';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { MawaredUserResponse, MawaredUser } from 'app/models/system-user';
+import { MainComponent } from 'app/main/main.component';
+import { Language } from '@amcharts/amcharts4/core';
+import { LanguageUtil } from 'app/app.language';
 //import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
@@ -24,6 +27,7 @@ export class CreateInstructorComponent implements OnInit {
   form:FormGroup
   tacInstructor:TacInstructor
   priorityList =PRIORITY_LIST 
+  language:LanguageUtil;
   param:any;
   @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   cNameAr: any;
@@ -33,11 +37,12 @@ export class CreateInstructorComponent implements OnInit {
      private trainingService: TrainingService,
      private toastr : ToastrService,
      private userService:SystemUserService,
+     private mainComponent:MainComponent,
      private activatedRoute: ActivatedRoute) {
      this.pageTitleService.setTitle("Instructor Registration")
      this.loadForm()
-     
-   
+      
+     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
     //this.patch()
    // this.formSetup()
    // this.loadDataFromParam()
@@ -57,6 +62,10 @@ export class CreateInstructorComponent implements OnInit {
     } 
   }
 
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  
   ngOnInit() {
     this.formSetup()
     this.formInit()
