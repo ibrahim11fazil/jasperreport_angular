@@ -159,6 +159,10 @@ export const  FUTURE_COURSE_FILTER=BASE_URL+training+"/get-course-filter"
 export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-date-by-activation"
 export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
+//Dashboard
+export const   PREVIOUS_ATTENDED_COURSES=BASE_URL+training+"/get-attended-courses"
+export const   ONGOING_COURSES=BASE_URL+training+"/currently-attending-courses"
+export const   APPROVED_COURSES=BASE_URL+training+"/get-approved-courses"
 
 
 //USER MANAGEMENT

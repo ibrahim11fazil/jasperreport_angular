@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
+import { ITacCourseManagementList, CourseManagementRes } from 'app/models/tac-course-master';
+import { Page } from 'app/models/paged-data';
 
 
 @Component({
@@ -14,6 +16,11 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
+  rows: CourseManagementRes[];
+  courseData: CourseManagementRes[];
+  page = new Page();
+  displayPreviousAttendedCourse:boolean=false;
+  displayTable:boolean=false;
 
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
@@ -38,7 +45,7 @@ export class WelcomeComponent implements OnInit {
     },
     {
       card_color: "success-bg",
-      title: " Ongoing Courses",
+      title: "Ongoing Courses",
       //number : "6,101",
       icon: "assignment_return",
     },
@@ -50,7 +57,7 @@ export class WelcomeComponent implements OnInit {
     },
     {
       card_color: "course-bg",
-      title: " Approved Courses",
+      title: "Approved Courses",
       //number : "6,101",
       icon: "assignment",
     },
@@ -69,10 +76,59 @@ export class WelcomeComponent implements OnInit {
   getDashboardData(card)
 
   {
-    debugger;
     if(card.title == "Request Future Courses")
     {
+      this.displayPreviousAttendedCourse=false;
+      this.displayTable=false;
       this.router.navigate(["training/emp-request"]);
+    }
+    if(card.title == "Attended Courses")
+    {
+      this.displayTable=true;
+      this.displayPreviousAttendedCourse=true;
+this.trainingService.getPreviousAttendedCourses().subscribe(
+  data => {
+    var response = <ITacCourseManagementList>data
+    this.rows = response.data
+    this.courseData = this.rows
+    console.log(this.rows)
+  },
+  error => {
+    console.log(error)
+    this.toastr.error(error.message)
+  })
+    }
+    if(card.title == "Ongoing Courses")
+    {
+      this.displayTable=true;
+      this.displayPreviousAttendedCourse=false;
+      this.trainingService.getOngoingCourses().subscribe(
+        data => {
+          var response = <ITacCourseManagementList>data
+          this.rows = response.data
+          this.courseData = this.rows
+          console.log(this.rows)
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
+    }
+    if(card.title == "Approved Courses")
+    {
+      this.displayTable=true;
+      this.displayPreviousAttendedCourse=false;
+      this.trainingService.getApprovedCourses().subscribe(
+        data => {
+          var response = <ITacCourseManagementList>data
+          this.rows = response.data
+          this.courseData = this.rows
+          console.log(this.rows)
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
     }
   }
 
