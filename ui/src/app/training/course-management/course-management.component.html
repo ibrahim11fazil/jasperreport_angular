@@ -23,7 +23,7 @@
 
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
 						<mat-form-field class="full-wid">
-							<input matInput type="text" placeholder='Type to filter the name column...'
+							<input matInput type="text" placeholder={{language.filterColumn}}
 								(keyup)='updateFilter($event)' />
 
 
@@ -51,7 +51,7 @@
 
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Course Name</span>
+					<span>{{language.courseName}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.courseName}}
@@ -59,7 +59,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Course Start Date</span>
+					<span>{{language.courseStartDate}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.course_date}}
@@ -67,7 +67,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Course End Date</span>
+					<span>{{language.courseEndDate}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.end_date}}
@@ -75,21 +75,21 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column *ngIf="displayManage" min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Manage</span>
+					<span>{{language.manage}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					<button mat-raised-button color="accent" class="m-1" type="button"
-						(click)=getActivationData(row)>Manage</button>
+						(click)=getActivationData(row)>{{language.btn_manage}}</button>
 				</ng-template>
 			</ngx-datatable-column>
 
 			<ngx-datatable-column *ngIf="previousCourse" min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Status</span>
+					<span>{{language.status}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					<button mat-raised-button color="accent" class="m-1" type="button"
-						(click)=markCourseCompletion(row)>Status</button>
+						(click)=markCourseCompletion(row)>{{language.btn_status}}</button>
 				</ng-template>
 			</ngx-datatable-column>
 		</ngx-datatable>
@@ -100,13 +100,13 @@
 		<mat-card>
 			<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100" fxLayout="column">
 				<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-					<h4>Course Name</h4>
+					<h4>{{language.courseName}}</h4>
 					{{activation.courseName}}
 				</div>
 				<div fxLayout="row wrap" fxLayoutAlign="space-between center" class="notEditableField"
 					style="display: inline">
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-						<h4>Belongs To</h4>
+						<h4>{{language.belongsTo}}</h4>
 						{{courseDetail.courseName}}
 					</div>
 				</div>
@@ -114,37 +114,37 @@
 					fxLayoutAlign="space-between center" class="notEditableField">
 
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-						<h4>Course Period</h4>
+						<h4>{{language.coursePeriod}}</h4>
 						{{activation.duration}}
 					</div>
 
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-						<h4>Duration Type</h4>
+						<h4>{{language.durationType}}</h4>
 						{{durationValueString}}
 					</div>
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Course Date</h4>
+					<h4>{{language.courseDate}}</h4>
 					{{activation.courseDate}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>locationName</h4>
+					<h4>{{language.courseLocation}}</h4>
 					{{activation.locationName}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Course Room</h4>
+					<h4>{{language.trainingHall}}</h4>
 					{{activation.roomName}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Trainer</h4>
+					<h4>{{language.instructorName}}</h4>
 					{{tacInstructorString}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Co-ordinator</h4>
+					<h4>{{language.trainingCoordinator}}</h4>
 					{{tacCoordinatorString}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Estimated Cost</h4>
+					<h4>{{language.estimatedCost}}</h4>
 					{{estimatedCost}}
 				</div>
 			</div>
@@ -225,7 +225,7 @@
 
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
-						<span>Job ID</span>
+						<span>{{language.jobId}}</span>
 					</ng-template>
 					<ng-template let-row="row" ngx-datatable-cell-template>
 						{{row.jobId}}
@@ -233,7 +233,7 @@
 				</ngx-datatable-column>
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
-						<span>Name</span>
+						<span>{{language.empName}}</span>
 					</ng-template>
 					<ng-template let-row="row" ngx-datatable-cell-template>
 						{{row.cnameAr}}
@@ -241,7 +241,7 @@
 				</ngx-datatable-column>
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
-						<span>Department</span>
+						<span>{{language.department}}</span>
 					</ng-template>
 					<ng-template let-row="row" ngx-datatable-cell-template>
 						{{row.department}}
@@ -249,7 +249,7 @@
 				</ngx-datatable-column>
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
-						<span>Job Title</span>
+						<span>{{language.jobTitle}}</span>
 					</ng-template>
 					<ng-template let-row="row" ngx-datatable-cell-template>
 						{{row.jobTitle}}
@@ -257,7 +257,7 @@
 				</ngx-datatable-column>
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
-						<span>Mobile</span>
+						<span>{{language.mobile}}</span>
 					</ng-template>
 					<ng-template let-row="row" ngx-datatable-cell-template>
 						{{row.mobile}}
@@ -268,7 +268,7 @@
 
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
-						<span>Attendance</span>
+						<span>{{language.attendance}}</span>
 					</ng-template>
 					<ng-template let-row="row" ngx-datatable-cell-template>
 						<mat-checkbox class="example-margin" [checked]="row.checked" (change)="checkboxValue(row,$event)"> Present
@@ -284,10 +284,8 @@
 			<div class="pad-wrap left">
 				<button *ngIf="courseCompletion" mat-raised-button color="primary" (click)="markCourseCompletionForCurrent()"
 					type="submit">Status</button>
-				<button  *ngIf="!updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">Mark
-					Attendance</button>
-					<button  *ngIf="updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">Update
-							Attendance</button>
+				<button  *ngIf="!updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">{{language.btn_markAttendance}}</button>
+					<button  *ngIf="updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">{{language.btn_updateAttendance}}</button>
 			</div>
 		</mat-card>
 	</div>
@@ -303,7 +301,7 @@
 
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Job ID</span>
+					<span>{{language.jobId}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.jobId}}
@@ -311,7 +309,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Name</span>
+					<span>{{language.empName}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.cnameAr}}
@@ -319,7 +317,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Department</span>
+					<span>{{language.department}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.department}}
@@ -327,7 +325,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Job Title</span>
+					<span>{{language.jobTitle}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.jobTitle}}
@@ -335,7 +333,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Mobile</span>
+					<span>{{language.mobile}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.mobile}}
@@ -343,7 +341,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Course Period</span>
+					<span>{{language.coursePeriod}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{activation.duration}}{{durationValueString}}
@@ -351,7 +349,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Attendance %</span>
+					<span>{{language.attendancePercentage}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.percentage}}
@@ -359,7 +357,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Pass/Fail</span>
+					<span>{{language.courseStatus}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 
@@ -377,15 +375,15 @@
 												</ngx-datatable-column> -->
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Certificate</span>
+					<span>{{language.certificate}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					<div *ngIf="row.percentage==100" fxFlex="100">
 						<button *ngIf="!row.generated" mat-raised-button color="primary" class="my-class"
-							(click)="GenerateCertificate(row)" type="submit">Certificate</button>
+							(click)="GenerateCertificate(row)" type="submit">{{language.btn_certificate}}</button>
 					</div>
 					<div *ngIf="row.generated">
-						<a style="color:blue" href="{{row.url}}" target="_blank">Download Certificate</a>
+						<a style="color:blue" href="{{row.url}}" target="_blank">{{language.downloadCertificate}}</a>
 
 					</div>
 				</ng-template>

@@ -39,6 +39,8 @@ import { ResponseActivationData, ActivationData } from 'app/models/activation-da
 import { CourseManagement } from 'app/models/course-management';
 import { FindAttendance, FindAttendanceResponse } from 'app/models/find-attendance';
 import { CertificateRequest, ResponseCertificate, ResponseCertificateList } from 'app/models/certificate-request';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 
 
@@ -103,7 +105,7 @@ export class CourseManagementComponent implements OnInit {
   futureFilter: boolean = false;
   coursePeriod: String;
   displayAttendance: boolean = false;
-
+  language:LanguageUtil;
   previousCourse: boolean = false;
   Follow_list: any;
   courseAttendanceList: TacCourseAttendance[] = [];
@@ -115,7 +117,6 @@ export class CourseManagementComponent implements OnInit {
   attendanceMarked: boolean = false;
   updateAttendance: boolean = false;
   dateClicked: Date = new Date();
-
 
 
 
@@ -133,10 +134,15 @@ export class CourseManagementComponent implements OnInit {
     private trainingService: TrainingService,
     private toastr: ToastrService,
     private userService: SystemUserService,
-
+    private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,
     private pageTitleService: PageTitleService) {
+      this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
 
+  }
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
