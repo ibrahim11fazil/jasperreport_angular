@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.provider.token.UserAuthenticationConv
 import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
     private String USER_NAME="cNameAr";
     private final String ENABLED ="enabled";
     private final String EXPIRED ="credentialsExpired";
+    private final String SCOPE ="scope";
     private Collection<? extends GrantedAuthority> defaultAuthorities;
 
     public void setDefaultAuthorities(String[] defaultAuthorities){
@@ -51,6 +53,19 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
             principal.setQid(map.get(QID).toString());
             principal.setJid(map.get(JID).toString());
             principal.setcNameAr(map.get(USER_NAME).toString());
+
+            try {
+                if(map.get(SCOPE)!=null) {
+                    ArrayList request = ((ArrayList) map.get(SCOPE));
+                    principal.setScopes(request);
+                }else{
+                    principal.setScopes(new ArrayList<>());
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                principal.setScopes(new ArrayList<>());
+            }
+
             return new UsernamePasswordAuthenticationToken(principal
 
                     , "N/A", getAuthorities(map));
