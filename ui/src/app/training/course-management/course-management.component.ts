@@ -515,10 +515,6 @@ export class CourseManagementComponent implements OnInit {
       var index = this.checkboxList.indexOf(row);
       this.checkboxList.splice(index, 1);
     }
-
-
-
-
   }
 
   markAttendance() {
