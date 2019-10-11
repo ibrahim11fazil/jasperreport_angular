@@ -1,3 +1,123 @@
-<p>
-  smart-profile works!
-</p>
+<div fxLayout="row wrap" fxLayoutAlign="start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+       <div class="user-content">
+          <mat-card>
+              <h4>Search with JobId</h4>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+          <mat-form-field class="full-wid mrgn-b-lg">
+             <input matInput placeholder={{language.jobId}}    formControlName="jobId" required (change)="onJobIdChange($event)" >
+          </mat-form-field>  
+          <div fxLayout="row" fxLayoutAlign="start">
+              <button mat-raised-button color="primary"   type="submit">{{language.btn_save}}
+          </button> 
+          </div>
+       </div>
+</form>
+</mat-card></div></div></div>
+
+<div fxLayout="row wrap" fxLayoutAlign="start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+       <div class="user-content">
+          <mat-card>
+             <div class="pad-y-sm">
+                <div fxLayout="row wrap" fxLayoutAlign="start" class="user-profile">
+                   <!-- <div fxFlex.xl="300px" fxFlex.lg="300px" fxFlex.md="300px"  fxFlex.sm="250px" fxFlex.xs="100" >
+                      <div class="mrgn-b-md">
+                         <img class="img-responsive  display-ib" src="assets/img/user-pro.jpg" alt="user profile image" width="300" height="300">
+                      </div>
+                   </div> -->
+                   <div fxFlex.xl="calc(100% - 300px)" fxFlex.lg="calc(100% - 300px)" fxFlex.md="calc(100% - 300px)"  fxFlex.sm="calc(100% - 250px)" fxFlex.xs="100"  class="user-contact-info">
+                      <ul>
+                         <li>
+                            <h4>Sarath Raj</h4>
+                            <p>Programmer</p>
+                         </li>
+                         <li>
+                            <div class="contact-list"><i class="fa fa-envelope primary-text" aria-hidden="true"></i> <strong>E-mail</strong></div>
+                            <a class="gene-block" href="mailto:abcd@abcd.com">: abcd@abcd.com</a>
+                         </li>
+                         <li>
+                            <div class="contact-list"><i class="fa fa-phone primary-text" aria-hidden="true"></i> <strong>Phone</strong></div>
+                            <a class="gene-block" href="mailto:abcd@abcd.com">: +123 456 789890</a>
+                         </li>
+                         <li>
+                            <div class="contact-list"><i class="fa fa fa-map primary-text" aria-hidden="true"></i> <strong>City</strong></div>
+                            <span>: New York</span>
+                         </li>
+                         <li>
+                            <div class="contact-list"><i class="fa fa fa-globe primary-text" aria-hidden="true"></i> <strong>Country</strong></div>
+                            <span>: USA</span>
+                         </li>
+                         <li>
+                            <div class="contact-list"><i class="fa fa-map-marker primary-text" aria-hidden="true"></i> <strong> Address</strong></div>
+                            <span class="gene-block">: E-112,Auston Street, New York ,USA</span>
+                         </li>
+                      </ul>
+                     
+                   </div>
+                </div>
+                <div>
+                   <h4>Training Certificates</h4>
+                   <p>
+                      certificate 1 
+                   </p>
+                 
+                </div>
+             </div>
+          </mat-card>
+       </div>
+    </div>
+ </div>
+
+ <div fxLayout="row wrap">
+		<div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+			<div>
+				<mat-card class="mrgn-b-lg">
+					<div>
+						<div class="card-title mrgn-b-md"><h4>Job Card Details</h4></div>
+						<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex.</p>
+						<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+						
+					</div>
+				</mat-card>
+			</div>
+		</div>
+  </div>
+  
+  <div fxLayout="row wrap">
+      <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+        <div>
+          <mat-card class="mrgn-b-lg">
+            <div>
+              <div class="card-title mrgn-b-md"><h4>Courses Attended</h4></div>
+              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex.</p>
+              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+              
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+        <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+          <div>
+            <mat-card class="mrgn-b-lg">
+              <div>
+                <div class="card-title mrgn-b-md"><h4>Smart Suggession</h4></div>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex.</p>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+                
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>

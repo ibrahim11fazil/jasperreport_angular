@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchUser, ISystemInstructorResponseList } from 'app/models/system-user';
 import { PAGE_LIMIT } from 'app/app.constants';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TacInstructor } from 'app/models/tac-instructor';
 import { TrainingService } from 'app/service/training/training.service';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 @Component({
   selector: 'ms-smart-profile',
   templateUrl: './smart-profile.component.html',
@@ -14,16 +17,38 @@ import { Router } from '@angular/router';
 })
 export class SmartProfileComponent implements OnInit {
 
+  form:FormGroup
+  language:LanguageUtil
   constructor(
-    private trainingService: TrainingService,
-    private fb: FormBuilder,
+    private userService:TrainingService,
+    private fb:FormBuilder,
     private pageTitleService: PageTitleService,
-    private toastr: ToastrService,
-    private router:Router,) {
-    this.pageTitleService.setTitle("Smart Profile")
+    private toastr : ToastrService,
+    private mainComponent:MainComponent,
+    private activatedRoute: ActivatedRoute,){
+    this.pageTitleService.setTitle("Smart Profile") 
+
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
+
   ngOnInit() {
+    this.formInit()
+  }
+
+
+
+  formInit()
+  {
+    this.form = this.fb.group({
+      jobId:[null, Validators.compose([Validators.required])],
+    });
+  }
+
+
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
 }
