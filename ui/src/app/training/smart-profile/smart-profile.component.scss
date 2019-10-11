@@ -21,18 +21,6 @@ $fa-linkedin: #4caf50;
             color: #fff;
             text-align: center;
         }
-        i.fa-facebook {
-            background: $facebook
-        }
-        i.fa-twitter {
-            background: $twitter
-        }
-        i.fa-google-plus {
-            background: $google-plus
-        }
-        i.fa-linkedin {
-            background: $fa-linkedin;
-        }
     }
 }
 
@@ -45,6 +33,11 @@ $fa-linkedin: #4caf50;
             margin-bottom: 1rem;
         }
     }
+}
+
+.cert{
+    padding-left: 5rem; 
+    margin-bottom: 1rem;
 }
 
 .contact-list {

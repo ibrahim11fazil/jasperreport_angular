@@ -19,6 +19,21 @@ export class SmartProfileComponent implements OnInit {
 
   form:FormGroup
   language:LanguageUtil
+  courses: any[] = [
+    {
+    from: 'جافا',
+    subject: '10'
+   }, 
+   {
+    from: 'جافا',
+    subject: '10'
+   },
+   {
+    from: 'جافا',
+    subject: '10'
+   }
+ ];
+
   constructor(
     private userService:TrainingService,
     private fb:FormBuilder,
