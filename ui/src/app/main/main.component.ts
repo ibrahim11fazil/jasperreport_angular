@@ -134,7 +134,7 @@ export class MainComponent implements OnInit, OnDestroy{
                public menuItems: MenuItems, 
                private breadcrumbService: BreadcrumbService, 
                private pageTitleService: PageTitleService, 
-               public translate: TranslateService, 
+               //public translate: TranslateService, 
                private router: Router,
                private media: MediaObserver,
                private deviceService: DeviceDetectorService,
@@ -144,10 +144,10 @@ export class MainComponent implements OnInit, OnDestroy{
                private routes :Router,
                private activatedRoute: ActivatedRoute ) {
       this.layout = "rtl";   
-      const browserLang: string = translate.getBrowserLang();
+      //const browserLang: string = translate.getBrowserLang();
      
       //translate.use(browserLang.match(/en|fr/) ? browserLang : 'ar');
-      translate.use('ar'); 
+      //translate.use('ar'); 
 
       // this.tourService.initialize([{
       //    anchorId: 'start.tour',
@@ -286,7 +286,7 @@ export class MainComponent implements OnInit, OnDestroy{
    ngDoCheck(): void {
       //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
       //Add 'implements DoCheck' to the class.
-      this.translate.use('ar'); 
+      //this.translate.use('ar'); 
    }
 
    ngOnInit() {
@@ -386,8 +386,8 @@ export class MainComponent implements OnInit, OnDestroy{
          }
       });
 
-      this.coreService.sidenavMode = 'side';
-      this.coreService.sidenavOpen = true;
+      //this.coreService.sidenavMode = 'side';
+      //this.coreService.sidenavOpen = true;
       
       var permissions =  this.authService.getPermissions()
       this.menuItems.update(permissions)

@@ -700,7 +700,6 @@ this.courseCompletion=true;
   }
 
   getFutureCourseFilter(courseTime) {
-    debugger;
     this.displayCalendar = false;
     this.displayAttendance = false;
     this.displayCourseDetails = false;
