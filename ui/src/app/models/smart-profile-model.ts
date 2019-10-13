@@ -6,7 +6,7 @@ export class SmartProfileUserRequestModel {
 }
 
 
-export interface SmartProfileUserResponseModel {
+export class SmartProfileUserResponseModel {
     job: String;
     bkey: String;
     email: String;
@@ -19,10 +19,10 @@ export interface SmartProfileUserResponseModel {
     foa?: any;
     orgunit: String;
     legacycode: String;
-    cname_AR: String;
+    cname_AR?: String;
     mobile: String;
-    orgunit_DESC_AR: String;
-    position_DESC_AR: String;
+    orgunit_DESC_AR?: String;
+    position_DESC_AR?: String;
     rec_ID: number;
     emp_STAT: String;
     foa_DESC: String;
@@ -35,12 +35,12 @@ export interface SmartProfileUserResponseModel {
     position: String;
     position_DESC?: any;
     job_DESC?: any;
-    job_DESC_AR: String;
-    pslevel: String;
+    job_DESC_AR?: String;
+    pslevel?: String;
     run_DATE: Date;
 }
 
-export interface SmartProfileUserResponseModel {
+export interface SmartProfileUserResponse {
     code: number;
     message: String;
     status: boolean;

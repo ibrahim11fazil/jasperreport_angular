@@ -11,7 +11,7 @@ import { TrainingSystemServiceService } from 'app/service/training/training-syst
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { AuthService } from 'app/service/auth-service/auth.service';
-import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
+import { SmartProfileUserRequestModel, SmartProfileUserResponseModel,SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
 import { CertificateRequest, CertificateRequestOnlyJobId, ResponseCertificateList } from 'app/models/certificate-request';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
@@ -41,6 +41,7 @@ export class SmartProfileComponent implements OnInit {
    userProfile   :SmartProfileUserResponseModel
    certificates  :CertificateRequest[]
    jobCardProfile:JobCardProfile[]=[]
+   jobCardProfileSuggession:JobCardProfile[]=[]
    userCourseResponseProfile:UserCourseResponseProfile[]=[]
 
   constructor(
@@ -50,17 +51,20 @@ export class SmartProfileComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr : ToastrService,
     private mainComponent:MainComponent,
-    private translate:TranslateService,
+    //private translate:TranslateService,
     private activatedRoute: ActivatedRoute,){
     this.pageTitleService.setTitle("Smart Profile") 
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+    this.userProfile = new SmartProfileUserResponseModel()
   }
 
 
   ngOnInit() {
+    this.clear()
     this.formInit()
     var userCode =  this.authService.getLegacyCode()
     this.getUserInformations(userCode,false)
+   
   }
 
 
@@ -72,13 +76,21 @@ export class SmartProfileComponent implements OnInit {
     });
   }
 
+  clear() {
+   this.userProfile   =new SmartProfileUserResponseModel()
+   this.certificates =[]
+   this.jobCardProfile=[]
+   this.jobCardProfileSuggession=[]
+   this.userCourseResponseProfile=[]
+  }
+
 
 
   ngDoCheck(): void {
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
-  getUserInformations(jobId:String,isSearch:Boolean){
+  getUserInformations(jobId:String,isSearch:Boolean) {
     if(!isSearch){
       jobId =  this.authService.getLegacyCode()
     }
@@ -86,6 +98,7 @@ export class SmartProfileComponent implements OnInit {
     this.getCertificates(jobId,isSearch)
     this.getUserJobCard(jobId,isSearch)
     this.getUserCoursesAttended(jobId,isSearch)
+    this.smartSuggession()
   }
 
 
@@ -113,7 +126,7 @@ export class SmartProfileComponent implements OnInit {
     input.jobIdRequested =jobId
     this.trainingService.getEmployeeSmartProfile(input).subscribe(
       data => {
-        var response = <SmartProfileUserResponseModel>data
+        var response = <SmartProfileUserResponse>data
         if (response.status && response.data.length>0) {
           this.userProfile=response.data[0]
           if(isSearch && jobId.trim()==this.userProfile.legacycode.trim()){
@@ -139,6 +152,7 @@ export class SmartProfileComponent implements OnInit {
         var response = <JobCardProfileRequest>data
         if (response.status && response.data.length>0) {
           this.jobCardProfile=response.data
+          this.smartSuggession()
         }
         else {
           console.log(response.message)
@@ -159,6 +173,7 @@ export class SmartProfileComponent implements OnInit {
         var response = <UserCourseRequestedResponse>data
         if (response.status &&  response.data.length) {
           this.userCourseResponseProfile=response.data
+          this.smartSuggession()
         }
         else {
           console.log(response.message)
@@ -167,6 +182,21 @@ export class SmartProfileComponent implements OnInit {
       },
       error => this.toastr.error(error.message)
     )
+  }
+
+  smartSuggession(){
+    this.jobCardProfileSuggession=[]
+    this.jobCardProfile.forEach( item => {
+      var status=false;
+      this.userCourseResponseProfile.forEach(courses =>{
+         if(item.courseId==courses.courseId){
+          status=true
+         }
+      })
+      if(!status){
+        this.jobCardProfileSuggession.push(item)
+      }
+    })
   }
 
 }

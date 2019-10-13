@@ -25,7 +25,7 @@ import static qa.gov.customs.fileupload.utils.FileUploadUtil.getDateInString;
 public class ReportServiceImpl implements ReportService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
-    private final String certificateTemplateUrl = "/reports/Blank_A4_Landscape_certificate_customs.jrxml";
+    private final String certificagteTemplateUrl = "/reports/Blank_A4_Landscape_certificate_customs.jrxml";
     private static final String logo_path = "/images/logo-sign.png";
     @Value("${file.upload-dir}")
     private String pdfFolderLocation;
