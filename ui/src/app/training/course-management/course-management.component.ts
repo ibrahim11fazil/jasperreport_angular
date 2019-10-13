@@ -120,6 +120,7 @@ export class CourseManagementComponent implements OnInit {
 
 
 
+
   modalData: {
     action: string,
     event: CalendarEvent
@@ -196,6 +197,7 @@ export class CourseManagementComponent implements OnInit {
   getCourseManagement(card) {
     debugger;
     this.displayManage = false;
+    this.courseCompletion=false;
     if (card.title == "Previous Courses") {
       this.displayCalendar = false;
       this.displayAttendance = false;
@@ -272,7 +274,7 @@ export class CourseManagementComponent implements OnInit {
   }
   getActivationData(row) {
     debugger;
-
+    this.courseCompletion=false;
     this.eventCourseDetail = row;
     console.log(this.eventCourseDetail.course_date);
     const str = this.eventCourseDetail.course_date.split('-');
@@ -407,6 +409,7 @@ export class CourseManagementComponent implements OnInit {
       data => {
         var response = <ResponseEmpData>data
         this.empRows = response.data
+        debugger;
         this.previousAttendance=response.data 
         if (response.data == null || response.data.length == 0) {
          
@@ -484,8 +487,8 @@ export class CourseManagementComponent implements OnInit {
     color: colors.red,
   }];
 
-  addEvent(): void {
-    debugger;
+  addEvent(): void {  
+    this.events=[];
     console.log(this.courseStartDate.getDay())
     var i = new Date;
     while (this.courseStartDate <= this.courseEndDate) {
@@ -553,6 +556,10 @@ export class CourseManagementComponent implements OnInit {
         debugger;
         var Response = <ITacCourseAttendance>data
         this.attendanceMarked = true
+        if(this.courseEndDate>= this.dateClicked)
+        {
+this.courseCompletion=true;
+        }
         this.toastr.success("Attendance Marked Successfully")
 
       }

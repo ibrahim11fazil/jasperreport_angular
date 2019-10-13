@@ -133,6 +133,11 @@ this.trainingService.getPreviousAttendedCourses().subscribe(
           this.toastr.error(error.message)
         })
     }
+
+    if(card.title == "My Tasks")
+    {
+      this.router.navigate(["training/my-tasks"]);
+    }
   }
 
   
