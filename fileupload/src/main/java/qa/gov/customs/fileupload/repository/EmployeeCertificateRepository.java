@@ -11,5 +11,5 @@ public interface EmployeeCertificateRepository extends JpaRepository<EmployeeCer
     List<EmployeeCertificate> findByJobIdEquals(String jobId);
     List<EmployeeCertificate> findByJobIdAndActivationId(@Param("jobId")  String jobId, @Param("activationId")  BigDecimal activationId);
     List<EmployeeCertificate> findByActivationId( @Param("activationId")  BigDecimal activationId);
-    List<EmployeeCertificate> findByJobId( @Param("jobId")  String jobId);
+//    List<EmployeeCertificate> findByJobIdEquals(  String jobId);
 }

@@ -87,7 +87,7 @@ public class CertificateController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('list_certificates')")
+    @PreAuthorize("hasAnyAuthority('user_certificates')")
     @PostMapping("/list-certificates-byjobid")
     ResponseType getListOfCertificatesBasedOnJobId(@RequestBody  CertificateRequest certificateRequest){
         try {

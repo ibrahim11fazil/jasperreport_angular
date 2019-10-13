@@ -98,7 +98,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<CertificateRequest> findAllByjobId(String jobId) {
-        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByJobId(jobId);
+        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByJobIdEquals(jobId);
         if(certificates!=null &&  !certificates.isEmpty()) {
             return generateCertificateList(certificates);
         }

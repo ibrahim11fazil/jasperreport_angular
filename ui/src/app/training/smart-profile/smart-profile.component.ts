@@ -80,6 +80,7 @@ export class SmartProfileComponent implements OnInit {
     if(!isSearch){
       jobId =  this.authService.getLegacyCode()
     }
+    debugger
     this.getUserProfile(jobId,isSearch)
     this.getCertificates(jobId,isSearch)
     this.getUserJobCard(jobId,isSearch)
@@ -89,10 +90,11 @@ export class SmartProfileComponent implements OnInit {
 
 
   getCertificates(jobId:String,isSearch:Boolean){
-    var item =new CertificateRequestOnlyJobId()
-    item.jobId=jobId
-   this.trainingService.getCertificateListByJobId(item)
+    var input =new CertificateRequestOnlyJobId()
+    input.jobId=jobId
+   this.trainingService.getCertificateListByJobId(input)
    .subscribe(data => {
+     debugger
          var response = <ResponseCertificateList>data
          if(response.status && response.data.length>0){
           response.data.forEach(item => {
@@ -104,7 +106,7 @@ export class SmartProfileComponent implements OnInit {
          }
    } ,
    error => this.toastr.error(error.message))
-
+  
   }
 
   getUserProfile(jobId:String,isSearch:Boolean){
@@ -189,6 +191,7 @@ export class SmartProfileComponent implements OnInit {
     this.clear();
     var jobIdSelected = this.form.value.jobId
     if(jobIdSelected!=null){
+      debugger
     this.getUserInformations(jobIdSelected,true)
     }else{
       this.toastr.error("Invalid Jobid")
