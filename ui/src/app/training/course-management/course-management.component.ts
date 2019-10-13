@@ -697,7 +697,6 @@ export class CourseManagementComponent implements OnInit {
   }
 
   getFutureCourseFilter(courseTime) {
-    debugger;
     this.displayCalendar = false;
     this.displayAttendance = false;
     this.displayCourseDetails = false;

@@ -96,8 +96,17 @@ public class FileServiceImpl implements FileService {
         return null;
     }
 
+    @Override
+    public List<CertificateRequest> findAllByjobId(String jobId) {
+        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByJobId(jobId);
+        if(certificates!=null &&  !certificates.isEmpty()) {
+            return generateCertificateList(certificates);
+        }
+        return null;
+    }
 
-        List<CertificateRequest> generateCertificateList(List<EmployeeCertificate> certificates){
+
+    List<CertificateRequest> generateCertificateList(List<EmployeeCertificate> certificates){
         List<CertificateRequest> certis = new ArrayList<>();
         for (EmployeeCertificate item:
                 certificates) {

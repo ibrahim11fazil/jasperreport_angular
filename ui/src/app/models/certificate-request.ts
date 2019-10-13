@@ -21,6 +21,11 @@ export class CertificateRequest {
     this.courseDate=courseDate
 }
 }
+
+
+export class CertificateRequestOnlyJobId {
+   jobId:String
+}
 export interface ResponseCertificate
 {
     status: Boolean;

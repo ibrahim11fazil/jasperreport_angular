@@ -18,4 +18,5 @@ public interface FileService {
     List<EmployeeUploadRequest> getUserFiles(String jobId);
     EmployeeUploadRequest saveEmployeeUpload(EmployeeUpload certificateRequest);
     List<CertificateRequest> findAllByactivationId(BigDecimal activationId);
+    List<CertificateRequest> findAllByjobId(String jobId);
 }
