@@ -7,6 +7,8 @@ import { SystemUser, SystemUserResponse, SearchUser, ISystemUserResponseList, Sy
 import { Page } from "../../models/paged-data";
 import { PAGE_LIMIT } from 'app/app.constants';
 import { Router } from '@angular/router';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
 @Component({
   selector: 'ms-user-search',
   templateUrl: './user-search.component.html',
@@ -15,6 +17,7 @@ import { Router } from '@angular/router';
 export class UserSearchComponent implements OnInit {
   systemUser: SystemUser
   form: FormGroup
+  language:LanguageUtil;
   page = 0
   ds: SystemUserResponseArray[] = [];
   firstSearch=false
@@ -24,9 +27,16 @@ export class UserSearchComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
+    private mainComponent:MainComponent,
     private router:Router,) {
     this.pageTitleService.setTitle("User Creration")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
+
+  ngDoCheck(): void
+   {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+   }
 
   ngOnInit() {
     this.formInit()

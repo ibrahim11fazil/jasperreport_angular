@@ -54,7 +54,7 @@ export class LanguageUtil  {
     title_activateCourse:String=this.isArabic ? "Activate Course1" :"Activate Course"
     belongsTo:String=this.isArabic ? "Belongs To1": "Belongs To"
     trainingHall:String=this.isArabic ? "Training Hall 1" : "Training Hall"
-    instructorName:String=this.isArabic ? "Instructor 1 " : "Instructor"
+    instructorName:String=this.isArabic ? "Instructor Name 1 " : "Instructor Name"
     trainingCoordinator:String=this.isArabic ? "Training Co-ordinator 1":"Training Co-ordinator"
     estimatedCost:String=this.isArabic ? "Estimated Cost 1" :"Estimated Cost"
     instructorCost:String=this.isArabic ? "Instructor Cost 1": "Instructor Cost"
@@ -101,6 +101,12 @@ export class LanguageUtil  {
     qualificationName:String=this.isArabic ? "Qualification Name 1":"Qualification Name"
     priority:String=this.isArabic ? "Priority 1" : "Priority"
 
+    //Instructor Search
+
+    title_instructorSearch:String=this.isArabic ? "Instructor Search 1" :"Instructor Search"
+    instructorId:String=this.isArabic ? "Instructor Id 1" :"Instructor Id"
+    update:String=this.isArabic ? "Update 1" :"Update"
+    request:String=this.isArabic ? "Request 1" :"Request"
 
 
 
@@ -113,6 +119,13 @@ export class LanguageUtil  {
     disable:String=this.isArabic ? "disable1" : "disable"
     status:String=this.isArabic ? "status1" : "status"
 
+    //User Search
+
+    title_userSearch:String=this.isArabic ? "User Search1" : "User Search"
+    qIdJobId:String=this.isArabic ? "QID/JOBID 1" : "QID/JOBID"
+    qIdUserId:String=this.isArabic ? "QID/UserId 1" : "QID/UserId" 
+
+
     //General
     btn_search:String=this.isArabic ? "Search1" : "Search"
     btn_save:String=this.isArabic ? "Save1" : "Save"
@@ -124,7 +137,7 @@ export class LanguageUtil  {
     btn_markAttendance:String=this.isArabic ? "Mark Attendance 1" : "Mark Attendance"
     btn_updateAttendance:String=this.isArabic ? "Update Attendance 1" : "Update Attendance"
     btn_add:String=this.isArabic ? "Add 1" : "Add"
-
+    btn_request:String=this.isArabic ? "Request 1" : "Request"
 
     //Titles
 
