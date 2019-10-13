@@ -140,6 +140,21 @@ public class WorkFlowController {
         }
     }
 
+
+    @PreAuthorize("hasAnyAuthority('my_tasks')")
+    @RequestMapping(value="/my-tasks-count", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getTasksCounnt(@AuthenticationPrincipal CustomPrincipal principal) {
+        List<Task> tasks = workflowServiceEmp.getTasks(principal.getJid());
+        if(tasks!=null && tasks.size()>0){
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    tasks.size());
+        }else{
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
+                    0);
+        }
+    }
+
     @PreAuthorize("hasAnyAuthority('my_tasks')")
     @RequestMapping(value="/my-tasks-delegation", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseType getTasksDelegations(@RequestBody SearchTask searchTask, @AuthenticationPrincipal CustomPrincipal principal) {
