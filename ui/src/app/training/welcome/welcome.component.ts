@@ -90,14 +90,10 @@ export class WelcomeComponent implements OnInit {
       this.displayPreviousAttendedCourse=true;
 this.trainingService.getPreviousAttendedCourses().subscribe(
   data => {
+
     var response = <ITacCourseManagementList>data
     this.rows = response.data
     this.courseData = this.rows
-    //
-    response.data.forEach(item => {
-      this.getCertificates(item.activation_id, response.data)
-    });
-    
     console.log(this.rows)
   },
   error => {
@@ -139,23 +135,6 @@ this.trainingService.getPreviousAttendedCourses().subscribe(
     }
   }
 
-  getCertificates(activationId, responseList) {
-    let certificateRequest = new CertificateRequest(0, null, null, null, null)
-    certificateRequest.activationId = activationId;
-    this.trainingService.getCertificateList(certificateRequest).subscribe(
-      data => {
-        var response = <ResponseCertificateList>data
-        this.certificateList = response.data
-
-        this.courseCompletionData = responseList;
-        this.certificateList.forEach(i => {
-          // var certificateArray=this.courseCompletionData.filter(item=>item.jobId==i.jobId)
-          // if(certificateArray[0]!=null)
-          // {
-          this.courseCompletionData.find(item => item.jobId == i.jobId).generated = true
-          this.courseCompletionData.find(item => item.jobId == i.jobId).url = GET_CERTIFICATE + i.certificateUrl
-          // this.courseCompletionData = [...this.courseCompletionData];
-        })
-      })
+  
 
 }
