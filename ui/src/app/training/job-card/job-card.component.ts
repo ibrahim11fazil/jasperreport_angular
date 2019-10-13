@@ -11,6 +11,8 @@ import { TrainingService } from 'app/service/training/training.service';
 import { debug } from 'util';
 import { DISABLED } from '@angular/forms/src/model';
 import { AuthService } from 'app/service/auth-service/auth.service';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
 
 @Component({
   selector: 'ms-job-card',
@@ -29,6 +31,7 @@ export class JobCardComponent implements OnInit {
   optionsCourse = OPTIONAL_OR_NOT
   trainingSelectDisable = true;
   hrSelectDisable = true;
+  language:LanguageUtil;
   //textReadonly="readonly=true"
   itemStatus: JobGradeStatus[] = []
   jobId: String = ""
@@ -40,6 +43,7 @@ export class JobCardComponent implements OnInit {
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private mainComponent:MainComponent,
     private authService: AuthService) {
     this.pageTitleService.setTitle("Job Card Creation")
     this.loadForm();
@@ -53,6 +57,11 @@ export class JobCardComponent implements OnInit {
       this.hrSelectDisable = false
       this.trainingSelectDisable = false
     }
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   loadForm() {
