@@ -274,6 +274,7 @@ export class CourseManagementComponent implements OnInit {
   }
   getActivationData(row) {
     debugger;
+    this.displayAttendance=false;
     this.courseCompletion=false;
     this.eventCourseDetail = row;
     console.log(this.eventCourseDetail.course_date);
@@ -370,7 +371,10 @@ export class CourseManagementComponent implements OnInit {
     var dateCheck = new Date();
     dateCheck.setDate(dateCheck.getDate() - 1);
     var dateFuture = new Date();
-    dateFuture.setDate(dateFuture.getDate() + 1);
+    dateFuture.setHours(0);
+    dateFuture.setMinutes(0);
+    dateFuture.setSeconds(0);
+    //dateFuture.setDate(dateFuture.getDate() + 1);
 
     if (date >= dateFuture) {
       this.updateAttendance = false;
@@ -408,7 +412,7 @@ export class CourseManagementComponent implements OnInit {
 
   attendanceUpdate(date)
   {
-debugger
+    
     let course = new FindAttendance(0, null, null)
     course.activation_id = this.eventCourseDetail.activation_id;
     course.course_date = date;
@@ -563,21 +567,10 @@ debugger
 
           if(Number(emp.attendeesId)==item.tacCourseAttendees.attendeesId)
           {
-
-          // let courseAttendance = new TacCourseAttendance(0, null, null, null)
-          // let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
-          // courseAttendance.tacCourseAttendees = tacCourseAttendees;
-          // courseAttendance.attendanceDate = this.dateClicked;
-          // courseAttendance.attendanceFlag = 1;//marking as present 
-          // this.courseAttendanceList.push(courseAttendance)
-
-
           item.attendanceFlag=1;
           }
         })
-      })
-
-      
+      })     
     }
       
     this.trainingService.markAttendanceOfEach(this.courseAttendanceList).subscribe(
@@ -585,9 +578,9 @@ debugger
         debugger;
         var Response = <ITacCourseAttendance>data
         this.attendanceMarked = true
-        if(this.courseEndDate>= this.dateClicked)
+        if(this.courseEndDate <= this.dateClicked)
         {
-this.courseCompletion=true;
+        this.courseCompletion=true;
         }
         this.toastr.success("Attendance Marked Successfully")
 
@@ -635,7 +628,7 @@ this.courseCompletion=true;
     course.activation_id = this.eventCourseDetail.activation_id;
     course.course_date = this.courseStartDate;
     course.end_date = this.courseEndDate;
-    debugger;
+    //debugger;
     this.trainingService.courseCompletionDetails(course).subscribe(
       data => {
         var response = <ResponseEmpData>data

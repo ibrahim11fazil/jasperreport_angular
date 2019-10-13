@@ -283,7 +283,7 @@
 
 			<div class="pad-wrap left">
 				<button *ngIf="courseCompletion" mat-raised-button color="primary" (click)="markCourseCompletionForCurrent()"
-					type="submit">Status</button>
+					type="submit">{{language.btn_status}}</button>
 				<button  *ngIf="!updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">{{language.btn_markAttendance}}</button>
 					<button  *ngIf="updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">{{language.btn_updateAttendance}}</button>
 			</div>
