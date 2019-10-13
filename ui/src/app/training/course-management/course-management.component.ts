@@ -109,6 +109,7 @@ export class CourseManagementComponent implements OnInit {
   previousCourse: boolean = false;
   Follow_list: any;
   courseAttendanceList: TacCourseAttendance[] = [];
+  updateCourseAttendanceList: TacCourseAttendance[] = [];
   courseCompletionData: EmpData[];
   employeeData: EmpData;
   certificateDetails: CertificateRequest;
@@ -377,10 +378,16 @@ export class CourseManagementComponent implements OnInit {
       this.toastr.error("Could not mark attendance for future dates")
     }
     else if (date <= dateCheck) {
+      this.empRows=[]
+      this.previousAttendance=[]
+      this.courseAttendanceList=[]
       this.updateAttendance = true;
       this.attendanceUpdate(date)
     }
     else {
+      this.empRows=[]
+      this.previousAttendance=[]
+      this.courseAttendanceList=[]
       this.updateAttendance = false;
       this.attendanceUpdate(date)
     }
@@ -401,7 +408,7 @@ export class CourseManagementComponent implements OnInit {
 
   attendanceUpdate(date)
   {
-
+debugger
     let course = new FindAttendance(0, null, null)
     course.activation_id = this.eventCourseDetail.activation_id;
     course.course_date = date;
@@ -411,7 +418,7 @@ export class CourseManagementComponent implements OnInit {
         this.empRows = response.data
         debugger;
         this.previousAttendance=response.data 
-        if (response.data == null || response.data.length == 0) {
+        if (this.empRows == null || this.empRows.length == 0) {
          
          
           let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
@@ -538,20 +545,27 @@ export class CourseManagementComponent implements OnInit {
         courseAttendance.attendanceDate = this.dateClicked;
         courseAttendance.attendanceFlag =0
         this.courseAttendanceList.push(courseAttendance)
+        this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
+          data => {
+            var Response = <ITacCourseAttendance>data
+          }
+        )
+      })
+        
         this.checkboxList.forEach(emp => {
           let courseAttendance = new TacCourseAttendance(0, null, null, null)
           let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
           courseAttendance.tacCourseAttendees = tacCourseAttendees;
           courseAttendance.attendanceDate = this.dateClicked;
           courseAttendance.attendanceFlag = 1;//marking as present 
-          this.courseAttendanceList.push(courseAttendance)
+          this.updateCourseAttendanceList.push(courseAttendance)
         });
 
-      })
+      
     }
     
    
-    this.trainingService.markAttendanceOfEach(this.courseAttendanceList).subscribe(
+    this.trainingService.markAttendanceOfEach(this.updateCourseAttendanceList).subscribe(
       data => {
         debugger;
         var Response = <ITacCourseAttendance>data
