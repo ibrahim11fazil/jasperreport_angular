@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { SystemRoles, ISystemRoles } from 'app/models/system-roles';
 import { UserPermissionResponse, UserPermission, SystemPermissionByRoleRequest, UpdateRoleRequest } from 'app/models/system-user';
+//import { MainComponent } from 'app/main/main.component';
+//import { LanguageUtil } from 'app/app.language';
 
 @Component({
   selector: 'ms-user-permissions',
@@ -16,15 +18,23 @@ export class UserPermissionsComponent implements OnInit {
   systemRoles:SystemRoles[]=[]
   systemPermissions:UserPermission[]=[]
   systemRolesSelected:SystemRoles
+ // language:LanguageUtil;
   form:FormGroup
   constructor(
     private userService:SystemUserService,
     private fb:FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr : ToastrService,
+    //private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,){
     this.pageTitleService.setTitle("User Permissions") 
+    //this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
+
+  //ngDoCheck(): void
+   //{
+    //this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+   //}
 
   ngOnInit() {
     this.formSetup()

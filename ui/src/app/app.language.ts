@@ -126,6 +126,25 @@ export class LanguageUtil  {
     qIdUserId:String=this.isArabic ? "QID/UserId 1" : "QID/UserId" 
 
 
+   // User Permissions
+
+   //:String=this.isArabic ? "User Permission 1" : "User Permission" 
+
+   //Job Card Creation
+
+   title_jobCardCreation:String=this.isArabic ? "Job Card Creation 1" : "Job Card Creation"
+   selectJobTitles:String=this.isArabic ? "Select JobTitles 1" : "Select JobTitles "
+   jobNumber:String=this.isArabic ? "Job Number 1" : "Job Number"
+   jobGrade:String=this.isArabic ? "Job Grade 1" : "Job Grade"
+   selectJobGrade:String=this.isArabic ? "Select Job Grade 1" : "Select Job Grade"
+   JobFamily:String=this.isArabic ? "Job Family 1" : "Job Family"
+   selectJobFamily:String=this.isArabic ? "Select Job Family 1" : "Select Job Family"
+   functionalArea:String=this.isArabic ? "Functional Area 1" : "Functional Area "
+
+
+
+
+
     //General
     btn_search:String=this.isArabic ? "Search1" : "Search"
     btn_save:String=this.isArabic ? "Save1" : "Save"
