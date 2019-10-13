@@ -3,7 +3,7 @@
      <div class="gene-card-title">
         <div fxLayout="row" fxLayoutAlign="start center">
            <div fxLayout="column">
-              <h4>Job Creation</h4>
+              <h4>{{language.title_jobCardCreation}}</h4>
            </div>
            <span fxFlex></span>
         </div>
@@ -18,8 +18,8 @@
 
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               <mat-form-field class="full-wid mrgn-b-md" >
-                 <mat-select placeholder="Job Titles" matInput formControlName="jobTitle" required [disabled]=hrSelectDisable>
-                    <option [ngValue]="null">Select Job Titles</option>
+                 <mat-select placeholder={{language.jobTitle}} matInput formControlName="jobTitle" required [disabled]=hrSelectDisable>
+                    <option [ngValue]="null">{{language.selectJobTitles}}</option>
                     <mat-option *ngFor="let obj of jobTitles" [value]="obj">
                        {{obj.jobDescAr}}
                     </mat-option>
@@ -29,14 +29,14 @@
 
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                  <mat-form-field class="full-wid mrgn-b-lg">
-                    <input matInput placeholder="Job Number"    formControlName="job" required readonly="{{hrSelectDisable}}"   >
+                    <input matInput placeholder={{language.jobNumber}} formControlName="job" required readonly="{{hrSelectDisable}}"   >
                  </mat-form-field>   
               </div>
 
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                    <mat-form-field class="full-wid mrgn-b-md">
-                      <mat-select placeholder="Job Grade" matInput formControlName="jobGrade" (selectionChange)="calculator()" required [disabled]="hrSelectDisable">
-                         <option [ngValue]="null">Select Job Grade</option>
+                      <mat-select placeholder={{language.jobGrade}} matInput formControlName="jobGrade" (selectionChange)="calculator()" required [disabled]="hrSelectDisable">
+                         <option [ngValue]="null">{{language.selectJobGrade}}</option>
                          <mat-option *ngFor="let obj of jobGrades"
                           [value]="obj">
                             {{obj.psLevel}}
@@ -48,8 +48,8 @@
 
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Job Family" matInput formControlName="jobFamily" required [disabled]="hrSelectDisable">
-                        <option [ngValue]="null">Select Role</option>
+                     <mat-select placeholder={{language.jobFamily}} matInput formControlName="jobFamily" required [disabled]="hrSelectDisable">
+                        <option [ngValue]="null">{{language.selectJobFamily}}</option>
                         <mat-option *ngFor="let obj of jobFamilies"
                          [value]="obj">
                          {{  obj.jobFamilyShort }} {{" "}} {{ obj.jobFamily }} {{" "}}  {{ obj.jobFamilyText}}
@@ -60,8 +60,8 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Functional Area" matInput formControlName="functionalArea" required [disabled]="hrSelectDisable">
-                        <option [ngValue]="null">Functional Area</option>
+                     <mat-select placeholder={{language.functionalArea}} matInput formControlName="functionalArea" required [disabled]="hrSelectDisable">
+                        <option [ngValue]="null">{{language.functionalArea}}</option>
                         <mat-option *ngFor="let obj of functionalAreas"
                          [value]="obj">
                           {{ obj.objectText }} 
