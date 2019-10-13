@@ -159,12 +159,8 @@ export const  FUTURE_COURSE_FILTER=BASE_URL+training+"/get-course-filter"
 export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-date-by-activation"
 export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
-//Dashboard
-export const   PREVIOUS_ATTENDED_COURSES=BASE_URL+training+"/get-attended-courses"
-export const   ONGOING_COURSES=BASE_URL+training+"/currently-attending-courses"
-export const   APPROVED_COURSES=BASE_URL+training+"/get-approved-courses"
-
-
+export const  GET_JOB_CARD_USER_PROFILE=BASE_URL+training+"/jobcard_user_profile";
+export const  GET_USER_COURSE_ATTENDED=BASE_URL+training+"/user_courses_attended";
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
@@ -174,11 +170,9 @@ export const  DISABLE_SYSTEM_USER=BASE_URL+user+"/disable-system-user"
 export const  ENABLE_SYSTEM_USER=BASE_URL+user+"/enable-system-user"
 export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
 export const  GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
-
 export const  GET_ALL_PERMISSIONS = BASE_URL+user+"/find-all-system-permissions"
 export const  GET_ALL_PERMISSIONS_FOR_ROLE = BASE_URL+user+"/find-all-system-permissions-for-role"
-export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+user+"/update-role-and-permission"
-
+export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+ user + "/update-role-and-permission"
 
 //FILE UPLOADING
 export const  UPLOAD_FILE   =     BASE_URL_FILE+fileUploading+"/uploadFile"
@@ -202,6 +196,7 @@ export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
 export const  EMP_UNDER_SUPERVSIOR=BASE_URL+employee+"/employees_under_supervisor"
 //WORKFLOW validations in Employee
 export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
+export const  GET_EMPLOYEE_PROFILE=BASE_URL+employee + "/get-emp-profile";
 
 
 //WORKFLOW
@@ -220,6 +215,12 @@ export const  PROCESS_HISTORY_BY_PROCESS_ID=BASE_URL+workflow+"/process-history"
 export const  CHECK_THE_REQUEST_IS_OVERRIDING=BASE_URL+training +"/check-the-request-is-overriding"
 export const  CHECK_THE_REQUEST_IS_VALID=BASE_URL+training +"/check-the-user-is-already-applied-with-activation-id"
 //export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
+
+
+//Dashboard
+export const   PREVIOUS_ATTENDED_COURSES=BASE_URL+training+"/get-attended-courses"
+export const   ONGOING_COURSES=BASE_URL+training+"/currently-attending-courses"
+export const   APPROVED_COURSES=BASE_URL+training+"/get-approved-courses"
 
 
 
