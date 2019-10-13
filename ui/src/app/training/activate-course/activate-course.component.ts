@@ -166,6 +166,7 @@ export class ActivateCourseComponent implements OnInit {
     )
     var userObj = new SystemUser()
     userObj.roleId = 5
+    debugger
     this.userService.listUsersByRoleId(userObj).subscribe(
       data => {
         var response = <ISystemUserResponseList>data
