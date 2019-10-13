@@ -386,6 +386,9 @@ export class MainComponent implements OnInit, OnDestroy{
          }
       });
 
+      this.coreService.sidenavMode = 'side';
+      this.coreService.sidenavOpen = true;
+      
       var permissions =  this.authService.getPermissions()
       this.menuItems.update(permissions)
    }
