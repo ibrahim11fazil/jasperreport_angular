@@ -9,11 +9,13 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/m
 })
 //<ngx-loading-bar></ngx-loading-bar>
 export class GeneAppComponent {
-   constructor(translate: TranslateService) {
-      translate.addLangs(['en',  'ar']);
+   constructor(
+      //translate: TranslateService
+      ) {
+      //translate.addLangs(['en',  'ar']);
       //translate.setDefaultLang('en');
-      translate.setDefaultLang('ar');
-      const browserLang: string = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|ar/) ? browserLang : 'en');
+      //translate.setDefaultLang('ar');
+      //const browserLang: string = translate.getBrowserLang();
+      //translate.use(browserLang.match(/en|ar/) ? browserLang : 'en');
    }
 }

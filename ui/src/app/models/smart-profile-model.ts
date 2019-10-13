@@ -1,90 +1,90 @@
 export class SmartProfileModel {
 }
 
-export interface SmartProfileUserRequestModel {
-    jobIdRequested: string;
+export class SmartProfileUserRequestModel {
+    jobIdRequested: String;
 }
 
 
 export interface SmartProfileUserResponseModel {
-    job: string;
-    bkey: string;
-    email: string;
-    empno: string;
-    bacno: string;
-    qid: string;
-    dob: string;
-    natio: string;
+    job: String;
+    bkey: String;
+    email: String;
+    empno: String;
+    bacno: String;
+    qid: String;
+    dob: String;
+    natio: String;
     title?: any;
     foa?: any;
-    orgunit: string;
-    legacycode: string;
-    cname_AR: string;
-    mobile: string;
-    orgunit_DESC_AR: string;
-    position_DESC_AR: string;
+    orgunit: String;
+    legacycode: String;
+    cname_AR: String;
+    mobile: String;
+    orgunit_DESC_AR: String;
+    position_DESC_AR: String;
     rec_ID: number;
-    emp_STAT: string;
-    foa_DESC: string;
-    gender: string;
-    gender_DESC: string;
-    natio_DESC: string;
-    country_KEY: string;
-    country_KEYDESC: string;
-    orgunit_DESC: string;
-    position: string;
+    emp_STAT: String;
+    foa_DESC: String;
+    gender: String;
+    gender_DESC: String;
+    natio_DESC: String;
+    country_KEY: String;
+    country_KEYDESC: String;
+    orgunit_DESC: String;
+    position: String;
     position_DESC?: any;
     job_DESC?: any;
-    job_DESC_AR: string;
-    pslevel: string;
+    job_DESC_AR: String;
+    pslevel: String;
     run_DATE: Date;
 }
 
 export interface SmartProfileUserResponseModel {
     code: number;
-    message: string;
+    message: String;
     status: boolean;
     count: number;
     data: SmartProfileUserResponseModel[];
 }
 
-export interface UserCourseRequestedResponseProfile {
-    jobId: string;
+export interface UserCourseResponseProfile {
+    jobId: String;
     activationId: number;
     courseId: number;
-    courseName: string;
+    courseName: String;
     duration: number;
-    category: string;
+    category: String;
     attendeesId: number;
     courseStatus?: number;
 }
 
 export interface UserCourseRequestedResponse {
     code: number;
-    message: string;
+    message: String;
     status: boolean;
     count: number;
-    data: UserCourseRequestedResponseProfile[];
+    data: UserCourseResponseProfile[];
 }
 
 
 export interface JobCardProfile {
     jobCardNo: number;
-    jobGrade: string;
+    jobGrade: String;
     admin_hours?: number;
     specialised_hours?: number;
     workshop_hours?: number;
     courseId: number;
-    courseName: string;
+    courseName: String;
     noOfHours?: number;
-    category: string;
+    category: String;
     statusFlag?: any;
     mandatoryFlag: number;
 }
 
 export interface JobCardProfileRequest {
     code: number;
-    message: string;
+    message: String;
     status: boolean;
     count: number;
     data: JobCardProfile[];

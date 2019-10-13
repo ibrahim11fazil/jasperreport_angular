@@ -26,39 +26,37 @@
                    <div fxFlex.xl="calc(100% - 300px)" fxFlex.lg="calc(100% - 300px)" fxFlex.md="calc(100% - 300px)"  fxFlex.sm="calc(100% - 250px)" fxFlex.xs="100"  class="user-contact-info">
                       <ul>
                          <li>
-                            <h4>Sarath Raj</h4>
-                            <p>Programmer</p>
+                            <h4>{{userProfile.cname_AR}}</h4>
+                            <!-- <p>{{userProfile.job_DESC_AR}}</p> -->
                          </li>
                          <li>
-                            <div class="contact-list"><i class="fa fa-envelope primary-text" aria-hidden="true"></i> <strong>E-mail</strong></div>
-                            <a class="gene-block" href="mailto:abcd@abcd.com">: abcd@abcd.com</a>
+                            <div class="contact-list"> <strong>E-mail</strong></div>
+                            <a class="gene-block" href="mailto:{{userProfile.email}}">: {{ userProfile.email }}</a>
                          </li>
                          <li>
-                            <div class="contact-list"><i class="fa fa-phone primary-text" aria-hidden="true"></i> <strong>Phone</strong></div>
-                            <a class="gene-block" href="mailto:abcd@abcd.com">: +123 456 789890</a>
+                            <div class="contact-list"> <strong>Qid</strong></div>
+                            <a class="gene-block">: {{userProfile.qid}}</a>
                          </li>
                          <li>
-                            <div class="contact-list"><i class="fa fa fa-map primary-text" aria-hidden="true"></i> <strong>City</strong></div>
-                            <span>: Qatar</span>
+                              <div class="contact-list"><strong>Position</strong></div>
+                              <span>: {{userProfile.position_DESC_AR}} </span>
+                        </li>
+                         <li>
+                            <div class="contact-list"> <strong>Department</strong></div>
+                            <span>: {{userProfile.orgunit_DESC_AR}}</span>
                          </li>
                          <li>
-                            <div class="contact-list"><i class="fa fa fa-globe primary-text" aria-hidden="true"></i> <strong>Country</strong></div>
-                            <span>: Qatar</span>
-                         </li>
-                         <li>
-                            <div class="contact-list"><i class="fa fa-map-marker primary-text" aria-hidden="true"></i> <strong> Address</strong></div>
-                            <span class="gene-block">: Qatar</span>
+                            <div class="contact-list"> <strong> Grade</strong></div>
+                            <span class="gene-block">: {{userProfile.pslevel}} </span>
                          </li>
                       </ul>
                       <ul>
                           <li>
                              <h4>Training Certificates</h4>
                           </li>
-                          <li>
-                              <p>Certificate 1 Download</p>
-                          </li>
-                          <li>
-                              <p>Certificate 1 Download</p>
+                          <li *ngFor="let item of certificates">
+                              <a style="color:blue" href="{{item.certificateUid}}" target="_blank">{{item.courseName}}</a>
+
                           </li>
                       </ul>    
                      
@@ -95,7 +93,7 @@
         <div>
           <mat-card class="mrgn-b-lg">
             <div>
-              <div class="card-title mrgn-b-md"><h4>Courses Attended</h4></div>
+              <div class="card-title mrgn-b-md"><h4>{{'Courses Attended'| translate}}</h4></div>
               <mat-list>
                    <h3 mat-subheader>Items</h3>
                    <mat-list-item *ngFor="let item of courses">
@@ -108,7 +106,7 @@
       </div>
     </div>
 
-    <div fxLayout="row wrap">
+      <div fxLayout="row wrap">
         <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
           <div>
             <mat-card class="mrgn-b-lg">
