@@ -23,23 +23,9 @@ export class SmartProfileComponent implements OnInit {
 
   form:FormGroup
   language:LanguageUtil
-  courses: any[] = [
-    {
-    from: 'جافا',
-    subject: '10'
-   }, 
-   {
-    from: 'جافا',
-    subject: '10'
-   },
-   {
-    from: 'جافا',
-    subject: '10'
-   }
- ];
-
+  
    userProfile   :SmartProfileUserResponseModel
-   certificates  :CertificateRequest[]
+   certificates  :CertificateRequest[]=[]
    jobCardProfile:JobCardProfile[]=[]
    jobCardProfileSuggession:JobCardProfile[]=[]
    userCourseResponseProfile:UserCourseResponseProfile[]=[]
@@ -78,7 +64,7 @@ export class SmartProfileComponent implements OnInit {
 
   clear() {
    this.userProfile   =new SmartProfileUserResponseModel()
-   this.certificates =[]
+   this.certificates = []
    this.jobCardProfile=[]
    this.jobCardProfileSuggession=[]
    this.userCourseResponseProfile=[]
@@ -129,9 +115,9 @@ export class SmartProfileComponent implements OnInit {
         var response = <SmartProfileUserResponse>data
         if (response.status && response.data.length>0) {
           this.userProfile=response.data[0]
-          if(isSearch && jobId.trim()==this.userProfile.legacycode.trim()){
-            this.toastr.info("You dont have permission to get this user details," + jobId )
-          }
+          // if(jobId.trim()==this.userProfile.legacycode.trim()){
+          //   this.toastr.info("You dont have permission to get this user details," + jobId )
+          // }
         }
         else {
           console.log(response.message)
@@ -156,7 +142,7 @@ export class SmartProfileComponent implements OnInit {
         }
         else {
           console.log(response.message)
-          this.toastr.error(response.message.toString())
+          this.toastr.info("No Job Card Found")
         }
       },
       error => this.toastr.error(error.message)
@@ -177,7 +163,7 @@ export class SmartProfileComponent implements OnInit {
         }
         else {
           console.log(response.message)
-          this.toastr.error(response.message.toString())
+          //this.toastr.info("No Course attended")
         }
       },
       error => this.toastr.error(error.message)
@@ -197,6 +183,17 @@ export class SmartProfileComponent implements OnInit {
         this.jobCardProfileSuggession.push(item)
       }
     })
+  }
+
+  onSubmit(){
+    this.clear();
+    var jobIdSelected = this.form.value.jobId
+    if(jobIdSelected!=null){
+    this.getUserInformations(jobIdSelected,true)
+    }else{
+      this.toastr.error("Invalid Jobid")
+    }
+
   }
 
 }
