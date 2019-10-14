@@ -48,6 +48,7 @@ public interface CourseService {
     List<TacCommSubjects> getAllSubjects();
     List<TacCommQualifications> getAllQualifications();
     TacCourseActivation getCourseActivationByCourseId(TacCourseMaster courseMaster);
+
     List<TacCourseActivation>  listactivations(String name, int page, int limit);
     TacCourseLocation getCourseroom(BigDecimal locationId);
     TacCourseDate getCourseDate(BigDecimal courseId);

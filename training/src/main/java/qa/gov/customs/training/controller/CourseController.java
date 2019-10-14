@@ -40,6 +40,7 @@ public class CourseController {
 		logger.info("Create course starting ");
 		if (course.getCourseId().equals(new BigDecimal(0))) {
 			course.setActiveFlag(new BigDecimal(1));
+			courseService.findById(course.getCourseId());
 			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
 			//course.getTacCourseAudiences().forEach(i -> i.courseInserted);
 			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
@@ -51,6 +52,7 @@ public class CourseController {
 			course.setDateCreated(courseExisting.getDateCreated());
 			course.setUserCreated(courseExisting.getUserCreated());
 			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+			linkCourseWithActivity(course);
 			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
 					courseInserted);
 			return response;
@@ -110,6 +112,7 @@ public class CourseController {
 		ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED_DISABLE, false, null);
 		return response;
 	}
+
 
 	@PreAuthorize("hasAnyAuthority('get_course_by_id')")
 	@PostMapping("/get-courses-by-id")

@@ -69,11 +69,14 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
+
 		Set<TacCourseAudience> targetedAudiences = course.getTacCourseAudiences() != null ? course.getTacCourseAudiences() : null;
 		Set<TacCourseGuidelines> tacCourseGuidelineses = course.getTacCourseGuidelineses() != null ? course.getTacCourseGuidelineses() : null;
 		course.setTacCourseAudiences(null);
 		course.setTacCourseGuidelineses(null);
 		TacCourseMaster courseInserted = courseRepository.save(course);
+
+
 		if (!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences != null) {
 			targetedAudiences.forEach(item -> {
 				item.setTacCourseMaster(courseInserted);
