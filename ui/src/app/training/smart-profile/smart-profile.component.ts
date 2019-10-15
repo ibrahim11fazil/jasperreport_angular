@@ -10,9 +10,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
 import { MainComponent } from 'app/main/main.component';
 import { AuthService } from 'app/service/auth-service/auth.service';
-import { SmartProfileUserRequestModel, SmartProfileUserResponseModel,SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
+import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
 import { CertificateRequest, CertificateRequestOnlyJobId, ResponseCertificateList } from 'app/models/certificate-request';
 import { TranslateService } from '@ngx-translate/core';
+import { ITacCourseManagementList, CourseManagementRes } from 'app/models/tac-course-master';
 @Component({
   selector: 'ms-smart-profile',
   templateUrl: './smart-profile.component.html',
@@ -20,25 +21,28 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SmartProfileComponent implements OnInit {
 
-  form:FormGroup
-  
-   userProfile   :SmartProfileUserResponseModel
-   certificates  :CertificateRequest[]=[]
-   jobCardProfile:JobCardProfile[]=[]
-   jobCardProfileSuggession:JobCardProfile[]=[]
-   userCourseResponseProfile:UserCourseResponseProfile[]=[]
+  form: FormGroup
+
+  userProfile: SmartProfileUserResponseModel
+  certificates: CertificateRequest[] = []
+  jobCardProfile: JobCardProfile[] = []
+  jobCardProfileSuggession: JobCardProfile[] = []
+  userCourseResponseProfile: UserCourseResponseProfile[] = []
+  displayCourses: boolean = false
+  courseManagement:CourseManagementRes[]=[]
 
   constructor(
-    private authService:AuthService,
-    private trainingService:TrainingService,
-    private fb:FormBuilder,
+    private authService: AuthService,
+    private trainingService: TrainingService,
+    private fb: FormBuilder,
     private pageTitleService: PageTitleService,
-    private toastr : ToastrService,
-    private mainComponent:MainComponent,
+    private toastr: ToastrService,
+    private mainComponent: MainComponent,
     //private translate:TranslateService,
-    private activatedRoute: ActivatedRoute,){
-    this.pageTitleService.setTitle("Smart Profile") 
+    private activatedRoute: ActivatedRoute, ) {
+    this.pageTitleService.setTitle("Smart Profile")
     this.userProfile = new SmartProfileUserResponseModel()
+    
   }
   ngDoCheck(): void {
   }
@@ -46,68 +50,67 @@ export class SmartProfileComponent implements OnInit {
   ngOnInit() {
     this.clear()
     this.formInit()
-    var userCode =  this.authService.getLegacyCode()
-    this.getUserInformations(userCode,false)
-   
+    var userCode = this.authService.getLegacyCode()
+    this.getUserInformations(userCode, false)
+
   }
 
 
 
-  formInit()
-  {
+  formInit() {
     this.form = this.fb.group({
-      jobId:[null, Validators.compose([Validators.required])],
+      jobId: [null, Validators.compose([Validators.required])],
     });
   }
 
   clear() {
-   this.userProfile   =new SmartProfileUserResponseModel()
-   this.certificates = []
-   this.jobCardProfile=[]
-   this.jobCardProfileSuggession=[]
-   this.userCourseResponseProfile=[]
+    this.userProfile = new SmartProfileUserResponseModel()
+    this.certificates = []
+    this.jobCardProfile = []
+    this.jobCardProfileSuggession = []
+    this.userCourseResponseProfile = []
   }
 
-  getUserInformations(jobId:String,isSearch:Boolean) {
-    if(!isSearch){
-      jobId =  this.authService.getLegacyCode()
+  getUserInformations(jobId: String, isSearch: Boolean) {
+    if (!isSearch) {
+      jobId = this.authService.getLegacyCode()
     }
-    
-    this.getUserProfile(jobId,isSearch)
-    this.getCertificates(jobId,isSearch)
-    this.getUserJobCard(jobId,isSearch)
-    this.getUserCoursesAttended(jobId,isSearch)
+
+    this.getUserProfile(jobId, isSearch)
+    this.getCertificates(jobId, isSearch)
+    this.getUserJobCard(jobId, isSearch)
+    this.getUserCoursesAttended(jobId, isSearch)
     this.smartSuggession()
   }
 
 
-  getCertificates(jobId:String,isSearch:Boolean){
-    var input =new CertificateRequestOnlyJobId()
-    input.jobId=jobId
-   this.trainingService.getCertificateListByJobId(input)
-   .subscribe(data => {
-         var response = <ResponseCertificateList>data
-         if(response.status && response.data.length>0){
+  getCertificates(jobId: String, isSearch: Boolean) {
+    var input = new CertificateRequestOnlyJobId()
+    input.jobId = jobId
+    this.trainingService.getCertificateListByJobId(input)
+      .subscribe(data => {
+        var response = <ResponseCertificateList>data
+        if (response.status && response.data.length > 0) {
           response.data.forEach(item => {
             item.certificateUid = GET_CERTIFICATE + item.certificateUrl
           })
-          this.certificates =  response.data
-         }else{
-          this.certificates =[]
-         }
-   } ,
-   error => this.toastr.error(error.message))
-  
+          this.certificates = response.data
+        } else {
+          this.certificates = []
+        }
+      },
+        error => this.toastr.error(error.message))
+
   }
 
-  getUserProfile(jobId:String,isSearch:Boolean){
+  getUserProfile(jobId: String, isSearch: Boolean) {
     var input = new SmartProfileUserRequestModel()
-    input.jobIdRequested =jobId
+    input.jobIdRequested = jobId
     this.trainingService.getEmployeeSmartProfile(input).subscribe(
       data => {
         var response = <SmartProfileUserResponse>data
-        if (response.status && response.data.length>0) {
-          this.userProfile=response.data[0]
+        if (response.status && response.data.length > 0) {
+          this.userProfile = response.data[0]
           // if(jobId.trim()==this.userProfile.legacycode.trim()){
           //   this.toastr.info("You dont have permission to get this user details," + jobId )
           // }
@@ -121,16 +124,16 @@ export class SmartProfileComponent implements OnInit {
     )
   }
 
-  
 
-  getUserJobCard(jobId:String,isSearch:Boolean){
+
+  getUserJobCard(jobId: String, isSearch: Boolean) {
     var input = new SmartProfileUserRequestModel()
-    input.jobIdRequested =jobId
+    input.jobIdRequested = jobId
     this.trainingService.getEmployeeJobCardForSmartProfile(input).subscribe(
       data => {
         var response = <JobCardProfileRequest>data
-        if (response.status && response.data.length>0) {
-          this.jobCardProfile=response.data
+        if (response.status && response.data.length > 0) {
+          this.jobCardProfile = response.data
           this.smartSuggession()
         }
         else {
@@ -142,16 +145,16 @@ export class SmartProfileComponent implements OnInit {
     )
   }
 
-  
 
-  getUserCoursesAttended(jobId:String,isSearch:Boolean){
+
+  getUserCoursesAttended(jobId: String, isSearch: Boolean) {
     var input = new SmartProfileUserRequestModel()
-    input.jobIdRequested =jobId
+    input.jobIdRequested = jobId
     this.trainingService.getEmployeeCourseAttendedForSmartProfile(input).subscribe(
       data => {
         var response = <UserCourseRequestedResponse>data
-        if (response.status &&  response.data.length) {
-          this.userCourseResponseProfile=response.data
+        if (response.status && response.data.length) {
+          this.userCourseResponseProfile = response.data
           this.smartSuggession()
         }
         else {
@@ -163,27 +166,58 @@ export class SmartProfileComponent implements OnInit {
     )
   }
 
-  smartSuggession(){
-    this.jobCardProfileSuggession=[]
-    this.jobCardProfile.forEach( item => {
-      var status=false;
-      this.userCourseResponseProfile.forEach(courses =>{
-         if(item.courseId==courses.courseId){
-          status=true
-         }
+  smartSuggession() {
+    this.jobCardProfileSuggession = []
+    this.jobCardProfile.forEach(item => {
+      var status = false;
+      this.userCourseResponseProfile.forEach(courses => {
+        if (item.courseId == courses.courseId) {
+          status = true
+        }
       })
-      if(!status){
+      if (!status) {
         this.jobCardProfileSuggession.push(item)
       }
     })
   }
+  getCoordinatorCourses() {
+    if (this.authService.checktheRoleisTrainingCoordinator()) {
+      this.trainingService.getCoordinatorCourses().subscribe(
+        data=>{
+          var response=<ITacCourseManagementList>data
+          if(response.data!=null || response.data.length>0)
+          {
+            this.displayCourses=true;
+            this.courseManagement=response.data;
+          }
+          else {
+            this.displayCourses = false;
+          }
+        })}
+  }
 
-  onSubmit(){
+  getInstructorCourses(){
+    this.trainingService.getInstructorCourses().subscribe(
+      data=>{
+        var response=<ITacCourseManagementList>data
+        if(response.data!=null || response.data.length>0)
+        {
+          this.displayCourses=true;
+          this.courseManagement=response.data;
+        }
+        else
+        {
+          this.displayCourses = false;
+        }
+      }) 
+  }
+
+  onSubmit() {
     this.clear();
     var jobIdSelected = this.form.value.jobId
-    if(jobIdSelected!=null){
-    this.getUserInformations(jobIdSelected,true)
-    }else{
+    if (jobIdSelected != null) {
+      this.getUserInformations(jobIdSelected, true)
+    } else {
       this.toastr.error("Invalid Jobid")
     }
 

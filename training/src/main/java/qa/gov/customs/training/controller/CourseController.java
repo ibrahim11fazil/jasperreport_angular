@@ -673,6 +673,21 @@ public class CourseController {
 		}
 
 	}
+	@PreAuthorize("hasAnyAuthority('ic')")
+	@PostMapping ("/Instructor-courses")
+	public ResponseType instructorCourses(@AuthenticationPrincipal CustomPrincipal principal)
+	{
+		List<CourseManagement> instructorCourses=courseService.getInstructorCourses(principal.getJid());
+		if (instructorCourses != null) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, instructorCourses);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
+	}
 
 
 

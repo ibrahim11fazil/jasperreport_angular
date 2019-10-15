@@ -647,6 +647,38 @@ public class CourseServiceImpl  implements CourseService {
 			return null;
 		}
 	}
+	@Override
+	public List<CourseManagement> getInstructorCourses(String jobId)
+	{
+		try
+		{
+			int page = 0;
+			int limit = 20;
+			List<CourseManagement>courseList=new ArrayList<>();
+			Pageable pageable =
+					PageRequest.of(
+							page, limit, Sort.by("course_Id"));
+			List<Object[]> object=courseRepository.getInstructorCourses(jobId, pageable);
+			for (Object[] o:object) {
+				CourseManagement course=new CourseManagement();
+				course.setCourseName((String) o[0]);
+				Date courseDate=((Date)o[1]);
+				Date endDate=((Date)o[2]);
+				course.setActivation_id((BigDecimal)o[3]);
+				course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+				course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+				courseList.add(course);
+
+			}
+			return courseList;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			logger.error(e.toString());
+			return null;
+		}
+	}
 
 
 }
