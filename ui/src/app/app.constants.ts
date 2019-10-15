@@ -1,4 +1,6 @@
 
+export const AUTOLOGOUT_IN_MIU=30
+
 export const CONTENT_TYPE_FORM_URL_ENCODE="application/x-www-form-urlencoded"
 export const CONTENT_TYPE_JSON="application/json"
 export const PAGE_LIMIT=10
