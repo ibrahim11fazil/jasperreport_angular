@@ -43,7 +43,9 @@ export class SmartProfileComponent implements OnInit {
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
     this.userProfile = new SmartProfileUserResponseModel()
   }
-
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
 
   ngOnInit() {
     this.clear()
@@ -68,12 +70,6 @@ export class SmartProfileComponent implements OnInit {
    this.jobCardProfile=[]
    this.jobCardProfileSuggession=[]
    this.userCourseResponseProfile=[]
-  }
-
-
-
-  ngDoCheck(): void {
-    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   getUserInformations(jobId:String,isSearch:Boolean) {

@@ -18,6 +18,8 @@ import { EmployeeCourseRequest, WorkflowResponse } from 'app/models/workflow';
 import { AuthService } from 'app/service/auth-service/auth.service';
 import { AbsentInfo, AbsentInfoResponse } from 'app/models/employee-data';
 import { SupervisorResponse, SupervisorResponseData, ActivationDateRequest, ActivationDateResponse, ActivationDateDetails } from 'app/models/course-request';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
 
 
 
@@ -52,15 +54,21 @@ export class EmpRequestComponent implements OnInit {
   searchText: String;
   employeesUnderSupervisor:SupervisorResponseData[]=[]
   isHead=false
-
+ language:LanguageUtil
   
 
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
     private trainingService: TrainingService,
     private toastr:ToastrService,
+    private mainComponent:MainComponent,
     private authService:AuthService)
   {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {

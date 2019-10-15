@@ -10,6 +10,8 @@ import { PAGE_LIMIT } from 'app/app.constants';
 import { JobCardData, IJobCardDataListResponse, SearchJobCard, JobCardDataSearch } from 'app/models/job-card-data';
 import { UserSearchComponent } from '../user-search/user-search.component';
 import { SystemUserService } from 'app/service/user/system-user.service';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
 
 @Component({
   selector: 'ms-job-card-search',
@@ -20,6 +22,7 @@ export class JobCardSearchComponent implements OnInit {
   form: FormGroup
   page = 0
   ds: JobCardData[] = [];
+  language:LanguageUtil
   firstSearch=false
   displayedColumns: string[] = ['jobTitle', 'jobGrade', 'jobGroup','job','jobcardNo', 'Edit','Status','HStatus' ];
   constructor(
@@ -28,8 +31,13 @@ export class JobCardSearchComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
+    private mainComponent:MainComponent,
     private router:Router) {
     this.pageTitleService.setTitle("Search JobCard")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {

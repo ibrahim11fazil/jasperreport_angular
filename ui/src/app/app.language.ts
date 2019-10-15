@@ -28,7 +28,7 @@ export class LanguageUtil  {
     //Search Course
 
     title_searchCourse:String=this.isArabic ? "Search Course1" : "Search Course"
-    courseId:String=this.isArabic ? "Id1" : "Id"
+    courseId:String=this.isArabic ? " Course Id1" : "Course Id"
     btn_linkCourse:String=this.isArabic ? "Link Course1" : "Link Course"
 
     //Link Course
@@ -114,10 +114,10 @@ export class LanguageUtil  {
 
     userCreation:String=this.isArabic ? "User Creation1" : "User Creation"
     jobId:String=this.isArabic ? "Job Id1" : "Job Id"
-    role:String=this.isArabic ? "role1" : "role"
-    enable:String=this.isArabic ? "enable1" : "enable"
-    disable:String=this.isArabic ? "disable1" : "disable"
-    status:String=this.isArabic ? "status1" : "status"
+    role:String=this.isArabic ? "Role1" : "Role"
+    enable:String=this.isArabic ? "Enable1" : "Enable"
+    disable:String=this.isArabic ? "Disable1" : "Disable"
+    status:String=this.isArabic ? "Status1" : "Status"
 
     //User Search
 
@@ -137,12 +137,51 @@ export class LanguageUtil  {
    jobNumber:String=this.isArabic ? "Job Number 1" : "Job Number"
    jobGrade:String=this.isArabic ? "Job Grade 1" : "Job Grade"
    selectJobGrade:String=this.isArabic ? "Select Job Grade 1" : "Select Job Grade"
-   JobFamily:String=this.isArabic ? "Job Family 1" : "Job Family"
+   jobFamily:String=this.isArabic ? "Job Family 1" : "Job Family"
    selectJobFamily:String=this.isArabic ? "Select Job Family 1" : "Select Job Family"
    functionalArea:String=this.isArabic ? "Functional Area 1" : "Functional Area "
+   jobDuties:String=this.isArabic ? "Job Duties1" : "Job Duties"
+   conditionTogetJob:String=this.isArabic ? "Condition To get Job 1" :"Condition To get Job"
+   jobSkills:String=this.isArabic ? "Job Skills1" : "Job Skills" 
+   trainingCourses:String=this.isArabic ? "Training Course 1" : "Training Course" 
 
+   //Job Card Search
 
+   title_jobCardSearch:String=this.isArabic ? "Job Card Search 1" : "Job Card Search"
+   jobCardNumber:String=this.isArabic ? "Job Card Number 1":"Job Card Number"
+   jobGroup:String=this.isArabic ? "Job Group 1":"Job Group"
+   jobcardId:String=this.isArabic ? "Job Card Id 1":"Job Card Id"
+   hoursError:String=this.isArabic ? "Hours Error 1":"Hours Error"
 
+  // CI System
+
+    title_CISUsers:String=this.isArabic ? "CI System Users 1" : "CI System Users"
+    caseID:String=this.isArabic ? "Case Id 1" : "Case Id"
+    jobCode:String=this.isArabic ? "Job Code 1" : "Job Code"
+    fullName:String=this.isArabic ? "Full Name 1" : "Full Name"
+    decision:String=this.isArabic ? "Decision 1" : "Decision"
+    decisionDetails:String=this.isArabic ? "Decision Details 1" : "Decision Details"
+    decisionDate:String=this.isArabic ? "Decision Date 1" : "Decision Date"
+    
+    //CI System Course Suggestion
+   
+    title_CISCourseSuggestion:String=this.isArabic ? "CI System Course Suggestion 1" : "CI System Course Suggestion "
+    requestId:String=this.isArabic ? "Request ID 1": "Request ID"
+    caseId:String=this.isArabic ? "Case ID 1": "Case ID"
+    requestedFor:String=this.isArabic ? "REQUESTED FOR 1" : "REQUESTED FOR"
+    createdDate:String=this.isArabic ? "Created Date 1" : "Created Date"
+   
+   // Employee Request
+
+    title_courseRequestSearch:String=this.isArabic ? "Course Request Search1": "Course Request Search"
+    courseDetails:String=this.isArabic ? "Course Details 1" : "Course Details"
+    locationName:String=this.isArabic ? "Location Name 1" : "Location Name"
+    courseSuggession:String=this.isArabic ? "Course Suggession for Employee 1" : "Course Suggession for Employee"
+    
+   //Smart Profile
+
+   title_searchWithJobId:String=this.isArabic ? "Search With jobId 1" : "Search With jobId"
+  
 
 
     //General
@@ -157,6 +196,8 @@ export class LanguageUtil  {
     btn_updateAttendance:String=this.isArabic ? "Update Attendance 1" : "Update Attendance"
     btn_add:String=this.isArabic ? "Add 1" : "Add"
     btn_request:String=this.isArabic ? "Request 1" : "Request"
+    btn_details:String=this.isArabic ? "Details 1" : "Details"
+    btn_requestSubmit:String=this.isArabic ? "Request Submit 1" : "Request Submit"
 
     //Titles
 
