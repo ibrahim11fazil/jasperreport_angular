@@ -130,6 +130,11 @@ export class MainComponent implements OnInit, OnDestroy{
       },
    ]
 
+
+  autoLogout(){
+     
+  }
+
    constructor(public tourService: TourService, 
                public menuItems: MenuItems, 
                private breadcrumbService: BreadcrumbService, 
@@ -487,6 +492,7 @@ export class MainComponent implements OnInit, OnDestroy{
 
    /**
      * changeRTL method is used to change the layout of template.
+     * 
      */
    changeRTL(isChecked) {
       if(isChecked){

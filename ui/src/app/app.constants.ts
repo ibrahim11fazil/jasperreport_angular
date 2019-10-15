@@ -91,6 +91,7 @@ export const VERSION_UI ="qa_0.6.8"
 //Disable if gateway is down -- for development
 var gateway = true
 var authentication=""
+var authenticationrefresh=""
 var training=""
 var user=""
 var fileUploading=""
@@ -99,6 +100,7 @@ var employee=""
 var workflow=""
 if(gateway){
     authentication="/authentication"
+    authenticationrefresh="/authrefresh"
     training="/training"
     user="/user"
     fileUploading="/fileupload"
@@ -110,6 +112,7 @@ if(gateway){
 //http://localhost:9000/authentication/oauth/token
 //AUTHENTICATION
 export const LOGIN_URL = BASE_URL + authentication +"/oauth/token"
+export const REFRESH_TOKEN=BASE_URL + authenticationrefresh +"/oauth/token?grant_type=refresh_token&refresh_token="
 
 //TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
