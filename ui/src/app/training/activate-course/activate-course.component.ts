@@ -475,13 +475,7 @@ debugger;
         this.trainingRoomDetail = response.data
         this.roomDetails=this.trainingRoomDetail .tacCourseRooms
       this.patch()
-        
-    //     var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.activationData.locationId)
-    //     if (locationArray[0] != null) {
-    //       this.form.controls['locationSelect'].patchValue(
-    //         locationArray[0]
-    //       )
-    //     }
+  
     const instrcutorControl = this.getControlOfAddMore('instructorSelect');
     this.activationData.instructors.forEach(x => {
   
@@ -502,12 +496,7 @@ debugger;
             dateArray[0]
           )
         }
-        var cordinatorArray = this.userList.filter(i => i.jobid == this.activationData.coordinator)
-        if (cordinatorArray[0] != null) {
-          this.form.controls['userSelect'].patchValue(
-            cordinatorArray[0]
-          )
-        }
+       
        
 
       },
