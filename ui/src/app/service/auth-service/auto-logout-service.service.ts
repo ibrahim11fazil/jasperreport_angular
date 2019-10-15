@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { AUTOLOGOUT_IN_MIU } from 'app/app.constants';
 
-const MINUTES_UNITL_AUTO_LOGOUT = 30 //1 // .2 // in mins
+const MINUTES_UNITL_AUTO_LOGOUT = AUTOLOGOUT_IN_MIU //1 // .2 // in mins
 const CHECK_INTERVAL = 15000 // in ms
 const STORE_KEY =  'lastAction';
 @Injectable({
@@ -19,8 +20,7 @@ export class AutoLogoutServiceService {
    }
  
    constructor(private router: Router, private authService:AuthService) {
-    
-     console.log("called")
+  
      localStorage.setItem(STORE_KEY,Date.now().toString());
      this.check();
      this.initListener();
@@ -52,25 +52,25 @@ export class AutoLogoutServiceService {
  
    reset() {
  
-     console.log('date got by using events',Date.now());
+     //console.log('date got by using events',Date.now());
      this.setLastAction(Date.now());
-     console.log('store key',localStorage.getItem(STORE_KEY));
+     //console.log('store key',localStorage.getItem(STORE_KEY));
  
    }
  
    initInterval() {
-    console.log("called initInterval()")
+    //console.log("called initInterval()")
      setInterval(() => {
        this.check();
      }, CHECK_INTERVAL);
    }
  
    check() {
-    console.log("called initInterval()")
+     //console.log("called initInterval()")
      const now = Date.now();
      const timeleft = this.getLastAction() + MINUTES_UNITL_AUTO_LOGOUT * 60 * 1000;
      const diff = timeleft - now;
-     console.log('difference',diff)
+     //console.log('difference',diff)
      const isTimeout = diff < 0;
  
      if (isTimeout)  {
@@ -79,7 +79,7 @@ export class AutoLogoutServiceService {
      }
    }
    storageEvt(){
-   console.log("storage");
+   //console.log("storage");
    this.val = localStorage.getItem(STORE_KEY);
  }
 }
