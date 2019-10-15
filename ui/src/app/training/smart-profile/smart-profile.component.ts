@@ -8,7 +8,6 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
-import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { AuthService } from 'app/service/auth-service/auth.service';
 import { SmartProfileUserRequestModel, SmartProfileUserResponseModel,SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
@@ -22,7 +21,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class SmartProfileComponent implements OnInit {
 
   form:FormGroup
-  language:LanguageUtil
   
    userProfile   :SmartProfileUserResponseModel
    certificates  :CertificateRequest[]=[]
@@ -40,11 +38,9 @@ export class SmartProfileComponent implements OnInit {
     //private translate:TranslateService,
     private activatedRoute: ActivatedRoute,){
     this.pageTitleService.setTitle("Smart Profile") 
-    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
     this.userProfile = new SmartProfileUserResponseModel()
   }
   ngDoCheck(): void {
-    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -76,7 +72,7 @@ export class SmartProfileComponent implements OnInit {
     if(!isSearch){
       jobId =  this.authService.getLegacyCode()
     }
-    debugger
+    
     this.getUserProfile(jobId,isSearch)
     this.getCertificates(jobId,isSearch)
     this.getUserJobCard(jobId,isSearch)
@@ -90,7 +86,6 @@ export class SmartProfileComponent implements OnInit {
     input.jobId=jobId
    this.trainingService.getCertificateListByJobId(input)
    .subscribe(data => {
-     debugger
          var response = <ResponseCertificateList>data
          if(response.status && response.data.length>0){
           response.data.forEach(item => {
@@ -187,7 +182,6 @@ export class SmartProfileComponent implements OnInit {
     this.clear();
     var jobIdSelected = this.form.value.jobId
     if(jobIdSelected!=null){
-      debugger
     this.getUserInformations(jobIdSelected,true)
     }else{
       this.toastr.error("Invalid Jobid")

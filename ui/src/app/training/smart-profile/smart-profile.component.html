@@ -2,15 +2,15 @@
     <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
        <div class="user-content">
           <mat-card>
-              <h4>{{Languge.title_searchWithJobId}}</h4>
+              <h4>Smart Profile</h4>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
           <mat-form-field class="full-wid mrgn-b-lg">
-             <input matInput placeholder={{language.jobId}}    formControlName="jobId" required >
+             <input matInput placeholder="jobId"    formControlName="jobId" required >
           </mat-form-field>  
           <div fxLayout="row" fxLayoutAlign="start">
-              <button mat-raised-button color="primary"   type="submit">{{language.btn_search}}
+              <button mat-raised-button color="primary"   type="submit">Search
           </button> 
           </div>
        </div>
