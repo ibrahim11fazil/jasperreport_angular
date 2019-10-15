@@ -462,85 +462,85 @@ export class MenuItems {
       permissions.forEach(item => {
         switch (item) {
           //Dashboard
-          case "mn_dash_all":
+          case "mda":
             welcome_menu.children.push({ state: 'welcome', name: 'Welcome' });
             break
           //Courses 
-          case "mn_crs_my":
+          case "mcmy":
             training_menu.children.push({ state: 'welcome', name: 'My Courses' })
             break
-          case "mn_crs_create":
+          case "mcc":
             training_menu.children.push({ state: 'create-course', name: 'Create Courses' })
             break
-          case "mn_crs_manage":
+          case "mcm":
             training_menu.children.push({ state: 'search-course', name: 'Manage Courses' })
             break
-          case "mn_crs_link":
+          case "mcl":
             training_menu.children.push({ state: 'course-link', name: 'Link Course' })
             break
-          case "mn_crs_activity":
+          case "mca":
             training_menu.children.push({ state: 'activity', name: 'Activity' })
             break
-          case "mn_crs_man_activation":
+          case "mcma":
             training_menu.children.push({ state: 'activations', name: 'Manage Activations' })
             break
-          case "mn_crs_activate_crs":
+          case "mcac":
             training_menu.children.push({ state: 'activate-course', name: 'Activate Course' })
             break
 
           //Manage course
-          case "mn_man_crs":
+          case "mncrs":
             course_managment.children.push({ state: 'course-management', name: 'Manage Courses' })
             break
 
           //Instructor project
-          case "mn_instr_create":
+          case "mic":
             instructor_menu.children.push({ state: 'create-instructor', name: 'Create Instructor' })
             break
-          case "mn_instr_man":
+          case "mim":
             instructor_menu.children.push({ state: 'search-instructor', name: 'Manage Instructor' })
             break
 
           //User management
-          case "mn_user_create":
+          case "muc":
             user_menu.children.push({ state: 'user-creation', name: 'New User' })
             break
-          case "mn_user_search":
+          case "mus":
             user_menu.children.push({ state: 'user-search', name: 'Search User' })
             break
-          case "mn_user_permission":
+          case "mup":
             user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })
             break
 
           //JOB CARD
-          case "mn_jc_search":
+          case "mjs":
               jobcard_menu.children.push({ state: 'job-card-search', name: 'Search Job Card' })
             break
-          case "menu_jc_create":
+          case "mjc":
               jobcard_menu.children.push({ state: 'job-card-management', name: 'Create Job Card' })
             break
 
           //CI SYSTEM
-          case "mn_ci_all":
+          case "mciall":
             ci_system_menu.children.push({ state: 'cis-system', name: 'All Employees' })
             break
-          case "mn_ci_crs":
+          case "mcin":
             ci_system_menu.children.push({ state: 'cis-course-requests-i-made', name: 'Course Requests' })
             break
 
           //EMPLOYEE  
-          case "mn_req_emp":
+          case "mre":
             request_menu.children.push({ state: 'emp-request', name: 'Employee Requests' })
             break
-          case "mn_req_my":
+          case "mrem":
             request_menu.children.push({ state: 'my-tasks', name: 'My Tasks' })
             break
-          case "mn_req_history":
+          case "mreh":
             request_menu.children.push({ state: 'my-tasks-history', name: 'History' })
             break
 
           //SMART MENU
-          case "mn_smart_emp":
+          case "msep":
               smart_menu.children.push({ state: 'smart-profile', name: 'Smart Profile' })
               break 
         }
@@ -550,31 +550,31 @@ export class MenuItems {
    dynamicMenu.push(welcome_menu)
       permissions.forEach(item => {
         switch (item) {
-          case "mn_dash_main":
+          case "mdm":
           
             break
-          case "mn_crs_main":
+          case "mcmn":
             dynamicMenu.push(training_menu)
             break
-          case "mn_man_crs_main":
+          case "mcmain":
             dynamicMenu.push(course_managment)
             break
-          case "mn_instr_main":
+          case "mima":
             dynamicMenu.push(instructor_menu)
             break
-          case "mn_jc_main":
+          case "mjma":
             dynamicMenu.push(jobcard_menu)
             break
-          case "mn_user_main":
+          case "muma":
             dynamicMenu.push(user_menu)
             break
-          case "mn_req_main":
+          case "mrma":
             dynamicMenu.push(request_menu)
             break
-          case "mn_ci_main":
+          case "mcima":
             dynamicMenu.push(ci_system_menu)
             break
-          case "mn_smart_main":
+          case "msmm":
             dynamicMenu.push(smart_menu)
             break
         }
