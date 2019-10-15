@@ -146,16 +146,17 @@ export class AuthService {
     * logOut function is used to sign out  
     */
    logOut() {
+        localStorage.clear()
         localStorage.removeItem("userProfile");
         this.toastr.success("Successfully logged out!");
         this.router.navigate(['/session/loginV2']);
-      // this.firebaseAuth
-      // .auth
-      // .signOut();
-      // localStorage.removeItem("userProfile");
-      // this.isLoggedIn = false;
-      // this.toastr.success("Successfully logged out!");
-      // this.router.navigate(['/session/loginV2']);
+   }   
+
+   logOutExpire() {
+      localStorage.clear()
+      localStorage.removeItem("userProfile");
+      this.toastr.success("Session Expired");
+      this.router.navigate(['/session/loginV2']);
    }   
 
    /*
