@@ -64,6 +64,23 @@
                   <mat-form-field class="full-wid mrgn-b-lg ">
                      <input matInput placeholder={{language.courseObjective}} formControlName="objective" required>
                   </mat-form-field>
+
+                  <small class="gene-block"
+                     *ngIf="form.controls['objective'].hasError('required') && form.controls['objective'].touched"
+                     class="warn-text">
+                     Course Objective is required
+                  </small>
+
+                  <small class="gene-block"
+                     *ngIf="form.controls['objective'].hasError('minlength') && form.controls['objective'].touched"
+                     class="warn-text">
+                     Course  Objective must be at least 5 characters long.
+                  </small>
+                  <small class="gene-block"
+                     *ngIf="form.controls['objective'].hasError('maxlength') && form.controls['objective'].touched"
+                     class="warn-text">
+                     Course Objective cannot exceed 100 characters.
+                  </small>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
