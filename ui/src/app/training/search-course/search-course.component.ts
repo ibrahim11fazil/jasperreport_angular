@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ResponseActivationDetail, TacActivation } from 'app/models/tac-activation';
 
 @Component({
   selector: 'ms-search-course',
@@ -29,6 +30,7 @@ export class SearchCourseComponent implements OnInit
    dialogRef : MatDialogRef<CourseActionDialog>;
    result    : string;
    language:LanguageUtil;
+   tacActivation:TacActivation;
 
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
@@ -129,18 +131,32 @@ export class SearchCourseComponent implements OnInit
   }
 
   updateRow(row){
-    //this.router.navigate(["create-course"])
+    var courseMaster=new TacCourseMaster(row.courseId,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+    courseMaster.courseId=row.courseId
+    this.trainingService.getCourseActivationById(courseMaster).subscribe(
+      data => {
+        var response = <ResponseActivationDetail>data
+        this.tacActivation=response.data
+        if(this.tacActivation==null )
+      {
+   
     this.router.navigate(["/training/create-course/",row.courseId]);
+      }
+      else
+      {
+        this.toastr.error("Could not update Activated Course")
+      }
+      })
+      
   }
 
   updateLink(row){
-    //this.router.navigate(["create-course"])
-    
+ 
     this.router.navigate(["/training/course-link/",row.courseId]);
   }
 
   updateActivation(row){
-    //this.router.navigate(["create-course"])
+
     debugger;
     this.router.navigate(["/training/activate-course/",row.courseId]);
   }

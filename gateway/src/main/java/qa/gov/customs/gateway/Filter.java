@@ -34,30 +34,39 @@ public class Filter extends ZuulFilter {
 
 
     @Override
-    public Object run()
-    {
-        //TODO This should be from DB or from config
+    public Object run() {
         RequestContext context = RequestContext.getCurrentContext();
-        context.addZuulRequestHeader("Authorization", "Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=");
-        //context.addZuulResponseHeader("Authorization", "Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=");
-         HttpServletResponse servletResponse = context.getResponse();
-
-        Map<String, List<String>> newParameterMap = new HashMap<>();
-        Map<String, String[]> parameterMap = context.getRequest().getParameterMap();
-        //getting the current parameter
-        for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
-            String key = entry.getKey();
-            String[] values = entry.getValue();
-            newParameterMap.put(key, Arrays.asList(values));
+        if ((context.get("proxy") != null) && context.get("proxy").equals("authentication")){
+            addFilter("grant_type","password");
+            return null;
+        }else if ((context.get("proxy") != null) && context.get("proxy").equals("authrefresh")) {
+             addFilter("grant_type","refresh_token");
+            return null;
+        }else{
+            return null;
         }
-        //add a new parameter
-        String key = "grant_type";
-        String value = "password";
-        newParameterMap.put(key,Arrays.asList(value));
-        context.setRequestQueryParams(newParameterMap);
-        log.info("Authorization: adding and grant_type adding");
-        return null;
+    }
 
+    Object addFilter(String keyType,String valueType) {
+        RequestContext context = RequestContext.getCurrentContext();
+            context.addZuulRequestHeader("Authorization", "Basic VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=");
+            HttpServletResponse servletResponse = context.getResponse();
+            Map<String, List<String>> newParameterMap = new HashMap<>();
+            Map<String, String[]> parameterMap = context.getRequest().getParameterMap();
+            //getting the current parameter
+            if (parameterMap != null)
+                for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+                    String key = entry.getKey();
+                    String[] values = entry.getValue();
+                    newParameterMap.put(key, Arrays.asList(values));
+                }
+            //add a new parameter
+            String key = keyType ;
+            String value = valueType;
+            newParameterMap.put(key, Arrays.asList(value));
+            context.setRequestQueryParams(newParameterMap);
+            log.info("Authorization: adding and grant_type adding");
+            return null;
     }
 
 //    @Override
@@ -69,7 +78,8 @@ public class Filter extends ZuulFilter {
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        if ((ctx.get("proxy") != null) && ctx.get("proxy").equals("authentication")) {
+        if ((ctx.get("proxy") != null) && ( ctx.get("proxy").equals("authentication") ||
+                ctx.get("proxy").equals("authrefresh"))) {
             return true;
         }
         return false;

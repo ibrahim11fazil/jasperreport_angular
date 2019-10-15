@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADMIN, ROLE_TRAINING_MANAGER, ROLE_TRAINING_ASSIS_MANAGER, ROLE_TRAINING_COORDINATOR, ROLE_TRAINING_HEAD_TCE, ROLE_SYS_ADMIN} from "../../app.constants";
+import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADMIN, ROLE_TRAINING_MANAGER, ROLE_TRAINING_ASSIS_MANAGER, ROLE_TRAINING_COORDINATOR, ROLE_TRAINING_HEAD_TCE, ROLE_SYS_ADMIN, REFRESH_TOKEN} from "../../app.constants";
 import { LoginResponseObj } from 'app/models/system-user';
 import { isNgTemplate } from '@angular/compiler';
 
@@ -89,6 +89,30 @@ export class AuthService {
        );
    }
 
+
+   refreshToken() {
+      let options = {
+         headers: new HttpHeaders()
+               .set('Content-Type', 'application/x-www-form-urlencoded')
+      };
+      let body = new URLSearchParams()
+      body.set('', '')
+      var token = this.getRefreshToken()
+      var url = REFRESH_TOKEN+ token
+      this.http.post(url,body)
+          .subscribe(
+              response => {
+               //console.log(response); 
+               this.setLocalUserProfile(response);
+               this.toastr.success('User session updated');
+            },
+            error => {
+                  console.log(error); 
+                  this.toastr.error(error.message);
+            }
+       );
+   }
+
    /*
     * resetPassword is used to reset your password
     */
@@ -122,16 +146,17 @@ export class AuthService {
     * logOut function is used to sign out  
     */
    logOut() {
+        localStorage.clear()
         localStorage.removeItem("userProfile");
         this.toastr.success("Successfully logged out!");
         this.router.navigate(['/session/loginV2']);
-      // this.firebaseAuth
-      // .auth
-      // .signOut();
-      // localStorage.removeItem("userProfile");
-      // this.isLoggedIn = false;
-      // this.toastr.success("Successfully logged out!");
-      // this.router.navigate(['/session/loginV2']);
+   }   
+
+   logOutExpire() {
+      localStorage.clear()
+      localStorage.removeItem("userProfile");
+      this.toastr.success("Session Expired");
+      this.router.navigate(['/session/loginV2']);
    }   
 
    /*
@@ -223,6 +248,23 @@ export class AuthService {
          return null
       }
     }
+
+
+    getRefreshToken(){
+      try{
+       this.userData = JSON.parse(localStorage.getItem("userProfile"));
+       if(this.userData) {
+           var json = this.userData;
+           //console.log(JSON.stringify(json));
+           let body = JSON.parse(JSON.stringify(json));
+           return body.refresh_token;
+       } else {
+           return null;
+       }
+     }catch(ex){
+        return null
+     }
+   }
 
     checktheRoleisHR(){
       this.userData = JSON.parse(localStorage.getItem("userProfile"));

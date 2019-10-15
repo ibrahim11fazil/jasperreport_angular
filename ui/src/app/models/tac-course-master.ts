@@ -111,6 +111,13 @@ export class TacCourseMaster {
         data: CourseManagementRes[];
         count:number;
     }
+    export interface myTaskCount {
+        status: Boolean;
+        code:number;
+        message:String;
+        data: Number;
+        count:number;
+    }
     
     
 

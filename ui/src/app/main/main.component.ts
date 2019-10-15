@@ -13,6 +13,7 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import { AuthService } from '../service/auth-service/auth.service';
 import { EcommerceService } from '../service/ecommerce/ecommerce.service';
 import { CoreService } from '../service/core/core.service';
+import { AutoLogoutServiceService } from 'app/service/auth-service/auto-logout-service.service';
 
 const screenfull = require('screenfull');
 
@@ -130,6 +131,11 @@ export class MainComponent implements OnInit, OnDestroy{
       },
    ]
 
+
+  autoLogout(){
+     
+  }
+
    constructor(public tourService: TourService, 
                public menuItems: MenuItems, 
                private breadcrumbService: BreadcrumbService, 
@@ -142,8 +148,10 @@ export class MainComponent implements OnInit, OnDestroy{
                public ecommerceService : EcommerceService,
                public coreService : CoreService,
                private routes :Router,
-               private activatedRoute: ActivatedRoute ) {
+               private activatedRoute: ActivatedRoute,
+               private sessionTimeout:AutoLogoutServiceService ) {
       this.layout = "rtl";   
+      this.sessionTimeout.val = "main"
       //const browserLang: string = translate.getBrowserLang();
      
       //translate.use(browserLang.match(/en|fr/) ? browserLang : 'ar');
@@ -487,6 +495,7 @@ export class MainComponent implements OnInit, OnDestroy{
 
    /**
      * changeRTL method is used to change the layout of template.
+     * 
      */
    changeRTL(isChecked) {
       if(isChecked){

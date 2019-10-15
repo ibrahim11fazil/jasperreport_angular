@@ -120,6 +120,7 @@ export class CourseManagementComponent implements OnInit {
 
 
 
+
   modalData: {
     action: string,
     event: CalendarEvent
@@ -196,6 +197,7 @@ export class CourseManagementComponent implements OnInit {
   getCourseManagement(card) {
     debugger;
     this.displayManage = false;
+    this.courseCompletion=false;
     if (card.title == "Previous Courses") {
       this.displayCalendar = false;
       this.displayAttendance = false;
@@ -272,7 +274,8 @@ export class CourseManagementComponent implements OnInit {
   }
   getActivationData(row) {
     debugger;
-
+    this.displayAttendance=false;
+    this.courseCompletion=false;
     this.eventCourseDetail = row;
     console.log(this.eventCourseDetail.course_date);
     const str = this.eventCourseDetail.course_date.split('-');
@@ -360,6 +363,7 @@ export class CourseManagementComponent implements OnInit {
   dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
     debugger;
     this.empRows = null;
+    this.checkboxList=[];
     this.courseCompletion = false;
     this.displayAttendance = true;
     this.displayCourseCompletionForm = false;
@@ -367,7 +371,10 @@ export class CourseManagementComponent implements OnInit {
     var dateCheck = new Date();
     dateCheck.setDate(dateCheck.getDate() - 1);
     var dateFuture = new Date();
-    dateFuture.setDate(dateFuture.getDate() + 1);
+    dateFuture.setHours(0);
+    dateFuture.setMinutes(0);
+    dateFuture.setSeconds(0);
+    //dateFuture.setDate(dateFuture.getDate() + 1);
 
     if (date >= dateFuture) {
       this.updateAttendance = false;
@@ -375,10 +382,16 @@ export class CourseManagementComponent implements OnInit {
       this.toastr.error("Could not mark attendance for future dates")
     }
     else if (date <= dateCheck) {
+      this.empRows=[]
+      this.previousAttendance=[]
+      this.courseAttendanceList=[]
       this.updateAttendance = true;
       this.attendanceUpdate(date)
     }
     else {
+      this.empRows=[]
+      this.previousAttendance=[]
+      this.courseAttendanceList=[]
       this.updateAttendance = false;
       this.attendanceUpdate(date)
     }
@@ -399,7 +412,7 @@ export class CourseManagementComponent implements OnInit {
 
   attendanceUpdate(date)
   {
-
+    
     let course = new FindAttendance(0, null, null)
     course.activation_id = this.eventCourseDetail.activation_id;
     course.course_date = date;
@@ -407,8 +420,9 @@ export class CourseManagementComponent implements OnInit {
       data => {
         var response = <ResponseEmpData>data
         this.empRows = response.data
+        debugger;
         this.previousAttendance=response.data 
-        if (response.data == null || response.data.length == 0) {
+        if (this.empRows == null || this.empRows.length == 0) {
          
          
           let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
@@ -437,6 +451,16 @@ export class CourseManagementComponent implements OnInit {
               console.log(error)
               this.toastr.error(error.message)
             })
+        }
+        else
+        {
+          this.empRows.forEach(emp => {
+            if(emp.attendanceFlag==1)
+            {
+              this.checkboxList.push(emp)
+            }
+
+          })
         }
 
       })
@@ -484,8 +508,8 @@ export class CourseManagementComponent implements OnInit {
     color: colors.red,
   }];
 
-  addEvent(): void {
-    debugger;
+  addEvent(): void {  
+    this.events=[];
     console.log(this.courseStartDate.getDay())
     var i = new Date;
     while (this.courseStartDate <= this.courseEndDate) {
@@ -511,6 +535,7 @@ export class CourseManagementComponent implements OnInit {
 
   checkboxValue(row, event) {
     debugger;
+    
     const checked = event.checked;
     console.log(row);
     if (checked) {
@@ -521,14 +546,11 @@ export class CourseManagementComponent implements OnInit {
       var index = this.checkboxList.indexOf(row);
       this.checkboxList.splice(index, 1);
     }
-
-
-
-
   }
 
   markAttendance() {
     debugger
+    this.courseAttendanceList=[]
     this.displayCourseCompletionForm = false;
     if(this.previousAttendance!=null && this.previousAttendance.length>0)
     {
@@ -539,24 +561,27 @@ export class CourseManagementComponent implements OnInit {
         courseAttendance.attendanceDate = this.dateClicked;
         courseAttendance.attendanceFlag =0
         this.courseAttendanceList.push(courseAttendance)
-        this.checkboxList.forEach(emp => {
-          let courseAttendance = new TacCourseAttendance(0, null, null, null)
-          let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
-          courseAttendance.tacCourseAttendees = tacCourseAttendees;
-          courseAttendance.attendanceDate = this.dateClicked;
-          courseAttendance.attendanceFlag = 1;//marking as present 
-          this.courseAttendanceList.push(courseAttendance)
-        });
-
       })
+        this.courseAttendanceList.forEach(item=>{
+        this.checkboxList.forEach(emp => {
+
+          if(Number(emp.attendeesId)==item.tacCourseAttendees.attendeesId)
+          {
+          item.attendanceFlag=1;
+          }
+        })
+      })     
     }
-    
-   
+      
     this.trainingService.markAttendanceOfEach(this.courseAttendanceList).subscribe(
       data => {
         debugger;
         var Response = <ITacCourseAttendance>data
         this.attendanceMarked = true
+        if(this.courseEndDate <= this.dateClicked)
+        {
+        this.courseCompletion=true;
+        }
         this.toastr.success("Attendance Marked Successfully")
 
       }
@@ -603,7 +628,7 @@ export class CourseManagementComponent implements OnInit {
     course.activation_id = this.eventCourseDetail.activation_id;
     course.course_date = this.courseStartDate;
     course.end_date = this.courseEndDate;
-    debugger;
+    //debugger;
     this.trainingService.courseCompletionDetails(course).subscribe(
       data => {
         var response = <ResponseEmpData>data

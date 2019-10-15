@@ -28,7 +28,7 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    @PreAuthorize("hasAnyAuthority('create_activity')")
+    @PreAuthorize("hasAnyAuthority('ac')")
     @PostMapping("/create-activity")
     public ResponseType createActivity(@Valid @RequestBody TacActivity activity) {
         TacActivity submitActivity = null;
@@ -60,7 +60,7 @@ public class ActivityController {
 
     //@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //if course is not linked with activity, it can be deleted
-    @PreAuthorize("hasAnyAuthority('remove_activity')")
+    @PreAuthorize("hasAnyAuthority('ar')")
     @PostMapping("/remove-activity")
     public ResponseType removeActivity(@RequestBody TacActivity activity) {
         List<TacCourseMaster> activityList = null;
@@ -87,7 +87,7 @@ public class ActivityController {
 
     // @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //  list all the activities
-    @PreAuthorize("hasAnyAuthority('list_activity')")
+    @PreAuthorize("hasAnyAuthority('al')")
     @GetMapping("/list-activity")
     public ResponseType listActivity() {
         List<TacActivity> activityList = null;
@@ -102,7 +102,7 @@ public class ActivityController {
             return response;
         }
     }
-    @PreAuthorize("hasAnyAuthority('search_activity')")
+    @PreAuthorize("hasAnyAuthority('as')")
     @PostMapping("/search-activity")
     public ResponseType searchActivity(@RequestBody TacActivity activity)
     {

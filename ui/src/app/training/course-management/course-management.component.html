@@ -107,7 +107,7 @@
 					style="display: inline">
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
 						<h4>{{language.belongsTo}}</h4>
-						{{courseDetail.courseName}}
+						{{courseDetail.courseName!=null?courseDetail.courseName:""}}
 					</div>
 				</div>
 				<div fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
@@ -283,7 +283,7 @@
 
 			<div class="pad-wrap left">
 				<button *ngIf="courseCompletion" mat-raised-button color="primary" (click)="markCourseCompletionForCurrent()"
-					type="submit">Status</button>
+					type="submit">{{language.btn_status}}</button>
 				<button  *ngIf="!updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">{{language.btn_markAttendance}}</button>
 					<button  *ngIf="updateAttendance" mat-raised-button color="primary" (click)="markAttendance()" type="submit">{{language.btn_updateAttendance}}</button>
 			</div>

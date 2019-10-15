@@ -1,4 +1,6 @@
 
+export const AUTOLOGOUT_IN_MIU=30
+
 export const CONTENT_TYPE_FORM_URL_ENCODE="application/x-www-form-urlencoded"
 export const CONTENT_TYPE_JSON="application/json"
 export const PAGE_LIMIT=10
@@ -91,6 +93,7 @@ export const VERSION_UI ="qa_0.6.8"
 //Disable if gateway is down -- for development
 var gateway = true
 var authentication=""
+var authenticationrefresh=""
 var training=""
 var user=""
 var fileUploading=""
@@ -99,6 +102,7 @@ var employee=""
 var workflow=""
 if(gateway){
     authentication="/authentication"
+    authenticationrefresh="/authrefresh"
     training="/training"
     user="/user"
     fileUploading="/fileupload"
@@ -110,6 +114,7 @@ if(gateway){
 //http://localhost:9000/authentication/oauth/token
 //AUTHENTICATION
 export const LOGIN_URL = BASE_URL + authentication +"/oauth/token"
+export const REFRESH_TOKEN=BASE_URL + authenticationrefresh +"/oauth/token?grant_type=refresh_token&refresh_token="
 
 //TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
@@ -222,6 +227,7 @@ export const  CHECK_THE_REQUEST_IS_VALID=BASE_URL+training +"/check-the-user-is-
 export const   PREVIOUS_ATTENDED_COURSES=BASE_URL+training+"/get-attended-courses"
 export const   ONGOING_COURSES=BASE_URL+training+"/currently-attending-courses"
 export const   APPROVED_COURSES=BASE_URL+training+"/get-approved-courses"
+export const   TASK_COUNT=BASE_URL+workflow+"/my-tasks-count"
 
 
 

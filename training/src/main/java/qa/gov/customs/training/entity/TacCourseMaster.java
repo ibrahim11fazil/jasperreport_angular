@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -120,6 +121,7 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 		this.tacCourseCategory = tacCourseCategory;
 	}
 
+	@NotNull(message = "Name is mandatory")
 	@Column(name = "COURSE_NAME", length = 1000)
 	public String getCourseName() {
 		return this.courseName;
