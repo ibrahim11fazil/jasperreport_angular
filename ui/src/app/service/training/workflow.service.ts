@@ -18,12 +18,12 @@ export class WorkflowService {
 
   constructor(private httpClient: HttpClient) { }
 
-  listMyTasks(): Observable<Object> {
-    return this.httpClient.get(GET_MY_TASKS);
+  listMyTasks(search:SearchUser): Observable<Object> {
+    return this.httpClient.post(GET_MY_TASKS,search);
   }
 
-  listMyTasksWithDelegations(): Observable<Object> {
-    return this.httpClient.get(GET_MY_WITH_DELEGATIONS);
+  listMyTasksWithDelegations(search:SearchUser): Observable<Object> {
+    return this.httpClient.post(GET_MY_WITH_DELEGATIONS,search);
   }
 
   executeTask(request:UserTaskExecuteRequest): Observable<Object> {

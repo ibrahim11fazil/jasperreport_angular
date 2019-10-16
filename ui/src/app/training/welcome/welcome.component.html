@@ -1,3 +1,73 @@
-<p>
-  welcome works!
-</p>
+<div fxLayout="row wrap" fxLayoutAlign="start stretch" class="dash-card">
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100" attr.tourAnchor="{{card.tourAnchor}}"
+      *ngFor="let card of statsCard" (click)="getDashboardData(card)">
+      <mat-card class="{{card.card_color}} mat-card">
+        <div mat-card-widget>
+          <button mat-mini-fab class="inline-block gene-fab-flat-icon" mat-card-icon>
+            <mat-icon>{{card.icon}}</mat-icon>
+          </button>
+          <div >
+            
+            <h5 mat-card-widget-title class="mrgn-b-none">{{card.title}}</h5>
+            <h5>{{card.number}}</h5>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+   
+    </div>
+   
+    <ngx-datatable *ngIf="displayTable" #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' [count]="page.totalElements"
+    [offset]="page.pageNumber">
+
+    <ngx-datatable-column min-width="50px">
+      <ng-template ngx-datatable-header-template>
+        <span>Course Name</span>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.courseName}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column min-width="50px">
+      <ng-template ngx-datatable-header-template>
+        <span>Course Start Date</span>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.course_date}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column min-width="50px">
+      <ng-template ngx-datatable-header-template>
+        <span>Course End Date</span>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.end_date}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column *ngIf="displayPreviousAttendedCourse" min-width="50px">
+        <ng-template ngx-datatable-header-template>
+          <span>Course Status</span>
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.courseStatus==1?"Pass":"Fail"}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <!-- <ngx-datatable-column *ngIf="displayPreviousAttendedCourse" min-width="50px">
+          <ng-template ngx-datatable-header-template>
+            <span>Certificate</span>
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+           
+            <div *ngIf="row.generated">
+              <a style="color:blue" href="{{row.url}}" target="_blank">Download Certificate</a>
+  
+            </div>
+          </ng-template>
+        </ngx-datatable-column> -->
+  
+
+    </ngx-datatable>
+

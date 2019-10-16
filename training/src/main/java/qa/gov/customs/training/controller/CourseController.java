@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +35,13 @@ public class CourseController {
 	ActivityService activityService;
 
 	// for creating and updating courses
-	@PreAuthorize("hasAnyAuthority('create_update_course')")
+	@PreAuthorize("hasAnyAuthority('cu')")
 	@PostMapping("/create-course")
 	public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
 		logger.info("Create course starting ");
 		if (course.getCourseId().equals(new BigDecimal(0))) {
 			course.setActiveFlag(new BigDecimal(1));
+			courseService.findById(course.getCourseId());
 			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
 			//course.getTacCourseAudiences().forEach(i -> i.courseInserted);
 			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
@@ -51,6 +53,7 @@ public class CourseController {
 			course.setDateCreated(courseExisting.getDateCreated());
 			course.setUserCreated(courseExisting.getUserCreated());
 			TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+
 			ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
 					courseInserted);
 			return response;
@@ -58,7 +61,7 @@ public class CourseController {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('disable_course')")
+	@PreAuthorize("hasAnyAuthority('dc')")
 	@PostMapping("/disable-course")
 	public ResponseType disableCourse(@RequestBody TacCourseMaster course) {
 		logger.info(course.getCourseName());
@@ -85,7 +88,7 @@ public class CourseController {
 		return response;
 	}
 
-	@PreAuthorize("hasAnyAuthority('enable_course')")
+	@PreAuthorize("hasAnyAuthority('ec')")
 	@PostMapping("/enable-course")
 	public ResponseType enableCourse(@RequestBody TacCourseMaster course) {
 		logger.info(course.getCourseName());
@@ -111,7 +114,8 @@ public class CourseController {
 		return response;
 	}
 
-	@PreAuthorize("hasAnyAuthority('get_course_by_id')")
+
+	@PreAuthorize("hasAnyAuthority('cid')")
 	@PostMapping("/get-courses-by-id")
 	public ResponseType getCourseById(@RequestBody TacCourseMaster course, CustomPrincipal principal) {
 		Optional<TacCourseMaster> courseList = null;
@@ -124,7 +128,7 @@ public class CourseController {
 		return response;
 	}
 
-	@PreAuthorize("hasAnyAuthority('get_course_by_id')")
+	@PreAuthorize("hasAnyAuthority('cid')")
 	@PostMapping("/get-course-dates-by-id-and-activity-id")
 	public ResponseType getCourseByIdAndActivityId(@RequestBody TacCourseMaster course, CustomPrincipal principal) {
 		Set<TacCourseDate> courseList = null;
@@ -137,7 +141,7 @@ public class CourseController {
 		return response;
 	}
 
-	@PreAuthorize("hasAnyAuthority('link_course_with_activity')")
+	@PreAuthorize("hasAnyAuthority('lc')")
 	@PostMapping("/link-course-with-activity")
 	public ResponseType linkCourseWithActivity(@RequestBody TacCourseMaster course) {
 		logger.info(course.getCourseId().toString());
@@ -239,7 +243,7 @@ public class CourseController {
 			return response;
 		}
 
-	@PreAuthorize("hasAnyAuthority('search_course')")
+	@PreAuthorize("hasAnyAuthority('sc')")
 	@PostMapping("/search-course")
 	public ResponseType searchCourse(@RequestBody TacCourseMaster course) {
 		logger.info("search activity");
@@ -260,7 +264,7 @@ public class CourseController {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('search_course')")
+	@PreAuthorize("hasAnyAuthority('sc')")
 	@PostMapping("/get-course-by-id")
 	public ResponseType getCourseById(@RequestBody TacCourseMaster course) {
 		logger.info("get activity By Id" + course.toString());
@@ -279,7 +283,7 @@ public class CourseController {
 		return response;
 	}
 
-	@PreAuthorize("hasAnyAuthority('count_course')")
+	//@PreAuthorize("hasAnyAuthority('count_course')")
 	@GetMapping("/count-course")
 	public ResponseType countCourse() {
 		logger.info("Inside count courses");
@@ -289,7 +293,7 @@ public class CourseController {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('list_courses')")
+	@PreAuthorize("hasAnyAuthority('cl')")
 	@GetMapping("/list-courses")
 	public ResponseType listCourses() {
 		List<Course> coursesList = null;
@@ -305,7 +309,7 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('list_courses')")
+	@PreAuthorize("hasAnyAuthority('cl')")
 	@GetMapping("/list-courses-with-hour-and-category")
 	public ResponseType listCoursesWithHourAndCategory() {
 		List<Course> coursesList = null;
@@ -324,7 +328,7 @@ public class CourseController {
 
 
 
-	@PreAuthorize("hasAnyAuthority('get_course_by_name')")
+	@PreAuthorize("hasAnyAuthority('lc')")
 	@PostMapping("/get_course_by_name")
 	public ResponseType getCourseByName(@RequestBody TacCourseMaster course) {
 
@@ -390,7 +394,7 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('get_all_course_location')")
+	@PreAuthorize("hasAnyAuthority('clo')")
 	@GetMapping("/get-all-course-location")
 	public ResponseType getAllCourseLocation() {
 		List<LocationData> location = null;
@@ -409,7 +413,7 @@ public class CourseController {
 	}
 
 
-	@PreAuthorize("hasAnyAuthority('activate_course')")
+	@PreAuthorize("hasAnyAuthority('acc')")
 	@PostMapping("/activate-course")
 	public ResponseType activateCourse(@RequestBody TacCourseActivation courseActivation) {
 		TacCourseActivation activatedCourse=null;
@@ -465,7 +469,7 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('courseActivation_detail')")
+	@PreAuthorize("hasAnyAuthority('cad')")
 	@PostMapping("/get-all-courseActivation")
 	public ResponseType getCourseActivationById(@RequestBody TacCourseMaster courseMaster)
 	{
@@ -482,7 +486,7 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('courseActivation_list')")
+	@PreAuthorize("hasAnyAuthority('cal')")
 	@PostMapping("/get-all-activation-list")
 	public ResponseType getActivationsById(@RequestBody TacCourseActivation courseActivation)
 	{
@@ -499,7 +503,7 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('list_activations')")
+	@PreAuthorize("hasAnyAuthority('lac')")
 	@PostMapping("/list-activations-by-courseName")
 	public ResponseType listactivations(@RequestBody  TacCourseMaster courseMaster) {
 		List<TacCourseActivation> activations = null;
@@ -524,7 +528,7 @@ public class CourseController {
 			return response;
 
 	}
-	@PreAuthorize("hasAnyAuthority('course_date_detail')")
+	@PreAuthorize("hasAnyAuthority('cdt')")
 	@PostMapping("/get-course-date")
 	public ResponseType getCourseDate(@RequestBody  TacCourseMaster courseMaster)
 	{
@@ -540,7 +544,7 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('get_training_room')")
+	@PreAuthorize("hasAnyAuthority('gtr')")
 	@PostMapping("/get-course-room")
 	public ResponseType getCourseRoom(@RequestBody  TacCourseLocation courseLocation)
 	{
@@ -556,7 +560,7 @@ public class CourseController {
 			return response;
 		}
 	}
-	@PreAuthorize("hasAnyAuthority('get_current_courses')")
+	@PreAuthorize("hasAnyAuthority('gc')")
 	@GetMapping("/get-current-courses")
 	public ResponseType getCurrentCourses()
 	{
@@ -575,7 +579,7 @@ public class CourseController {
 
 
 	}
-	@PreAuthorize("hasAnyAuthority('get_future_courses')")
+	@PreAuthorize("hasAnyAuthority('gc')")
 	@GetMapping("/get-future-courses")
 	public ResponseType getFutureCourses()
 	{
@@ -593,7 +597,7 @@ public class CourseController {
 		}
 
 	}
-	@PreAuthorize("hasAnyAuthority('get_previous_courses')")
+	@PreAuthorize("hasAnyAuthority('gc')")
 	@GetMapping("/get-previous-courses")
 	public ResponseType getPreviousCourses()
 	{
@@ -614,7 +618,7 @@ public class CourseController {
 
 	// Added by Ajna for search future courses
 
-	@PreAuthorize("hasAnyAuthority('search_future_courses')")
+	@PreAuthorize("hasAnyAuthority('sfc')")
 	@PostMapping ("/search-future-courses")
 	public ResponseType searchFutureCourses(@RequestBody  TacCourseMaster courseMaster)
 	{
@@ -633,7 +637,7 @@ public class CourseController {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('course_date_by_activation')")
+	@PreAuthorize("hasAnyAuthority('cba')")
 	@PostMapping ("/course-date-by-activation")
 	public ResponseType courseDateByActivation(@RequestBody  ActivationDate activation)
 	{
@@ -649,6 +653,37 @@ public class CourseController {
 			}
 		}else{
 			ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+			return response;
+		}
+
+	}
+
+	@PreAuthorize("hasAnyAuthority('cou')")
+	@PostMapping ("/coordinator-courses")
+	public ResponseType coordinatorCourses(@AuthenticationPrincipal CustomPrincipal principal)
+	{
+		List<CourseManagement> approvedCourses=courseService.getCoordinatorCourses(principal.getJid());
+		if (approvedCourses != null) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, approvedCourses);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
+	}
+	@PreAuthorize("hasAnyAuthority('ic')")
+	@PostMapping ("/Instructor-courses")
+	public ResponseType instructorCourses(@AuthenticationPrincipal CustomPrincipal principal)
+	{
+		List<CourseManagement> instructorCourses=courseService.getInstructorCourses(principal.getJid());
+		if (instructorCourses != null) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, instructorCourses);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
 			return response;
 		}
 

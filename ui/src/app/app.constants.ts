@@ -1,4 +1,6 @@
 
+export const AUTOLOGOUT_IN_MIU=30
+
 export const CONTENT_TYPE_FORM_URL_ENCODE="application/x-www-form-urlencoded"
 export const CONTENT_TYPE_JSON="application/json"
 export const PAGE_LIMIT=10
@@ -91,6 +93,7 @@ export const VERSION_UI ="qa_0.6.8"
 //Disable if gateway is down -- for development
 var gateway = true
 var authentication=""
+var authenticationrefresh=""
 var training=""
 var user=""
 var fileUploading=""
@@ -99,6 +102,7 @@ var employee=""
 var workflow=""
 if(gateway){
     authentication="/authentication"
+    authenticationrefresh="/authrefresh"
     training="/training"
     user="/user"
     fileUploading="/fileupload"
@@ -110,6 +114,7 @@ if(gateway){
 //http://localhost:9000/authentication/oauth/token
 //AUTHENTICATION
 export const LOGIN_URL = BASE_URL + authentication +"/oauth/token"
+export const REFRESH_TOKEN=BASE_URL + authenticationrefresh +"/oauth/token?grant_type=refresh_token&refresh_token="
 
 //TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
@@ -158,10 +163,11 @@ export const  SEARCH_FUTURE_COURSES=BASE_URL+training+"/search-future-courses"
 export const  FUTURE_COURSE_FILTER=BASE_URL+training+"/get-course-filter"
 export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-date-by-activation"
-
-
-
-
+export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
+export const  GET_JOB_CARD_USER_PROFILE=BASE_URL+training+"/jobcard_user_profile";
+export const  GET_USER_COURSE_ATTENDED=BASE_URL+training+"/user_courses_attended";
+export const  COORDINATOR_COURSES=BASE_URL+training+"/coordinator-courses";
+export const  INSTRUCTOR_COURSES=BASE_URL+training+"/Instructor-courses";
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"
@@ -171,18 +177,17 @@ export const  DISABLE_SYSTEM_USER=BASE_URL+user+"/disable-system-user"
 export const  ENABLE_SYSTEM_USER=BASE_URL+user+"/enable-system-user"
 export const  GET_SYSTEM_USER=BASE_URL+user+"/find-system-user-by-id"
 export const  GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-role-role-id"
-
 export const  GET_ALL_PERMISSIONS = BASE_URL+user+"/find-all-system-permissions"
 export const  GET_ALL_PERMISSIONS_FOR_ROLE = BASE_URL+user+"/find-all-system-permissions-for-role"
-export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+user+"/update-role-and-permission"
-
+export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+ user + "/update-role-and-permission"
 
 //FILE UPLOADING
-export const  UPLOAD_FILE   = BASE_URL_FILE+fileUploading+"/uploadFile"
-export const  DOWNLOAD_FILE = BASE_URL_FILE+fileUploading+"/downloadFile"
-export const GET_CERTIFICATE=  BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
-export const GENERATE_CERTIFICATE=BASE_URL_FILE+fileUploading+"/generate-certificate"
-export const LIST_CERTIFICATE=BASE_URL_FILE+fileUploading+"/list-certificates"
+export const  UPLOAD_FILE   =     BASE_URL_FILE+fileUploading+"/uploadFile"
+export const  DOWNLOAD_FILE =     BASE_URL_FILE+fileUploading+"/downloadFile"
+export const GET_CERTIFICATE=     BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
+export const GENERATE_CERTIFICATE = BASE_URL_FILE+fileUploading+"/generate-certificate"
+export const LIST_CERTIFICATE = BASE_URL_FILE+fileUploading+"/list-certificates"
+export const LIST_CERTIFICATE_BYJOBID=BASE_URL_FILE+fileUploading+"/list-certificates-byjobid"
 
 //CIS Actions
 export const GET_CIS_USERS=BASE_URL+cis+"/find-all-users-cases-for-cis"
@@ -199,6 +204,7 @@ export const  GET_FUNCTIONAL_AREA=BASE_URL+employee+"/list-functional-area"
 export const  EMP_UNDER_SUPERVSIOR=BASE_URL+employee+"/employees_under_supervisor"
 //WORKFLOW validations in Employee
 export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
+export const  GET_EMPLOYEE_PROFILE=BASE_URL+employee + "/get-emp-profile";
 
 
 //WORKFLOW
@@ -217,6 +223,13 @@ export const  PROCESS_HISTORY_BY_PROCESS_ID=BASE_URL+workflow+"/process-history"
 export const  CHECK_THE_REQUEST_IS_OVERRIDING=BASE_URL+training +"/check-the-request-is-overriding"
 export const  CHECK_THE_REQUEST_IS_VALID=BASE_URL+training +"/check-the-user-is-already-applied-with-activation-id"
 //export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
+
+
+//Dashboard
+export const   PREVIOUS_ATTENDED_COURSES=BASE_URL+training+"/get-attended-courses"
+export const   ONGOING_COURSES=BASE_URL+training+"/currently-attending-courses"
+export const   APPROVED_COURSES=BASE_URL+training+"/get-approved-courses"
+export const   TASK_COUNT=BASE_URL+workflow+"/my-tasks-count"
 
 
 

@@ -6,10 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
 import qa.gov.customs.training.models.FindAttendance;
+import qa.gov.customs.training.repository.CourseAttendeesRepository;
 import qa.gov.customs.training.repository.CourseRepository;
 import qa.gov.customs.training.repository.MawaredRepository;
 import qa.gov.customs.training.repository.TacAttendanceRepository;
@@ -31,6 +33,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     TacAttendanceRepository attendanceRepo;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    CourseAttendeesRepository attendeesRepo;
 
     @Override
     public Set<EmployeeData> getEmployeeDataForAttendance(TacCourseActivation activation)
@@ -53,10 +57,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-
     public TacCourseAttendence  markAttendance(TacCourseAttendence attendance) {
-
-
         TacCourseAttendence attendanceData = attendanceRepo.save(attendance);
         return attendanceData;
     }
@@ -87,7 +88,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public TacCourseAttendence  checkIfAlreadyMarked(TacCourseAttendence attendance,Date date)
     {
-        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId());
+        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId(),date);
         return attendancePresent;
     }
     @ Override
@@ -113,6 +114,37 @@ public class AttendanceServiceImpl implements AttendanceService {
 //                workDays);
         return workDays;
     }
+    @Override
+    public List<EmployeeData> getPreviousAttendance(FindAttendance previousAttendance)
+    {
+
+        //List<EmployeeData> empPreviousDayAttendance
+
+        List<EmployeeData> empdata=new ArrayList<>();
+        List<Object[]> objects =mawaredRepo.getEmpPreviousAttendance(previousAttendance.getActivation_id(),previousAttendance.getCourse_date());
+        for (Object[] o : objects) {
+
+            EmployeeData emp = new EmployeeData();
+            emp.setJobId((String) o[0]);
+            emp.setCnameAr((String) o[1]);
+            emp.setDepartment((String) o[2]);
+            emp.setJobTitle((String) o[3]);
+            emp.setMobile((String) o[4]);
+            emp.setAttendeesId((BigDecimal) o[6]);
+            emp.setAttendanceFlag((BigDecimal) o[7]);
+            if(emp.getAttendanceFlag().compareTo(new BigDecimal(1))==0)
+            {
+            emp.setChecked(true);
+            }
+            else
+            {
+                emp.setChecked(false);
+            }
+            empdata.add(emp);
+        }
+        return empdata;
+
+    }
 
     @Override
     public Set<EmployeeData> getCourseCompletionAttendance(FindAttendance getAttendance)
@@ -137,6 +169,30 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             emp.setPercentage(percentageAttendance.intValue());
             empdata.add(emp);
+            if(percentageAttendance==100)
+            {
+                BigDecimal courseStatus=new BigDecimal(1);
+                try {
+                    attendeesRepo.updateCourseStatus(emp.getAttendeesId(), courseStatus);
+                }
+                catch(Exception e)
+                {
+
+                }
+
+            }
+            else
+            {
+                BigDecimal courseStatus=new BigDecimal(0);
+                try {
+                    attendeesRepo.updateCourseStatus(emp.getAttendeesId(), courseStatus);
+                }
+                catch(Exception e)
+                {
+
+                }
+
+            }
         }
         return empdata;
     }

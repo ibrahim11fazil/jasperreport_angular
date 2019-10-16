@@ -5,11 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import qa.gov.customs.training.controller.WorkflowController;
+
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
+
+import java.sql.Clob;
 import java.text.SimpleDateFormat;
 
 import javax.transaction.Transactional;
@@ -60,15 +62,21 @@ public class CourseServiceImpl  implements CourseService {
 	@Autowired
 	CourseAttendeesRepository courseAttendeesRepository;
 
+	@Autowired
+	ActivationRepository activationRepository;
+
 	private static final Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
 	@Override
 	public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
+
 		Set<TacCourseAudience> targetedAudiences = course.getTacCourseAudiences() != null ? course.getTacCourseAudiences() : null;
 		Set<TacCourseGuidelines> tacCourseGuidelineses = course.getTacCourseGuidelineses() != null ? course.getTacCourseGuidelineses() : null;
 		course.setTacCourseAudiences(null);
 		course.setTacCourseGuidelineses(null);
 		TacCourseMaster courseInserted = courseRepository.save(course);
+
+
 		if (!courseInserted.getCourseId().equals(new BigDecimal(0)) && targetedAudiences != null) {
 			targetedAudiences.forEach(item -> {
 				item.setTacCourseMaster(courseInserted);
@@ -507,24 +515,32 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public List<CourseManagement> searchAllFutureCourses(String courseName) {
-		int page =0;
-		int limit=20;
-		Pageable pageable =
-				PageRequest.of(
-						page, limit, Sort.by("course_Id"));
-		List<Object[]> objects=courseRepository.searchAllFutureCourses(courseName,pageable);
-		List<CourseManagement> courseList = new ArrayList<>();
-		for (Object[] o : objects) {
-			CourseManagement course = new CourseManagement();
-			course.setCourseName((String) o[0]);
-			Date courseDate=((Date)o[1]);
-			Date endDate=((Date)o[2]);
-			course.setActivation_id((BigDecimal)o[3]);
-			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
-			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
-			courseList.add(course);
+		try {
+			int page = 0;
+			int limit = 20;
+			Pageable pageable =
+					PageRequest.of(
+							page, limit, Sort.by("course_Id"));
+			List<Object[]> objects = courseRepository.searchAllFutureCourses(courseName, pageable);
+			List<CourseManagement> courseList = new ArrayList<>();
+			for (Object[] o : objects) {
+				CourseManagement course = new CourseManagement();
+				course.setCourseName((String) o[0]);
+				Date courseDate = ((Date) o[1]);
+				Date endDate = ((Date) o[2]);
+				course.setActivation_id((BigDecimal) o[3]);
+				course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+				course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+				courseList.add(course);
+			}
+			return courseList;
 		}
-		return courseList;
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			logger.error(e.toString());
+			return null;
+		}
 	}
 
 	@Override
@@ -552,15 +568,25 @@ public class CourseServiceImpl  implements CourseService {
 	}
 
 	@Override
-	public int insertAttendeesFromWorkflow(BigInteger activationId, String jobId, String remark) {
+	public TacCourseAttendees insertAttendeesFromWorkflow(BigInteger activationId, String jobId, String remark) {
 		try {
-			courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
-			return 1;
+			TacCourseAttendees item = new TacCourseAttendees();
+			item.setAttendeesId(new BigDecimal("0"));
+			item.setJobId(jobId);
+			TacCourseActivation activation = activationRepository.findByCourseId(new BigDecimal(activationId));
+			if(activation==null)  { activation =new TacCourseActivation();  activation.setActivationId(new BigDecimal(activationId));   }
+			item.setTacCourseActivation(activation);
+			Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
+			item.setRemark(myClob);
+			return courseAttendeesRepository.save(item);
+			//courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
+			//return 1;
 		}catch (Exception e){
 			e.printStackTrace();
 			//TODO log error
+			logger.info("Error while enrolling workflowId:" + remark +" activationId: "+  activationId + " jobid: "+ jobId);
 			logger.error(e.toString());
-			return 0;
+			return null;
 		}
 	}
 
@@ -584,6 +610,71 @@ public class CourseServiceImpl  implements CourseService {
 		}catch (Exception e){
 			e.printStackTrace();
 			//TODO log error
+			logger.error(e.toString());
+			return null;
+		}
+	}
+
+	@Override
+	public List<CourseManagement> getCoordinatorCourses(String jobId)
+	{
+		try
+		{
+			int page = 0;
+			int limit = 20;
+			List<CourseManagement>courseList=new ArrayList<>();
+			Pageable pageable =
+					PageRequest.of(
+							page, limit, Sort.by("course_Id"));
+			List<Object[]> object=courseRepository.getCoursesForCoordinator(jobId, pageable);
+			for (Object[] o:object) {
+				CourseManagement course=new CourseManagement();
+				course.setCourseName((String) o[0]);
+				Date courseDate=((Date)o[1]);
+				Date endDate=((Date)o[2]);
+				course.setActivation_id((BigDecimal)o[3]);
+				course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+				course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+				courseList.add(course);
+
+			}
+			return courseList;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			logger.error(e.toString());
+			return null;
+		}
+	}
+	@Override
+	public List<CourseManagement> getInstructorCourses(String jobId)
+	{
+		try
+		{
+			int page = 0;
+			int limit = 20;
+			List<CourseManagement>courseList=new ArrayList<>();
+			Pageable pageable =
+					PageRequest.of(
+							page, limit, Sort.by("course_Id"));
+			List<Object[]> object=courseRepository.getInstructorCourses(jobId, pageable);
+			for (Object[] o:object) {
+				CourseManagement course=new CourseManagement();
+				course.setCourseName((String) o[0]);
+				Date courseDate=((Date)o[1]);
+				Date endDate=((Date)o[2]);
+				course.setActivation_id((BigDecimal)o[3]);
+				course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+				course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+				courseList.add(course);
+
+			}
+			return courseList;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 			logger.error(e.toString());
 			return null;
 		}

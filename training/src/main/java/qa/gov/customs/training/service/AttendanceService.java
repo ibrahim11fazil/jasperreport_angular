@@ -1,6 +1,7 @@
 package qa.gov.customs.training.service;
 
 import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
@@ -19,4 +20,6 @@ public interface AttendanceService {
    Set<EmployeeData>  getCourseCompletionAttendance(FindAttendance getAttendance);
    int getWorkingDays(FindAttendance getAttendance);
    List<CourseManagement> getCourseFilter(BigDecimal courseTime);
+  List<EmployeeData> getPreviousAttendance(FindAttendance previousAttendance);
+
 }

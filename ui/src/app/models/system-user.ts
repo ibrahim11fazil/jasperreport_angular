@@ -43,6 +43,7 @@ export interface SystemUserResponseArray{
     fullName?:String
     roles?:UserRole[]
     roleName?:String
+    jobId?:Number
 }
 
 

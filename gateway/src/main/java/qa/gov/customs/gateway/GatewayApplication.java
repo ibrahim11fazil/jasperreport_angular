@@ -71,7 +71,6 @@ public class GatewayApplication {
     public EurekaInstanceConfigBean DockerSwarm_EurekaClient(InetUtils inetUtils)
     {
 
-
         try{
             eurekaInstanceConfig= new EurekaInstanceConfigBean(inetUtils);
 

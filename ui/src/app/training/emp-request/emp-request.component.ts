@@ -18,6 +18,8 @@ import { EmployeeCourseRequest, WorkflowResponse } from 'app/models/workflow';
 import { AuthService } from 'app/service/auth-service/auth.service';
 import { AbsentInfo, AbsentInfoResponse } from 'app/models/employee-data';
 import { SupervisorResponse, SupervisorResponseData, ActivationDateRequest, ActivationDateResponse, ActivationDateDetails } from 'app/models/course-request';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
 
 
 
@@ -52,15 +54,21 @@ export class EmpRequestComponent implements OnInit {
   searchText: String;
   employeesUnderSupervisor:SupervisorResponseData[]=[]
   isHead=false
-
+ language:LanguageUtil
   
 
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
     private trainingService: TrainingService,
     private toastr:ToastrService,
+    private mainComponent:MainComponent,
     private authService:AuthService)
   {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -88,6 +96,8 @@ export class EmpRequestComponent implements OnInit {
      
      var course = new TacCourseMasterSub()
      course.courseName=this.form.value.courseName
+     if (course.courseName!=null) 
+     {
      this.trainingService.searchFutureCourseWithName(course).subscribe(
       data => {
         var response = <ITacCourseManagementList>data
@@ -98,6 +108,19 @@ export class EmpRequestComponent implements OnInit {
         console.log(error)
         this.toastr.error(error.message)
       })
+    }
+    else{
+      this.trainingService.getFutureCourses().subscribe(
+        data => {
+          var response = <ITacCourseManagementList>data
+          this.rows = response.data
+          console.log(this.rows)
+        },
+        error => {
+          console.log(error)
+          this.toastr.error(error.message)
+        })
+    }
 
     }
   

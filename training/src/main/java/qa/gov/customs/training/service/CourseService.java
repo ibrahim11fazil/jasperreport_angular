@@ -48,6 +48,7 @@ public interface CourseService {
     List<TacCommSubjects> getAllSubjects();
     List<TacCommQualifications> getAllQualifications();
     TacCourseActivation getCourseActivationByCourseId(TacCourseMaster courseMaster);
+
     List<TacCourseActivation>  listactivations(String name, int page, int limit);
     TacCourseLocation getCourseroom(BigDecimal locationId);
     TacCourseDate getCourseDate(BigDecimal courseId);
@@ -60,6 +61,8 @@ public interface CourseService {
    void setStatusOfDate(TacCourseDate courseDate);
     ActivationDate getDatesForActivation(BigDecimal activationId);
 
-    int insertAttendeesFromWorkflow( BigInteger activationId ,  String jobId,  String remark);
+    TacCourseAttendees insertAttendeesFromWorkflow( BigInteger activationId ,  String jobId,  String remark);
     List<AttendeesDetails> findAttendeesWithJobIdAndActionId( BigInteger activationId ,  String jobId);
+    List<CourseManagement>  getCoordinatorCourses(String jobId);
+    List<CourseManagement>  getInstructorCourses(String jobId);
 }

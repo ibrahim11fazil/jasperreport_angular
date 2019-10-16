@@ -13,6 +13,7 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import { AuthService } from '../service/auth-service/auth.service';
 import { EcommerceService } from '../service/ecommerce/ecommerce.service';
 import { CoreService } from '../service/core/core.service';
+import { AutoLogoutServiceService } from 'app/service/auth-service/auto-logout-service.service';
 
 const screenfull = require('screenfull');
 
@@ -26,8 +27,8 @@ const screenfull = require('screenfull');
 export class MainComponent implements OnInit, OnDestroy{
 
    currentUrl            : any;
-   root                  : any = 'ltr';
-   layout                : any = 'ltr';
+   root                  : any = 'rtl';
+   layout                : any = 'rtl';
    currentLang           : any = 'ar'; //en
    customizerIn          : boolean = false;
    showSettings          : boolean = false;
@@ -130,11 +131,16 @@ export class MainComponent implements OnInit, OnDestroy{
       },
    ]
 
+
+  autoLogout(){
+     
+  }
+
    constructor(public tourService: TourService, 
                public menuItems: MenuItems, 
                private breadcrumbService: BreadcrumbService, 
                private pageTitleService: PageTitleService, 
-               public translate: TranslateService, 
+               //public translate: TranslateService, 
                private router: Router,
                private media: MediaObserver,
                private deviceService: DeviceDetectorService,
@@ -142,10 +148,14 @@ export class MainComponent implements OnInit, OnDestroy{
                public ecommerceService : EcommerceService,
                public coreService : CoreService,
                private routes :Router,
-               private activatedRoute: ActivatedRoute ) {
+               private activatedRoute: ActivatedRoute,
+               private sessionTimeout:AutoLogoutServiceService ) {
       this.layout = "rtl";   
-      const browserLang: string = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+      this.sessionTimeout.val = "main"
+      //const browserLang: string = translate.getBrowserLang();
+     
+      //translate.use(browserLang.match(/en|fr/) ? browserLang : 'ar');
+      //translate.use('ar'); 
 
       // this.tourService.initialize([{
       //    anchorId: 'start.tour',
@@ -281,6 +291,12 @@ export class MainComponent implements OnInit, OnDestroy{
       breadcrumbService.addFriendlyNameForRoute('/crm/reports', 'Reports');
    }
 
+   ngDoCheck(): void {
+      //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+      //Add 'implements DoCheck' to the class.
+      //this.translate.use('ar'); 
+   }
+
    ngOnInit() {
       this.pageTitleService.title.subscribe((val: string) => {
          this.header = val;
@@ -378,6 +394,9 @@ export class MainComponent implements OnInit, OnDestroy{
          }
       });
 
+      //this.coreService.sidenavMode = 'side';
+      //this.coreService.sidenavOpen = true;
+      
       var permissions =  this.authService.getPermissions()
       this.menuItems.update(permissions)
    }
@@ -476,6 +495,7 @@ export class MainComponent implements OnInit, OnDestroy{
 
    /**
      * changeRTL method is used to change the layout of template.
+     * 
      */
    changeRTL(isChecked) {
       if(isChecked){

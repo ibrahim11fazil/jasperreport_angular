@@ -25,21 +25,21 @@
                      <mat-list-item menuToggleLink *ngFor="let menuitem of menuItems.getAll()">
                         <a menuToggle class="gene-relative" mat-ripple *ngIf="menuitem.type === 'button'" routerLinkActive="active-link" (click)="changeLayout()">
                         <mat-icon>{{ menuitem.icon }}</mat-icon>
-                        <span>{{ menuitem.name | translate }}</span>
+                        <span>{{ menuitem.name  }}</span>
                         <ng-container *ngIf="menuitem.label">
                            <span class="sidebar-label">{{ menuitem.label}}</span>
                         </ng-container>
                         </a>
                         <a menuToggle class="gene-relative" mat-ripple [routerLink]="['/', menuitem.state]" routerLinkActive="active-link" *ngIf="menuitem.type === 'link'">
                         <mat-icon>{{ menuitem.icon }}</mat-icon>
-                        <span>{{ menuitem.name | translate }}</span>
+                        <span>{{ menuitem.name  }}</span>
                         <ng-container *ngIf="menuitem.label">
                            <span class="sidebar-label">{{ menuitem.label}}</span>
                         </ng-container>
                         </a>
                         <a menuToggle class="gene-relative" mat-ripple href="javascript:;" *ngIf="menuitem.type === 'sub'">
                            <mat-icon>{{ menuitem.icon }}</mat-icon>
-                           <span>{{ menuitem.name | translate }}</span>
+                           <span>{{ menuitem.name  }}</span>
                            <ng-container *ngIf="menuitem.label">
                               <span class="sidebar-label">{{ menuitem.label}}</span>
                            </ng-container>
@@ -49,7 +49,7 @@
                         <mat-nav-list class="sub-menu" *ngIf="menuitem.type === 'sub'">
                            <mat-list-item *ngFor="let childitem of menuitem.children" routerLinkActive="open">
                               <a [routerLink]="['/'+menuitem.state+'/'+childitem.state ]" routerLinkActive="active-link" class="gene-relative" mat-ripple>
-                                 {{ childitem.name | translate }}
+                                 {{ childitem.name  }}
                                  <ng-container *ngIf="childitem.label">
                                     <span class="sidebar-label">{{childitem.label}}</span>
                                  </ng-container>
@@ -79,13 +79,13 @@
          <a class="navbar-brand" href="#">{{header}}</a>
          <breadcrumb class="gene-breadcrumbs"></breadcrumb>
          <span fxFlex></span>
-         <div class="search-bar" fxFlex>
+         <!-- <div class="search-bar" fxFlex>
             <form class="search-form" fxShow="false" fxShow.gt-xs tourAnchor="tour-search">
                <mat-form-field>
                   <input matInput placeholder="Search">
                </mat-form-field>
             </form>
-         </div>
+         </div> -->
          <div class="secondary-menu">
             <button fxHide="true" fxHide.gt-sm="false" mat-button class="fullscreen-toggle" (click)="toggleFullscreen()" tourAnchor="tour-full-screen">
                <mat-icon *ngIf="!isFullscreen">fullscreen</mat-icon>
@@ -96,9 +96,9 @@
                   <mat-icon>account_circle</mat-icon>
                </div>
             </button>
-            <button (click)="end.toggle()" mat-icon-button class="overflow-visible">
+            <!-- <button (click)="end.toggle()" mat-icon-button class="overflow-visible">
                <mat-icon>notifications</mat-icon>
-            </button>
+            </button> -->
             <!-- <button mat-button [matMenuTriggerFor]="shopping_cart">
                <mat-icon class="material-icons icon-color" matBadge="{{ecommerceService.cartProductLength}}" matBadgeColor="warn" >shopping_cart</mat-icon>
             </button> -->
@@ -114,7 +114,7 @@
       <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
          <div class="scroll">
             <mat-toolbar class="primary-bg">
-               <h3>{{'Notifications'|translate}}</h3>
+               <h3>{{Notifications}}</h3>
             </mat-toolbar>
             <mat-nav-list>
                <mat-list-item>
@@ -256,29 +256,29 @@
       </button>
       <div class="settings-panel">
          <mat-toolbar color="primary">
-            <span fxFlex>{{'Options'|translate}}</span>
+            <span fxFlex>Options</span>
          </mat-toolbar>
          <mat-card-content class="theme-options">
-            <h3>{{'Layout Options'| translate }}</h3>
+            <h3>Layout Options</h3>
             <mat-divider></mat-divider>
             <div fxHide fxShow.gt-md>
-               <mat-checkbox [(ngModel)]="coreService.collapseSidebar" (change)="compactSidebar = false" [align]="end">{{'Collapsed Sidebar'| translate }}</mat-checkbox>
+               <mat-checkbox [(ngModel)]="coreService.collapseSidebar" (change)="compactSidebar = false" [align]="end">Collapsed Sidebar</mat-checkbox>
             </div>
             <div>
-               <mat-checkbox [(ngModel)]="dark" (change) = "addClassOnBody($event)" [align]="end">{{'Dark Mode'| translate }}</mat-checkbox>
+               <mat-checkbox [(ngModel)]="dark" (change) = "addClassOnBody($event)" [align]="end">Dark Mode </mat-checkbox>
             </div>
             <div>
-               <mat-checkbox (change)="changeRTL($event.checked)" >{{'RTL'| translate }}</mat-checkbox>
+               <mat-checkbox (change)="changeRTL($event.checked)" >{{Layout }}</mat-checkbox>
             </div>
-            <div>
+            <!-- <div>
                <mat-select placeholder="Language" class="mt-1" [(ngModel)]="currentLang" #langSelect="ngModel" (ngModelChange)="translate.use(currentLang)">
                <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">{{ lang }}</mat-option>
                </mat-select>
-            </div>
+            </div> -->
             <div class="inner-toolbar" fxHide fxShow.gt-md>
                <div class="theme-color">
                   <div class="text-center mrgn-b-md">
-                     <h4>{{'Sidebar Filters'|translate}}</h4>
+                     <h4>Sidebar Filters</h4>
                   </div>
                   <div class="gene-list" fxLayoutAlign="center center">
                      <div *ngFor = "let filter of sideBarFilterClass; let i=index">
@@ -290,7 +290,7 @@
                </div>
                <div class="theme-color">
                   <div class="text-center mrgn-b-md">
-                     <h4 class="theme-light-color">{{'Header Filters'|translate}}</h4>
+                     <h4 class="theme-light-color">Header Filters</h4>
                   </div>
                   <div class="gene-list" fxLayoutAlign="center center">
                      <div *ngFor = "let filter of headerFilterClass; let i=index">
@@ -470,38 +470,38 @@
    <mat-menu class="user-menu" x-position="before" y-position="below" #menu="matMenu">
       <button mat-menu-item>
          <mat-icon>account_circle</mat-icon>
-         <span>{{'Profile'|translate}}</span>
+         <span>Profile</span>
       </button>
-      <button mat-menu-item>
+      <!-- <button mat-menu-item>
          <mat-icon>settings</mat-icon>
          <span>{{'Settings'|translate}}</span>
       </button>
       <button mat-menu-item>
          <mat-icon>help</mat-icon>
          <span>{{'Help'|translate}}</span>
-      </button>
+      </button> -->
       <mat-divider></mat-divider>
       <button (click)="logOut()" mat-menu-item>
          <mat-icon>exit_to_app</mat-icon>
-         <span>{{'Logout'|translate}}</span>
+         <span>Logout</span>
       </button>
    </mat-menu>
    <mat-menu class="apps-menu" x-position="after" y-position="below" #appsmenu="matMenu">
       <button mat-menu-item>
          <mat-icon>storage</mat-icon>
-         <span>{{'Total App Memory'|translate}}</span>
+         <span>Total App Memory</span>
       </button>
       <button mat-menu-item>
          <mat-icon>memory</mat-icon>
-         <span>{{'Total Memory Used'|translate}}</span>
+         <span>Total Memory Used</span>
       </button>
       <button mat-menu-item>
          <mat-icon>mail</mat-icon>
-         <span>{{'12 Unread Mail'|translate}}</span>
+         <span>12 Unread Mail</span>
       </button>
       <button mat-menu-item>
          <mat-icon>feedback</mat-icon>
-         <span>{{'2 Feedback'|translate}}</span>
+         <span>2 Feedback</span>
       </button>
    </mat-menu>
 </ng-template>

@@ -102,12 +102,20 @@ export class TacCourseMaster {
         public course_date:String
         public end_date:String
         public activation_id:Number
+        public courseStatus:Number
     }
     export interface ITacCourseManagementList {
         status: Boolean;
         code:number;
         message:String;
         data: CourseManagementRes[];
+        count:number;
+    }
+    export interface myTaskCount {
+        status: Boolean;
+        code:number;
+        message:String;
+        data: Number;
         count:number;
     }
     

@@ -10,20 +10,24 @@ import org.camunda.bpm.engine.task.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
+import qa.gov.customs.workflowcamuda.model.SearchTask;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
-import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
+import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
+import qa.gov.customs.workflowcamuda.service.RequestService;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
+import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +43,13 @@ public class WorkFlowController {
     @Autowired
     private WorkflowImpl workflowServiceEmp;
 
-    private final UserProxyService userProxyService;
+    private final EmployeeProxyService userProxyService;
 
     @Autowired
-    public WorkFlowController( UserProxyService userProxyService) {
+    private RequestService requestService;
+
+    @Autowired
+    public WorkFlowController(EmployeeProxyService userProxyService) {
         this.userProxyService=userProxyService;
     }
 
@@ -74,7 +81,7 @@ public class WorkFlowController {
         try {
             logger.info("### Request started for user" + request.getJobId());
             //TODO need to change the request.getUserId() to  principal.getJid()
-            ResponseType userdata = userProxyService.getUserById(request.getJobId(),training_token);
+            ResponseType userdata = userProxyService.getUserById(request.getForUserJobId(),training_token);
             if(userdata!=null && userdata.getData()!=null && userdata.isStatus()){
                 ObjectMapper mapper = new ObjectMapper();
                 requestedEmployee = mapper.convertValue(
@@ -96,21 +103,23 @@ public class WorkFlowController {
 
             }else{
                 //TODO log error
-                logger.info("error in async2 ");
+                requestService.saveOrUpdateWorkflow(request, WorkflowStatus.FAILED);
+                logger.error("asyncWorkflowStartAction : Error in before start processing ");
             }
         }
         catch (Exception e){
+            requestService.saveOrUpdateWorkflow(request, WorkflowStatus.FAILED);
                e.printStackTrace();
             //TODO log error
-             logger.info("error in async");
+             logger.error("error in async");
         }
     }
 
 
     @PreAuthorize("hasAnyAuthority('my_tasks')")
-    @RequestMapping(value="/my-tasks", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getTasks(@AuthenticationPrincipal CustomPrincipal principal) {
-        List<Task> tasks = workflowServiceEmp.getTasks(principal.getJid());
+    @RequestMapping(value="/my-tasks", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getTasks( @RequestBody SearchTask searchTask, @AuthenticationPrincipal CustomPrincipal principal) {
+        List<Task> tasks = workflowServiceEmp.getCandidateTasksPagenated(principal.getJid(),searchTask.getStart(),searchTask.getLimit());
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
             TaskRepresentation taskRepresentation=   new TaskRepresentation(
@@ -131,10 +140,26 @@ public class WorkFlowController {
         }
     }
 
+
     @PreAuthorize("hasAnyAuthority('my_tasks')")
-    @RequestMapping(value="/my-tasks-delegation", method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType getTasksDelegations(@AuthenticationPrincipal CustomPrincipal principal) {
-        List<Task> tasks = workflowServiceEmp.getCandidateTasks(principal.getJid());
+    @RequestMapping(value="/my-tasks-count", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getTasksCounnt(@AuthenticationPrincipal CustomPrincipal principal) {
+        List<Task> tasks = workflowServiceEmp.getTasks(principal.getJid());
+        if(tasks!=null && tasks.size()>0){
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    tasks.size());
+        }else{
+            //TODO log the request
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false,
+                    0);
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('my_tasks')")
+    @RequestMapping(value="/my-tasks-delegation", method= RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getTasksDelegations(@RequestBody SearchTask searchTask, @AuthenticationPrincipal CustomPrincipal principal) {
+        List<Task> tasks = workflowServiceEmp.getTasksPagenated(principal.getJid(),
+                searchTask.getStart(),searchTask.getLimit());
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
             TaskRepresentation taskRepresentation=   new TaskRepresentation(

@@ -166,6 +166,7 @@ export class ActivateCourseComponent implements OnInit {
     )
     var userObj = new SystemUser()
     userObj.roleId = 5
+    debugger
     this.userService.listUsersByRoleId(userObj).subscribe(
       data => {
         var response = <ISystemUserResponseList>data
@@ -177,19 +178,7 @@ export class ActivateCourseComponent implements OnInit {
         this.toastr.error(error.message)
       }
     )
-   
 
-    // this.trainingService.getAllCourseCategories().subscribe(
-    //   data => {
-    //     var response = <ResponseCategories> data
-    //     this.courseCategories=response.data
-    //     console.log(this.courseCategories)
-    //   },
-    //   error => {
-    //     console.log(error)
-    //     this.toastr.error(error.message)
-    //   }
-    // )
 
   }
 
@@ -203,8 +192,8 @@ export class ActivateCourseComponent implements OnInit {
 
     }
     
-
-    var cordinatorArray = this.userList.filter(i => i.id == this.activationData.coordinator)
+    debugger
+    var cordinatorArray = this.userList.filter(i => i.jobId == this.activationData.coordinator)
     if (cordinatorArray[0] != null) {
       this.form.controls['userSelect'].patchValue(
         cordinatorArray[0]
@@ -372,7 +361,7 @@ export class ActivateCourseComponent implements OnInit {
     courseActivation.costVenue = this.form.value.reservationCost
     courseActivation.costBonus = this.form.value.bonusCost
     courseActivation.costTranslation = this.form.value.translationCost
-    courseActivation.coordinatorId=this.form.value.userSelect.id
+    courseActivation.coordinatorId=this.form.value.userSelect.jobId
 
     this.trainingService.saveCourseActivation(courseActivation).subscribe(
       data => this.successSaveActivation(data),
@@ -486,13 +475,7 @@ debugger;
         this.trainingRoomDetail = response.data
         this.roomDetails=this.trainingRoomDetail .tacCourseRooms
       this.patch()
-        
-    //     var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.activationData.locationId)
-    //     if (locationArray[0] != null) {
-    //       this.form.controls['locationSelect'].patchValue(
-    //         locationArray[0]
-    //       )
-    //     }
+  
     const instrcutorControl = this.getControlOfAddMore('instructorSelect');
     this.activationData.instructors.forEach(x => {
   
@@ -513,6 +496,7 @@ debugger;
             dateArray[0]
           )
         }
+       
        
 
       },

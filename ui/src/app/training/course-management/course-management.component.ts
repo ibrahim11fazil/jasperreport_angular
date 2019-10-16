@@ -39,6 +39,8 @@ import { ResponseActivationData, ActivationData } from 'app/models/activation-da
 import { CourseManagement } from 'app/models/course-management';
 import { FindAttendance, FindAttendanceResponse } from 'app/models/find-attendance';
 import { CertificateRequest, ResponseCertificate, ResponseCertificateList } from 'app/models/certificate-request';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 
 
@@ -68,6 +70,7 @@ export class CourseManagementComponent implements OnInit {
   rows: CourseManagementRes[];
   courseData: CourseManagementRes[];
   empRows: EmpData[];
+  previousAttendance:EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
   userList: SystemUserResponseArray[] = [];
@@ -102,7 +105,7 @@ export class CourseManagementComponent implements OnInit {
   futureFilter: boolean = false;
   coursePeriod: String;
   displayAttendance: boolean = false;
-
+  language:LanguageUtil;
   previousCourse: boolean = false;
   Follow_list: any;
   courseAttendanceList: TacCourseAttendance[] = [];
@@ -112,6 +115,8 @@ export class CourseManagementComponent implements OnInit {
   certificateList: CertificateRequest[];
   temp = [];
   attendanceMarked: boolean = false;
+  updateAttendance: boolean = false;
+  dateClicked: Date = new Date();
 
 
 
@@ -130,10 +135,15 @@ export class CourseManagementComponent implements OnInit {
     private trainingService: TrainingService,
     private toastr: ToastrService,
     private userService: SystemUserService,
-
+    private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,
     private pageTitleService: PageTitleService) {
+      this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
 
+  }
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -185,7 +195,9 @@ export class CourseManagementComponent implements OnInit {
 
 
   getCourseManagement(card) {
+    debugger;
     this.displayManage = false;
+    this.courseCompletion=false;
     if (card.title == "Previous Courses") {
       this.displayCalendar = false;
       this.displayAttendance = false;
@@ -262,7 +274,8 @@ export class CourseManagementComponent implements OnInit {
   }
   getActivationData(row) {
     debugger;
-
+    this.displayAttendance=false;
+    this.courseCompletion=false;
     this.eventCourseDetail = row;
     console.log(this.eventCourseDetail.course_date);
     const str = this.eventCourseDetail.course_date.split('-');
@@ -300,8 +313,6 @@ export class CourseManagementComponent implements OnInit {
           this.durationValueString = durationItemsArray[0].viewValue
         }
 
-
-
         this.tacInstructorResult.forEach(i => {
           var item = this.tacInstructor.filter(item => item.instructorId == i.instructorId)
           if (item[0] != null) {
@@ -328,7 +339,7 @@ export class CourseManagementComponent implements OnInit {
           })
 
         var item = this.userList.filter(item => item.id == this.activation.coordinator)
-        if (item != null) {
+        if (item != null && item.length > 0) {
           this.tacCoordinatorString.push(item[0].username);
 
         }
@@ -352,57 +363,107 @@ export class CourseManagementComponent implements OnInit {
   dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
     debugger;
     this.empRows = null;
+    this.checkboxList=[];
+    this.courseCompletion = false;
+    this.displayAttendance = true;
     this.displayCourseCompletionForm = false;
+    this.dateClicked = date
     var dateCheck = new Date();
     dateCheck.setDate(dateCheck.getDate() - 1);
-    if (date <= dateCheck) {
+    var dateFuture = new Date();
+    dateFuture.setHours(0);
+    dateFuture.setMinutes(0);
+    dateFuture.setSeconds(0);
+    //dateFuture.setDate(dateFuture.getDate() + 1);
+
+    if (date >= dateFuture) {
+      this.updateAttendance = false;
       this.displayAttendance = false;
-      this.courseCompletion = false;
-      this.toastr.error("Could not mark attendance for Previous Dates")
+      this.toastr.error("Could not mark attendance for future dates")
+    }
+    else if (date <= dateCheck) {
+      this.empRows=[]
+      this.previousAttendance=[]
+      this.courseAttendanceList=[]
+      this.updateAttendance = true;
+      this.attendanceUpdate(date)
     }
     else {
-      this.displayAttendance = true;
-      this.courseCompletion = false;
-      if (isSameMonth(date, this.viewDate)) {
-        if (
-          (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-          events.length === 0
-        ) {
-          this.activeDayIsOpen = false;
-        } else {
-          this.activeDayIsOpen = true;
-          this.viewDate = date;
-        }
-      }
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
-      courseActivation.activationId = this.eventCourseDetail.activation_id;
-      this.trainingService.getEmpData(courseActivation).subscribe(
-        data => {
-          var response = <ResponseEmpData>data
-          this.empRows = response.data
-          debugger;
-          this.empRows.forEach(emp => {
-            let courseAttendance = new TacCourseAttendance(0, null, null, null)
-            let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
-            courseAttendance.tacCourseAttendees = tacCourseAttendees;
-            courseAttendance.attendanceDate = new Date();
-            courseAttendance.attendanceFlag = 0;//marking as absent initially
-            this.courseAttendanceList.push(courseAttendance)
-          });
-          debugger;
-          this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
-            data => {
-              var Response = <ITacCourseAttendance>data
-            }
-          )
-        },
-        error => {
-          console.log(error)
-          this.toastr.error(error.message)
-        })
+      this.empRows=[]
+      this.previousAttendance=[]
+      this.courseAttendanceList=[]
+      this.updateAttendance = false;
+      this.attendanceUpdate(date)
     }
 
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
+      }
+    }
+    
+  }
 
+  attendanceUpdate(date)
+  {
+    
+    let course = new FindAttendance(0, null, null)
+    course.activation_id = this.eventCourseDetail.activation_id;
+    course.course_date = date;
+    this.trainingService.previousDayAttendnace(course).subscribe(
+      data => {
+        var response = <ResponseEmpData>data
+        this.empRows = response.data
+        debugger;
+        this.previousAttendance=response.data 
+        if (this.empRows == null || this.empRows.length == 0) {
+         
+         
+          let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+          courseActivation.activationId = this.eventCourseDetail.activation_id;
+          this.trainingService.getEmpData(courseActivation).subscribe(
+            data => {
+              var response = <ResponseEmpData>data
+              this.empRows = response.data
+              
+              debugger;
+              this.empRows.forEach(emp => {
+                let courseAttendance = new TacCourseAttendance(0, null, null, null)
+                let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
+                courseAttendance.tacCourseAttendees = tacCourseAttendees;
+                courseAttendance.attendanceDate = this.dateClicked;
+                courseAttendance.attendanceFlag = 0;//marking as absent initially
+                this.courseAttendanceList.push(courseAttendance)
+              });
+              this.trainingService.markInitialAttendance(this.courseAttendanceList).subscribe(
+                data => {
+                  var Response = <ITacCourseAttendance>data
+                }
+              )
+            },
+            error => {
+              console.log(error)
+              this.toastr.error(error.message)
+            })
+        }
+        else
+        {
+          this.empRows.forEach(emp => {
+            if(emp.attendanceFlag==1)
+            {
+              this.checkboxList.push(emp)
+            }
+
+          })
+        }
+
+      })
   }
 
   /**
@@ -417,12 +478,15 @@ export class CourseManagementComponent implements OnInit {
 
   }
 
+
+
   /**
     * handleEvent method is used to handle the event and action.
     */
   handleEvent(action: string, event: CalendarEvent): void {
     console.log("handle event")
     debugger;
+    this.displayAttendance = true;
     this.modalData = { event, action };
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
     courseActivation.activationId = this.eventCourseDetail.activation_id;
@@ -444,8 +508,8 @@ export class CourseManagementComponent implements OnInit {
     color: colors.red,
   }];
 
-  addEvent(): void {
-    debugger;
+  addEvent(): void {  
+    this.events=[];
     console.log(this.courseStartDate.getDay())
     var i = new Date;
     while (this.courseStartDate <= this.courseEndDate) {
@@ -471,6 +535,7 @@ export class CourseManagementComponent implements OnInit {
 
   checkboxValue(row, event) {
     debugger;
+    
     const checked = event.checked;
     console.log(row);
     if (checked) {
@@ -481,37 +546,51 @@ export class CourseManagementComponent implements OnInit {
       var index = this.checkboxList.indexOf(row);
       this.checkboxList.splice(index, 1);
     }
-
-
-
-
   }
 
   markAttendance() {
     debugger
+    this.courseAttendanceList=[]
     this.displayCourseCompletionForm = false;
-    this.checkboxList.forEach(emp => {
-      let courseAttendance = new TacCourseAttendance(0, null, null, null)
-      let tacCourseAttendees = new TacCourseAttendees(emp.attendeesId, null, 0, 0, 0, 0)
-      courseAttendance.tacCourseAttendees = tacCourseAttendees;
-      // courseAttendance.attendanceDate = new Date();
-      courseAttendance.attendanceFlag = 1;//marking as present 
-      this.courseAttendanceList.push(courseAttendance)
+    if(this.previousAttendance!=null && this.previousAttendance.length>0)
+    {
+      this.previousAttendance.forEach(empAttendance=>{
+        let courseAttendance = new TacCourseAttendance(0, null, null, null)
+        let tacCourseAttendees = new TacCourseAttendees(empAttendance.attendeesId, null, 0, 0, 0, 0)
+        courseAttendance.tacCourseAttendees = tacCourseAttendees;
+        courseAttendance.attendanceDate = this.dateClicked;
+        courseAttendance.attendanceFlag =0
+        this.courseAttendanceList.push(courseAttendance)
+      })
+        this.courseAttendanceList.forEach(item=>{
+        this.checkboxList.forEach(emp => {
 
-
-    });
+          if(Number(emp.attendeesId)==item.tacCourseAttendees.attendeesId)
+          {
+          item.attendanceFlag=1;
+          }
+        })
+      })     
+    }
+      
     this.trainingService.markAttendanceOfEach(this.courseAttendanceList).subscribe(
       data => {
         debugger;
         var Response = <ITacCourseAttendance>data
         this.attendanceMarked = true
-        if (this.courseEndDate.getTime == new Date().getTime) {
-          this.courseCompletion = true;
+        if(this.courseEndDate <= this.dateClicked)
+        {
+        this.courseCompletion=true;
         }
+        this.toastr.success("Attendance Marked Successfully")
+
       }
     )
 
   }
+
+
+  // }
   /**
       * markCourseCompletion() method for course completion form for previous courses
       */
@@ -549,13 +628,13 @@ export class CourseManagementComponent implements OnInit {
     course.activation_id = this.eventCourseDetail.activation_id;
     course.course_date = this.courseStartDate;
     course.end_date = this.courseEndDate;
-    debugger;
+    //debugger;
     this.trainingService.courseCompletionDetails(course).subscribe(
       data => {
         var response = <ResponseEmpData>data
 
         this.getCertificates(this.eventCourseDetail.activation_id, response.data)
- })
+      })
     this.courseCompletionData = [...this.courseCompletionData];
   }
 
@@ -643,7 +722,6 @@ export class CourseManagementComponent implements OnInit {
   }
 
   getFutureCourseFilter(courseTime) {
-    debugger;
     this.displayCalendar = false;
     this.displayAttendance = false;
     this.displayCourseDetails = false;

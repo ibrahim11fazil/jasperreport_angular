@@ -28,10 +28,9 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    @PreAuthorize("hasAnyAuthority('create_activity')")
+    @PreAuthorize("hasAnyAuthority('ac')")
     @PostMapping("/create-activity")
     public ResponseType createActivity(@Valid @RequestBody TacActivity activity) {
-    	System.out.println("create activity");
         TacActivity submitActivity = null;
         if(activity.getActivityId()!=new BigDecimal(0))
         {
@@ -42,7 +41,6 @@ public class ActivityController {
         if(submitActivity!=null)
         {
         ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
-        
         return response;
         }
         else
@@ -62,10 +60,9 @@ public class ActivityController {
 
     //@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //if course is not linked with activity, it can be deleted
-    @PreAuthorize("hasAnyAuthority('remove_activity')")
+    @PreAuthorize("hasAnyAuthority('ar')")
     @PostMapping("/remove-activity")
     public ResponseType removeActivity(@RequestBody TacActivity activity) {
-    	System.out.println("Remove Activity");
         List<TacCourseMaster> activityList = null;
         if(activity==null || activity.getActivityId()==null){
             ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.ACTIVITY_DELETED_FAILED, false, null);
@@ -90,12 +87,10 @@ public class ActivityController {
 
     // @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //  list all the activities
-    @PreAuthorize("hasAnyAuthority('list_activity')")
+    @PreAuthorize("hasAnyAuthority('al')")
     @GetMapping("/list-activity")
     public ResponseType listActivity() {
-    	System.out.println("inside list activty ");
         List<TacActivity> activityList = null;
-        System.out.println("no activity");
         activityList = activityService.listActivity();
         if(activityList!=null) {
         ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activityList);
@@ -107,11 +102,10 @@ public class ActivityController {
             return response;
         }
     }
-    @PreAuthorize("hasAnyAuthority('search_activity')")
+    @PreAuthorize("hasAnyAuthority('as')")
     @PostMapping("/search-activity")
     public ResponseType searchActivity(@RequestBody TacActivity activity)
     {
-    	System.out.println("list activity");
     	List<TacActivity> activityList=null;
 
     	activityList=activityService.searchActivityList(activity);

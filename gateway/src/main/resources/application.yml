@@ -89,6 +89,12 @@ zuul:
       url: ${LOGIN_SERVER_URL:http://localhost:9001}
       stripPrefix: true
 
+    authrefresh:
+      sensitiveHeaders:
+      path: /authrefresh/**
+      url: ${LOGIN_SERVER_URL:http://localhost:9001}
+      stripPrefix: true
+
     training:
       path: /training/**
       serviceId: training

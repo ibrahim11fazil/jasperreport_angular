@@ -87,6 +87,28 @@ public class CertificateController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('user_certificates')")
+    @PostMapping("/list-certificates-byjobid")
+    ResponseType getListOfCertificatesBasedOnJobId(@RequestBody  CertificateRequest certificateRequest){
+        try {
+            if(certificateRequest.getActivationId()!=null){
+                List<CertificateRequest> requestList = fileService.
+                        findAllByjobId(
+                                certificateRequest.getJobId()) ;
+                if(requestList!=null && requestList.size()>0){
+                    return get(200,MessageUtil.SUCCESS,true,requestList);
+                }else{
+                    return get(500,MessageUtil.FAILED,false,"");
+                }
+            }else{
+                return get(500,MessageUtil.FAILED,false,"");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return get(500,MessageUtil.FAILED,false,"");
+        }
+    }
+
 
 
 

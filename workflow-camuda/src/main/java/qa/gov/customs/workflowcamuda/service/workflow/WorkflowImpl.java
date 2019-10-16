@@ -24,7 +24,7 @@ import qa.gov.customs.workflowcamuda.config.Publisher;
 import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
 import qa.gov.customs.workflowcamuda.proxy.TrainingProxyService;
-import qa.gov.customs.workflowcamuda.proxy.UserProxyService;
+import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.proxy.UserSSOProxy;
 import qa.gov.customs.workflowcamuda.service.RequestService;
 import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
@@ -40,7 +40,7 @@ import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 @Qualifier("workflowImpl")
 public class WorkflowImpl {
 
-    private final UserProxyService userProxyService;
+    private final EmployeeProxyService userProxyService;
     private final UserSSOProxy userSSOProxy;
     private final NotificationProxyService notificationProxyService;
     private final TrainingProxyService trainingProxyService;
@@ -64,7 +64,7 @@ public class WorkflowImpl {
     private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
 
     @Autowired
-    public WorkflowImpl(UserProxyService userProxyService,
+    public WorkflowImpl(EmployeeProxyService userProxyService,
                         NotificationProxyService notificationProxyService,
                         TrainingProxyService trainingProxyService,
                         UserSSOProxy userSSOProxy) {
@@ -77,11 +77,12 @@ public class WorkflowImpl {
 
     //Initial process for all requests
     public boolean startProcessWFType1(UserRequestModel model,String type) {
-        model.setCreatedOn(new Date().toString());
-        Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
-        ProcessInstance processInstance = null;
-        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-        if(type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)){
+        try {
+            model.setCreatedOn(new Date().toString());
+            Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
+            ProcessInstance processInstance = null;
+            ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+            if (type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)) {
 
             ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
                     .processDefinitionKey(TYPE_1_PROCESS)
@@ -89,11 +90,13 @@ public class WorkflowImpl {
                     //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
                     .versionTag(TYPE_1_PROCESS_VERSION) // This should be changed for new versions
                     .singleResult();
-            processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
+                processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
 
-            //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
-           // processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
-        }else if(type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
+                //processInstance = runtimeService.startProcessInstanceById(TYPE_1_PROCESS,vars);
+
+                //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+                //processInstance = runtimeService.startProcessInstanceByKey(TYPE_1_PROCESS, vars);
+            } else if (type.equals(WorkFlowRequestConstants.TYPE_2_COURSE_SUGGESTION_BY_HEAD_OF_SECTION)) {
 
             ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
                     .processDefinitionKey(TYPE_2_PROCESS)
@@ -101,38 +104,43 @@ public class WorkflowImpl {
                     //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
                     .versionTag(TYPE_2_PROCESS_VERSION) // This should be changed for new versions
                     .singleResult();
-            processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),vars);
+                processInstance = processEngine.getRuntimeService().startProcessInstanceById(TYPE_2_PROCESS,vars);
+                //processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
 
-
-            //processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
-        }else if(type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {
-            processInstance = runtimeService.startProcessInstanceByKey(TYPE_3_PROCESS, vars);
-        }
-        else if(type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
-            processInstance = runtimeService.startProcessInstanceByKey(TYPE_4_PROCESS, vars);
-        }
-        else if(type.equals(TYPE_5_AUDIT_MANAGER_COURSE_REQUEST)) {
-            processInstance = runtimeService.startProcessInstanceByKey(TYPE_5_PROCESS, vars);
-        }
-        else if(type.equals(TYPE_8_EMPLOYEE_SUBSTITUTE_REQUEST)) {
-            processInstance = runtimeService.startProcessInstanceByKey(TYPE_8_PROCESS, vars);
-        }
-
-        if(processInstance.getId()!=null) {
-            boolean status = userRequestAndCompleteTask(model, processInstance.getId());
-            if (status) {
-                requestService.saveOrUpdateWorkflow(model, WorkflowStatus.CREATED);
-            } else {
-                requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
+                //processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
+            } else if (type.equals(TYPE_3_TRAINING_REQUEST_FROM_HEAD)) {
+                processInstance = runtimeService.startProcessInstanceByKey(TYPE_3_PROCESS, vars);
+            } else if (type.equals(TYPE_4_CIS_COURSE_REQUEST)) {
+                processInstance = runtimeService.startProcessInstanceByKey(TYPE_4_PROCESS, vars);
+            } else if (type.equals(TYPE_5_AUDIT_MANAGER_COURSE_REQUEST)) {
+                processInstance = runtimeService.startProcessInstanceByKey(TYPE_5_PROCESS, vars);
+            } else if (type.equals(TYPE_8_EMPLOYEE_SUBSTITUTE_REQUEST)) {
+                processInstance = runtimeService.startProcessInstanceByKey(TYPE_8_PROCESS, vars);
             }
-            return status;
+            //TODO here wait 1 min to create the project --> error some time
+            if (processInstance.getId() != null) {
+                boolean status = userRequestAndCompleteTask(model, processInstance.getId());
+                if (status) {
+                    requestService.saveOrUpdateWorkflow(model, WorkflowStatus.CREATED);
+                } else {
+                    requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
+                }
+                return status;
+            }
+            return false;
+        }catch (Exception e ){
+            e.printStackTrace();
+            return false;
         }
-        return  false;
 
     }
 
     public List<Task> getTasks(String assignee) {
         return taskService.createTaskQuery().taskAssignee(assignee).list();
+    }
+
+    public List<Task> getTasksPagenated(String assignee,int firstResult,int maxResult) {
+        return taskService.createTaskQuery().taskAssignee(assignee).listPage(firstResult,maxResult);
     }
 
     public List<Task> getCandidateTasks(String delegations) {
@@ -146,6 +154,17 @@ public class WorkflowImpl {
                 .list();
     }
 
+    public List<Task> getCandidateTasksPagenated(String delegations,int firstResult,int maxResult) {
+        //return  taskService.createTaskQuery().taskCandidateUser(delegations).list();
+        return taskService.createTaskQuery()
+                .or()
+                .taskAssignee(delegations)
+                .taskCandidateUser(delegations)
+                .includeAssignedTasks()
+                .endOr()
+                .listPage(firstResult,maxResult);
+    }
+
     public UserRequestModel getProcessDetails(String executionId) {
         try {
             UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId, "applicant");
@@ -154,6 +173,7 @@ public class WorkflowImpl {
         }catch (Exception e)
         {
             e.printStackTrace();
+            logger.error(e.toString());
             //TODO log and
         }
         return null;
@@ -169,7 +189,7 @@ public class WorkflowImpl {
             taskService.complete(taskId, null);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.toString());
             //TODO log error
             return false;
         }
