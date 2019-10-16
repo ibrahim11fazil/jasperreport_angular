@@ -13,6 +13,7 @@ import { AuthService } from 'app/service/auth-service/auth.service';
 import { SmartProfileUserRequestModel, SmartProfileUserResponseModel,SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
 import { CertificateRequest, CertificateRequestOnlyJobId, ResponseCertificateList } from 'app/models/certificate-request';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageUtil } from 'app/app.language';
 @Component({
   selector: 'ms-smart-profile',
   templateUrl: './smart-profile.component.html',
@@ -21,7 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SmartProfileComponent implements OnInit {
 
   form:FormGroup
-  
+   language:LanguageUtil
    userProfile   :SmartProfileUserResponseModel
    certificates  :CertificateRequest[]=[]
    jobCardProfile:JobCardProfile[]=[]
@@ -39,8 +40,10 @@ export class SmartProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,){
     this.pageTitleService.setTitle("Smart Profile") 
     this.userProfile = new SmartProfileUserResponseModel()
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
   ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {

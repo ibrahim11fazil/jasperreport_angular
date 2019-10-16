@@ -2,15 +2,15 @@
     <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
        <div class="user-content">
           <mat-card>
-              <h4>Smart Profile</h4>
+              <h4>{{language.title_smartProfile}}</h4>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
           <mat-form-field class="full-wid mrgn-b-lg">
-             <input matInput placeholder="jobId"    formControlName="jobId" required >
+             <input matInput placeholder={{language.jobId}}  formControlName="jobId" required >
           </mat-form-field>  
           <div fxLayout="row" fxLayoutAlign="start">
-              <button mat-raised-button color="primary"   type="submit">Search
+              <button mat-raised-button color="primary"   type="submit">{{language.btn_search}}
           </button> 
           </div>
        </div>
@@ -30,29 +30,29 @@
                             <!-- <p>{{userProfile.job_DESC_AR}}</p> -->
                          </li>
                          <li>
-                            <div class="contact-list"> <strong>E-mail</strong></div>
+                            <div class="contact-list"> <strong>{{language.email}}</strong></div>
                             <a class="gene-block" href="mailto:{{userProfile.email}}">: {{ userProfile.email }}</a>
                          </li>
                          <li>
-                            <div class="contact-list"> <strong>Qid</strong></div>
+                            <div class="contact-list"> <strong>{{language.qid}}</strong></div>
                             <a class="gene-block">: {{userProfile.qid}}</a>
                          </li>
                          <li>
-                              <div class="contact-list"><strong>Position</strong></div>
+                              <div class="contact-list"><strong>{{language.position}}</strong></div>
                               <span>: {{userProfile.position_DESC_AR}} </span>
                         </li>
                          <li>
-                            <div class="contact-list"> <strong>Department</strong></div>
+                            <div class="contact-list"> <strong>{{language.department}}</strong></div>
                             <span>: {{userProfile.orgunit_DESC_AR}}</span>
                          </li>
                          <li>
-                            <div class="contact-list"> <strong> Grade</strong></div>
+                            <div class="contact-list"> <strong> {{language.jobGrade}}</strong></div>
                             <span class="gene-block">: {{userProfile.pslevel}} </span>
                          </li>
                       </ul>
                       <ul>
                           <li>
-                             <h4>Training Certificates</h4>
+                             <h4>{{language.trainingCertificates}}</h4>
                           </li>
                           <li *ngFor="let item of certificates">
                               <a style="color:blue" href="{{item.certificateUid}}" target="_blank">{{item.courseName}}</a>
@@ -75,7 +75,7 @@
 			<div>
 				<mat-card class="mrgn-b-lg">
 					<div>
-						<div class="card-title mrgn-b-md"><h4>Job Card Details</h4></div>
+						<div class="card-title mrgn-b-md"><h4>{{language.jobCardDetails}}</h4></div>
                 <mat-list>
                    <mat-list-item *ngFor="let item of jobCardProfile">
                       {{item.category}} -- Hours: {{item.noOfHours}}
@@ -92,7 +92,7 @@
         <div>
           <mat-card class="mrgn-b-lg">
             <div>
-              <div class="card-title mrgn-b-md"><h4> Courses  (Attended/Current)</h4></div>
+              <div class="card-title mrgn-b-md"><h4>{{language.coursesAttendedCurrent}}</h4></div>
               <mat-list>
                    <mat-list-item *ngFor="let item of userCourseResponseProfile">
                       {{item.courseName}} -- {{item.category}}
@@ -109,7 +109,7 @@
           <div>
             <mat-card class="mrgn-b-lg">
               <div>
-                <div class="card-title mrgn-b-md"><h4>Smart Suggession</h4></div>
+                <div class="card-title mrgn-b-md"><h4>{{language.smartSuggestion}}</h4></div>
                 <mat-list>
                     <mat-list>
                         <mat-list-item *ngFor="let item of jobCardProfileSuggession">
