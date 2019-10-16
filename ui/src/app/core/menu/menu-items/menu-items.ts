@@ -468,25 +468,25 @@ export class MenuItems {
             break
           //Courses 
           case "mcmy":
-            training_menu.children.push({ state: 'welcome', name: 'My Courses' })
+            training_menu.children.push({ state: 'welcome', name: language.menu_myCourses })
             break
           case "mcc":
-            training_menu.children.push({ state: 'create-course', name: 'Create Courses' })
+            training_menu.children.push({ state: 'create-course', name: language.menu_createCourses })
             break
           case "mcm":
-            training_menu.children.push({ state: 'search-course', name: 'Manage Courses' })
+            training_menu.children.push({ state: 'search-course', name: language.menu_manageCourses })
             break
           case "mcl":
-            training_menu.children.push({ state: 'course-link', name: 'Link Course' })
+            training_menu.children.push({ state: 'course-link', name: language.menu_linkCourse })
             break
           case "mca":
-            training_menu.children.push({ state: 'activity', name: 'Activity' })
+            training_menu.children.push({ state: 'activity', name: language.menu_activity })
             break
           case "mcma":
-            training_menu.children.push({ state: 'activations', name: 'Manage Activations' })
+            training_menu.children.push({ state: 'activations', name: language.menu_manageActivations })
             break
           case "mcac":
-            training_menu.children.push({ state: 'activate-course', name: 'Activate Course' })
+            training_menu.children.push({ state: 'activate-course', name: language.menu_activateCourse })
             break
 
           //Manage course
@@ -496,53 +496,53 @@ export class MenuItems {
 
           //Instructor project
           case "mic":
-            instructor_menu.children.push({ state: 'create-instructor', name: 'Create Instructor' })
+            instructor_menu.children.push({ state: 'create-instructor', name: language.menu_createInstructor })
             break
           case "mim":
-            instructor_menu.children.push({ state: 'search-instructor', name: 'Manage Instructor' })
+            instructor_menu.children.push({ state: 'search-instructor', name: language.menu_manageInstructor })
             break
 
           //User management
           case "muc":
-            user_menu.children.push({ state: 'user-creation', name: 'New User' })
+            user_menu.children.push({ state: 'user-creation', name: language.menu_newUser })
             break
           case "mus":
-            user_menu.children.push({ state: 'user-search', name: 'Search User' })
+            user_menu.children.push({ state: 'user-search', name: language.menu_searchUser })
             break
           case "mup":
-            user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })
+            user_menu.children.push({ state: 'user-permissions', name: language.menu_userPermissions })
             break
 
           //JOB CARD
           case "mjs":
-              jobcard_menu.children.push({ state: 'job-card-search', name: 'Search Job Card' })
+              jobcard_menu.children.push({ state: 'job-card-search', name: language.menu_searchJobCard })
             break
           case "mjc":
-              jobcard_menu.children.push({ state: 'job-card-management', name: 'Create Job Card' })
+              jobcard_menu.children.push({ state: 'job-card-management', name: language.menu_createJobCard })
             break
 
           //CI SYSTEM
           case "mciall":
-            ci_system_menu.children.push({ state: 'cis-system', name: 'All Employees' })
+            ci_system_menu.children.push({ state: 'cis-system', name: language.menu_allEmployees})
             break
           case "mcin":
-            ci_system_menu.children.push({ state: 'cis-course-requests-i-made', name: 'Course Requests' })
+            ci_system_menu.children.push({ state: 'cis-course-requests-i-made', name: language.menu_courseRequests })
             break
 
           //EMPLOYEE  
           case "mre":
-            request_menu.children.push({ state: 'emp-request', name: 'Employee Requests' })
+            request_menu.children.push({ state: 'emp-request', name: language.menu_employeeRequests })
             break
           case "mrem":
-            request_menu.children.push({ state: 'my-tasks', name: 'My Tasks' })
+            request_menu.children.push({ state: 'my-tasks', name: language.menu_myTasks })
             break
           case "mreh":
-            request_menu.children.push({ state: 'my-tasks-history', name: 'History' })
+            request_menu.children.push({ state: 'my-tasks-history', name: language.menu_history })
             break
 
           //SMART MENU
           case "msep":
-              smart_menu.children.push({ state: 'smart-profile', name: 'Smart Profile' })
+              smart_menu.children.push({ state: 'smart-profile', name: language.menu_smartProfile })
               break 
         }
       })

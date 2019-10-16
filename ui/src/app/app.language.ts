@@ -210,10 +210,37 @@ export class LanguageUtil  {
     //Main Components
 
     logout:String=this.isArabic ? "Logout 1":"Logout"
-    
+
 
     //Menu 
     menu_welcome:String=this.isArabic ? "Welcome1" : "Welcome"
+    menu_myCourses:String=this.isArabic ? "My Courses 1": "My Courses"
+    menu_createCourses:String=this.isArabic ? "Create Courses 1" : "Create Courses"
+    menu_manageCourses:String=this.isArabic ? "Manage Courses1" : " Manage Courses"
+    menu_linkCourse:String=this.isArabic ? "Link Course 1" : "Link Course"
+    menu_activity:String=this.isArabic ? "Activity 1" : "Activity"
+    menu_manageActivations:String=this.isArabic ? "Manage Activations 1" : "Manage Activations"
+    menu_activateCourse:String=this.isArabic ? "Activate Course 1" : "Activate Course"
+    menu_createInstructor:String=this.isArabic ? "Create Instructor 1" : "Create Instructor"
+    menu_manageInstructor:String=this.isArabic ? "Manage Instructor 1" : "Manage Instructor"
+    menu_newUser:String=this.isArabic ? "New User 1" : "New User"
+    menu_searchUser:String=this.isArabic ? "Search User 1" : "Search User"
+    menu_userPermissions:String=this.isArabic ? "User Permissions 1" : "User Permissions"
+    menu_searchJobCard:String=this.isArabic ? "Search Job Card 1" : "Search Job Card"
+    menu_createJobCard:String=this.isArabic ? "Create Job Card 1" : "Create Job Card"
+    menu_allEmployees:String=this.isArabic ? "All Employees 1" : "All Employees"
+    menu_courseRequests:String=this.isArabic ? "Course Requests 1" : "Course Requests"
+    menu_employeeRequests:String=this.isArabic ? "Employee Requests 1" : "Employee Requests"
+    menu_myTasks:String=this.isArabic ? "My Tasks 1" : "My Tasks"
+    menu_history:String=this.isArabic ? "History 1" : "History"
+    menu_smartProfile:String=this.isArabic ? "Smart Profile 1" : "Smart Profile"
+    
+
+    
+
+   
+
+
 
 
 }
