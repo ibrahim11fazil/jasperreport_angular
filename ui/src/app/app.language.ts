@@ -93,7 +93,7 @@ export class LanguageUtil  {
     qid:String=this.isArabic ?  "QID 1" : "QID"
     passport:String=this.isArabic ?  "Passport 1" : "Passport"
     iBanNo:String=this.isArabic ?  "IBAN No 1" : "IBAN No"
-    email:String=this.isArabic ? "Email 1" : "Email"
+    email:String=this.isArabic ? "E-mail 1" : "E-mail"
     phone:String=this.isArabic ? "Phone 1" : "Phone"
     subjects:String=this.isArabic ? "Subjects 1" : "Subjects"
     subjectName:String=this.isArabic ? "Subject 1" : "Subject"
@@ -107,7 +107,7 @@ export class LanguageUtil  {
     instructorId:String=this.isArabic ? "Instructor Id 1" :"Instructor Id"
     update:String=this.isArabic ? "Update 1" :"Update"
     request:String=this.isArabic ? "Request 1" :"Request"
-
+    
 
 
     //User Creation
@@ -180,8 +180,14 @@ export class LanguageUtil  {
     
    //Smart Profile
 
-   title_searchWithJobId:String=this.isArabic ? "Search With jobId 1" : "Search With jobId"
-  
+   //title_searchWithJobId:String=this.isArabic ? "Search With jobId 1" : "Search With jobId"
+   title_smartProfile:String=this.isArabic ? "Smart Profile 1" : "Smart Profile"
+   position:String=this.isArabic ? "Position 1" : "Position"
+   trainingCertificate:String=this.isArabic ? "Training Certificate 1" : "Training Certificate"
+   jobCardDetails:String=this.isArabic ? "Job Card Details 1" : "Job Card Details"
+   coursesAttendedCurrent:String=this.isArabic ? "Courses (Attended/Current)1" : "Courses (Attended/Current)"
+   smartSuggestion:String=this.isArabic ? "Smart Suggestion 1" : "Smart Suggestion"
+
 
 
     //General
@@ -200,6 +206,11 @@ export class LanguageUtil  {
     btn_requestSubmit:String=this.isArabic ? "Request Submit 1" : "Request Submit"
 
     //Titles
+
+    //Main Components
+
+    logout:String=this.isArabic ? "Logout 1":"Logout"
+    
 
     //Menu 
     menu_welcome:String=this.isArabic ? "Welcome1" : "Welcome"
