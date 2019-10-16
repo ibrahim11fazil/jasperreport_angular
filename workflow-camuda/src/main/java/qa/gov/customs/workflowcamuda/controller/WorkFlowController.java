@@ -186,7 +186,7 @@ public class WorkFlowController {
         try {
             boolean tasks = workflowServiceEmp.processTask(
                     assignee.getTaskId(),
-                    assignee.getAssigne(),
+                    assignee.getAssigne()!=null? assignee.getAssigne():null,
                     assignee.getProcessId(),
                     assignee.getRole(),
                     assignee.getAction(), assignee.getExecutionId(),
