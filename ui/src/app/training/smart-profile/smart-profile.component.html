@@ -122,10 +122,17 @@
           </div>
         </div>
       </div>
-      <div *ngIf="displayCourses" fxFlex="100" class="gene-card-content">
-      <ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
+
+      <!-- <div *ngIf="displayCourses" fxLayout="row wrap"  class="gene-card-content">
+         <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+           <div>  -->
+               <div *ngIf="displayCourses" class="gene-card-content">
+             <mat-card *ngIf="displayCourses" class="mrgn-b-lg">
+               <div>
+                 <div class="card-title mrgn-b-md"><h4>Responsibilities</h4></div>
+      <ngx-datatable  #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
 			[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='courseManagement' [count]="page.totalElements"
-			[offset]="page.pageNumber">
+			[offset]="page.pageNumber"> 
 
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
@@ -154,4 +161,9 @@
 			
 		</ngx-datatable>
 	</div>
+            </mat-card>
+               </div>
+          <!-- </div>
+        </div>
+      </div> -->
 

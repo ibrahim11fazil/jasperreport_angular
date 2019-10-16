@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { LanguageUtil } from 'app/app.language';
 import { CourseManagementRes, ITacCourseManagementList } from 'app/models/tac-course-master';
+import { Page } from 'app/models/paged-data';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class SmartProfileComponent implements OnInit {
    jobCardProfileSuggession:JobCardProfile[]=[]
    userCourseResponseProfile:UserCourseResponseProfile[]=[]
   displayCourses: boolean = false
+  page = new Page();
   courseManagement:CourseManagementRes[]=[]
 
 
@@ -89,6 +91,8 @@ export class SmartProfileComponent implements OnInit {
     this.getCertificates(jobId, isSearch)
     this.getUserJobCard(jobId, isSearch)
     this.getUserCoursesAttended(jobId, isSearch)
+    this.getCoordinatorCourses(jobId,isSearch)
+    this.getInstructorCourses(jobId,isSearch)
     this.smartSuggession()
   }
 
@@ -189,7 +193,7 @@ export class SmartProfileComponent implements OnInit {
       }
     })
   }
-  getCoordinatorCourses() {
+  getCoordinatorCourses(jobId: String, isSearch: Boolean) {
     if (this.authService.checktheRoleisTrainingCoordinator()) {
       this.trainingService.getCoordinatorCourses().subscribe(
         data=>{
@@ -205,7 +209,7 @@ export class SmartProfileComponent implements OnInit {
         })}
   }
 
-  getInstructorCourses(){
+  getInstructorCourses(jobId: String, isSearch: Boolean){
     this.trainingService.getInstructorCourses().subscribe(
       data=>{
         var response=<ITacCourseManagementList>data
