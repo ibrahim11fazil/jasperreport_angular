@@ -63,26 +63,31 @@ getTask(num){
     {
       card_color: "accent-bg",
       title: "Attended Courses",
+      number:" ",
       icon: "assessment"
     },
     {
       card_color: "success-bg",
       title: "Ongoing Courses",
+      number:" ",
       icon: "assignment_return",
     },
     {
       card_color: "warn-bg",
       title: "Request Future Courses",
+      number:" ",
       icon: "new_releases"
     },
     {
       card_color: "course-bg",
       title: "Approved Courses",
+      number:" ",
       icon: "assignment",
     },
     {
       card_color: "primary-bg",
       title: "Smart Engine Suggestion",
+      number:" ",
       icon: "remove_red_eye",
     }
   ]
