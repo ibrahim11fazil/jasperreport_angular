@@ -470,7 +470,11 @@
    <mat-menu class="user-menu" x-position="before" y-position="below" #menu="matMenu">
       <button mat-menu-item>
          <mat-icon>account_circle</mat-icon>
-         <span>Profile</span>
+         <span>{{userNameCr}} - ({{jobId}})</span>
+      </button>
+      <button mat-menu-item>
+            <mat-icon>fingerprint</mat-icon>
+            <span>{{qid}}</span>
       </button>
       <!-- <button mat-menu-item>
          <mat-icon>settings</mat-icon>

@@ -33,6 +33,7 @@ import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 import javax.transaction.Transactional;
 import java.util.*;
 
+import static qa.gov.customs.workflowcamuda.utils.MessageUtil.*;
 import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 
 
@@ -409,7 +410,7 @@ public class WorkflowImpl {
     public void checkTheUserIsHeadOfTraining(UserRequestModel model, DelegateExecution execution) {
         Boolean status = false;
         String errorCase = "";
-        System.out.println("checkTheUserIsHeadOfTraining" + model.getEmail());
+        logger.info("checkTheUserIsHeadOfTraining" + model.getEmail());
        // ResponseType userdata = userProxyService.checkUserIsHeadOfTraining(model.getJobId(), workflowToken);
         ResponseType userdata = userSSOProxy.checkUserIsHeadOfTraining(model.getJobId(), workflowToken);
         if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
@@ -434,7 +435,7 @@ public class WorkflowImpl {
     public void checkTheUserIsManager(UserRequestModel model, DelegateExecution execution) {
         Boolean status = false;
         String errorCase = "";
-        System.out.println("checkUserIsManager" + model.getEmail());
+        logger.info("checkUserIsManager" + model.getEmail());
         ResponseType userdata = userProxyService.checkUserIsManager(model.getJobId(),model.getDepartmentId(), workflowToken);
         if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
             ObjectMapper mapper = new ObjectMapper();
@@ -457,8 +458,8 @@ public class WorkflowImpl {
 
     public void rejectionAction(UserRequestModel model) {
         //TODO rejection based on the workflow
-        System.out.println("Rejected" + model.getEmail());
-        String message = "Request rejected for course " + model.getCourseName();
+        logger.info("Rejected" + model.getEmail());
+        String message = COURSE_REJECTED + model.getCourseName();
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.REJECTED);
         logger.info("Rejected ### ");
         publisher.sendNotification(createNotification(model, message));
@@ -469,8 +470,8 @@ public class WorkflowImpl {
 
     public void acceptAction(UserRequestModel model) {
         //TODO accept based on workflow
-        System.out.println("Accepted" + model.getEmail());
-        String message = "Request accepted for course " + model.getCourseName();
+        logger.info("Accepted" + model.getEmail());
+        String message = COURSE_APPROVED + model.getCourseName();
         requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
         //notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
         //trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.APPROVED, workflowToken);
@@ -483,7 +484,7 @@ public class WorkflowImpl {
         notificationModel.setEmailBody(message);
         notificationModel.setSmsBody(message);
         notificationModel.setToAddress(model.getEmail());
-        notificationModel.setEmailSubject("Customs Notification");
+        notificationModel.setEmailSubject(EMAIL_SUBJECT);
         notificationModel.setPhoneNumber(model.getMobile());
         if (model.getEmail() != null) {
             notificationModel.setIsEmail(1);
@@ -500,7 +501,7 @@ public class WorkflowImpl {
 
 
     public void findHeadOfSectionForEmployeeDelegation(UserRequestModel model, DelegateTask task) {
-        System.out.println("Error in request" + task.getAssignee());
+        logger.info("Error in request" + task.getAssignee());
         task.addCandidateUser("eman");
     }
 
@@ -522,23 +523,23 @@ public class WorkflowImpl {
 
 
     public void checkRequesterAndApprovalAreSame(UserRequestModel model) {
-        System.out.println("check for Approval" + model.getEmail());
+        logger.info("check for Approval" + model.getEmail());
     }
 
     public void notificationAndComment(UserRequestModel model) {
-        System.out.println(" Notification" + model.getEmail());
+        logger.info(" Notification" + model.getEmail());
     }
 
     public void getImmediateheadOfUser(UserRequestModel model) {
-        System.out.println(" Immediate Head" + model.getEmail());
+        logger.info(" Immediate Head" + model.getEmail());
     }
 
     public void hedofTrainingApproval(UserRequestModel model) {
-        System.out.println(" Immediate Head" + model.getEmail());
+        logger.info(" Immediate Head" + model.getEmail());
     }
 
 
     public void processInput(UserRequestModel model) {
-        System.out.println("processinput" + model.getEmail());
+        logger.info("processinput" + model.getEmail());
     }
 }

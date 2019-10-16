@@ -160,7 +160,7 @@ export class MyTasksComponent implements OnInit {
            if(response.status){
             this.toastr.info(String(response.message))
             this.dataStatus=false
-            this.search()
+            this.onSubmit()
            }else{
             this.toastr.error(String(response.message))
            }

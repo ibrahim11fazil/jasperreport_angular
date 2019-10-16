@@ -107,7 +107,6 @@ public class ActivityController {
     public ResponseType searchActivity(@RequestBody TacActivity activity)
     {
     	List<TacActivity> activityList=null;
-
     	activityList=activityService.searchActivityList(activity);
     	if(activityList!=null && !activityList.isEmpty()) {
     		

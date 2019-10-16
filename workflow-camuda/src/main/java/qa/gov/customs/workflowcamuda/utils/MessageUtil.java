@@ -26,4 +26,8 @@ public class MessageUtil {
     public static String  SYSTEM_USER_CREATED="User Created";
     public static String  FAILED="Failed";
     public static String  SUCCESS="Success";
+
+    public static String COURSE_REJECTED= "Training request rejected for course :";
+    public static String COURSE_APPROVED= "Training request accepted for course :";
+    public static String EMAIL_SUBJECT="Customs Training Notification";
 }
