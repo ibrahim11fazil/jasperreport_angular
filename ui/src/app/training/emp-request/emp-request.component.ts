@@ -30,6 +30,7 @@ import { LanguageUtil } from 'app/app.language';
 })
 export class EmpRequestComponent implements OnInit {
 
+  allOk:Boolean = false
   rows: CourseManagementRes[];
   page = new Page();
   eventCourseDetail: CourseManagementRes;
@@ -125,7 +126,7 @@ export class EmpRequestComponent implements OnInit {
     }
   
 getActivationData(row) {
-  debugger;
+  this.allOk=false
   this.eventCourseDetail = row;
   console.log(this.eventCourseDetail.course_date);
   const str = this.eventCourseDetail.course_date.split('-');
@@ -145,6 +146,7 @@ getActivationData(row) {
   let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
   courseActivation.activationId = row.activation_id
   this.selectedItem = courseActivation;
+  debugger
   this.trainingService.getActivationById(courseActivation).subscribe(
     data => {
       var response = <ResponseActivationData>data
@@ -167,6 +169,7 @@ getActivationData(row) {
           this.tacInstructorString.push(item[0].name)
         }
       })
+
       let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       courseMaster.courseId = this.activation.belongsTo;
       this.trainingService.getCourseById(courseMaster).subscribe(
@@ -175,7 +178,7 @@ getActivationData(row) {
           debugger
           this.courseDetail = response.data;
           this.selectedItem.courseName = this.courseDetail.courseName;
-          this.selectedItem.courseId= this.courseDetail.courseId;
+          this.selectedItem.courseId=    this.courseDetail.courseId;
         })
       let location = new Location(0, "");
       location.locationId = this.locationType;
@@ -188,6 +191,7 @@ getActivationData(row) {
       if (item != null && item.length>0) {
         this.tacCoordinatorString.push(item[0].username);
       }
+      this.allOk=true
     },
     error => {
       console.log(error)
@@ -235,8 +239,8 @@ getEmployeesUnderSupervisor(){
 onSubmit(){
   debugger
   var empRequest = new EmployeeCourseRequest()
-  empRequest.courseId = this.selectedItem.courseId
-  empRequest.courseName= this.selectedItem.courseName
+  empRequest.courseId = this.activation.courseId
+  empRequest.courseName= this.activation.courseName
   empRequest.courseActivationId=this.selectedItem.activationId
   if(this.isHead && 
     this.formDetails.value.supervisorsCtrl!=null &&
