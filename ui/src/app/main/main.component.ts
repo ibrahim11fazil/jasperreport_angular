@@ -51,6 +51,9 @@ export class MainComponent implements OnInit, OnDestroy{
    private _mediaSubscription         : Subscription;
    private _routerEventsSubscription  : Subscription;
    private _router                    : Subscription;
+   private userNameCr:String
+   private jobId:String
+   private qid:String
    @ViewChild('sidenav') sidenav;
 
    sideBarFilterClass : any = [
@@ -151,7 +154,11 @@ export class MainComponent implements OnInit, OnDestroy{
                private routes :Router,
                private activatedRoute: ActivatedRoute,
                private sessionTimeout:AutoLogoutServiceService,
+               
                 ) {
+                  this.userNameCr  = this.authService.getCNameAr()
+                  this.jobId  = this.authService.getLegacyCode()
+                  this.qid= this.authService.getQid()
       this.layout = "rtl";   
       this.sessionTimeout.val = "main"
       this.language = new LanguageUtil(this.layoutIsRTL());
