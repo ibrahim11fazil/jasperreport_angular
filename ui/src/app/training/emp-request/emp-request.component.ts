@@ -125,6 +125,7 @@ export class EmpRequestComponent implements OnInit {
     }
   
 getActivationData(row) {
+  debugger;
   this.eventCourseDetail = row;
   console.log(this.eventCourseDetail.course_date);
   const str = this.eventCourseDetail.course_date.split('-');
