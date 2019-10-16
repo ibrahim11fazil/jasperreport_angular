@@ -38,10 +38,10 @@ export class WelcomeComponent implements OnInit {
     debugger;
     this.trainingService.getMyTaskCount().subscribe(
       data => {
-
+       debugger;
         var response = <myTaskCount>data
         this.task = String(response.data)
-
+        this.statsCard.push(this.getTask(this.task))
       },
       error => {
         console.log(error)
@@ -49,6 +49,15 @@ export class WelcomeComponent implements OnInit {
       })
 
   }
+getTask(num){
+  return  {
+    card_color: "brown-bg",
+    title: "My Tasks",
+    number: num,
+    icon: "add_alert",
+  } 
+}
+
   statsCard: any[] = [
 
     {
@@ -75,14 +84,10 @@ export class WelcomeComponent implements OnInit {
       card_color: "primary-bg",
       title: "Smart Engine Suggestion",
       icon: "remove_red_eye",
-    },
-    {
-      card_color: "brown-bg",
-      title: "My Tasks",
-      number: this.task,
-      icon: "add_alert",
     }
   ]
+
+
 
   getDashboardData(card) {
     if (card.title == "Request Future Courses") {
