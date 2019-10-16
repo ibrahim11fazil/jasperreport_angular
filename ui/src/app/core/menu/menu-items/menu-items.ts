@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LanguageUtil } from 'app/app.language';
 
 export interface ChildrenItems {
   state: string;
@@ -443,7 +444,7 @@ export class MenuItems {
     //m.push(menu);
   }
 
-  update(permissions: String[]) {
+  update(permissions: String[],language:LanguageUtil) {
     //debugger
     dynamicMenu = []
     welcome_menu.children=[]
@@ -463,7 +464,7 @@ export class MenuItems {
         switch (item) {
           //Dashboard
           case "mda":
-            welcome_menu.children.push({ state: 'welcome', name: 'Welcome' });
+            welcome_menu.children.push({ state: 'welcome', name: language.menu_welcome });
             break
           //Courses 
           case "mcmy":

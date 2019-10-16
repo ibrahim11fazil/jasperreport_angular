@@ -201,5 +201,9 @@ export class LanguageUtil  {
 
     //Titles
 
+    //Menu 
+    menu_welcome:String=this.isArabic ? "Welcome1" : "Welcome"
+
+
 }
 
