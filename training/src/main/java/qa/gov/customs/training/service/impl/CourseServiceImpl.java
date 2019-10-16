@@ -515,24 +515,32 @@ public class CourseServiceImpl  implements CourseService {
 
 	@Override
 	public List<CourseManagement> searchAllFutureCourses(String courseName) {
-		int page =0;
-		int limit=20;
-		Pageable pageable =
-				PageRequest.of(
-						page, limit, Sort.by("course_Id"));
-		List<Object[]> objects=courseRepository.searchAllFutureCourses(courseName,pageable);
-		List<CourseManagement> courseList = new ArrayList<>();
-		for (Object[] o : objects) {
-			CourseManagement course = new CourseManagement();
-			course.setCourseName((String) o[0]);
-			Date courseDate=((Date)o[1]);
-			Date endDate=((Date)o[2]);
-			course.setActivation_id((BigDecimal)o[3]);
-			course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
-			course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
-			courseList.add(course);
+		try {
+			int page = 0;
+			int limit = 20;
+			Pageable pageable =
+					PageRequest.of(
+							page, limit, Sort.by("course_Id"));
+			List<Object[]> objects = courseRepository.searchAllFutureCourses(courseName, pageable);
+			List<CourseManagement> courseList = new ArrayList<>();
+			for (Object[] o : objects) {
+				CourseManagement course = new CourseManagement();
+				course.setCourseName((String) o[0]);
+				Date courseDate = ((Date) o[1]);
+				Date endDate = ((Date) o[2]);
+				course.setActivation_id((BigDecimal) o[3]);
+				course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+				course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+				courseList.add(course);
+			}
+			return courseList;
 		}
-		return courseList;
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			logger.error(e.toString());
+			return null;
+		}
 	}
 
 	@Override
@@ -602,6 +610,71 @@ public class CourseServiceImpl  implements CourseService {
 		}catch (Exception e){
 			e.printStackTrace();
 			//TODO log error
+			logger.error(e.toString());
+			return null;
+		}
+	}
+
+	@Override
+	public List<CourseManagement> getCoordinatorCourses(String jobId)
+	{
+		try
+		{
+			int page = 0;
+			int limit = 20;
+			List<CourseManagement>courseList=new ArrayList<>();
+			Pageable pageable =
+					PageRequest.of(
+							page, limit, Sort.by("course_Id"));
+			List<Object[]> object=courseRepository.getCoursesForCoordinator(jobId, pageable);
+			for (Object[] o:object) {
+				CourseManagement course=new CourseManagement();
+				course.setCourseName((String) o[0]);
+				Date courseDate=((Date)o[1]);
+				Date endDate=((Date)o[2]);
+				course.setActivation_id((BigDecimal)o[3]);
+				course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+				course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+				courseList.add(course);
+
+			}
+			return courseList;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			logger.error(e.toString());
+			return null;
+		}
+	}
+	@Override
+	public List<CourseManagement> getInstructorCourses(String jobId)
+	{
+		try
+		{
+			int page = 0;
+			int limit = 20;
+			List<CourseManagement>courseList=new ArrayList<>();
+			Pageable pageable =
+					PageRequest.of(
+							page, limit, Sort.by("course_Id"));
+			List<Object[]> object=courseRepository.getInstructorCourses(jobId, pageable);
+			for (Object[] o:object) {
+				CourseManagement course=new CourseManagement();
+				course.setCourseName((String) o[0]);
+				Date courseDate=((Date)o[1]);
+				Date endDate=((Date)o[2]);
+				course.setActivation_id((BigDecimal)o[3]);
+				course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
+				course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+				courseList.add(course);
+
+			}
+			return courseList;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 			logger.error(e.toString());
 			return null;
 		}

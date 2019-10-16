@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
             if(user.getRoleId()!=null) {
                 Optional<Role> role =  roleRepository.findById(user.getRoleId());
                 if(userInserted!=null && role.isPresent()){
-                    roleUserRepository.insertUserRole(user.getId(),user.getRoleId());
+                    roleUserRepository.insertUserRole(user.getRoleId(),user.getId());
                 }
             }
             UserMaster userI=  userRepository.findUserMasterByUsername(user.getUsername());

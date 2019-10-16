@@ -166,6 +166,8 @@ export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-da
 export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
 export const  GET_JOB_CARD_USER_PROFILE=BASE_URL+training+"/jobcard_user_profile";
 export const  GET_USER_COURSE_ATTENDED=BASE_URL+training+"/user_courses_attended";
+export const  COORDINATOR_COURSES=BASE_URL+training+"/coordinator-courses";
+export const  INSTRUCTOR_COURSES=BASE_URL+training+"/Instructor-courses";
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"

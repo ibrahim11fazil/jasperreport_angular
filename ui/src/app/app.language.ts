@@ -207,5 +207,14 @@ export class LanguageUtil  {
 
     //Titles
 
+    //Main Components
+
+    logout:String=this.isArabic ? "Logout 1":"Logout"
+    
+
+    //Menu 
+    menu_welcome:String=this.isArabic ? "Welcome1" : "Welcome"
+
+
 }
 

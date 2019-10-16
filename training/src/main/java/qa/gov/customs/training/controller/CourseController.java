@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -652,6 +653,37 @@ public class CourseController {
 			}
 		}else{
 			ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+			return response;
+		}
+
+	}
+
+	@PreAuthorize("hasAnyAuthority('cou')")
+	@PostMapping ("/coordinator-courses")
+	public ResponseType coordinatorCourses(@AuthenticationPrincipal CustomPrincipal principal)
+	{
+		List<CourseManagement> approvedCourses=courseService.getCoordinatorCourses(principal.getJid());
+		if (approvedCourses != null) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, approvedCourses);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+			return response;
+		}
+
+	}
+	@PreAuthorize("hasAnyAuthority('ic')")
+	@PostMapping ("/Instructor-courses")
+	public ResponseType instructorCourses(@AuthenticationPrincipal CustomPrincipal principal)
+	{
+		List<CourseManagement> instructorCourses=courseService.getInstructorCourses(principal.getJid());
+		if (instructorCourses != null) {
+
+			ResponseType response = new ResponseType(Constants.SUCCESS, "", true, instructorCourses);
+			return response;
+		} else {
+			ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
 			return response;
 		}
 

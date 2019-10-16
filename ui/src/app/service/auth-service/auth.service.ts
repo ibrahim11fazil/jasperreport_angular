@@ -300,6 +300,22 @@ export class AuthService {
          return false
       }
     }
+    checktheRoleisTrainingCoordinator(){
+      this.userData = JSON.parse(localStorage.getItem("userProfile"));
+      var loginObj=<LoginResponseObj> this.userData 
+      var roleAvailable=false
+      if(loginObj.roles.length!=0){
+         loginObj.roles.forEach(item =>  {
+         if(
+            item == ROLE_TRAINING_COORDINATOR 
+            ){
+               roleAvailable=true
+         }});
+      return roleAvailable
+      }else{
+         return false
+      }
+    }
 
     checktheRoleisSystemAdmin(){
       this.userData = JSON.parse(localStorage.getItem("userProfile"));
