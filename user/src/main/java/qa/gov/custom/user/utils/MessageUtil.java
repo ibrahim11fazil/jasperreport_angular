@@ -28,6 +28,7 @@ public class MessageUtil {
     public static String  SUCCESS="Success";
 
 
-    public static String PASSWORD_UPDATE="Training application password updated :";
+    public static String PASSWORD_UPDATE="Training application password updated to :";
+    public static String USERNAME_DETAILS="for user :";
     public static String PASSWORD_SUBJECT_EMAIL="Password Updated";
 }

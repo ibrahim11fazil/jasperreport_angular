@@ -75,10 +75,15 @@
 			<div>
 				<mat-card class="mrgn-b-lg">
 					<div>
-						<div class="card-title mrgn-b-md"><h4>{{language.jobCardDetails}}</h4></div>
+                  <div class="card-title mrgn-b-md">
+        
+                      <span class="label primary-bg border-rad-base"> {{language.jobCardDetails}}  </span>
+                      </div>
                 <mat-list>
                    <mat-list-item *ngFor="let item of jobCardProfile">
-                      {{item.category}} -- Hours: {{item.noOfHours}}
+                        <div class="card-title mrgn-b-md"> 
+                           {{item.category}} - Hours: {{item.noOfHours}}  
+                        </div>
                    </mat-list-item>
                 </mat-list>
 					</div>
@@ -92,10 +97,17 @@
         <div>
           <mat-card class="mrgn-b-lg">
             <div>
-              <div class="card-title mrgn-b-md"><h4>{{language.coursesAttendedCurrent}}</h4></div>
+              <div class="card-title mrgn-b-md"> 
+               <span class="label primary-bg border-rad-base"> {{language.coursesAttendedCurrent}} </span>
+            </div>
               <mat-list>
                    <mat-list-item *ngFor="let item of userCourseResponseProfile">
-                      {{item.courseName}} -- {{item.category}}
+                     
+
+                       <div class="card-title mrgn-b-md"> 
+                            {{item.courseName}} -- {{item.category}}   
+                        </div>
+
                    </mat-list-item>
               </mat-list>   
             </div>
@@ -109,11 +121,13 @@
           <div>
             <mat-card class="mrgn-b-lg">
               <div>
-                <div class="card-title mrgn-b-md"><h4>{{language.smartSuggestion}}</h4></div>
+                <div class="card-title mrgn-b-md">   <span class="label warn-bg border-rad-base"> {{language.smartSuggestion}} </span> </div>
                 <mat-list>
                     <mat-list>
                         <mat-list-item *ngFor="let item of jobCardProfileSuggession">
-                              {{item.courseName}}  , {{item.category}} -- Hours: {{item.noOfHours}}
+                              <div class="card-title mrgn-b-md"> 
+                                        {{item.courseName}}  , {{item.category}} -- Hours: {{item.noOfHours}}  
+                                 </div>
                         </mat-list-item>
                      </mat-list>
                  </mat-list>
@@ -129,7 +143,8 @@
                <div *ngIf="displayCourses" class="gene-card-content">
              <mat-card *ngIf="displayCourses" class="mrgn-b-lg">
                <div>
-                 <div class="card-title mrgn-b-md"><h4>Responsibilities</h4></div>
+                     <div class="card-title mrgn-b-md">   <span class="label primary-bg border-rad-base"> Responsibilities </span> </div>
+                 
       <ngx-datatable  #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
 			[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='courseManagement' [count]="page.totalElements"
 			[offset]="page.pageNumber"> 

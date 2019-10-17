@@ -28,7 +28,7 @@ export class UserSearchComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private mainComponent:MainComponent,
-    private router:Router,) {
+    private router:Router) {
     this.pageTitleService.setTitle("User Creration")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }

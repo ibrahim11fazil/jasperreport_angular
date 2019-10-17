@@ -32,8 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static qa.gov.custom.user.utils.MessageUtil.PASSWORD_SUBJECT_EMAIL;
-import static qa.gov.custom.user.utils.MessageUtil.PASSWORD_UPDATE;
+import static qa.gov.custom.user.utils.MessageUtil.*;
 
 @RestController
 public class UserController {
@@ -104,7 +103,7 @@ public class UserController {
 						logger.info("######" + item.getJobId() + "##" + password);
 						String email = item.getEmail() != null ? item.getEmail() : null;
 						String emailSubject = PASSWORD_SUBJECT_EMAIL;
-						String message = PASSWORD_UPDATE + password;
+						String message = PASSWORD_UPDATE + password +" " +USERNAME_DETAILS + item.getQid();
 						String phone = item.getMobile() != null ? item.getMobile() : null;
 						NotificationModel object = SystemUtil.createNotification(
 								email,
@@ -113,6 +112,8 @@ public class UserController {
 								phone
 						);
 						publisher.sendNotification(object);
+				}else{
+					logger.error("###### ERROR NO JOB ID FOR PASSWORD RESET: " + item.getId());
 				}
 			}catch (Exception e){
 				logger.error("######");

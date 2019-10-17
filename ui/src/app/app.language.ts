@@ -177,6 +177,27 @@ export class LanguageUtil  {
     courseDetails:String=this.isArabic ? "Course Details 1" : "Course Details"
     locationName:String=this.isArabic ? "Location Name 1" : "Location Name"
     courseSuggession:String=this.isArabic ? "Course Suggession for Employee 1" : "Course Suggession for Employee"
+
+    // My Tasks
+
+    workflowType:String=this.isArabic ? "WorkflowType 1": "WorkflowType"
+    createdOn:String=this.isArabic ? "Created On 1" : "Created On"
+    taskName:String=this.isArabic ? "Task Name 1" : "Task Name"
+    view:String=this.isArabic ? "View 1" : "view"
+    requestedBy:String=this.isArabic ? "Requested By 1" : "Requested By"
+    user:String=this.isArabic ? "User 1" : "User"
+    estimatedDuration:String=this.isArabic ? "Estimated Duration 1" : "Estimated Duration"
+    approvals:String=this.isArabic ? "Approvals 1" : "Approvals"
+    action:String=this.isArabic ? "Action 1" : "Action"
+    startDate:String=this.isArabic ? "Start Date 1" : "Start Date"
+    comments:String=this.isArabic ? "Comments 1" : "Comments"
+    addComment:String=this.isArabic ? "Add Comment 1" : "Add Comment"
+
+    //History
+
+    requestedTime:String=this.isArabic ? "Requested Time 1" : "Requested Time"
+    
+
     
    //Smart Profile
 
@@ -204,15 +225,41 @@ export class LanguageUtil  {
     btn_request:String=this.isArabic ? "Request 1" : "Request"
     btn_details:String=this.isArabic ? "Details 1" : "Details"
     btn_requestSubmit:String=this.isArabic ? "Request Submit 1" : "Request Submit"
+    btn_approve:String=this.isArabic ? "Approve 1" : "Approve "
+    btn_reject:String=this.isArabic ? "Reject 1" : "Reject "
 
     //Titles
 
     //Main Components
 
     logout:String=this.isArabic ? "Logout 1":"Logout"
+    totalAppMemory:String=this.isArabic ? "Total App Memory 1": "Total App Memory"
+    totalMemoryUsed:String=this.isArabic ? "Total Memory Used 1" : "Total Memory Used"
+    options:String=this.isArabic ? "Options 1" : "Options"
+    layoutOptions:String=this.isArabic ? "Layout Options 1" : "Layout Options"
+    collapsedSidebar:String=this.isArabic ? "Collapsed Sidebar 1":"Collapsed Sidebar"
+    darkMode:String=this.isArabic ? "Dark Mode1":"Dark Mode"
+    
+    
 
 
-    //Menu 
+
+
+    //Main Menu
+
+    menu_dashboard:String=this.isArabic ? "Dashboard 1" : "Dashboard"
+    menu_instructor:String=this.isArabic ? "Instructor 1" : "Instructor"
+    menu_course:String=this.isArabic ? "Course 1" : "Course"
+    menu_courseManagement:String=this.isArabic ? "Course Management 1" : "Course Management"
+    menu_ci_system:String=this.isArabic ? "CI System 1" : "CI System"
+    menu_smart_engine:String=this.isArabic ? "Smart Engine 1" : "Smart Engine"
+    menu_reports:String=this.isArabic ? "Reports 1" : "Reports"
+    menu_jobCard:String=this.isArabic ? "job Card 1" : "Job Card"
+    menu_user:String=this.isArabic ? "Users 1" : "Users"
+    menu_requests:String=this.isArabic ? "Training Requests 1" : "Training Requests"
+
+
+    // Sub Menu 
     menu_welcome:String=this.isArabic ? "Welcome1" : "Welcome"
     menu_myCourses:String=this.isArabic ? "My Courses 1": "My Courses"
     menu_createCourses:String=this.isArabic ? "Create Courses 1" : "Create Courses"
@@ -234,6 +281,8 @@ export class LanguageUtil  {
     menu_myTasks:String=this.isArabic ? "My Tasks 1" : "My Tasks"
     menu_history:String=this.isArabic ? "History 1" : "History"
     menu_smartProfile:String=this.isArabic ? "Smart Profile 1" : "Smart Profile"
+
+
     
 
     

@@ -13,6 +13,8 @@ import { TrainingSystemServiceService } from 'app/service/training/training-syst
 import { TrainingService } from 'app/service/training/training.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
 import { TacActivation } from 'app/models/tac-activation';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
 @Component({
   selector: 'ms-my-tasks',
   templateUrl: './my-tasks.component.html',
@@ -22,6 +24,7 @@ export class MyTasksComponent implements OnInit {
 
   systemUser: SystemUser
   form: FormGroup
+  language:LanguageUtil;
   page = 0
   commentTxt=""
   ds: TaskResponseData[] = [];
@@ -43,9 +46,15 @@ export class MyTasksComponent implements OnInit {
     private workflowService:WorkflowService,
     private router:Router,
     private trainingSystemService:TrainingSystemServiceService,
+    private mainComponent:MainComponent,
     private trainingService: TrainingService) {
     this.pageTitleService.setTitle("User Tasks")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
    
+  }
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
