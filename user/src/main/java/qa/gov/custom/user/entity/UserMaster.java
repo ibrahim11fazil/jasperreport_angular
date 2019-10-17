@@ -52,6 +52,18 @@ public class UserMaster  {
     @Column(name = "CNAME_AR")
     private String cNameAr;
 
+    @Column(name = "MOBILE")
+    private String mobile;
+
+    public UserMaster(){}
+
+    public UserMaster(BigInteger id, String username, String email, String jobId, String mobile) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.jobId = jobId;
+        this.mobile = mobile;
+    }
 
     @Transient
     private BigInteger roleId;
@@ -64,12 +76,19 @@ public class UserMaster  {
         this.id = id;
     }
 
-
     public String getUsername() {
         return username;
     }
 
-//    @Override
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    //    @Override
 //    public boolean isAccountNonExpired() {
 //        return !(this.accountExpired.intValue()!=0?true:false);
 //    }

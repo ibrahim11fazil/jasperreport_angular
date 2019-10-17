@@ -53,12 +53,12 @@ public class EmailService {
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("trainingsystem", "C!test123");
+                return new PasswordAuthentication("trainingsystem", "Qatar@Doha123");
             }
         });
 
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("ci-test@customs.gov.qa", true));
+        msg.setFrom(new InternetAddress("trainingsystem@customs.gov.qa", true));
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(model.getToAddress()));
         msg.setSubject(model.getEmailSubject());
         msg.setContent(model.getEmailBody(), "text/html");

@@ -182,6 +182,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
     @Override
     public BigDecimal enable(BigInteger jobId) {
         try {

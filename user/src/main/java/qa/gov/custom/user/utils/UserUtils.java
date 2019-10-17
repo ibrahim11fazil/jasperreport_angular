@@ -1,5 +1,6 @@
 package qa.gov.custom.user.utils;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserUtils {
@@ -13,6 +14,11 @@ public class UserUtils {
     public static String getPasswordBCrypt(String passwordInput){
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
         String password = coder.encode(passwordInput);
-        return password;
+        return "{bcrypt}"+password;
+    }
+
+    public static String generateRandomPassword(){
+        System.out.println("\nAlphanumeric String: [a-zA-Z0-9]");
+        return   RandomStringUtils.randomAlphanumeric(10);
     }
 }

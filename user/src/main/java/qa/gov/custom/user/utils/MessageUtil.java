@@ -26,4 +26,8 @@ public class MessageUtil {
     public static String  SYSTEM_USER_CREATED="User Created";
     public static String  FAILED="Failed";
     public static String  SUCCESS="Success";
+
+
+    public static String PASSWORD_UPDATE="Training application password updated :";
+    public static String PASSWORD_SUBJECT_EMAIL="Password Updated";
 }
