@@ -41,6 +41,7 @@ import { FindAttendance, FindAttendanceResponse } from 'app/models/find-attendan
 import { CertificateRequest, ResponseCertificate, ResponseCertificateList } from 'app/models/certificate-request';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { formatDate } from '@angular/common';
 
 
 
@@ -117,6 +118,7 @@ export class CourseManagementComponent implements OnInit {
   attendanceMarked: boolean = false;
   updateAttendance: boolean = false;
   dateClicked: Date = new Date();
+  activationDate:String=""
 
 
 
@@ -300,6 +302,7 @@ export class CourseManagementComponent implements OnInit {
       data => {
         var response = <ResponseActivationData>data
         this.activation = response.data
+        this.activationDate=formatDate(this.activation.courseDate,'yyyy-MM-dd', 'en-US')
         this.estimatedCost = +this.activation.costHospitality + +this.activation.costInstructor + +this.activation.costTranslation
           + +this.activation.costTransport + +this.activation.costVenue + +this.activation.costAirticket + +this.activation.costBonus
           + +this.activation.costFood + +this.activation.costGift;
