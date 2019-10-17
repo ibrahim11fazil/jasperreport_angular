@@ -233,6 +233,17 @@ export class LanguageUtil  {
     //Main Components
 
     logout:String=this.isArabic ? "Logout 1":"Logout"
+    totalAppMemory:String=this.isArabic ? "Total App Memory 1": "Total App Memory"
+    totalMemoryUsed:String=this.isArabic ? "Total Memory Used 1" : "Total Memory Used"
+    options:String=this.isArabic ? "Options 1" : "Options"
+    layoutOptions:String=this.isArabic ? "Layout Options 1" : "Layout Options"
+    collapsedSidebar:String=this.isArabic ? "Collapsed Sidebar 1":"Collapsed Sidebar"
+    darkMode:String=this.isArabic ? "Dark Mode1":"Dark Mode"
+    
+    
+
+
+
 
     //Main Menu
 
