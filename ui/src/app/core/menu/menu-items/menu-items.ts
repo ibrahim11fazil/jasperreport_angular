@@ -546,6 +546,18 @@ export class MenuItems {
               break 
         }
       })
+ 
+      welcome_menu.name =  language.menu_dashboard.toString();
+      training_menu.name= language.menu_course.toString();
+      instructor_menu.name=language.menu_instructor.toString();
+      course_managment.name=language.menu_courseManagement.toString();
+      report_menu.name=language.menu_reports.toString();
+      ci_system_menu.name=language.menu_ci_system.toString();
+      smart_menu.name=language.menu_smart_engine.toString();
+      jobcard_menu.name=language.menu_jobCard.toString();
+      user_menu.name=language.menu_user.toString();
+      request_menu.name=language.menu_requests.toString();
+
     }
    // this.updatePermission(permissions)
    dynamicMenu.push(welcome_menu)

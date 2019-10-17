@@ -234,8 +234,21 @@ export class LanguageUtil  {
 
     logout:String=this.isArabic ? "Logout 1":"Logout"
 
+    //Main Menu
 
-    //Menu 
+    menu_dashboard:String=this.isArabic ? "Dashboard 1" : "Dashboard"
+    menu_instructor:String=this.isArabic ? "Instructor 1" : "Instructor"
+    menu_course:String=this.isArabic ? "Course 1" : "Course"
+    menu_courseManagement:String=this.isArabic ? "Course Management 1" : "Course Management"
+    menu_ci_system:String=this.isArabic ? "CI System 1" : "CI System"
+    menu_smart_engine:String=this.isArabic ? "Smart Engine 1" : "Smart Engine"
+    menu_reports:String=this.isArabic ? "Reports 1" : "Reports"
+    menu_jobCard:String=this.isArabic ? "job Card 1" : "Job Card"
+    menu_user:String=this.isArabic ? "Users 1" : "Users"
+    menu_requests:String=this.isArabic ? "Training Requests 1" : "Training Requests"
+
+
+    // Sub Menu 
     menu_welcome:String=this.isArabic ? "Welcome1" : "Welcome"
     menu_myCourses:String=this.isArabic ? "My Courses 1": "My Courses"
     menu_createCourses:String=this.isArabic ? "Create Courses 1" : "Create Courses"
@@ -257,6 +270,8 @@ export class LanguageUtil  {
     menu_myTasks:String=this.isArabic ? "My Tasks 1" : "My Tasks"
     menu_history:String=this.isArabic ? "History 1" : "History"
     menu_smartProfile:String=this.isArabic ? "Smart Profile 1" : "Smart Profile"
+
+
     
 
     
