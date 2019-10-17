@@ -65,6 +65,15 @@ public class UserMaster  {
         this.mobile = mobile;
     }
 
+    public UserMaster(BigInteger id, String username, String email, String jobId, String mobile,String qid) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.jobId = jobId;
+        this.mobile = mobile;
+        this.qid=qid;
+    }
+
     @Transient
     private BigInteger roleId;
 
