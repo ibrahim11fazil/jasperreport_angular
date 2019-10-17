@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADMIN, ROLE_TRAINING_MANAGER, ROLE_TRAINING_ASSIS_MANAGER, ROLE_TRAINING_COORDINATOR, ROLE_TRAINING_HEAD_TCE, ROLE_SYS_ADMIN, REFRESH_TOKEN} from "../../app.constants";
 import { LoginResponseObj } from 'app/models/system-user';
 import { isNgTemplate } from '@angular/compiler';
+import {  ResponseError } from 'app/models/ci-system-user';
 
 @Injectable({
   providedIn: 'root'
@@ -83,8 +84,9 @@ export class AuthService {
                this.router.navigate(['/']);
             },
             error => {
-                  console.log(error); 
-                  this.toastr.error(error.message);
+                  var errorMsg = <ResponseError> error
+                  this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
+                  console.log(error.message);
             }
        );
    }
