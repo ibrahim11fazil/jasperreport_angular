@@ -467,8 +467,8 @@ export class MenuItems {
             welcome_menu.children.push({ state: 'welcome', name: language.menu_welcome });
             break
           //Courses 
-          case "mcmy":
-            training_menu.children.push({ state: 'welcome', name: language.menu_myCourses })
+          //case "mcmy":
+          //  training_menu.children.push({ state: 'welcome', name: language.menu_myCourses })
             break
           case "mcc":
             training_menu.children.push({ state: 'create-course', name: language.menu_createCourses })
