@@ -98,7 +98,7 @@ public class UserController {
 				if (item.getJobId() != null) {
 						logger.error("######");
 						String password = UserUtils.generateRandomPassword();
-						String encryptPassword = UserUtils.getPasswordBCrypt(password);
+						String encryptPassword = "{bcrypt}"+ UserUtils.getPasswordBCrypt(password);
 						userRepository.updatePassword(new BigInteger(item.getJobId()), encryptPassword);
 						logger.info("######" + item.getJobId() + "##" + password);
 						String email = item.getEmail() != null ? item.getEmail() : null;

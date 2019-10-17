@@ -15,6 +15,7 @@ import { ActivationData, ResponseActivationData } from 'app/models/activation-da
 import { TacActivation } from 'app/models/tac-activation';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'ms-my-tasks-history',
   templateUrl: './my-tasks-history.component.html',
@@ -48,7 +49,8 @@ export class MyTasksHistoryComponent implements OnInit {
     private router:Router,
     private trainingSystemService:TrainingSystemServiceService,
     private mainComponent:MainComponent,
-    private trainingService: TrainingService) {
+    private trainingService: TrainingService,
+    public datepipe: DatePipe) {
     this.pageTitleService.setTitle("User Tasks History")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
@@ -91,6 +93,7 @@ export class MyTasksHistoryComponent implements OnInit {
             //   item.roles.forEach(r => {  rName = rName + " " +  r.remark})
             //   item.roleName =rName
             // }
+            
             this.ds.push(item);
           })
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI

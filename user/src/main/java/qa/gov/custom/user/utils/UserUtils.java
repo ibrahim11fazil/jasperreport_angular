@@ -14,7 +14,7 @@ public class UserUtils {
     public static String getPasswordBCrypt(String passwordInput){
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
         String password = coder.encode(passwordInput);
-        return "{bcrypt}"+password;
+        return password;
     }
 
     public static String generateRandomPassword(){
