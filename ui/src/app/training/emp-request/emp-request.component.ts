@@ -20,6 +20,7 @@ import { AbsentInfo, AbsentInfoResponse } from 'app/models/employee-data';
 import { SupervisorResponse, SupervisorResponseData, ActivationDateRequest, ActivationDateResponse, ActivationDateDetails } from 'app/models/course-request';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { formatDate } from '@angular/common';
 
 
 
@@ -56,6 +57,7 @@ export class EmpRequestComponent implements OnInit {
   employeesUnderSupervisor:SupervisorResponseData[]=[]
   isHead=false
  language:LanguageUtil
+ activationDate:String=""
   
 
   constructor(private fb: FormBuilder,
@@ -151,6 +153,7 @@ getActivationData(row) {
     data => {
       var response = <ResponseActivationData>data
       this.activation = response.data
+      this.activationDate=formatDate(this.activation.courseDate,'yyyy-MM-dd', 'en-US')
       this.estimatedCost = +this.activation.costHospitality + +this.activation.costInstructor + +this.activation.costTranslation
         + +this.activation.costTransport + +this.activation.costVenue + +this.activation.costAirticket + +this.activation.costBonus
         + +this.activation.costFood + +this.activation.costGift;
