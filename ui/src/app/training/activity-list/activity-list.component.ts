@@ -74,4 +74,7 @@ export class ActivityListComponent implements OnInit {
     this.toastr.success(data.message)
   }
 
+
+  
+
 }

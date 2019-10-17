@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CustomValidators } from "ng2-validation";
 import { TrainingService } from "../../service/training/training.service";
-import { TacActivity } from "../../models/tac-activity";
+import { TacActivity, ITacActivityList } from "../../models/tac-activity";
 import { ToastrService } from "ngx-toastr";
 import { PageTitleService } from "../../core/page-title/page-title.service";
 import { Page } from "../../models/paged-data"
@@ -26,6 +26,7 @@ export class SearchCourseComponent implements OnInit
   searchText: String;
   page = new Page();
   public form: FormGroup;
+  activityList:TacActivity[];
 
    dialogRef : MatDialogRef<CourseActionDialog>;
    result    : string;
@@ -50,13 +51,33 @@ export class SearchCourseComponent implements OnInit
   ngOnInit() {
     this.form = this.fb.group({
       courseName: null,
+      activitySelect:[null],
     });
+    this.formSetup();
+    
   } 
 
-  
+  formSetup() {
+      this.trainingService.getAllActivities().subscribe(
+        data =>{
+          var response=<ITacActivityList>data
+          this.activityList=response.data       
+      },
+      error => {
+        console.log(error)
+        this.toastr.error(error.message)
+      })
+  }
 
   searchCourse() {
     this.searchText = this.form.value.courseName;
+
+    let activity:TacActivity={
+      activityId:0,
+      activityName:this.form.value.activitySelect
+      
+    }
+    this.activityList.push(activity)
     let course: TacCourseMaster = {
        courseId: 0, 
        tacCourseCategory: null,
@@ -72,9 +93,11 @@ export class SearchCourseComponent implements OnInit
        subcourseFlag:0,
        locationType:0,
        tacCourseDates:null,
-       tacActivities:null
+       tacActivities:this.activityList,
        
     }
+
+    
     this.trainingService.searchCourse(course).subscribe(
       data => this.successSearch(data),
       error => this.errorWhileSearching(error)

@@ -119,6 +119,7 @@ export const REFRESH_TOKEN=BASE_URL + authenticationrefresh +"/oauth/token?grant
 //TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
 export const LIST_ACTIVITY = BASE_URL + training + "/search-activity"
+export const  GET_ACTIVITY_COURSE= BASE_URL + training + "/search-activity"
 export const DELETE_ACTIVITY = BASE_URL + training + "/remove-activity"
 export const CREATE_COURSE = BASE_URL + training +"/create-course"
 export const GET_COURSE_BY_ID = BASE_URL + training +"/get-course-by-id"
