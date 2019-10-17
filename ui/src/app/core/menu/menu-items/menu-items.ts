@@ -469,7 +469,7 @@ export class MenuItems {
           //Courses 
           //case "mcmy":
           //  training_menu.children.push({ state: 'welcome', name: language.menu_myCourses })
-            break
+          //  break
           case "mcc":
             training_menu.children.push({ state: 'create-course', name: language.menu_createCourses })
             break
@@ -561,6 +561,7 @@ export class MenuItems {
     }
    // this.updatePermission(permissions)
    dynamicMenu.push(welcome_menu)
+   dynamicMenu.push(smart_menu)
       permissions.forEach(item => {
         switch (item) {
           case "mdm":
@@ -587,9 +588,9 @@ export class MenuItems {
           case "mcima":
             dynamicMenu.push(ci_system_menu)
             break
-          case "msmm":
-            dynamicMenu.push(smart_menu)
-            break
+         // case "msmm":
+         //   dynamicMenu.push(smart_menu)
+         //   break
         }
       })
       //user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })
