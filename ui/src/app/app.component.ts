@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/m
 
 @Component({
   	selector: 'gene-app',
-   template:`<router-outlet></router-outlet>`,
+   template:`<router-outlet><ngx-loading-bar></ngx-loading-bar></router-outlet>`,
    encapsulation: ViewEncapsulation.None
 })
 //<ngx-loading-bar></ngx-loading-bar>
