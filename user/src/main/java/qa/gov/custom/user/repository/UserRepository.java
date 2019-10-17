@@ -35,6 +35,6 @@ public interface UserRepository extends PagingAndSortingRepository<UserMaster, B
 
     List<UserMaster> findAllByRoles(List<Role> roles);
 
-    @Query(value = "select new UserMaster(i.id, i.username, i.email, i.jobId, i.mobile) from UserMaster i",nativeQuery = false)
+    @Query(value = "select new UserMaster(i.id, i.username, i.email, i.jobId, i.mobile,i.qid) from UserMaster i",nativeQuery = false)
     List<UserMaster> findAllUsersInList();
 }
