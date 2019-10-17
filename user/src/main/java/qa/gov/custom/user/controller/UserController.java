@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import qa.gov.custom.user.config.Publisher;
 import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
+import qa.gov.custom.user.models.NotificationModel;
 import qa.gov.custom.user.proxy.EmpEmployeeMaster;
 import qa.gov.custom.user.proxy.UserProxyService;
 import qa.gov.custom.user.repository.UserRepository;
@@ -17,6 +19,8 @@ import qa.gov.custom.user.service.CustomUserDetailsService;
 import qa.gov.custom.user.service.UserService;
 import qa.gov.custom.user.utils.Constants;
 import qa.gov.custom.user.utils.MessageUtil;
+import qa.gov.custom.user.utils.SystemUtil;
+import qa.gov.custom.user.utils.UserUtils;
 import qa.gov.custom.user.utils.models.ResponseType;
 
 
@@ -37,8 +41,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private Publisher publisher;
+
 
 	private final UserProxyService userProxyService;
+
+	@Autowired
+	UserRepository userRepository;
+
 	@Autowired
 	public UserController( UserProxyService userProxyService) {
 		this.userProxyService=userProxyService;
@@ -70,6 +81,51 @@ public class UserController {
 			return response;
 		}
 	}
+
+//					NotificationModel mode = SystemUtil.createNotification(
+//							"sraj@custom.gov.qa",
+//							"Password updated",
+//							"Training application password updated : " + password,
+//							"50105223");
+
+	//@PreAuthorize("hasAnyAuthority('create_system_user')")
+	@RequestMapping(method = RequestMethod.POST,value = "update-password-all")
+	public ResponseType updateAllUserPassword() {
+		userRepository.findAllUsersInList().forEach(item ->{
+		   	try {
+				if (item.getJobId() != null) {
+					if(item.getJobId().equals("4077")) {
+						logger.error("######");
+						String password = UserUtils.generateRandomPassword();
+						String encryptPassword = UserUtils.getPasswordBCrypt(password);
+						userRepository.updatePassword(new BigInteger(item.getJobId()), encryptPassword);
+						logger.info("######" + item.getJobId() + "##" + password);
+						String email = item.getEmail() != null ? item.getEmail() : null;
+						String emailSubject = "Password Updated";
+						String message = "Training application password updated : " + password;
+						String phone = item.getMobile() != null ? item.getMobile() : null;
+						NotificationModel object = SystemUtil.createNotification(
+								email,
+								emailSubject,
+								message,
+								phone
+						);
+						publisher.sendNotification(object);
+					}
+				}
+			}catch (Exception e){
+				logger.error("######");
+		   		logger.error(item.getJobId()!=null?item.getJobId():item.getId().toString());
+				logger.error("######");
+			}
+		   });
+		ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, true,
+				null);
+		return response;
+	}
+
+
+
 
 
 
