@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static qa.gov.custom.user.utils.MessageUtil.PASSWORD_SUBJECT_EMAIL;
+import static qa.gov.custom.user.utils.MessageUtil.PASSWORD_UPDATE;
+
 @RestController
 public class UserController {
 
@@ -88,21 +91,20 @@ public class UserController {
 //							"Training application password updated : " + password,
 //							"50105223");
 
-	//@PreAuthorize("hasAnyAuthority('create_system_user')")
+	@PreAuthorize("hasAnyAuthority('create_system_user')")
 	@RequestMapping(method = RequestMethod.POST,value = "update-password-all")
 	public ResponseType updateAllUserPassword() {
 		userRepository.findAllUsersInList().forEach(item ->{
 		   	try {
 				if (item.getJobId() != null) {
-					if(item.getJobId().equals("4077")) {
 						logger.error("######");
 						String password = UserUtils.generateRandomPassword();
 						String encryptPassword = UserUtils.getPasswordBCrypt(password);
 						userRepository.updatePassword(new BigInteger(item.getJobId()), encryptPassword);
 						logger.info("######" + item.getJobId() + "##" + password);
 						String email = item.getEmail() != null ? item.getEmail() : null;
-						String emailSubject = "Password Updated";
-						String message = "Training application password updated : " + password;
+						String emailSubject = PASSWORD_SUBJECT_EMAIL;
+						String message = PASSWORD_UPDATE + password;
 						String phone = item.getMobile() != null ? item.getMobile() : null;
 						NotificationModel object = SystemUtil.createNotification(
 								email,
@@ -111,11 +113,10 @@ public class UserController {
 								phone
 						);
 						publisher.sendNotification(object);
-					}
 				}
 			}catch (Exception e){
 				logger.error("######");
-		   		logger.error(item.getJobId()!=null?item.getJobId():item.getId().toString());
+		   		logger.error(item.getJobId()!=null?item.getJobId():"## "+item.getId().toString());
 				logger.error("######");
 			}
 		   });
