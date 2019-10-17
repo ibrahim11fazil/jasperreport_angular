@@ -177,6 +177,27 @@ export class LanguageUtil  {
     courseDetails:String=this.isArabic ? "Course Details 1" : "Course Details"
     locationName:String=this.isArabic ? "Location Name 1" : "Location Name"
     courseSuggession:String=this.isArabic ? "Course Suggession for Employee 1" : "Course Suggession for Employee"
+
+    // My Tasks
+
+    workflowType:String=this.isArabic ? "WorkflowType 1": "WorkflowType"
+    createdOn:String=this.isArabic ? "Created On 1" : "Created On"
+    taskName:String=this.isArabic ? "Task Name 1" : "Task Name"
+    view:String=this.isArabic ? "View 1" : "view"
+    requestedBy:String=this.isArabic ? "Requested By 1" : "Requested By"
+    user:String=this.isArabic ? "User 1" : "User"
+    estimatedDuration:String=this.isArabic ? "Estimated Duration 1" : "Estimated Duration"
+    approvals:String=this.isArabic ? "Approvals 1" : "Approvals"
+    action:String=this.isArabic ? "Action 1" : "Action"
+    startDate:String=this.isArabic ? "Start Date 1" : "Start Date"
+    comments:String=this.isArabic ? "Comments 1" : "Comments"
+    addComment:String=this.isArabic ? "Add Comment 1" : "Add Comment"
+
+    //History
+
+    requestedTime:String=this.isArabic ? "Requested Time 1" : "Requested Time"
+    
+
     
    //Smart Profile
 
@@ -204,6 +225,8 @@ export class LanguageUtil  {
     btn_request:String=this.isArabic ? "Request 1" : "Request"
     btn_details:String=this.isArabic ? "Details 1" : "Details"
     btn_requestSubmit:String=this.isArabic ? "Request Submit 1" : "Request Submit"
+    btn_approve:String=this.isArabic ? "Approve 1" : "Approve "
+    btn_reject:String=this.isArabic ? "Reject 1" : "Reject "
 
     //Titles
 
