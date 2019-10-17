@@ -118,10 +118,7 @@ public class ActivityController {
             return response;
     	}
 
-    	//ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-        //return response;
-    
-    	
+
     }
     
     
