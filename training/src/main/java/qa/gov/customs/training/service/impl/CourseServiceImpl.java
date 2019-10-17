@@ -173,23 +173,35 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
-        //courses=courseRepository.findByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
-
-        for (TacActivity activity : searchCriteria.getTacActivities()) {
         //activity and course name not present
-            if (searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals("")
-                    && activity.getActivityName() == null || activity.getActivityName().equals("")) {
-                return listCourses();
-            }
-        //only activity name present
-            else if (searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals("")
-                    && activity.getActivityName() != null) {
-                return listCourses();
-            }
+        if ((searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals(""))
+                && (searchCriteria.getTacActivities()==null ||searchCriteria.getTacActivities().size()==0)) {
+            return listCourses();
+        }
         //only course name present
-            else if (searchCriteria.getCourseName() != null
-                    && activity.getActivityName() == null || activity.getActivityName().equals("")) {
-                List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+        else if ((searchCriteria.getCourseName() != null)
+                && (searchCriteria.getTacActivities()==null || searchCriteria.getTacActivities().size()==0)) {
+            List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+            List<Course> courses = new ArrayList<>();
+            for (Object[] o : objects) {
+                Course course = new Course();
+                course.setCourseId((BigDecimal) o[0]);
+                course.setCourseName((String) o[1]);
+                if (o[2] != null)
+                    course.setStatus((BigDecimal) o[2]);
+                courses.add(course);
+            }
+            return courses;
+        }
+        else if(searchCriteria.getTacActivities()==null || searchCriteria.getTacActivities().size()>0)
+        {
+        for (TacActivity activity : searchCriteria.getTacActivities()) {
+
+        //only activity name present
+            if ((searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals(""))
+                    && (activity.getActivityName() != null)) {
+
+                List<Object[]> objects = courseRepository.findCourseUnderActivity(activity.getActivityName(), firstPageWithElements);
                 List<Course> courses = new ArrayList<>();
                 for (Object[] o : objects) {
                     Course course = new Course();
@@ -201,9 +213,10 @@ public class CourseServiceImpl implements CourseService {
                 }
                 return courses;
             }
+
         //activity and course name present
             else {
-                List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+                List<Object[]> objects = courseRepository.findIdAndNameByCourseNameAndActivityName(searchCriteria.getCourseName(),activity.getActivityName(), firstPageWithElements);
                 List<Course> courses = new ArrayList<>();
                 for (Object[] o : objects) {
                     Course course = new Course();
@@ -215,7 +228,7 @@ public class CourseServiceImpl implements CourseService {
                 }
                 return courses;
             }
-        }
+        }}
         return null;
 
     }

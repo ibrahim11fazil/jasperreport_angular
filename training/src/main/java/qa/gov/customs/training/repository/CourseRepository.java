@@ -30,9 +30,17 @@ List<TacCourseMaster>findByCourseName(String courseName);
 @Query(value="select COURSE_ID,COURSE_NAME,ACTIVE_FLAG from Tac_Course_Master where lower(course_name) LIKE %:courseName%  order by course_id",nativeQuery=true)
 List<Object[]> findIdAndNameByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
+    @Query(value="select a.course_id,a.course_name,a.active_flag from Tac_Course_Master a join Tac_Activity_Course_Link b on a.course_Id=b.course_Id "+
+    "join tac_activity c on b.activity_id=c.activity_id and c.activity_name LIKE  %:activityName%" +
+            "order by a.course_Id",nativeQuery=true)
+    List<Object[]> findCourseUnderActivity(String activityName, Pageable firstPageWithThreeElements);
 
+    @Query(value="select a.course_id,a.course_name,a.active_flag from Tac_Course_Master a join Tac_Activity_Course_Link b on a.course_Id=b.course_Id "+
+            "join tac_activity c on b.activity_id=c.activity_id and c.activity_name LIKE  %:activityName% and lower(a.course_name) LIKE %:courseName% " +
+            "order by a.course_Id",nativeQuery=true)
+    List<Object[]>  findIdAndNameByCourseNameAndActivityName(String courseName,String activityName,Pageable firstPageWithThreeElements);
 
-@Query(value="select COURSE_ID,COURSE_NAME from Tac_Course_Master where active_flag=1 order by course_id",nativeQuery=true)
+    @Query(value="select COURSE_ID,COURSE_NAME from Tac_Course_Master where active_flag=1 order by course_id",nativeQuery=true)
 List<Object[]> findAllCourses();
 
     @Query(value="select COURSE_ID,COURSE_NAME,NUMBEROFHOURS,CATEGORY_ID from Tac_Course_Master where active_flag=1 order by course_id",nativeQuery=true)

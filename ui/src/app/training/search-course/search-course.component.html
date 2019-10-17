@@ -22,7 +22,6 @@
               <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                 <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                    <input matInput placeholder={{language.label_ActivityName}} formControlName="activityName">
                     <mat-select placeholder={{language.label_ActivityName}}
                     matInput formControlName="activitySelect">
                     <mat-option *ngFor="let item of activityList" [value]="item">

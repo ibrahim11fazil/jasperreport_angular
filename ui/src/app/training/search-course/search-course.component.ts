@@ -27,6 +27,7 @@ export class SearchCourseComponent implements OnInit
   page = new Page();
   public form: FormGroup;
   activityList:TacActivity[];
+  activitySelection:TacActivity[]=[];
 
    dialogRef : MatDialogRef<CourseActionDialog>;
    result    : string;
@@ -70,14 +71,18 @@ export class SearchCourseComponent implements OnInit
   }
 
   searchCourse() {
+    debugger;
     this.searchText = this.form.value.courseName;
+if(this.form.value.activitySelect!=null)
+{
+  this.activitySelection=[]
+    this.activitySelection.push(this.form.value.activitySelect)
+  }
+  else
+  {
+    this.activitySelection=null
+  }
 
-    let activity:TacActivity={
-      activityId:0,
-      activityName:this.form.value.activitySelect
-      
-    }
-    this.activityList.push(activity)
     let course: TacCourseMaster = {
        courseId: 0, 
        tacCourseCategory: null,
@@ -93,11 +98,9 @@ export class SearchCourseComponent implements OnInit
        subcourseFlag:0,
        locationType:0,
        tacCourseDates:null,
-       tacActivities:this.activityList,
+       tacActivities:this.activitySelection,
        
     }
-
-    
     this.trainingService.searchCourse(course).subscribe(
       data => this.successSearch(data),
       error => this.errorWhileSearching(error)
