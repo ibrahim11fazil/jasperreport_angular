@@ -86,6 +86,7 @@ export const	GENERAL_COURSE =4
 export const BASE_URL ="http://localhost:9000"
 export const BASE_URL_FILE ="http://localhost:9000"
 
+
 //export const BASE_URL ="http://localhost:9000"
 
 export const VERSION_UI ="qa_0.6.8"

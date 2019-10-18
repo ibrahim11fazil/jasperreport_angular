@@ -84,36 +84,42 @@ export class AuthService {
                this.router.navigate(['/']);
             },
             error => {
-                  var errorMsg = <ResponseError> error
-                  this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
-                  console.log(error.message);
+               this.errorResponseHandling(error)
             }
        );
    }
 
+   errorResponseHandling(error){
+      console.log(error)
+      var errorMsg = <ResponseError> error
+      this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
+      console.log(error.message);
+   }
 
+   //Some issue in refresh token ...
    refreshToken() {
+      console.log(" User Token Updating ");
       let options = {
          headers: new HttpHeaders()
                .set('Content-Type', 'application/x-www-form-urlencoded')
       };
       let body = new URLSearchParams()
-      body.set('', '')
       var token = this.getRefreshToken()
-      var url = REFRESH_TOKEN+ token
-      this.http.post(url,body)
+      var url = REFRESH_TOKEN + token
+      
+      this.http.post(url,body.toString(),options)
           .subscribe(
               response => {
-               //console.log(response); 
                this.setLocalUserProfile(response);
-               this.toastr.success('User session updated');
             },
             error => {
-                  console.log(error); 
-                  this.toastr.error(error.message);
+                  this.errorResponseHandling(error)
+                  //this.logOut()
             }
        );
    }
+
+  
 
    /*
     * resetPassword is used to reset your password
@@ -153,6 +159,7 @@ export class AuthService {
         this.toastr.success("Successfully logged out!");
         this.router.navigate(['/session/loginV2']);
    }   
+   
 
    logOutExpire() {
       localStorage.clear()
@@ -257,7 +264,7 @@ export class AuthService {
        this.userData = JSON.parse(localStorage.getItem("userProfile"));
        if(this.userData) {
            var json = this.userData;
-           //console.log(JSON.stringify(json));
+           //console.log("User Token getting");
            let body = JSON.parse(JSON.stringify(json));
            return body.refresh_token;
        } else {

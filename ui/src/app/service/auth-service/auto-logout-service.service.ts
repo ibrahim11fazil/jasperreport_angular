@@ -25,6 +25,7 @@ export class AutoLogoutServiceService {
      this.check();
      this.initListener();
      this.initInterval();
+     //this.initIntervalRefreshToken()
    }
 
    ngOnInit(): void {
@@ -64,6 +65,14 @@ export class AutoLogoutServiceService {
        this.check();
      }, CHECK_INTERVAL);
    }
+
+   initIntervalRefreshToken() {
+    //console.log("called initInterval()")
+    setInterval(() => {
+      this.authService.refreshToken()
+     }, CHECK_INTERVAL);
+   }
+
  
    check() {
      //console.log("called initInterval()")

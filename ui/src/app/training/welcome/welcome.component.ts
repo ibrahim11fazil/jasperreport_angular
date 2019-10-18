@@ -35,10 +35,8 @@ export class WelcomeComponent implements OnInit {
     private pageTitleService: PageTitleService) { }
 
   ngOnInit() {
-    debugger;
     this.trainingService.getMyTaskCount().subscribe(
       data => {
-       debugger;
         var response = <myTaskCount>data
         this.task = String(response.data)
         this.statsCard.push(this.getTask(this.task))

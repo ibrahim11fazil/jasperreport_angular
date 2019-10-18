@@ -19,6 +19,7 @@ export class HttpInterceptorJwtauthService implements HttpInterceptor {
 
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
+    if(request.url!=null && !request.url.toString().includes("authrefresh/oauth/token"))
     this.token ='Bearer ' +this.loginService.getToken();
     if(this.loginService.getToken()!=null){
     request = request.clone({

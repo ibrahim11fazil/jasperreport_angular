@@ -19,6 +19,7 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Optional;
 
@@ -52,6 +53,9 @@ public class GatewayApplication {
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
+        //config.setMaxAge(100000L);
+        config.addAllowedOrigin("http://localhost:4200");
+        //config.setAllowedOrigins(Arrays.asList("https://example.com"));
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");
@@ -61,6 +65,7 @@ public class GatewayApplication {
         config.addAllowedMethod("DELETE");
         config.addAllowedMethod("PATCH");
         source.registerCorsConfiguration("/**", config);
+        config.addAllowedOrigin("*");
         return new CorsFilter(source);
     }
 
