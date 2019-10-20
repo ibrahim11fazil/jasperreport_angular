@@ -25,7 +25,7 @@ import static qa.gov.customs.training.utils.Constants.APPROVED_WORKFLOW;
 public class Subscriber {
 //    @RabbitListener(queues="${training.rabbitmq.queue}")
 //    public void receivedMessage(String msg) {
-//        System.out.println("Received Message: " + msg);
+//        logger.info("Received Message: " + msg);
 //    }
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -39,15 +39,15 @@ public class Subscriber {
 
     @RabbitListener(queues="${training.rabbitmq.queue}")
     public void receivedMessage(Message msg) {
-        System.out.println("Received Message: ####" + msg.toString());
-        System.out.println("Received Message: ####" + msg.getBody());
+        logger.info("Received Message: ####" + msg.toString());
+        logger.info("Received Message: ####" + msg.getBody());
 
        // employeeRequestService.UpdateCourseRequest(msg);
     }
 
     @RabbitListener(queues="${training.rabbitmq.queue_workflow_status}")
     public void receivedMessageWorkFlowStatus(TrainingRequestStatus msg) {
-        System.out.println("Received Message: " + msg);
+        logger.info("Received Message: " + msg);
         UserRequestModel model =  employeeRequestService.UpdateCourseRequest(msg);
         if(model!=null && msg.getStatus().equals(APPROVED_WORKFLOW)){
             //Request Id , status .
@@ -76,7 +76,7 @@ public class Subscriber {
 
 //    @RabbitListener(queues="${training.rabbitmq.queue}")
 //    public void receivedMessage(String msg) {
-//        System.out.println("Received Message: " + msg);
+//        logger.info("Received Message: " + msg);
 //    }
 
 }

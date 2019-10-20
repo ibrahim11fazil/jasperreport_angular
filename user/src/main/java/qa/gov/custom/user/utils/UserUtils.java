@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserUtils {
 
+
     public static String getRandomPassword(String jobId){
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
         String password = coder.encode("password@2019@"+jobId);
@@ -18,7 +19,7 @@ public class UserUtils {
     }
 
     public static String generateRandomPassword(){
-        System.out.println("\nAlphanumeric String: [a-zA-Z0-9]");
+        //("\nAlphanumeric String: [a-zA-Z0-9]");
         return   RandomStringUtils.randomAlphanumeric(10);
     }
 }

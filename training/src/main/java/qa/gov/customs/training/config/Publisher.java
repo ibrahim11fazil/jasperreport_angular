@@ -1,6 +1,8 @@
 package qa.gov.customs.training.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,8 +11,7 @@ import qa.gov.customs.training.models.UserRequestModel;
 
 @Component
 public class Publisher {
-
-
+    private static final Logger logger = LoggerFactory.getLogger(Publisher.class);
 
     @Autowired
     private AmqpTemplate amqpTemplate;
@@ -23,7 +24,7 @@ public class Publisher {
 
     public void produceMsg(String msg){
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
-        System.out.println("Send msg = " + msg);
+        logger.info("Send msg = " + msg);
     }
 
     public void produceWorkFlowRequest(UserRequestModel model){

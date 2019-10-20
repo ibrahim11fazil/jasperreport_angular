@@ -90,7 +90,7 @@ public class JobCardController {
 //	@PostMapping("/add-jobcardConditions")
 //	public ResponseType AddjobcardConditions(@Valid @RequestBody TacJobcardConditions jobcardConditions)
 //	{
-//    	System.out.println("add jobcardConditions");
+//    	logger.info("add jobcardConditions");
 //        TacJobcardConditions newjobcardConditions = null;
 //        ResponseType response=null;
 //        
@@ -129,7 +129,7 @@ public class JobCardController {
 //		
 //		public ResponseType AddjobcardSkills(@Valid @RequestBody TacJobcardSkills jobcardSkills)
 //		{
-//	    	System.out.println("add jobcardSkills");
+//	    	logger.info("add jobcardSkills");
 //	        TacJobcardSkills newjobcardSkills = null;
 //	               	
 //	        		newjobcardSkills = JobcardService.CreateJobcardSkills(jobcardSkills);
@@ -157,7 +157,7 @@ public class JobCardController {
 //		
 //		public ResponseType AddjobcardDuties(@Valid @RequestBody TacJobcardDuties jobcardDuties)
 //		{
-//	    	System.out.println("add jobcardDuties");
+//	    	logger.info("add jobcardDuties");
 //	        TacJobcardDuties newjobcardDuties = null;
 //	               	
 //	        		newjobcardDuties = JobcardService.createJobcardDuties(jobcardDuties);
@@ -282,7 +282,7 @@ public class JobCardController {
 //@PostMapping("/remove-jobcardConditions")
 //public ResponseType removeJobcardConditions(@RequestBody TacJobcardConditions jobcardConditions)
 //{
-//	System.out.println("Remove Condition");
+//	logger.info("Remove Condition");
 //	//   List<TacCourseInstructor> instructorList = null;
 //	if(jobcardConditions==null || jobcardConditions.getJOB_CONDITIONS()==null)
 //	{
@@ -305,7 +305,7 @@ public class JobCardController {
 //@PostMapping("/remove-jobcardSkills")
 //public ResponseType removejobcardSkills(@RequestBody TacJobcardSkills jobcardSkills)
 //{
-//	System.out.println("Remove skills");
+//	logger.info("Remove skills");
 //	//   List<TacCourseInstructor> instructorList = null;
 //	if(jobcardSkills==null || jobcardSkills.getJOB_SKILLS()==null)
 //	{
@@ -329,7 +329,7 @@ public class JobCardController {
 //@PostMapping("/remove-jobcardDuties")
 //public ResponseType removejobcardDuties(@RequestBody TacJobcardDuties jobcardDuties)
 //{
-//	System.out.println("Remove DUTIES");
+//	logger.info("Remove DUTIES");
 //	//   List<TacCourseInstructor> instructorList = null;
 //	if(jobcardDuties==null || jobcardDuties.getDUTY_DESCRIPTION()==null)
 //	{

@@ -1,6 +1,8 @@
 
 package qa.gov.customs.training.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ import java.util.List;
 @RestController
 public class InstructorController {
 
+	private static final Logger logger = LoggerFactory.getLogger(InstructorController.class);
 
 	@Autowired
 	InstructorService instructorService;
@@ -49,15 +52,15 @@ public class InstructorController {
 				}
 				else
 				{
-					System.out.println("inside else block");
+					logger.info("inside else block");
 					ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.INSTRUCTOR_CREATION_FAILED, false, null);
-					System.out.println(MessageUtil.INSTRUCTOR_CREATION_FAILED);
+					logger.info(MessageUtil.INSTRUCTOR_CREATION_FAILED);
 					return response;
 				}
 			}
 		}
 		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.DATA_ALREADY_EXISTS, false, null);
-		System.out.println(MessageUtil.DATA_ALREADY_EXISTS);
+		logger.info(MessageUtil.DATA_ALREADY_EXISTS);
 		return response;
 	}
 	
@@ -151,7 +154,7 @@ public class InstructorController {
 	@PostMapping("/remove-instructor")
 	public ResponseType removeInstructor(@RequestBody TacInstructorMaster instructor)
 	{
-		System.out.println("Remove instructor");
+		logger.info("Remove instructor");
 		//   List<TacCourseInstructor> instructorList = null;
 		if(instructor==null || instructor.getInstructorId()==null)
 		{

@@ -13,15 +13,18 @@ import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 
 @Component
 public class Subscriber {
+
+
+
     @RabbitListener(queues="${workflow.rabbitmq.queue}")
     public void receivedMessage(String msg) {
-        System.out.println("Received Message: " + msg);
+        logger.info("Received Message: " + msg);
     }
 
     @Autowired
     WorkFlowController workFlowController;
 
-    private static final Logger logger = LoggerFactory.getLogger(WorkFlowController.class);
+    private static final Logger logger = LoggerFactory.getLogger(Subscriber.class);
 
     @RabbitListener(queues="${workflow.rabbitmq.queue_user_request}")
     public void receivedUserRequest(UserRequestModel request) {
@@ -37,6 +40,6 @@ public class Subscriber {
 
 //    @RabbitListener(queues="${workflow.rabbitmq.queue_user_request}")
 //    public void receivedMessage(UserRequestModel msg) {
-//        System.out.println("Received Message: " + msg);
+//        logger.info("Received Message: " + msg);
 //    }
 }

@@ -383,9 +383,9 @@ public class CourseController {
 	public ResponseType getAllCoursePrerequisites() {
 		List<TacCoursePrerequisites> prerequisites = null;
 		prerequisites = courseService.getAllCoursePrerequisites();
-		System.out.println("outside preerquisites");
+		logger.info("outside preerquisites");
 		if (prerequisites != null && !prerequisites.isEmpty()) {
-			System.out.println("inside preerquisites");
+			logger.info("inside preerquisites");
 
 			ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, prerequisites);
 			return response;

@@ -1,10 +1,13 @@
 package qa.gov.customs.training.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.training.controller.TestControllerQueue;
 import qa.gov.customs.training.entity.TacCourseActivation;
 import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
@@ -26,6 +29,8 @@ import java.util.*;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AttendanceServiceImpl.class);
 
     @Autowired
     MawaredRepository mawaredRepo;
@@ -235,20 +240,20 @@ public class AttendanceServiceImpl implements AttendanceService {
             Calendar c = Calendar.getInstance();
             c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
             Date nextWeek = c.getTime();
-            System.out.println();
+            //logger.info();
             DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
-            System.out.println(df.format(c.getTime()));
+            logger.info(df.format(c.getTime()));
 
             for (int i = 0; i <6; i++) {
                 c.add(Calendar.DATE, 1);
             }
             Date weekend = c.getTime();
-            System.out.println(df.format(c.getTime()));
-            System.out.println();
+            logger.info(df.format(c.getTime()));
+            //logger.info();
             c.add(Calendar.DATE, 7);
             Date nextweek=c.getTime();
-            System.out.println(df.format(c.getTime()));
-            System.out.println();
+            logger.info(df.format(c.getTime()));
+            //logger.info();
             objects= courseRepository.getCourseForNextWeek(weekend,nextweek,pageable);
         }
         else if(courseTime.compareTo(new BigDecimal(4))==0)

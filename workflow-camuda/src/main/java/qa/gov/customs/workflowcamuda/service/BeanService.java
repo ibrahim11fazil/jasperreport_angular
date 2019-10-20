@@ -9,7 +9,7 @@
 //@Qualifier("beanService")
 //public class BeanService {
 //    public void hello(){
-//        System.out.println("Testing");
+//        logger.info("Testing");
 //    }
 //
 //
@@ -22,11 +22,11 @@
 //    }
 //
 //    public void rejectionMail(UserRequestModel model){
-//       System.out.println("Rejected" + model.getEmail());
+//       logger.info("Rejected" + model.getEmail());
 //    }
 //
 //    public void acceptAction(UserRequestModel model){
-//        System.out.println("Accepted" + model.getEmail());
+//        logger.info("Accepted" + model.getEmail());
 //    }
 //
 //}

@@ -52,7 +52,7 @@ public class MawaredServiceImpl implements MawaredService {
 //	{
 //		//List<MawaredMaster>jobList=null;
 //		List<MawaredMaster> jobs =  new ArrayList<>();
-//			//System.out.println(activationRepo.findAll());
+//			//logger.info(activationRepo.findAll());
 //			List<MawaredMaster> pages = mawaredRepository.listFullJobs();
 //			pages.forEach(item ->jobs.add(item));
 //			return jobs;
