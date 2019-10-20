@@ -220,7 +220,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   patch() {
-    debugger; 
+ 
     if (this.courseDetails.tacActivities.length > 0) {
       this.existingActivity = ""
       this.courseDetails.tacActivities.forEach(item =>
@@ -264,7 +264,6 @@ export class CourseLinkComponent implements OnInit {
     }
     const datesControl = this.getControlOfAddMore('dateOptions');
     this.loadedCourseDates.forEach(x => {
-      debugger
       console.log(x.tacCourseDate)
       datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
     })
@@ -311,7 +310,6 @@ export class CourseLinkComponent implements OnInit {
   }
 
   linkCourseWithActivity() {
-    debugger;
     if (this.form.valid) {
       let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       courseMaster.courseId = this.form.value.courseSelect.courseId;
@@ -385,7 +383,6 @@ export class CourseLinkComponent implements OnInit {
   }
 
   courseByIdList(course) {
-    debugger
     this.trainingService.getCourseById(course).subscribe(
       data => {
         var response = <ResponseTacCourseMaster>data

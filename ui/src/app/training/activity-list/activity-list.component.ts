@@ -46,7 +46,6 @@ export class ActivityListComponent implements OnInit {
 
   successSearchActivity(data) {
     this.tData = true;
-    debugger;
     if (data.status) {
       this.rows = data.data;
     } else {

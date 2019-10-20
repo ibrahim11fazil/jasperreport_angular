@@ -50,7 +50,6 @@ export class FileUploaderComponent implements OnInit {
             this.imageurl = this.imageDate.fileDownloadUri
             var filename = this.imageurl.substring(this.imageurl.lastIndexOf('/') + 1);
             this.fileName = filename;
-            debugger
             this.updateView(this.imageurl)
           } else {
             this.uploadSuccess = false;

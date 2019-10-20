@@ -71,7 +71,6 @@ export class SearchCourseComponent implements OnInit
   }
 
   searchCourse() {
-    debugger;
     this.searchText = this.form.value.courseName;
 if(this.form.value.activitySelect!=null)
 {
@@ -177,13 +176,10 @@ if(this.form.value.activitySelect!=null)
   }
 
   updateLink(row){
- 
     this.router.navigate(["/training/course-link/",row.courseId]);
   }
 
   updateActivation(row){
-
-    debugger;
     this.router.navigate(["/training/activate-course/",row.courseId]);
   }
 

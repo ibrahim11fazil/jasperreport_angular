@@ -207,7 +207,6 @@ export class MyTasksHistoryComponent implements OnInit {
 
 
   getHistoryByProcessId(processId:String){
-    debugger
     if(processId!=null){
       this.items =[]
       var history =  new HistoryUserRequest()

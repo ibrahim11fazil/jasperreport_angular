@@ -86,10 +86,8 @@ export class UserCreationComponent implements OnInit {
       roleId:this.form.value.userRole.id,
       enabled:Number(this.form.value.enabledUser)
     }
-    debugger
       this.userService.saveUser( this.systemUser).subscribe(
         data=>  {
-          debugger
           var response =  <ISystemUserResponse>data
           if(response.status){
             this.cNameAr = ""
@@ -102,7 +100,6 @@ export class UserCreationComponent implements OnInit {
           }
         },
         error=>  {
-          debugger
           this.toastr.error(error.message) 
         }
       )
@@ -163,8 +160,6 @@ export class UserCreationComponent implements OnInit {
   getUserById(jobId){
     this.userService.getUserById(jobId).subscribe(
       data=>{
-        //this.toastr.info("Valid User")
-        debugger
         var response = <MawaredUserResponse>data
         if(response.data!=null){
         this.cNameAr= response.data.cnameAr

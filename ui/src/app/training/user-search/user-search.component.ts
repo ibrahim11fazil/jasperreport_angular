@@ -96,7 +96,6 @@ export class UserSearchComponent implements OnInit {
     var user = new SystemUser()
     user.id = element.id
     user.enabled=element.enabled
-    debugger
     if (user.enabled == 1) {
       this.disableUser(user)
     }
@@ -128,7 +127,7 @@ export class UserSearchComponent implements OnInit {
       data => {
         var response = <GenericResponse>data
         if (response.status) {
-          debugger
+
           this.toastr.success(response.message.toString())
           this.ds.find(item => item.id == user.id).enabled = 0;
           this.ds = [...this.ds];

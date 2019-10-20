@@ -166,7 +166,6 @@ export class ActivateCourseComponent implements OnInit {
     )
     var userObj = new SystemUser()
     userObj.roleId = 5
-    debugger
     this.userService.listUsersByRoleId(userObj).subscribe(
       data => {
         var response = <ISystemUserResponseList>data
@@ -183,7 +182,6 @@ export class ActivateCourseComponent implements OnInit {
   }
 
   patch() {
-    debugger
     var courseArray = this.courseList.filter(i => i.courseId == this.activationData.courseId)
     if (courseArray[0] != null) {
       this.form.controls['courseSelect'].patchValue(
@@ -192,7 +190,6 @@ export class ActivateCourseComponent implements OnInit {
 
     }
     
-    debugger
     var cordinatorArray = this.userList.filter(i => i.jobId == this.activationData.coordinator)
     if (cordinatorArray[0] != null) {
       this.form.controls['userSelect'].patchValue(
@@ -294,10 +291,7 @@ export class ActivateCourseComponent implements OnInit {
   }
 
   getCourseRoomDetail(location) {
-   // debugger
     let courseLocation = new Location(location.value.locationId, "")
-    //this.roomDetails = location.value.tacCourseRooms
-
     this.trainingService.getCourseRoomDetail(courseLocation).subscribe(
       data => {
         var response = <ResponseLocationDetail>data
@@ -345,7 +339,6 @@ export class ActivateCourseComponent implements OnInit {
     var tacCourseRoom = new TrainingRoom(0, "");
     tacCourseRoom.roomId = this.form.value.roomSelect.roomId;
     courseActivation.tacCourseRoom = tacCourseRoom;
-//debugger
     const instructorOptions = this.getControlOfAddMore('instructorSelect');
     var instructors = <TacInstructor[]>instructorOptions.value;
     this.tacCourseActivation.tacCourseInstructors = instructors;
@@ -412,7 +405,6 @@ export class ActivateCourseComponent implements OnInit {
             let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
             this.trainingService.getCourseById(courseMaster).subscribe(
               data => {
-                debugger
                 var response = <ResponseTacCourseMaster>data
                 this.courseDetails = response.data
                 this.tacCourseDateList = this.courseDetails.tacCourseDates})
@@ -442,7 +434,6 @@ export class ActivateCourseComponent implements OnInit {
       let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
-          debugger
           var response = <ResponseTacCourseMaster>data
           this.courseDetails = response.data
           this.tacCourseDateList = this.courseDetails.tacCourseDates})
@@ -466,7 +457,7 @@ export class ActivateCourseComponent implements OnInit {
     )
   }
   getCourseroom(activation) {
-debugger;
+
     let location = new Location(0, "");
     location.locationId = activation.locationId;
     this.trainingService.getCourseRoomDetail(location).subscribe(
@@ -482,7 +473,6 @@ debugger;
       console.log(x.instructorId)
       instrcutorControl.push(this.patchValues(x.instructorId,x.name))
     })
-    debugger
         var roomArray = this.roomDetails.filter(i => i.roomId == this.activationData.roomID)
         if (roomArray[0] != null) {
           this.form.controls['roomSelect'].patchValue(

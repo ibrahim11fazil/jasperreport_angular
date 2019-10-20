@@ -255,7 +255,6 @@ export class CreateCourseComponent implements OnInit {
       }
     )
     }else{
-      debugger
       this.toastr.error("Please fill all required fields");
     }
   }
@@ -271,7 +270,6 @@ export class CreateCourseComponent implements OnInit {
 
   loadDataFromParam(){
     //console.log(this.param);
-    debugger;
     this.activatedRoute.params.subscribe(params => {
       if(params['id']){
           this.param = params['id'];

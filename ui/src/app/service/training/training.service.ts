@@ -63,7 +63,6 @@ export class TrainingService {
     return this.httpClient.post(ENABLE_COURSE, course);
   }
   searchCourse(course: TacCourseMaster): Observable<Object> {
-    debugger
     return this.httpClient.post(SEARCH_COURSE, course);
   }
   getAllCourseCategories(): Observable<Object> {

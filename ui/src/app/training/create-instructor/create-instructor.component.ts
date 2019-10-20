@@ -206,7 +206,6 @@ export class CreateInstructorComponent implements OnInit {
       if(this.param!='' && this.param!=undefined){
         let instructor=new TacInstructorRequest()
         instructor.instructorId= this.param
-        debugger
         this.trainingService.getInstructorById(instructor).subscribe(
           data => this.loadData(data),
           error => {
@@ -284,7 +283,6 @@ export class CreateInstructorComponent implements OnInit {
     this.userService.getUserById(jobId).subscribe(
       data=>{
         //this.toastr.info("Valid User")
-        debugger
         var response = <MawaredUserResponse>data
         if(response.data!=null){
         this.updateTacInstructorView(response.data)

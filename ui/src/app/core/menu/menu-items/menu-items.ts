@@ -445,7 +445,6 @@ export class MenuItems {
   }
 
   update(permissions: String[],language:LanguageUtil) {
-    //debugger
     dynamicMenu = []
     welcome_menu.children=[]
     training_menu.children=[]
@@ -458,7 +457,6 @@ export class MenuItems {
     smart_menu.children=[]
 
     if (permissions.length > 0) {
-     // debugger
 
       permissions.forEach(item => {
         switch (item) {

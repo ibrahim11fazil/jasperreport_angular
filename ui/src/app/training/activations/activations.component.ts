@@ -52,7 +52,6 @@ export class ActivationsComponent implements OnInit {
   }
 
   onSubmit() {;
-    debugger
     this.ds = new Array<ActivationList>();
     this.ds = [...this.ds];
     this.page = 0
@@ -61,7 +60,6 @@ export class ActivationsComponent implements OnInit {
   }
 
   search() {
-    debugger;
     var searchString = new SearchCourse()
     searchString.courseName = this.form.value.searchControl
     searchString.limit = PAGE_LIMIT
@@ -74,7 +72,7 @@ export class ActivationsComponent implements OnInit {
           response.data.forEach(item => {
             this.ds.push(item);
           })
-          debugger;
+
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
           if(this.firstSearch==true && response.data.length==0){
             this.toastr.info("Search result no found")
