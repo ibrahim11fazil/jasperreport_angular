@@ -311,9 +311,11 @@ export class CourseLinkComponent implements OnInit {
 
   linkCourseWithActivity() {
     if (this.form.valid) {
-      let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
-      courseMaster.courseId = this.form.value.courseSelect.courseId;
+      debugger;
+      // let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+      // courseMaster.courseId = this.form.value.courseSelect.courseId;
       //courseMaster.prerequisitesId = this.form.value.prerequisitesSelect.prerequisitesId;
+      let courseMaster = this.courseDetails;
       courseMaster.locationType = this.form.value.locationSelect.locationId;
       courseMaster.subcourseFlag = this.form.value.subCourseSelect.value;
 
