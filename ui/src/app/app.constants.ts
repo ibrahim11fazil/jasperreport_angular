@@ -1,3 +1,14 @@
+export const  RESOURCE_NOT_FOUND = 404;
+export const  BAD_REQUEST = 400;
+export const  UNAUTHORIZED = 401;
+export const  UNSUPPORTED_TYPE = 415;
+export const  SERVER_ERROR = 500;
+export const  SUCCESS = 200;
+export const  CREATED = 201;
+export const  RESOURCE_FOUND = 405;
+
+
+export const  IS_RTL_DEFAULT =true
 
 export const AUTOLOGOUT_IN_MIU=30
 

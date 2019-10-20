@@ -283,7 +283,13 @@ export class LanguageUtil  {
     menu_smartProfile:String=this.isArabic ? "Smart Profile 1" : "Smart Profile"
 
 
-    
+    //system error 
+    error_resource_not_found=this.isArabic? "Resource Not found" : "Resource Not found"
+    error_unauthorized=this.isArabic? "UnAuthorized" : "UnAuthorized1"
+    error_bad_request=this.isArabic? "Bad Request, Contact Administrator" : "Bad Request, Contact Administrator"
+    erro_unsupported_type=this.isArabic? "UnsupportedType, Contact Administrator" : "UnsupportedType, Contact Administrator"
+    error_server_error=this.isArabic? "Server Error, Contact Administrator" : "Server Error, Contact Administrator"
+
 
     
 

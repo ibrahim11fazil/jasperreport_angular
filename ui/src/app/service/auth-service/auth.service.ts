@@ -9,6 +9,7 @@ import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADM
 import { LoginResponseObj } from 'app/models/system-user';
 import { isNgTemplate } from '@angular/compiler';
 import {  ResponseError } from 'app/models/ci-system-user';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class AuthService {
    constructor(//private firebaseAuth : AngularFireAuth,
                private http:HttpClient,
                private router : Router,
-               private toastr : ToastrService) { 
+               private toastr : ToastrService,
+               private errorService:ErrorService) { 
    //	this.user = firebaseAuth.authState;
    }
 
@@ -84,17 +86,17 @@ export class AuthService {
                this.router.navigate(['/']);
             },
             error => {
-               this.errorResponseHandling(error)
+               this.errorService.errorResponseHandling(error)
             }
        );
    }
 
-   errorResponseHandling(error){
-      console.log(error)
-      var errorMsg = <ResponseError> error
-      this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
-      console.log(error.message);
-   }
+   // errorResponseHandling(error){
+   //    console.log(error)
+   //    var errorMsg = <ResponseError> error
+   //    this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
+   //    console.log(error.message);
+   // }
 
    //Some issue in refresh token ...
    refreshToken() {
@@ -113,7 +115,7 @@ export class AuthService {
                this.setLocalUserProfile(response);
             },
             error => {
-                  this.errorResponseHandling(error)
+                  this.errorService.errorResponseHandling(error)
                   //this.logOut()
             }
        );
