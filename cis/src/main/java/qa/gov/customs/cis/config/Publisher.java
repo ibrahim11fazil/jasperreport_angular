@@ -23,13 +23,13 @@ public class Publisher {
     @Value("${cis.rabbitmq.routingkey}")
     private String routingKey;
 
-    public void produceMsg(String msg){
+    public void produceMsg(String msg) {
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         logger.info("Send msg = " + msg);
     }
 
-    public void produceWorkFlowRequest(UserRequestModel model){
+    public void produceWorkFlowRequest(UserRequestModel model) {
         //amqpTemplate.convertAndSend("training_exchange", "training_routingkey_workflow_status", model);
-        amqpTemplate.convertAndSend("workflow_queue_userrequest",model);
+        amqpTemplate.convertAndSend("workflow_queue_userrequest", model);
     }
 }

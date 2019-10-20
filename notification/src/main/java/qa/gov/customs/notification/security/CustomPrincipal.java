@@ -1,10 +1,7 @@
 package qa.gov.customs.notification.security;
 
-import org.springframework.security.oauth2.provider.OAuth2Request;
-
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomPrincipal implements Serializable {
@@ -17,6 +14,21 @@ public class CustomPrincipal implements Serializable {
     private String jid;
     private String qid;
     private List<String> scopes;
+
+    public CustomPrincipal() {
+    }
+
+    public CustomPrincipal(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
+
+    public CustomPrincipal(String username, String email, BigInteger enabled, BigInteger credentialsExpired) {
+        this.username = username;
+        this.email = email;
+        this.enabled = enabled;
+        this.credentialsExpired = credentialsExpired;
+    }
 
     public List<String> getScopes() {
         return scopes;
@@ -48,21 +60,6 @@ public class CustomPrincipal implements Serializable {
 
     public void setQid(String qid) {
         this.qid = qid;
-    }
-
-    public CustomPrincipal() {
-    }
-
-    public CustomPrincipal(String username, String email) {
-        this.username = username;
-        this.email = email;
-    }
-
-    public CustomPrincipal(String username, String email, BigInteger enabled, BigInteger credentialsExpired) {
-        this.username = username;
-        this.email = email;
-        this.enabled = enabled;
-        this.credentialsExpired = credentialsExpired;
     }
 
     public BigInteger getCredentialsExpired() {

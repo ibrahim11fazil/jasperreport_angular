@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.employee.models.NotificationModel;
 
@@ -16,14 +15,9 @@ public class Publisher {
     private AmqpTemplate amqpTemplate;
 
 
-    public void sendNotification(NotificationModel model){
+    public void sendNotification(NotificationModel model) {
         amqpTemplate.convertAndSend("notification_exchange", "notification_routingkey", model);
     }
-
-
-
-
-
 
 
 }

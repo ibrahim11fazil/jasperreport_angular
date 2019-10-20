@@ -1,9 +1,8 @@
 package qa.gov.customs.training.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.math.BigDecimal;
 import java.util.Date;
+
 public class EmployeeData {
 
 
@@ -74,16 +73,16 @@ public class EmployeeData {
         return qid;
     }
 
+    public void setQid(String qid) {
+        this.qid = qid;
+    }
+
     public int getPercentage() {
         return percentage;
     }
 
     public void setPercentage(int percentage) {
         this.percentage = percentage;
-    }
-
-    public void setQid(String qid) {
-        this.qid = qid;
     }
 
     public String getMobile() {
@@ -189,6 +188,7 @@ public class EmployeeData {
     public void setAttendeesId(BigDecimal attendeesId) {
         this.attendeesId = attendeesId;
     }
+
     public BigDecimal getCount() {
         return count;
     }

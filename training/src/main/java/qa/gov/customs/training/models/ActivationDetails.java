@@ -10,7 +10,6 @@ public class ActivationDetails {
     private TacCourseDate tacCourseDate;
 
 
-
     public TacCourseMaster getTacCourseMaster() {
         return tacCourseMaster;
     }

@@ -24,12 +24,12 @@ public class RequestActions implements java.io.Serializable {
     @Column(name = "R_UPDATED_ON")
     Date rUpdatedOn;
 
-    public void setrUpdatedOn(Date rUpdatedOn) {
-        this.rUpdatedOn = rUpdatedOn;
-    }
-
     public Date getrUpdatedOn() {
         return rUpdatedOn;
+    }
+
+    public void setrUpdatedOn(Date rUpdatedOn) {
+        this.rUpdatedOn = rUpdatedOn;
     }
 
     public String getUid() {

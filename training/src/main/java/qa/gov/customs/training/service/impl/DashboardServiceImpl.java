@@ -12,7 +12,9 @@ import qa.gov.customs.training.service.DashboardService;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -22,21 +24,20 @@ public class DashboardServiceImpl implements DashboardService {
     CourseRepository courseRepository;
 
     @Override
-    public List<CourseManagement> getPreviousCourse(String jobId)
-    {
-        int page =0;
-        int limit=20;
-        List<CourseManagement>courseList=new ArrayList<>();
+    public List<CourseManagement> getPreviousCourse(String jobId) {
+        int page = 0;
+        int limit = 20;
+        List<CourseManagement> courseList = new ArrayList<>();
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-       List<Object[]> object=courseRepository.getPreviousAttendedCourses(jobId,pageable);
-        for (Object[] o:object) {
-            CourseManagement course=new CourseManagement();
+        List<Object[]> object = courseRepository.getPreviousAttendedCourses(jobId, pageable);
+        for (Object[] o : object) {
+            CourseManagement course = new CourseManagement();
             course.setCourseName((String) o[0]);
-            Date courseDate=((Date)o[1]);
-            Date endDate=((Date)o[2]);
-            course.setActivation_id((BigDecimal)o[3]);
+            Date courseDate = ((Date) o[1]);
+            Date endDate = ((Date) o[2]);
+            course.setActivation_id((BigDecimal) o[3]);
             course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
             course.setCourseStatus((BigDecimal) o[4]);
@@ -45,26 +46,25 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
 
-            return courseList;
+        return courseList;
     }
 
 
     @Override
-    public List<CourseManagement> getCurrentAttendingCourse(String jobId)
-    {
-        int page =0;
-        int limit=20;
-        List<CourseManagement>courseList=new ArrayList<>();
+    public List<CourseManagement> getCurrentAttendingCourse(String jobId) {
+        int page = 0;
+        int limit = 20;
+        List<CourseManagement> courseList = new ArrayList<>();
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        List<Object[]> object=courseRepository.getCurrentlyAttendingCourses(jobId,pageable);
-        for (Object[] o:object) {
-            CourseManagement course=new CourseManagement();
+        List<Object[]> object = courseRepository.getCurrentlyAttendingCourses(jobId, pageable);
+        for (Object[] o : object) {
+            CourseManagement course = new CourseManagement();
             course.setCourseName((String) o[0]);
-            Date courseDate=((Date)o[1]);
-            Date endDate=((Date)o[2]);
-            course.setActivation_id((BigDecimal)o[3]);
+            Date courseDate = ((Date) o[1]);
+            Date endDate = ((Date) o[2]);
+            course.setActivation_id((BigDecimal) o[3]);
             course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
             courseList.add(course);
@@ -74,22 +74,22 @@ public class DashboardServiceImpl implements DashboardService {
 
         return courseList;
     }
+
     @Override
-    public List<CourseManagement> getApprovedCourse(String jobId)
-    {
-        int page =0;
-        int limit=20;
-        List<CourseManagement>courseList=new ArrayList<>();
+    public List<CourseManagement> getApprovedCourse(String jobId) {
+        int page = 0;
+        int limit = 20;
+        List<CourseManagement> courseList = new ArrayList<>();
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        List<Object[]> object=courseRepository.getApprovedCourse(jobId,pageable);
-        for (Object[] o:object) {
-            CourseManagement course=new CourseManagement();
+        List<Object[]> object = courseRepository.getApprovedCourse(jobId, pageable);
+        for (Object[] o : object) {
+            CourseManagement course = new CourseManagement();
             course.setCourseName((String) o[0]);
-            Date courseDate=((Date)o[1]);
-            Date endDate=((Date)o[2]);
-            course.setActivation_id((BigDecimal)o[3]);
+            Date courseDate = ((Date) o[1]);
+            Date endDate = ((Date) o[2]);
+            course.setActivation_id((BigDecimal) o[3]);
             course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
             courseList.add(course);

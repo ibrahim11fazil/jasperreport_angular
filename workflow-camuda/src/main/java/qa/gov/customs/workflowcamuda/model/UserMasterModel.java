@@ -1,9 +1,6 @@
 package qa.gov.customs.workflowcamuda.model;
 
-import com.sun.istack.NotNull;
-
 import javax.management.relation.Role;
-import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 

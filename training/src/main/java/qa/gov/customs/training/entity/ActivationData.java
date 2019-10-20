@@ -1,61 +1,58 @@
 package qa.gov.customs.training.entity;
 
-import qa.gov.customs.training.entity.*;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 @Entity
-@Table(name="COURSE_ACTIVATION_DETAILS")
+@Table(name = "COURSE_ACTIVATION_DETAILS")
 public class ActivationData {
     @Id
-    @Column(name="ACTIVATION_ID")
+    @Column(name = "ACTIVATION_ID")
     private BigDecimal activationId;
-    @Column(name="COURSE_ID")
+    @Column(name = "COURSE_ID")
     private BigDecimal courseId;
-    @Column(name="COURSE_NAME")
+    @Column(name = "COURSE_NAME")
     private String courseName;
 
-    @Column(name="DEPENDENT_ID")
-   private BigDecimal BelongsTo;
-    @Column(name="DURATION")
-   private BigDecimal duration;
-    @Column(name="DURATION_FLAG")
-   private BigDecimal durationFlag;
-    @Column(name="DATE_ID")
+    @Column(name = "DEPENDENT_ID")
+    private BigDecimal BelongsTo;
+    @Column(name = "DURATION")
+    private BigDecimal duration;
+    @Column(name = "DURATION_FLAG")
+    private BigDecimal durationFlag;
+    @Column(name = "DATE_ID")
     private BigDecimal dateId;
-    @Column(name="COURSE_DATE")
-   private Date courseDate;
-    @Column(name="LOCATION_ID")
-   private BigDecimal locationId;
-    @Column(name="LOCATION_NAME")
+    @Column(name = "COURSE_DATE")
+    private Date courseDate;
+    @Column(name = "LOCATION_ID")
+    private BigDecimal locationId;
+    @Column(name = "LOCATION_NAME")
     private String locationName;
-    @Column(name="ROOM_ID")
+    @Column(name = "ROOM_ID")
     private BigDecimal roomID;
-    @Column(name="ROOM_NAME")
-   private String roomName;
-    @Column(name="COORDINATOR_ID")
+    @Column(name = "ROOM_NAME")
+    private String roomName;
+    @Column(name = "COORDINATOR_ID")
     private BigDecimal coordinator;
-    @Column(name="COST_INSTRUCTOR")
+    @Column(name = "COST_INSTRUCTOR")
     private BigDecimal costInstructor;
-    @Column(name="COST_FOOD")
+    @Column(name = "COST_FOOD")
     private BigDecimal costFood;
-    @Column(name="COST_TRANSPORT")
+    @Column(name = "COST_TRANSPORT")
     private BigDecimal costTransport;
-    @Column(name="COST_AIRTICKET")
+    @Column(name = "COST_AIRTICKET")
     private BigDecimal costAirticket;
-    @Column(name="COST_HOSPITALITY")
+    @Column(name = "COST_HOSPITALITY")
     private BigDecimal costHospitality;
-    @Column(name="COST_GIFT")
+    @Column(name = "COST_GIFT")
     private BigDecimal costGift;
-    @Column(name="COST_VENUE")
+    @Column(name = "COST_VENUE")
     private BigDecimal costVenue;
-    @Column(name="COST_BONUS")
+    @Column(name = "COST_BONUS")
     private BigDecimal costBonus;
-    @Column(name="COST_TRANSLATION")
+    @Column(name = "COST_TRANSLATION")
     private BigDecimal costTranslation;
 
     @Transient

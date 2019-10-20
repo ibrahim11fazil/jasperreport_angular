@@ -16,14 +16,14 @@ public class CustomTokenEnhancer extends JwtAccessTokenConverter {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         UserMaster userMaster = (UserMaster) authentication.getPrincipal();
-        Map<String,Object> info =new LinkedHashMap<String,Object>(accessToken.getAdditionalInformation());
-        info.put("email",userMaster.getEmail());
-        info.put("jid",userMaster.getId());
-        info.put("qid",userMaster.getQid());
-        info.put("cNameAr",userMaster.getcNameAr());
+        Map<String, Object> info = new LinkedHashMap<String, Object>(accessToken.getAdditionalInformation());
+        info.put("email", userMaster.getEmail());
+        info.put("jid", userMaster.getId());
+        info.put("qid", userMaster.getQid());
+        info.put("cNameAr", userMaster.getcNameAr());
         List roles = new ArrayList<String>();
         List permissions = new ArrayList<String>();
-        if( userMaster.getRoles()!=null) {
+        if (userMaster.getRoles() != null) {
             userMaster.getRoles().forEach(items -> {
                 roles.add(items.getName());
                 if (items.getPermissions() != null) {
@@ -33,13 +33,13 @@ public class CustomTokenEnhancer extends JwtAccessTokenConverter {
                 }
             });
         }
-       // info.put("sarath",121212);
-        info.put("roles",roles);
-        info.put("permissions",permissions);
+        // info.put("sarath",121212);
+        info.put("roles", roles);
+        info.put("permissions", permissions);
         //TODO need to get the User Details via proxy
-       // info.put("permissions",userMaster.getRoles().get(0).getPermissions().toArray());
+        // info.put("permissions",userMaster.getRoles().get(0).getPermissions().toArray());
         DefaultOAuth2AccessToken customAccessToken = new DefaultOAuth2AccessToken(accessToken);
         customAccessToken.setAdditionalInformation(info);
-        return super.enhance(customAccessToken,authentication);
+        return super.enhance(customAccessToken, authentication);
     }
 }

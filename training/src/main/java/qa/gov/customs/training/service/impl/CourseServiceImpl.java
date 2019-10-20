@@ -3,23 +3,22 @@ package qa.gov.customs.training.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.repository.*;
 import qa.gov.customs.training.service.CourseService;
 
-import java.sql.Clob;
-import java.text.SimpleDateFormat;
-
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Clob;
+import java.text.SimpleDateFormat;
 import java.util.*;
-
-import qa.gov.customs.training.entity.ActivationData;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -175,12 +174,12 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
         //activity and course name not present
         if ((searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals(""))
-                && (searchCriteria.getTacActivities()==null ||searchCriteria.getTacActivities().size()==0)) {
+                && (searchCriteria.getTacActivities() == null || searchCriteria.getTacActivities().size() == 0)) {
             return listCourses();
         }
         //only course name present
         else if ((searchCriteria.getCourseName() != null)
-                && (searchCriteria.getTacActivities()==null || searchCriteria.getTacActivities().size()==0)) {
+                && (searchCriteria.getTacActivities() == null || searchCriteria.getTacActivities().size() == 0)) {
             List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
             List<Course> courses = new ArrayList<>();
             for (Object[] o : objects) {
@@ -192,43 +191,42 @@ public class CourseServiceImpl implements CourseService {
                 courses.add(course);
             }
             return courses;
+        } else if (searchCriteria.getTacActivities() == null || searchCriteria.getTacActivities().size() > 0) {
+            for (TacActivity activity : searchCriteria.getTacActivities()) {
+
+                //only activity name present
+                if ((searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals(""))
+                        && (activity.getActivityName() != null)) {
+
+                    List<Object[]> objects = courseRepository.findCourseUnderActivity(activity.getActivityName(), firstPageWithElements);
+                    List<Course> courses = new ArrayList<>();
+                    for (Object[] o : objects) {
+                        Course course = new Course();
+                        course.setCourseId((BigDecimal) o[0]);
+                        course.setCourseName((String) o[1]);
+                        if (o[2] != null)
+                            course.setStatus((BigDecimal) o[2]);
+                        courses.add(course);
+                    }
+                    return courses;
+                }
+
+                //activity and course name present
+                else {
+                    List<Object[]> objects = courseRepository.findIdAndNameByCourseNameAndActivityName(searchCriteria.getCourseName(), activity.getActivityName(), firstPageWithElements);
+                    List<Course> courses = new ArrayList<>();
+                    for (Object[] o : objects) {
+                        Course course = new Course();
+                        course.setCourseId((BigDecimal) o[0]);
+                        course.setCourseName((String) o[1]);
+                        if (o[2] != null)
+                            course.setStatus((BigDecimal) o[2]);
+                        courses.add(course);
+                    }
+                    return courses;
+                }
+            }
         }
-        else if(searchCriteria.getTacActivities()==null || searchCriteria.getTacActivities().size()>0)
-        {
-        for (TacActivity activity : searchCriteria.getTacActivities()) {
-
-        //only activity name present
-            if ((searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals(""))
-                    && (activity.getActivityName() != null)) {
-
-                List<Object[]> objects = courseRepository.findCourseUnderActivity(activity.getActivityName(), firstPageWithElements);
-                List<Course> courses = new ArrayList<>();
-                for (Object[] o : objects) {
-                    Course course = new Course();
-                    course.setCourseId((BigDecimal) o[0]);
-                    course.setCourseName((String) o[1]);
-                    if (o[2] != null)
-                        course.setStatus((BigDecimal) o[2]);
-                    courses.add(course);
-                }
-                return courses;
-            }
-
-        //activity and course name present
-            else {
-                List<Object[]> objects = courseRepository.findIdAndNameByCourseNameAndActivityName(searchCriteria.getCourseName(),activity.getActivityName(), firstPageWithElements);
-                List<Course> courses = new ArrayList<>();
-                for (Object[] o : objects) {
-                    Course course = new Course();
-                    course.setCourseId((BigDecimal) o[0]);
-                    course.setCourseName((String) o[1]);
-                    if (o[2] != null)
-                        course.setStatus((BigDecimal) o[2]);
-                    courses.add(course);
-                }
-                return courses;
-            }
-        }}
         return null;
 
     }

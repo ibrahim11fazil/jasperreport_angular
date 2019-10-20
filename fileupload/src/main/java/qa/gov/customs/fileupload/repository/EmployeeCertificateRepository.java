@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface EmployeeCertificateRepository extends JpaRepository<EmployeeCertificate, BigDecimal> {
     List<EmployeeCertificate> findByJobIdEquals(String jobId);
-    List<EmployeeCertificate> findByJobIdAndActivationId(@Param("jobId")  String jobId, @Param("activationId")  BigDecimal activationId);
-    List<EmployeeCertificate> findByActivationId( @Param("activationId")  BigDecimal activationId);
+
+    List<EmployeeCertificate> findByJobIdAndActivationId(@Param("jobId") String jobId, @Param("activationId") BigDecimal activationId);
+
+    List<EmployeeCertificate> findByActivationId(@Param("activationId") BigDecimal activationId);
 //    List<EmployeeCertificate> findByJobIdEquals(  String jobId);
 }

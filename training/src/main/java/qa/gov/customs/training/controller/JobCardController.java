@@ -21,6 +21,7 @@ import java.util.List;
 public class JobCardController {
     @Autowired
     JobcardService jobcardService;
+
     @PreAuthorize("hasAnyAuthority('jc')")
     @PostMapping("/create-job-card")
     public ResponseType createJobCard(@Valid @RequestBody TacJobcard jobcard) {

@@ -21,7 +21,7 @@ public class Publisher {
     @Value("${notification.rabbitmq.routingkey}")
     private String routingKey;
 
-    public void produceMsg(String msg){
+    public void produceMsg(String msg) {
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         logger.info("Send msg = " + msg);
     }

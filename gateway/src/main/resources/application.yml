@@ -6,8 +6,8 @@ spring:
 
 
 server:
-#  servlet:
-#    context-path: /gateway
+  #  servlet:
+  #    context-path: /gateway
   port: 9000
 
 #feign:

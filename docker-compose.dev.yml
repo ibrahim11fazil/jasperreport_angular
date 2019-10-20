@@ -14,8 +14,8 @@ services:
       - $LOG_PATH:/logs
     restart: always
     networks:
-        networktraining:
-          ipv4_address: $REGISTRY_IP
+      networktraining:
+        ipv4_address: $REGISTRY_IP
 
   gateway:
     image: 172.16.0.253:5000/gateway:$TAG

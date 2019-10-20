@@ -3,7 +3,6 @@ package qa.gov.customs.notification.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.notification.entities.NotificationEntity;
 import qa.gov.customs.notification.model.NotificationModel;
@@ -15,25 +14,20 @@ import java.util.Date;
 @Service
 public class NotificationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
     @Autowired
     EmailService emailService;
-
     @Autowired
     SmsService smsService;
-
-
     @Autowired
     NotificationRepository notificationRepository;
 
-
-    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
-
-    public void sendNotification(NotificationModel model){
+    public void sendNotification(NotificationModel model) {
         if (model.getIsEmail() == 1 && model.getToAddress() != null && model.getEmailBody() != null) {
             try {
                 emailService.sendmail(model);
             } catch (Exception e) {
-                logger.error("####ERROR"+ e.toString());
+                logger.error("####ERROR" + e.toString());
                 model.setEmailError(1);
             }
         }
@@ -43,14 +37,14 @@ public class NotificationService {
                 smsService.sendSms(model);
             } catch (Exception e) {
                 model.setSmsError(1);
-                logger.error("####ERROR"+ e.toString());
+                logger.error("####ERROR" + e.toString());
             }
         }
         saveNotification(model);
 
     }
 
-    public void saveNotification(NotificationModel model){
+    public void saveNotification(NotificationModel model) {
         try {
             NotificationEntity entity = new NotificationEntity();
             entity.setId(new BigInteger("0"));
@@ -68,11 +62,10 @@ public class NotificationService {
                 entity.setDataSms(model.getSmsBody());
             }
             notificationRepository.save(entity);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

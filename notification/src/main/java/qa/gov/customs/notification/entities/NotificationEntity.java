@@ -12,8 +12,8 @@ public class NotificationEntity {
 
     @Id
     @Column(name = "ID", unique = true, nullable = false, precision = 22, scale = 0)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "Id_Sequence")
-    @SequenceGenerator(name = "Id_Sequence", sequenceName = "TAC_NOTIFICATION_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id_Sequence")
+    @SequenceGenerator(name = "Id_Sequence", sequenceName = "TAC_NOTIFICATION_SEQ", allocationSize = 1)
     BigInteger id;
 
     @Column(name = "DATA_SMS")

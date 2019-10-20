@@ -8,20 +8,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
-//import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Optional;
+
+//import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 
 
 //@EnableResourceServer
@@ -33,19 +32,18 @@ import java.util.Optional;
 //@EnableHystrixDashboard
 public class GatewayApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
-    }
+    private EurekaInstanceConfigBean eurekaInstanceConfig;
 
 //    @Bean
 //    public Filter filter()
 //    {
 //        return new Filter();
 //    }
-
-
-    private EurekaInstanceConfigBean eurekaInstanceConfig;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    public static void main(String[] args) {
+        SpringApplication.run(GatewayApplication.class, args);
+    }
 
     @Bean
     public CorsFilter corsFilter() {
@@ -73,11 +71,10 @@ public class GatewayApplication {
     @Primary
     @Autowired
 //    @Profile("docker")
-    public EurekaInstanceConfigBean DockerSwarm_EurekaClient(InetUtils inetUtils)
-    {
+    public EurekaInstanceConfigBean DockerSwarm_EurekaClient(InetUtils inetUtils) {
 
-        try{
-            eurekaInstanceConfig= new EurekaInstanceConfigBean(inetUtils);
+        try {
+            eurekaInstanceConfig = new EurekaInstanceConfigBean(inetUtils);
 
             final String HostName = System.getenv("HOSTNAME"); //container hostname x, container_id y
             logger.info("HOSTNAME : " + HostName);
@@ -119,13 +116,12 @@ public class GatewayApplication {
             eurekaInstanceConfig.setIpAddress(address);
             eurekaInstanceConfig.setNonSecurePort(9000);
 
-            logger.info("Eureka Config : "  + eurekaInstanceConfig.toString());
+            logger.info("Eureka Config : " + eurekaInstanceConfig.toString());
 
             return eurekaInstanceConfig;
 
 
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             logger.info("EEEEEEEEEEEEEEERRRR");
             return null;
         }

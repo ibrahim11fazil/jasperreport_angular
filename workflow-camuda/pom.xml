@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>app</artifactId>
@@ -96,22 +96,21 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>org.camunda.bpm.springboot</groupId>-->
-            <!--<artifactId>camunda-bpm-spring-boot-starter</artifactId>-->
-            <!--<version>3.3.1</version>-->
+        <!--<groupId>org.camunda.bpm.springboot</groupId>-->
+        <!--<artifactId>camunda-bpm-spring-boot-starter</artifactId>-->
+        <!--<version>3.3.1</version>-->
         <!--</dependency>-->
 
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-hystrix</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-hystrix</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
-
 
 
         <dependency>
@@ -121,8 +120,8 @@
         </dependency>
 
         <!--<dependency>-->
-            <!--<groupId>com.h2database</groupId>-->
-            <!--<artifactId>h2</artifactId>-->
+        <!--<groupId>com.h2database</groupId>-->
+        <!--<artifactId>h2</artifactId>-->
         <!--</dependency>-->
         <dependency>
             <groupId>com.oracle</groupId>

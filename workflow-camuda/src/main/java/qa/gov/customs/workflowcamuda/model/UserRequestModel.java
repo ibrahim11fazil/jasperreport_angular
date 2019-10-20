@@ -32,7 +32,7 @@ public class UserRequestModel implements Serializable {
     private String positionId;
     private String secionCode;
     private String gender;
-    private Date   dateofbirth;
+    private Date dateofbirth;
     private String passport;
     private String iban;
 
@@ -307,15 +307,13 @@ public class UserRequestModel implements Serializable {
         this.courseName = courseName;
     }
 
-
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = new Date().toString();
-    }
-
     public String getCreatedOn() {
         return createdOn;
     }
 
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = new Date().toString();
+    }
 
     public String getTrainingRequestId() {
         return trainingRequestId;

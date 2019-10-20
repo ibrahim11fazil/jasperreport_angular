@@ -15,14 +15,9 @@ public class Publisher {
     private AmqpTemplate amqpTemplate;
 
 
-    public void sendNotification(NotificationModel model){
+    public void sendNotification(NotificationModel model) {
         amqpTemplate.convertAndSend("notification_exchange", "notification_routingkey", model);
     }
-
-
-
-
-
 
 
 }

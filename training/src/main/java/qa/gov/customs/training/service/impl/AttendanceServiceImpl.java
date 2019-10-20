@@ -7,9 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import qa.gov.customs.training.controller.TestControllerQueue;
 import qa.gov.customs.training.entity.TacCourseActivation;
-import qa.gov.customs.training.entity.TacCourseAttendees;
 import qa.gov.customs.training.entity.TacCourseAttendence;
 import qa.gov.customs.training.models.CourseManagement;
 import qa.gov.customs.training.models.EmployeeData;
@@ -24,7 +22,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 
 
 @Service
@@ -42,15 +39,14 @@ public class AttendanceServiceImpl implements AttendanceService {
     CourseAttendeesRepository attendeesRepo;
 
     @Override
-    public Set<EmployeeData> getEmployeeDataForAttendance(TacCourseActivation activation)
-    {
-        List<Object[]> objects =mawaredRepo.getEmpData(activation.getActivationId());
-        Set<EmployeeData> empdata=new HashSet<EmployeeData>();
+    public Set<EmployeeData> getEmployeeDataForAttendance(TacCourseActivation activation) {
+        List<Object[]> objects = mawaredRepo.getEmpData(activation.getActivationId());
+        Set<EmployeeData> empdata = new HashSet<EmployeeData>();
 
         for (Object[] o : objects) {
             EmployeeData emp = new EmployeeData();
-            emp.setJobId((String)o[0]);
-            emp.setCnameAr((String)o[1]);
+            emp.setJobId((String) o[0]);
+            emp.setCnameAr((String) o[1]);
             emp.setDepartment((String) o[2]);
             emp.setJobTitle((String) o[3]);
             emp.setMobile((String) o[4]);
@@ -62,7 +58,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public TacCourseAttendence  markAttendance(TacCourseAttendence attendance) {
+    public TacCourseAttendence markAttendance(TacCourseAttendence attendance) {
         TacCourseAttendence attendanceData = attendanceRepo.save(attendance);
         return attendanceData;
     }
@@ -88,18 +84,15 @@ public class AttendanceServiceImpl implements AttendanceService {
 //        return  attendanceDetails;
 
 
-
-
     @Override
-    public TacCourseAttendence  checkIfAlreadyMarked(TacCourseAttendence attendance,Date date)
-    {
-        TacCourseAttendence attendancePresent=attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId(),date);
+    public TacCourseAttendence checkIfAlreadyMarked(TacCourseAttendence attendance, Date date) {
+        TacCourseAttendence attendancePresent = attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId(), date);
         return attendancePresent;
     }
-    @ Override
-    public int getWorkingDays(FindAttendance getAttendance)
-    {
-        int workDays=0;
+
+    @Override
+    public int getWorkingDays(FindAttendance getAttendance) {
+        int workDays = 0;
         Calendar startCal = Calendar.getInstance();
         startCal.setTime(getAttendance.getCourse_date());
 
@@ -114,19 +107,18 @@ public class AttendanceServiceImpl implements AttendanceService {
         } while (startCal.getTimeInMillis() <= endCal.getTimeInMillis());
 
 
-
 //        ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.FOUND, true,
 //                workDays);
         return workDays;
     }
+
     @Override
-    public List<EmployeeData> getPreviousAttendance(FindAttendance previousAttendance)
-    {
+    public List<EmployeeData> getPreviousAttendance(FindAttendance previousAttendance) {
 
         //List<EmployeeData> empPreviousDayAttendance
 
-        List<EmployeeData> empdata=new ArrayList<>();
-        List<Object[]> objects =mawaredRepo.getEmpPreviousAttendance(previousAttendance.getActivation_id(),previousAttendance.getCourse_date());
+        List<EmployeeData> empdata = new ArrayList<>();
+        List<Object[]> objects = mawaredRepo.getEmpPreviousAttendance(previousAttendance.getActivation_id(), previousAttendance.getCourse_date());
         for (Object[] o : objects) {
 
             EmployeeData emp = new EmployeeData();
@@ -137,12 +129,9 @@ public class AttendanceServiceImpl implements AttendanceService {
             emp.setMobile((String) o[4]);
             emp.setAttendeesId((BigDecimal) o[6]);
             emp.setAttendanceFlag((BigDecimal) o[7]);
-            if(emp.getAttendanceFlag().compareTo(new BigDecimal(1))==0)
-            {
-            emp.setChecked(true);
-            }
-            else
-            {
+            if (emp.getAttendanceFlag().compareTo(new BigDecimal(1)) == 0) {
+                emp.setChecked(true);
+            } else {
                 emp.setChecked(false);
             }
             empdata.add(emp);
@@ -152,48 +141,40 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public Set<EmployeeData> getCourseCompletionAttendance(FindAttendance getAttendance)
-    {
-        List<Object[]> objects =mawaredRepo.getEmpDataforAttendance(getAttendance.getActivation_id());
-        int workDays=getWorkingDays(getAttendance);
+    public Set<EmployeeData> getCourseCompletionAttendance(FindAttendance getAttendance) {
+        List<Object[]> objects = mawaredRepo.getEmpDataforAttendance(getAttendance.getActivation_id());
+        int workDays = getWorkingDays(getAttendance);
 
-        Set<EmployeeData> empdata=new HashSet<EmployeeData>();
+        Set<EmployeeData> empdata = new HashSet<EmployeeData>();
 
         for (Object[] o : objects) {
 
             EmployeeData emp = new EmployeeData();
-            emp.setJobId((String)o[0]);
-            emp.setCnameAr((String)o[1]);
+            emp.setJobId((String) o[0]);
+            emp.setCnameAr((String) o[1]);
             emp.setDepartment((String) o[2]);
             emp.setJobTitle((String) o[3]);
             emp.setMobile((String) o[4]);
             emp.setAttendeesId((BigDecimal) o[6]);
             emp.setCount((BigDecimal) o[7]);
 
-            Double percentageAttendance=(emp.getCount().doubleValue()/workDays)*100;
+            Double percentageAttendance = (emp.getCount().doubleValue() / workDays) * 100;
 
             emp.setPercentage(percentageAttendance.intValue());
             empdata.add(emp);
-            if(percentageAttendance==100)
-            {
-                BigDecimal courseStatus=new BigDecimal(1);
+            if (percentageAttendance == 100) {
+                BigDecimal courseStatus = new BigDecimal(1);
                 try {
                     attendeesRepo.updateCourseStatus(emp.getAttendeesId(), courseStatus);
-                }
-                catch(Exception e)
-                {
+                } catch (Exception e) {
 
                 }
 
-            }
-            else
-            {
-                BigDecimal courseStatus=new BigDecimal(0);
+            } else {
+                BigDecimal courseStatus = new BigDecimal(0);
                 try {
                     attendeesRepo.updateCourseStatus(emp.getAttendeesId(), courseStatus);
-                }
-                catch(Exception e)
-                {
+                } catch (Exception e) {
 
                 }
 
@@ -203,15 +184,14 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<CourseManagement> getCourseFilter(BigDecimal courseTime)
-    {
-        int page =0;
-        int limit=20;
-        List<Object[]> objects=null;
+    public List<CourseManagement> getCourseFilter(BigDecimal courseTime) {
+        int page = 0;
+        int limit = 20;
+        List<Object[]> objects = null;
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        if(courseTime.compareTo(new BigDecimal(1))==0){
+        if (courseTime.compareTo(new BigDecimal(1)) == 0) {
             Calendar c = Calendar.getInstance();
             //c.add(Calendar.YEAR, 1);
             c.set(Calendar.MONTH, 11);//11 = december
@@ -219,24 +199,21 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             Date coursePeriod = c.getTime();
 
-            objects= courseRepository.getCourseForNextYear(coursePeriod, pageable);
-        }
-        else  if(courseTime.compareTo(new BigDecimal(2))==0){
+            objects = courseRepository.getCourseForNextYear(coursePeriod, pageable);
+        } else if (courseTime.compareTo(new BigDecimal(2)) == 0) {
 
             Calendar c = Calendar.getInstance();
             c.add(Calendar.MONTH, 1);
             c.set(Calendar.DAY_OF_MONTH, 1);//
             Date NextMnth = c.getTime();
 
-            Calendar c1= Calendar.getInstance();
+            Calendar c1 = Calendar.getInstance();
             c1.add(Calendar.MONTH, 2);
             c1.set(Calendar.DAY_OF_MONTH, 1);//
             Date lastMnth = c1.getTime();
-            objects= courseRepository.getCourseForMonth(NextMnth,lastMnth,pageable);
+            objects = courseRepository.getCourseForMonth(NextMnth, lastMnth, pageable);
 
-        }
-        else if(courseTime.compareTo(new BigDecimal(3))==0)
-        {
+        } else if (courseTime.compareTo(new BigDecimal(3)) == 0) {
             Calendar c = Calendar.getInstance();
             c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
             Date nextWeek = c.getTime();
@@ -244,30 +221,28 @@ public class AttendanceServiceImpl implements AttendanceService {
             DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
             logger.info(df.format(c.getTime()));
 
-            for (int i = 0; i <6; i++) {
+            for (int i = 0; i < 6; i++) {
                 c.add(Calendar.DATE, 1);
             }
             Date weekend = c.getTime();
             logger.info(df.format(c.getTime()));
             //logger.info();
             c.add(Calendar.DATE, 7);
-            Date nextweek=c.getTime();
+            Date nextweek = c.getTime();
             logger.info(df.format(c.getTime()));
             //logger.info();
-            objects= courseRepository.getCourseForNextWeek(weekend,nextweek,pageable);
-        }
-        else if(courseTime.compareTo(new BigDecimal(4))==0)
-        {
-            objects= courseRepository.getAllFutureCourses(pageable);
+            objects = courseRepository.getCourseForNextWeek(weekend, nextweek, pageable);
+        } else if (courseTime.compareTo(new BigDecimal(4)) == 0) {
+            objects = courseRepository.getAllFutureCourses(pageable);
         }
 
         List<CourseManagement> courseList = new ArrayList<>();
         for (Object[] o : objects) {
             CourseManagement course = new CourseManagement();
             course.setCourseName((String) o[0]);
-            Date courseDate=((Date)o[1]);
-            Date endDate=((Date)o[2]);
-            course.setActivation_id((BigDecimal)o[3]);
+            Date courseDate = ((Date) o[1]);
+            Date endDate = ((Date) o[2]);
+            course.setActivation_id((BigDecimal) o[3]);
             course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
             courseList.add(course);

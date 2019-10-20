@@ -13,25 +13,23 @@ import java.util.List;
 
 
 @Service
-public class UserProfileServiceImpl  implements UserProfileService {
+public class UserProfileServiceImpl implements UserProfileService {
 
     @Autowired
     UserProfileRepository userprofilerepository;
 
     @Override
     public List<UserProfileModel> listJobCardProfile(String id) {
-        List<Object[]> userObjects= userprofilerepository.listJobCardProfile(id);
-        if(userObjects!=null && userObjects.size()>0){
+        List<Object[]> userObjects = userprofilerepository.listJobCardProfile(id);
+        if (userObjects != null && userObjects.size() > 0) {
             return processlistJobCardProfile(userObjects);
-        }else
+        } else
             return null;
     }
 
-    List<UserProfileModel> processlistJobCardProfile(List<Object[]> objects)
-    {
+    List<UserProfileModel> processlistJobCardProfile(List<Object[]> objects) {
         List<UserProfileModel> fAreas = new ArrayList<>();
-        for (Object[] o : objects)
-        {
+        for (Object[] o : objects) {
             UserProfileModel fArea = new UserProfileModel();
             fArea.setJobCardNo((BigDecimal) o[0]);
             fArea.setJobGrade((String) o[1]);
@@ -51,18 +49,16 @@ public class UserProfileServiceImpl  implements UserProfileService {
 
     @Override
     public List<UserCoursesAttended> coursesAttendedWithStatus(String id) {
-        List<Object[]> userAttendance= userprofilerepository.coursesAttendedWithStatus(id);
-        if(userAttendance!=null && userAttendance.size()>0){
+        List<Object[]> userAttendance = userprofilerepository.coursesAttendedWithStatus(id);
+        if (userAttendance != null && userAttendance.size() > 0) {
             return processcoursesAttendedWithStatus(userAttendance);
-        }else
+        } else
             return null;
     }
 
-    List<UserCoursesAttended> processcoursesAttendedWithStatus(List<Object[]> objects)
-    {
+    List<UserCoursesAttended> processcoursesAttendedWithStatus(List<Object[]> objects) {
         List<UserCoursesAttended> fAreas = new ArrayList<>();
-        for (Object[] o : objects)
-        {
+        for (Object[] o : objects) {
             UserCoursesAttended fArea = new UserCoursesAttended();
             fArea.setJobId((String) o[0]);
             fArea.setActivationId((BigDecimal) o[1]);
@@ -77,4 +73,4 @@ public class UserProfileServiceImpl  implements UserProfileService {
         return fAreas;
     }
 
-    }
+}

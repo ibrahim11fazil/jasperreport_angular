@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,36 +32,36 @@ public class EmployeeWorkflowController {
     private String training_token;
 
     @PostMapping("/get-employee-head/{id}/{token}")
-    public ResponseType getEmployeeHeadOfSection(@PathVariable("id") String id,@PathVariable("token") String token){
+    public ResponseType getEmployeeHeadOfSection(@PathVariable("id") String id, @PathVariable("token") String token) {
         logger.info("Recieved ### " + id);
-        if(token!=null && token.equals(training_token)) {
+        if (token != null && token.equals(training_token)) {
             if (id != null) {
                 if (true) { // check the immediate head present
                     List<ImmediateManager> immediateManagers = mawaredService.getImmediateManager(id);
                     // TODO here to check the immediate manager is on vacation
                     // TODO  Get Delegation too and set to the Request
-                    logger.info("RESOURCE_CHECKING ###" );
+                    logger.info("RESOURCE_CHECKING ###");
                     if (immediateManagers.size() > 0) {
                         logger.info("RESOURCE_CHECKING ###" + immediateManagers.get(0).getImLegacyCode());
                         return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                                 immediateManagers.get(0));
                     } else {
-                        logger.info("RESOURCE_NOT_FOUND ###" );
+                        logger.info("RESOURCE_NOT_FOUND ###");
                         return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                                 null);
                     }
                 } else {
-                    logger.info("RESOURCE_NOT_FOUND ###" );
+                    logger.info("RESOURCE_NOT_FOUND ###");
                     return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                             null);
                 }
             } else {
-                logger.info("RESOURCE_NOT_FOUND ###" );
+                logger.info("RESOURCE_NOT_FOUND ###");
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
-        }else{
-            logger.info("UNAUTHORIZED ###" );
+        } else {
+            logger.info("UNAUTHORIZED ###");
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
@@ -70,9 +69,9 @@ public class EmployeeWorkflowController {
 
 
     @PostMapping("/get-employee-manager/{id}/{token}")
-    public ResponseType getEmployeeManager(@PathVariable("id") String id,@PathVariable("token") String token){
+    public ResponseType getEmployeeManager(@PathVariable("id") String id, @PathVariable("token") String token) {
         logger.info("Recieved ### " + id);
-        if(token!=null && token.equals(training_token)) {
+        if (token != null && token.equals(training_token)) {
             if (id != null) {
                 List<MawaredMaster> masterData = mawaredService.findByLegacyCode(id);
                 if (masterData != null && masterData.size() > 0) {
@@ -92,15 +91,15 @@ public class EmployeeWorkflowController {
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
     }
 
     @PostMapping("/get-head-of-training-and-continuing-edu/{token}")
-    public ResponseType getHeadOfTrainingAndContinuingEducation(@PathVariable("token") String token){
-        if(token!=null && token.equals(training_token)) {
+    public ResponseType getHeadOfTrainingAndContinuingEducation(@PathVariable("token") String token) {
+        if (token != null && token.equals(training_token)) {
             logger.info("Recieved ### request received");
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-2");
             if (immediateManagers != null && immediateManagers.size() > 0) {
@@ -110,7 +109,7 @@ public class EmployeeWorkflowController {
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
@@ -118,8 +117,8 @@ public class EmployeeWorkflowController {
 
 
     @PostMapping("/get-head-of-training-center-manager/{token}")
-    public ResponseType getHeadOfTrainingCenterManager(@PathVariable("token") String token){
-        if(token!=null && token.equals(training_token)) {
+    public ResponseType getHeadOfTrainingCenterManager(@PathVariable("token") String token) {
+        if (token != null && token.equals(training_token)) {
             logger.info("Recieved ### request received");
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-1");
             if (immediateManagers != null && immediateManagers.size() > 0) {
@@ -129,7 +128,7 @@ public class EmployeeWorkflowController {
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
@@ -137,8 +136,8 @@ public class EmployeeWorkflowController {
 
     //TODO need to check who is GM
     @PostMapping("/get-general-manager/{token}")
-    public ResponseType getAssistantGeneralManager(@PathVariable("token") String token){
-        if(token!=null && token.equals(training_token)) {
+    public ResponseType getAssistantGeneralManager(@PathVariable("token") String token) {
+        if (token != null && token.equals(training_token)) {
             logger.info("Recieved ### request received");
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-1");
             if (immediateManagers != null && immediateManagers.size() > 0) {
@@ -148,16 +147,16 @@ public class EmployeeWorkflowController {
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
     }
 
 
-    @PostMapping(value="/get-legal-head/{token}",consumes= MediaType.APPLICATION_JSON_VALUE)
-    ResponseType getLegalManager(@PathVariable("wtoken") String token){
-        if(token!=null && token.equals(training_token)) {
+    @PostMapping(value = "/get-legal-head/{token}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseType getLegalManager(@PathVariable("wtoken") String token) {
+        if (token != null && token.equals(training_token)) {
             logger.info("Recieved ### request received");
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10001727", "1-2");
             if (immediateManagers != null && immediateManagers.size() > 0) {
@@ -167,23 +166,23 @@ public class EmployeeWorkflowController {
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
     }
 
     @PostMapping("/check-the-user-is-head-of-training/{id}/{token}")
-    public ResponseType checkUserIsHeadOfTraining(@PathVariable("id") String id,@PathVariable("token") String token){
-        if(token!=null && token.equals(training_token)) {
+    public ResponseType checkUserIsHeadOfTraining(@PathVariable("id") String id, @PathVariable("token") String token) {
+        if (token != null && token.equals(training_token)) {
             logger.info("Received ### request received");
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager("10002677", "1-1");
             if (immediateManagers != null && immediateManagers.size() > 0) {
 
-                if(immediateManagers.get(0).getLegacyCode().equals(id)){
+                if (immediateManagers.get(0).getLegacyCode().equals(id)) {
                     return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                             true);
-                }else{
+                } else {
                     return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                             false);
                 }
@@ -191,22 +190,21 @@ public class EmployeeWorkflowController {
                 return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
             }
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
     }
 
 
-
     @PostMapping("/check-the-user-is-absent/{id}/{token}")
-    public ResponseType checkTheUserIsAbsent(@PathVariable("id") String id,@PathVariable("token") String token){
-        if(token!=null && token.equals(training_token)) {
+    public ResponseType checkTheUserIsAbsent(@PathVariable("id") String id, @PathVariable("token") String token) {
+        if (token != null && token.equals(training_token)) {
             logger.info("Received ### request received");
             Boolean status = mawaredService.findByQidInDateIn(id, new Date());
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     status);
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
@@ -214,24 +212,23 @@ public class EmployeeWorkflowController {
 
 
     @PostMapping("/get-delegation-for-employee/{id}/{token}")
-    public ResponseType getDelegationForEmployee(@PathVariable("id") String id,@PathVariable("token") String token){
-        if(token!=null && token.equals(training_token)) {
+    public ResponseType getDelegationForEmployee(@PathVariable("id") String id, @PathVariable("token") String token) {
+        if (token != null && token.equals(training_token)) {
             logger.info("Received ### request received");
-
 
 
             // TODO if no delegation ,add admin also for future delegations
 
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     getDummyUser());
-        }else{
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
     }
 
 
-    List<ImmediateManager> getDummyUser(){
+    List<ImmediateManager> getDummyUser() {
         // TODO need to get from the Mawared DB
         List<ImmediateManager> managers = new ArrayList<>();
         ImmediateManager one = new ImmediateManager();
@@ -254,48 +251,40 @@ public class EmployeeWorkflowController {
 
 
     @PostMapping("/check-the-user-is-manager/{id}/{did}/{token}")
-    ResponseType checkUserIsManager(@PathVariable("id") String id,@PathVariable("did") String did,@PathVariable("token") String token)
-    {
-        if(token!=null && token.equals(training_token)) {
-            logger.info("Received ### request received deptid" + did + "jobid: "+ id);
+    ResponseType checkUserIsManager(@PathVariable("id") String id, @PathVariable("did") String did, @PathVariable("token") String token) {
+        if (token != null && token.equals(training_token)) {
+            logger.info("Received ### request received deptid" + did + "jobid: " + id);
             List<ImmediateManager> immediateManagers = mawaredService.getDepartmentManager(did, "1-1");
-            if (immediateManagers != null && immediateManagers.size() > 0)
-              {
-                if(immediateManagers.get(0).getLegacyCode().equals(id))
-                    {
+            if (immediateManagers != null && immediateManagers.size() > 0) {
+                if (immediateManagers.get(0).getLegacyCode().equals(id)) {
                     return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                             true);
-                    }else
-                    {
+                } else {
                     return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                             false);
-                    }
-               } else
-                   {
-                   return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
+                }
+            } else {
+                return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.FAILED, false,
                         null);
-                   }
-        }else{
+            }
+        } else {
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);
         }
     }
 
 
-
-
-
-    ResponseType  get(int code, String message, boolean status, Object data){
-        ResponseType response = new ResponseType(code,message, status,
+    ResponseType get(int code, String message, boolean status, Object data) {
+        ResponseType response = new ResponseType(code, message, status,
                 data);
         return response;
     }
 
 
     @PostMapping("/get-employee-by-jobid-workflow/{id}/{token}")
-    public ResponseType getEmployeeById(@PathVariable("id") String id,@PathVariable("token") String token){
+    public ResponseType getEmployeeById(@PathVariable("id") String id, @PathVariable("token") String token) {
         logger.info("Recieved ### " + id);
-        if(token!=null && token.equals(training_token)) {
+        if (token != null && token.equals(training_token)) {
             if (id != null) {
                 List<MawaredMaster> masterData = mawaredService.findByLegacyCode(id);
                 if (masterData != null && masterData.size() > 0) {
@@ -329,7 +318,7 @@ public class EmployeeWorkflowController {
                         null);
                 return response;
             }
-        }else{
+        } else {
             logger.info("UNAUTHORIZED 2### ");
             return get(Constants.UNAUTHORIZED, MessageUtil.FAILED, false,
                     null);

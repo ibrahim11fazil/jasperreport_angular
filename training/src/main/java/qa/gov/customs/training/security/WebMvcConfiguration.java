@@ -24,7 +24,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public HandlerMethodArgumentResolver currentUserHandlerMethodArgumentResolver(){
+    public HandlerMethodArgumentResolver currentUserHandlerMethodArgumentResolver() {
         return new HandlerMethodArgumentResolver() {
             @Override
             public boolean supportsParameter(MethodParameter parameter) {
@@ -33,9 +33,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
             @Override
             public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-                try{
+                try {
                     return (CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     return null;
                 }

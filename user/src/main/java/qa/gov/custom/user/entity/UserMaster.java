@@ -1,26 +1,24 @@
 package qa.gov.custom.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "USER_MASTER")
-public class UserMaster  {
+public class UserMaster {
     static final long serialVersionUID = 1L;
-
+    @Transient
+    int start;
+    @Transient
+    int limit;
     @NotNull
     @Id
     @Column(name = "ID")
     private BigInteger id;
-
     @Column(name = "USERNAME")
     private String username;
     @Column(name = "PASSWORD")
@@ -35,27 +33,25 @@ public class UserMaster  {
     private BigInteger credentialsExpired;
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
-
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
+    @JoinTable(name = "ROLE_USER", joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
     private List<Role> roles;
-
     @Column(name = "JOBID")
     private String jobId;
-
     @Column(name = "QID")
     private String qid;
-
     @Column(name = "CNAME_EN")
     private String cNameEn;
     @Column(name = "CNAME_AR")
     private String cNameAr;
-
     @Column(name = "MOBILE")
     private String mobile;
+    @Transient
+    private BigInteger roleId;
 
-    public UserMaster(){}
+    public UserMaster() {
+    }
 
     public UserMaster(BigInteger id, String username, String email, String jobId, String mobile) {
         this.id = id;
@@ -65,17 +61,14 @@ public class UserMaster  {
         this.mobile = mobile;
     }
 
-    public UserMaster(BigInteger id, String username, String email, String jobId, String mobile,String qid) {
+    public UserMaster(BigInteger id, String username, String email, String jobId, String mobile, String qid) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.jobId = jobId;
         this.mobile = mobile;
-        this.qid=qid;
+        this.qid = qid;
     }
-
-    @Transient
-    private BigInteger roleId;
 
     public BigInteger getId() {
         return id;
@@ -87,14 +80,6 @@ public class UserMaster  {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
     }
 
     //    @Override
@@ -138,6 +123,14 @@ public class UserMaster  {
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
 //        return null;
 //    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
     public String getPassword() {
         return password;
@@ -231,7 +224,6 @@ public class UserMaster  {
         this.jobId = jobId;
     }
 
-
     public String getQid() {
         return qid;
     }
@@ -239,12 +231,6 @@ public class UserMaster  {
     public void setQid(String qid) {
         this.qid = qid;
     }
-
-    @Transient
-    int start;
-
-    @Transient
-    int limit;
 
     public int getStart() {
         return start;

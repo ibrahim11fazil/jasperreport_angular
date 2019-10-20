@@ -1,9 +1,6 @@
 package qa.gov.customs.training.models;
 
-import org.springframework.data.repository.query.Param;
-
 import java.math.BigInteger;
-import java.util.List;
 
 public class AttendeesDetails {
 

@@ -1,11 +1,10 @@
 package qa.gov.customs.training.entity;
 // Generated Apr 23, 2019 7:33:17 AM by Hibernate Tools 4.3.1.Final
 
-import java.math.BigDecimal;
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 /**
@@ -15,65 +14,66 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "TAC_COURSE_AUDIENCE", schema = "CUST_TAC")
 public class TacCourseAudience implements java.io.Serializable {
 
-	private BigDecimal targetId;
-	private BigDecimal audienceId;
-	private TacCourseMaster tacCourseMaster;
-	private TacCourseTargetGroup tacCourseTargetGroup;
+    private BigDecimal targetId;
+    private BigDecimal audienceId;
+    private TacCourseMaster tacCourseMaster;
+    private TacCourseTargetGroup tacCourseTargetGroup;
 
-	public TacCourseAudience() {
-	}
+    public TacCourseAudience() {
+    }
 
-	public TacCourseAudience(BigDecimal audienceId) {
-		this.audienceId = audienceId;
-	}
+    public TacCourseAudience(BigDecimal audienceId) {
+        this.audienceId = audienceId;
+    }
 
-	public TacCourseAudience(BigDecimal audienceId, TacCourseMaster tacCourseMaster,
-			TacCourseTargetGroup tacCourseTargetGroup) {
-		this.audienceId = audienceId;
-		this.tacCourseMaster = tacCourseMaster;
-		this.tacCourseTargetGroup = tacCourseTargetGroup;
-	}
+    public TacCourseAudience(BigDecimal audienceId, TacCourseMaster tacCourseMaster,
+                             TacCourseTargetGroup tacCourseTargetGroup) {
+        this.audienceId = audienceId;
+        this.tacCourseMaster = tacCourseMaster;
+        this.tacCourseTargetGroup = tacCourseTargetGroup;
+    }
 
-	@Id
+    @Id
 
-	@Column(name = "AUDIENCE_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_AUDIENCE_SEQ",allocationSize = 1)
-	public BigDecimal getAudienceId() {
-		return this.audienceId;
-	}
+    @Column(name = "AUDIENCE_ID", unique = true, nullable = false, precision = 22, scale = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_AUDIENCE_SEQ", allocationSize = 1)
+    public BigDecimal getAudienceId() {
+        return this.audienceId;
+    }
 
-	public void setAudienceId(BigDecimal audienceId) {
-		this.audienceId = audienceId;
-	}
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COURSE_ID")
-	public TacCourseMaster getTacCourseMaster() {
-		return this.tacCourseMaster;
-	}
+    public void setAudienceId(BigDecimal audienceId) {
+        this.audienceId = audienceId;
+    }
 
-	public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
-		this.tacCourseMaster = tacCourseMaster;
-	}
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COURSE_ID")
+    public TacCourseMaster getTacCourseMaster() {
+        return this.tacCourseMaster;
+    }
 
-	//@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TARGET_ID")
-	public TacCourseTargetGroup getTacCourseTargetGroup() {
-		return this.tacCourseTargetGroup;
-	}
+    public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
+        this.tacCourseMaster = tacCourseMaster;
+    }
 
-	public void setTacCourseTargetGroup(TacCourseTargetGroup tacCourseTargetGroup) {
-		this.tacCourseTargetGroup = tacCourseTargetGroup;
-	}
+    //@JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TARGET_ID")
+    public TacCourseTargetGroup getTacCourseTargetGroup() {
+        return this.tacCourseTargetGroup;
+    }
 
-	@Transient
-	public BigDecimal getTargetId() {
-		return targetId;
-	}
+    public void setTacCourseTargetGroup(TacCourseTargetGroup tacCourseTargetGroup) {
+        this.tacCourseTargetGroup = tacCourseTargetGroup;
+    }
 
-	public void setTargetId(BigDecimal targetId) {
-		this.targetId = targetId;
-	}
+    @Transient
+    public BigDecimal getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(BigDecimal targetId) {
+        this.targetId = targetId;
+    }
 }

@@ -18,18 +18,18 @@ import java.security.Principal;
 @RestController("/sso")
 public class UserController {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	@Autowired
-	private CustomUserDetailsService userService;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    @Autowired
+    private CustomUserDetailsService userService;
 
-	@RequestMapping(value = "/current", method = RequestMethod.GET)
-	public Principal getUser(Principal principal) {
-		return principal;
-	}
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
+    public Principal getUser(Principal principal) {
+        return principal;
+    }
 
-	@PreAuthorize("hasAnyAuthority('create_user_with_role')")
-	@RequestMapping(method = RequestMethod.POST,value = "create_user_with_role")
-	public void createUser(@Valid @RequestBody UserMaster user) {
-		logger.info("user===> "+ user.getEmail());
-	}
+    @PreAuthorize("hasAnyAuthority('create_user_with_role')")
+    @RequestMapping(method = RequestMethod.POST, value = "create_user_with_role")
+    public void createUser(@Valid @RequestBody UserMaster user) {
+        logger.info("user===> " + user.getEmail());
+    }
 }

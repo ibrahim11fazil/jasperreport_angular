@@ -38,6 +38,10 @@ public class UserMaster implements UserDetails {
     private String cNameEn;
     @Column(name = "CNAME_AR")
     private String cNameAr;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "ROLE_USER", joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
+    private List<Role> roles;
 
     public String getcNameEn() {
         return cNameEn;
@@ -55,12 +59,6 @@ public class UserMaster implements UserDetails {
         this.cNameAr = cNameAr;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ROLE_USER",joinColumns = {@JoinColumn(name = "USER_ID",referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID" )})
-    private List<Role> roles;
-
-
     public BigInteger getId() {
         return id;
     }
@@ -74,39 +72,38 @@ public class UserMaster implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return !(this.accountExpired.intValue()!=0?true:false);
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return !(this.accountLocked.intValue()!=0?true:false);
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return !(this.credentialsExpired.intValue()!=0?true:false);
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.enabled.intValue()!=0?true:false;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return !(this.accountExpired.intValue() != 0 ? true : false);
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !(this.accountLocked.intValue() != 0 ? true : false);
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return !(this.credentialsExpired.intValue() != 0 ? true : false);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled.intValue() != 0 ? true : false;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        roles.forEach(r->{
+        roles.forEach(r -> {
             authorities.add(new SimpleGrantedAuthority(r.getName()));
-             r.getPermissions().forEach(p -> {
-                 authorities.add(new SimpleGrantedAuthority(p.getName()));
-             });
+            r.getPermissions().forEach(p -> {
+                authorities.add(new SimpleGrantedAuthority(p.getName()));
+            });
         });
 
         return authorities;
@@ -210,7 +207,6 @@ public class UserMaster implements UserDetails {
     public void setJobId(String jobId) {
         this.jobId = jobId;
     }
-
 
 
 }

@@ -15,14 +15,6 @@ public class CustomPrincipal implements Serializable {
     private String qid;
     private List<String> scopes;
 
-    public List<String> getScopes() {
-        return scopes;
-    }
-
-    public void setScopes(List<String> scopes) {
-        this.scopes = scopes;
-    }
-
     public CustomPrincipal() {
     }
 
@@ -36,6 +28,14 @@ public class CustomPrincipal implements Serializable {
         this.email = email;
         this.enabled = enabled;
         this.credentialsExpired = credentialsExpired;
+    }
+
+    public List<String> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<String> scopes) {
+        this.scopes = scopes;
     }
 
     public String getJid() {

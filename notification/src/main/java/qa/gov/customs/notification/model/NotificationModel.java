@@ -13,6 +13,9 @@ public class NotificationModel {
     int smsError;
     int emailError;
 
+    public NotificationModel() {
+    }
+
     public int getSmsError() {
         return smsError;
     }
@@ -27,9 +30,6 @@ public class NotificationModel {
 
     public void setEmailError(int emailError) {
         this.emailError = emailError;
-    }
-
-    public NotificationModel() {
     }
 
     public String getToAddress() {

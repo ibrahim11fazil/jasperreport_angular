@@ -50,7 +50,7 @@ public class RoleUser {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id,  remark);
+        return Objects.hash(id, remark);
     }
 
 

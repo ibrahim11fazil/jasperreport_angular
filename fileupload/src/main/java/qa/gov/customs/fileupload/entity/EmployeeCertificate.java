@@ -5,7 +5,6 @@ import qa.gov.customs.fileupload.config.Auditable;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
@@ -14,8 +13,8 @@ public class EmployeeCertificate extends Auditable<String> implements java.io.Se
 
     @Id
     @Column(name = "CERTIFICATE_ID", unique = true, nullable = false, precision = 22, scale = 0)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "EMP_CERTIFICATES_ID_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "EMP_CERTIFICATES_ID_SEQ", allocationSize = 1)
     BigDecimal certificateId;
     @Column(name = "CERTIFICATE_URL", length = 1024)
     String certificateUrl;

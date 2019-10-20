@@ -71,6 +71,7 @@ public class Permission {
     public BigInteger getRpId() {
         return rpId;
     }
+
     @Transient
     public void setRpId(BigInteger rpId) {
         this.rpId = rpId;

@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface TacCourseDateRepository extends JpaRepository<TacCourseDate, BigDecimal> {
 
-    @Query(value="select DATE_ID,COURSE_ID,ACTIVITY_ID,COURSE_DATE from TAC_COURSE_DATE where COURSE_ID=:courseId and ACTIVITY_ID=:activityId",nativeQuery=true)
-    List<Object[]> findAllDatesByCourseIdAndActivityId(BigDecimal courseId,BigDecimal activityId );
+    @Query(value = "select DATE_ID,COURSE_ID,ACTIVITY_ID,COURSE_DATE from TAC_COURSE_DATE where COURSE_ID=:courseId and ACTIVITY_ID=:activityId", nativeQuery = true)
+    List<Object[]> findAllDatesByCourseIdAndActivityId(BigDecimal courseId, BigDecimal activityId);
 
     TacCourseDate findByDateId(BigDecimal courseId);
 }

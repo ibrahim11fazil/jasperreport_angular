@@ -55,7 +55,7 @@ spring:
 
   jackson:
     serialization:
-      WRITE_DATES_AS_TIMESTAMPS : false
+      WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
 
@@ -65,8 +65,8 @@ file:
 
 
 server:
-#  servlet:
-#    context-path: /fileupload
+  #  servlet:
+  #    context-path: /fileupload
   port: 9021
 
 feign:

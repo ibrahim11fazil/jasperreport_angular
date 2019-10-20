@@ -25,35 +25,33 @@ import static qa.gov.customs.fileupload.utils.FileUploadUtil.getDateInString;
 public class ReportServiceImpl implements ReportService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
-    private final String certificateTemplateUrl = "/reports/Blank_A4_Landscape_certificate_customs.jrxml";
     private static final String logo_path = "/images/logo-sign.png";
+    private final String certificateTemplateUrl = "/reports/Blank_A4_Landscape_certificate_customs.jrxml";
     @Value("${file.upload-dir}")
     private String pdfFolderLocation;
 
     @Override
     public String generateCertificate(CertificateRequest certificateRequest) throws IOException {
-        try
-        {
-            String fileNameSelected= certificateRequest.getJobId()+"_"+
-                     certificateRequest.getActivationId() + "_" +
-                     getDateInString()+".pdf";
-            String fileName = pdfFolderLocation+"/"+fileNameSelected;
+        try {
+            String fileNameSelected = certificateRequest.getJobId() + "_" +
+                    certificateRequest.getActivationId() + "_" +
+                    getDateInString() + ".pdf";
+            String fileName = pdfFolderLocation + "/" + fileNameSelected;
             // Load the invoice jrxml template.
             final JasperReport jReport = loadCertificateTemplate();
             // Create parameters map.
             final Map<String, Object> parameters = parameters(certificateRequest);
-            if(parameters!=null) {
+            if (parameters != null) {
                 // Create an empty datasource.
                 final JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList("Certificate"));
                 JasperPrint jPrint = JasperFillManager.fillReport(jReport, parameters, dataSource);
                 JasperExportManager.exportReportToPdfFile(jPrint, fileName);
                 return fileNameSelected;
-            }else{
+            } else {
                 return null;
             }
 
-        }
-        catch (final Exception e){
+        } catch (final Exception e) {
             e.printStackTrace();
             logger.error(String.format("An error occured during PDF creation: %s", e));
             return null;
@@ -79,7 +77,7 @@ public class ReportServiceImpl implements ReportService {
             parameters.put("courseDate", certificateRequest.getCourseDate());
             parameters.put("certificateId", certificateRequest.getCertificateUid());
             return parameters;
-        }catch ( Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
