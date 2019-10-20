@@ -40,7 +40,6 @@ export class ActivityComponent implements OnInit {
   }
 
   onSubmit(buttonType): void {
-    console.log("Testing ......2")
     if(buttonType==="save") {
       this.saveActivity()
     }

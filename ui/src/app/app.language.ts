@@ -283,9 +283,31 @@ export class LanguageUtil  {
     menu_smartProfile:String=this.isArabic ? "Smart Profile 1" : "Smart Profile"
 
 
-    
+    //system error 
+    error_resource_not_found=this.isArabic? "Resource Not found1" : "Resource Not found"
+    error_unauthorized=this.isArabic? "UnAuthorized1" : "UnAuthorized1"
+    error_bad_request=this.isArabic? "Bad Request, Contact Administrator1" : "Bad Request, Contact Administrator"
+    erro_unsupported_type=this.isArabic? "UnsupportedType, Contact Administrator1" : "UnsupportedType, Contact Administrator"
+    error_server_error=this.isArabic? "Server Error, Contact Administrator1" : "Server Error, Contact Administrator"
 
-    
+
+   //error validation 
+   error_invalid_user=this.isArabic? "Invalid User1" : "Invalid User"
+   error_fill_all_forms=this.isArabic? "Fill all inputs1" : "Fill all inputs"
+   error_request_exisit = this.isArabic?"The request alredy exisit.1":"The request alredy exisit."
+   error_user_absent = this.isArabic?"The use is absent on the date,Try another date1 ":"The use is absent on the date,Try another date "
+   error_date_request = this.isArabic?"You are alraeady requested for another course in the same time. Try some other dates1":"You are alraeady requested for another course in the same time. Try some other dates"
+   
+   //jobcard status
+   jobcard_total36hours = this.isArabic?"Total 36 Hours of Workshop1":"Total 36 Hours of Workshop"
+   jobcard_total60hours = this.isArabic?"Total 60 Hours of course1":"Total 60 Hours of course"
+   jobcard_total40hoursAdmin = this.isArabic?"Total 40 Hours of Administrative Course":"Total 40 Hours of Administrative Course"
+   jobcard_total20hoursSpl = this.isArabic?"Total 20 Hours of Specialised Course":"Total 20 Hours of Specialised Course"
+   jobcard_total20hoursAdmin = this.isArabic?"Total 20 Hours of Administrative Course":"Total 20 Hours of Administrative Course"
+   jobcard_total40hoursSpl = this.isArabic?"Total 40 Hours of Specialised Course":"Total 40 Hours of Specialised Course"
+   
+   
+   
 
    
 

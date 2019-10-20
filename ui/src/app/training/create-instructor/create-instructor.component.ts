@@ -12,6 +12,7 @@ import { MawaredUserResponse, MawaredUser } from 'app/models/system-user';
 import { MainComponent } from 'app/main/main.component';
 import { Language } from '@amcharts/amcharts4/core';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 //import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
@@ -38,7 +39,8 @@ export class CreateInstructorComponent implements OnInit {
      private toastr : ToastrService,
      private userService:SystemUserService,
      private mainComponent:MainComponent,
-     private activatedRoute: ActivatedRoute) {
+     private activatedRoute: ActivatedRoute,
+     private errorService: ErrorService) {
      this.pageTitleService.setTitle("Instructor Registration")
      this.loadForm()
       
@@ -179,7 +181,7 @@ export class CreateInstructorComponent implements OnInit {
         }
     )
       }else{
-        this.toastr.error("Please fill required fields") 
+        this.errorService.errorString("Please fill required fields") 
       }
   }
   
@@ -287,13 +289,12 @@ export class CreateInstructorComponent implements OnInit {
         if(response.data!=null){
         this.updateTacInstructorView(response.data)
         }else{
-          this.cNameAr= "Invalid User"
+          this.cNameAr= this.language.error_invalid_user
         }
-
       },
       error=>{
         console.log(error.message)
-        this.cNameAr= "Invalid User"
+        this.cNameAr= this.language.error_invalid_user
       }
     )
   }

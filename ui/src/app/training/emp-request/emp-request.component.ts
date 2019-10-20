@@ -339,7 +339,7 @@ checkUserIsAbsentOrNot(request:EmployeeCourseRequest){
       debugger
       var response =<AbsentInfoResponse>data
       if(response.data){
-        this.toastr.error("The use is absent on the date,Try another date")
+        this.toastr.error(this.language.error_user_absent)
       }else{
         this.checkUserIsAlreadyRequested(request)
       }    
@@ -357,7 +357,7 @@ checkUserIsAlreadyRequested(request:EmployeeCourseRequest){
     data=>{
       var response =<AbsentInfoResponse>data
       if(response.data){
-        this.toastr.error("The request alredy exisit.")
+        this.toastr.error(this.language.error_request_exisit)
       }else{
         debugger
         //this.checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request)
@@ -378,7 +378,7 @@ checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request:EmployeeCourseRe
       var response =<AbsentInfoResponse>data
       if(response.data){
         debugger
-        this.toastr.error("You are alraeady requested for another course in the same time. Try some other dates")
+        this.toastr.error(this.language.error_date_request)
       }else{
         debugger
         this.saveRequest(request)

@@ -334,7 +334,7 @@ export class JobCardComponent implements OnInit {
         }
       );
     } else {
-      this.toastr.error("Please fill required fields")
+      this.toastr.error(this.language.error_fill_all_forms)
     }
   }
 
@@ -396,32 +396,32 @@ export class JobCardComponent implements OnInit {
       var input = Number(this.form.value.jobGrade.psLevel)
       if (isNaN(input)) {
         this.updateStatus(false,
-          "Total 36 Hours of Workshop", WORKSHOP_COURSE, 36)
+         this.language.jobcard_total36hours, WORKSHOP_COURSE, 36)
           actionType=1
       } else {
         var gradeNumber = Number(this.form.value.jobGrade.psLevel)
         if (gradeNumber >= 2) {
           console.log()
           this.updateStatus(true,
-            "Total 60 Hours of course", 0, 0)
+            this.language.jobcard_total60hours, 0, 0)
           if (gradeNumber >= 2 && gradeNumber <= 7) {
             this.updateStatus(false,
-              "Total 40 Hours of Administrative Course", ADMINISTRATIVE_COURSE, 40)
+              this.language.jobcard_total40hoursAdmin, ADMINISTRATIVE_COURSE, 40)
             this.updateStatus(false,
-              "Total 20 Hours of Specialised Course", SPECIALISED_COURSE, 20)
+              this.language.jobcard_total20hoursSpl, SPECIALISED_COURSE, 20)
               actionType=2
           }
           if (gradeNumber > 7) {
             this.updateStatus(false,
-              "Total 20 Hours of Administrative Course", ADMINISTRATIVE_COURSE, 20)
+              this.language.jobcard_total20hoursAdmin, ADMINISTRATIVE_COURSE, 20)
             this.updateStatus(false,
-              "Total 40 Hours of Specialised Course", SPECIALISED_COURSE, 40)
+              this.language.jobcard_total40hoursSpl, SPECIALISED_COURSE, 40)
               actionType=3
           }
         }
         else if (gradeNumber < 2) {
           this.updateStatus(false,
-            "Total 36 Hours of Workshop", WORKSHOP_COURSE, 36)
+           this.language.jobcard_total36hours, WORKSHOP_COURSE, 36)
             actionType=1
         }
       }
