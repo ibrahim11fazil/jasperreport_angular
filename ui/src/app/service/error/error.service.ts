@@ -14,6 +14,19 @@ export class ErrorService {
   constructor( private toastr : ToastrService) {   
     this.language = new LanguageUtil(IS_RTL_DEFAULT);
   }
+
+  errorString(error){
+ 
+    switch(error){
+      case "Please fill required fields":  
+      this.toastr.error(this.language.error_resource_not_found )
+      break
+      case "Please fill required fields":  
+      this.toastr.error(this.language.error_resource_not_found )
+      break
+
+    }
+  }
     
   errorResponseHandling(error){
     console.error("Error --> " + error)
