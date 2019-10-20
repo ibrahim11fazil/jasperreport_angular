@@ -173,6 +173,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getCourseDetails(course) {
+   
     this.existingActivity = "";
     this.displayCourseDetails=false;
     const arrDate = <FormArray>this.form.controls.dateOptions; 
@@ -190,12 +191,13 @@ export class CourseLinkComponent implements OnInit {
  
 
   getDates(activity) {
+   this.form.controls.dateOptions=this.fb.array([]);
     this.loadedActivityId = activity.value.activityId
     this.fetchDates()
 
   }
 
-  //Not required
+ 
   fetchDates() {
     if (this.courseDetails != null && this.courseDetails.courseId != null &&
       this.loadedActivityId != 0
@@ -207,6 +209,7 @@ export class CourseLinkComponent implements OnInit {
         data => {
           var response = <ResponseDate>data
           this.loadedCourseDates = response.data
+          
           this.patchDates()
         },
         error => {
@@ -262,7 +265,9 @@ export class CourseLinkComponent implements OnInit {
         locationArray[0]
       )
     }
+    
     const datesControl = this.getControlOfAddMore('dateOptions');
+  
     this.loadedCourseDates.forEach(x => {
       console.log(x.tacCourseDate)
       datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
@@ -415,6 +420,7 @@ export class CourseLinkComponent implements OnInit {
         }
          
         console.log(this.targetAudienceString);
+        
         this.fetchDates();
         this.patch();
         var courseArray = this.courseList.filter(i => i.courseId == this.courseDetails.courseId)

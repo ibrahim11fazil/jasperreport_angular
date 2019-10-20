@@ -699,6 +699,11 @@ public class CourseServiceImpl implements CourseService {
             return null;
         }
     }
+    @Override
+    public void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId)
+    {
+        courseRepository.updateCourseLinkTable(activityId,courseId);
+    }
 
 
 }

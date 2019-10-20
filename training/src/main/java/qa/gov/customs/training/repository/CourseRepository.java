@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import qa.gov.customs.training.entity.TacCourseMaster;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -135,6 +136,11 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
             "join tac_instructor_master e on d.instructor_id=e.instructor_id and e.job_id=:jobId " +
             "where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
     List<Object[]> getInstructorCourses(String jobId, Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into  Tac_Activity_Course_Link(ACTIVITY_ID,COURSE_ID) values(:activityId,:courseId)", nativeQuery = true)
+   void updateCourseLinkTable(BigDecimal activityId,BigDecimal courseId);
 
 
 }

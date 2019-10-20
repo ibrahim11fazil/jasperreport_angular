@@ -97,4 +97,5 @@ public interface CourseService {
     List<CourseManagement> getCoordinatorCourses(String jobId);
 
     List<CourseManagement> getInstructorCourses(String jobId);
+    void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId);
 }
