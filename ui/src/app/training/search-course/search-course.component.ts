@@ -12,6 +12,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { ResponseActivationDetail, TacActivation } from 'app/models/tac-activation';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-search-course',
@@ -39,7 +40,8 @@ export class SearchCourseComponent implements OnInit
     private toastr: ToastrService,
     private router:Router,
     public dialog: MatDialog,
-    private mainComponent:MainComponent)
+    private mainComponent:MainComponent,
+    private errorService:ErrorService)
    {
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
    }

@@ -5,6 +5,7 @@ import { TrainingService } from "../../service/training/training.service";
 import { ToastrService } from "ngx-toastr";
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-activity-list',
@@ -21,7 +22,8 @@ export class ActivityListComponent implements OnInit {
   tData: Boolean;
   constructor(private trainingService: TrainingService,
     private toastr: ToastrService,
-    private mainComponent:MainComponent) {
+    private mainComponent:MainComponent,
+    private errorService:ErrorService) {
       this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 

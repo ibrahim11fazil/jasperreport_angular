@@ -15,6 +15,7 @@ import { ActivationData, ResponseActivationData } from 'app/models/activation-da
 import { TacActivation } from 'app/models/tac-activation';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-my-tasks',
   templateUrl: './my-tasks.component.html',
@@ -47,7 +48,8 @@ export class MyTasksComponent implements OnInit {
     private router:Router,
     private trainingSystemService:TrainingSystemServiceService,
     private mainComponent:MainComponent,
-    private trainingService: TrainingService) {
+    private trainingService: TrainingService,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("User Tasks")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
    

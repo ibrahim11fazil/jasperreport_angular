@@ -8,6 +8,7 @@ import {PageTitleService} from "../../core/page-title/page-title.service";
 import {Page} from "../../models/paged-data";
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-activity',
@@ -21,7 +22,8 @@ export class ActivityComponent implements OnInit {
               private trainingService:TrainingService,
               private toastr : ToastrService,
               private pageTitleService: PageTitleService,
-              private mainComponent:MainComponent
+              private mainComponent:MainComponent,
+              private errorService:ErrorService
               ) {
                 this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }

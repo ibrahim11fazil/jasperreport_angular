@@ -42,6 +42,7 @@ import { CertificateRequest, ResponseCertificate, ResponseCertificateList } from
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { formatDate } from '@angular/common';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 
@@ -139,7 +140,8 @@ export class CourseManagementComponent implements OnInit {
     private userService: SystemUserService,
     private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,
-    private pageTitleService: PageTitleService) {
+    private pageTitleService: PageTitleService,
+    private errorService:ErrorService) {
       this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
 
   }

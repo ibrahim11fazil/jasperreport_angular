@@ -9,6 +9,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ITacCourseManagementList, CourseManagementRes, myTaskCount } from 'app/models/tac-course-master';
 import { Page } from 'app/models/paged-data';
 import { CertificateRequest, ResponseCertificateList } from 'app/models/certificate-request';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class WelcomeComponent implements OnInit {
     private userService: SystemUserService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private pageTitleService: PageTitleService) { }
+    private pageTitleService: PageTitleService,
+    private errorService:ErrorService) { }
 
   ngOnInit() {
     this.trainingService.getMyTaskCount().subscribe(

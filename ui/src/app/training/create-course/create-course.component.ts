@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import {DURATION_FLAG_LIST} from "../../app.constants";
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-create-course',
   templateUrl: './create-course.component.html',
@@ -42,7 +43,8 @@ export class CreateCourseComponent implements OnInit {
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
     private pageTitleService: PageTitleService,
-    private mainComponent:MainComponent) 
+    private mainComponent:MainComponent,
+    private errorService:ErrorService) 
     {
       this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
 

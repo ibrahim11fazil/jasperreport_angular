@@ -19,6 +19,7 @@ import { TacInstructor } from 'app/models/tac-instructor';
 import { ResponseTacActivation, TacActivation } from 'app/models/tac-activation';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 
@@ -61,7 +62,8 @@ export class CourseLinkComponent implements OnInit {
     private toastr: ToastrService,
     private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,
-    private pageTitleService: PageTitleService) {
+    private pageTitleService: PageTitleService,
+    private errorService:ErrorService) {
     this.tacCourseMaster =
       {
         courseId: 0,

@@ -16,6 +16,7 @@ import { TacActivation } from 'app/models/tac-activation';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { DatePipe } from '@angular/common';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-my-tasks-history',
   templateUrl: './my-tasks-history.component.html',
@@ -50,7 +51,8 @@ export class MyTasksHistoryComponent implements OnInit {
     private trainingSystemService:TrainingSystemServiceService,
     private mainComponent:MainComponent,
     private trainingService: TrainingService,
-    public datepipe: DatePipe) {
+    public datepipe: DatePipe,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("User Tasks History")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }

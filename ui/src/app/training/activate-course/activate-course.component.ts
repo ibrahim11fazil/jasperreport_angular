@@ -16,6 +16,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 @Component({
@@ -52,7 +53,8 @@ export class ActivateCourseComponent implements OnInit {
     private toastr: ToastrService,
     private pageTitleService: PageTitleService,
     private mainComponent:MainComponent,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private errorService:ErrorService) {
     this.tacCourseActivation = {
       activationId: 0,
       tacActivity: null,

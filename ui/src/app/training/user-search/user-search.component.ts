@@ -9,6 +9,7 @@ import { PAGE_LIMIT } from 'app/app.constants';
 import { Router } from '@angular/router';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-user-search',
   templateUrl: './user-search.component.html',
@@ -28,7 +29,9 @@ export class UserSearchComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private mainComponent:MainComponent,
-    private router:Router) {
+    private router:Router,
+    private errorService:ErrorService,
+    ) {
     this.pageTitleService.setTitle("User Creration")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
