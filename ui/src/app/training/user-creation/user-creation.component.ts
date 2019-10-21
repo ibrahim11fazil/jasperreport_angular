@@ -130,7 +130,7 @@ export class UserCreationComponent implements OnInit {
           },
           error => {
             console.log(error)
-            this.toastr.error(error.message)
+            this.errorService.errorResponseHandling(error)
           }
         )
       }

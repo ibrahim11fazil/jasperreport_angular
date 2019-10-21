@@ -42,8 +42,8 @@ export class ActivityListComponent implements OnInit {
   }
 
   errorWhileSearching(error) {
-    console.log(error);
-    this.toastr.error(error.message)
+    console.log(error)
+    this.errorService.errorResponseHandling(error)
   }
 
   successSearchActivity(data) {
@@ -61,7 +61,11 @@ export class ActivityListComponent implements OnInit {
     console.log(activity.activityName);
     this.trainingService.deleteActivity(activity).subscribe(
       data => this.successDelete(data),
-      error => this.errorWhileSearching(error)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+
     )
   }
   
@@ -70,7 +74,10 @@ export class ActivityListComponent implements OnInit {
     let activity: TacActivity = { activityName: this.searchText, activityId: 0 }
     this.trainingService.listActivity(activity).subscribe(
       data => this.successSearchActivity(data),
-      error => this.errorWhileSearching(error)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
     this.toastr.success(data.message)
   }

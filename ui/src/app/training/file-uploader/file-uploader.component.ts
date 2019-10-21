@@ -71,7 +71,10 @@ export class FileUploaderComponent implements OnInit {
         this.imageDatas = this.sanitizer.bypassSecurityTrustUrl(
           urlCreator.createObjectURL(blob));
       },
-      error => { console.error(error); console.log("Downloading isssue"); }
+      error => { 
+        this.errorService.errorResponseHandling(error)
+        console.error(error); console.log("Downloading isssue"); 
+      }
     )
   }
 

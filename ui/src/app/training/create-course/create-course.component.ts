@@ -103,7 +103,7 @@ export class CreateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -115,7 +115,7 @@ export class CreateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -252,8 +252,8 @@ export class CreateCourseComponent implements OnInit {
     this.trainingService.saveCourse(courseMaster).subscribe(
       data => this.successSaveCourse(data),
       error => {
-        console.log(error.message)
-        this.toastr.error(error.message)
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       }
     )
     }else{
@@ -289,7 +289,7 @@ export class CreateCourseComponent implements OnInit {
           data => this.loadData(data),
           error => {
             console.log(error)
-            this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
           }
         )
       }

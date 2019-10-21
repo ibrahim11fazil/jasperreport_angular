@@ -123,7 +123,7 @@ export class CreateInstructorComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllQualificaitons().subscribe(
@@ -134,7 +134,7 @@ export class CreateInstructorComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -211,7 +211,8 @@ export class CreateInstructorComponent implements OnInit {
         this.trainingService.getInstructorById(instructor).subscribe(
           data => this.loadData(data),
           error => {
-            this.toastr.error(error.message)
+            console.log(error)
+            this.errorService.errorResponseHandling(error)
           }
         )
       }

@@ -45,7 +45,7 @@ export class WelcomeComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       })
 
   }
@@ -113,7 +113,7 @@ getTask(num){
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         })
     }
     if (card.title == "Ongoing Courses") {
@@ -128,7 +128,7 @@ getTask(num){
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         })
     }
     if (card.title == "Approved Courses") {
@@ -143,7 +143,7 @@ getTask(num){
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         })
     }
 

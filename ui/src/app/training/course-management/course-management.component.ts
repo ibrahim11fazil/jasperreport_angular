@@ -169,7 +169,7 @@ export class CourseManagementComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -219,7 +219,7 @@ export class CourseManagementComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         })
     }
     else if (card.title == "Current Courses") {
@@ -237,7 +237,7 @@ export class CourseManagementComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         })
     }
     else if (card.title == "Future Courses") {
@@ -257,7 +257,7 @@ export class CourseManagementComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         })
     }
   }
@@ -355,7 +355,7 @@ export class CourseManagementComponent implements OnInit {
 
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -454,7 +454,7 @@ export class CourseManagementComponent implements OnInit {
             },
             error => {
               console.log(error)
-              this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
             })
         }
         else
@@ -502,7 +502,7 @@ export class CourseManagementComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       })
   }
   events: CalendarEvent[] = [{
@@ -720,7 +720,7 @@ export class CourseManagementComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -744,7 +744,7 @@ export class CourseManagementComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       })
   }
 

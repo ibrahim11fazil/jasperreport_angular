@@ -111,7 +111,7 @@ export class EmpRequestComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       })
     }
     else{
@@ -123,7 +123,7 @@ export class EmpRequestComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         })
     }
 
@@ -200,7 +200,7 @@ getActivationData(row) {
     },
     error => {
       console.log(error)
-      this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
     }
   )
 }
@@ -318,7 +318,7 @@ saveRequest(empRequest:EmployeeCourseRequest){
     },
     error => {
       console.log(error)
-      this.toastr.error(error.message)
+      this.errorService.errorResponseHandling(error)
     })
 }
 
