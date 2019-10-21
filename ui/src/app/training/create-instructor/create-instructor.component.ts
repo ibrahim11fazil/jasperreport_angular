@@ -319,7 +319,8 @@ export class CreateInstructorComponent implements OnInit {
       priority:null,
       photo:"",
       phone:"",
-      jobTitle:response.jobTitle
+      jobTitle:response.jobTitle,
+      qualification:response.qualification
     }
     this.formInit()
   }

@@ -19,6 +19,7 @@ public class StaticSupportController {
             employee.setQid(masterData.get(0).getQID());
             employee.setCnameAr(masterData.get(0).getCNAME_AR());
             employee.setCnameEn(masterData.get(0).getCNAME_AR());
+            employee.setQualification(masterData.get(0).getCERTF_T()!=null?masterData.get(0).getCERTF_T():"");
             employee.setMobile(masterData.get(0).getMOBILE() != null ? masterData.get(0).getMOBILE() : "");
             employee.setDepartment(masterData.get(0).getORGUNIT_DESC_AR() != null ? masterData.get(0).getORGUNIT_DESC_AR() : "");
             employee.setDepartmentId(masterData.get(0).getORGUNIT() != null ? masterData.get(0).getORGUNIT() : "");
