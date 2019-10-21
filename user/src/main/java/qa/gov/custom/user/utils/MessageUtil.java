@@ -23,12 +23,11 @@ public class MessageUtil {
     public static String COURSE_ACTIVATE = "Course Activated";
     public static String COURSE_ACTIVATE_FAIL = "Course Activation Failed";
 
-    public static String SYSTEM_USER_CREATED = "User Created";
-    public static String FAILED = "Failed";
-    public static String SUCCESS = "Success";
+    public static String  SYSTEM_USER_CREATED="تم انشاء المستخدم";
+    public static String  FAILED="فشل العملة";
+    public static String  SUCCESS="تمت العملية بنجاح";
+    public static String PASSWORD_UPDATE="تم تعديل كلمة سر نظام التدريب إلى  :";
+    public static String USERNAME_DETAILS="المستخدم :";
+    public static String PASSWORD_SUBJECT_EMAIL="تم تعديل كلمة السر";
 
-
-    public static String PASSWORD_UPDATE = "Training application password updated to :";
-    public static String USERNAME_DETAILS = "for user :";
-    public static String PASSWORD_SUBJECT_EMAIL = "Password Updated";
 }
