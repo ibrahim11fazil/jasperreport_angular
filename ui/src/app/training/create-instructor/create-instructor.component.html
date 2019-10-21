@@ -133,7 +133,7 @@
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                      <h5>{{language.qualifications}}</h5>
                   </div>
-                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" *ngIf="!isEmployeeStatus">
                      <button class="mrgn-all-xs" mat-icon-button (click)="addQualifications()" type="button">
                            <mat-icon>add</mat-icon>
                      </button>
@@ -146,7 +146,7 @@
 
 
 
-               <div formArrayName="qualification">
+               <div formArrayName="qualification"  *ngIf="!isEmployeeStatus">
                   <div *ngFor="let ff of form.get('qualification')['controls']; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
