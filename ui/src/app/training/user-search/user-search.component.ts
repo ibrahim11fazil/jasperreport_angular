@@ -85,7 +85,10 @@ export class UserSearchComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 
@@ -120,7 +123,7 @@ export class UserSearchComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -138,7 +141,7 @@ export class UserSearchComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }

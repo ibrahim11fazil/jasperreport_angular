@@ -68,7 +68,7 @@ export class SearchCourseComponent implements OnInit
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       })
   }
 
@@ -119,8 +119,8 @@ if(this.form.value.activitySelect!=null)
   }
   
   errorWhileSearching(error) {
-    console.log(error);
-    this.toastr.error(error.message)
+    console.log(error)
+    this.errorService.errorResponseHandling(error)
   }
 
   openDialog(row) {

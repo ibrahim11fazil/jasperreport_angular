@@ -109,8 +109,8 @@ export class MyTasksHistoryComponent implements OnInit {
         }
       },
       error => {
-        console.log(error.message)
-        //this.toastr.error(error.message)
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -153,8 +153,7 @@ export class MyTasksHistoryComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
       //this.getComment();
@@ -179,6 +178,7 @@ export class MyTasksHistoryComponent implements OnInit {
           },
           error => {
             console.log(error)
+            this.errorService.errorResponseHandling(error)
           }
         )
       })
@@ -200,8 +200,7 @@ export class MyTasksHistoryComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
     }
@@ -227,8 +226,7 @@ export class MyTasksHistoryComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-           this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
     }

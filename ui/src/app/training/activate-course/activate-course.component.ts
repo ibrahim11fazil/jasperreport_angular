@@ -125,7 +125,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllTacCourseLocation().subscribe(
@@ -138,7 +138,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllInstructor().subscribe(
@@ -151,7 +151,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllMainCourses().subscribe(
@@ -163,7 +163,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     var userObj = new SystemUser()
@@ -176,7 +176,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -273,7 +273,7 @@ export class ActivateCourseComponent implements OnInit {
       ,
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     
@@ -361,8 +361,8 @@ export class ActivateCourseComponent implements OnInit {
     this.trainingService.saveCourseActivation(courseActivation).subscribe(
       data => this.successSaveActivation(data),
       error => {
-        //console.log(error.message)
-        this.toastr.error(error.message)
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       }
     )
     // }else{
@@ -419,7 +419,7 @@ export class ActivateCourseComponent implements OnInit {
         ,
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       
 
@@ -454,7 +454,7 @@ export class ActivateCourseComponent implements OnInit {
       data => this.loadData(data),
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -494,7 +494,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     

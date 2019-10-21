@@ -148,7 +148,10 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
 
     this.userService.getJobFamily().subscribe(
@@ -164,7 +167,10 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
 
     this.userService.getJobTitles().subscribe(
@@ -180,7 +186,8 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => { console.log(error)
+        this.errorService.errorResponseHandling(error)}
     )
 
 
@@ -197,7 +204,10 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
 
     this.trainingService.getAllCourseListWithCategoryAndHour().subscribe(
@@ -208,7 +218,7 @@ export class JobCardComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -332,7 +342,7 @@ export class JobCardComponent implements OnInit {
         data => this.successSaveInstructor(data),
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       );
     } else {
@@ -363,7 +373,8 @@ export class JobCardComponent implements OnInit {
       this.trainingService.getJobCardById(jobCard).subscribe(
         data => this.loadData(data),
         error => {
-          this.toastr.error(error.message)
+          console.log(error)
+        this.errorService.errorResponseHandling(error)
         }
       )
     }

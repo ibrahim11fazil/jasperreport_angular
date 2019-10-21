@@ -121,7 +121,7 @@ export class CourseLinkComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     ),
       this.trainingService.getAllCourseList().subscribe(
@@ -132,7 +132,7 @@ export class CourseLinkComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       ),
       this.trainingService.getAllCourseTargetGroups().subscribe(
@@ -143,7 +143,7 @@ export class CourseLinkComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       )
     this.trainingService.getAllTacCourseLocation().subscribe(
@@ -156,7 +156,7 @@ export class CourseLinkComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     ),
 
@@ -168,7 +168,7 @@ export class CourseLinkComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       )
 
@@ -215,8 +215,8 @@ export class CourseLinkComponent implements OnInit {
           this.patchDates()
         },
         error => {
-          this.toastr.error(error.message)
-          console.log(error.message)
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
         }
       )
     } else {
@@ -346,8 +346,8 @@ export class CourseLinkComponent implements OnInit {
       this.trainingService.linkCourseWithActivity(courseMaster).subscribe(
         data => this.successSaveCourse(data),
         error => {
-          console.log(error.message)
-          this.toastr.error(error.message)
+          console.log(error)
+        this.errorService.errorResponseHandling(error)
         }
       )
     } else {
@@ -435,7 +435,7 @@ export class CourseLinkComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }

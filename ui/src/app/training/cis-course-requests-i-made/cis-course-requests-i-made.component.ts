@@ -9,6 +9,7 @@ import { PAGE_LIMIT, WF_REQUESTED, WF_PROCESSING, WF_APPROVED, WF_REJECTED, WF_C
 import { ISystemUserResponseList } from 'app/models/system-user';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-cis-course-requests-i-made',
@@ -30,7 +31,8 @@ export class CisCourseRequestsIMadeComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private mainComponent:MainComponent,
-    private router:Router,) {
+    private router:Router,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("CIS Training Request")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
@@ -93,7 +95,10 @@ export class CisCourseRequestsIMadeComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 
