@@ -37,22 +37,22 @@ export class ErrorService {
  errorSystemTranslation(errorMsg:ResponseError){
   switch(errorMsg.status){
     case RESOURCE_NOT_FOUND:  
-       this.toastr.error(errorMsg.status + " " +  this.language.error_resource_not_found )
+       this.toastr.error(errorMsg.status +  ":"+errorMsg.message + ":"   +  this.language.error_resource_not_found )
        break
     case BAD_REQUEST:  
-       this.toastr.error(errorMsg.status + " " +  this.language.error_bad_request )
+       this.toastr.error(errorMsg.status +  ":"+errorMsg.message + ":"   +  this.language.error_bad_request )
        break    
        case UNAUTHORIZED:  
-       this.toastr.error(errorMsg.status + " " +  this.language.error_unauthorized )
+       this.toastr.error(errorMsg.status +  ":"+errorMsg.message + ":"  +  this.language.error_unauthorized )
        break   
        case UNSUPPORTED_TYPE:  
-       this.toastr.error(errorMsg.status + " " +  this.language.erro_unsupported_type )
+       this.toastr.error(errorMsg.status +  ":"+errorMsg.message + ":"  +  this.language.erro_unsupported_type )
        break  
        case SERVER_ERROR:  
-       this.toastr.error(errorMsg.status + " " +  this.language.error_server_error )
+       this.toastr.error(errorMsg.status + ":"+errorMsg.message + ":"  +  this.language.error_server_error )
        break 
        default:
-       this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
+       this.toastr.error(errorMsg.status + errorMsg.message + ":" + errorMsg.error.error_description ) 
        break
   }
  }
