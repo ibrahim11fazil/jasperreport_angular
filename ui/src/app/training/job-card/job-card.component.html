@@ -209,8 +209,8 @@
    <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
          <div *ngFor="let ele of itemStatus">
             <div  *ngIf="!ele.isText">
-           <i  *ngIf="ele.isFinished" color="primary"> {{ele.status }} <mat-icon  >check </mat-icon>   </i> 
-           <i  *ngIf="!ele.isFinished" color="warning"> {{ele.status }} <mat-icon  >close </mat-icon>   </i> 
+           <i  *ngIf="ele.isFinished" class="green-icon" > {{ele.status }} <mat-icon class="green-icon"  >check </mat-icon>   </i> 
+           <i  *ngIf="!ele.isFinished" class="red-icon"> {{ele.status }} <mat-icon  class="red-icon">close </mat-icon>   </i> 
             </div> 
             <div  *ngIf="ele.isText">
                   <b color="primary"> {{ele.status }}    </b>    
