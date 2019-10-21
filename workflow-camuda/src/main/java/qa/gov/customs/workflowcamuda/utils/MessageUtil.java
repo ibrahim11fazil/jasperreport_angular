@@ -10,7 +10,6 @@ public class MessageUtil {
     public static String ACTIVITY_DELETED_FAILED = "Activity is already linked with course";
     public static String INSTRUCTOR_CREATED = "Instructor Created";
     public static String DATA_ALREADY_EXISTS = "Data Already Exists";
-    public static String NOT_FOUND = "Resource Not Found";
     public static String FOUND = "Resource Found";
     public static String BAD_REQUEST = "Bad Request";
     public static String FAILED_COURSE = "Course Creation Failed";
@@ -22,12 +21,12 @@ public class MessageUtil {
     public static String INSTRUCTOR_CREATION_FAILED = "Instructor Creation failed";
     public static String COURSE_ACTIVATE = "Course Activated";
     public static String COURSE_ACTIVATE_FAIL = "Course Activation Failed";
-
     public static String SYSTEM_USER_CREATED = "User Created";
-    public static String FAILED = "Failed";
-    public static String SUCCESS = "Success";
+    public static String NOT_FOUND="لم يتم العثور على بيانات";
+    public static String  FAILED="فشل العملة";
+    public static String  SUCCESS="تمت العملية بنجاح";
+    public static String COURSE_REJECTED= "تم رفض طلب التدريب لدورة: ";
+    public static String COURSE_APPROVED= "تم قبول طلب التدريب لدورة: ";
+    public static String EMAIL_SUBJECT="تنبيهات نظام التدريب";
 
-    public static String COURSE_REJECTED = "Training request rejected for course :";
-    public static String COURSE_APPROVED = "Training request accepted for course :";
-    public static String EMAIL_SUBJECT = "Customs Training Notification";
 }
