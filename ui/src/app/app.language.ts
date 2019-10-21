@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Prerequisites } from './models/prerequisites';
 import { APPROVED_COURSES } from './app.constants';
+import { messaging } from 'firebase';
 
 @Injectable()
 export class LanguageUtil  {
@@ -46,6 +47,7 @@ export class LanguageUtil  {
     subCourses:String=this.isArabic ? "تحتوي على دورات تدريبية فرعية" : "Subcourses"
     courseDate:String=this.isArabic ? "مواعيد التنفيذ" : "Course Date"
     preRequisites:String=this.isArabic ? "المتطلبات السابقة" : "Prerequisites"
+    existingActivities=this.isArabic ? "Existing Activities 1" : "Existing Activities"
 
     //Activation Search
 
@@ -129,6 +131,7 @@ export class LanguageUtil  {
     enable:String=this.isArabic ? "تفعيل" : "Enable"
     disable:String=this.isArabic ? "الغاء تفعيل" : "Disable"
     status:String=this.isArabic ? "الحالة" : "Status"
+    password:String=this.isArabic? "password 1" : "password"
 
 
 
@@ -334,6 +337,11 @@ ongoing_courses= this.isArabic? "Ongoing Courses1" :"Ongoing Courses"
 attended_courses= this.isArabic? "Attended Courses 1" : "Attended Courses"
 smartEngineSuggestion= this.isArabic? "Smart Engine Suggestion 1" : "Smart Engine Suggestion"
 myTasks= this.isArabic? "My Tasks 1" : "My Tasks"
+
+//messages
+
+selectCourseOrActivitytoviewdate=this.isArabic?"Select Course or Activity to view date 1" :"Select Course or Activity to view date"
+attendanceMarkedSuccessfully=this.isArabic? "Attendance Marked Successfully 1": "Attendance Marked Successfully"
 
 
 

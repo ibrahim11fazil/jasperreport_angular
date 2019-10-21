@@ -220,7 +220,7 @@ export class CourseLinkComponent implements OnInit {
         }
       )
     } else {
-      this.toastr.info("Select Course or Activity to view date")
+      this.toastr.info(this.language.selectCourseOrActivitytoviewdate)
     }
   }
 

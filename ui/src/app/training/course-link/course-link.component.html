@@ -25,7 +25,7 @@
                               <div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center"
                                     class="notEditableField">
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                                          <h4>Existing Activites:</h4>
+                                          <h4>{{language.existingActivities}}</h4>
                                           {{existingActivity}}
                                     </div>
                               </div>
@@ -45,8 +45,8 @@
 
                               <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                     fxFlex.gt-md="49" class="notEditableField">
-
-                                    <h4>Course Category</h4>
+                                    
+                                    <h4>{{language.courseCategories}}</h4>
                                     {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}}
 
                               </div>
