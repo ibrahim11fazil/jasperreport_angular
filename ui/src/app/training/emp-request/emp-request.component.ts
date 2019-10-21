@@ -21,6 +21,7 @@ import { SupervisorResponse, SupervisorResponseData, ActivationDateRequest, Acti
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { formatDate } from '@angular/common';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 
@@ -65,7 +66,8 @@ export class EmpRequestComponent implements OnInit {
     private trainingService: TrainingService,
     private toastr:ToastrService,
     private mainComponent:MainComponent,
-    private authService:AuthService)
+    private authService:AuthService,
+    private errorService:ErrorService)
   {
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }

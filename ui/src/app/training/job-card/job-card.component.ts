@@ -13,6 +13,7 @@ import { DISABLED } from '@angular/forms/src/model';
 import { AuthService } from 'app/service/auth-service/auth.service';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-job-card',
@@ -44,7 +45,8 @@ export class JobCardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private mainComponent:MainComponent,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("Job Card Creation")
     this.loadForm();
     if (this.authService.checktheRoleisHR()) {

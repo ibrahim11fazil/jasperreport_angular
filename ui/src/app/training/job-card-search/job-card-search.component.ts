@@ -12,6 +12,7 @@ import { UserSearchComponent } from '../user-search/user-search.component';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-job-card-search',
@@ -32,7 +33,8 @@ export class JobCardSearchComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private mainComponent:MainComponent,
-    private router:Router) {
+    private router:Router,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("Search JobCard")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }

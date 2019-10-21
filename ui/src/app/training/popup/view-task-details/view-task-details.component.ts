@@ -5,6 +5,7 @@ import { TrainingService } from 'app/service/training/training.service';
 import { TacActivation } from 'app/models/tac-activation';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
 import { DURATION_FLAG_LIST } from 'app/app.constants';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-view-task-details',
@@ -20,7 +21,8 @@ export class ViewTaskDetailsComponent implements OnInit {
   durationValueString: String;
   items: string[] = ['Item 1', 'Item 2', 'Item 3'];
 	constructor(
-    public dialogRef : MatDialogRef<ViewTaskDetailsComponent>  
+    public dialogRef : MatDialogRef<ViewTaskDetailsComponent>  ,
+    private errorService:ErrorService
     ){
 	} 
 

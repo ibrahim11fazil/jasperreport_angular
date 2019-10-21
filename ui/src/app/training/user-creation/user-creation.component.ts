@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-user-creation',
@@ -31,7 +32,8 @@ export class UserCreationComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr : ToastrService,
     private mainComponent:MainComponent,
-    private activatedRoute: ActivatedRoute,){
+    private activatedRoute: ActivatedRoute,
+    private errorService:ErrorService){
     this.pageTitleService.setTitle("User Creation") 
     this.blankUser()
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());

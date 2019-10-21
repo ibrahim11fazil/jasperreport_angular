@@ -9,6 +9,7 @@ import { PAGE_LIMIT } from 'app/app.constants';
 import { ISystemUserResponseList } from 'app/models/system-user';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-cis-system',
@@ -30,7 +31,8 @@ export class CisSystemComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private mainComponent:MainComponent,
-    private router:Router,) {
+    private router:Router,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("CIS Employees")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }

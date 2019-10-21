@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { SystemRoles, ISystemRoles } from 'app/models/system-roles';
 import { UserPermissionResponse, UserPermission, SystemPermissionByRoleRequest, UpdateRoleRequest } from 'app/models/system-user';
+import { ErrorService } from 'app/service/error/error.service';
 //import { MainComponent } from 'app/main/main.component';
 //import { LanguageUtil } from 'app/app.language';
 
@@ -26,7 +27,9 @@ export class UserPermissionsComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr : ToastrService,
     //private mainComponent:MainComponent,
-    private activatedRoute: ActivatedRoute,){
+    private activatedRoute: ActivatedRoute,
+    private errorService:ErrorService
+    ){
     this.pageTitleService.setTitle("User Permissions") 
     //this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
