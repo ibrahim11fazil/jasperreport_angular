@@ -143,6 +143,27 @@ export class CourseManagementComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private errorService:ErrorService) {
       this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+      this.statsCard = [
+
+        {
+          card_color: "warn-bg",
+          title: this.language.previousCourse,
+          // number : "1,425",
+          icon: "assessment"
+        },
+        {
+          card_color: "success-bg",
+          title: this.language.currentCourse,
+          //number : "6,101",
+          icon: "assessment",
+        },
+        {
+          card_color: "accent-bg",
+          title: this.language.futureCourse,
+          //number : "5,218",
+          icon: "new_releases"
+        }
+      ]
 
   }
   ngDoCheck(): void
@@ -176,25 +197,6 @@ export class CourseManagementComponent implements OnInit {
 
   }
   statsCard: any[] = [
-
-    {
-      card_color: "warn-bg",
-      title: "Previous Courses",
-      // number : "1,425",
-      icon: "assessment"
-    },
-    {
-      card_color: "success-bg",
-      title: "Current Courses",
-      //number : "6,101",
-      icon: "assessment",
-    },
-    {
-      card_color: "accent-bg",
-      title: "Future Courses",
-      //number : "5,218",
-      icon: "new_releases"
-    }
   ]
 
 
@@ -202,7 +204,7 @@ export class CourseManagementComponent implements OnInit {
     debugger;
     this.displayManage = false;
     this.courseCompletion=false;
-    if (card.title == "Previous Courses") {
+    if (card.title == this.language.previousCourse) {
       this.displayCalendar = false;
       this.displayAttendance = false;
       this.displayCourseCompletionForm = false;
@@ -222,7 +224,7 @@ export class CourseManagementComponent implements OnInit {
           this.errorService.errorResponseHandling(error)
         })
     }
-    else if (card.title == "Current Courses") {
+    else if (card.title == this.language.currentCourse) {
       this.displayManage = true;
       this.displayCourseCompletionForm = false;
       this.previousCourse = false;
@@ -240,7 +242,7 @@ export class CourseManagementComponent implements OnInit {
           this.errorService.errorResponseHandling(error)
         })
     }
-    else if (card.title == "Future Courses") {
+    else if (card.title == this.language.futureCourse) {
       this.displayCalendar = false;
       this.displayCourseCompletionForm = false;
       this.displayAttendance = false
