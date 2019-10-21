@@ -589,7 +589,7 @@ export class CourseManagementComponent implements OnInit {
         {
         this.courseCompletion=true;
         }
-        this.toastr.success("Attendance Marked Successfully")
+        this.toastr.success(this.language.attendanceMarkedSuccessfully)
 
       }
     )
