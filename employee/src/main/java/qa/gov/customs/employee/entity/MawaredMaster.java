@@ -94,8 +94,8 @@ public class MawaredMaster {
 //    String SUSER;
 //    @Column(name="CERTF")
 //    String CERTF;
-//    @Column(name="CERTF_T")
-//    String CERTF_T;
+    @Column(name="CERTF_T")
+    String CERTF_T;
 //    @Column(name="FOS")
 //    String FOS;
 //    @Column(name="EMPNFOS_TO")
@@ -251,6 +251,14 @@ public class MawaredMaster {
 //    @Column(name="CREATION_DATE")
 //    Date CREATION_DATE	;
 
+
+    public String getCERTF_T() {
+        return CERTF_T;
+    }
+
+    public void setCERTF_T(String CERTF_T) {
+        this.CERTF_T = CERTF_T;
+    }
 
     public long getREC_ID() {
         return REC_ID;

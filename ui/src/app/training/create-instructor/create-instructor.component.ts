@@ -30,6 +30,7 @@ export class CreateInstructorComponent implements OnInit {
   priorityList =PRIORITY_LIST 
   language:LanguageUtil;
   param:any;
+  isEmployeeStatus:Boolean
   @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   cNameAr: any;
   constructor(
@@ -50,6 +51,8 @@ export class CreateInstructorComponent implements OnInit {
    // this.loadDataFromParam()
 
   }
+
+
 
   loadForm(){
     this.tacInstructor={
@@ -262,11 +265,13 @@ export class CreateInstructorComponent implements OnInit {
 
 
  
-
+  
   onJobIdChange(event){
     if( Number(this.form.value.typeFlag)!=2 && this.form.value.jobId!=null && this.form.value.jobId!="" ){
       this.getUserById(this.form.value.jobId)
+      this.isEmployeeStatus=true
     }else{
+      this.isEmployeeStatus=false
       this.tacInstructor={
         instructorId:0,
         typeFlag:Number(this.form.value.typeFlag),
@@ -319,7 +324,8 @@ export class CreateInstructorComponent implements OnInit {
       priority:null,
       photo:"",
       phone:"",
-      jobTitle:response.jobTitle
+      jobTitle:response.jobTitle,
+      qualification:response.qualification
     }
     this.formInit()
   }

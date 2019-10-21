@@ -24,6 +24,15 @@ public class EmpModel {
     private String departmentId;
     private String passport;
     private String iban;
+    private String qualification;
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
 
     public String getJobId() {
         return jobId;
