@@ -4,6 +4,7 @@ package qa.gov.customs.training.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -53,7 +54,7 @@ public class TacCourseOutcome implements java.io.Serializable {
     public void setTacCourseMaster(TacCourseMaster tacCourseMaster) {
         this.tacCourseMaster = tacCourseMaster;
     }
-
+    @NotNull(message = "Expected Results is mandatory")
     @Column(name = "RESULT", length = 2000)
     public String getResult() {
         return this.result;
