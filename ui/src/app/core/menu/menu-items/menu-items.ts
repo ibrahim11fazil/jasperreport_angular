@@ -489,7 +489,7 @@ export class MenuItems {
 
           //Manage course
           case "mncrs":
-            course_managment.children.push({ state: 'course-management', name: 'Manage Courses' })
+            course_managment.children.push({ state: 'course-management', name: language.menu_manageAttendance })
             break
 
           //Instructor project
