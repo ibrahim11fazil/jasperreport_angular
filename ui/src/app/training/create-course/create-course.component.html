@@ -113,22 +113,7 @@
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <mat-form-field class="full-wid mrgn-b-lg">
                            <input matInput placeholder="Expected Results" formControlName="result">
-                           <small class="gene-block"
-                           *ngIf="form.controls['result'].hasError('required') && form.controls['result'].touched"
-                           class="warn-text">
-                           Course Objective is required
-                        </small>
-      
-                        <small class="gene-block"
-                           *ngIf="form.controls['result'].hasError('minlength') && form.controls['result'].touched"
-                           class="warn-text">
-                           Course  Objective must be at least 5 characters long.
-                        </small>
-                        <small class="gene-block"
-                           *ngIf="form.controls['result'].hasError('maxlength') && form.controls['result'].touched"
-                           class="warn-text">
-                           Course Objective cannot exceed 100 characters.
-                        </small>
+   
                         </mat-form-field>
                      </div>
 
