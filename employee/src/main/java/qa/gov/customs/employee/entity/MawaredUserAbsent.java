@@ -2,12 +2,11 @@ package qa.gov.customs.employee.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 
 @Entity
-@Table(name="USER_SAP_ABCNS")
+@Table(name = "USER_SAP_ABCNS")
 public class MawaredUserAbsent {
 
     @Id

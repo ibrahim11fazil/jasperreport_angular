@@ -3,7 +3,7 @@ package qa.gov.customs.workflowcamuda.model;
 public class SearchTask {
 
     String name;
-    String  jobId;
+    String jobId;
     int start;
     int limit;
 

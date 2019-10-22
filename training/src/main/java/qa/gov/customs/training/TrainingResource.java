@@ -1,9 +1,6 @@
 package qa.gov.customs.training;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,6 +10,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -21,7 +20,7 @@ public class TrainingResource extends ResourceServerConfigurerAdapter {
     public TokenStore tokenStore;
 
     @Autowired
-    public TrainingResource(@Qualifier("jwtTokenStore")  TokenStore tokenStore) {
+    public TrainingResource(@Qualifier("jwtTokenStore") TokenStore tokenStore) {
         this.tokenStore = tokenStore;
     }
 
@@ -29,10 +28,10 @@ public class TrainingResource extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().permitAll().and().cors().disable().csrf().disable().httpBasic().disable().exceptionHandling()
                 .authenticationEntryPoint(
-                        (request,response,authException)->response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
                 )
                 .accessDeniedHandler(
-                        (request,response,authException)->response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
 
                 );
     }

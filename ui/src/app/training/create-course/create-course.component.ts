@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import {DURATION_FLAG_LIST} from "../../app.constants";
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-create-course',
   templateUrl: './create-course.component.html',
@@ -42,7 +43,8 @@ export class CreateCourseComponent implements OnInit {
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
     private pageTitleService: PageTitleService,
-    private mainComponent:MainComponent) 
+    private mainComponent:MainComponent,
+    private errorService:ErrorService) 
     {
       this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
 
@@ -101,7 +103,7 @@ export class CreateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -113,7 +115,7 @@ export class CreateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -250,12 +252,11 @@ export class CreateCourseComponent implements OnInit {
     this.trainingService.saveCourse(courseMaster).subscribe(
       data => this.successSaveCourse(data),
       error => {
-        console.log(error.message)
-        this.toastr.error(error.message)
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       }
     )
     }else{
-      debugger
       this.toastr.error("Please fill all required fields");
     }
   }
@@ -271,7 +272,6 @@ export class CreateCourseComponent implements OnInit {
 
   loadDataFromParam(){
     //console.log(this.param);
-    debugger;
     this.activatedRoute.params.subscribe(params => {
       if(params['id']){
           this.param = params['id'];
@@ -289,7 +289,7 @@ export class CreateCourseComponent implements OnInit {
           data => this.loadData(data),
           error => {
             console.log(error)
-            this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
           }
         )
       }

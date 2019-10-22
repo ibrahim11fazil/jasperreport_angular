@@ -20,6 +20,8 @@ import { AbsentInfo, AbsentInfoResponse } from 'app/models/employee-data';
 import { SupervisorResponse, SupervisorResponseData, ActivationDateRequest, ActivationDateResponse, ActivationDateDetails } from 'app/models/course-request';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { formatDate } from '@angular/common';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 
@@ -30,6 +32,7 @@ import { LanguageUtil } from 'app/app.language';
 })
 export class EmpRequestComponent implements OnInit {
 
+  allOk:Boolean = false
   rows: CourseManagementRes[];
   page = new Page();
   eventCourseDetail: CourseManagementRes;
@@ -55,6 +58,7 @@ export class EmpRequestComponent implements OnInit {
   employeesUnderSupervisor:SupervisorResponseData[]=[]
   isHead=false
  language:LanguageUtil
+ activationDate:String=""
   
 
   constructor(private fb: FormBuilder,
@@ -62,7 +66,8 @@ export class EmpRequestComponent implements OnInit {
     private trainingService: TrainingService,
     private toastr:ToastrService,
     private mainComponent:MainComponent,
-    private authService:AuthService)
+    private authService:AuthService,
+    private errorService:ErrorService)
   {
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
@@ -106,7 +111,7 @@ export class EmpRequestComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       })
     }
     else{
@@ -118,13 +123,14 @@ export class EmpRequestComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         })
     }
 
     }
   
 getActivationData(row) {
+  this.allOk=false
   this.eventCourseDetail = row;
   console.log(this.eventCourseDetail.course_date);
   const str = this.eventCourseDetail.course_date.split('-');
@@ -144,10 +150,12 @@ getActivationData(row) {
   let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
   courseActivation.activationId = row.activation_id
   this.selectedItem = courseActivation;
+  debugger
   this.trainingService.getActivationById(courseActivation).subscribe(
     data => {
       var response = <ResponseActivationData>data
       this.activation = response.data
+      this.activationDate=formatDate(this.activation.courseDate,'yyyy-MM-dd', 'en-US')
       this.estimatedCost = +this.activation.costHospitality + +this.activation.costInstructor + +this.activation.costTranslation
         + +this.activation.costTransport + +this.activation.costVenue + +this.activation.costAirticket + +this.activation.costBonus
         + +this.activation.costFood + +this.activation.costGift;
@@ -166,6 +174,7 @@ getActivationData(row) {
           this.tacInstructorString.push(item[0].name)
         }
       })
+
       let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       courseMaster.courseId = this.activation.belongsTo;
       this.trainingService.getCourseById(courseMaster).subscribe(
@@ -174,7 +183,7 @@ getActivationData(row) {
           debugger
           this.courseDetail = response.data;
           this.selectedItem.courseName = this.courseDetail.courseName;
-          this.selectedItem.courseId= this.courseDetail.courseId;
+          this.selectedItem.courseId=    this.courseDetail.courseId;
         })
       let location = new Location(0, "");
       location.locationId = this.locationType;
@@ -187,10 +196,11 @@ getActivationData(row) {
       if (item != null && item.length>0) {
         this.tacCoordinatorString.push(item[0].username);
       }
+      this.allOk=true
     },
     error => {
       console.log(error)
-      this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
     }
   )
 }
@@ -234,8 +244,8 @@ getEmployeesUnderSupervisor(){
 onSubmit(){
   debugger
   var empRequest = new EmployeeCourseRequest()
-  empRequest.courseId = this.selectedItem.courseId
-  empRequest.courseName= this.selectedItem.courseName
+  empRequest.courseId = this.activation.courseId
+  empRequest.courseName= this.activation.courseName
   empRequest.courseActivationId=this.selectedItem.activationId
   if(this.isHead && 
     this.formDetails.value.supervisorsCtrl!=null &&
@@ -308,7 +318,7 @@ saveRequest(empRequest:EmployeeCourseRequest){
     },
     error => {
       console.log(error)
-      this.toastr.error(error.message)
+      this.errorService.errorResponseHandling(error)
     })
 }
 
@@ -331,7 +341,7 @@ checkUserIsAbsentOrNot(request:EmployeeCourseRequest){
       debugger
       var response =<AbsentInfoResponse>data
       if(response.data){
-        this.toastr.error("The use is absent on the date,Try another date")
+        this.toastr.error(this.language.error_user_absent)
       }else{
         this.checkUserIsAlreadyRequested(request)
       }    
@@ -349,7 +359,7 @@ checkUserIsAlreadyRequested(request:EmployeeCourseRequest){
     data=>{
       var response =<AbsentInfoResponse>data
       if(response.data){
-        this.toastr.error("The request alredy exisit.")
+        this.toastr.error(this.language.error_request_exisit)
       }else{
         debugger
         //this.checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request)
@@ -370,7 +380,7 @@ checkTheUserIsAlreadyRequestedOverrdingOtherCourseDates(request:EmployeeCourseRe
       var response =<AbsentInfoResponse>data
       if(response.data){
         debugger
-        this.toastr.error("You are alraeady requested for another course in the same time. Try some other dates")
+        this.toastr.error(this.language.error_date_request)
       }else{
         debugger
         this.saveRequest(request)

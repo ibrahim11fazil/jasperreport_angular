@@ -1,6 +1,5 @@
 package qa.gov.customs.fileupload.models;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 
 public class EmployeeUploadRequest {

@@ -1,205 +1,355 @@
 import { Injectable } from '@angular/core';
 import { Prerequisites } from './models/prerequisites';
+import { APPROVED_COURSES } from './app.constants';
+import { messaging } from 'firebase';
 
 @Injectable()
-export class LanguageUtil  {
-    constructor(public isArabic: Boolean) {
-    }
+export class LanguageUtil {
+  constructor(public isArabic: Boolean) {
+  }
 
-    //Activity Page
-    title_activity:String=this.isArabic ? "Activity1 " : "Activity"
-    label_ActivityName: String=this.isArabic ? "الافراد" : "Activity Name"
-    activity_message:String=this.isArabic ? "You must enter the activity Name1" : "You must enter the activity Name"
-    label_Id: String=this.isArabic ? " Id1 ": "Id"
-    label_delete: String=this.isArabic ? "Delete1 " : "Delete"
+  //Activity Page
+  title_activity: String = this.isArabic ? "النشاط التدريبي " : "Activity"
+  label_ActivityName: String = this.isArabic ? "عنوان النشاط التادريبي" : "Activity Name"
+  activity_message: String = this.isArabic ? "يجب عليك إدخال عنوان النشاط التادريبي" : "You must enter the activity Name"
+  label_Id: String = this.isArabic ? " رقم النشاط" : "Id"
+  label_delete: String = this.isArabic ? "حذف" : "Delete"
 
-    //Course Creation
-    title_courseDefinition:String=this.isArabic ? "Course Definition1" : "Course Definition"
-    courseName:String=this.isArabic ? "Course Name1" : "Course Name"
-    coursePeriod:String=this.isArabic ? "Course Period1" : "Course Period"
-    durationType:String=this.isArabic ? "Duration Type1" : "Duration Type"
-    courseObjective:String=this.isArabic ? "Course Objective1" : "Course Objective"
-    courseCategories:String=this.isArabic ? "Course Categories1" : "Course Categories"
-    expectedResult:String=this.isArabic ? "Expected Result1" : "Expected Result"
-    targetedAudiences:String=this.isArabic ? "Targeted Audiences1" : "Targeted Audiences"
-    noOfHours:String=this.isArabic ? "No of Hours1" : "No of Hours"
-    trainingGuidelines:String=this.isArabic ? "Training Guidelines1" : "Training Guidelines"
+  //Course Creation
+  title_courseDefinition: String = this.isArabic ? "تعريف دورة تدريبية" : "Course Definition"
+  courseName: String = this.isArabic ? "عنوان الدورة التدريبية" : "Course Name"
+  coursePeriod: String = this.isArabic ? "مدة الدورة التدريبية" : "Course Period"
+  durationType: String = this.isArabic ? "نوع مدة الدورة التدريبية" : "Duration Type"
+  courseObjective: String = this.isArabic ? "الهدف العام للدورة التدريبية" : "Course Objective"
+  courseCategories: String = this.isArabic ? "تصنيف الدورة التدريبية" : "Course Categories"
+  expectedResult: String = this.isArabic ? "النتائج المتوقعة" : "Expected Result"
+  targetedAudiences: String = this.isArabic ? "الفئة المستهدفة" : "Targeted Audiences"
+  noOfHours: String = this.isArabic ? "عدد الساعات" : "No of Hours"
+  trainingGuidelines: String = this.isArabic ? "المحاور التدريبية" : "Training Guidelines"
 
-    //Search Course
 
-    title_searchCourse:String=this.isArabic ? "Search Course1" : "Search Course"
-    courseId:String=this.isArabic ? " Course Id1" : "Course Id"
-    btn_linkCourse:String=this.isArabic ? "Link Course1" : "Link Course"
+  //Search Course
 
-    //Link Course
-
-    title_linkCourse:String=this.isArabic ? "Link Course1" : "Link Course"
-    courses:String=this.isArabic ? "Courses1" : "courses"
-    activityType:String=this.isArabic ? "Activity Type1" : "Activity Type" 
-    courseLocation:String=this.isArabic ? "Location1" : "Location"
-    chooseADate:String=this.isArabic ? "Choose A Date 1" : "Choose A Date"
-    subCourses:String=this.isArabic ? "Subcourses 1" : "Subcourses"
-    courseDate:String=this.isArabic ? "Course Date1 " : "Course Date"
-    preRequisites:String=this.isArabic ? "Prerequisites1" : "Prerequisites"
-
-    //Activation Search
-
-    activationSearch:String=this.isArabic ? "Activation Search 1" : "Activation Search"
-    activationId:String=this.isArabic ? "Activation ID 1" : "Activation ID"
-    activationDate:String=this.isArabic ? "Activation Date1" : "Activation Date"
-    label_update:String=this.isArabic ? "Update 1" : "Update"
-    
-    //Activate Course
-
-    title_activateCourse:String=this.isArabic ? "Activate Course1" :"Activate Course"
-    belongsTo:String=this.isArabic ? "Belongs To1": "Belongs To"
-    trainingHall:String=this.isArabic ? "Training Hall 1" : "Training Hall"
-    instructorName:String=this.isArabic ? "Instructor Name 1 " : "Instructor Name"
-    trainingCoordinator:String=this.isArabic ? "Training Co-ordinator 1":"Training Co-ordinator"
-    estimatedCost:String=this.isArabic ? "Estimated Cost 1" :"Estimated Cost"
-    instructorCost:String=this.isArabic ? "Instructor Cost 1": "Instructor Cost"
-    buffetCost:String=this.isArabic ? "Buffet Cost 1" : "Buffet Cost"
-    internalTransportCost:String=this.isArabic ? "Internal Transport Cost 1" :"Internal Transport Cost"
-    ticketCost:String=this.isArabic ? "Ticket Cost 1":"Ticket Cost "
-    hospitalityCost:String=this.isArabic ? "Hospitality Cost1":"Hospitality Cost"
-    giftCost:String=this.isArabic ? "Gift Cost1":"Gift Cost"
-    hallReservationCost:String=this.isArabic ? "Hall Reservation Cost1": "Hall Reservation Cost"
-    bonusCost:String=this.isArabic ? "Bonus Cost 1" : "Bonus Cost"
-    translationCost:String=this.isArabic ?  "Translation Cost1" : "Translation Cost"
-
-    // Course Managemnet
-
-    courseStartDate:String=this.isArabic ? " Course Start Date1" : "Course Start Date"
-    courseEndDate:String=this.isArabic ? "Course End Date1" : "Course End Date"
-    manage:String=this.isArabic ? "Manage1" : "Manage"
-    empName:String=this.isArabic ? "Name1" :"Name"
-    department:String=this.isArabic ? "Department1" :"Department"
-    jobTitle:String=this.isArabic ? "Job Title1" :"Job Title"
-    mobile:String=this.isArabic ? "Mobile1" :"Mobile"
-    attendance:String=this.isArabic ? "Attendance1" :"Attendance"
-    filterColumn:String=this.isArabic ? "Type to filter the name column1...." : "Type to filter the name column...."
-    attendancePercentage:String=this.isArabic ? "Attendance % 1" :"Attendance %"
-    courseStatus:String=this.isArabic ? "Pass/Fail 1":"Pass/Fail" 
-    certificate:String=this.isArabic ? "Certificate 1" : "Certificate"
-    downloadCertificate:String=this.isArabic ? "Download Certificate1" : "Download Certificate"
-
-    //Create Instructor
-
-    title_instructorRegistration:String=this.isArabic ? " Instructor Registration 1" : "Instructor Registration"
-    instructorType:String=this.isArabic ? "Instructor Type 1" : "Instructor Type"
-    instructorEmployee:String=this.isArabic ? "Employee 1" : "Employee "
-    instructorExternal:String=this.isArabic ? "External 1" : "External "
-    organization:String=this.isArabic ?  "Organization 1" : "Organization"
-    qid:String=this.isArabic ?  "QID 1" : "QID"
-    passport:String=this.isArabic ?  "Passport 1" : "Passport"
-    iBanNo:String=this.isArabic ?  "IBAN No 1" : "IBAN No"
-    email:String=this.isArabic ? "Email 1" : "Email"
-    phone:String=this.isArabic ? "Phone 1" : "Phone"
-    subjects:String=this.isArabic ? "Subjects 1" : "Subjects"
-    subjectName:String=this.isArabic ? "Subject 1" : "Subject"
-    qualifications:String=this.isArabic ? "Qualifications 1" : "Qualifications"
-    qualificationName:String=this.isArabic ? "Qualification Name 1":"Qualification Name"
-    priority:String=this.isArabic ? "Priority 1" : "Priority"
-
-    //Instructor Search
-
-    title_instructorSearch:String=this.isArabic ? "Instructor Search 1" :"Instructor Search"
-    instructorId:String=this.isArabic ? "Instructor Id 1" :"Instructor Id"
-    update:String=this.isArabic ? "Update 1" :"Update"
-    request:String=this.isArabic ? "Request 1" :"Request"
+  title_searchCourse: String = this.isArabic ? "بحث " : "Search Course"
+  courseId: String = this.isArabic ? " رقم الدورة" : "Course Id"
+  btn_linkCourse: String = this.isArabic ? "ربط الدورة بالنشاط التدريبي" : "Link Course"
 
 
 
-    //User Creation
 
-    userCreation:String=this.isArabic ? "User Creation1" : "User Creation"
-    jobId:String=this.isArabic ? "Job Id1" : "Job Id"
-    role:String=this.isArabic ? "Role1" : "Role"
-    enable:String=this.isArabic ? "Enable1" : "Enable"
-    disable:String=this.isArabic ? "Disable1" : "Disable"
-    status:String=this.isArabic ? "Status1" : "Status"
+  //Link Course
 
-    //User Search
-
-    title_userSearch:String=this.isArabic ? "User Search1" : "User Search"
-    qIdJobId:String=this.isArabic ? "QID/JOBID 1" : "QID/JOBID"
-    qIdUserId:String=this.isArabic ? "QID/UserId 1" : "QID/UserId" 
+  title_linkCourse: String = this.isArabic ? "ربط الدورة بالنشاط التدريبي" : "Link Course"
+  courses: String = this.isArabic ? "عنوان الدورة التدريبية" : "courses"
+  activityType: String = this.isArabic ? "نوع النشاط التدريبي" : "Activity Type"
+  courseLocation: String = this.isArabic ? "مكان عقد البرنامج" : "Location"
+  chooseADate: String = this.isArabic ? "اختر التاريخ" : "Choose A Date"
+  subCourses: String = this.isArabic ? "تحتوي على دورات تدريبية فرعية" : "Subcourses"
+  courseDate: String = this.isArabic ? "مواعيد التنفيذ" : "Course Date"
+  preRequisites: String = this.isArabic ? "المتطلبات السابقة" : "Prerequisites"
+  existingActivities=this.isArabic ? "الأنشطة التدريبية المتاحة" : "Existing Activities"
 
 
-   // User Permissions
+  //Activation Search
 
-   //:String=this.isArabic ? "User Permission 1" : "User Permission" 
+  activationSearch: String = this.isArabic ? "بحث تفعيل دورة تدريبية" : "Activation Search"
+  activationId: String = this.isArabic ? "رقم التفعيل" : "Activation ID"
+  activationDate: String = this.isArabic ? "تاريخ التفعيل" : "Activation Date"
+  label_update: String = this.isArabic ? "تعديل" : "Update"
 
-   //Job Card Creation
 
-   title_jobCardCreation:String=this.isArabic ? "Job Card Creation 1" : "Job Card Creation"
-   selectJobTitles:String=this.isArabic ? "Select JobTitles 1" : "Select JobTitles "
-   jobNumber:String=this.isArabic ? "Job Number 1" : "Job Number"
-   jobGrade:String=this.isArabic ? "Job Grade 1" : "Job Grade"
-   selectJobGrade:String=this.isArabic ? "Select Job Grade 1" : "Select Job Grade"
-   jobFamily:String=this.isArabic ? "Job Family 1" : "Job Family"
-   selectJobFamily:String=this.isArabic ? "Select Job Family 1" : "Select Job Family"
-   functionalArea:String=this.isArabic ? "Functional Area 1" : "Functional Area "
-   jobDuties:String=this.isArabic ? "Job Duties1" : "Job Duties"
-   conditionTogetJob:String=this.isArabic ? "Condition To get Job 1" :"Condition To get Job"
-   jobSkills:String=this.isArabic ? "Job Skills1" : "Job Skills" 
-   trainingCourses:String=this.isArabic ? "Training Course 1" : "Training Course" 
+  //Activate Course
 
-   //Job Card Search
+  title_activateCourse: String = this.isArabic ? "تفعيل دورة تدريبية" : "Activate Course"
+  belongsTo: String = this.isArabic ? "تنتمي إلى" : "Belongs To"
+  trainingHall: String = this.isArabic ? "القاعة" : "Training Hall"
+  instructorName: String = this.isArabic ? "اسم المدرب " : "Instructor Name"
+  trainingCoordinator: String = this.isArabic ? "اسم المشرف" : "Training Co-ordinator"
+  estimatedCost: String = this.isArabic ? "التكلفة التقديرية" : "Estimated Cost"
+  instructorCost: String = this.isArabic ? "تكلفة المدرب" : "Instructor Cost"
+  buffetCost: String = this.isArabic ? "تكلفة البوفيه" : "Buffet Cost"
+  internalTransportCost: String = this.isArabic ? "تكلفة التنقل الداخلي" : "Internal Transport Cost"
+  ticketCost: String = this.isArabic ? "تكلفة تذاكر الطيران" : "Ticket Cost "
+  hospitalityCost: String = this.isArabic ? "تكلفة الضيافة والفندقة" : "Hospitality Cost"
+  giftCost: String = this.isArabic ? "تكفة الهدايا والتذكارات" : "Gift Cost"
+  hallReservationCost: String = this.isArabic ? "تكلفة حجز القاعة" : "Hall Reservation Cost"
+  bonusCost: String = this.isArabic ? "تكلفة المكافآت" : "Bonus Cost"
+  translationCost: String = this.isArabic ? "تكلفة الترجمة" : "Translation Cost"
 
-   title_jobCardSearch:String=this.isArabic ? "Job Card Search 1" : "Job Card Search"
-   jobCardNumber:String=this.isArabic ? "Job Card Number 1":"Job Card Number"
-   jobGroup:String=this.isArabic ? "Job Group 1":"Job Group"
-   jobcardId:String=this.isArabic ? "Job Card Id 1":"Job Card Id"
-   hoursError:String=this.isArabic ? "Hours Error 1":"Hours Error"
+  // Course Managemnet
+
+  courseStartDate: String = this.isArabic ? " تاريخ بداية الدورة التدريبية" : "Course Start Date"
+  courseEndDate: String = this.isArabic ? "تاريخ نهاية الدورة التدريبية" : "Course End Date"
+  manage: String = this.isArabic ? "التحكم" : "Manage"
+  empName: String = this.isArabic ? "الاسم" : "Name"
+  department: String = this.isArabic ? "الإدارة" : "Department"
+  jobTitle: String = this.isArabic ? "المسمى الوظيفي" : "Job Title"
+  mobile: String = this.isArabic ? "رقم الجوال" : "Mobile"
+  attendance: String = this.isArabic ? "الحضور" : "Attendance"
+  filterColumn: String = this.isArabic ? "اختيار من متعدد" : "Type to filter the name column...."
+  attendancePercentage: String = this.isArabic ? "نسبة الحضور" : "Attendance %"
+  courseStatus: String = this.isArabic ? "ناجح / راسب" : "Pass/Fail"
+  certificate: String = this.isArabic ? "الشهادة" : "Certificate"
+  downloadCertificate: String = this.isArabic ? "تحميل الشهادة" : "Download Certificate"
+  previousCourse: String = this.isArabic ? "الدورات السابقة" : "Previous Courses"
+  currentCourse: String = this.isArabic ? "الدورت الحالية" : "Current Courses"
+  futureCourse: String = this.isArabic ? "الدورات المستقبلية" : "Future Courses"
+
+
+
+  //Create Instructor
+
+  title_instructorRegistration: String = this.isArabic ? " تسجيل محاضر" : "Instructor Registration"
+  instructorType: String = this.isArabic ? "نوع المحاضر " : "Instructor Type"
+  instructorEmployee: String = this.isArabic ? "موظف" : "Employee "
+  instructorExternal: String = this.isArabic ? "خارجي" : "External "
+  organization: String = this.isArabic ? "الجهة" : "Organization"
+  qid: String = this.isArabic ? "الرقم الشخصي" : "QID"
+  passport: String = this.isArabic ? "رقم جواز السفر" : "Passport"
+  iBanNo: String = this.isArabic ? "رقم حساب البنك الأيبان" : "IBAN No"
+  email: String = this.isArabic ? "البريد الإلكتروني" : "E-mail"
+  phone: String = this.isArabic ? "رقم الهاتف" : "Phone"
+  subjects: String = this.isArabic ? "المواد" : "Subjects"
+  subjectName: String = this.isArabic ? "المادة" : "Subject"
+  qualifications: String = this.isArabic ? "المؤهلات" : "Qualifications"
+  qualificationName: String = this.isArabic ? "عنوان المؤهل" : "Qualification Name"
+  priority: String = this.isArabic ? "الأولوية" : "Priority"
+
+
+  //Instructor Search
+
+  title_instructorSearch: String = this.isArabic ? "بحث عن محاضر" : "Instructor Search"
+  instructorId: String = this.isArabic ? "رقم المحاضر" : "Instructor Id"
+  update: String = this.isArabic ? "تعديل" : "Update"
+  request: String = this.isArabic ? "طلب" : "Request"
+
+
+
+  //User Creation
+
+  userCreation: String = this.isArabic ? "إنشاء مستخدم" : "User Creation"
+  jobId: String = this.isArabic ? "الرقم الوظيفي" : "Job Id"
+  role: String = this.isArabic ? "نوع الحساب" : "Role"
+  enable: String = this.isArabic ? "تفعيل" : "Enable"
+  disable: String = this.isArabic ? "الغاء تفعيل" : "Disable"
+  status: String = this.isArabic ? "الحالة" : "Status"
+  password:String=this.isArabic?"كلمة السر" : "password"
+  invalidUser:String=this.isArabic? "مستخدم غير موجود":"Invalid User"
+  provideBlank:String=this.isArabic? "اترك مساحة فارغة في حالة الرغبة في عدم تغيير كلمة السر" : "Please provide blank area for no change in password"
+
+
+
+  //User Search
+
+  title_userSearch: String = this.isArabic ? "بحث عن مستخدم" : "User Search"
+  qIdJobId: String = this.isArabic ? "الرقم الشخصي / الرقم الوظيفي" : "QID/JOBID"
+  qIdUserId: String = this.isArabic ? "الرقم الشخصي / رقم المستخدم" : "QID/UserId"
+
+
+
+  // User Permissions
+
+  //:String=this.isArabic ? "User Permission 1" : "User Permission" 
+
+  //Job Card Creation
+
+  title_jobCardCreation: String = this.isArabic ? "إنشاء بطاقة الوصف الوظيفي والبطاقة التدريبية" : "Job Card Creation"
+  selectJobTitles: String = this.isArabic ? "اختر المسمى الوظيفي" : "Select JobTitles "
+  jobNumber: String = this.isArabic ? "كود الوظيفة" : "Job Number"
+  jobGrade: String = this.isArabic ? "الدرجة الوظيفية / المالية" : "Job Grade"
+  selectJobGrade: String = this.isArabic ? "اختر الدرجة" : "Select Job Grade"
+  jobFamily: String = this.isArabic ? "المجموعة العامة" : "Job Family"
+  selectJobFamily: String = this.isArabic ? "اختر المجموعة العامة" : "Select Job Family"
+  functionalArea: String = this.isArabic ? "المجموعة النوعية" : "Functional Area "
+  jobDuties: String = this.isArabic ? "واجبات الوظيفة" : "Job Duties"
+  conditionTogetJob: String = this.isArabic ? "اشتراطات شغل الوظيفة" : "Condition To get Job"
+  jobSkills: String = this.isArabic ? "القدرات والمهارات" : "Job Skills"
+  trainingCourses: String = this.isArabic ? "الدرات التدريبية" : "Training Course"
+
+
+  //Job Card Search
+
+  title_jobCardSearch: String = this.isArabic ? "بحث عن بطاقات الوصف الوظيفي والبطاقات التدريبية" : "Job Card Search"
+  jobCardNumber: String = this.isArabic ? " رقم بطاقة الوصف الوظيفي والتدريبي" : "Job Card Number"
+  jobGroup: String = this.isArabic ? "مجموعة الوظائف" : "Job Group"
+  jobcardId: String = this.isArabic ? "رقم البطاقة" : "Job Card Id"
+  hoursError: String = this.isArabic ? "أخطاء ساعات" : "Hours Error"
+
 
   // CI System
 
-    title_CISUsers:String=this.isArabic ? "CI System Users 1" : "CI System Users"
-    caseID:String=this.isArabic ? "Case Id 1" : "Case Id"
-    jobCode:String=this.isArabic ? "Job Code 1" : "Job Code"
-    fullName:String=this.isArabic ? "Full Name 1" : "Full Name"
-    decision:String=this.isArabic ? "Decision 1" : "Decision"
-    decisionDetails:String=this.isArabic ? "Decision Details 1" : "Decision Details"
-    decisionDate:String=this.isArabic ? "Decision Date 1" : "Decision Date"
-    
-    //CI System Course Suggestion
-   
-    title_CISCourseSuggestion:String=this.isArabic ? "CI System Course Suggestion 1" : "CI System Course Suggestion "
-    requestId:String=this.isArabic ? "Request ID 1": "Request ID"
-    caseId:String=this.isArabic ? "Case ID 1": "Case ID"
-    requestedFor:String=this.isArabic ? "REQUESTED FOR 1" : "REQUESTED FOR"
-    createdDate:String=this.isArabic ? "Created Date 1" : "Created Date"
-   
-   // Employee Request
+  title_CISUsers: String = this.isArabic ? "مستخدمي نظام التحقيقات والقضايا" : "CI System Users"
+  caseID: String = this.isArabic ? "رقم التحقيق" : "Case Id"
+  jobCode: String = this.isArabic ? "رقم الوظيفة" : "Job Code"
+  fullName: String = this.isArabic ? "الاسم بالكامل" : "Full Name"
+  decision: String = this.isArabic ? "القرار" : "Decision"
+  decisionDetails: String = this.isArabic ? "تفاصيل القرار" : "Decision Details"
+  decisionDate: String = this.isArabic ? "تاريخ القرار" : "Decision Date"
 
-    title_courseRequestSearch:String=this.isArabic ? "Course Request Search1": "Course Request Search"
-    courseDetails:String=this.isArabic ? "Course Details 1" : "Course Details"
-    locationName:String=this.isArabic ? "Location Name 1" : "Location Name"
-    courseSuggession:String=this.isArabic ? "Course Suggession for Employee 1" : "Course Suggession for Employee"
-    
-   //Smart Profile
 
-   title_searchWithJobId:String=this.isArabic ? "Search With jobId 1" : "Search With jobId"
+  //CI System Course Suggestion
+
+  title_CISCourseSuggestion: String = this.isArabic ? "الدورة المقترحة من نظام التحقيقات والقضايا" : "CI System Course Suggestion "
+  requestId: String = this.isArabic ? "رقم الطلب" : "Request ID"
+  caseId: String = this.isArabic ? "رقم التحقيق" : "Case ID"
+  requestedFor: String = this.isArabic ? "مطلوب لـ" : "REQUESTED FOR"
+  createdDate: String = this.isArabic ? "تاريخ الانشاء" : "Created Date"
+
+
+  // Employee Request
+
+  title_courseRequestSearch: String = this.isArabic ? "البحث في طلب دورة تدريبية" : "Course Request Search"
+  courseDetails: String = this.isArabic ? "تفاصيل الدورة التدريبية" : "Course Details"
+  locationName: String = this.isArabic ? "المكان" : "Location Name"
+  courseSuggession: String = this.isArabic ? "الدورة المقترحة لموظف" : "Course Suggession for Employee"
+
+  // My Tasks
+
+  workflowType: String = this.isArabic ? "نوع سير العمل" : "WorkflowType"
+  createdOn: String = this.isArabic ? "تم الإنشاء في" : "Created On"
+  taskName: String = this.isArabic ? "اسم المهمة" : "Task Name"
+  view: String = this.isArabic ? "عرض" : "view"
+  requestedBy: String = this.isArabic ? "تم الطلب بواسطة" : "Requested By"
+  user: String = this.isArabic ? "المستخدم" : "User"
+  estimatedDuration: String = this.isArabic ? "المدة التقديرية" : "Estimated Duration"
+  approvals: String = this.isArabic ? "الموافقات" : "Approvals"
+  action: String = this.isArabic ? "الاجراء" : "Action"
+  startDate: String = this.isArabic ? "تاريخ البداية" : "Start Date"
+  comments: String = this.isArabic ? "التعليقات" : "Comments"
+  addComment: String = this.isArabic ? "أضف تعليق" : "Add Comment"
+
+
+  //History
+
+  requestedTime: String = this.isArabic ? "الوقت المطلوب" : "Requested Time"
+
+  //Smart Profile
+
+  //title_searchWithJobId:String=this.isArabic ? "البحث برقم الوظيفة" : "Search With jobId"
+  title_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"
+  position: String = this.isArabic ? "المنصب" : "Position"
+  trainingCertificate: String = this.isArabic ? "شهادة التدريب" : "Training Certificate"
+  jobCardDetails: String = this.isArabic ? "تفاضيل بطاقة الوصف الوظيفي والتدريبي" : "Job Card Details"
+  coursesAttendedCurrent: String = this.isArabic ? "الدورات الحالية / التي تم حضورها" : "Courses (Attended/Current)"
+  smartSuggestion: String = this.isArabic ? "الاقتراح الالكتروني" : "Smart Suggestion"
+  responsibilities:String=this.isArabic? "المسؤوليات" : "Responsibilities"
+
+
+
+
+  //General
+  btn_search: String = this.isArabic ? "بحث" : "Search"
+  btn_save: String = this.isArabic ? "حفظ" : "Save"
+  btn_delete: String = this.isArabic ? "حذف" : "Delete"
+  btn_update: String = this.isArabic ? "تعديل" : "Update"
+  btn_manage: String = this.isArabic ? "التحكم" : "Manage"
+  btn_status: String = this.isArabic ? "الحالة" : "Status"
+  btn_certificate: String = this.isArabic ? "الشهادة" : "Certificate"
+  btn_markAttendance: String = this.isArabic ? "تعيين الحضور" : "Mark Attendance"
+  btn_updateAttendance: String = this.isArabic ? "تعديل الحضور" : "Update Attendance"
+  btn_add: String = this.isArabic ? "اضافة" : "Add"
+  btn_request: String = this.isArabic ? "طلب" : "Request"
+  btn_details: String = this.isArabic ? "التفاصيل" : "Details"
+  btn_requestSubmit: String = this.isArabic ? "اعتماد الطلب" : "Request Submit"
+  btn_approve: String = this.isArabic ? "موافقة" : "Approve "
+  btn_reject: String = this.isArabic ? "رفض" : "Reject "
+  noDataToDisplay=this.isArabic? "لايوجد بيانات":"No Data to Display"
+
+
+
+  //Titles
+
+  //Main Components
+
+  logout: String = this.isArabic ? "خروج" : "Logout"
+  totalAppMemory: String = this.isArabic ? "اجمالي مساحة التخزين" : "Total App Memory"
+  totalMemoryUsed: String = this.isArabic ? "مساحة التخزين المستخدمة" : "Total Memory Used"
+  options: String = this.isArabic ? "خيارات" : "Options"
+  layoutOptions: String = this.isArabic ? "خيارات الواجهة" : "Layout Options"
+  collapsedSidebar: String = this.isArabic ? "الشريط الجانبي" : "Collapsed Sidebar"
+  darkMode: String = this.isArabic ? "الوضع الداكن" : "Dark Mode"
+  sidebarFilters: String = this.isArabic ? "تصفية الشريط الجانبي" : "Sidebar Filters "
+  headerFilters: String = this.isArabic ? "تصفية العناوين" : "Header Filters "
+
+
+  //Main Menu
+
+  menu_dashboard: String = this.isArabic ? "لوحة العمل" : "Dashboard"
+  menu_instructor: String = this.isArabic ? "المحاضر" : "Instructor"
+  menu_course: String = this.isArabic ? "الدورة التدريبية" : "Course"
+  menu_courseManagement: String = this.isArabic ? "إدارة الدورة التدريبية" : "Course Management"
+  menu_ci_system: String = this.isArabic ? "نظام التحقيقات والقضايا" : "CI System"
+  menu_smart_engine: String = this.isArabic ? "محرك التدريب الذكي" : "Smart Engine"
+  menu_reports: String = this.isArabic ? "التقارير" : "Reports"
+  menu_jobCard: String = this.isArabic ? "بطاقة الوصف الوظيفي والتدريبي" : "Job Card"
+  menu_user: String = this.isArabic ? "المستخدمين" : "Users"
+  menu_requests: String = this.isArabic ? "طلبات التدريب" : "Training Requests"
+
+
+
+  // Sub Menu 
+  menu_welcome: String = this.isArabic ? "مرحباً " : "Welcome"
+  menu_myCourses: String = this.isArabic ? "دوراتي التدريبية" : "My Courses"
+  menu_createCourses: String = this.isArabic ? "إنشاء دورات تدريبية" : "Create Courses"
+  menu_manageCourses: String = this.isArabic ? "إدارة الدورات التدريبية" : " Manage Courses"
+  menu_linkCourse: String = this.isArabic ? "ربط الدورات التدريبية " : "Link Course"
+  menu_activity: String = this.isArabic ? "النشاط التدريبي" : "Activity"
+  menu_manageActivations: String = this.isArabic ? "إدارة الأنشطة التدريبية" : "Manage Activations"
+  menu_activateCourse: String = this.isArabic ? "تفعيل دورة تدريبية" : "Activate Course"
+  menu_createInstructor: String = this.isArabic ? "انشاء محاضر" : "Create Instructor"
+  menu_manageInstructor: String = this.isArabic ? "ادارة محاضر" : "Manage Instructor"
+  menu_newUser: String = this.isArabic ? "مستخدم جديد" : "New User"
+  menu_searchUser: String = this.isArabic ? "بحث عن مستخدم" : "Search User"
+  menu_userPermissions: String = this.isArabic ? "صلاحيات المستخدم" : "User Permissions"
+  menu_searchJobCard: String = this.isArabic ? "بحث عن بطاقة الوصف الوظيفي والتدريبي" : "Search Job Card"
+  menu_createJobCard: String = this.isArabic ? "انشاء بطاقة الوصف الوظيفي والتدريبي" : "Create Job Card"
+  menu_allEmployees: String = this.isArabic ? "جميع الموظفين" : "All Employees"
+  menu_courseRequests: String = this.isArabic ? "طلبات الدورات التدريبية" : "Course Requests"
+  menu_employeeRequests: String = this.isArabic ? "طلبات الموظفين" : "Employee Requests"
+  menu_myTasks: String = this.isArabic ? "مهامي" : "My Tasks"
+  menu_history: String = this.isArabic ? "معلومات سابقة" : "History"
+  menu_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"
+  menu_manageAttendance: String = this.isArabic ? "ادارة الحضور " : "Manage Attendance"
+
+
+  //system error 
+  error_resource_not_found = this.isArabic ? "لم يتم العثور على بيانات" : "Resource Not found"
+  error_unauthorized = this.isArabic ? "الصلاحية غير موجودة" : "UnAuthorized"
+  error_bad_request = this.isArabic ? "لم يتم استكمال العملية، يرجى التواصل مع الدعم الفني" : "Bad Request, Contact Administrator"
+  erro_unsupported_type = this.isArabic ? "لم يتم استكمال العملية، يرجى التواصل مع الدعم الفني" : "Unsupported Type, Contact Administrator"
+  error_server_error = this.isArabic ? " مشكلة بالخادم، يرجى التواصل مع الدعم الفني" : "Server Error, Contact Administrator"
+
+  //error validation 
+  error_invalid_user = this.isArabic ? "المستخدم غير موجود" : "Invalid User"
+  error_fill_all_forms = this.isArabic ? "جميع البيانات مطلوبة" : "Fill all inputs"
+  error_request_exisit = this.isArabic ? "الطلب موجود بالفعل" : "The request alredy exisit."
+  error_user_absent = this.isArabic ? "تم تسجيل غياب للمستخدم في هذا التاريخ، حاول بتاريخ آخر" : "The use is absent on the date,Try another date "
+  error_date_request = this.isArabic ? "لقد قمت بطلب دورة في نفس التاريخ، اختر تاريخ آخر" : "You are alraeady requested for another course in the same time. Try some other dates"
+
+  //jobcard status
+  jobcard_total36hours = this.isArabic ? "الاجمالي 36 ساعة للورشة" : "Total 36 Hours of Workshop"
+  jobcard_total60hours = this.isArabic ? "الاجمالي 60 ساعة للدورة التدريبية" : "Total 60 Hours of course"
+  jobcard_total40hoursAdmin = this.isArabic ? "الاجمالي 40 ساعة للدورة التدريبية الإدارية" : "Total 40 Hours of Administrative Course"
+  jobcard_total20hoursSpl = this.isArabic ? "الاجمالي 20 للدورة التخصصية" : "Total 20 Hours of Specialised Course"
+  jobcard_total20hoursAdmin = this.isArabic ? "الاجمالي 20 ساعة للدورة التدريبية الإدارية" : "Total 20 Hours of Administrative Course"
+  jobcard_total40hoursSpl = this.isArabic ? "الاجمالي 40 للدورة التخصصية" : "Total 40 Hours of Specialised Course"
+
+
+  //Dashboard
+  approved_courses= this.isArabic? "الدورات التي تم الموافقة عليها" :"Approved Courses"
+  request_future_courses= this.isArabic? "طلب دورة تدريبية مستقبلية":"Request Future Courses"
+  ongoing_courses= this.isArabic? "الدورات الحالية" :"Ongoing Courses"
+  attended_courses= this.isArabic? "الدورات التي تم حضورها" : "Attended Courses"
+  smartEngineSuggestion= this.isArabic? "اقتراحات محرك التدريب الذكي" : "Smart Engine Suggestion"
+  myTasks= this.isArabic? "مهامي" : "My Tasks"
   
 
+  //messages
 
-    //General
-    btn_search:String=this.isArabic ? "Search1" : "Search"
-    btn_save:String=this.isArabic ? "Save1" : "Save"
-    btn_delete:String=this.isArabic ? "Delete1" : "Delete"
-    btn_update:String=this.isArabic ? "Update1" : "Update"
-    btn_manage:String=this.isArabic ? "Manage1" : "Manage"
-    btn_status:String=this.isArabic ? "Status1" : "Status"
-    btn_certificate:String=this.isArabic ? "Certificate 1" : "Certificate"
-    btn_markAttendance:String=this.isArabic ? "Mark Attendance 1" : "Mark Attendance"
-    btn_updateAttendance:String=this.isArabic ? "Update Attendance 1" : "Update Attendance"
-    btn_add:String=this.isArabic ? "Add 1" : "Add"
-    btn_request:String=this.isArabic ? "Request 1" : "Request"
-    btn_details:String=this.isArabic ? "Details 1" : "Details"
-    btn_requestSubmit:String=this.isArabic ? "Request Submit 1" : "Request Submit"
+  selectCourseOrActivitytoviewdate=this.isArabic?"اختر نشاط أو دورة تدريبية لعرض التاريخ" :"Select Course or Activity to view date"
+  attendanceMarkedSuccessfully=this.isArabic? "تم تسجيل الحضور بنجاح": "Attendance Marked Successfully"
 
-    //Titles
+
 
 }
 

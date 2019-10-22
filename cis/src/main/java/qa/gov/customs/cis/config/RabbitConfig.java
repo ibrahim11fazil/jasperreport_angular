@@ -19,7 +19,6 @@ public class RabbitConfig {
     private String queueNameWorkFlowStatus;
 
 
-
     @Value("${cis.rabbitmq.exchange}")
     private String exchange;
 

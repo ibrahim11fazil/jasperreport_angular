@@ -16,8 +16,8 @@ security:
       clientId: training
 
 server:
-#  servlet:
-#    context-path: /training
+  #  servlet:
+  #    context-path: /training
   port: 9051
 
 feign:
@@ -52,7 +52,7 @@ spring:
         max_fetch_depth: 1
   jackson:
     serialization:
-      WRITE_DATES_AS_TIMESTAMPS : false
+      WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
   rabbitmq:

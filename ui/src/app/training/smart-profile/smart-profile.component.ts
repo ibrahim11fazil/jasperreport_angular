@@ -13,7 +13,13 @@ import { AuthService } from 'app/service/auth-service/auth.service';
 import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
 import { CertificateRequest, CertificateRequestOnlyJobId, ResponseCertificateList } from 'app/models/certificate-request';
 import { TranslateService } from '@ngx-translate/core';
-import { ITacCourseManagementList, CourseManagementRes } from 'app/models/tac-course-master';
+
+import { LanguageUtil } from 'app/app.language';
+import { CourseManagementRes, ITacCourseManagementList } from 'app/models/tac-course-master';
+import { Page } from 'app/models/paged-data';
+import { ErrorService } from 'app/service/error/error.service';
+
+
 @Component({
   selector: 'ms-smart-profile',
   templateUrl: './smart-profile.component.html',
@@ -21,15 +27,18 @@ import { ITacCourseManagementList, CourseManagementRes } from 'app/models/tac-co
 })
 export class SmartProfileComponent implements OnInit {
 
-  form: FormGroup
 
-  userProfile: SmartProfileUserResponseModel
-  certificates: CertificateRequest[] = []
-  jobCardProfile: JobCardProfile[] = []
-  jobCardProfileSuggession: JobCardProfile[] = []
-  userCourseResponseProfile: UserCourseResponseProfile[] = []
+  form:FormGroup
+   language:LanguageUtil
+   userProfile   :SmartProfileUserResponseModel
+   certificates  :CertificateRequest[]=[]
+   jobCardProfile:JobCardProfile[]=[]
+   jobCardProfileSuggession:JobCardProfile[]=[]
+   userCourseResponseProfile:UserCourseResponseProfile[]=[]
   displayCourses: boolean = false
+  page = new Page();
   courseManagement:CourseManagementRes[]=[]
+
 
   constructor(
     private authService: AuthService,
@@ -39,12 +48,16 @@ export class SmartProfileComponent implements OnInit {
     private toastr: ToastrService,
     private mainComponent: MainComponent,
     //private translate:TranslateService,
-    private activatedRoute: ActivatedRoute, ) {
+    private activatedRoute: ActivatedRoute,
+    private errorService:ErrorService ) {
     this.pageTitleService.setTitle("Smart Profile")
     this.userProfile = new SmartProfileUserResponseModel()
-    
+
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+
   }
   ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -80,6 +93,8 @@ export class SmartProfileComponent implements OnInit {
     this.getCertificates(jobId, isSearch)
     this.getUserJobCard(jobId, isSearch)
     this.getUserCoursesAttended(jobId, isSearch)
+    this.getCoordinatorCourses(jobId,isSearch)
+    this.getInstructorCourses(jobId,isSearch)
     this.smartSuggession()
   }
 
@@ -99,7 +114,12 @@ export class SmartProfileComponent implements OnInit {
           this.certificates = []
         }
       },
-        error => this.toastr.error(error.message))
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        }
+        
+        )
 
   }
 
@@ -120,7 +140,10 @@ export class SmartProfileComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 
@@ -141,7 +164,10 @@ export class SmartProfileComponent implements OnInit {
           this.toastr.info("No Job Card Found")
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 
@@ -162,7 +188,10 @@ export class SmartProfileComponent implements OnInit {
           //this.toastr.info("No Course attended")
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 
@@ -180,7 +209,7 @@ export class SmartProfileComponent implements OnInit {
       }
     })
   }
-  getCoordinatorCourses() {
+  getCoordinatorCourses(jobId: String, isSearch: Boolean) {
     if (this.authService.checktheRoleisTrainingCoordinator()) {
       this.trainingService.getCoordinatorCourses().subscribe(
         data=>{
@@ -196,7 +225,7 @@ export class SmartProfileComponent implements OnInit {
         })}
   }
 
-  getInstructorCourses(){
+  getInstructorCourses(jobId: String, isSearch: Boolean){
     this.trainingService.getInstructorCourses().subscribe(
       data=>{
         var response=<ITacCourseManagementList>data

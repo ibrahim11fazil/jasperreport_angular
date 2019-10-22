@@ -18,6 +18,35 @@
             
           </div>
         </div>
+        
+              <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                    <mat-select placeholder={{language.label_ActivityName}}
+                    matInput formControlName="activitySelect">
+                    <mat-option *ngFor="let item of activityList" [value]="item">
+                          {{item.activityName}}
+                    </mat-option>
+              </mat-select>
+                  </mat-form-field>
+                  
+                </div></div>
+              
+              
+
+              <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <mat-form-field class="full-wid mrgn-b-lg">
+                        <mat-select placeholder={{language.label_ActivityName}}
+                              matInput formControlName="activitySelect">
+                              <mat-option *ngFor="let item of activityList" [value]="item">
+                                    {{item.activityName}}
+                              </mat-option>
+                        </mat-select>
+                  </mat-form-field>
+            </div>
+          </div> -->
+
+      
 
         <div class="pad-wrap">
           <div fxLayout="row" fxLayoutAlign="start">
@@ -41,6 +70,7 @@
                      [rows]='rows'
                      [count]="page.totalElements"
                      [offset]="page.pageNumber"
+                     [messages]="{emptyMessage: language.noDataToDisplay}"
                      
                      >
                      <!-- (page)='setPage($event)'
@@ -69,7 +99,7 @@
               <span>{{language.btn_update}}</span>
             </ng-template>
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-raised-button color="primary" class="m-1"  (click)="updateRow(row)" >Update</button>
+              <button mat-raised-button color="primary" class="m-1"  (click)="updateRow(row)" >{{language.btn_update}}</button>
             </ng-template>
         </ngx-datatable-column>
 
@@ -78,7 +108,7 @@
               <span>{{language.btn_linkCourse}}</span>
             </ng-template>
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-raised-button color="accent" class="m-1"  (click)="updateLink(row)" >Link</button>
+              <button mat-raised-button color="accent" class="m-1"  (click)="updateLink(row)" >{{language.btn_linkCourse}}</button>
             </ng-template>
         </ngx-datatable-column>
 

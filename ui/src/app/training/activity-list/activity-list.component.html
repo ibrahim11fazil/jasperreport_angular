@@ -13,6 +13,7 @@
                    [count]="page.totalElements"
                    [offset]="page.pageNumber"
                    (page)='setPage($event)'
+                   [messages]="{emptyMessage: language.noDataToDisplay}"
                    >
 
       <ngx-datatable-column min-width="50px">
@@ -43,6 +44,7 @@
   
         </ng-template>
       </ngx-datatable-column>
+
     </ngx-datatable>
   </div>
 </div>

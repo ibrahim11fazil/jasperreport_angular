@@ -4,26 +4,30 @@ import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
-@Table(name="EMP_CASE_DETAILS")
+@Table(name = "EMP_CASE_DETAILS")
 public class EmployeeCaseDetails {
 
     @Id
-    @Column(name="SNO")
+    @Column(name = "SNO")
     Long id;
-    @Column(name="MJOBID")
+    @Column(name = "MJOBID")
     String jobCode;
-    @Column(name="CNAME_AR")
+    @Column(name = "CNAME_AR")
     String fullName;
-    @Column(name="DEPARTMENT")
+    @Column(name = "DEPARTMENT")
     String deparatment;
-    @Column(name="DECISION_TYPE")
+    @Column(name = "DECISION_TYPE")
     BigInteger deparatmentType;
-    @Column(name="DECISION")
+    @Column(name = "DECISION")
     String decision;
-    @Column(name="DECISION_DETAILS")
+    @Column(name = "DECISION_DETAILS")
     String decisionDetails;
-    @Column(name="DECISION_DATE")
+    @Column(name = "DECISION_DATE")
     String decisionDate;
+    @Transient
+    int start;
+    @Transient
+    int limit;
 
     public Long getId() {
         return id;
@@ -88,12 +92,6 @@ public class EmployeeCaseDetails {
     public void setDecisionDate(String decisionDate) {
         this.decisionDate = decisionDate;
     }
-
-    @Transient
-    int start;
-
-    @Transient
-    int limit;
 
     public int getStart() {
         return start;

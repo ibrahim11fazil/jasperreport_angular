@@ -5,7 +5,6 @@ import qa.gov.customs.fileupload.config.Auditable;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Entity
 @Table(name = "EMP_UPLOADS")
@@ -13,8 +12,8 @@ public class EmployeeUpload extends Auditable<String> implements java.io.Seriali
 
     @Id
     @Column(name = "FILE_ID", unique = true, nullable = false, precision = 22, scale = 0)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "EMP_UPLOADS_ID_SEQ",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "EMP_UPLOADS_ID_SEQ", allocationSize = 1)
     BigDecimal fileId;
     @Column(name = "FILE_URL", length = 500)
     String fileUrl;

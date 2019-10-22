@@ -1,7 +1,6 @@
 package qa.gov.customs.employee.utils;
 
 
-
 //GET : Should not update anything. Should be idempotent (same result in multiple calls). Possible Return Codes 200 (OK) + 404 (NOT FOUND) +400 (BAD REQUEST)
 //POST : Should create new resource. Ideally return JSON with link to newly created resource. Same return codes as get possible. In addition - Return code 201 (CREATED) can be used.
 //PUT : Update a known resource. ex: update client details. Possible Return Codes : 200(OK) + 404 (NOT FOUND) +400 (BAD REQUEST)
@@ -11,14 +10,13 @@ package qa.gov.customs.employee.utils;
 
 public class Constants {
     public static int RESOURCE_NOT_FOUND = 404;
-    public static int BAD_REQUEST = 400 ;
-    public static int UNAUTHORIZED = 401 ;
+    public static int BAD_REQUEST = 400;
+    public static int UNAUTHORIZED = 401;
     public static int UNSUPPORTED_TYPE = 415;
     public static int SERVER_ERROR = 500;
     public static int SUCCESS = 200;
     public static int CREATED = 201;
     public static int RESOURCE_FOUND = 405;
-
 
 
 //    1×× Informational
@@ -95,28 +93,23 @@ public class Constants {
 //    599 Network Connect Timeout Error
 
 
-
-    public static String scuccess="success";
-    public static String failure ="failure";
-
+    public static String scuccess = "success";
+    public static String failure = "failure";
 
 
-    public static String ROLE_TRAINING_ADMIN="train_admin";
-    public static String ROLE_SYS_ADMIN="sys_admin";
-    public static String ROLE_TRAINING_MANAGER="train_mgr";
-    public static String ROLE_TRAINING_ASSIS_MANAGER="train_asst_mgr";
-    public static String ROLE_TRAINING_COORDINATOR="train_coordinator";
-    public static String ROLE_TRAINING_HEAD_TCE="head_tce";
-    public static String ROLE_HR_DEPT="hr_dept";
-    public static String ROLE_CHAIRMAN_ASSISTANT="chairman_asst";
-    public static String ROLE_CI_SYSTEM="ci_system";
-    public static String ROLE_AUDI_DEPT="audi_dept";
-    public static String ROLE_DEPT_MGR="dept_mgr";
-    public static String ROLE_DEPT_HEAD="dept_head";
-    public static String ROLE_EMPLOYEE="employee";
-
-
-
+    public static String ROLE_TRAINING_ADMIN = "train_admin";
+    public static String ROLE_SYS_ADMIN = "sys_admin";
+    public static String ROLE_TRAINING_MANAGER = "train_mgr";
+    public static String ROLE_TRAINING_ASSIS_MANAGER = "train_asst_mgr";
+    public static String ROLE_TRAINING_COORDINATOR = "train_coordinator";
+    public static String ROLE_TRAINING_HEAD_TCE = "head_tce";
+    public static String ROLE_HR_DEPT = "hr_dept";
+    public static String ROLE_CHAIRMAN_ASSISTANT = "chairman_asst";
+    public static String ROLE_CI_SYSTEM = "ci_system";
+    public static String ROLE_AUDI_DEPT = "audi_dept";
+    public static String ROLE_DEPT_MGR = "dept_mgr";
+    public static String ROLE_DEPT_HEAD = "dept_head";
+    public static String ROLE_EMPLOYEE = "employee";
 
 
 }

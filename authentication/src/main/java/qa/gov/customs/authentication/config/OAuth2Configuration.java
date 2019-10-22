@@ -1,4 +1,5 @@
 package qa.gov.customs.authentication.config;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2Configuration extends  AuthorizationServerConfigurerAdapter {
+public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
     @Value("${check-user-scopes}")
     private Boolean checkUserScopes;
@@ -47,22 +48,22 @@ public class OAuth2Configuration extends  AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
 
     @Bean
-    public OAuth2RequestFactory requestFactory(){
+    public OAuth2RequestFactory requestFactory() {
         CustomOAuth2RequestFactory requestFactory = new CustomOAuth2RequestFactory(clientDetailsService);
         requestFactory.setCheckUserScopes(true);
         return requestFactory;
     }
 
     @Bean
-    public TokenStore tokenStore(){
+    public TokenStore tokenStore() {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
     //TODO need to set a new key and set password in the system or config . doc should be updated
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter =new CustomTokenEnhancer();
-        converter.setKeyPair(new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"),"password".toCharArray()).getKeyPair("jwt"));
+        JwtAccessTokenConverter converter = new CustomTokenEnhancer();
+        converter.setKeyPair(new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "password".toCharArray()).getKeyPair("jwt"));
         return converter;
     }
 
@@ -72,8 +73,8 @@ public class OAuth2Configuration extends  AuthorizationServerConfigurerAdapter {
     }
 
     @Bean
-    public TokenEndpointAuthenticationFilter tokenEndpointAuthenticationFilter(){
-        return new TokenEndpointAuthenticationFilter(authenticationManager,requestFactory());
+    public TokenEndpointAuthenticationFilter tokenEndpointAuthenticationFilter() {
+        return new TokenEndpointAuthenticationFilter(authenticationManager, requestFactory());
     }
 
     @Override
@@ -85,7 +86,7 @@ public class OAuth2Configuration extends  AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtAccessTokenConverter())
                 .authenticationManager(authenticationManager).userDetailsService(userDetailsService);
-        if(checkUserScopes)
+        if (checkUserScopes)
             endpoints.requestFactory(requestFactory());
 
     }

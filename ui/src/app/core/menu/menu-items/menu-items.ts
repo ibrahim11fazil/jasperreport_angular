@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LanguageUtil } from 'app/app.language';
 
 export interface ChildrenItems {
   state: string;
@@ -443,8 +444,7 @@ export class MenuItems {
     //m.push(menu);
   }
 
-  update(permissions: String[]) {
-    //debugger
+  update(permissions: String[],language:LanguageUtil) {
     dynamicMenu = []
     welcome_menu.children=[]
     training_menu.children=[]
@@ -457,97 +457,109 @@ export class MenuItems {
     smart_menu.children=[]
 
     if (permissions.length > 0) {
-     // debugger
 
       permissions.forEach(item => {
         switch (item) {
           //Dashboard
           case "mda":
-            welcome_menu.children.push({ state: 'welcome', name: 'Welcome' });
+            welcome_menu.children.push({ state: 'welcome', name: language.menu_welcome });
             break
           //Courses 
-          case "mcmy":
-            training_menu.children.push({ state: 'welcome', name: 'My Courses' })
-            break
+          //case "mcmy":
+          //  training_menu.children.push({ state: 'welcome', name: language.menu_myCourses })
+          //  break
           case "mcc":
-            training_menu.children.push({ state: 'create-course', name: 'Create Courses' })
+            training_menu.children.push({ state: 'create-course', name: language.menu_createCourses })
             break
           case "mcm":
-            training_menu.children.push({ state: 'search-course', name: 'Manage Courses' })
+            training_menu.children.push({ state: 'search-course', name: language.menu_manageCourses })
             break
           case "mcl":
-            training_menu.children.push({ state: 'course-link', name: 'Link Course' })
+            training_menu.children.push({ state: 'course-link', name: language.menu_linkCourse })
             break
           case "mca":
-            training_menu.children.push({ state: 'activity', name: 'Activity' })
+            training_menu.children.push({ state: 'activity', name: language.menu_activity })
             break
           case "mcma":
-            training_menu.children.push({ state: 'activations', name: 'Manage Activations' })
+            training_menu.children.push({ state: 'activations', name: language.menu_manageActivations })
             break
           case "mcac":
-            training_menu.children.push({ state: 'activate-course', name: 'Activate Course' })
+            training_menu.children.push({ state: 'activate-course', name: language.menu_activateCourse })
             break
 
           //Manage course
           case "mncrs":
-            course_managment.children.push({ state: 'course-management', name: 'Manage Courses' })
+            course_managment.children.push({ state: 'course-management', name: language.menu_manageAttendance })
             break
 
           //Instructor project
           case "mic":
-            instructor_menu.children.push({ state: 'create-instructor', name: 'Create Instructor' })
+            instructor_menu.children.push({ state: 'create-instructor', name: language.menu_createInstructor })
             break
           case "mim":
-            instructor_menu.children.push({ state: 'search-instructor', name: 'Manage Instructor' })
+            instructor_menu.children.push({ state: 'search-instructor', name: language.menu_manageInstructor })
             break
 
           //User management
           case "muc":
-            user_menu.children.push({ state: 'user-creation', name: 'New User' })
+            user_menu.children.push({ state: 'user-creation', name: language.menu_newUser })
             break
           case "mus":
-            user_menu.children.push({ state: 'user-search', name: 'Search User' })
+            user_menu.children.push({ state: 'user-search', name: language.menu_searchUser })
             break
           case "mup":
-            user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })
+            user_menu.children.push({ state: 'user-permissions', name: language.menu_userPermissions })
             break
 
           //JOB CARD
           case "mjs":
-              jobcard_menu.children.push({ state: 'job-card-search', name: 'Search Job Card' })
+              jobcard_menu.children.push({ state: 'job-card-search', name: language.menu_searchJobCard })
             break
           case "mjc":
-              jobcard_menu.children.push({ state: 'job-card-management', name: 'Create Job Card' })
+              jobcard_menu.children.push({ state: 'job-card-management', name: language.menu_createJobCard })
             break
 
           //CI SYSTEM
           case "mciall":
-            ci_system_menu.children.push({ state: 'cis-system', name: 'All Employees' })
+            ci_system_menu.children.push({ state: 'cis-system', name: language.menu_allEmployees})
             break
           case "mcin":
-            ci_system_menu.children.push({ state: 'cis-course-requests-i-made', name: 'Course Requests' })
+            ci_system_menu.children.push({ state: 'cis-course-requests-i-made', name: language.menu_courseRequests })
             break
 
           //EMPLOYEE  
           case "mre":
-            request_menu.children.push({ state: 'emp-request', name: 'Employee Requests' })
+            request_menu.children.push({ state: 'emp-request', name: language.menu_employeeRequests })
             break
           case "mrem":
-            request_menu.children.push({ state: 'my-tasks', name: 'My Tasks' })
+            request_menu.children.push({ state: 'my-tasks', name: language.menu_myTasks })
             break
           case "mreh":
-            request_menu.children.push({ state: 'my-tasks-history', name: 'History' })
+            request_menu.children.push({ state: 'my-tasks-history', name: language.menu_history })
             break
 
           //SMART MENU
           case "msep":
-              smart_menu.children.push({ state: 'smart-profile', name: 'Smart Profile' })
+              smart_menu.children.push({ state: 'smart-profile', name: language.menu_smartProfile })
               break 
         }
       })
+ 
+      welcome_menu.name =  language.menu_dashboard.toString();
+      training_menu.name= language.menu_course.toString();
+      instructor_menu.name=language.menu_instructor.toString();
+      course_managment.name=language.menu_courseManagement.toString();
+      report_menu.name=language.menu_reports.toString();
+      ci_system_menu.name=language.menu_ci_system.toString();
+      smart_menu.name=language.menu_smart_engine.toString();
+      jobcard_menu.name=language.menu_jobCard.toString();
+      user_menu.name=language.menu_user.toString();
+      request_menu.name=language.menu_requests.toString();
+
     }
    // this.updatePermission(permissions)
    dynamicMenu.push(welcome_menu)
+   dynamicMenu.push(smart_menu)
       permissions.forEach(item => {
         switch (item) {
           case "mdm":
@@ -574,9 +586,9 @@ export class MenuItems {
           case "mcima":
             dynamicMenu.push(ci_system_menu)
             break
-          case "msmm":
-            dynamicMenu.push(smart_menu)
-            break
+         // case "msmm":
+         //   dynamicMenu.push(smart_menu)
+         //   break
         }
       })
       //user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })

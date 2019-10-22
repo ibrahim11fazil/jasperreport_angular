@@ -2,16 +2,17 @@ package qa.gov.customs.workflowcamuda.model;
 
 public class UserTaskModel {
 
-   private  String taskId;
-   private String processId;
-   private String assigne;
-   private String role;
-   private String action;
-   private String executionId;
-   private String processInstanceId;
-   private String commandMessage;
-   private int firstResult;
-   private int maxResult;
+    private String taskId;
+    private String processId;
+    private String assigne;
+    private String role;
+    private String action;
+    private String executionId;
+    private String processInstanceId;
+    private String commandMessage;
+    private int firstResult;
+    private int maxResult;
+    private boolean status;
 
     public int getFirstResult() {
         return firstResult;
@@ -44,8 +45,6 @@ public class UserTaskModel {
     public void setCommandMessage(String commandMessage) {
         this.commandMessage = commandMessage;
     }
-
-    private boolean status;
 
     public String getProcessId() {
         return processId;

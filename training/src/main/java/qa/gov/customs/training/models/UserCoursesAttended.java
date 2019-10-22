@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class UserCoursesAttended {
 
 
-    String   jobId;
-    BigDecimal  activationId;
+    String jobId;
+    BigDecimal activationId;
     BigDecimal courseId;
     String courseName;
     BigDecimal duration;

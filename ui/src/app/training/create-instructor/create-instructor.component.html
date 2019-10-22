@@ -118,7 +118,7 @@
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <button class="mrgn-all-xs" mat-icon-button (click)="removeSubjects(in)" type="button">
-                           <mat-icon>{{language.btn_delete}}</mat-icon>
+                           <mat-icon>delete</mat-icon>
                         </button>
                      </div>
                   </div>
@@ -133,16 +133,20 @@
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                      <h5>{{language.qualifications}}</h5>
                   </div>
-                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" *ngIf="!isEmployeeStatus">
                      <button class="mrgn-all-xs" mat-icon-button (click)="addQualifications()" type="button">
-                        <mat-icon>add</mat-icon>
+                           <mat-icon>add</mat-icon>
                      </button>
                   </div>
                </div>
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                     {{tacInstructor.qualification}}
+               </div>
+   
 
 
 
-               <div formArrayName="qualification">
+               <div formArrayName="qualification"  *ngIf="!isEmployeeStatus">
                   <div *ngFor="let ff of form.get('qualification')['controls']; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
@@ -154,7 +158,7 @@
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                         <button class="mrgn-all-xs" mat-icon-button (click)="removeQualifications(in)" type="button">
-                           <mat-icon>{{language.btn_delete}}</mat-icon>
+                           <mat-icon>delete</mat-icon>
                         </button>
                      </div>
                   </div>

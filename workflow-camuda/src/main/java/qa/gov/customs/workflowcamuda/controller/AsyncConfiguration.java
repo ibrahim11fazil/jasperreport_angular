@@ -4,7 +4,6 @@ package qa.gov.customs.workflowcamuda.controller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -46,12 +45,13 @@ import java.util.concurrent.Executor;
 
 
 @Configuration
-@ComponentScan(basePackages="qa.gov.customs.workflowcamuda")
+@ComponentScan(basePackages = "qa.gov.customs.workflowcamuda")
 @EnableAsync
 public class AsyncConfiguration {
 
     /**
-     *  used by  asynchronous event listener.
+     * used by  asynchronous event listener.
+     *
      * @return
      */
     @Bean(name = "asynchronousListenerExecutor")

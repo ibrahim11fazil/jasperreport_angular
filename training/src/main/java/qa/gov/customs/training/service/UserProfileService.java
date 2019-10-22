@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UserProfileService {
 
-     List<UserProfileModel> listJobCardProfile(String id);
-     List<UserCoursesAttended> coursesAttendedWithStatus(String id);
+    List<UserProfileModel> listJobCardProfile(String id);
+
+    List<UserCoursesAttended> coursesAttendedWithStatus(String id);
 }

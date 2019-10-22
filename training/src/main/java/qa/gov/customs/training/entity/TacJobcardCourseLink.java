@@ -1,13 +1,10 @@
 package qa.gov.customs.training.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
 
 
 @Entity
@@ -16,12 +13,10 @@ import java.util.Objects;
         @AssociationOverride(name = "primaryKey.tacJobcard",
                 joinColumns = @JoinColumn(name = "JOBCARD_NO")),
         @AssociationOverride(name = "primaryKey.tacCourseMaster",
-                joinColumns = @JoinColumn(name = "COURSE_ID")) })
+                joinColumns = @JoinColumn(name = "COURSE_ID"))})
 public class TacJobcardCourseLink implements Serializable {
 
-    public  TacJobcardCourseLink() {
-    }
-
+    private TacJobcardCourseLinkId primaryKey = new TacJobcardCourseLinkId();
 
 
 //    public TacJobcardCourseLink(String mandatoryFlag) {
@@ -29,14 +24,11 @@ public class TacJobcardCourseLink implements Serializable {
 //        this.mandatoryFlag = mandatoryFlag;
 //        //this.tacJobcard=tacJobcard;
 //    }
-
-
-    private TacJobcardCourseLinkId primaryKey = new TacJobcardCourseLinkId();
     private BigDecimal mandatoryFlag;
-
     private TacJobcard tacJobcardTransiant;
     private TacCourseMaster tacCourseMasterTransiant;
-
+    public TacJobcardCourseLink() {
+    }
 
     @Transient
     public TacJobcard getTacJobcardTransiant() {
@@ -46,6 +38,7 @@ public class TacJobcardCourseLink implements Serializable {
     public void setTacJobcardTransiant(TacJobcard tacJobcardTransiant) {
         this.primaryKey.setTacJobcard(tacJobcardTransiant);
     }
+
     @Transient
     public TacCourseMaster getTacCourseMasterTransiant() {
         return tacCourseMasterTransiant;

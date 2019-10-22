@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-search-instructor',
@@ -29,7 +30,8 @@ export class SearchInstructorComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private mainComponent:MainComponent,
-    private router:Router,) {
+    private router:Router,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("Search Instrcutor")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
     
@@ -78,7 +80,10 @@ export class SearchInstructorComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 

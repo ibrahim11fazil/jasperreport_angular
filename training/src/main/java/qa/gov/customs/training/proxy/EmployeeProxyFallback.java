@@ -90,8 +90,8 @@ public class EmployeeProxyFallback implements EmployeeProxyService {
 //                null);
 //    }
 
-    ResponseType  get(int code, String message, boolean status, Object data){
-        ResponseType response = new ResponseType(code,message, status,
+    ResponseType get(int code, String message, boolean status, Object data) {
+        ResponseType response = new ResponseType(code, message, status,
                 data);
         return response;
     }

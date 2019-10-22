@@ -10,8 +10,26 @@ public class NotificationModel {
     String phoneNumber;
     int isSMS;
     int isEmail;
+    int smsError;
+    int emailError;
 
     public NotificationModel() {
+    }
+
+    public int getSmsError() {
+        return smsError;
+    }
+
+    public void setSmsError(int smsError) {
+        this.smsError = smsError;
+    }
+
+    public int getEmailError() {
+        return emailError;
+    }
+
+    public void setEmailError(int emailError) {
+        this.emailError = emailError;
     }
 
     public String getToAddress() {

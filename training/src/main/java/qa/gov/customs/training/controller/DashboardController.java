@@ -13,6 +13,7 @@ import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
 
 import java.util.List;
+
 @RestController
 public class DashboardController {
 
@@ -23,31 +24,28 @@ public class DashboardController {
     @PostMapping("/get-attended-courses")
     public ResponseType attendedCourses(@AuthenticationPrincipal CustomPrincipal principal) {
 
-        List<CourseManagement> previousCourse=dashboardService.getPreviousCourse(principal.getJid());
-        if(previousCourse!=null && previousCourse.size()>0) {
+        List<CourseManagement> previousCourse = dashboardService.getPreviousCourse(principal.getJid());
+        if (previousCourse != null && previousCourse.size() > 0) {
 
-             ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, previousCourse);
+            ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, previousCourse);
             return response;
-        }
-        else
-        {
+        } else {
             ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
                     null);
             return response;
         }
     }
+
     @PreAuthorize("hasAnyAuthority('currently_attending_courses')")
     @PostMapping("/currently-attending-courses")
     public ResponseType currentlyAttendingCourses(@AuthenticationPrincipal CustomPrincipal principal) {
 
-        List<CourseManagement> currentCourse=dashboardService.getCurrentAttendingCourse(principal.getJid());
-        if(currentCourse!=null && currentCourse.size()>0) {
+        List<CourseManagement> currentCourse = dashboardService.getCurrentAttendingCourse(principal.getJid());
+        if (currentCourse != null && currentCourse.size() > 0) {
 
             ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, currentCourse);
             return response;
-        }
-        else
-        {
+        } else {
             ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
                     null);
             return response;
@@ -59,14 +57,12 @@ public class DashboardController {
     @PostMapping("/get-approved-courses")
     public ResponseType getApprovedCourses(@AuthenticationPrincipal CustomPrincipal principal) {
 
-        List<CourseManagement> approvedCourses=dashboardService.getApprovedCourse(principal.getJid());
-        if(approvedCourses!=null && approvedCourses.size()>0) {
+        List<CourseManagement> approvedCourses = dashboardService.getApprovedCourse(principal.getJid());
+        if (approvedCourses != null && approvedCourses.size() > 0) {
 
             ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, approvedCourses);
             return response;
-        }
-        else
-        {
+        } else {
             ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
                     null);
             return response;

@@ -16,8 +16,8 @@ security:
       clientId: cis
 
 server:
-#  servlet:
-#    context-path: /cis
+  #  servlet:
+  #    context-path: /cis
   port: 9071
 
 feign:
@@ -51,7 +51,7 @@ spring:
 
   jackson:
     serialization:
-      WRITE_DATES_AS_TIMESTAMPS : false
+      WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
   rabbitmq:

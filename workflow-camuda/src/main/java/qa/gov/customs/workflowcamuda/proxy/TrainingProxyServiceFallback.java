@@ -8,9 +8,10 @@ import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 
 @Component
-public class TrainingProxyServiceFallback implements  TrainingProxyService{
+public class TrainingProxyServiceFallback implements TrainingProxyService {
 
     private static final Logger logger = LoggerFactory.getLogger(TrainingProxyServiceFallback.class);
+
     @Override
     public ResponseType updateWorkFlow(String id, String status, String wtoken) {
         logger.error("TrainingProxyServiceFallback: error in server employee updateWorkFlow ");
@@ -18,8 +19,8 @@ public class TrainingProxyServiceFallback implements  TrainingProxyService{
                 null);
     }
 
-    ResponseType  get(int code, String message, boolean status, Object data){
-        ResponseType response = new ResponseType(code,message, status,
+    ResponseType get(int code, String message, boolean status, Object data) {
+        ResponseType response = new ResponseType(code, message, status,
                 data);
         return response;
     }

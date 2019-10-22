@@ -2,31 +2,31 @@ package qa.gov.customs.employee.entity;
 
 
 import javax.persistence.Column;
-        import javax.persistence.Entity;
-        import javax.persistence.Id;
-        import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name="USER_SAP_WS_MINI")
+@Table(name = "USER_SAP_WS_MINI")
 public class MawaredMaster {
 
     @Id
-    @Column(name="REC_ID")
-    long REC_ID	;
-    @Column(name="EMPNO")
+    @Column(name = "REC_ID")
+    long REC_ID;
+    @Column(name = "EMPNO")
     String EMPNO;
-    @Column(name="EMP_STAT")
-    String  EMP_STAT;
-    @Column(name="LEGACYCODE")
+    @Column(name = "EMP_STAT")
+    String EMP_STAT;
+    @Column(name = "LEGACYCODE")
     String LEGACYCODE;
-    @Column(name="FOA")
+    @Column(name = "FOA")
     String FOA;
-    @Column(name="FOA_DESC")
+    @Column(name = "FOA_DESC")
     String FOA_DESC;
-    @Column(name="TITLE")
+    @Column(name = "TITLE")
     String TITLE;
-//    @Column(name="FNAME_AR")
+    //    @Column(name="FNAME_AR")
 //    String FNAME_AR;
 //    @Column(name="SNAME_AR")
 //    String SNAME_AR;
@@ -34,9 +34,9 @@ public class MawaredMaster {
 //    String TNAME_AR;
 //    @Column(name="LNAME_AR")
 //    String LNAME_AR;
-    @Column(name="CNAME_AR")
+    @Column(name = "CNAME_AR")
     String CNAME_AR;
-//    @Column(name="FNAME_EN")
+    //    @Column(name="FNAME_EN")
 //    String FNAME_EN;
 //    @Column(name="SNAME_EN")
 //    String SNAME_EN;
@@ -46,13 +46,13 @@ public class MawaredMaster {
 //    String LNAME_EN;
 //    @Column(name="CNAME_EN")
 //    String CNAME_EN;
-    @Column(name="GENDER")
+    @Column(name = "GENDER")
     String GENDER;
-    @Column(name="GENDER_DESC")
+    @Column(name = "GENDER_DESC")
     String GENDER_DESC;
-    @Column(name="DOB")
+    @Column(name = "DOB")
     String DOB;
-//    @Column(name="COB")
+    //    @Column(name="COB")
 //    String COB;
 //    @Column(name="COBDESC")
 //    String COBDESC;
@@ -60,13 +60,13 @@ public class MawaredMaster {
 //    String MARITAL;
 //    @Column(name="MARITAL_DESC")
 //    String MARITAL_DESC;
-    @Column(name="NATIO")
+    @Column(name = "NATIO")
     String NATIO;
-    @Column(name="NATIO_DESC")
-    String NATIO_DESC	;
-    @Column(name="QID")
+    @Column(name = "NATIO_DESC")
+    String NATIO_DESC;
+    @Column(name = "QID")
     String QID;
-//    @Column(name="SHNO")
+    //    @Column(name="SHNO")
 //    String SHNO;
 //    @Column(name="ADRLINE")
 //    String ADRLINE;
@@ -76,26 +76,26 @@ public class MawaredMaster {
 //    String STRT3;
 //    @Column(name="CITY")
 //    String CITY;
-    @Column(name="COUNTRY_KEY")
+    @Column(name = "COUNTRY_KEY")
     String COUNTRY_KEY;
-    @Column(name="COUNTRY_KEYDESC")
+    @Column(name = "COUNTRY_KEYDESC")
     String COUNTRY_KEYDESC;
-//    @Column(name="POSTAL")
+    //    @Column(name="POSTAL")
 //    String POSTAL;
 //    @Column(name="COM_HOUS")
 //    String COM_HOUS	;
 //    @Column(name="COMP_HOUSDESC")
 //    String COMP_HOUSDESC;
-    @Column(name="EMAIL")
+    @Column(name = "EMAIL")
     String EMAIL;
-    @Column(name="MOBILE")
+    @Column(name = "MOBILE")
     String MOBILE;
-//    @Column(name="SUSER")
+    //    @Column(name="SUSER")
 //    String SUSER;
 //    @Column(name="CERTF")
 //    String CERTF;
-//    @Column(name="CERTF_T")
-//    String CERTF_T;
+    @Column(name="CERTF_T")
+    String CERTF_T;
 //    @Column(name="FOS")
 //    String FOS;
 //    @Column(name="EMPNFOS_TO")
@@ -106,12 +106,12 @@ public class MawaredMaster {
 //    String BKCOUN;
 //    @Column(name="BKCOUN_DESC")
 //    String BKCOUN_DESC;
-    @Column(name="BKEY")
-    String BKEY	;
-//    @Column(name="BKEY_DESC")
+    @Column(name = "BKEY")
+    String BKEY;
+    //    @Column(name="BKEY_DESC")
 //    String BKEY_DESC;
-    @Column(name="BACNO")
-    String BACNO	;
+    @Column(name = "BACNO")
+    String BACNO;
 //    @Column(name="BCITY")
 //    String BCITY	;
 //    @Column(name="BPOSCODE")
@@ -154,25 +154,25 @@ public class MawaredMaster {
 //    String COSTCENTER_DESC;
 
 
-    @Column(name="ORGUNIT")
-    String ORGUNIT	;
-    @Column(name="ORGUNIT_DESC")
-    String  ORGUNIT_DESC	;
-    @Column(name="ORGUNIT_DESC_AR")
-    String  ORGUNIT_DESC_AR	;
-    @Column(name="POSITION")
-    String POSITION	;
-    @Column(name="POSITION_DESC")
-    String POSITION_DESC	;
-    @Column(name="POSITION_DESC_AR")
-    String  POSITION_DESC_AR	;
-    @Column(name="JOB")
-    String  JOB	;
-    @Column(name="JOB_DESC")
-    String JOB_DESC	;
-    @Column(name="JOB_DESC_AR")
-    String  JOB_DESC_AR	;
-//    @Column(name="PSTYPE")
+    @Column(name = "ORGUNIT")
+    String ORGUNIT;
+    @Column(name = "ORGUNIT_DESC")
+    String ORGUNIT_DESC;
+    @Column(name = "ORGUNIT_DESC_AR")
+    String ORGUNIT_DESC_AR;
+    @Column(name = "POSITION")
+    String POSITION;
+    @Column(name = "POSITION_DESC")
+    String POSITION_DESC;
+    @Column(name = "POSITION_DESC_AR")
+    String POSITION_DESC_AR;
+    @Column(name = "JOB")
+    String JOB;
+    @Column(name = "JOB_DESC")
+    String JOB_DESC;
+    @Column(name = "JOB_DESC_AR")
+    String JOB_DESC_AR;
+    //    @Column(name="PSTYPE")
 //    String  PSTYPE	;
 //    @Column(name="PSTYPE_DESC")
 //    String  PSTYPE_DESC	;
@@ -182,8 +182,8 @@ public class MawaredMaster {
 //    String PSAREA_DESC	;
 //    @Column(name="PSGROUP")
 //    String PSGROUP	;
-    @Column(name="PSLEVEL")
-    String PSLEVEL	;
+    @Column(name = "PSLEVEL")
+    String PSLEVEL;
 //    @Column(name="DEPTYPE")
 //    String DEPTYPE	;
 //    @Column(name="DEPTYPE_DESC")
@@ -197,8 +197,8 @@ public class MawaredMaster {
 //    @Column(name="DEPTIC")
 //    String DEPTIC	;
 
-    @Column(name="RUN_DATE")
-    Date RUN_DATE	;
+    @Column(name = "RUN_DATE")
+    Date RUN_DATE;
 
 //    @Column(name="PER_STATUS")
 //    String PER_STATUS	;
@@ -251,6 +251,14 @@ public class MawaredMaster {
 //    @Column(name="CREATION_DATE")
 //    Date CREATION_DATE	;
 
+
+    public String getCERTF_T() {
+        return CERTF_T;
+    }
+
+    public void setCERTF_T(String CERTF_T) {
+        this.CERTF_T = CERTF_T;
+    }
 
     public long getREC_ID() {
         return REC_ID;

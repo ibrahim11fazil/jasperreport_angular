@@ -9,6 +9,7 @@ import { PAGE_LIMIT } from 'app/app.constants';
 import { Router } from '@angular/router';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-user-search',
   templateUrl: './user-search.component.html',
@@ -28,7 +29,9 @@ export class UserSearchComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
     private mainComponent:MainComponent,
-    private router:Router,) {
+    private router:Router,
+    private errorService:ErrorService,
+    ) {
     this.pageTitleService.setTitle("User Creration")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
@@ -82,7 +85,10 @@ export class UserSearchComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 
@@ -96,7 +102,6 @@ export class UserSearchComponent implements OnInit {
     var user = new SystemUser()
     user.id = element.id
     user.enabled=element.enabled
-    debugger
     if (user.enabled == 1) {
       this.disableUser(user)
     }
@@ -118,7 +123,7 @@ export class UserSearchComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -128,7 +133,7 @@ export class UserSearchComponent implements OnInit {
       data => {
         var response = <GenericResponse>data
         if (response.status) {
-          debugger
+
           this.toastr.success(response.message.toString())
           this.ds.find(item => item.id == user.id).enabled = 0;
           this.ds = [...this.ds];
@@ -136,7 +141,7 @@ export class UserSearchComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }

@@ -256,16 +256,16 @@
       </button>
       <div class="settings-panel">
          <mat-toolbar color="primary">
-            <span fxFlex>Options</span>
+            <span fxFlex>{{language.options}}</span>
          </mat-toolbar>
          <mat-card-content class="theme-options">
-            <h3>Layout Options</h3>
+            <h3>{{language.layoutOptions}}</h3>
             <mat-divider></mat-divider>
             <div fxHide fxShow.gt-md>
-               <mat-checkbox [(ngModel)]="coreService.collapseSidebar" (change)="compactSidebar = false" [align]="end">Collapsed Sidebar</mat-checkbox>
+               <mat-checkbox [(ngModel)]="coreService.collapseSidebar" (change)="compactSidebar = false" [align]="end">{{language.collapsedSidebar}}</mat-checkbox>
             </div>
             <div>
-               <mat-checkbox [(ngModel)]="dark" (change) = "addClassOnBody($event)" [align]="end">Dark Mode </mat-checkbox>
+               <mat-checkbox [(ngModel)]="dark" (change) = "addClassOnBody($event)" [align]="end">{{language.darkMode}} </mat-checkbox>
             </div>
             <div>
                <mat-checkbox (change)="changeRTL($event.checked)" >{{Layout }}</mat-checkbox>
@@ -470,7 +470,11 @@
    <mat-menu class="user-menu" x-position="before" y-position="below" #menu="matMenu">
       <button mat-menu-item>
          <mat-icon>account_circle</mat-icon>
-         <span>Profile</span>
+         <span>{{userNameCr}} - ({{jobId}})</span>
+      </button>
+      <button mat-menu-item>
+            <mat-icon>fingerprint</mat-icon>
+            <span>{{qid}}</span>
       </button>
       <!-- <button mat-menu-item>
          <mat-icon>settings</mat-icon>
@@ -483,17 +487,17 @@
       <mat-divider></mat-divider>
       <button (click)="logOut()" mat-menu-item>
          <mat-icon>exit_to_app</mat-icon>
-         <span>Logout</span>
+         <span>{{language.logout}}</span>
       </button>
    </mat-menu>
    <mat-menu class="apps-menu" x-position="after" y-position="below" #appsmenu="matMenu">
       <button mat-menu-item>
          <mat-icon>storage</mat-icon>
-         <span>Total App Memory</span>
+         <span>{{language.totalAppMemory}}</span>
       </button>
       <button mat-menu-item>
          <mat-icon>memory</mat-icon>
-         <span>Total Memory Used</span>
+         <span>{{language.totalMemoryUsed}}</span>
       </button>
       <button mat-menu-item>
          <mat-icon>mail</mat-icon>

@@ -309,15 +309,13 @@ public class UserRequestModel implements Serializable {
         this.courseName = courseName;
     }
 
-
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = new Date().toString();
-    }
-
     public String getCreatedOn() {
         return createdOn;
     }
 
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = new Date().toString();
+    }
 
     public String getTrainingRequestId() {
         return trainingRequestId;

@@ -47,7 +47,7 @@
 
 		<ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
 			[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' [count]="page.totalElements"
-			[offset]="page.pageNumber">
+			[offset]="page.pageNumber" [messages]="{emptyMessage: language.noDataToDisplay}">
 
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
@@ -125,7 +125,7 @@
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
 					<h4>{{language.courseDate}}</h4>
-					{{activation.courseDate}}
+					{{activationDate}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
 					<h4>{{language.courseLocation}}</h4>
@@ -221,7 +221,7 @@
 
 			<ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
 				[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='empRows' [count]="page.totalElements"
-				[offset]="page.pageNumber">
+				[offset]="page.pageNumber" [messages]="{emptyMessage: language.noDataToDisplay}">
 
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
@@ -297,7 +297,7 @@
 
 		<ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
 			[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='courseCompletionData'
-			[count]="page.totalElements" [offset]="page.pageNumber">
+			[count]="page.totalElements" [offset]="page.pageNumber" [messages]="{emptyMessage: language.noDataToDisplay}">
 
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>

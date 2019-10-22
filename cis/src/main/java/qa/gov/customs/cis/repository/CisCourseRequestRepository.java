@@ -10,8 +10,11 @@ import java.util.List;
 
 @Repository
 public interface CisCourseRequestRepository extends PagingAndSortingRepository<CisCourseRequest, Long> {
-        List<CisCourseRequest> findAllByFromUserEqualsAndToUserContaining(String fromUser,String toUser, Pageable pageable);
-        List<CisCourseRequest> findAllByFromUserContaining(String fromUser, Pageable pageable);
-        List<CisCourseRequest> findAllByStatusFlagEquals(BigInteger statusFlag, Pageable pageable);
-        List<CisCourseRequest> findAllByWorkFlowUidEquals(String workFlowUid);
+    List<CisCourseRequest> findAllByFromUserEqualsAndToUserContaining(String fromUser, String toUser, Pageable pageable);
+
+    List<CisCourseRequest> findAllByFromUserContaining(String fromUser, Pageable pageable);
+
+    List<CisCourseRequest> findAllByStatusFlagEquals(BigInteger statusFlag, Pageable pageable);
+
+    List<CisCourseRequest> findAllByWorkFlowUidEquals(String workFlowUid);
 }

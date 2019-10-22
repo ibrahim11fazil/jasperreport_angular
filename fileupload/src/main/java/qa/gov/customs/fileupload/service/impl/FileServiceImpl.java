@@ -31,45 +31,43 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<CertificateRequest> getEmployeeCertificates(String jobId) {
-        List<EmployeeCertificate> items =  employeeCertificateRepository.findByJobIdEquals(jobId);
-        if(items!=null && items.size()>0){
+        List<EmployeeCertificate> items = employeeCertificateRepository.findByJobIdEquals(jobId);
+        if (items != null && items.size() > 0) {
             return generateCertificateList(items);
-        }
-        else return null;
+        } else return null;
     }
 
     @Override
-    public CertificateRequest saveCertificates(CertificateRequest certificateRequest)   {
+    public CertificateRequest saveCertificates(CertificateRequest certificateRequest) {
         Date converted = null;
         try {
             converted = stringToDateForCertifiate(certificateRequest.getCourseDate());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
         EmployeeCertificate certificate = new EmployeeCertificate();
         certificate.setCertificateUrl(certificateRequest.getCertificateUrl());
         certificate.setJobId(certificateRequest.getJobId());
-        certificate.setqId(certificateRequest.getqId()!=null?certificateRequest.getqId():"");
+        certificate.setqId(certificateRequest.getqId() != null ? certificateRequest.getqId() : "");
         certificate.setUserName(certificateRequest.getUserName());
         certificate.setJobId(certificateRequest.getJobId());
         certificate.setCourseDate(converted);
         certificate.setActivationId(certificateRequest.getActivationId());
-        EmployeeCertificate certificateInserted =  employeeCertificateRepository.save(certificate);
-        if(certificateInserted!=null){
+        EmployeeCertificate certificateInserted = employeeCertificateRepository.save(certificate);
+        if (certificateInserted != null) {
             CertificateRequest certificateIns = new CertificateRequest();
             certificateIns.setCertificateId(certificateInserted.getCertificateId());
             certificateIns.setCertificateUrl(certificateInserted.getCertificateUrl());
             return certificateIns;
-        }else return null;
+        } else return null;
 
     }
 
     @Override
     public CertificateRequest verifyCertificate(BigDecimal certificateId) {
-        Optional<EmployeeCertificate> certificate =  employeeCertificateRepository.findById(certificateId);
-        if(certificate.isPresent())
-        {
+        Optional<EmployeeCertificate> certificate = employeeCertificateRepository.findById(certificateId);
+        if (certificate.isPresent()) {
             CertificateRequest response = new CertificateRequest();
             response.setCertificateId(certificateId);
             response.setCertificateUrl(certificate.get().getCertificateUrl());
@@ -80,8 +78,8 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<CertificateRequest> findByJobIdAndActivationId(String jobId, BigDecimal activationId) {
-        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByJobIdAndActivationId(jobId,activationId);
-        if(certificates!=null &&  !certificates.isEmpty()) {
+        List<EmployeeCertificate> certificates = employeeCertificateRepository.findByJobIdAndActivationId(jobId, activationId);
+        if (certificates != null && !certificates.isEmpty()) {
             return generateCertificateList(certificates);
         }
         return null;
@@ -89,8 +87,8 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<CertificateRequest> findAllByactivationId(BigDecimal activationId) {
-        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByActivationId(activationId);
-        if(certificates!=null &&  !certificates.isEmpty()) {
+        List<EmployeeCertificate> certificates = employeeCertificateRepository.findByActivationId(activationId);
+        if (certificates != null && !certificates.isEmpty()) {
             return generateCertificateList(certificates);
         }
         return null;
@@ -98,17 +96,17 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<CertificateRequest> findAllByjobId(String jobId) {
-        List<EmployeeCertificate> certificates =  employeeCertificateRepository.findByJobIdEquals(jobId);
-        if(certificates!=null &&  !certificates.isEmpty()) {
+        List<EmployeeCertificate> certificates = employeeCertificateRepository.findByJobIdEquals(jobId);
+        if (certificates != null && !certificates.isEmpty()) {
             return generateCertificateList(certificates);
         }
         return null;
     }
 
 
-    List<CertificateRequest> generateCertificateList(List<EmployeeCertificate> certificates){
+    List<CertificateRequest> generateCertificateList(List<EmployeeCertificate> certificates) {
         List<CertificateRequest> certis = new ArrayList<>();
-        for (EmployeeCertificate item:
+        for (EmployeeCertificate item :
                 certificates) {
             CertificateRequest response = new CertificateRequest();
             response.setCertificateId(item.getCertificateId());
@@ -123,10 +121,10 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<EmployeeUploadRequest> getUserFiles(String jobId) {
-        List<EmployeeUpload> items= employeeUploadsRepository.findByUserCreatedEquals(jobId);
-        if(items!=null && items.size()>0){
+        List<EmployeeUpload> items = employeeUploadsRepository.findByUserCreatedEquals(jobId);
+        if (items != null && items.size() > 0) {
             List<EmployeeUploadRequest> certificates = new ArrayList<>();
-            for (EmployeeUpload item:
+            for (EmployeeUpload item :
                     items) {
                 EmployeeUploadRequest certificate = new EmployeeUploadRequest();
                 certificate.setFileId(item.getFileId());
@@ -134,21 +132,20 @@ public class FileServiceImpl implements FileService {
                 certificates.add(certificate);
             }
             return certificates;
-        }
-        else return  null;
+        } else return null;
     }
 
     @Override
     public EmployeeUploadRequest saveEmployeeUpload(EmployeeUpload certificateRequest) {
         EmployeeUpload certificate = new EmployeeUpload();
         certificate.setFileName(certificateRequest.getFileName());
-        EmployeeUpload fileInserted =  employeeUploadsRepository.save(certificate);
-        if(fileInserted!=null){
+        EmployeeUpload fileInserted = employeeUploadsRepository.save(certificate);
+        if (fileInserted != null) {
             EmployeeUploadRequest fileIns = new EmployeeUploadRequest();
             fileIns.setFileId(fileInserted.getFileId());
             fileIns.setFileName(fileInserted.getFileName());
             return fileIns;
-        }else return null;
+        } else return null;
     }
 
 

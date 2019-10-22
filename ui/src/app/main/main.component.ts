@@ -14,6 +14,7 @@ import { AuthService } from '../service/auth-service/auth.service';
 import { EcommerceService } from '../service/ecommerce/ecommerce.service';
 import { CoreService } from '../service/core/core.service';
 import { AutoLogoutServiceService } from 'app/service/auth-service/auto-logout-service.service';
+import { LanguageUtil } from 'app/app.language';
 
 const screenfull = require('screenfull');
 
@@ -25,7 +26,7 @@ const screenfull = require('screenfull');
 })
 
 export class MainComponent implements OnInit, OnDestroy{
-
+   language              :LanguageUtil;
    currentUrl            : any;
    root                  : any = 'rtl';
    layout                : any = 'rtl';
@@ -50,6 +51,9 @@ export class MainComponent implements OnInit, OnDestroy{
    private _mediaSubscription         : Subscription;
    private _routerEventsSubscription  : Subscription;
    private _router                    : Subscription;
+   private userNameCr:String
+   private jobId:String
+   private qid:String
    @ViewChild('sidenav') sidenav;
 
    sideBarFilterClass : any = [
@@ -131,8 +135,8 @@ export class MainComponent implements OnInit, OnDestroy{
       },
    ]
 
-
-  autoLogout(){
+  //--every 30 min or based on server session tome
+  autoRefreshTokenIfTokenExisit(){
      
   }
 
@@ -149,9 +153,15 @@ export class MainComponent implements OnInit, OnDestroy{
                public coreService : CoreService,
                private routes :Router,
                private activatedRoute: ActivatedRoute,
-               private sessionTimeout:AutoLogoutServiceService ) {
+               private sessionTimeout:AutoLogoutServiceService,
+               
+                ) {
+                  this.userNameCr  = this.authService.getCNameAr()
+                  this.jobId  = this.authService.getLegacyCode()
+                  this.qid= this.authService.getQid()
       this.layout = "rtl";   
       this.sessionTimeout.val = "main"
+      this.language = new LanguageUtil(this.layoutIsRTL());
       //const browserLang: string = translate.getBrowserLang();
      
       //translate.use(browserLang.match(/en|fr/) ? browserLang : 'ar');
@@ -291,11 +301,11 @@ export class MainComponent implements OnInit, OnDestroy{
       breadcrumbService.addFriendlyNameForRoute('/crm/reports', 'Reports');
    }
 
-   ngDoCheck(): void {
-      //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-      //Add 'implements DoCheck' to the class.
-      //this.translate.use('ar'); 
-   }
+   
+  ngDoCheck(): void{
+   this.language = new LanguageUtil(this.layoutIsRTL());
+  }
+
 
    ngOnInit() {
       this.pageTitleService.title.subscribe((val: string) => {
@@ -397,8 +407,13 @@ export class MainComponent implements OnInit, OnDestroy{
       //this.coreService.sidenavMode = 'side';
       //this.coreService.sidenavOpen = true;
       
-      var permissions =  this.authService.getPermissions()
-      this.menuItems.update(permissions)
+     // var permissions =  this.authService.getPermissions()
+      //this.layout
+      //this.language is to be passed
+     // this.menuItems.update(permissions)
+
+     var permissions =  this.authService.getPermissions()
+     this.menuItems.update(permissions,  this.language )
    }
 
    ngOnDestroy() {

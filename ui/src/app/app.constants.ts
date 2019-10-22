@@ -1,3 +1,14 @@
+export const  RESOURCE_NOT_FOUND = 404;
+export const  BAD_REQUEST = 400;
+export const  UNAUTHORIZED = 401;
+export const  UNSUPPORTED_TYPE = 415;
+export const  SERVER_ERROR = 500;
+export const  SUCCESS = 200;
+export const  CREATED = 201;
+export const  RESOURCE_FOUND = 405;
+
+
+export const  IS_RTL_DEFAULT =true
 
 export const AUTOLOGOUT_IN_MIU=30
 
@@ -86,6 +97,7 @@ export const	GENERAL_COURSE =4
 export const BASE_URL ="http://localhost:9000"
 export const BASE_URL_FILE ="http://localhost:9000"
 
+
 //export const BASE_URL ="http://localhost:9000"
 
 export const VERSION_UI ="qa_0.6.8"
@@ -119,6 +131,7 @@ export const REFRESH_TOKEN=BASE_URL + authenticationrefresh +"/oauth/token?grant
 //TRAINING
 export const CREATE_ACTIVITY = BASE_URL + training +"/create-activity"
 export const LIST_ACTIVITY = BASE_URL + training + "/search-activity"
+export const  GET_ACTIVITY_COURSE= BASE_URL + training + "/search-activity"
 export const DELETE_ACTIVITY = BASE_URL + training + "/remove-activity"
 export const CREATE_COURSE = BASE_URL + training +"/create-course"
 export const GET_COURSE_BY_ID = BASE_URL + training +"/get-course-by-id"

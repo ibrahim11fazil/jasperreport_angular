@@ -5,7 +5,7 @@ public class WorkflowStatus {
     public static String CREATED = "CREATED";
     public static String REJECTED = "REJECTED";
     public static String APPROVED = "APPROVED";
-    public static String FAILED = "FAILED" ;
-    public static String ERROR = "ERROR" ;
+    public static String FAILED = "FAILED";
+    public static String ERROR = "ERROR";
 
 }

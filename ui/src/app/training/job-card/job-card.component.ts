@@ -13,6 +13,7 @@ import { DISABLED } from '@angular/forms/src/model';
 import { AuthService } from 'app/service/auth-service/auth.service';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-job-card',
@@ -44,7 +45,8 @@ export class JobCardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private mainComponent:MainComponent,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("Job Card Creation")
     this.loadForm();
     if (this.authService.checktheRoleisHR()) {
@@ -146,7 +148,10 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
 
     this.userService.getJobFamily().subscribe(
@@ -162,7 +167,10 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
 
     this.userService.getJobTitles().subscribe(
@@ -178,7 +186,8 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => { console.log(error)
+        this.errorService.errorResponseHandling(error)}
     )
 
 
@@ -195,7 +204,10 @@ export class JobCardComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
 
     this.trainingService.getAllCourseListWithCategoryAndHour().subscribe(
@@ -206,7 +218,7 @@ export class JobCardComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
 
@@ -330,11 +342,11 @@ export class JobCardComponent implements OnInit {
         data => this.successSaveInstructor(data),
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       );
     } else {
-      this.toastr.error("Please fill required fields")
+      this.toastr.error(this.language.error_fill_all_forms)
     }
   }
 
@@ -361,7 +373,8 @@ export class JobCardComponent implements OnInit {
       this.trainingService.getJobCardById(jobCard).subscribe(
         data => this.loadData(data),
         error => {
-          this.toastr.error(error.message)
+          console.log(error)
+        this.errorService.errorResponseHandling(error)
         }
       )
     }
@@ -396,32 +409,32 @@ export class JobCardComponent implements OnInit {
       var input = Number(this.form.value.jobGrade.psLevel)
       if (isNaN(input)) {
         this.updateStatus(false,
-          "Total 36 Hours of Workshop", WORKSHOP_COURSE, 36)
+         this.language.jobcard_total36hours, WORKSHOP_COURSE, 36)
           actionType=1
       } else {
         var gradeNumber = Number(this.form.value.jobGrade.psLevel)
         if (gradeNumber >= 2) {
           console.log()
           this.updateStatus(true,
-            "Total 60 Hours of course", 0, 0)
+            this.language.jobcard_total60hours, 0, 0)
           if (gradeNumber >= 2 && gradeNumber <= 7) {
             this.updateStatus(false,
-              "Total 40 Hours of Administrative Course", ADMINISTRATIVE_COURSE, 40)
+              this.language.jobcard_total40hoursAdmin, ADMINISTRATIVE_COURSE, 40)
             this.updateStatus(false,
-              "Total 20 Hours of Specialised Course", SPECIALISED_COURSE, 20)
+              this.language.jobcard_total20hoursSpl, SPECIALISED_COURSE, 20)
               actionType=2
           }
           if (gradeNumber > 7) {
             this.updateStatus(false,
-              "Total 20 Hours of Administrative Course", ADMINISTRATIVE_COURSE, 20)
+              this.language.jobcard_total20hoursAdmin, ADMINISTRATIVE_COURSE, 20)
             this.updateStatus(false,
-              "Total 40 Hours of Specialised Course", SPECIALISED_COURSE, 40)
+              this.language.jobcard_total40hoursSpl, SPECIALISED_COURSE, 40)
               actionType=3
           }
         }
         else if (gradeNumber < 2) {
           this.updateStatus(false,
-            "Total 36 Hours of Workshop", WORKSHOP_COURSE, 36)
+           this.language.jobcard_total36hours, WORKSHOP_COURSE, 36)
             actionType=1
         }
       }

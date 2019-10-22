@@ -17,8 +17,8 @@ security:
 
 debug: false
 server:
-#  servlet:
-#    context-path: /workflow
+  #  servlet:
+  #    context-path: /workflow
   port: 9061
 
 feign:
@@ -31,9 +31,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-#    url: jdbc:oracle:thin:@//localhost:1521/xe
-#    username: camuda
-#    password: 12345
+    #    url: jdbc:oracle:thin:@//localhost:1521/xe
+    #    username: camuda
+    #    password: 12345
     url: ${WORKFLOW_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
     username: ${WORKFLOW_DB_URL_USER:CUST_WORKFLOW}
     password: ${WORKFLOW_DB_URL_PASWORD:wflo4tst123}
@@ -44,7 +44,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
@@ -53,7 +53,7 @@ spring:
         dialect: org.hibernate.dialect.Oracle10gDialect
   jackson:
     serialization:
-      WRITE_DATES_AS_TIMESTAMPS : false
+      WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
   rabbitmq:
@@ -85,16 +85,16 @@ logging:
 #        enabled: true
 
 camunda:
-      bpm:
-       jpa:
-        enabled: true
-       database:
-        jdbc-batch-processing: false
-        schema-update: true
-       job-execution:
-         max-jobs-per-acquisition: 20
-         queue-capacity: 20
-         max-pool-size: 40
+  bpm:
+    jpa:
+      enabled: true
+    database:
+      jdbc-batch-processing: false
+      schema-update: false
+    job-execution:
+      max-jobs-per-acquisition: 30
+      queue-capacity: 40
+      max-pool-size: 50
 
 
 

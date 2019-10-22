@@ -1,140 +1,146 @@
 package qa.gov.customs.training.repository;
 
 
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import qa.gov.customs.training.entity.TacCourseMaster;
+
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
-import java.util.*;
 
 public interface CourseRepository extends PagingAndSortingRepository<TacCourseMaster, BigDecimal> {
 
-List<TacCourseMaster> findByActivityId(BigDecimal activityId);
+    List<TacCourseMaster> findByActivityId(BigDecimal activityId);
 
-TacCourseMaster findByCourseId(BigDecimal courseId);
+    TacCourseMaster findByCourseId(BigDecimal courseId);
 
-    @Query(value="select COURSE_ID,COURSE_NAME,ACTIVE_FLAG from Tac_Course_Master where SUBCOURSE_FLAG=1",nativeQuery=true)
-    List<Object[]>  findCourseBySubcourseFlag();
+    @Query(value = "select COURSE_ID,COURSE_NAME,ACTIVE_FLAG from Tac_Course_Master where SUBCOURSE_FLAG=1", nativeQuery = true)
+    List<Object[]> findCourseBySubcourseFlag();
 
-//and active_flag=1
-@Query(value="select * from Tac_Course_Master where lower(course_name) LIKE %:courseName%  order by course_id",nativeQuery=true)
-List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
+    //and active_flag=1
+    @Query(value = "select * from Tac_Course_Master where lower(course_name) LIKE %:courseName%  order by course_id", nativeQuery = true)
+    List<TacCourseMaster> findByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
-List<TacCourseMaster>findByCourseName(String courseName);
+    List<TacCourseMaster> findByCourseName(String courseName);
 
-//and active_flag=1
-@Query(value="select COURSE_ID,COURSE_NAME,ACTIVE_FLAG from Tac_Course_Master where lower(course_name) LIKE %:courseName%  order by course_id",nativeQuery=true)
-List<Object[]> findIdAndNameByCourseName(String courseName, Pageable firstPageWithThreeElements);
+    //and active_flag=1
+    @Query(value = "select COURSE_ID,COURSE_NAME,ACTIVE_FLAG from Tac_Course_Master where lower(course_name) LIKE %:courseName%  order by course_id", nativeQuery = true)
+    List<Object[]> findIdAndNameByCourseName(String courseName, Pageable firstPageWithThreeElements);
 
+    @Query(value = "select a.course_id,a.course_name,a.active_flag from Tac_Course_Master a join Tac_Activity_Course_Link b on a.course_Id=b.course_Id " +
+            "join tac_activity c on b.activity_id=c.activity_id and c.activity_name LIKE  %:activityName% " +
+            "order by a.course_Id", nativeQuery = true)
+    List<Object[]> findCourseUnderActivity(String activityName, Pageable firstPageWithThreeElements);
 
+    @Query(value = "select a.course_id,a.course_name,a.active_flag from Tac_Course_Master a join Tac_Activity_Course_Link b on a.course_Id=b.course_Id " +
+            "join tac_activity c on b.activity_id=c.activity_id and c.activity_name LIKE  %:activityName% and lower(a.course_name) LIKE %:courseName% " +
+            "order by a.course_Id", nativeQuery = true)
+    List<Object[]> findIdAndNameByCourseNameAndActivityName(String courseName, String activityName, Pageable firstPageWithThreeElements);
 
-@Query(value="select COURSE_ID,COURSE_NAME from Tac_Course_Master where active_flag=1 order by course_id",nativeQuery=true)
-List<Object[]> findAllCourses();
+    @Query(value = "select COURSE_ID,COURSE_NAME from Tac_Course_Master where active_flag=1 order by course_id", nativeQuery = true)
+    List<Object[]> findAllCourses();
 
-    @Query(value="select COURSE_ID,COURSE_NAME,NUMBEROFHOURS,CATEGORY_ID from Tac_Course_Master where active_flag=1 order by course_id",nativeQuery=true)
+    @Query(value = "select COURSE_ID,COURSE_NAME,NUMBEROFHOURS,CATEGORY_ID from Tac_Course_Master where active_flag=1 order by course_id", nativeQuery = true)
     List<Object[]> findAllCoursesWithHoursAndCategoryId();
 
-@Modifying
-@Query(value="update Tac_Course_Master  set active_flag=:flag   where  course_id=:courseId",nativeQuery=true)
-void enableOrDisableCourse(BigDecimal courseId , BigDecimal flag);
+    @Modifying
+    @Query(value = "update Tac_Course_Master  set active_flag=:flag   where  course_id=:courseId", nativeQuery = true)
+    void enableOrDisableCourse(BigDecimal courseId, BigDecimal flag);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE b.course_date<=to_date(sysdate,'DD-MM-YY') and b.end_date>=to_date(sysdate,'DD-MM-YY') and b.status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-            "where b.course_date<=to_date(sysdate,'DD-MM-YY') and b.end_date>=to_date(sysdate,'DD-MM-YY') and b.status=1 and a.course_id=b.course_id ",nativeQuery=true)
-    List<Object[]>  getAllCurrentCourses(Pageable pageable);
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+            "where b.course_date<=to_date(sysdate,'DD-MM-YY') and b.end_date>=to_date(sysdate,'DD-MM-YY') and b.status=1 and a.course_id=b.course_id ", nativeQuery = true)
+    List<Object[]> getAllCurrentCourses(Pageable pageable);
 
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-            "where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+            "where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
     List<Object[]> getAllFutureCourses(Pageable pageable);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE b.course_date>:nextYear and status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-            "where b.course_date>:nextYear and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
-    List<Object[]>  getCourseForNextYear(Date nextYear,Pageable pageable);
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+            "where b.course_date>:nextYear and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
+    List<Object[]> getCourseForNextYear(Date nextYear, Pageable pageable);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE b.course_date>=:nextMonth and b.course_date<:lastMnth and status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-            "where b.course_date>=:nextMonth and b.course_date<:lastMnth and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
-    List<Object[]>   getCourseForMonth(Date nextMonth,Date lastMnth,Pageable pageable);
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+            "where b.course_date>=:nextMonth and b.course_date<:lastMnth and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
+    List<Object[]> getCourseForMonth(Date nextMonth, Date lastMnth, Pageable pageable);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE b.course_date>:weekend and b.course_date<=:nextWeek and status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-            "where b.course_date>:weekend and b.course_date<=:nextWeek and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+            "where b.course_date>:weekend and b.course_date<=:nextWeek and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
+    List<Object[]> getCourseForNextWeek(Date weekend, Date nextWeek, Pageable pageable);
 
-    List<Object[]>   getCourseForNextWeek(Date weekend,Date nextWeek,Pageable pageable);
 
-
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id  from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id  from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')>b.end_date and status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-            "where to_date(sysdate,'DD-MM-YY')>b.end_date and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+            "where to_date(sysdate,'DD-MM-YY')>b.end_date and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
     List<Object[]> getAllPreviousCourses(Pageable pageable);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             " (SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1) " +
-            " join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
+            " join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
             " where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id " +
-            " and lower(a.course_name) LIKE %:courseName%",nativeQuery=true)
+            " and lower(a.course_name) LIKE %:courseName%", nativeQuery = true)
     List<Object[]> searchAllFutureCourses(String courseName, Pageable pageable);
 
 
-    @Query(value = "select b.course_date,b.end_date from tac_course_activation a  RIGHT JOIN tac_course_date b on a.date_id=b.date_id where a.activation_id=:activationId",nativeQuery = true)
+    @Query(value = "select b.course_date,b.end_date from tac_course_activation a  RIGHT JOIN tac_course_date b on a.date_id=b.date_id where a.activation_id=:activationId", nativeQuery = true)
     List<Object[]> getDatesForActivation(BigDecimal activationId);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id,d.course_status from tac_course_master a " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id,d.course_status from tac_course_master a " +
             "      join tac_course_date b on a.course_id in " +
             "      (SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')>b.end_date and status=1) " +
             "      join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
             "      join tac_course_attendees d on  c.activation_id=d.activation_id and d.job_id=:jobId and d.course_status is not null " +
-            "      where to_date(sysdate,'DD-MM-YY')>b.end_date and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
+            "      where to_date(sysdate,'DD-MM-YY')>b.end_date and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
     List<Object[]> getPreviousAttendedCourses(String jobId, Pageable pageable);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE b.course_date<=to_date(sysdate,'DD-MM-YY') and b.end_date>=to_date(sysdate,'DD-MM-YY') and b.status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
             "join tac_course_attendees d on  c.activation_id=d.activation_id and d.job_id=:jobId and d.course_status is  null " +
-            "where b.course_date<=to_date(sysdate,'DD-MM-YY') and b.end_date>=to_date(sysdate,'DD-MM-YY') and b.status=1 and a.course_id=b.course_id ",nativeQuery=true)
+            "where b.course_date<=to_date(sysdate,'DD-MM-YY') and b.end_date>=to_date(sysdate,'DD-MM-YY') and b.status=1 and a.course_id=b.course_id ", nativeQuery = true)
     List<Object[]> getCurrentlyAttendingCourses(String jobId, Pageable pageable);
 
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
             "(SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1) " +
-            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
             "join tac_course_attendees d on  c.activation_id=d.activation_id and d.job_id=:jobId and d.course_status is  null " +
-            "where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
-    List<Object[]> getApprovedCourse(String jobId,Pageable pageable);
+            "where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
+    List<Object[]> getApprovedCourse(String jobId, Pageable pageable);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in" +
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in" +
             "            (SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1)" +
             "            join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id" +
-            "            where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id and c.coordinator_id=:jobId",nativeQuery=true)
-    List<Object[]> getCoursesForCoordinator(String jobId,Pageable pageable);
+            "            where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id and c.coordinator_id=:jobId", nativeQuery = true)
+    List<Object[]> getCoursesForCoordinator(String jobId, Pageable pageable);
 
-    @Query(value="select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in "+
-            "(SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1)"+
-    "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id "+
-    "join tac_course_instructor d on c.activation_id=d.activation_id "+
-    "join tac_instructor_master e on d.instructor_id=e.instructor_id and e.job_id=:jobId "+
-    "where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id",nativeQuery=true)
+    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+            "(SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1)" +
+            "join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+            "join tac_course_instructor d on c.activation_id=d.activation_id " +
+            "join tac_instructor_master e on d.instructor_id=e.instructor_id and e.job_id=:jobId " +
+            "where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
+    List<Object[]> getInstructorCourses(String jobId, Pageable pageable);
 
-    List<Object[]> getInstructorCourses(String jobId,Pageable pageable);
-
-
-
-
-
-
+    @Modifying
+    @Transactional
+    @Query(value = "insert into  Tac_Activity_Course_Link(ACTIVITY_ID,COURSE_ID) values(:activityId,:courseId)", nativeQuery = true)
+   void updateCourseLinkTable(BigDecimal activityId,BigDecimal courseId);
 
 
 }

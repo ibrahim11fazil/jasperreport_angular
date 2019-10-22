@@ -10,17 +10,17 @@
                 </ng-container>   -->
                  
                 <ng-container matColumnDef="time">  
-                  <th mat-header-cell *matHeaderCellDef> Requested time </th>  
-                  <td mat-cell *matCellDef="let element"> {{element.time}} </td>  
+                  <th mat-header-cell *matHeaderCellDef>{{language.requestedTime}} </th>  
+                  <td mat-cell *matCellDef="let element"> {{  datepipe.transform(element.time, 'dd/MM/yyyy')}} </td>  
                 </ng-container>  
                 
                 <ng-container matColumnDef="userId">  
-                  <th mat-header-cell *matHeaderCellDef> jobId </th>  
+                  <th mat-header-cell *matHeaderCellDef>{{language.jobId}}</th>  
                   <td mat-cell *matCellDef="let element"> {{element.userId}} </td>  
                 </ng-container> 
        
                 <ng-container matColumnDef="edit">  
-                  <th mat-header-cell *matHeaderCellDef>View</th>  
+                  <th mat-header-cell *matHeaderCellDef>{{language.view}}</th>  
                   <td mat-cell *matCellDef="let element">  
                       <button class="mrgn-all-xs" mat-icon-button (click)="viewProcessDetails(element)">
                           <mat-icon>visibility</mat-icon>
@@ -38,21 +38,21 @@
       <mat-card fxFlex="100%">
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100" fxLayout="column">
               <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                    <h5>Course Name</h5> 
+                    <h5>{{language.courseName}}</h5> 
                     {{data.courseName}}
                   </div>
                   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                      <h5>Requested By</h5>
+                      <h5>{{language.requestedBy}}</h5>
                       {{data.cnameAr}}  -   {{data.jobId}} 
                   </div>
                   <div *ngIf="isrequestedFor" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                      <h5>Requested For</h5>
+                      <h5>{{language.requestedFor}}</h5>
                       <table border="1">
                           <tr>
-                            <th>User</th>
-                            <th>Job Code</th>
-                            <th>Qatar ID</th>
-                            <th>Position</th>
+                            <th>{{language.user}}</th>
+                            <th>{{language.jobId}}</th>
+                            <th>{{language.qid}}</th>
+                            <th>{{language.position}}</th>
                           </tr>
                           <tr>
                             <td>{{data.forUsercnameAr}}</td>
@@ -64,37 +64,40 @@
                 </div>
 
                   <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                      <h5>Department</h5>
+                      <h5>{{language.department}}</h5>
                       {{data.department}} 
                   </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                    <h5>Course Date</h5>
-                     {{activation!=null && activation.courseDate!=null?activation.courseDate:""}} 
+                    <h5>{{language.courseDate}}</h5>
+                   {{  datepipe.transform(activation!=null && activation.courseDate!=null?activation.courseDate:"", 'dd/MM/yyyy') }} 
+                   
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                    <h5>Estimated Duration</h5>
+                    <h5>{{language.estimatedDuration}}</h5>
                     {{activation!=null && activation.duration!=null ? activation.duration:""}}  -  {{durationValueString}} 
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                      <h5>Approvals</h5>
+                      <h5>{{language.Approvals}}</h5>
                       <table border="1">
                           <tr>
-                            <th>User</th>
-                            <th>Role</th>
-                            <th>Action</th>
-                            <th>Start Date</th>
+                            <th>{{language.user}}</th>
+                            <th>{{language.role}}</th>
+                            <th>{{language.action}}</th>
+                            <th>{{language.startDate}}</th>
                           </tr>
                           <tr  *ngFor="let item of historyExecutionsApprovals">
                             <td>{{item.assignee}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.deleteReason!=null?item.deleteReason:"Processing" }}</td>
-                            <td>{{item.startTime}}</td>
+                            <td>
+                                {{  datepipe.transform(item.startTime, 'dd/MM/yyyy')}} 
+                            </td>
                           </tr> 
                     
                     </table>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                      <h5>Comments</h5>
+                      <h5>{{language.comments}}</h5>
                         <mat-list-item *ngFor="let item of items">
                               {{item}}
                         </mat-list-item>

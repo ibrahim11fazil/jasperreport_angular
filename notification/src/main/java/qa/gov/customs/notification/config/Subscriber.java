@@ -20,13 +20,13 @@ public class Subscriber {
 
 //    @RabbitListener(queues="${notification.rabbitmq.queue}")
 //    public void receivedMessage(String msg) {
-//        System.out.println("Received Message: " + msg);
+//        logger.info("Received Message: " + msg);
 //    }
 
     @RabbitListener(queues = "${notification.rabbitmq.queue}")
-    public void getNotification(NotificationModel notificationModel){
+    public void getNotification(NotificationModel notificationModel) {
         logger.info("Received");
-        logger.info("Received" +notificationModel.getSmsBody());
+        logger.info("Received" + notificationModel.getSmsBody());
         notificationService.sendNotification(notificationModel);
 
     }

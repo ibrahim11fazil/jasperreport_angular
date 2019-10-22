@@ -8,6 +8,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADMIN, ROLE_TRAINING_MANAGER, ROLE_TRAINING_ASSIS_MANAGER, ROLE_TRAINING_COORDINATOR, ROLE_TRAINING_HEAD_TCE, ROLE_SYS_ADMIN, REFRESH_TOKEN} from "../../app.constants";
 import { LoginResponseObj } from 'app/models/system-user';
 import { isNgTemplate } from '@angular/compiler';
+import {  ResponseError } from 'app/models/ci-system-user';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,8 @@ export class AuthService {
    constructor(//private firebaseAuth : AngularFireAuth,
                private http:HttpClient,
                private router : Router,
-               private toastr : ToastrService) { 
+               private toastr : ToastrService,
+               private errorService:ErrorService) { 
    //	this.user = firebaseAuth.authState;
    }
 
@@ -83,35 +86,42 @@ export class AuthService {
                this.router.navigate(['/']);
             },
             error => {
-                  console.log(error); 
-                  this.toastr.error(error.message);
+               this.errorService.errorResponseHandling(error)
             }
        );
    }
 
+   // errorResponseHandling(error){
+   //    console.log(error)
+   //    var errorMsg = <ResponseError> error
+   //    this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
+   //    console.log(error.message);
+   // }
 
+   //Some issue in refresh token ...
    refreshToken() {
+      console.log(" User Token Updating ");
       let options = {
          headers: new HttpHeaders()
                .set('Content-Type', 'application/x-www-form-urlencoded')
       };
       let body = new URLSearchParams()
-      body.set('', '')
       var token = this.getRefreshToken()
-      var url = REFRESH_TOKEN+ token
-      this.http.post(url,body)
+      var url = REFRESH_TOKEN + token
+      
+      this.http.post(url,body.toString(),options)
           .subscribe(
               response => {
-               //console.log(response); 
                this.setLocalUserProfile(response);
-               this.toastr.success('User session updated');
             },
             error => {
-                  console.log(error); 
-                  this.toastr.error(error.message);
+                  this.errorService.errorResponseHandling(error)
+                  //this.logOut()
             }
        );
    }
+
+  
 
    /*
     * resetPassword is used to reset your password
@@ -151,6 +161,7 @@ export class AuthService {
         this.toastr.success("Successfully logged out!");
         this.router.navigate(['/session/loginV2']);
    }   
+   
 
    logOutExpire() {
       localStorage.clear()
@@ -255,7 +266,7 @@ export class AuthService {
        this.userData = JSON.parse(localStorage.getItem("userProfile"));
        if(this.userData) {
            var json = this.userData;
-           //console.log(JSON.stringify(json));
+           //console.log("User Token getting");
            let body = JSON.parse(JSON.stringify(json));
            return body.refresh_token;
        } else {

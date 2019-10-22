@@ -5,6 +5,7 @@ import { TrainingService } from "../../service/training/training.service";
 import { ToastrService } from "ngx-toastr";
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-activity-list',
@@ -21,7 +22,8 @@ export class ActivityListComponent implements OnInit {
   tData: Boolean;
   constructor(private trainingService: TrainingService,
     private toastr: ToastrService,
-    private mainComponent:MainComponent) {
+    private mainComponent:MainComponent,
+    private errorService:ErrorService) {
       this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
@@ -40,13 +42,12 @@ export class ActivityListComponent implements OnInit {
   }
 
   errorWhileSearching(error) {
-    console.log(error);
-    this.toastr.error(error.message)
+    console.log(error)
+    this.errorService.errorResponseHandling(error)
   }
 
   successSearchActivity(data) {
     this.tData = true;
-    debugger;
     if (data.status) {
       this.rows = data.data;
     } else {
@@ -60,7 +61,11 @@ export class ActivityListComponent implements OnInit {
     console.log(activity.activityName);
     this.trainingService.deleteActivity(activity).subscribe(
       data => this.successDelete(data),
-      error => this.errorWhileSearching(error)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+
     )
   }
   
@@ -69,9 +74,15 @@ export class ActivityListComponent implements OnInit {
     let activity: TacActivity = { activityName: this.searchText, activityId: 0 }
     this.trainingService.listActivity(activity).subscribe(
       data => this.successSearchActivity(data),
-      error => this.errorWhileSearching(error)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
     this.toastr.success(data.message)
   }
+
+
+  
 
 }

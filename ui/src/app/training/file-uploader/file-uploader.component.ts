@@ -6,6 +6,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { IUploadResponse } from 'app/models/i-upload-response';
 import { switchMap, debounceTime, tap, finalize } from 'rxjs/operators';
 import { map, startWith } from 'rxjs/operators';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-file-uploader',
   templateUrl: './file-uploader.component.html',
@@ -23,7 +24,8 @@ export class FileUploaderComponent implements OnInit {
   percentDone: number;
   uploadSuccess: boolean;
   imageDatas: any;
-  constructor(private service: TrainingService, private sanitizer: DomSanitizer, ) {
+  constructor(private service: TrainingService, private sanitizer: DomSanitizer,
+    private errorService:ErrorService ) {
     this.fileName = "";
     this.blankView()
   }
@@ -50,7 +52,6 @@ export class FileUploaderComponent implements OnInit {
             this.imageurl = this.imageDate.fileDownloadUri
             var filename = this.imageurl.substring(this.imageurl.lastIndexOf('/') + 1);
             this.fileName = filename;
-            debugger
             this.updateView(this.imageurl)
           } else {
             this.uploadSuccess = false;
@@ -70,7 +71,10 @@ export class FileUploaderComponent implements OnInit {
         this.imageDatas = this.sanitizer.bypassSecurityTrustUrl(
           urlCreator.createObjectURL(blob));
       },
-      error => { console.error(error); console.log("Downloading isssue"); }
+      error => { 
+        this.errorService.errorResponseHandling(error)
+        console.error(error); console.log("Downloading isssue"); 
+      }
     )
   }
 

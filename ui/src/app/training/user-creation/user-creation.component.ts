@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-user-creation',
@@ -31,7 +32,8 @@ export class UserCreationComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private toastr : ToastrService,
     private mainComponent:MainComponent,
-    private activatedRoute: ActivatedRoute,){
+    private activatedRoute: ActivatedRoute,
+    private errorService:ErrorService){
     this.pageTitleService.setTitle("User Creation") 
     this.blankUser()
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
@@ -86,10 +88,8 @@ export class UserCreationComponent implements OnInit {
       roleId:this.form.value.userRole.id,
       enabled:Number(this.form.value.enabledUser)
     }
-    debugger
       this.userService.saveUser( this.systemUser).subscribe(
         data=>  {
-          debugger
           var response =  <ISystemUserResponse>data
           if(response.status){
             this.cNameAr = ""
@@ -102,7 +102,6 @@ export class UserCreationComponent implements OnInit {
           }
         },
         error=>  {
-          debugger
           this.toastr.error(error.message) 
         }
       )
@@ -131,7 +130,7 @@ export class UserCreationComponent implements OnInit {
           },
           error => {
             console.log(error)
-            this.toastr.error(error.message)
+            this.errorService.errorResponseHandling(error)
           }
         )
       }
@@ -150,7 +149,7 @@ export class UserCreationComponent implements OnInit {
      //this.form.controls['userRole'].patchValue(roleSelected)
      //this.form.controls['enabledUser'].patchValue(this.systemUser.enabled.toString())
     // this.form.controls['password'].validator=null
-     this.blankPassword="Please provide blank area for no change in password"
+     this.blankPassword=this.language.provideBlank
    
   }
 
@@ -163,19 +162,17 @@ export class UserCreationComponent implements OnInit {
   getUserById(jobId){
     this.userService.getUserById(jobId).subscribe(
       data=>{
-        //this.toastr.info("Valid User")
-        debugger
         var response = <MawaredUserResponse>data
         if(response.data!=null){
         this.cNameAr= response.data.cnameAr
         }else{
-          this.cNameAr= "Invalid User"
+          this.cNameAr= this.language.invalidUser
         }
 
       },
       error=>{
         console.log(error.message)
-        this.cNameAr= "Invalid User"
+        this.cNameAr= this.language.invalidUser
       }
     )
   }

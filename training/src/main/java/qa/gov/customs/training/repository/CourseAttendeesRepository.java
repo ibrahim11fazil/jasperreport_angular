@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import qa.gov.customs.training.entity.TacCourseAttendees;
-import qa.gov.customs.training.entity.TacCourseAudience;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -17,8 +16,8 @@ import java.util.List;
 @Repository
 public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttendees, BigDecimal> {
 
-    @Query(value="select ACTIVATION_ID,JOB_ID,REMARK from TAC_COURSE_ATTENDEES where ACTIVATION_ID=:activationId and  JOB_ID=:jobId",nativeQuery=true)
-    List<Object[]> findAttendeesWithJobIdAndActionId(@Param("activationId") BigInteger activationId ,@Param("jobId")  String jobId);
+    @Query(value = "select ACTIVATION_ID,JOB_ID,REMARK from TAC_COURSE_ATTENDEES where ACTIVATION_ID=:activationId and  JOB_ID=:jobId", nativeQuery = true)
+    List<Object[]> findAttendeesWithJobIdAndActionId(@Param("activationId") BigInteger activationId, @Param("jobId") String jobId);
 //
 //    @Modifying
 //    @Transactional
@@ -27,6 +26,6 @@ public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttend
 
     @Modifying
     @Transactional
-    @Query(value="update  TAC_COURSE_ATTENDEES set course_status=:courseStatus where attendees_id=:attendeesId",nativeQuery=true)
-    void updateCourseStatus(BigDecimal attendeesId,BigDecimal courseStatus);
+    @Query(value = "update  TAC_COURSE_ATTENDEES set course_status=:courseStatus where attendees_id=:attendeesId", nativeQuery = true)
+    void updateCourseStatus(BigDecimal attendeesId, BigDecimal courseStatus);
 }

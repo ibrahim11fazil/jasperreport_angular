@@ -86,6 +86,4 @@ public class CustomPrincipal implements Serializable {
     }
 
 
-
-
 }

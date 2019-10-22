@@ -1,4 +1,3 @@
-
 package qa.gov.customs.training;
 
 import org.springframework.boot.SpringApplication;

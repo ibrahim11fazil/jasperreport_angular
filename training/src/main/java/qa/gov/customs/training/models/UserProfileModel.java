@@ -5,17 +5,17 @@ import java.math.BigDecimal;
 public class UserProfileModel {
 
 
-   BigDecimal jobCardNo;
-   String   jobGrade;
-   BigDecimal  admin_hours;
-   BigDecimal specialised_hours;
-   BigDecimal  workshop_hours;
-   BigDecimal courseId;
-   String courseName;
-   BigDecimal noOfHours;
-   String category;
-   BigDecimal statusFlag;
-   BigDecimal mandatoryFlag;
+    BigDecimal jobCardNo;
+    String jobGrade;
+    BigDecimal admin_hours;
+    BigDecimal specialised_hours;
+    BigDecimal workshop_hours;
+    BigDecimal courseId;
+    String courseName;
+    BigDecimal noOfHours;
+    String category;
+    BigDecimal statusFlag;
+    BigDecimal mandatoryFlag;
 
     public BigDecimal getJobCardNo() {
         return jobCardNo;

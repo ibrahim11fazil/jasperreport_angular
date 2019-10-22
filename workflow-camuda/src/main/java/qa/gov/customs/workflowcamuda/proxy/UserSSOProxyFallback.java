@@ -1,6 +1,5 @@
 package qa.gov.customs.workflowcamuda.proxy;
 
-import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -36,8 +35,8 @@ public class UserSSOProxyFallback implements UserSSOProxy {
                 null);
     }
 
-    ResponseType  get(int code, String message, boolean status, Object data){
-        ResponseType response = new ResponseType(code,message, status,
+    ResponseType get(int code, String message, boolean status, Object data) {
+        ResponseType response = new ResponseType(code, message, status,
                 data);
         return response;
     }

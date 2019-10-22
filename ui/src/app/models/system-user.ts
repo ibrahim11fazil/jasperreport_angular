@@ -97,6 +97,7 @@ export interface MawaredUser{
       departmentId:String;
       passport:String;
       iban:String;
+      qualification:String;
 }
 
 export interface MawaredUserResponse {
