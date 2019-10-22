@@ -3,6 +3,7 @@ package qa.gov.customs.training.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -70,6 +71,7 @@ public class TacCourseRoom implements java.io.Serializable {
     }
 
     //@JsonManagedReference(value="room")
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tacCourseRoom")
     public Set<TacCourseActivation> getTacCourseActivations() {
         return this.tacCourseActivations;

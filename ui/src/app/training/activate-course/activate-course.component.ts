@@ -184,6 +184,7 @@ export class ActivateCourseComponent implements OnInit {
   }
 
   patch() {
+    debugger
     var courseArray = this.courseList.filter(i => i.courseId == this.activationData.courseId)
     if (courseArray[0] != null) {
       this.form.controls['courseSelect'].patchValue(
@@ -243,7 +244,12 @@ export class ActivateCourseComponent implements OnInit {
       )
     }
     
-   
+    var roomArray = this.roomDetails.filter(i => i.roomId == this.activationData.roomID)
+    if (roomArray[0] != null) {
+      this.form.controls['roomSelect'].patchValue(
+        roomArray[0]
+      )
+    }
 
     
   }
@@ -251,7 +257,7 @@ export class ActivateCourseComponent implements OnInit {
   getCourseDetails(course) {
     this.form.reset();
     let courseMaster = null
-   
+   debugger
       courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     
 
@@ -289,6 +295,10 @@ export class ActivateCourseComponent implements OnInit {
         var response = <ResponseLocationDetail>data
         this.trainingRoomDetail = response.data
         this.roomDetails=this.trainingRoomDetail .tacCourseRooms
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       })
   }
 
@@ -298,7 +308,11 @@ export class ActivateCourseComponent implements OnInit {
       data => {
         var response = <ResponseLocationDetail>data
         this.trainingRoomDetail = response.data
-        this.roomDetails=this.trainingRoomDetail .tacCourseRooms})
+        this.roomDetails=this.trainingRoomDetail .tacCourseRooms},
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        })
   }
 
   addMoreInstructor() {
