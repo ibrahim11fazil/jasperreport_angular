@@ -222,22 +222,23 @@ public class CourseController {
                 if (activities.size() > 0) {
                    // linkCourse.setTacActivities(activities);
                     courselink = courseService.linkCourseWithActivity(linkCourse);
+
+
                     for (TacActivity activity : course.getTacActivities()) {
-                        logger.info("inside for loop");
-                        if (activityService.findActivityById(activity.getActivityId()) != null) {
-
-                            activities.add(activity);
-                        }
-                        for (TacActivity activity1: linkCourse.getTacActivities())
+                        if(linkCourse.getTacActivities().size()==0 || linkCourse.getTacActivities()==null)
                         {
-                            if(activity1.getActivityId()!=activity.getActivityId())
-                            {
+                            courseService.updateCourseActivityLink(activity.getActivityId(),course.getCourseId());
+                        }
+                        else {
 
-                                courseService.updateCourseActivityLink(activity.getActivityId(),course.getCourseId());
 
+                            for (TacActivity activity1 : linkCourse.getTacActivities()) {
+                                if (activity1.getActivityId() != activity.getActivityId()) {
+                                    courseService.updateCourseActivityLink(activity.getActivityId(),course.getCourseId());
+
+                                }
 
                             }
-
                         }
 
                     }

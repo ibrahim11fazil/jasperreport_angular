@@ -132,6 +132,8 @@ export class LanguageUtil  {
     disable:String=this.isArabic ? "الغاء تفعيل" : "Disable"
     status:String=this.isArabic ? "الحالة" : "Status"
     password:String=this.isArabic? "password 1" : "password"
+    invalidUser:String=this.isArabic? "invalid User 1":"Invalid User"
+    provideBlank:String=this.isArabic? "Please provide blank area for no change in password 1" : "Please provide blank area for no change in password"
 
 
 

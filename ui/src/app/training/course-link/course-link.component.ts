@@ -225,7 +225,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   patch() {
- 
+ debugger
     if (this.courseDetails.tacActivities.length > 0) {
       this.existingActivity = ""
       this.courseDetails.tacActivities.forEach(item =>

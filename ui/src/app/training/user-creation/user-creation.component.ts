@@ -149,7 +149,7 @@ export class UserCreationComponent implements OnInit {
      //this.form.controls['userRole'].patchValue(roleSelected)
      //this.form.controls['enabledUser'].patchValue(this.systemUser.enabled.toString())
     // this.form.controls['password'].validator=null
-     this.blankPassword="Please provide blank area for no change in password"
+     this.blankPassword=this.language.provideBlank
    
   }
 
@@ -166,13 +166,13 @@ export class UserCreationComponent implements OnInit {
         if(response.data!=null){
         this.cNameAr= response.data.cnameAr
         }else{
-          this.cNameAr= "Invalid User"
+          this.cNameAr= this.language.invalidUser
         }
 
       },
       error=>{
         console.log(error.message)
-        this.cNameAr= "Invalid User"
+        this.cNameAr= this.language.invalidUser
       }
     )
   }
