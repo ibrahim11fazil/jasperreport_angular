@@ -44,7 +44,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
@@ -90,11 +90,11 @@ camunda:
       enabled: true
     database:
       jdbc-batch-processing: false
-      schema-update: true
+      schema-update: false
     job-execution:
-      max-jobs-per-acquisition: 20
-      queue-capacity: 20
-      max-pool-size: 40
+      max-jobs-per-acquisition: 30
+      queue-capacity: 40
+      max-pool-size: 50
 
 
 

@@ -357,7 +357,7 @@ public class EmployeeController {
         List<EmployeeUnderSupervisor> submittedRequest = mawaredService.employeesUnderSupervisor(jobId);
         if (submittedRequest != null && submittedRequest.size() > 0) {
             for (EmployeeUnderSupervisor item : submittedRequest) {
-                if (item.getLegacyCode().equals(requestedUser)) {
+                if (item.getLegacyCode()!=null &&   item.getLegacyCode().equals(requestedUser)) {
                     isValid = true;
                 }
             }
