@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>app</artifactId>
@@ -15,9 +15,9 @@
 
     <dependencies>
         <!--<dependency>-->
-            <!--<groupId>qa.gov.customs</groupId>-->
-            <!--<artifactId>utils</artifactId>-->
-            <!--<version>0.0.3</version>-->
+        <!--<groupId>qa.gov.customs</groupId>-->
+        <!--<artifactId>utils</artifactId>-->
+        <!--<version>0.0.3</version>-->
         <!--</dependency>-->
 
         <dependency>
@@ -77,28 +77,34 @@
             <version>1.2.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+
         <!--<dependency>-->
         <!--<groupId>org.springframework.cloud</groupId>-->
         <!--<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-openfeign-core</artifactId>-->
-            <!--<version>2.0.0.RELEASE</version>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-openfeign-core</artifactId>-->
+        <!--<version>2.0.0.RELEASE</version>-->
         <!--</dependency>-->
 
         <!-- for accessing other services based on name registered in the naming server -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-openfeign-core</artifactId>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-openfeign-core</artifactId>-->
         <!--</dependency>-->
 
         <!-- for accessing other services based on load balanced , in case of more than one instances -->
 
         <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
         <!--</dependency>-->
 
 
@@ -146,7 +152,6 @@
             <artifactId>ojdbc7</artifactId>
             <version>12.1.0.1</version>
         </dependency>
-
 
 
     </dependencies>

@@ -1,205 +1,195 @@
 package qa.gov.customs.training.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import qa.gov.customs.training.models.JobCardCourseLinkModel;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 @Entity
-	@Table(name = "TAC_JOBCARD", schema = "CUST_TAC")
-	public class TacJobcard  implements java.io.Serializable
-	{
-		
-		
-		private String job; 
-	//	@Column(name = "JOB", length = 20)
-		public String getJob() {
-			return job;
-		}
+@Table(name = "TAC_JOBCARD", schema = "CUST_TAC")
+public class TacJobcard implements java.io.Serializable {
 
-		public void setJob(String job) {
-			this.job = job;
-		}
 
-	//	@Column(name = "JOB_TITLE", length = 500)
-		public String getJobTitle() {
-			return jobTitle;
-		}
+    List<JobCardCourseLinkModel> jobCardCourseLinkModelList = new ArrayList<>();
+    @Transient
+    int start;
+    @Transient
+    int limit;
+    private String job;
+    private String jobTitle;
+    private String jobGrade;
+    private String jobGroup;
+    private String specialGroup;
+    private BigDecimal jobcardNo;
+    private BigDecimal adminHours;
+    private BigDecimal specialisedHours;
+    private BigDecimal workshopHours;
+    private BigDecimal hourFlag;
+    private BigDecimal jobCardyear;
+    private BigDecimal jobCardStatus;
+    private Set<TacJobcardConditions> tacJobcardConditions = new HashSet<TacJobcardConditions>(0);
+    private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
+    private Set<TacJobcardSkills> tacJobcardSkills = new HashSet<TacJobcardSkills>(0);
+    private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
+    public TacJobcard() {
 
-		public void setJobTitle(String jobTitle) {
-			this.jobTitle = jobTitle;
-		}
-		
-	//	@Column(name = "JOB_GRADE", length = 20)
-		public String getJobGrade() {
-			return jobGrade;
-		}
+    }
+    public TacJobcard(String job, String jobTitle, String jobGrade, String jobGroup, String specialGroup, BigDecimal jobcardNo, Set<TacJobcardConditions> tacJobcardConditions, Set<TacJobcardSkills> tacJobcardSkills, Set<TacJobcardDuties> tacJobcardDuties)// ,Set<TacJobcardCourseLink> tacJobcardCourseLink)
+    {
 
-		public void setJobGrade(String jobGrade) {
-			this.jobGrade = jobGrade;
-		}
+        this.job = job;
+        this.jobGrade = jobGrade;
+        this.jobGroup = jobGroup;
+        this.jobTitle = jobTitle;
+        this.specialGroup = specialGroup;
+        this.jobcardNo = jobcardNo;
+        this.tacJobcardConditions = tacJobcardConditions;
+        this.tacJobcardDuties = tacJobcardDuties;
+        this.tacJobcardSkills = tacJobcardSkills;
+//			this.tacJobcardCourseLink=tacJobcardCourseLink;
+    }
 
-	//	@Column(name = "JOB_GROUP", length = 200)
-		public String getJobGroup() {
-			return jobGroup;
-		}
+    //	@Column(name = "JOB", length = 20)
+    public String getJob() {
+        return job;
+    }
 
-		public void setJobGroup(String jobGroup) {
-			this.jobGroup = jobGroup;
-		}
+    public void setJob(String job) {
+        this.job = job;
+    }
 
-		
-	//	@Column(name = "SPECIAL_GROUP", length = 200)
-		public String getSpecialGroup() {
-			return specialGroup;
-		}
+    //	@Column(name = "JOB_TITLE", length = 500)
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-		public void setSpecialGroup(String specialGroup) {
-			this.specialGroup = specialGroup;
-		}
-		
-		@Id
-		
-		@Column(name = "JOBCARD_NO", unique = true, nullable = false, precision = 22, scale = 0)
-		@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_JOBCARD_NO_SEQ",allocationSize = 1)
-		public BigDecimal getJobcardNo() {
-			return jobcardNo;
-			//return this.jobcardNo;
-		}
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-		public void setJobcardNo(BigDecimal jobcardNo) {
-			this.jobcardNo = jobcardNo;
-		}
+    //	@Column(name = "JOB_GRADE", length = 20)
+    public String getJobGrade() {
+        return jobGrade;
+    }
 
-		private String jobTitle; 
-		private String jobGrade; 
-		private String jobGroup;
-		private String specialGroup; 
-		private BigDecimal jobcardNo;
-		private BigDecimal adminHours;
-		private BigDecimal specialisedHours;
-		private BigDecimal workshopHours;
-		private BigDecimal hourFlag;
-		
-		private Set<TacJobcardConditions> tacJobcardConditions = new HashSet<TacJobcardConditions>(0);
-		private Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
-		private Set<TacJobcardSkills> tacJobcardSkills = new HashSet<TacJobcardSkills>(0);
-		
+    public void setJobGrade(String jobGrade) {
+        this.jobGrade = jobGrade;
+    }
+
 
 //		
-		
-		
 
-		public TacJobcard(){
-			
-		}
-		
-	
+    //	@Column(name = "JOB_GROUP", length = 200)
+    public String getJobGroup() {
+        return jobGroup;
+    }
 
-		public TacJobcard(String job, String jobTitle, String jobGrade, String jobGroup,String specialGroup,BigDecimal jobcardNo,Set<TacJobcardConditions> tacJobcardConditions,Set<TacJobcardSkills> tacJobcardSkills,Set<TacJobcardDuties> tacJobcardDuties)// ,Set<TacJobcardCourseLink> tacJobcardCourseLink)
-		{
-			
-			this.job=job;
-			this.jobGrade=jobGrade;
-			this.jobGroup=jobGroup;
-			this.jobTitle=jobTitle;
-			this.specialGroup=specialGroup;
-			this.jobcardNo=jobcardNo;
-			this.tacJobcardConditions=tacJobcardConditions;
-			this.tacJobcardDuties=tacJobcardDuties;
-			this.tacJobcardSkills=tacJobcardSkills;
-//			this.tacJobcardCourseLink=tacJobcardCourseLink;
-		}
-		
-		@JsonManagedReference(value="conditions")
-		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
-		public Set<TacJobcardConditions> getTacJobcardConditions() {
-			return tacJobcardConditions;
-		}
+    public void setJobGroup(String jobGroup) {
+        this.jobGroup = jobGroup;
+    }
 
-		public void setTacJobcardConditions(Set<TacJobcardConditions> tacJobcardConditions) {
-			this.tacJobcardConditions = tacJobcardConditions;
-		}
-		
-		@JsonManagedReference(value="skills")
-		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
-		public Set<TacJobcardSkills> getTacJobcardSkills() {
-			return tacJobcardSkills;
-		}
+    //	@Column(name = "SPECIAL_GROUP", length = 200)
+    public String getSpecialGroup() {
+        return specialGroup;
+    }
 
-		public void setTacJobcardSkills(Set<TacJobcardSkills> tacJobcardSkills) {
-			this.tacJobcardSkills = tacJobcardSkills;
-		}
-		
+    public void setSpecialGroup(String specialGroup) {
+        this.specialGroup = specialGroup;
+    }
 
-		@JsonManagedReference(value="duties")
-		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
-		public Set<TacJobcardDuties> getTacJobcardDuties() {
-			return tacJobcardDuties;
-		}
+    @Id
 
-		public void setTacJobcardDuties(Set<TacJobcardDuties> tacJobcardDuties) {
-			this.tacJobcardDuties = tacJobcardDuties;
-		}
+    @Column(name = "JOBCARD_NO", unique = true, nullable = false, precision = 22, scale = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "TAC_JOBCARD_NO_SEQ", allocationSize = 1)
+    public BigDecimal getJobcardNo() {
+        return jobcardNo;
+        //return this.jobcardNo;
+    }
 
-		@Column(name = "ADMIN_HOURS")
-		public BigDecimal getAdminHours() {
-			return adminHours;
-		}
+    public void setJobcardNo(BigDecimal jobcardNo) {
+        this.jobcardNo = jobcardNo;
+    }
 
-		public void setAdminHours(BigDecimal adminHours) {
-			this.adminHours = adminHours;
-		}
+    @JsonManagedReference(value = "conditions")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard", cascade = CascadeType.ALL)
+    public Set<TacJobcardConditions> getTacJobcardConditions() {
+        return tacJobcardConditions;
+    }
 
-		@Column(name = "SPECIALISED_HOURS")
-		public BigDecimal getSpecialisedHours() {
-			return specialisedHours;
-		}
+    public void setTacJobcardConditions(Set<TacJobcardConditions> tacJobcardConditions) {
+        this.tacJobcardConditions = tacJobcardConditions;
+    }
 
-		public void setSpecialisedHours(BigDecimal specialisedHours) {
-			this.specialisedHours = specialisedHours;
-		}
+    @JsonManagedReference(value = "skills")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard", cascade = CascadeType.ALL)
+    public Set<TacJobcardSkills> getTacJobcardSkills() {
+        return tacJobcardSkills;
+    }
 
-		@Column(name = "WORKSHOP_HOURS")
-		public BigDecimal getWorkshopHours() {
-			return workshopHours;
-		}
+    public void setTacJobcardSkills(Set<TacJobcardSkills> tacJobcardSkills) {
+        this.tacJobcardSkills = tacJobcardSkills;
+    }
 
-		public void setWorkshopHours(BigDecimal workshopHours) {
-			this.workshopHours = workshopHours;
-		}
+    @JsonManagedReference(value = "duties")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard", cascade = CascadeType.ALL)
+    public Set<TacJobcardDuties> getTacJobcardDuties() {
+        return tacJobcardDuties;
+    }
 
-		@Column(name = "HOUR_ERROR_FLAG")
-		public BigDecimal getHourFlag() {
-			return hourFlag;
-		}
+    public void setTacJobcardDuties(Set<TacJobcardDuties> tacJobcardDuties) {
+        this.tacJobcardDuties = tacJobcardDuties;
+    }
 
-		public void setHourFlag(BigDecimal hourFlag) {
-			this.hourFlag = hourFlag;
-		}
+    @Column(name = "ADMIN_HOURS")
+    public BigDecimal getAdminHours() {
+        return adminHours;
+    }
 
-		//		@ManyToMany(fetch = FetchType.LAZY)
+    public void setAdminHours(BigDecimal adminHours) {
+        this.adminHours = adminHours;
+    }
+
+    @Column(name = "SPECIALISED_HOURS")
+    public BigDecimal getSpecialisedHours() {
+        return specialisedHours;
+    }
+
+    public void setSpecialisedHours(BigDecimal specialisedHours) {
+        this.specialisedHours = specialisedHours;
+    }
+
+    @Column(name = "WORKSHOP_HOURS")
+    public BigDecimal getWorkshopHours() {
+        return workshopHours;
+    }
+
+    public void setWorkshopHours(BigDecimal workshopHours) {
+        this.workshopHours = workshopHours;
+    }
+
+    @Column(name = "HOUR_ERROR_FLAG")
+    public BigDecimal getHourFlag() {
+        return hourFlag;
+    }
+
+    public void setHourFlag(BigDecimal hourFlag) {
+        this.hourFlag = hourFlag;
+    }
+
+    //		@ManyToMany(fetch = FetchType.LAZY)
 //		@JoinTable(name = "TAC_JOBCARD_COURSE_LINK",
 //				joinColumns = { @JoinColumn(name = "JOBCARD_NO") },
 //				inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
-		
+
 //		@JsonManagedReference(value="courseLink")
 //		@OneToMany(fetch = FetchType.LAZY, mappedBy = "tacJobcard",cascade = CascadeType.ALL)
 //		public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
@@ -211,32 +201,23 @@ import java.util.stream.Stream;
 //		}
 //		
 
+    @Column(name = "JOB_CARD_YEAR")
+    public BigDecimal getJobCardyear() {
+        return jobCardyear;
+    }
 
-		private Set<TacJobcardCourseLink> tacJobcardCourseLink = new HashSet<TacJobcardCourseLink>(0);
+    public void setJobCardyear(BigDecimal jobCardyear) {
+        this.jobCardyear = jobCardyear;
+    }
 
-		//@JsonManagedReference(value="tacJobcard")
-		@OneToMany(
-				mappedBy = "primaryKey.tacJobcard",
-				cascade = CascadeType.ALL
-		)
-		public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
-			return tacJobcardCourseLink;
-		}
+    @Column(name = "STATUS_FLAG")
+    public BigDecimal getJobCardStatus() {
+        return jobCardStatus;
+    }
 
-		public void setTacJobcardCourseLink(Set<TacJobcardCourseLink> tacJobcardCourseLink) {
-			this.tacJobcardCourseLink = tacJobcardCourseLink;
-		}
-
-
-		public void addCourse(TacJobcardCourseLink... courseMasters) {
-			for(TacJobcardCourseLink link: courseMasters) {
-				link.setTacJobcardTransiant(this);
-				this.tacJobcardCourseLink = Stream.of(link).collect(Collectors.toSet());
-			}
-
-
-		}
-
+    public void setJobCardStatus(BigDecimal jobCardStatus) {
+        this.jobCardStatus = jobCardStatus;
+    }
 
 
 //		public void removeCourse(TacCourseMaster courseMaster) {
@@ -253,39 +234,53 @@ import java.util.stream.Stream;
 //			}
 //		}
 
+    //@JsonManagedReference(value="tacJobcard")
+    @OneToMany(
+            mappedBy = "primaryKey.tacJobcard",
+            cascade = CascadeType.ALL
+    )
+    public Set<TacJobcardCourseLink> getTacJobcardCourseLink() {
+        return tacJobcardCourseLink;
+    }
 
-		List<JobCardCourseLinkModel> jobCardCourseLinkModelList = new ArrayList<>();
+    public void setTacJobcardCourseLink(Set<TacJobcardCourseLink> tacJobcardCourseLink) {
+        this.tacJobcardCourseLink = tacJobcardCourseLink;
+    }
 
-		@Transient
-		public List<JobCardCourseLinkModel> getJobCardCourseLinkModelList() {
-			return jobCardCourseLinkModelList;
-		}
+    public void addCourse(TacJobcardCourseLink... courseMasters) {
+        for (TacJobcardCourseLink link : courseMasters) {
+            link.setTacJobcardTransiant(this);
+            this.tacJobcardCourseLink = Stream.of(link).collect(Collectors.toSet());
+        }
 
-		public void setJobCardCourseLinkModelList(List<JobCardCourseLinkModel> jobCardCourseLinkModelList) {
-			this.jobCardCourseLinkModelList = jobCardCourseLinkModelList;
-		}
 
-		@Transient
-		int start;
+    }
 
-		@Transient
-		int limit;
+    @Transient
+    public List<JobCardCourseLinkModel> getJobCardCourseLinkModelList() {
+        return jobCardCourseLinkModelList;
+    }
 
-		@Transient
-		public int getStart() {
-			return start;
-		}
+    public void setJobCardCourseLinkModelList(List<JobCardCourseLinkModel> jobCardCourseLinkModelList) {
+        this.jobCardCourseLinkModelList = jobCardCourseLinkModelList;
+    }
 
-		public void setStart(int start) {
-			this.start = start;
-		}
-		@Transient
-		public int getLimit() {
-			return limit;
-		}
+    @Transient
+    public int getStart() {
+        return start;
+    }
 
-		public void setLimit(int limit) {
-			this.limit = limit;
-		}
-		
-		}
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    @Transient
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+}

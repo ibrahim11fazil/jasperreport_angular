@@ -1,8 +1,4 @@
 package qa.gov.customs.cis.jobs;
-import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +12,11 @@ import qa.gov.customs.cis.service.CisService;
 import qa.gov.customs.cis.utils.SystemUtil;
 import qa.gov.customs.cis.utils.WorkFlowRequestConstants;
 
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 @Component
 public class CisRequestJob {
     private static final Logger logger = LoggerFactory.getLogger(CisRequestJob.class);
@@ -24,6 +25,7 @@ public class CisRequestJob {
 
     @Autowired
     Publisher publisher;
+
     //@Scheduled(cron = "0 * 9 * * ?")
     //@Scheduled(fixedRate = 5000)
     @Scheduled(fixedDelay = 10000, initialDelay = 3000)
@@ -32,9 +34,9 @@ public class CisRequestJob {
         Date now = new Date();
         String strDate = sdf.format(now);
         logger.info("cron job expression started: " + strDate);
-        List<CisCourseRequest> courseRequestList =  cisService.findAllByStatusFlagEquals(new BigInteger(
+        List<CisCourseRequest> courseRequestList = cisService.findAllByStatusFlagEquals(new BigInteger(
                 WorkFlowRequestConstants.REQUESTED_CIS));
-        courseRequestList.forEach( item -> {
+        courseRequestList.forEach(item -> {
             UserRequestModel model = new UserRequestModel();
             model.setCourseId(item.getCourseNumber().toString());
             model.setCourseName(item.getRemark());

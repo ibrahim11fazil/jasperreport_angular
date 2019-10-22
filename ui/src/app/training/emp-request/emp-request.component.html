@@ -5,7 +5,7 @@
 				<div class="gene-card-title">
 				  <div fxLayout="row" fxLayoutAlign="start center">
 					<div fxLayout="column">
-					  <h4>Search Course</h4>
+					  <h4>{{language.title_courseRequestSearch}}</h4>
 					</div> <span fxFlex></span>
 				  </div>
 				  <mat-divider></mat-divider>
@@ -15,7 +15,7 @@
 				<div fxLayout="row wrap" fxLayoutAlign="space-between center">
 				  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
 						<mat-form-field class="full-wid mrgn-b-md">
-						  <input matInput placeholder="Course Name" formControlName="courseName">
+						  <input matInput placeholder={{language.courseName}} formControlName="courseName">
 						</mat-form-field>
 						
 					  </div>
@@ -25,7 +25,7 @@
 					  <div fxLayout="row" fxLayoutAlign="start">
 						  		<!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
 				   <!-- <button mat-raised-button color="primary" (click)="onSubmit('searchFutureCourses()')" type="submit">Search</button>-->
-				   <button mat-raised-button color="primary" type="submit">Search</button>
+				   <button mat-raised-button color="primary" type="submit">{{language.btn_search}}</button>
 						<!--<button mat-raised-button color="primary"  type="submit" [disabled]="!form.valid">Search</button>-->
 					
 					  </div>
@@ -52,7 +52,7 @@
 
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Course Name</span>
+					<span>{{language.courseName}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.courseName}}
@@ -60,7 +60,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Course Start Date</span>
+					<span>{{language.courseStartDate}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.course_date}}
@@ -68,7 +68,7 @@
 			</ngx-datatable-column>
 			<ngx-datatable-column min-width="50px">
 				<ng-template ngx-datatable-header-template>
-					<span>Course End Date</span>
+					<span>{{language.courseEndDate}}</span>
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 					{{row.end_date}}
@@ -78,12 +78,12 @@
 
 				<ngx-datatable-column min-width="50px" >
 					<ng-template ngx-datatable-header-template>
-					  <span>Display</span>
+					  <span>{{language.courseDetails}}</span>
 					</ng-template>
 					<ng-template let-row="row" ngx-datatable-cell-template>
 			
 					  <button mat-raised-button color="primary" class="m-1" type="button"
-					  (click)=getActivationData(row)>Display</button>
+					  (click)=getActivationData(row)>{{language.btn_details}}</button>
 			  
 					</ng-template>
 				  </ngx-datatable-column>
@@ -95,13 +95,13 @@
 			<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" fxFlex.gt-md="100"
 				fxLayout="column">
 				<div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-					<h4>Course Name</h4>
+					<h4>{{language.courseName}}</h4>
 					{{activation.courseName}}
 				</div>
 				<div fxLayout="row wrap" fxLayoutAlign="space-between center"
 					class="notEditableField" style="display: inline">
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-						<h4>Belongs To</h4>
+						<h4>{{language.belongsTo}}</h4>
 						{{courseDetail!=undefined?courseDetail.courseName:""}}
 					</div>
 				</div>
@@ -109,37 +109,37 @@
 					fxFlex.gt-md="100" fxLayoutAlign="space-between center" class="notEditableField">
 
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-						<h4>Course Period</h4>
+						<h4>{{language.coursePeriod}}</h4>
 						{{activation.duration}}
 					</div>
 
 					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-						<h4>Duration Type</h4>
+						<h4>{{language.durationType}}</h4>
 						{{durationValueString}}
 					</div>
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Course Date</h4>
-					{{activation.courseDate}}
+					<h4>{{language.courseDate}}</h4>
+					{{activationDate}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>locationName</h4>
+					<h4>{{language.locationName}}</h4>
 					{{activation.locationName}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Course Room</h4>
+					<h4>{{language.trainingHall}}</h4>
 					{{activation.roomName}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Trainer</h4>
+					<h4>{{language.instructorName}}</h4>
 					{{tacInstructorString}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Co-ordinator</h4>
+					<h4>{{language.trainingCoordinator}}</h4>
 					{{tacCoordinatorString}}
 				</div>
 				<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-					<h4>Estimated Cost</h4>
+					<h4>{{language.estimatedCost}}</h4>
 					{{estimatedCost}}
 				</div>
 			</div>
@@ -147,7 +147,7 @@
 
 			  <div *ngIf="isHead" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
 					<mat-form-field class="full-wid mrgn-b-md">
-					   <mat-select placeholder="Course Suggession for Employee" matInput formControlName="supervisorsCtrl">
+					   <mat-select placeholder={{language.courseSuggession}} matInput formControlName="supervisorsCtrl">
 						  <option [ngValue]="null">Select Employee</option>
 						  <mat-option *ngFor="let obj of employeesUnderSupervisor"
 						   [value]="obj">
@@ -159,9 +159,8 @@
 
 		</mat-card>
 
-		
-		<div fxLayout="row" fxLayoutAlign="center">
-				<button mat-raised-button color="primary" (click)="onSubmit()" type="button"> Request Submit</button>
+		<div fxLayout="row" fxLayoutAlign="center" *ngIf="allOk">
+				<button mat-raised-button color="primary" (click)="onSubmit()" type="button">{{language.btn_requestSubmit}}</button>
 		</div>
 	
 	</div>

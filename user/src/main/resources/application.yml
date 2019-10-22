@@ -31,9 +31,9 @@ spring:
     url: ${SSO_DB_URL:jdbc:oracle:thin:@//172.19.10.18:1521/CSTEST}
     username: ${SSO_DB_URL_USER:CUST_SSO}
     password: ${SSO_DB_URL_PASWORD:s504tst123}
-#    url: jdbc:oracle:thin:@//localhost:1521/xe
-#    username: raj
-#    password: 12345
+    #    url: jdbc:oracle:thin:@//localhost:1521/xe
+    #    username: raj
+    #    password: 12345
     driver-class-name: oracle.jdbc.OracleDriver
     dbcp2:
       test-while-idle: true
@@ -52,10 +52,14 @@ spring:
 
   jackson:
     serialization:
-      WRITE_DATES_AS_TIMESTAMPS : false
+      WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
     time-zone: UTC
-
+  rabbitmq:
+    host: ${RABBITMQ_HOST:172.16.0.254}
+    port: 5672
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASSWORD:admin}
 
 logging:
   pattern:
@@ -110,3 +114,5 @@ cloud:
   inetutils:
     prefered-networks:
       - 10.0
+
+workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}

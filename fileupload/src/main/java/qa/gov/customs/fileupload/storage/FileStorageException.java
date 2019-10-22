@@ -1,4 +1,5 @@
-package qa.gov.customs.fileupload;
+package qa.gov.customs.fileupload.storage;
+
 public class FileStorageException extends RuntimeException {
     public FileStorageException(String message) {
         super(message);

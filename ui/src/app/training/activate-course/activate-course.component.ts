@@ -14,6 +14,9 @@ import { TacActivation, ResponseTacActivation, ResponseActivationDetail } from '
 import { CourseDate, ResponseDateDetail } from "app/models/courseDate";
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 @Component({
@@ -42,14 +45,16 @@ export class ActivateCourseComponent implements OnInit {
   courseCategories: Categories[] = [];
   displayCourseDetails: boolean = false;
   editable: true;
+  language:LanguageUtil;
   public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private userService: SystemUserService,
     private toastr: ToastrService,
     private pageTitleService: PageTitleService,
-
-    private activatedRoute: ActivatedRoute) {
+    private mainComponent:MainComponent,
+    private activatedRoute: ActivatedRoute,
+    private errorService:ErrorService) {
     this.tacCourseActivation = {
       activationId: 0,
       tacActivity: null,
@@ -70,6 +75,12 @@ export class ActivateCourseComponent implements OnInit {
       tacCourseInstructors: [],
       status: 0
     }
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -114,7 +125,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllTacCourseLocation().subscribe(
@@ -127,7 +138,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllInstructor().subscribe(
@@ -140,7 +151,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllMainCourses().subscribe(
@@ -152,7 +163,7 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     var userObj = new SystemUser()
@@ -165,22 +176,10 @@ export class ActivateCourseComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
-   
 
-    // this.trainingService.getAllCourseCategories().subscribe(
-    //   data => {
-    //     var response = <ResponseCategories> data
-    //     this.courseCategories=response.data
-    //     console.log(this.courseCategories)
-    //   },
-    //   error => {
-    //     console.log(error)
-    //     this.toastr.error(error.message)
-    //   }
-    // )
 
   }
 
@@ -194,8 +193,7 @@ export class ActivateCourseComponent implements OnInit {
 
     }
     
-
-    var cordinatorArray = this.userList.filter(i => i.id == this.activationData.coordinator)
+    var cordinatorArray = this.userList.filter(i => i.jobId == this.activationData.coordinator)
     if (cordinatorArray[0] != null) {
       this.form.controls['userSelect'].patchValue(
         cordinatorArray[0]
@@ -246,7 +244,12 @@ export class ActivateCourseComponent implements OnInit {
       )
     }
     
-   
+    var roomArray = this.roomDetails.filter(i => i.roomId == this.activationData.roomID)
+    if (roomArray[0] != null) {
+      this.form.controls['roomSelect'].patchValue(
+        roomArray[0]
+      )
+    }
 
     
   }
@@ -254,7 +257,7 @@ export class ActivateCourseComponent implements OnInit {
   getCourseDetails(course) {
     this.form.reset();
     let courseMaster = null
-   
+   debugger
       courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     
 
@@ -276,7 +279,7 @@ export class ActivateCourseComponent implements OnInit {
       ,
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     
@@ -292,19 +295,24 @@ export class ActivateCourseComponent implements OnInit {
         var response = <ResponseLocationDetail>data
         this.trainingRoomDetail = response.data
         this.roomDetails=this.trainingRoomDetail .tacCourseRooms
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       })
   }
 
   getCourseRoomDetail(location) {
-   // debugger
     let courseLocation = new Location(location.value.locationId, "")
-    //this.roomDetails = location.value.tacCourseRooms
-
     this.trainingService.getCourseRoomDetail(courseLocation).subscribe(
       data => {
         var response = <ResponseLocationDetail>data
         this.trainingRoomDetail = response.data
-        this.roomDetails=this.trainingRoomDetail .tacCourseRooms})
+        this.roomDetails=this.trainingRoomDetail .tacCourseRooms},
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        })
   }
 
   addMoreInstructor() {
@@ -347,7 +355,6 @@ export class ActivateCourseComponent implements OnInit {
     var tacCourseRoom = new TrainingRoom(0, "");
     tacCourseRoom.roomId = this.form.value.roomSelect.roomId;
     courseActivation.tacCourseRoom = tacCourseRoom;
-//debugger
     const instructorOptions = this.getControlOfAddMore('instructorSelect');
     var instructors = <TacInstructor[]>instructorOptions.value;
     this.tacCourseActivation.tacCourseInstructors = instructors;
@@ -363,13 +370,13 @@ export class ActivateCourseComponent implements OnInit {
     courseActivation.costVenue = this.form.value.reservationCost
     courseActivation.costBonus = this.form.value.bonusCost
     courseActivation.costTranslation = this.form.value.translationCost
-    courseActivation.coordinatorId=this.form.value.userSelect.id
+    courseActivation.coordinatorId=this.form.value.userSelect.jobId
 
     this.trainingService.saveCourseActivation(courseActivation).subscribe(
       data => this.successSaveActivation(data),
       error => {
-        //console.log(error.message)
-        this.toastr.error(error.message)
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       }
     )
     // }else{
@@ -414,7 +421,6 @@ export class ActivateCourseComponent implements OnInit {
             let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
             this.trainingService.getCourseById(courseMaster).subscribe(
               data => {
-                debugger
                 var response = <ResponseTacCourseMaster>data
                 this.courseDetails = response.data
                 this.tacCourseDateList = this.courseDetails.tacCourseDates})
@@ -427,7 +433,7 @@ export class ActivateCourseComponent implements OnInit {
         ,
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       
 
@@ -444,7 +450,6 @@ export class ActivateCourseComponent implements OnInit {
       let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       this.trainingService.getCourseById(courseMaster).subscribe(
         data => {
-          debugger
           var response = <ResponseTacCourseMaster>data
           this.courseDetails = response.data
           this.tacCourseDateList = this.courseDetails.tacCourseDates})
@@ -463,12 +468,12 @@ export class ActivateCourseComponent implements OnInit {
       data => this.loadData(data),
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
   getCourseroom(activation) {
-debugger;
+
     let location = new Location(0, "");
     location.locationId = activation.locationId;
     this.trainingService.getCourseRoomDetail(location).subscribe(
@@ -477,20 +482,13 @@ debugger;
         this.trainingRoomDetail = response.data
         this.roomDetails=this.trainingRoomDetail .tacCourseRooms
       this.patch()
-        
-    //     var locationArray = this.tacCourseLocation.filter(i => i.locationId == this.activationData.locationId)
-    //     if (locationArray[0] != null) {
-    //       this.form.controls['locationSelect'].patchValue(
-    //         locationArray[0]
-    //       )
-    //     }
+  
     const instrcutorControl = this.getControlOfAddMore('instructorSelect');
     this.activationData.instructors.forEach(x => {
   
       console.log(x.instructorId)
       instrcutorControl.push(this.patchValues(x.instructorId,x.name))
     })
-    debugger
         var roomArray = this.roomDetails.filter(i => i.roomId == this.activationData.roomID)
         if (roomArray[0] != null) {
           this.form.controls['roomSelect'].patchValue(
@@ -505,11 +503,12 @@ debugger;
           )
         }
        
+       
 
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     

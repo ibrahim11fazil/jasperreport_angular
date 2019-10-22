@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 import qa.gov.customs.workflowcamuda.entity.RequestActions;
 
 @Repository
-public interface RequestRepository  extends JpaRepository<RequestActions,String>  {
-
+public interface RequestRepository extends JpaRepository<RequestActions, String> {
 }
 
 

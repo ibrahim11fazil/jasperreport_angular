@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LanguageUtil } from 'app/app.language';
 
 export interface ChildrenItems {
   state: string;
@@ -31,7 +32,7 @@ export interface Menu {
 // ];
 
 const MENUITEMS = [
-   {
+  {
     state: 'horizontal',
     name: 'TOP MENU',
     type: 'button',
@@ -42,15 +43,15 @@ const MENUITEMS = [
     state: 'dashboard',
     name: 'DASHBOARD',
     type: 'sub',
-    label:'New',
+    label: 'New',
     icon: 'explore',
     children: [
-      {state: 'crm', name: 'CRM', label:'New'},
-      {state: 'crypto', name: 'CRYPTO', label:'New'},
-      {state: 'courses', name: 'COURSES', label:'New'},
-      {state: 'saas', name: 'SAAS'},
-      {state: 'web-analytics', name: 'WEB ANALYTICS'},
-      
+      { state: 'crm', name: 'CRM', label: 'New' },
+      { state: 'crypto', name: 'CRYPTO', label: 'New' },
+      { state: 'courses', name: 'COURSES', label: 'New' },
+      { state: 'saas', name: 'SAAS' },
+      { state: 'web-analytics', name: 'WEB ANALYTICS' },
+
     ]
   },
   {
@@ -58,11 +59,11 @@ const MENUITEMS = [
     name: 'CRYPTO',
     type: 'sub',
     icon: 'account_balance_wallet',
-    label:'New',
+    label: 'New',
     children: [
-      {state: 'marketcap', name: 'MARKET CAP'},
-      {state: 'wallet', name: 'WALLET'},
-      {state: 'trade', name: 'TRADE'}
+      { state: 'marketcap', name: 'MARKET CAP' },
+      { state: 'wallet', name: 'WALLET' },
+      { state: 'trade', name: 'TRADE' }
     ]
   },
   {
@@ -70,12 +71,12 @@ const MENUITEMS = [
     name: 'CRM',
     type: 'sub',
     icon: 'supervised_user_circle',
-    label:'New',
+    label: 'New',
     children: [
-      {state: 'projects', name: 'PROJECTS'},
-      {state: '/project-detail/01', name: 'PROJECT DETAIL'},
-      {state: 'clients', name: 'CLIENTS'},
-      {state: 'reports', name: 'REPORTS'}
+      { state: 'projects', name: 'PROJECTS' },
+      { state: '/project-detail/01', name: 'PROJECT DETAIL' },
+      { state: 'clients', name: 'CLIENTS' },
+      { state: 'reports', name: 'REPORTS' }
     ]
   },
   {
@@ -83,12 +84,12 @@ const MENUITEMS = [
     name: 'COURSES',
     type: 'sub',
     icon: 'book',
-    label:'New',
+    label: 'New',
     children: [
-      {state: 'courses-list', name: 'COURSES LIST'},
-      {state: 'course-detail', name: 'COURSE DETAIL'},
-      {state: 'signin', name: 'SIGN IN'},
-      {state: 'payment', name: 'PAYMENT'} 
+      { state: 'courses-list', name: 'COURSES LIST' },
+      { state: 'course-detail', name: 'COURSE DETAIL' },
+      { state: 'signin', name: 'SIGN IN' },
+      { state: 'payment', name: 'PAYMENT' }
     ]
   },
   {
@@ -96,13 +97,13 @@ const MENUITEMS = [
     name: 'E-COMMERCE',
     type: 'sub',
     icon: 'explore',
-    label:'New',
+    label: 'New',
     children: [
-      {state: 'shop', name: 'SHOP'},
-      {state: 'cart', name: 'CART'},
-      {state: 'checkout', name: 'CHECKOUT'},
-      {state: 'cards', name: 'CARDS'},
-      {state: 'invoice', name: 'INVOICE'},
+      { state: 'shop', name: 'SHOP' },
+      { state: 'cart', name: 'CART' },
+      { state: 'checkout', name: 'CHECKOUT' },
+      { state: 'cards', name: 'CARDS' },
+      { state: 'invoice', name: 'INVOICE' },
     ]
   },
   {
@@ -110,21 +111,21 @@ const MENUITEMS = [
     name: 'PAGES',
     type: 'sub',
     icon: 'import_contacts',
-    label : 'New',
+    label: 'New',
     children: [
-      {state: 'media', name: 'GALLERY'},
-      {state: 'mediaV2', name: 'GALLERY V2',label : 'New'},
-      {state: 'pricing', name: 'PRICING'},
-      {state: 'pricing-1', name: 'PRICING V2',label : 'New'},
-      {state: 'blank', name: 'BLANK'},
-      {state: 'timeline', name: 'TIMELINE',label : 'New'},
-      {state: 'faq', name: 'FAQ',label : 'New'},
-      {state: 'feedback', name: 'FEEDBACK',label : 'New'},
-      {state: 'about', name: 'ABOUT',label : 'New'},
-      {state: 'contact', name: 'CONTACT',label : 'New'},
-      {state: 'search', name: 'SEARCH',label : 'New'},
-      {state: 'comingsoon', name: 'COMING SOON',label : 'New'},
-      {state: 'maintenance', name: 'MAINTENANCE',label : 'New'},
+      { state: 'media', name: 'GALLERY' },
+      { state: 'mediaV2', name: 'GALLERY V2', label: 'New' },
+      { state: 'pricing', name: 'PRICING' },
+      { state: 'pricing-1', name: 'PRICING V2', label: 'New' },
+      { state: 'blank', name: 'BLANK' },
+      { state: 'timeline', name: 'TIMELINE', label: 'New' },
+      { state: 'faq', name: 'FAQ', label: 'New' },
+      { state: 'feedback', name: 'FEEDBACK', label: 'New' },
+      { state: 'about', name: 'ABOUT', label: 'New' },
+      { state: 'contact', name: 'CONTACT', label: 'New' },
+      { state: 'search', name: 'SEARCH', label: 'New' },
+      { state: 'comingsoon', name: 'COMING SOON', label: 'New' },
+      { state: 'maintenance', name: 'MAINTENANCE', label: 'New' },
     ]
   },
   {
@@ -132,23 +133,23 @@ const MENUITEMS = [
     name: 'MANAGEMENT',
     type: 'sub',
     icon: 'view_list',
-    label : 'New',
+    label: 'New',
     children: [
-      {state: 'usermanagelist', name: 'USER LIST'},
-      {state: 'usergridlist', name: 'USER GRID'}
+      { state: 'usermanagelist', name: 'USER LIST' },
+      { state: 'usergridlist', name: 'USER GRID' }
     ]
   },
-  
+
   {
     state: 'users',
     name: 'USERS',
     type: 'sub',
     icon: 'web',
-    label : 'New',
+    label: 'New',
     children: [
-      {state: 'userlist', name: 'USER LIST'},
-      {state: 'userprofile', name: 'USER PROFILE'},
-      {state: 'userprofilev2', name: 'USER PROFILE V2',label: 'New'}
+      { state: 'userlist', name: 'USER LIST' },
+      { state: 'userprofile', name: 'USER PROFILE' },
+      { state: 'userprofilev2', name: 'USER PROFILE V2', label: 'New' }
     ]
   },
 
@@ -157,16 +158,16 @@ const MENUITEMS = [
     name: 'SESSIONS',
     type: 'sub',
     icon: 'face',
-    label : 'New',
+    label: 'New',
     children: [
-      {state: 'login', name: 'LOGIN'},
-      {state: 'loginV2', name: 'LOGIN V2',label: 'New'},
-      {state: 'register', name: 'REGISTER'},
-      {state: 'registerV2', name: 'REGISTER V2',label: 'New'},
-      {state: 'forgot-password', name: 'FORGOT'},
-      {state: 'forgot-passwordV2', name: 'FORGOT V2',label: 'New'},
-      {state: 'lockscreen', name: 'LOCKSCREEN'},
-      {state: 'lockscreenV2', name: 'LOCKSCREEN V2',label: 'New'}
+      { state: 'login', name: 'LOGIN' },
+      { state: 'loginV2', name: 'LOGIN V2', label: 'New' },
+      { state: 'register', name: 'REGISTER' },
+      { state: 'registerV2', name: 'REGISTER V2', label: 'New' },
+      { state: 'forgot-password', name: 'FORGOT' },
+      { state: 'forgot-passwordV2', name: 'FORGOT V2', label: 'New' },
+      { state: 'lockscreen', name: 'LOCKSCREEN' },
+      { state: 'lockscreenV2', name: 'LOCKSCREEN V2', label: 'New' }
     ]
   },
   {
@@ -208,8 +209,8 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'format_shapes',
     children: [
-      {state: 'wysiwyg', name: 'WYSIWYG EDITOR'},
-      {state: 'ckeditor', name: 'CKEDITOR'},
+      { state: 'wysiwyg', name: 'WYSIWYG EDITOR' },
+      { state: 'ckeditor', name: 'CKEDITOR' },
     ]
   },
   {
@@ -224,8 +225,8 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'show_chart',
     children: [
-      {state: 'ng2-charts', name: 'NG2 CHARTS'},
-      {state: 'easy-pie-chart', name: 'EASY PIE'},
+      { state: 'ng2-charts', name: 'NG2 CHARTS' },
+      { state: 'easy-pie-chart', name: 'EASY PIE' },
     ]
   },
   {
@@ -234,24 +235,24 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'layers',
     children: [
-      {state: 'buttons', name: 'BUTTONS'},
-      {state: 'cards', name: 'CARDS'},
-      {state: 'grid', name: 'GRID'},
-      {state: 'list', name: 'LIST'},
-      {state: 'menu', name: 'MENU'},
-      {state: 'slider', name: 'SLIDER'},
-      {state: 'snackbar', name: 'SNACKBAR'},
-      {state: 'tooltip', name: 'TOOLTIP'},
-      {state: 'dialog', name: 'DIALOG'},
-      {state: 'select', name: 'SELECT'},
-      {state: 'input', name: 'INPUT'},
-      {state: 'checkbox', name: 'CHECKBOX'},
-      {state: 'radio', name: 'RADIO'},
-      {state: 'toolbar', name: 'TOOLBAR'},
-      {state: 'progress', name: 'PROGRESS'},
-      {state: 'tabs', name: 'TABS'},
-      {state: 'colorpicker', name: 'COLORPICKER'},
-      {state: 'datepicker', name: 'DATEPICKER'},
+      { state: 'buttons', name: 'BUTTONS' },
+      { state: 'cards', name: 'CARDS' },
+      { state: 'grid', name: 'GRID' },
+      { state: 'list', name: 'LIST' },
+      { state: 'menu', name: 'MENU' },
+      { state: 'slider', name: 'SLIDER' },
+      { state: 'snackbar', name: 'SNACKBAR' },
+      { state: 'tooltip', name: 'TOOLTIP' },
+      { state: 'dialog', name: 'DIALOG' },
+      { state: 'select', name: 'SELECT' },
+      { state: 'input', name: 'INPUT' },
+      { state: 'checkbox', name: 'CHECKBOX' },
+      { state: 'radio', name: 'RADIO' },
+      { state: 'toolbar', name: 'TOOLBAR' },
+      { state: 'progress', name: 'PROGRESS' },
+      { state: 'tabs', name: 'TABS' },
+      { state: 'colorpicker', name: 'COLORPICKER' },
+      { state: 'datepicker', name: 'DATEPICKER' },
     ]
   },
   {
@@ -260,8 +261,8 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'mouse',
     children: [
-      {state: 'dragula', name: 'DRAGULA'},
-      {state: 'sortable', name: 'SORTABLEJS'}
+      { state: 'dragula', name: 'DRAGULA' },
+      { state: 'sortable', name: 'SORTABLEJS' }
     ]
   },
   {
@@ -270,14 +271,14 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'format_line_spacing',
     children: [
-      {state: 'fullscreen', name: 'FULLSCREEN'},
-      {state: 'selection', name: 'SELECTION'},
-      {state: 'pinning', name: 'PINNING'},
-      {state: 'sorting', name: 'SORTING'},
-      {state: 'paging', name: 'PAGING'},
-      {state: 'editing', name: 'EDITING'},
-      {state: 'filter', name: 'FILTER'},
-      {state: 'responsive', name: 'RESPONSIVE'}
+      { state: 'fullscreen', name: 'FULLSCREEN' },
+      { state: 'selection', name: 'SELECTION' },
+      { state: 'pinning', name: 'PINNING' },
+      { state: 'sorting', name: 'SORTING' },
+      { state: 'paging', name: 'PAGING' },
+      { state: 'editing', name: 'EDITING' },
+      { state: 'filter', name: 'FILTER' },
+      { state: 'responsive', name: 'RESPONSIVE' }
     ]
   },
   {
@@ -286,10 +287,10 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'insert_comment',
     children: [
-      {state: 'form-wizard', name: 'FORM WIZARD'},
-      {state: 'form-validation', name: 'FORM VALIDATION'},
-      {state: 'form-upload', name: 'UPLOAD'},
-      {state: 'form-tree', name: 'TREE'}
+      { state: 'form-wizard', name: 'FORM WIZARD' },
+      { state: 'form-validation', name: 'FORM VALIDATION' },
+      { state: 'form-upload', name: 'UPLOAD' },
+      { state: 'form-tree', name: 'TREE' }
     ]
   },
   {
@@ -298,133 +299,140 @@ const MENUITEMS = [
     type: 'sub',
     icon: 'map',
     children: [
-      {state: 'googlemap', name: 'GOOGLE MAP'},
-      {state: 'leafletmap', name: 'LEAFLET MAP'}
+      { state: 'googlemap', name: 'GOOGLE MAP' },
+      { state: 'leafletmap', name: 'LEAFLET MAP' }
     ]
   },
 
 ];
 
-var m = 
-  {
-    state: 'training',
-    name: 'Course',
-    type: 'sub',
-    icon: 'book',
-    children: [
-      {state: 'welcome', name: 'My Courses' },
-      {state: 'activity', name: 'Activity' },
-      {state: 'create-course', name: 'Create Courses'},
-      {state: 'search-course', name: 'Manage Courses'},
-      {state: 'course-link', name: 'Link Course'},
-      {state: 'activations', name: 'Manage Activations'},
-      {state: 'activate-course', name: 'Activate Course'}
-      
-    ]
-  };
+var training_menu =
+{
+  state: 'training',
+  name: 'Course',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'welcome', name: 'My Courses' },
+    // { state: 'activity', name: 'Activity' },
+    // { state: 'create-course', name: 'Create Courses' },
+    // { state: 'search-course', name: 'Manage Courses' },
+    // { state: 'course-link', name: 'Link Course' },
+    // { state: 'activations', name: 'Manage Activations' },
+    // { state: 'activate-course', name: 'Activate Course' }
 
-  var m1 = 
-  {
-    state: 'training',
-    name: 'Instructor',
-    type: 'sub',
-    icon: 'book',
-    children: [
-      {state: 'create-instructor', name: 'Create Instructor'},
-      {state: 'search-instructor', name: 'Manage Instructor'}
-    ]
-  };
-  var m2 = 
-  {
-    state: 'training',
-    name: 'Training Requests',
-    type: 'sub',
-    icon: 'book',
-    children: [
+  ]
+};
 
-      {state: 'welcome', name: 'courses' },
-      {state: 'welcome', name: 'My Requests' },
-      {state: 'emp-request', name: 'Employee Requests'},
-      {state: 'emp-request:/head-section', name: 'Course Suggestion by head'},
-      { state: 'my-tasks', name: 'My Tasks' },
-      { state: 'my-tasks-history', name: 'History' } 
+var instructor_menu =
+{
+  state: 'training',
+  name: 'Instructor',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'create-instructor', name: 'Create Instructor' },
+    // { state: 'search-instructor', name: 'Manage Instructor' }
+  ]
+};
+var request_menu =
+{
+  state: 'training',
+  name: 'Training Requests',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'emp-request', name: 'Employee Requests' },
+    // { state: 'emp-request:/head-section', name: 'Course Suggestion by head' },
+    // { state: 'my-tasks', name: 'My Tasks' },
+    // { state: 'my-tasks-history', name: 'History' }
+  ]
+};
 
-    ]
-  };
+var user_menu =
+{
+  state: 'training',
+  name: 'Users',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'user-creation', name: 'New User' },
+    // { state: 'user-search', name: 'Search User' },
+    // { state: 'user-permissions', name: 'User Permissions' }
+  ]
+};
 
-  var m3 = 
-  {
-    state: 'training',
-    name: 'Users',
-    type: 'sub',
-    icon: 'book',
-    children: [
-      {state: 'user-creation', name: 'New User'},
-      {state: 'user-search', name: 'Search User'},
-      {state: 'user-search', name: 'Roles and Permissions'}
-    ]
-  };
+var jobcard_menu =
+{
+  state: 'training',
+  name: 'Job Card',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'job-card-management', name: 'Create Job Card' },
+    // { state: 'job-card-search', name: 'Search Job Card' }
+  ]
+};
 
-  var m4 = 
-  {
-    state: 'training',
-    name: 'Job Card',
-    type: 'sub',
-    icon: 'book',
-    children: [
-      {state: 'job-card-management', name: 'Create Job Card' },
-      {state: 'job-card-search', name: 'Search Job Card' }
-    ]
-  };
+var report_menu =
+{
+  state: 'training',
+  name: 'Reports',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'welcome', name: 'Welcome' }
+  ]
+};
 
-  var m5 = 
-  {
-    state: 'training',
-    name: 'Reports',
-    type: 'sub',
-    icon: 'book',
-    children: [
-      {state: 'welcome', name: 'Welcome' }
-    ]
-  };
+var welcome_menu =
+{
+  state: 'training',
+  name: 'Dashboard',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'welcome', name: 'Welcome' }
+  ]
+};
 
-  var m6 = 
-  {
-    state: 'training',
-    name: 'Dashboard',
-    type: 'sub',
-    icon: 'book',
-    children: [
-      {state: 'welcome', name: 'Welcome' }
-    ]
-  };
+var smart_menu =
+{
+  state: 'training',
+  name: 'Smart Engine',
+  type: 'sub',
+  icon: 'book',
+  children: [
+    // { state: 'welcome', name: 'Welcome' }
+  ]
+};
 
-  var m7 = 
-  {
-    state: 'training',
-    name: 'CI System',
-    type: 'sub',
-    icon: 'grade',
-    children: [
-      {state: 'cis-system', name: 'All Employees' },
-      {state: 'cis-course-requests-i-made', name: 'Course Requests' }
-    ]
-  };
+var ci_system_menu =
+{
+  state: 'training',
+  name: 'CI System',
+  type: 'sub',
+  icon: 'grade',
+  children: [
+    // { state: 'cis-system', name: 'All Employees' },
+    // { state: 'cis-course-requests-i-made', name: 'Course Requests' }
+  ]
+};
 
-  var m8 = 
-  {
-    state: 'training',
-    name: 'Course Management',
-    type: 'sub',
-    icon: 'grade',
-    children: [
-      {state: 'course-management', name: 'Manage Courses'},
-    ]
-  };
+var course_managment =
+{
+  state: 'training',
+  name: 'Course Management',
+  type: 'sub',
+  icon: 'grade',
+  children: [
+    // { state: 'course-management', name: 'Manage Courses' },
+  ]
+};
 
 
 
-var dynamicMenu =[];
+var dynamicMenu = [];
 
 @Injectable()
 export class MenuItems {
@@ -432,22 +440,162 @@ export class MenuItems {
     return dynamicMenu;
     //return MENUITEMS;
   }
-  add(menu:any) {
-
+  add(menu: any) {
     //m.push(menu);
   }
 
-  update() {
-    //TODO GET PERMISSIONS AND SET THE MENU
-    dynamicMenu.push(m6);
-    dynamicMenu.push(m);
-    dynamicMenu.push(m8);
-    dynamicMenu.push(m1);
-    dynamicMenu.push(m2);
-    dynamicMenu.push(m3);
-    dynamicMenu.push(m4);
-    dynamicMenu.push(m5);
-    dynamicMenu.push(m7);
-    dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
+  update(permissions: String[],language:LanguageUtil) {
+    dynamicMenu = []
+    welcome_menu.children=[]
+    training_menu.children=[]
+    course_managment.children=[]
+    instructor_menu.children=[]
+    user_menu.children=[]
+    jobcard_menu.children=[]
+    ci_system_menu.children=[]
+    request_menu.children=[]
+    smart_menu.children=[]
+
+    if (permissions.length > 0) {
+
+      permissions.forEach(item => {
+        switch (item) {
+          //Dashboard
+          case "mda":
+            welcome_menu.children.push({ state: 'welcome', name: language.menu_welcome });
+            break
+          //Courses 
+          //case "mcmy":
+          //  training_menu.children.push({ state: 'welcome', name: language.menu_myCourses })
+          //  break
+          case "mcc":
+            training_menu.children.push({ state: 'create-course', name: language.menu_createCourses })
+            break
+          case "mcm":
+            training_menu.children.push({ state: 'search-course', name: language.menu_manageCourses })
+            break
+          case "mcl":
+            training_menu.children.push({ state: 'course-link', name: language.menu_linkCourse })
+            break
+          case "mca":
+            training_menu.children.push({ state: 'activity', name: language.menu_activity })
+            break
+          case "mcma":
+            training_menu.children.push({ state: 'activations', name: language.menu_manageActivations })
+            break
+          case "mcac":
+            training_menu.children.push({ state: 'activate-course', name: language.menu_activateCourse })
+            break
+
+          //Manage course
+          case "mncrs":
+            course_managment.children.push({ state: 'course-management', name: language.menu_manageAttendance })
+            break
+
+          //Instructor project
+          case "mic":
+            instructor_menu.children.push({ state: 'create-instructor', name: language.menu_createInstructor })
+            break
+          case "mim":
+            instructor_menu.children.push({ state: 'search-instructor', name: language.menu_manageInstructor })
+            break
+
+          //User management
+          case "muc":
+            user_menu.children.push({ state: 'user-creation', name: language.menu_newUser })
+            break
+          case "mus":
+            user_menu.children.push({ state: 'user-search', name: language.menu_searchUser })
+            break
+          case "mup":
+            user_menu.children.push({ state: 'user-permissions', name: language.menu_userPermissions })
+            break
+
+          //JOB CARD
+          case "mjs":
+              jobcard_menu.children.push({ state: 'job-card-search', name: language.menu_searchJobCard })
+            break
+          case "mjc":
+              jobcard_menu.children.push({ state: 'job-card-management', name: language.menu_createJobCard })
+            break
+
+          //CI SYSTEM
+          case "mciall":
+            ci_system_menu.children.push({ state: 'cis-system', name: language.menu_allEmployees})
+            break
+          case "mcin":
+            ci_system_menu.children.push({ state: 'cis-course-requests-i-made', name: language.menu_courseRequests })
+            break
+
+          //EMPLOYEE  
+          case "mre":
+            request_menu.children.push({ state: 'emp-request', name: language.menu_employeeRequests })
+            break
+          case "mrem":
+            request_menu.children.push({ state: 'my-tasks', name: language.menu_myTasks })
+            break
+          case "mreh":
+            request_menu.children.push({ state: 'my-tasks-history', name: language.menu_history })
+            break
+
+          //SMART MENU
+          case "msep":
+              smart_menu.children.push({ state: 'smart-profile', name: language.menu_smartProfile })
+              break 
+        }
+      })
+ 
+      welcome_menu.name =  language.menu_dashboard.toString();
+      training_menu.name= language.menu_course.toString();
+      instructor_menu.name=language.menu_instructor.toString();
+      course_managment.name=language.menu_courseManagement.toString();
+      report_menu.name=language.menu_reports.toString();
+      ci_system_menu.name=language.menu_ci_system.toString();
+      smart_menu.name=language.menu_smart_engine.toString();
+      jobcard_menu.name=language.menu_jobCard.toString();
+      user_menu.name=language.menu_user.toString();
+      request_menu.name=language.menu_requests.toString();
+
+    }
+   // this.updatePermission(permissions)
+   dynamicMenu.push(welcome_menu)
+   dynamicMenu.push(smart_menu)
+      permissions.forEach(item => {
+        switch (item) {
+          case "mdm":
+          
+            break
+          case "mcmn":
+            dynamicMenu.push(training_menu)
+            break
+          case "mcmain":
+            dynamicMenu.push(course_managment)
+            break
+          case "mima":
+            dynamicMenu.push(instructor_menu)
+            break
+          case "mjma":
+            dynamicMenu.push(jobcard_menu)
+            break
+          case "muma":
+            dynamicMenu.push(user_menu)
+            break
+          case "mrma":
+            dynamicMenu.push(request_menu)
+            break
+          case "mcima":
+            dynamicMenu.push(ci_system_menu)
+            break
+         // case "msmm":
+         //   dynamicMenu.push(smart_menu)
+         //   break
+        }
+      })
+      //user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })
+      //dynamicMenu.push(user_menu)
+    //dynamicMenu.push(report_menu);
+    //dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
   }
+
+  
 }

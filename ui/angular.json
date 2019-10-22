@@ -36,7 +36,7 @@
               "node_modules/cryptocoins-icons/webfont/cryptocoins.css",
               "src/assets/fonts/data-table/icons.css",
               "node_modules/dragula/dist/dragula.css",
-				  "node_modules/angular-tree-component/dist/angular-tree-component.css",
+              "node_modules/angular-tree-component/dist/angular-tree-component.css",
               "node_modules/nouislider/distribute/nouislider.min.css",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
@@ -101,7 +101,7 @@
               "node_modules/hammerjs/hammer.js",
               "node_modules/sortablejs/Sortable.js",
               "node_modules/chart.js/dist/Chart.bundle.min.js",
-              "node_modules/easy-pie-chart/dist/easypiechart.js",
+              "node_modules/easy-pie-chart/dist/easypiechart.js"
             ],
             "styles": [
               "src/assets/scss/style.scss",
@@ -120,7 +120,7 @@
               "node_modules/cryptocoins-icons/webfont/cryptocoins.css",
               "src/assets/fonts/data-table/icons.css",
               "node_modules/dragula/dist/dragula.css",
-				      "node_modules/angular-tree-component/dist/angular-tree-component.css",
+              "node_modules/angular-tree-component/dist/angular-tree-component.css",
               "node_modules/nouislider/distribute/nouislider.min.css",
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",

@@ -13,6 +13,10 @@ import { TrainingSystemServiceService } from 'app/service/training/training-syst
 import { TrainingService } from 'app/service/training/training.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
 import { TacActivation } from 'app/models/tac-activation';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
+import { DatePipe } from '@angular/common';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-my-tasks-history',
   templateUrl: './my-tasks-history.component.html',
@@ -22,6 +26,7 @@ export class MyTasksHistoryComponent implements OnInit {
 
   systemUser: SystemUser
   form: FormGroup
+  language:LanguageUtil
   page = 0
   commentTxt=""
   ds: HistoryUserResponseByUser[] = [];
@@ -31,7 +36,7 @@ export class MyTasksHistoryComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST;
   durationValueString: String;
   dataStatus = false;
-  displayedColumns: string[] = [ 'id', 'time', 'userId' , 'edit'];
+  displayedColumns: string[] = [  'time', 'userId' , 'edit'];
   data : UserRequestModel;
   items: string[] = [];
   historyExecutions:HistoryUserResponseByProcess[]=[]
@@ -44,8 +49,16 @@ export class MyTasksHistoryComponent implements OnInit {
     private workflowService:WorkflowService,
     private router:Router,
     private trainingSystemService:TrainingSystemServiceService,
-    private trainingService: TrainingService) {
+    private mainComponent:MainComponent,
+    private trainingService: TrainingService,
+    public datepipe: DatePipe,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("User Tasks History")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -82,6 +95,7 @@ export class MyTasksHistoryComponent implements OnInit {
             //   item.roles.forEach(r => {  rName = rName + " " +  r.remark})
             //   item.roleName =rName
             // }
+            
             this.ds.push(item);
           })
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
@@ -95,8 +109,8 @@ export class MyTasksHistoryComponent implements OnInit {
         }
       },
       error => {
-        console.log(error.message)
-        //this.toastr.error(error.message)
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -139,8 +153,7 @@ export class MyTasksHistoryComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
       //this.getComment();
@@ -165,6 +178,7 @@ export class MyTasksHistoryComponent implements OnInit {
           },
           error => {
             console.log(error)
+            this.errorService.errorResponseHandling(error)
           }
         )
       })
@@ -186,8 +200,7 @@ export class MyTasksHistoryComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
     }
@@ -195,7 +208,6 @@ export class MyTasksHistoryComponent implements OnInit {
 
 
   getHistoryByProcessId(processId:String){
-    debugger
     if(processId!=null){
       this.items =[]
       var history =  new HistoryUserRequest()
@@ -214,8 +226,7 @@ export class MyTasksHistoryComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-           this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
     }

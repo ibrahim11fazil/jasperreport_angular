@@ -45,7 +45,6 @@ public class OauthClientDetails {
     }
 
 
-
     public String getClientSecret() {
         return clientSecret;
     }

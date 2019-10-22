@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import qa.gov.custom.user.entity.Permission;
-import qa.gov.custom.user.entity.Role;
 
 import javax.transaction.Transactional;
 import java.math.BigInteger;
@@ -15,7 +14,7 @@ import java.util.List;
 @Transactional
 public interface PermissionRepository extends JpaRepository<Permission, BigInteger> {
 
-    @Query(value="select ID,NAME from Permission ",nativeQuery=true)
+    @Query(value = "select ID,NAME,REMARKS from Permission ", nativeQuery = true)
     List<Object[]> findAllPermissions();
 
 }

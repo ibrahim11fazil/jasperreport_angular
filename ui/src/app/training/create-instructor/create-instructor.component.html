@@ -3,7 +3,7 @@
       <div class="gene-card-title">
          <div fxLayout="row" fxLayoutAlign="start center">
             <div fxLayout="column">
-               <h4>Instructor Registration</h4>
+               <h4>{{language.title_instructorRegistration}}</h4>
             </div>
             <span fxFlex></span>
          </div>
@@ -14,10 +14,10 @@
             <div fxLayout="column">
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                  <h5 class="mrgn-b-md">Instructor Type</h5>
+                  <h5 class="mrgn-b-md">{{language.instructorType}}</h5>
                   <mat-radio-group class="radio-group" formControlName="typeFlag" (change)="onJobIdChange($event)">
-                     <mat-radio-button value="1" class="radio-button">Employee</mat-radio-button>
-                     <mat-radio-button value="2" class="radio-button">External</mat-radio-button>
+                     <mat-radio-button value="1" class="radio-button">{{language.instructorEmployee}}</mat-radio-button>
+                     <mat-radio-button value="2" class="radio-button">{{language.instructorExternal}}</mat-radio-button>
                   </mat-radio-group>
 
                </div>
@@ -25,13 +25,13 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="JobId" formControlName="jobId" (change)="onJobIdChange($event)" >
+                     <input matInput placeholder={{language.jobId}} formControlName="jobId" (change)="onJobIdChange($event)" >
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="Job Title" formControlName="jobTitle">
+                     <input matInput placeholder={{language.jobTitle}} formControlName="jobTitle">
                   </mat-form-field>
                </div>
 
@@ -39,34 +39,26 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="Instructor Name" formControlName="instructorName">
+                     <input matInput placeholder={{language.instructorName}} formControlName="instructorName">
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="Organization" formControlName="organization">
+                     <input matInput placeholder={{language.organization}} formControlName="organization">
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="Department" formControlName="department">
+                     <input matInput placeholder={{language.department}} formControlName="department">
                   </mat-form-field>
                </div>
 
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="QID " formControlName="qid">
-                  </mat-form-field>
-               </div>
-
-
-
-               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                  <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="Passport " formControlName="passportNo">
+                     <input matInput placeholder={{language.qid}} formControlName="qid">
                   </mat-form-field>
                </div>
 
@@ -74,7 +66,7 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="IBAN No" formControlName="ibanNo">
+                     <input matInput placeholder={{language.passport}} formControlName="passportNo">
                   </mat-form-field>
                </div>
 
@@ -82,20 +74,28 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="Email" formControlName="email">
+                     <input matInput placeholder={{language.iBanNo}} formControlName="ibanNo">
+                  </mat-form-field>
+               </div>
+
+
+
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                  <mat-form-field class="full-wid mrgn-b-md">
+                     <input matInput placeholder={{language.email}} formControlName="email">
                   </mat-form-field>
                </div>
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <input matInput placeholder="Phone" formControlName="phone">
+                     <input matInput placeholder={{language.phone}} formControlName="phone">
                   </mat-form-field>
                </div>
 
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                     <h5>Subjects</h5>
+                     <h5>{{language.subjects}}</h5>
                   </div>
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                      <button class="mrgn-all-xs" mat-icon-button (click)="addSubjects()" type="button">
@@ -110,7 +110,7 @@
                   <div *ngFor="let ff of form.get('subject')['controls']; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                        <mat-select placeholder="Subject" matInput formControlName="subjectId">
+                        <mat-select placeholder={{language.subjectName}} matInput formControlName="subjectId">
                            <mat-option *ngFor="let item of subjects" [value]="item.subjectId">
                               {{item.subjectName}}
                            </mat-option>
@@ -131,22 +131,26 @@
 
                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                   <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                     <h5>Qualifications</h5>
+                     <h5>{{language.qualifications}}</h5>
                   </div>
-                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                  <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" *ngIf="!isEmployeeStatus">
                      <button class="mrgn-all-xs" mat-icon-button (click)="addQualifications()" type="button">
-                        <mat-icon>add</mat-icon>
+                           <mat-icon>add</mat-icon>
                      </button>
                   </div>
                </div>
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                     {{tacInstructor.qualification}}
+               </div>
+   
 
 
 
-               <div formArrayName="qualification">
+               <div formArrayName="qualification"  *ngIf="!isEmployeeStatus">
                   <div *ngFor="let ff of form.get('qualification')['controls']; let in=index" fxLayout="row wrap"
                      fxLayoutAlign="space-between center">
                      <div [formGroupName]="in" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                        <mat-select placeholder="Qualifications" matInput formControlName="qualificationId">
+                        <mat-select placeholder={{language.qualificationName}} matInput formControlName="qualificationId">
                            <mat-option *ngFor="let item of qualifications" [value]="item.qualificationId">
                               {{item.qualificationName}}
                            </mat-option>
@@ -173,7 +177,7 @@
 
                <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                   <mat-form-field class="full-wid mrgn-b-md">
-                     <mat-select placeholder="Priority" matInput formControlName="priority">
+                     <mat-select placeholder={{language.priority}} matInput formControlName="priority">
                         <mat-option *ngFor="let priorityFlag of priorityList" [value]="priorityFlag">
                            {{priorityFlag.viewValue}}
                         </mat-option>
@@ -184,7 +188,7 @@
 
             <div fxLayout="row" fxLayoutAlign="start">
                <!--<button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit" [enabled]="!form.valid">Save</button>-->
-               <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">Save</button>
+               <button mat-raised-button color="primary" (click)="onSubmit('save')" type="submit">{{language.btn_save}}</button>
                <!-- <button mat-raised-button color="secondary" (click)="onSubmit('search')" type="submit">Search</button> -->
             </div>
 

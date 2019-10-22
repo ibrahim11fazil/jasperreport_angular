@@ -33,7 +33,7 @@ public class EmpModel {
     private String positionId;
     private String secionCode;
     private String gender;
-    private Date   dateofbirth;
+    private Date dateofbirth;
     private String department;
     private String departmentId;
     private String passport;

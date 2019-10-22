@@ -24,22 +24,22 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public HandlerMethodArgumentResolver currentUserHandlerMethodArgumentResolver(){
-          return new HandlerMethodArgumentResolver() {
-              @Override
-              public boolean supportsParameter(MethodParameter parameter) {
-                  return parameter.getParameterType().equals(CustomPrincipal.class);
-              }
+    public HandlerMethodArgumentResolver currentUserHandlerMethodArgumentResolver() {
+        return new HandlerMethodArgumentResolver() {
+            @Override
+            public boolean supportsParameter(MethodParameter parameter) {
+                return parameter.getParameterType().equals(CustomPrincipal.class);
+            }
 
-              @Override
-              public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-                  try{
-                      return (CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                  }catch (Exception e){
-                      e.printStackTrace();
-                      return null;
-                  }
-              }
-          };
+            @Override
+            public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                try {
+                    return (CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
     }
 }

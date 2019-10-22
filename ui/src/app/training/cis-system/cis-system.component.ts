@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { PAGE_LIMIT } from 'app/app.constants';
 import { ISystemUserResponseList } from 'app/models/system-user';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-cis-system',
@@ -19,6 +22,7 @@ export class CisSystemComponent implements OnInit {
   form: FormGroup
   page = 0
   ds: CiSystemUser[] = [];
+  language:LanguageUtil
   firstSearch=false
   displayedColumns: string[] = ['id', 'jobCode', 'fullName', 'deparatment', 'decision','decisionDetails','decisionDate','Request'];
   constructor(
@@ -26,9 +30,16 @@ export class CisSystemComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
-    private router:Router,) {
+    private mainComponent:MainComponent,
+    private router:Router,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("CIS Employees")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
 
   ngOnInit() {
     this.formInit()
@@ -71,7 +82,10 @@ export class CisSystemComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 

@@ -35,7 +35,7 @@
 //        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("demo_process1", uuid);
 //
 //        //runtimeService.startProcessInstanceByKey("demo_process1",uuid);
-//        System.out.println(">>>>>>" + uuid  + ">> " + processInstance.getId() );
+//        logger.info(">>>>>>" + uuid  + ">> " + processInstance.getId() );
 //        //runtimeService.startProcessInstanceByKey("oneTaskProcess1");
 //        getHistory("sarath");
 //    }
@@ -54,31 +54,31 @@
 ////        historyService.createUserOperationLogQuery()
 ////                .userId(assignee)  // only for authenticvated user
 ////                .listPage(0, 10).forEach(item->{
-////            System.out.println("TaskId " + item.getTaskId());
-////            System.out.println("operationId " + item.getOperationId());
-////            System.out.println("time stamp " + item.getTimestamp());
-////            System.out.println("key " + item.getProcessDefinitionKey());
-////            System.out.println("Id " + item.getProcessDefinitionId());
+////            logger.info("TaskId " + item.getTaskId());
+////            logger.info("operationId " + item.getOperationId());
+////            logger.info("time stamp " + item.getTimestamp());
+////            logger.info("key " + item.getProcessDefinitionKey());
+////            logger.info("Id " + item.getProcessDefinitionId());
 ////        });
 //
 //        historyService.createHistoricTaskInstanceQuery()
 //                .finished()
 //                .taskAssignee(assignee)
 //                .listPage(0, 10).forEach(item->{
-//            System.out.println("assingee " + item.getAssignee());
-//            System.out.println("getProcessInstanceId " + item.getProcessInstanceId());  /// process Id user need to store
-//            System.out.println("taskDefinition key " + item.getTaskDefinitionKey());
-//            System.out.println("getName  " + item.getName()); //Action Name
-//            System.out.println("parent task id  " + item.getParentTaskId());
-//            System.out.println("parent getDescription " + item.getDescription());
+//            logger.info("assingee " + item.getAssignee());
+//            logger.info("getProcessInstanceId " + item.getProcessInstanceId());  /// process Id user need to store
+//            logger.info("taskDefinition key " + item.getTaskDefinitionKey());
+//            logger.info("getName  " + item.getName()); //Action Name
+//            logger.info("parent task id  " + item.getParentTaskId());
+//            logger.info("parent getDescription " + item.getDescription());
 //           // item.getExecutionId()
-//            System.out.println("parent getExecutionId " + item.getExecutionId());
+//            logger.info("parent getExecutionId " + item.getExecutionId());
 //            //item.get
 //
-//            //System.out.println("parent task id  " + item());
+//            //logger.info("parent task id  " + item());
 //            //TODO  IF TASK ID IS HERE THEN ITS BETTER
-//            System.out.println("getProcessDefinitionKey  " + item.getProcessDefinitionKey());
-//            System.out.println("getProcessDefinitionId " + item.getProcessDefinitionId());
+//            logger.info("getProcessDefinitionKey  " + item.getProcessDefinitionKey());
+//            logger.info("getProcessDefinitionId " + item.getProcessDefinitionId());
 //
 //            // Getting tasks based on process
 //            historyService.createHistoricDetailQuery()
@@ -87,8 +87,8 @@
 //                    .orderByVariableName().asc()
 //                    .list().forEach( item1 -> {
 //
-//                System.out.println("task Id > " + item1.getId() + " " + item1.getTaskId() );
-//                System.out.println("getProcessDefinitionId  " + item1.getProcessDefinitionId());
+//                logger.info("task Id > " + item1.getId() + " " + item1.getTaskId() );
+//                logger.info("getProcessDefinitionId  " + item1.getProcessDefinitionId());
 //
 //            });
 //
@@ -98,7 +98,7 @@
 //
 //                    .list().forEach(item2 -> {
 //
-//            System.out.println("task Id >>> " + item2.getTaskId() + " " + item2.getNewValue() );
+//            logger.info("task Id >>> " + item2.getTaskId() + " " + item2.getNewValue() );
 //
 //        });
 //
@@ -137,9 +137,9 @@
 //           List<Comment> comments  = taskService.getProcessInstanceComments(processId);
 //
 //           comments.forEach(item -> {
-//                       System.out.println("userName " + item.getUserId());
-//                       System.out.println("message " + item.getFullMessage());
-//                       System.out.println("taskIs  " + item.getTaskId());
+//                       logger.info("userName " + item.getUserId());
+//                       logger.info("message " + item.getFullMessage());
+//                       logger.info("taskIs  " + item.getTaskId());
 //
 //                   }
 //                   );

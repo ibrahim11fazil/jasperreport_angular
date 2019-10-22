@@ -3,7 +3,10 @@ package qa.gov.customs.cis.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.cis.entity.CisCourseRequest;
 import qa.gov.customs.cis.entity.EmployeeCaseDetails;
 import qa.gov.customs.cis.security.CustomPrincipal;
@@ -18,16 +21,16 @@ import java.util.List;
 public class CisController {
 
     @Autowired
-    CisService  cisService;
+    CisService cisService;
 
     @PreAuthorize("hasAnyAuthority('find_all_users_cases_for_cis')")
-    @RequestMapping(method = RequestMethod.POST,value = "find-all-users-cases-for-cis")
-    public ResponseType findAllSystemUsers(@RequestBody EmployeeCaseDetails user ) {
-        if(user.getId()==null)
+    @RequestMapping(method = RequestMethod.POST, value = "find-all-users-cases-for-cis")
+    public ResponseType findAllSystemUsers(@RequestBody EmployeeCaseDetails user) {
+        if (user.getId() == null)
             user.setId(0L);
-        if(user.getJobCode()==null)
+        if (user.getJobCode() == null)
             user.setJobCode("");
-        List<EmployeeCaseDetails> users = cisService.findAllByIdContainingOrJobCodeContaining(user.getId(),user.getJobCode(),user.getStart(),user.getLimit());
+        List<EmployeeCaseDetails> users = cisService.findAllByIdContainingOrJobCodeContaining(user.getId(), user.getJobCode(), user.getStart(), user.getLimit());
         ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                 users);
         return response;
@@ -35,9 +38,9 @@ public class CisController {
 
 
     @PreAuthorize("hasAnyAuthority('find_all_courses_i_requested')")
-    @RequestMapping(method = RequestMethod.POST,value = "find-all-courses-i-requested")
-    public ResponseType findAllCoursesIRequestedForOthers(@RequestBody CisCourseRequest user ,@AuthenticationPrincipal CustomPrincipal principal ) {
-        List<CisCourseRequest> users = cisService.findAllByFromUserContaining(principal.getJid(),user.getToUser(),user.getStart(),user.getLimit());
+    @RequestMapping(method = RequestMethod.POST, value = "find-all-courses-i-requested")
+    public ResponseType findAllCoursesIRequestedForOthers(@RequestBody CisCourseRequest user, @AuthenticationPrincipal CustomPrincipal principal) {
+        List<CisCourseRequest> users = cisService.findAllByFromUserContaining(principal.getJid(), user.getToUser(), user.getStart(), user.getLimit());
         ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                 users);
         return response;

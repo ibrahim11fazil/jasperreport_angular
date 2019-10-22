@@ -6,8 +6,8 @@ spring:
 
 
 server:
-#  servlet:
-#    context-path: /gateway
+  #  servlet:
+  #    context-path: /gateway
   port: 9000
 
 #feign:
@@ -79,13 +79,19 @@ hystrix:
 zuul:
   ribbon:
     eager-load:
-      enabled: false
+      enabled: true
   ignoredServices: '*'
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   routes:
     authentication:
       sensitiveHeaders:
       path: /authentication/**
+      url: ${LOGIN_SERVER_URL:http://localhost:9001}
+      stripPrefix: true
+
+    authrefresh:
+      sensitiveHeaders:
+      path: /authrefresh/**
       url: ${LOGIN_SERVER_URL:http://localhost:9001}
       stripPrefix: true
 

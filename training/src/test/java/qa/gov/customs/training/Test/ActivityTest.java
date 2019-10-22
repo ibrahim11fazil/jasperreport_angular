@@ -45,7 +45,7 @@
 //
 ////		   Optional<TacActivity> activity1=activityRepository.findById(BigDecimal.valueOf(14));
 ////		   assertThat(activity1.isPresent()).isEqualTo(true);
-////		   System.out.println(activity1.get().getActivityId());
+////		   logger.info(activity1.get().getActivityId());
 ////		   assertThat(activity1.get().getActivityId().equals(BigDecimal.valueOf(14))).isEqualTo(true);
 //
 //	   }
@@ -93,7 +93,7 @@
 ////
 //////		   Optional<TacActivity> activity1=activityRepository.findById(BigDecimal.valueOf(14));
 //////		   assertThat(activity1.isPresent()).isEqualTo(true);
-//////		   System.out.println(activity1.get().getActivityId());
+//////		   logger.info(activity1.get().getActivityId());
 //////		   assertThat(activity1.get().getActivityId().equals(BigDecimal.valueOf(14))).isEqualTo(true);
 ////
 ////	   }
@@ -133,7 +133,7 @@
 //////	   public void jpaTestGetAllActivity()
 //////	   {
 //////		 ArrayList< TacActivity> activity=(ArrayList<TacActivity>) activityRepository.findAll();
-//////		 System.out.println(activity);
+//////		 logger.info(activity);
 //////		   assertThat(activity!=null).isEqualTo(true);
 //////	    }
 //

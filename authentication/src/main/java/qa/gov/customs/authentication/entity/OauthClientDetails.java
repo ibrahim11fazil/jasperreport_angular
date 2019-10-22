@@ -1,6 +1,9 @@
 package qa.gov.customs.authentication.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -40,7 +43,6 @@ public class OauthClientDetails {
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
-
 
 
     public String getClientSecret() {

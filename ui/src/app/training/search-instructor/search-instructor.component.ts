@@ -7,6 +7,9 @@ import { TrainingService } from 'app/service/training/training.service';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-search-instructor',
@@ -18,6 +21,7 @@ export class SearchInstructorComponent implements OnInit {
   form: FormGroup
   page = 0
   ds: TacInstructor[] = [];
+  language:LanguageUtil
   firstSearch=false
   displayedColumns: string[] = ['instructorId', 'jobId', 'name','ibanNo','qid', 'Edit','Status' ];
   constructor(
@@ -25,8 +29,16 @@ export class SearchInstructorComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
-    private router:Router,) {
+    private mainComponent:MainComponent,
+    private router:Router,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("Search Instrcutor")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+    
+  }
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -68,7 +80,10 @@ export class SearchInstructorComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 

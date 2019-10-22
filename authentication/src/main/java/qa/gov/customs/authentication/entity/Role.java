@@ -2,7 +2,6 @@ package qa.gov.customs.authentication.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,8 +16,8 @@ public class Role {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "PERMISSION_ROLE",joinColumns = {@JoinColumn(name = "ROLE_ID",referencedColumnName = "ID")},
-               inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID",referencedColumnName = "ID" )})
+    @JoinTable(name = "PERMISSION_ROLE", joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PERMISSION_ID", referencedColumnName = "ID")})
     private List<Permission> permissions;
 
 
@@ -52,8 +51,6 @@ public class Role {
     public int hashCode() {
         return Objects.hash(id, name);
     }
-
-
 
 
     public List<Permission> getPermissions() {

@@ -3,7 +3,7 @@
             <div class="gene-card-title">
                   <div fxLayout="row" fxLayoutAlign="start center">
                         <div fxLayout="column">
-                              <h4>LINK COURSE</h4>
+                              <h4>{{language.title_linkCourse}}</h4>
                         </div>
                         <span fxFlex></span>
                   </div>
@@ -14,7 +14,7 @@
                         <div fxLayout="column">
                               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                     <mat-form-field class="full-wid mrgn-b-lg">
-                                          <mat-select (selectionChange)="getCourseDetails($event)" placeholder="Courses"
+                                          <mat-select (selectionChange)="getCourseDetails($event)" placeholder={{language.courses}}
                                                 matInput formControlName="courseSelect">
                                                 <mat-option *ngFor="let item of courseList" [value]="item">
                                                       {{item.courseName}}
@@ -25,14 +25,14 @@
                               <div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center"
                                     class="notEditableField">
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                                          <h4>Existing Activites:</h4>
+                                          <h4>{{language.existingActivities}}</h4>
                                           {{existingActivity}}
                                     </div>
                               </div>
 
                               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                     <mat-form-field class="full-wid mrgn-b-lg">
-                                          <mat-select placeholder="Activity Type" matInput
+                                          <mat-select placeholder={{language.activityType}} matInput
                                                 formControlName="activitySelect" (selectionChange)="getDates($event)" >
                                                 <mat-option *ngFor="let item of activityList" [value]="item">
                                                       {{item.activityName}}
@@ -45,8 +45,8 @@
 
                               <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                     fxFlex.gt-md="49" class="notEditableField">
-
-                                    <h4>Course Category</h4>
+                                    
+                                    <h4>{{language.courseCategories}}</h4>
                                     {{courseDetails.tacCourseCategory!=null?courseDetails.tacCourseCategory.description:""}}
 
                               </div>
@@ -58,7 +58,7 @@
                                     class="notEditableField">
 
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                                          <h4>Course Period</h4>
+                                          <h4>{{language.coursePeriod}}</h4>
 
                                           {{courseDetails.duration}}
 
@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                                          <h4>Duration Type</h4>
+                                          <h4>{{language.durationType}}</h4>
                                           <!-- {{courseDetails.durationFlag}} -->
                                           {{durationValueString}}
 
@@ -77,12 +77,12 @@
 
                               <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                     fxFlex.gt-md="49" class="notEditableField">
-                                    <h4>Objective</h4>
+                                    <h4>{{language.courseObjective}}</h4>
                                     {{courseDetails.objective}}
                               </div>
                               <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                     fxFlex.gt-md="49" class="notEditableField">
-                                    <h4>Expected Result</h4>
+                                    <h4>{{language.expectedResult}}</h4>
                                     <div *ngFor="let item of expectedResult">
 
                                           {{item.result}}
@@ -91,7 +91,7 @@
                               </div>
                               <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                     fxFlex.gt-md="49" class="notEditableField">
-                                    <h4>Guidelines</h4>
+                                    <h4>{{language.trainingGuidelines}}</h4>
                                     <div *ngFor="let item of guidelineList">
                                           {{item.description}}
 
@@ -102,7 +102,7 @@
                               <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                     fxFlex.gt-md="49" class="notEditableField">
 
-                                    <h4>Audiences</h4>
+                                    <h4>{{language.targetedAudiences}}</h4>
                                     <div *ngFor="let item of targetAudienceString">
                                           {{item}}
 
@@ -113,14 +113,14 @@
                               <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"
                                     fxFlex.gt-md="49" class="notEditableField">
 
-                                    <h4>No Of Hours</h4>
+                                    <h4>{{language.noOfHours}}</h4>
                                     {{courseDetails.numberofhours}}
 
                               </div>
 
                               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                     <mat-form-field class="full-wid mrgn-b-lg">
-                                          <mat-select placeholder="Location" matInput formControlName="locationSelect">
+                                          <mat-select placeholder={{language.courseLocation}} matInput formControlName="locationSelect">
                                                 <mat-option *ngFor="let item of tacCourseLocation" [value]="item">
                                                       {{item.locationName}}
                                                 </mat-option>
@@ -133,7 +133,7 @@
 
                               <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                          <h5>Course Date</h5>
+                                          <h5>{{language.courseDate}}</h5>
                                     </div>
                                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                           <button class="mrgn-all-xs" mat-icon-button (click)="addMoreCourseDate()"
@@ -151,7 +151,7 @@
 
                                                 <mat-form-field>
                                                       <input matInput [matDatepicker]="myDatepicker"
-                                                            placeholder="Choose a date" formControlName="courseDate">
+                                                            placeholder={{language.chooseADate}} formControlName="courseDate">
                                                       <mat-datepicker-toggle matSuffix [for]="myDatepicker">
                                                       </mat-datepicker-toggle>
                                                       <mat-datepicker #myDatepicker></mat-datepicker>
@@ -169,7 +169,7 @@
 
                      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
                         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                              <h5>Prerequites</h5>
+                              <h5>{{language.preRequisites}}</h5>
                         </div>
                         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                               <button class="mrgn-all-xs" mat-icon-button (click)="addMorePrerequisites()" type="button">
@@ -197,7 +197,7 @@
                      </div>
                               <div  *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                                     <mat-form-field class="full-wid mrgn-b-lg">
-                                          <mat-select placeholder="SubCourses" matInput
+                                          <mat-select placeholder={{language.subCourses}} matInput
                                                 formControlName="subCourseSelect">
                                                 <mat-option *ngFor="let item of subCourse" [value]="item">
                                                       {{item.viewValue}}
@@ -206,7 +206,7 @@
                                     </mat-form-field>
                               </div>
                               <div fxLayout="row" fxLayoutAlign="start">
-                                    <button mat-raised-button color="primary" type="submit">Save
+                                    <button mat-raised-button color="primary" type="submit">{{language.btn_save}}
                                     </button>
                               </div>
 

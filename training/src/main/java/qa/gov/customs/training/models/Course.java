@@ -1,7 +1,5 @@
 package qa.gov.customs.training.models;
 
-import qa.gov.customs.training.entity.TacCourseCategory;
-
 import java.math.BigDecimal;
 
 public class Course {

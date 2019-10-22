@@ -34,13 +34,13 @@
 //    public void startProcess(UserRequestModel model) {
 //        Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
 //        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("process_hod", vars);
-//        System.out.println(">>>>>>>> " + processInstance.getId());
+//        logger.info(">>>>>>>> " + processInstance.getId());
 //    }
 //
 //
 //    public UserRequestModel getProcessDetails(String executionId) {
 //        UserRequestModel variables = (UserRequestModel) runtimeService.getVariable(executionId,"applicant");
-//        System.out.println(variables.getEmail());
+//        logger.info(variables.getEmail());
 //        return variables;
 //    }
 //
@@ -96,21 +96,21 @@
 //                .finished()
 //                .taskAssignee(assignee)
 //                .listPage(0, 10).forEach(item->{
-//            System.out.println("assingee " + item.getAssignee());
-//            System.out.println("getProcessInstanceId " + item.getProcessInstanceId());  /// process Id user need to store
-//            System.out.println("taskDefinition key " + item.getTaskDefinitionKey());
-//            System.out.println("getName  " + item.getName()); //Action Name
-//            System.out.println("parent task id  " + item.getParentTaskId());
-//            System.out.println("parent getDescription " + item.getDescription());
+//            logger.info("assingee " + item.getAssignee());
+//            logger.info("getProcessInstanceId " + item.getProcessInstanceId());  /// process Id user need to store
+//            logger.info("taskDefinition key " + item.getTaskDefinitionKey());
+//            logger.info("getName  " + item.getName()); //Action Name
+//            logger.info("parent task id  " + item.getParentTaskId());
+//            logger.info("parent getDescription " + item.getDescription());
 //            // item.getExecutionId()
-//            System.out.println("parent getExecutionId " + item.getExecutionId());
+//            logger.info("parent getExecutionId " + item.getExecutionId());
 //            //item.get
 //
-//            //System.out.println("parent task id  " + item());
+//            //logger.info("parent task id  " + item());
 //            //TODO  IF TASK ID IS HERE THEN ITS BETTER ,
 //
-//            System.out.println("getProcessDefinitionKey  " + item.getProcessDefinitionKey());
-//            System.out.println("getProcessDefinitionId " + item.getProcessDefinitionId());
+//            logger.info("getProcessDefinitionKey  " + item.getProcessDefinitionKey());
+//            logger.info("getProcessDefinitionId " + item.getProcessDefinitionId());
 //
 //            // Getting tasks based on process
 //            historyService.createHistoricDetailQuery()
@@ -119,8 +119,8 @@
 //                    .orderByVariableName().asc()
 //                    .list().forEach( item1 -> {
 //
-//                System.out.println("task Id > " + item1.getId() + " " + item1.getTaskId() );
-//                System.out.println("getProcessDefinitionId  " + item1.getProcessDefinitionId());
+//                logger.info("task Id > " + item1.getId() + " " + item1.getTaskId() );
+//                logger.info("getProcessDefinitionId  " + item1.getProcessDefinitionId());
 //
 //            });
 //
@@ -130,8 +130,8 @@
 //
 //                    .list().forEach(item2 -> {
 //
-//                System.out.println("task Id >>> " + item2.getTaskId() + " " + item2.getNewValue() );
-//                System.out.println("task Id1 >>> " + item2.getTaskId() + " " + item2.getNewValue() );
+//                logger.info("task Id >>> " + item2.getTaskId() + " " + item2.getNewValue() );
+//                logger.info("task Id1 >>> " + item2.getTaskId() + " " + item2.getNewValue() );
 //
 //            });
 //

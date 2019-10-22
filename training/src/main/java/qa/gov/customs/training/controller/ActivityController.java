@@ -1,9 +1,6 @@
 package qa.gov.customs.training.controller;
 
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.entity.TacActivity;
 import qa.gov.customs.training.entity.TacCourseMaster;
-import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.ActivityService;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
@@ -28,46 +24,37 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    @PreAuthorize("hasAnyAuthority('create_activity')")
+    @PreAuthorize("hasAnyAuthority('ac')")
     @PostMapping("/create-activity")
     public ResponseType createActivity(@Valid @RequestBody TacActivity activity) {
-    	System.out.println("create activity");
         TacActivity submitActivity = null;
-        if(activity.getActivityId()!=new BigDecimal(0))
-        {
-        	ResponseType searchResponse=searchActivity(activity);
-        	if(searchResponse.getData()==null)
-        	{        	
-        submitActivity = activityService.createActivity(activity);
-        if(submitActivity!=null)
-        {
-        ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
-        
-        return response;
+        if (activity.getActivityId() != new BigDecimal(0)) {
+            ResponseType searchResponse = searchActivity(activity);
+            if (searchResponse.getData() == null) {
+                submitActivity = activityService.createActivity(activity);
+                if (submitActivity != null) {
+                    ResponseType response = new ResponseType(201, MessageUtil.ACTIVITY_CREATED, true, submitActivity);
+                    return response;
+                } else {
+                    ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+                    return response;
+                }
+            }
         }
-        else
-        {
-        	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-            return response;	
-        }
-        }
-        }
-        
-        	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-            return response;
-        
-    }
 
+        ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+        return response;
+
+    }
 
 
     //@PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //if course is not linked with activity, it can be deleted
-    @PreAuthorize("hasAnyAuthority('remove_activity')")
+    @PreAuthorize("hasAnyAuthority('ar')")
     @PostMapping("/remove-activity")
     public ResponseType removeActivity(@RequestBody TacActivity activity) {
-    	System.out.println("Remove Activity");
         List<TacCourseMaster> activityList = null;
-        if(activity==null || activity.getActivityId()==null){
+        if (activity == null || activity.getActivityId() == null) {
             ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.ACTIVITY_DELETED_FAILED, false, null);
             return response;
         }
@@ -75,10 +62,10 @@ public class ActivityController {
             activityList = activityService.searchActivity(activity);
             // search activity will check whether the activity is linked with course or not
             // if the activity is not linked with course it will return '0' and can be deleted
-            if (activityList.size()==0) {
+            if (activityList.size() == 0) {
                 try {
                     activityService.deleteActivity(activity);
-                }catch (Exception e){
+                } catch (Exception e) {
                     ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.ACTIVITY_DELETED_FAILED, false, null);
                     return response;
                 }
@@ -90,48 +77,36 @@ public class ActivityController {
 
     // @PreAuthorize("hasAnyAuthority('train_admin','role_user')")
     //  list all the activities
-    @PreAuthorize("hasAnyAuthority('list_activity')")
+    @PreAuthorize("hasAnyAuthority('al')")
     @GetMapping("/list-activity")
     public ResponseType listActivity() {
-    	System.out.println("inside list activty ");
         List<TacActivity> activityList = null;
-        System.out.println("no activity");
         activityList = activityService.listActivity();
-        if(activityList!=null) {
-        ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activityList);
-        return response;
-        }
-        else
-        {
-        	ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false, null);
+        if (activityList != null) {
+            ResponseType response = new ResponseType(Constants.SUCCESS, "", true, activityList);
+            return response;
+        } else {
+            ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.NOT_FOUND, false, null);
             return response;
         }
     }
-    @PreAuthorize("hasAnyAuthority('search_activity')")
+
+    @PreAuthorize("hasAnyAuthority('as')")
     @PostMapping("/search-activity")
-    public ResponseType searchActivity(@RequestBody TacActivity activity)
-    {
-    	System.out.println("list activity");
-    	List<TacActivity> activityList=null;
+    public ResponseType searchActivity(@RequestBody TacActivity activity) {
+        List<TacActivity> activityList = null;
+        activityList = activityService.searchActivityList(activity);
+        if (activityList != null && !activityList.isEmpty()) {
 
-    	activityList=activityService.searchActivityList(activity);
-    	if(activityList!=null && !activityList.isEmpty()) {
-    		
-    	ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, activityList);
-        return response;
-    	}
-    	else { 	
-    		ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+            ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, activityList);
             return response;
-    	}
+        } else {
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.NOT_FOUND, false, null);
+            return response;
+        }
 
-    	//ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
-        //return response;
-    
-    	
+
     }
-    
-    
-   
+
 
 }

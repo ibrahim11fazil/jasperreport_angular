@@ -15,8 +15,10 @@ export class LoginV2Component {
    //email    : string = "demo@example.com";
    //password : string = "0123456789";
 
-   email    : string = "user";
-   password : string = "password@2018";
+   // email    : string = "user";
+   // password : string = "password@2018";
+   email    : string = "";
+   password : string = "";
    version =VERSION_UI
 
 

@@ -1,6 +1,8 @@
 package qa.gov.customs.notification.model;
 
 public class NotificationModel {
+
+    private static final long serialversionUID = 129348939L;
     String toAddress;
     String emailBody;
     String emailSubject;
@@ -8,6 +10,27 @@ public class NotificationModel {
     String phoneNumber;
     int isSMS;
     int isEmail;
+    int smsError;
+    int emailError;
+
+    public NotificationModel() {
+    }
+
+    public int getSmsError() {
+        return smsError;
+    }
+
+    public void setSmsError(int smsError) {
+        this.smsError = smsError;
+    }
+
+    public int getEmailError() {
+        return emailError;
+    }
+
+    public void setEmailError(int emailError) {
+        this.emailError = emailError;
+    }
 
     public String getToAddress() {
         return toAddress;

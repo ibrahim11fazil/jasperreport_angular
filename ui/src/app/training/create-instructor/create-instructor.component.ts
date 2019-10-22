@@ -9,6 +9,10 @@ import { PRIORITY_LIST } from 'app/app.constants';
 import { ActivatedRoute } from '@angular/router';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { MawaredUserResponse, MawaredUser } from 'app/models/system-user';
+import { MainComponent } from 'app/main/main.component';
+import { Language } from '@amcharts/amcharts4/core';
+import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 //import { TacInstrcutor, ITacInstructor } from 'app/models/tac-instructor';
 
 
@@ -24,7 +28,9 @@ export class CreateInstructorComponent implements OnInit {
   form:FormGroup
   tacInstructor:TacInstructor
   priorityList =PRIORITY_LIST 
+  language:LanguageUtil;
   param:any;
+  isEmployeeStatus:Boolean
   @ViewChild('fileUploaderComponent') public fileuploader:FileUploaderComponent
   cNameAr: any;
   constructor(
@@ -33,16 +39,20 @@ export class CreateInstructorComponent implements OnInit {
      private trainingService: TrainingService,
      private toastr : ToastrService,
      private userService:SystemUserService,
-     private activatedRoute: ActivatedRoute) {
+     private mainComponent:MainComponent,
+     private activatedRoute: ActivatedRoute,
+     private errorService: ErrorService) {
      this.pageTitleService.setTitle("Instructor Registration")
      this.loadForm()
-     
-   
+      
+     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
     //this.patch()
    // this.formSetup()
    // this.loadDataFromParam()
 
   }
+
+
 
   loadForm(){
     this.tacInstructor={
@@ -57,6 +67,10 @@ export class CreateInstructorComponent implements OnInit {
     } 
   }
 
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  
   ngOnInit() {
     this.formSetup()
     this.formInit()
@@ -112,7 +126,7 @@ export class CreateInstructorComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
     this.trainingService.getAllQualificaitons().subscribe(
@@ -123,7 +137,7 @@ export class CreateInstructorComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -170,7 +184,7 @@ export class CreateInstructorComponent implements OnInit {
         }
     )
       }else{
-        this.toastr.error("Please fill required fields") 
+        this.errorService.errorString("Please fill required fields") 
       }
   }
   
@@ -197,11 +211,11 @@ export class CreateInstructorComponent implements OnInit {
       if(this.param!='' && this.param!=undefined){
         let instructor=new TacInstructorRequest()
         instructor.instructorId= this.param
-        debugger
         this.trainingService.getInstructorById(instructor).subscribe(
           data => this.loadData(data),
           error => {
-            this.toastr.error(error.message)
+            console.log(error)
+            this.errorService.errorResponseHandling(error)
           }
         )
       }
@@ -251,11 +265,13 @@ export class CreateInstructorComponent implements OnInit {
 
 
  
-
+  
   onJobIdChange(event){
     if( Number(this.form.value.typeFlag)!=2 && this.form.value.jobId!=null && this.form.value.jobId!="" ){
       this.getUserById(this.form.value.jobId)
+      this.isEmployeeStatus=true
     }else{
+      this.isEmployeeStatus=false
       this.tacInstructor={
         instructorId:0,
         typeFlag:Number(this.form.value.typeFlag),
@@ -275,18 +291,16 @@ export class CreateInstructorComponent implements OnInit {
     this.userService.getUserById(jobId).subscribe(
       data=>{
         //this.toastr.info("Valid User")
-        debugger
         var response = <MawaredUserResponse>data
         if(response.data!=null){
         this.updateTacInstructorView(response.data)
         }else{
-          this.cNameAr= "Invalid User"
+          this.cNameAr= this.language.error_invalid_user
         }
-
       },
       error=>{
         console.log(error.message)
-        this.cNameAr= "Invalid User"
+        this.cNameAr= this.language.error_invalid_user
       }
     )
   }
@@ -310,7 +324,8 @@ export class CreateInstructorComponent implements OnInit {
       priority:null,
       photo:"",
       phone:"",
-      jobTitle:response.jobTitle
+      jobTitle:response.jobTitle,
+      qualification:response.qualification
     }
     this.formInit()
   }

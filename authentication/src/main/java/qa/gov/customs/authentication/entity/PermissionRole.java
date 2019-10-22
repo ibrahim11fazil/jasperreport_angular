@@ -23,7 +23,6 @@ public class PermissionRole {
     private Role roleByRoleId;
 
 
-
     public BigInteger getId() {
         return id;
     }
@@ -48,13 +47,13 @@ public class PermissionRole {
         PermissionRole that = (PermissionRole) o;
 //        return Objects.equals(permissionId, that.permissionId) &&
 //                Objects.equals(roleId, that.roleId) &&
-              return  Objects.equals(id, that.id) &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(remakr, that.remakr);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash( id, remakr);
+        return Objects.hash(id, remakr);
     }
 
 

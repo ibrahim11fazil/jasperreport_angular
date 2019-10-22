@@ -5,7 +5,9 @@ import java.util.Date;
 
 public class ActivationList {
 
-    private BigDecimal activationId ;
+    private BigDecimal activationId;
+    private String courseName;
+    private Date activationDate;
 
     public BigDecimal getActivationId() {
         return activationId;
@@ -30,7 +32,4 @@ public class ActivationList {
     public void setActivationDate(Date activationDate) {
         this.activationDate = activationDate;
     }
-
-    private String courseName;
-    private Date activationDate;
 }

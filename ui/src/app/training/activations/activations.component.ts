@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { PAGE_LIMIT } from 'app/app.constants';
 import { SearchCourse } from 'app/models/tac-course-master';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 @Component({
   selector: 'ms-activations',
@@ -18,6 +21,7 @@ export class ActivationsComponent implements OnInit {
   form: FormGroup
   page = 0
   searchText: String;
+  language:LanguageUtil
   ds: ActivationList[] = [];
   firstSearch=false
   displayedColumns: string[] = ['activationId', 'courseName','activationDate','Edit' ];
@@ -27,8 +31,18 @@ export class ActivationsComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
-    private router:Router,) {
-    this.pageTitleService.setTitle("Search Activation")}
+    private mainComponent:MainComponent,
+    private router:Router,
+    private errorService:ErrorService) {
+    this.pageTitleService.setTitle("Search Activation")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+  
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+  }
+
 
   ngOnInit() {
     this.formInit()
@@ -40,7 +54,6 @@ export class ActivationsComponent implements OnInit {
   }
 
   onSubmit() {;
-    debugger
     this.ds = new Array<ActivationList>();
     this.ds = [...this.ds];
     this.page = 0
@@ -49,7 +62,6 @@ export class ActivationsComponent implements OnInit {
   }
 
   search() {
-    debugger;
     var searchString = new SearchCourse()
     searchString.courseName = this.form.value.searchControl
     searchString.limit = PAGE_LIMIT
@@ -62,7 +74,7 @@ export class ActivationsComponent implements OnInit {
           response.data.forEach(item => {
             this.ds.push(item);
           })
-          debugger;
+
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
           if(this.firstSearch==true && response.data.length==0){
             this.toastr.info("Search result no found")
@@ -73,7 +85,10 @@ export class ActivationsComponent implements OnInit {
           this.toastr.error(response.message.toString())
         }
       },
-      error => this.toastr.error(error.message)
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
   }
 

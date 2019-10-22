@@ -43,6 +43,7 @@ export interface SystemUserResponseArray{
     fullName?:String
     roles?:UserRole[]
     roleName?:String
+    jobId?:Number
 }
 
 
@@ -91,11 +92,12 @@ export interface MawaredUser{
       positionId:String;
       secionCode:String;
       gender:String;
-        dateofbirth:String;
+      dateofbirth:String;
       department:String;
       departmentId:String;
       passport:String;
       iban:String;
+      qualification:String;
 }
 
 export interface MawaredUserResponse {
@@ -119,3 +121,41 @@ export interface LoginResponseObj {
     permissions: string[];
     jti: string;
 }
+
+export interface UserPermission{
+     id:Number
+     rpId:Number
+     name:String
+     remark:String
+     status:Boolean
+}
+
+export interface UserPermissionResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:UserPermission[];
+}
+
+
+export class UpdateRoleRequest{
+    id:Number;
+    name:String;
+    remark:String;
+    permissions:UserPermission[]
+    newPermissions:UserPermission[]
+}
+
+export class UpdateRoleResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+}
+
+export class SystemPermissionByRoleRequest{
+    roleId:Number
+}
+
+
+
+

@@ -1,7 +1,6 @@
 package qa.gov.customs.training.models;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class CourseManagement {
 
@@ -9,6 +8,7 @@ public class CourseManagement {
     private String course_date;
     private String end_date;
     private BigDecimal activation_id;
+    private BigDecimal courseStatus;
 
     public BigDecimal getActivation_id() {
         return activation_id;
@@ -40,5 +40,13 @@ public class CourseManagement {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    public BigDecimal getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(BigDecimal courseStatus) {
+        this.courseStatus = courseStatus;
     }
 }

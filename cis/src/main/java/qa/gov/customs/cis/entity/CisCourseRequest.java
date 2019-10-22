@@ -5,43 +5,45 @@ import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
-@Table(name="CIS_COURSE_REQUESTS")
+@Table(name = "CIS_COURSE_REQUESTS")
 public class CisCourseRequest {
 
     @Id
-    @Column(name="REQUEST_ID")
-    Long  requestId;
-    @Column(name="FROM_USER")
-    String      fromUser;
-    @Column(name="TO_USER")
-    String      toUser;
-    @Column(name="STATUS_FLAG")
+    @Column(name = "REQUEST_ID")
+    Long requestId;
+    @Column(name = "FROM_USER")
+    String fromUser;
+    @Column(name = "TO_USER")
+    String toUser;
+    @Column(name = "STATUS_FLAG")
     BigInteger statusFlag;
-    @Column(name="INVESTIAGTION_ID")
+    @Column(name = "INVESTIAGTION_ID")
     BigInteger investigationId;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="CREATED_DATE")
+    @Column(name = "CREATED_DATE")
     Date createdDate;
-    @Column(name="COURSE_NUMBER")
+    @Column(name = "COURSE_NUMBER")
     BigInteger courseNumber;
-    @Column(name="REMARK")
+    @Column(name = "REMARK")
     String remark;
 
 
-    @Column(name="WORKFLOW_UID")
+    @Column(name = "WORKFLOW_UID")
     String workFlowUid;
 
-    @Column(name="WORKFLOW_REMARK")
+    @Column(name = "WORKFLOW_REMARK")
     String workFlowRemark;
 
-    @Column(name="FROM_USER_CNAME")
+    @Column(name = "FROM_USER_CNAME")
     String fromUserCname;
 
-    @Column(name="TO_USER_CNAME")
+    @Column(name = "TO_USER_CNAME")
     String toUserCname;
-
-
+    @Transient
+    int start;
+    @Transient
+    int limit;
 
     public String getWorkFlowUid() {
         return workFlowUid;
@@ -139,27 +141,21 @@ public class CisCourseRequest {
         this.remark = remark;
     }
 
-    @Transient
-    int start;
+    public int getStart() {
+        return start;
+    }
 
-    @Transient
-    int limit;
+    public void setStart(int start) {
+        this.start = start;
+    }
 
-        public int getStart() {
-            return start;
-        }
+    public int getLimit() {
+        return limit;
+    }
 
-        public void setStart(int start) {
-            this.start = start;
-        }
-
-        public int getLimit() {
-            return limit;
-        }
-
-        public void setLimit(int limit) {
-            this.limit = limit;
-        }
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
 
 }

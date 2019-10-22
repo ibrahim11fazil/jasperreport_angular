@@ -44,3 +44,19 @@ export interface CiCourseRequestedUsersList {
     message: String;
     data: CiCourseRequestedUsers[];
 }
+
+
+export interface Error {
+    error: string;
+    error_description: string;
+}
+
+export interface ResponseError {
+    status: number;
+    statusText: string;
+    url: string;
+    ok: boolean;
+    name: string;
+    message: string;
+    error: Error;
+}

@@ -2,38 +2,99 @@ package qa.gov.customs.training.entity;
 
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
-@Table(name="TAC_WORKFLOW_REFERENCE")
+@Table(name = "TAC_WORKFLOW_REFERENCE")
 
 public class TacWorkflowReference {
 
     @Id
     @Column(name = "WORKFLOW_ID")
     String workflowId;
-    @Column(name="WORKFLOW_TYPE")
+    @Column(name = "WORKFLOW_TYPE")
     String type;
     @Lob
-    @Column(name="JSON_DATA")
-    String  data;
+    @Column(name = "JSON_DATA")
+    String data;
 
-    @Column(name="RESPONSE_STATUS")
-    String  responseStatus;
+    @Column(name = "RESPONSE_STATUS")
+    String responseStatus;
 
 
-    @Column(name="COURSE_STATUS")
-    String  courseStatus;
+    @Column(name = "COURSE_STATUS")
+    String courseStatus;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="CREATED_ON")
+    @Column(name = "CREATED_ON")
     Date createdOn;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="UPDATED_ON")
+    @Column(name = "UPDATED_ON")
     Date updatedOn;
 
+
+    @Column(name = "FROM_USER")
+    String fromUser;
+
+    @Column(name = "TO_USER")
+    String toUser;
+
+    @Column(name = "ACTIVATION_ID")
+    BigInteger activationId;
+
+    @Column(name = "COURSE_ID")
+    BigInteger courseId;
+
+
+//    @Temporal(TemporalType.DATE)
+//    @Column(name="COURSE_START_DATE")
+//    Date courseStartDate;
+//
+//    @Temporal(TemporalType.DATE)
+//    @Column(name="COURSE_END_DATE")
+//    Date courseEndDate;
+//
+//    @Temporal(TemporalType.DATE)
+//    @Column(name="DURATION")
+//    Date duration;
+//
+//    @Column(name="DURATION_FLAG")
+//    Date durationFlag;
+
+
+    public String getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser;
+    }
+
+    public String getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(String toUser) {
+        this.toUser = toUser;
+    }
+
+    public BigInteger getActivationId() {
+        return activationId;
+    }
+
+    public void setActivationId(BigInteger activationId) {
+        this.activationId = activationId;
+    }
+
+    public BigInteger getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(BigInteger courseId) {
+        this.courseId = courseId;
+    }
 
     public Date getUpdatedOn() {
         return updatedOn;

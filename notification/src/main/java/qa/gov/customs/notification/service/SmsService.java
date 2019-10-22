@@ -14,8 +14,8 @@ public class SmsService {
     @Autowired
     SmsRepository repository;
 
-    public void sendSms(NotificationModel model) throws IOException{
-        repository.sendSMS(model.getPhoneNumber(),model.getSmsBody());
+    public void sendSms(NotificationModel model) throws IOException {
+        repository.sendSMS(model.getPhoneNumber(), model.getSmsBody());
     }
 
 }

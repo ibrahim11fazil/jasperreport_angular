@@ -17,6 +17,9 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { TrainingRoom } from 'app/models/training-room';
 import { TacInstructor } from 'app/models/tac-instructor';
 import { ResponseTacActivation, TacActivation } from 'app/models/tac-activation';
+import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
+import { ErrorService } from 'app/service/error/error.service';
 
 
 
@@ -51,14 +54,16 @@ export class CourseLinkComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST
   editable: true;
   existingActivity = "Empty";
+  language:LanguageUtil;
 
   public form: FormGroup;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
-
+    private mainComponent:MainComponent,
     private activatedRoute: ActivatedRoute,
-    private pageTitleService: PageTitleService) {
+    private pageTitleService: PageTitleService,
+    private errorService:ErrorService) {
     this.tacCourseMaster =
       {
         courseId: 0,
@@ -78,6 +83,13 @@ export class CourseLinkComponent implements OnInit {
         tacActivities: []
 
       }
+      
+        this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+       
+  }
+  ngDoCheck(): void
+  {
+   this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -109,7 +121,7 @@ export class CourseLinkComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     ),
       this.trainingService.getAllCourseList().subscribe(
@@ -120,7 +132,7 @@ export class CourseLinkComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       ),
       this.trainingService.getAllCourseTargetGroups().subscribe(
@@ -131,7 +143,7 @@ export class CourseLinkComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       )
     this.trainingService.getAllTacCourseLocation().subscribe(
@@ -144,7 +156,7 @@ export class CourseLinkComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     ),
 
@@ -156,13 +168,14 @@ export class CourseLinkComponent implements OnInit {
         },
         error => {
           console.log(error)
-          this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
         }
       )
 
   }
 
   getCourseDetails(course) {
+   
     this.existingActivity = "";
     this.displayCourseDetails=false;
     const arrDate = <FormArray>this.form.controls.dateOptions; 
@@ -180,12 +193,13 @@ export class CourseLinkComponent implements OnInit {
  
 
   getDates(activity) {
+   this.form.controls.dateOptions=this.fb.array([]);
     this.loadedActivityId = activity.value.activityId
     this.fetchDates()
 
   }
 
-  //Not required
+ 
   fetchDates() {
     if (this.courseDetails != null && this.courseDetails.courseId != null &&
       this.loadedActivityId != 0
@@ -197,20 +211,21 @@ export class CourseLinkComponent implements OnInit {
         data => {
           var response = <ResponseDate>data
           this.loadedCourseDates = response.data
+          
           this.patchDates()
         },
         error => {
-          this.toastr.error(error.message)
-          console.log(error.message)
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
         }
       )
     } else {
-      this.toastr.info("Select Course or Activity to view date")
+      this.toastr.info(this.language.selectCourseOrActivitytoviewdate)
     }
   }
 
   patch() {
-    debugger; 
+ debugger
     if (this.courseDetails.tacActivities.length > 0) {
       this.existingActivity = ""
       this.courseDetails.tacActivities.forEach(item =>
@@ -252,9 +267,10 @@ export class CourseLinkComponent implements OnInit {
         locationArray[0]
       )
     }
+    
     const datesControl = this.getControlOfAddMore('dateOptions');
+  
     this.loadedCourseDates.forEach(x => {
-      debugger
       console.log(x.tacCourseDate)
       datesControl.push(this.patchValues(x.dateId, new Date(x.courseDate)))
     })
@@ -301,11 +317,12 @@ export class CourseLinkComponent implements OnInit {
   }
 
   linkCourseWithActivity() {
-    debugger;
     if (this.form.valid) {
-      let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
-      courseMaster.courseId = this.form.value.courseSelect.courseId;
+      debugger;
+      // let courseMaster = new TacCourseMaster(0, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+      // courseMaster.courseId = this.form.value.courseSelect.courseId;
       //courseMaster.prerequisitesId = this.form.value.prerequisitesSelect.prerequisitesId;
+      let courseMaster = this.courseDetails;
       courseMaster.locationType = this.form.value.locationSelect.locationId;
       courseMaster.subcourseFlag = this.form.value.subCourseSelect.value;
 
@@ -329,8 +346,8 @@ export class CourseLinkComponent implements OnInit {
       this.trainingService.linkCourseWithActivity(courseMaster).subscribe(
         data => this.successSaveCourse(data),
         error => {
-          console.log(error.message)
-          this.toastr.error(error.message)
+          console.log(error)
+        this.errorService.errorResponseHandling(error)
         }
       )
     } else {
@@ -375,7 +392,6 @@ export class CourseLinkComponent implements OnInit {
   }
 
   courseByIdList(course) {
-    debugger
     this.trainingService.getCourseById(course).subscribe(
       data => {
         var response = <ResponseTacCourseMaster>data
@@ -406,6 +422,7 @@ export class CourseLinkComponent implements OnInit {
         }
          
         console.log(this.targetAudienceString);
+        
         this.fetchDates();
         this.patch();
         var courseArray = this.courseList.filter(i => i.courseId == this.courseDetails.courseId)
@@ -418,7 +435,7 @@ export class CourseLinkComponent implements OnInit {
       },
       error => {
         console.log(error)
-        this.toastr.error(error.message)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }

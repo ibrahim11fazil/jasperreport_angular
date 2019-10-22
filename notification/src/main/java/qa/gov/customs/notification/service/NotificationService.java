@@ -1,34 +1,34 @@
 package qa.gov.customs.notification.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.notification.entities.NotificationEntity;
 import qa.gov.customs.notification.model.NotificationModel;
+import qa.gov.customs.notification.repository.NotificationRepository;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 @Service
 public class NotificationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
     @Autowired
     EmailService emailService;
-
     @Autowired
     SmsService smsService;
+    @Autowired
+    NotificationRepository notificationRepository;
 
-
-
-
-    public void sendNotification(NotificationModel model){
-        int emailError=0;
-        int smsError=0;
+    public void sendNotification(NotificationModel model) {
         if (model.getIsEmail() == 1 && model.getToAddress() != null && model.getEmailBody() != null) {
             try {
                 emailService.sendmail(model);
             } catch (Exception e) {
-                e.printStackTrace();
-                //TODO log it
-                emailError=1;
+                logger.error("####ERROR" + e.toString());
+                model.setEmailError(1);
             }
         }
 
@@ -36,18 +36,36 @@ public class NotificationService {
             try {
                 smsService.sendSms(model);
             } catch (Exception e) {
-                e.printStackTrace();
-                smsError=1;
-                //TODO log it
+                model.setSmsError(1);
+                logger.error("####ERROR" + e.toString());
             }
         }
-
-        //TODO save to DB
-        // save with current time
-        //TODO Date createdOn = new Date();
+        saveNotification(model);
 
     }
 
+    public void saveNotification(NotificationModel model) {
+        try {
+            NotificationEntity entity = new NotificationEntity();
+            entity.setId(new BigInteger("0"));
+            entity.setCreatedOn(new Date());
+            entity.setIsSMS(BigInteger.valueOf(model.getIsSMS()));
+            entity.setIsEmail(BigInteger.valueOf(model.getIsEmail()));
+            if (model.getToAddress() != null) {
+                entity.setEmail(model.getToAddress());
+                String subject = model.getEmailSubject() != null ? model.getEmailSubject() : "";
+                entity.setDataEmail(subject + " #### " + model.getEmailBody());
+            }
+
+            if (model.getPhoneNumber() != null) {
+                entity.setMobile(model.getPhoneNumber());
+                entity.setDataSms(model.getSmsBody());
+            }
+            notificationRepository.save(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

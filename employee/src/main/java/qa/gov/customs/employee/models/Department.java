@@ -2,9 +2,9 @@ package qa.gov.customs.employee.models;
 
 public class Department {
 
-   String  orgunit;
-   String  orgunitDescAr;
-   String  orgunitDesc;
+    String orgunit;
+    String orgunitDescAr;
+    String orgunitDesc;
 
     public String getOrgunit() {
         return orgunit;

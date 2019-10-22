@@ -2,6 +2,7 @@ package qa.gov.customs.notification.security;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.List;
 
 public class CustomPrincipal implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -9,6 +10,10 @@ public class CustomPrincipal implements Serializable {
     private String email;
     private BigInteger enabled;
     private BigInteger credentialsExpired;
+    private String cNameAr;
+    private String jid;
+    private String qid;
+    private List<String> scopes;
 
     public CustomPrincipal() {
     }
@@ -23,6 +28,38 @@ public class CustomPrincipal implements Serializable {
         this.email = email;
         this.enabled = enabled;
         this.credentialsExpired = credentialsExpired;
+    }
+
+    public List<String> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<String> scopes) {
+        this.scopes = scopes;
+    }
+
+    public String getcNameAr() {
+        return cNameAr;
+    }
+
+    public void setcNameAr(String cNameAr) {
+        this.cNameAr = cNameAr;
+    }
+
+    public String getJid() {
+        return jid;
+    }
+
+    public void setJid(String jid) {
+        this.jid = jid;
+    }
+
+    public String getQid() {
+        return qid;
+    }
+
+    public void setQid(String qid) {
+        this.qid = qid;
     }
 
     public BigInteger getCredentialsExpired() {

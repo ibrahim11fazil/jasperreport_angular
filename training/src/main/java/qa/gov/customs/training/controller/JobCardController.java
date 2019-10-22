@@ -21,7 +21,8 @@ import java.util.List;
 public class JobCardController {
     @Autowired
     JobcardService jobcardService;
-    @PreAuthorize("hasAnyAuthority('create_jobcard')")
+
+    @PreAuthorize("hasAnyAuthority('jc')")
     @PostMapping("/create-job-card")
     public ResponseType createJobCard(@Valid @RequestBody TacJobcard jobcard) {
         TacJobcard newJobcard = null;
@@ -37,7 +38,7 @@ public class JobCardController {
         return response;
     }
 
-    @PreAuthorize("hasAnyAuthority('list_job_card')")
+    @PreAuthorize("hasAnyAuthority('jl')")
     @PostMapping("/list-job-card")
     public ResponseType listJobcards() {
         List<TacJobcard> jobcardList = null;
@@ -51,7 +52,7 @@ public class JobCardController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('list_job_card')")
+    @PreAuthorize("hasAnyAuthority('jl')")
     @PostMapping("/list-job-card-by-job")
     public ResponseType listJobCards(@RequestBody TacJobcard jobcard) {
         List<TacJobcard> jobcardList = null;
@@ -66,7 +67,7 @@ public class JobCardController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('get_job_card_byid')")
+    @PreAuthorize("hasAnyAuthority('jgi')")
     @PostMapping("/get-job-card-byid")
     public ResponseType getJobCardById(@RequestBody TacJobcard jobcard) {
         TacJobcard jobcardList = null;
@@ -86,11 +87,11 @@ public class JobCardController {
 //	
 //	// Conditions
 
-//	@PreAuthorize("hasAnyAuthority('add_jobcardConditions')")
+//	@PreAuthorize("hasAnyAuthority('jac')")
 //	@PostMapping("/add-jobcardConditions")
 //	public ResponseType AddjobcardConditions(@Valid @RequestBody TacJobcardConditions jobcardConditions)
 //	{
-//    	System.out.println("add jobcardConditions");
+//    	logger.info("add jobcardConditions");
 //        TacJobcardConditions newjobcardConditions = null;
 //        ResponseType response=null;
 //        
@@ -124,12 +125,12 @@ public class JobCardController {
 //	//Skills
 //	
 //	
-//		@PreAuthorize("hasAnyAuthority('add_jobcardSkills')")
+//		@PreAuthorize("hasAnyAuthority('jas')")
 //		@PostMapping("/add-jobcardSkills")
 //		
 //		public ResponseType AddjobcardSkills(@Valid @RequestBody TacJobcardSkills jobcardSkills)
 //		{
-//	    	System.out.println("add jobcardSkills");
+//	    	logger.info("add jobcardSkills");
 //	        TacJobcardSkills newjobcardSkills = null;
 //	               	
 //	        		newjobcardSkills = JobcardService.CreateJobcardSkills(jobcardSkills);
@@ -152,12 +153,12 @@ public class JobCardController {
 //	//Duties
 //
 //		
-//		@PreAuthorize("hasAnyAuthority('add_jobcardDuties')")
+//		@PreAuthorize("hasAnyAuthority('jad')")
 //		@PostMapping("/add-jobcardDuties")
 //		
 //		public ResponseType AddjobcardDuties(@Valid @RequestBody TacJobcardDuties jobcardDuties)
 //		{
-//	    	System.out.println("add jobcardDuties");
+//	    	logger.info("add jobcardDuties");
 //	        TacJobcardDuties newjobcardDuties = null;
 //	               	
 //	        		newjobcardDuties = JobcardService.createJobcardDuties(jobcardDuties);
@@ -184,7 +185,7 @@ public class JobCardController {
 //
 //		//duties
 //		
-//		@PreAuthorize("hasAnyAuthority('list_job_card_duties')")
+//		@PreAuthorize("hasAnyAuthority('jld')")
 //		@PostMapping("/List-jobcardDuties")
 //		public ResponseType listJobcardDuties(@RequestBody TacJobcardDuties jobcardDuties)
 //		{
@@ -211,7 +212,7 @@ public class JobCardController {
 //			
 //			//conditions
 //			
-//			@PreAuthorize("hasAnyAuthority('List_JobcardConditions')")
+//			@PreAuthorize("hasAnyAuthority('jlc')")
 //			@PostMapping("/search-JobcardConditions")
 //			public ResponseType listJobcardSkills(@RequestBody TacJobcardConditions jobcardConditions)
 //			{
@@ -244,7 +245,7 @@ public class JobCardController {
 //		//sKILLS
 //			
 //			
-//			@PreAuthorize("hasAnyAuthority('List_jobcardSkills')")
+//			@PreAuthorize("hasAnyAuthority('jls')")
 //			@PostMapping("/search-jobcardSkills")
 //			public ResponseType listJobcardSkills(@RequestBody TacJobcardSkills jobcardSkills)
 //			{
@@ -278,11 +279,11 @@ public class JobCardController {
 //
 //
 //
-//@PreAuthorize("hasAnyAuthority('remove_jobcardConditions')")
+//@PreAuthorize("hasAnyAuthority('jrc')")
 //@PostMapping("/remove-jobcardConditions")
 //public ResponseType removeJobcardConditions(@RequestBody TacJobcardConditions jobcardConditions)
 //{
-//	System.out.println("Remove Condition");
+//	logger.info("Remove Condition");
 //	//   List<TacCourseInstructor> instructorList = null;
 //	if(jobcardConditions==null || jobcardConditions.getJOB_CONDITIONS()==null)
 //	{
@@ -301,11 +302,11 @@ public class JobCardController {
 //
 ////skills
 //
-//@PreAuthorize("hasAnyAuthority('remove_jobcardSkills')")
+//@PreAuthorize("hasAnyAuthority('jrs')")
 //@PostMapping("/remove-jobcardSkills")
 //public ResponseType removejobcardSkills(@RequestBody TacJobcardSkills jobcardSkills)
 //{
-//	System.out.println("Remove skills");
+//	logger.info("Remove skills");
 //	//   List<TacCourseInstructor> instructorList = null;
 //	if(jobcardSkills==null || jobcardSkills.getJOB_SKILLS()==null)
 //	{
@@ -325,11 +326,11 @@ public class JobCardController {
 //
 ////duties
 //
-//@PreAuthorize("hasAnyAuthority('remove_jobcardDuties')")
+//@PreAuthorize("hasAnyAuthority('jrd')")
 //@PostMapping("/remove-jobcardDuties")
 //public ResponseType removejobcardDuties(@RequestBody TacJobcardDuties jobcardDuties)
 //{
-//	System.out.println("Remove DUTIES");
+//	logger.info("Remove DUTIES");
 //	//   List<TacCourseInstructor> instructorList = null;
 //	if(jobcardDuties==null || jobcardDuties.getDUTY_DESCRIPTION()==null)
 //	{
@@ -345,13 +346,7 @@ public class JobCardController {
 //	ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
 //	return response;
 //}
-//
-//
-//
-//	
-//	
-//	
-//	
+
 	
 	
 

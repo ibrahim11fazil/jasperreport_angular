@@ -13,6 +13,8 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import { AuthService } from '../service/auth-service/auth.service';
 import { EcommerceService } from '../service/ecommerce/ecommerce.service';
 import { CoreService } from '../service/core/core.service';
+import { AutoLogoutServiceService } from 'app/service/auth-service/auto-logout-service.service';
+import { LanguageUtil } from 'app/app.language';
 
 const screenfull = require('screenfull');
 
@@ -24,11 +26,11 @@ const screenfull = require('screenfull');
 })
 
 export class MainComponent implements OnInit, OnDestroy{
-
+   language              :LanguageUtil;
    currentUrl            : any;
-   root                  : any = 'ltr';
-   layout                : any = 'ltr';
-   currentLang           : any = 'en'; //en
+   root                  : any = 'rtl';
+   layout                : any = 'rtl';
+   currentLang           : any = 'ar'; //en
    customizerIn          : boolean = false;
    showSettings          : boolean = false;
    chatpanelOpen         : boolean = false;
@@ -49,6 +51,9 @@ export class MainComponent implements OnInit, OnDestroy{
    private _mediaSubscription         : Subscription;
    private _routerEventsSubscription  : Subscription;
    private _router                    : Subscription;
+   private userNameCr:String
+   private jobId:String
+   private qid:String
    @ViewChild('sidenav') sidenav;
 
    sideBarFilterClass : any = [
@@ -130,11 +135,16 @@ export class MainComponent implements OnInit, OnDestroy{
       },
    ]
 
+  //--every 30 min or based on server session tome
+  autoRefreshTokenIfTokenExisit(){
+     
+  }
+
    constructor(public tourService: TourService, 
                public menuItems: MenuItems, 
                private breadcrumbService: BreadcrumbService, 
                private pageTitleService: PageTitleService, 
-               public translate: TranslateService, 
+               //public translate: TranslateService, 
                private router: Router,
                private media: MediaObserver,
                private deviceService: DeviceDetectorService,
@@ -142,10 +152,20 @@ export class MainComponent implements OnInit, OnDestroy{
                public ecommerceService : EcommerceService,
                public coreService : CoreService,
                private routes :Router,
-               private activatedRoute: ActivatedRoute ) {
+               private activatedRoute: ActivatedRoute,
+               private sessionTimeout:AutoLogoutServiceService,
+               
+                ) {
+                  this.userNameCr  = this.authService.getCNameAr()
+                  this.jobId  = this.authService.getLegacyCode()
+                  this.qid= this.authService.getQid()
       this.layout = "rtl";   
-      const browserLang: string = translate.getBrowserLang();
-      translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+      this.sessionTimeout.val = "main"
+      this.language = new LanguageUtil(this.layoutIsRTL());
+      //const browserLang: string = translate.getBrowserLang();
+     
+      //translate.use(browserLang.match(/en|fr/) ? browserLang : 'ar');
+      //translate.use('ar'); 
 
       // this.tourService.initialize([{
       //    anchorId: 'start.tour',
@@ -281,6 +301,12 @@ export class MainComponent implements OnInit, OnDestroy{
       breadcrumbService.addFriendlyNameForRoute('/crm/reports', 'Reports');
    }
 
+   
+  ngDoCheck(): void{
+   this.language = new LanguageUtil(this.layoutIsRTL());
+  }
+
+
    ngOnInit() {
       this.pageTitleService.title.subscribe((val: string) => {
          this.header = val;
@@ -377,7 +403,17 @@ export class MainComponent implements OnInit, OnDestroy{
             this.sidenav.close();
          }
       });
-      this.menuItems.update()
+
+      //this.coreService.sidenavMode = 'side';
+      //this.coreService.sidenavOpen = true;
+      
+     // var permissions =  this.authService.getPermissions()
+      //this.layout
+      //this.language is to be passed
+     // this.menuItems.update(permissions)
+
+     var permissions =  this.authService.getPermissions()
+     this.menuItems.update(permissions,  this.language )
    }
 
    ngOnDestroy() {
@@ -474,6 +510,7 @@ export class MainComponent implements OnInit, OnDestroy{
 
    /**
      * changeRTL method is used to change the layout of template.
+     * 
      */
    changeRTL(isChecked) {
       if(isChecked){

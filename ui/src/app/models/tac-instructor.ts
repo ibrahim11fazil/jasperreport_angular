@@ -15,6 +15,7 @@ export class TacInstructor {
     priority?: Number;
     public tacCommSubjects?:Subject[];
     public tacCommQualifications?:Qualification[];
+    qualification?:String;
 
 }
 

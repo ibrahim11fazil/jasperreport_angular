@@ -19,6 +19,8 @@ import { JobCardSearchComponent } from './job-card-search/job-card-search.compon
 import { EmpRequestComponent } from './emp-request/emp-request.component';
 import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { MyTasksHistoryComponent } from './my-tasks-history/my-tasks-history.component';
+import { UserPermissionsComponent } from './user-permissions/user-permissions.component';
+import { SmartProfileComponent } from './smart-profile/smart-profile.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -95,6 +97,10 @@ export const TrainingRoutes: Routes = [
                 component: UserSearchComponent
             },
             {
+                path: 'user-permissions',
+                component: UserPermissionsComponent
+            },
+            {
                 path: 'cis-system',
                 component: CisSystemComponent
             },
@@ -134,6 +140,10 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'my-tasks-history',
                 component:MyTasksHistoryComponent
+            },
+            {
+                path:'smart-profile',
+                component:SmartProfileComponent
             }
         ]
     }

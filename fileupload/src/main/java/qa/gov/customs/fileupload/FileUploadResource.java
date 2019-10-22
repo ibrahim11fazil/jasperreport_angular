@@ -20,7 +20,7 @@ public class FileUploadResource extends ResourceServerConfigurerAdapter {
     public TokenStore tokenStore;
 
     @Autowired
-    public FileUploadResource(@Qualifier("jwtTokenStore")TokenStore tokenStore) {
+    public FileUploadResource(@Qualifier("jwtTokenStore") TokenStore tokenStore) {
         this.tokenStore = tokenStore;
     }
 
@@ -28,10 +28,10 @@ public class FileUploadResource extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().permitAll().and().cors().disable().csrf().disable().httpBasic().disable().exceptionHandling()
                 .authenticationEntryPoint(
-                        (request,response,authException)->response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
                 )
                 .accessDeniedHandler(
-                        (request,response,authException)->response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
 
                 );
     }

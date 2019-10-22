@@ -5,9 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADMIN, ROLE_TRAINING_MANAGER, ROLE_TRAINING_ASSIS_MANAGER, ROLE_TRAINING_COORDINATOR, ROLE_TRAINING_HEAD_TCE, ROLE_SYS_ADMIN} from "../../app.constants";
+import {CONTENT_TYPE_FORM_URL_ENCODE, LOGIN_URL, ROLE_HR_DEPT, ROLE_TRAINING_ADMIN, ROLE_TRAINING_MANAGER, ROLE_TRAINING_ASSIS_MANAGER, ROLE_TRAINING_COORDINATOR, ROLE_TRAINING_HEAD_TCE, ROLE_SYS_ADMIN, REFRESH_TOKEN} from "../../app.constants";
 import { LoginResponseObj } from 'app/models/system-user';
 import { isNgTemplate } from '@angular/compiler';
+import {  ResponseError } from 'app/models/ci-system-user';
+import { ErrorService } from '../error/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,8 @@ export class AuthService {
    constructor(//private firebaseAuth : AngularFireAuth,
                private http:HttpClient,
                private router : Router,
-               private toastr : ToastrService) { 
+               private toastr : ToastrService,
+               private errorService:ErrorService) { 
    //	this.user = firebaseAuth.authState;
    }
 
@@ -66,13 +69,13 @@ export class AuthService {
       let options = {
          headers: new HttpHeaders()
                .set('Content-Type', 'application/x-www-form-urlencoded')
-               .set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
+             //  .set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
              //.set('Authorization', 'Basic ' +'VVNFUl9DTElFTlRfQVBQOnBhc3N3b3JkQDIwMTg=')
       };
       let body = new URLSearchParams()
       body.set('username', value.email)
       body.set('password', value.password)
-      body.set('grant_type', 'password')
+      //body.set('grant_type', 'password')
       body.set('', '')
       this.http.post(LOGIN_URL,body.toString(),options)
           .subscribe(
@@ -83,11 +86,42 @@ export class AuthService {
                this.router.navigate(['/']);
             },
             error => {
-                  console.log(error); 
-                  this.toastr.error(error.message);
+               this.errorService.errorResponseHandling(error)
             }
        );
    }
+
+   // errorResponseHandling(error){
+   //    console.log(error)
+   //    var errorMsg = <ResponseError> error
+   //    this.toastr.error(errorMsg.status + " " + errorMsg.error.error_description ) 
+   //    console.log(error.message);
+   // }
+
+   //Some issue in refresh token ...
+   refreshToken() {
+      console.log(" User Token Updating ");
+      let options = {
+         headers: new HttpHeaders()
+               .set('Content-Type', 'application/x-www-form-urlencoded')
+      };
+      let body = new URLSearchParams()
+      var token = this.getRefreshToken()
+      var url = REFRESH_TOKEN + token
+      
+      this.http.post(url,body.toString(),options)
+          .subscribe(
+              response => {
+               this.setLocalUserProfile(response);
+            },
+            error => {
+                  this.errorService.errorResponseHandling(error)
+                  //this.logOut()
+            }
+       );
+   }
+
+  
 
    /*
     * resetPassword is used to reset your password
@@ -122,16 +156,18 @@ export class AuthService {
     * logOut function is used to sign out  
     */
    logOut() {
+        localStorage.clear()
         localStorage.removeItem("userProfile");
         this.toastr.success("Successfully logged out!");
         this.router.navigate(['/session/loginV2']);
-      // this.firebaseAuth
-      // .auth
-      // .signOut();
-      // localStorage.removeItem("userProfile");
-      // this.isLoggedIn = false;
-      // this.toastr.success("Successfully logged out!");
-      // this.router.navigate(['/session/loginV2']);
+   }   
+   
+
+   logOutExpire() {
+      localStorage.clear()
+      localStorage.removeItem("userProfile");
+      this.toastr.success("Session Expired");
+      this.router.navigate(['/session/loginV2']);
    }   
 
    /*
@@ -159,6 +195,38 @@ export class AuthService {
      }
    }
 
+
+   getQid(){
+      try{
+       this.userData = JSON.parse(localStorage.getItem("userProfile"));
+       if(this.userData) {
+           var json = this.userData;
+           //console.log(JSON.stringify(json));
+           let body = JSON.parse(JSON.stringify(json));
+           return body.qid;
+       } else {
+           return null;
+       }
+     }catch(ex){
+        return null
+     }
+   }
+
+   getPermissions(){
+      try{
+       this.userData = JSON.parse(localStorage.getItem("userProfile"));
+       if(this.userData) {
+           var json = this.userData;
+           //console.log(JSON.stringify(json));
+           let body = JSON.parse(JSON.stringify(json));
+           return body.permissions;
+       } else {
+           return null;
+       }
+     }catch(ex){
+        return null
+     }
+   }
 
    getCNameAr(){
       try{
@@ -191,6 +259,23 @@ export class AuthService {
          return null
       }
     }
+
+
+    getRefreshToken(){
+      try{
+       this.userData = JSON.parse(localStorage.getItem("userProfile"));
+       if(this.userData) {
+           var json = this.userData;
+           //console.log("User Token getting");
+           let body = JSON.parse(JSON.stringify(json));
+           return body.refresh_token;
+       } else {
+           return null;
+       }
+     }catch(ex){
+        return null
+     }
+   }
 
     checktheRoleisHR(){
       this.userData = JSON.parse(localStorage.getItem("userProfile"));
@@ -226,6 +311,23 @@ export class AuthService {
          return false
       }
     }
+    checktheRoleisTrainingCoordinator(){
+      this.userData = JSON.parse(localStorage.getItem("userProfile"));
+      var loginObj=<LoginResponseObj> this.userData 
+      var roleAvailable=false
+      if(loginObj.roles.length!=0){
+         loginObj.roles.forEach(item =>  {
+         if(
+            item == ROLE_TRAINING_COORDINATOR 
+            ){
+               roleAvailable=true
+         }});
+      return roleAvailable
+      }else{
+         return false
+      }
+    }
+
     checktheRoleisSystemAdmin(){
       this.userData = JSON.parse(localStorage.getItem("userProfile"));
       var loginObj=<LoginResponseObj> this.userData 
@@ -240,6 +342,19 @@ export class AuthService {
          return false
       }
     }
+
+
+    getUserRoles(){
+      this.userData = JSON.parse(localStorage.getItem("userProfile"));
+      var loginObj=<LoginResponseObj> this.userData 
+     
+      if(loginObj.roles.length!=0)
+         return loginObj.roles
+      else
+         return []
+    }
+
+
 
 
 }

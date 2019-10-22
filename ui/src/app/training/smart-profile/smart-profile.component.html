@@ -1,0 +1,184 @@
+<div fxLayout="row wrap" fxLayoutAlign="start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+       <div class="user-content">
+          <mat-card>
+              <h4>{{language.title_smartProfile}}</h4>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+          <mat-form-field class="full-wid mrgn-b-lg">
+             <input matInput placeholder={{language.jobId}}  formControlName="jobId" required >
+          </mat-form-field>  
+          <div fxLayout="row" fxLayoutAlign="start">
+              <button mat-raised-button color="primary"   type="submit">{{language.btn_search}}
+          </button> 
+          </div>
+       </div>
+</form>
+</mat-card></div></div></div>
+
+<div fxLayout="row wrap" fxLayoutAlign="start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+       <div class="user-content">
+          <mat-card>
+             <div class="pad-y-sm">
+                <div fxLayout="row wrap" fxLayoutAlign="start" class="user-profile">
+                   <div fxFlex.xl="calc(100% - 300px)" fxFlex.lg="calc(100% - 300px)" fxFlex.md="calc(100% - 300px)"  fxFlex.sm="calc(100% - 250px)" fxFlex.xs="100"  class="user-contact-info">
+                      <ul>
+                         <li>
+                            <h4>{{userProfile.cname_AR}}</h4>
+                            <!-- <p>{{userProfile.job_DESC_AR}}</p> -->
+                         </li>
+                         <li>
+                            <div class="contact-list"> <strong>{{language.email}}</strong></div>
+                            <a class="gene-block" href="mailto:{{userProfile.email}}">: {{ userProfile.email }}</a>
+                         </li>
+                         <li>
+                            <div class="contact-list"> <strong>{{language.qid}}</strong></div>
+                            <a class="gene-block">: {{userProfile.qid}}</a>
+                         </li>
+                         <li>
+                              <div class="contact-list"><strong>{{language.position}}</strong></div>
+                              <span>: {{userProfile.position_DESC_AR}} </span>
+                        </li>
+                         <li>
+                            <div class="contact-list"> <strong>{{language.department}}</strong></div>
+                            <span>: {{userProfile.orgunit_DESC_AR}}</span>
+                         </li>
+                         <li>
+                            <div class="contact-list"> <strong> {{language.jobGrade}}</strong></div>
+                            <span class="gene-block">: {{userProfile.pslevel}} </span>
+                         </li>
+                      </ul>
+                      <ul>
+                          <li>
+                             <h4>{{language.trainingCertificate}}</h4>
+                          </li>
+                          <li *ngFor="let item of certificates">
+                              <a style="color:blue" href="{{item.certificateUid}}" target="_blank">{{item.courseName}}</a>
+
+                          </li>
+                      </ul>    
+                     
+                     
+                   </div>
+                </div>
+             
+             </div>
+          </mat-card>
+       </div>
+    </div> 
+ </div>
+
+ <div fxLayout="row wrap">
+		<div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+			<div>
+				<mat-card class="mrgn-b-lg">
+					<div>
+                  <div class="card-title mrgn-b-md">
+        
+                      <span class="label primary-bg border-rad-base"> {{language.jobCardDetails}}  </span>
+                      </div>
+                <mat-list>
+                   <mat-list-item *ngFor="let item of jobCardProfile">
+                        <div class="card-title mrgn-b-md"> 
+                           {{item.category}} - Hours: {{item.noOfHours}}  
+                        </div>
+                   </mat-list-item>
+                </mat-list>
+					</div>
+				</mat-card>
+			</div>
+		</div>
+  </div>
+  
+  <div fxLayout="row wrap">
+      <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+        <div>
+          <mat-card class="mrgn-b-lg">
+            <div>
+              <div class="card-title mrgn-b-md"> 
+               <span class="label primary-bg border-rad-base"> {{language.coursesAttendedCurrent}} </span>
+            </div>
+              <mat-list>
+                   <mat-list-item *ngFor="let item of userCourseResponseProfile">
+                     
+
+                       <div class="card-title mrgn-b-md"> 
+                            {{item.courseName}} -- {{item.category}}   
+                        </div>
+
+                   </mat-list-item>
+              </mat-list>   
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+          <div>
+            <mat-card class="mrgn-b-lg">
+              <div>
+                <div class="card-title mrgn-b-md">   <span class="label warn-bg border-rad-base"> {{language.smartSuggestion}} </span> </div>
+                <mat-list>
+                    <mat-list>
+                        <mat-list-item *ngFor="let item of jobCardProfileSuggession">
+                              <div class="card-title mrgn-b-md"> 
+                                        {{item.courseName}}  , {{item.category}} -- Hours: {{item.noOfHours}}  
+                                 </div>
+                        </mat-list-item>
+                     </mat-list>
+                 </mat-list>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div *ngIf="displayCourses" fxLayout="row wrap"  class="gene-card-content">
+         <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+           <div>  -->
+               <div *ngIf="displayCourses" class="gene-card-content">
+             <mat-card *ngIf="displayCourses" class="mrgn-b-lg">
+               <div>
+                     <div class="card-title mrgn-b-md">   <span class="label primary-bg border-rad-base"> {{language.responsibilities}} </span> </div>
+                 
+      <ngx-datatable  #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
+			[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='courseManagement' [count]="page.totalElements"
+			[offset]="page.pageNumber" [messages]="{emptyMessage: language.noDataToDisplay}" > 
+
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>{{language.courseName}}</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.courseName}}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>{{language.courseStartDate}}</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.course_date}}
+				</ng-template>
+			</ngx-datatable-column>
+			<ngx-datatable-column min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>{{language.courseEndDate}}</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					{{row.end_date}}
+				</ng-template>
+			</ngx-datatable-column>
+			
+		</ngx-datatable>
+	</div>
+            </mat-card>
+               </div>
+          <!-- </div>
+        </div>
+      </div> -->
+

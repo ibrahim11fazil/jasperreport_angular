@@ -13,6 +13,9 @@ import { TrainingSystemServiceService } from 'app/service/training/training-syst
 import { TrainingService } from 'app/service/training/training.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
 import { TacActivation } from 'app/models/tac-activation';
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
+import { ErrorService } from 'app/service/error/error.service';
 @Component({
   selector: 'ms-my-tasks',
   templateUrl: './my-tasks.component.html',
@@ -22,6 +25,7 @@ export class MyTasksComponent implements OnInit {
 
   systemUser: SystemUser
   form: FormGroup
+  language:LanguageUtil;
   page = 0
   commentTxt=""
   ds: TaskResponseData[] = [];
@@ -32,7 +36,7 @@ export class MyTasksComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST;
   durationValueString: String;
   dataStatus = false;
-  displayedColumns: string[] = ['id', 'name', 'workflowType','jobId', 'cnameAr', 'edit'];
+  displayedColumns: string[] = ['createdOn', 'name',  'workflowType','jobId', 'cnameAr', 'edit'];
   data : TaskResponseData;
   items: string[] = [];
   historyExecutions:UserTaskResponseHistory[]=[]
@@ -43,9 +47,16 @@ export class MyTasksComponent implements OnInit {
     private workflowService:WorkflowService,
     private router:Router,
     private trainingSystemService:TrainingSystemServiceService,
-    private trainingService: TrainingService) {
+    private mainComponent:MainComponent,
+    private trainingService: TrainingService,
+    private errorService:ErrorService) {
     this.pageTitleService.setTitle("User Tasks")
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
    
+  }
+
+  ngDoCheck(): void {
+    this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
 
   ngOnInit() {
@@ -73,7 +84,7 @@ export class MyTasksComponent implements OnInit {
     searchString.jobId = this.form.value.searchControl
     searchString.limit = PAGE_LIMIT
     searchString.start = this.page
-    this.workflowService.listMyTasks().subscribe(
+    this.workflowService.listMyTasksWithDelegations(searchString).subscribe(
       data => {
         var response = <TaskResponse>data
         if (response.status && response.data.length>0) {
@@ -96,8 +107,8 @@ export class MyTasksComponent implements OnInit {
         }
       },
       error => {
-        console.log(error.message)
-        this.toastr.error(error.message)
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
       }
     )
   }
@@ -126,8 +137,7 @@ export class MyTasksComponent implements OnInit {
           },
           error => {
             console.log(error)
-           //this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-             this.toastr.error(error.message)
+            this.errorService.errorResponseHandling(error)
           }
         )
         }
@@ -160,16 +170,14 @@ export class MyTasksComponent implements OnInit {
            if(response.status){
             this.toastr.info(String(response.message))
             this.dataStatus=false
-            this.search()
+            this.onSubmit()
            }else{
             this.toastr.error(String(response.message))
            }
           },
           error => {
             console.log(error)
-            this.toastr.error(error)
-           // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-           // this.toastr.error(error.message)
+             this.errorService.errorResponseHandling(error)
           }
         )
         }
@@ -204,8 +212,7 @@ export class MyTasksComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
       this.getComment();
@@ -230,8 +237,7 @@ export class MyTasksComponent implements OnInit {
         ,
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
       }
@@ -251,8 +257,7 @@ export class MyTasksComponent implements OnInit {
         },
         error => {
           console.log(error)
-         // this.trainingSystemService.viewDetailsOfTasks(row,this.activation,this.estimatedCost,this.durationValueString);
-         // this.toastr.error(error.message)
+          this.errorService.errorResponseHandling(error)
         }
       )
       }
