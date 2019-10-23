@@ -32,7 +32,11 @@ public class Publisher {
     }
 
     public void produceWorkFlowRequest(UserRequestModel model) {
-        //amqpTemplate.convertAndSend("training_exchange", "training_routingkey_workflow_status", model);
-        amqpTemplate.convertAndSend(queueUserRequest, model);
+        try {
+            //amqpTemplate.convertAndSend("training_exchange", "training_routingkey_workflow_status", model);
+            amqpTemplate.convertAndSend(queueUserRequest, model);
+        }catch (Exception e){
+            logger.info("Error workflow user request send" + e);
+        }
     }
 }

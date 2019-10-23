@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.config.Publisher;
 import qa.gov.customs.workflowcamuda.model.*;
-import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
-import qa.gov.customs.workflowcamuda.proxy.NotificationProxyService;
-import qa.gov.customs.workflowcamuda.proxy.TrainingProxyService;
-import qa.gov.customs.workflowcamuda.proxy.UserSSOProxy;
+import qa.gov.customs.workflowcamuda.proxy.*;
 import qa.gov.customs.workflowcamuda.service.RequestService;
 import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
@@ -44,7 +41,8 @@ import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 public class WorkflowImpl {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
-    private final EmployeeProxyService userProxyService;
+  //  private final EmployeeProxyService userProxyService;
+    private final EmployeeProxyOverridenController userProxyService;
     private final UserSSOProxy userSSOProxy;
     private final NotificationProxyService notificationProxyService;
     private final TrainingProxyService trainingProxyService;
@@ -62,7 +60,7 @@ public class WorkflowImpl {
     private Publisher publisher;
 
     @Autowired
-    public WorkflowImpl(EmployeeProxyService userProxyService,
+    public WorkflowImpl(EmployeeProxyOverridenController userProxyService,
                         NotificationProxyService notificationProxyService,
                         TrainingProxyService trainingProxyService,
                         UserSSOProxy userSSOProxy) {
@@ -266,27 +264,27 @@ public class WorkflowImpl {
 
     //Find the head of section for the employee or immediate head
     public void findHeadOfSectionForEmployee(UserRequestModel model, final DelegateTask task) {
-        ResponseType userdata = userProxyService.getEmployeeHead(model.getJobId(), workflowToken);
+        List<ImmediateManager>  userdata = userProxyService.getEmployeeHeadOfSection(model.getJobId());
         taskActionByUser(model, userdata, task);
     }
 
     //Find the employee manager
     public void findEmployeeManager(UserRequestModel model, final DelegateTask task) {
-        ResponseType userdata = userProxyService.getEmployeeManager(model.getJobId(), workflowToken);
+        List<ImmediateManager> userdata = userProxyService.getEmployeeManager(model.getJobId());
         taskActionByUser(model, userdata, task);
     }
 
 
     //Find Assistant GM
     public void findAssistantGM(UserRequestModel model, final DelegateTask task) {
-        ResponseType userdata = userProxyService.getAssistantGeneralManager(workflowToken);
+        List<ImmediateManager> userdata = userProxyService.getAssistantGeneralManager();
         taskActionByUser(model, userdata, task);
     }
 
 
     //Find the Training Head
     public void findHeadofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
-        ResponseType userdata = userProxyService.getTrainingDepartmentHead(workflowToken);
+        List<ImmediateManager>  userdata = userProxyService.getHeadOfTrainingAndContinuingEducation();
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
     }
@@ -304,7 +302,7 @@ public class WorkflowImpl {
 
     //Find the Legal Head
     public void findLegalManager(UserRequestModel model, final DelegateTask task) {
-        ResponseType userdata = userProxyService.getLegalManager(workflowToken);
+        List<ImmediateManager> userdata = userProxyService.getLegalManager();
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
     }
@@ -312,13 +310,13 @@ public class WorkflowImpl {
 
     public Boolean getDelegationStatus(String userId) {
         try {
-            ResponseType userdata = userProxyService.checkTheUserIsAbsent(userId, workflowToken);
-            ObjectMapper mapper = new ObjectMapper();
-            Boolean status = mapper.convertValue(
-                    userdata.getData(),
-                    new TypeReference<Boolean>() {
-                    });
-            return status;
+            Boolean userdata = userProxyService.checkTheUserIsAbsent(userId);
+//            ObjectMapper mapper = new ObjectMapper();
+//            Boolean status = mapper.convertValue(
+//                    userdata.getData(),
+//                    new TypeReference<Boolean>() {
+//                    });
+            return userdata;
         } catch (Exception e) {
             logger.error(e.toString());
             return false;
@@ -339,14 +337,14 @@ public class WorkflowImpl {
             if (managers != null && managers.size() > 0) {
                 task.setAssignee(managers.get(0).getJobId());
                 task.setDescription(managers.get(0).getcNameAr());
-                ResponseType delegations = userProxyService.getDelegationForEmployee(managers.get(0).getJobId(), workflowToken);
-                List<ImmediateManager> otherUsers = null;
-                otherUsers = mapper.convertValue(
-                        delegations.getData(),
-                        new TypeReference<List<ImmediateManager>>() {
-                        });
-                if (otherUsers != null && otherUsers.size() > 0) {
-                    otherUsers.forEach(u -> {
+                List<ImmediateManager>  delegations = userProxyService.getDelegationForEmployee(managers.get(0).getJobId());
+               // List<ImmediateManager> otherUsers = null;
+//                otherUsers = mapper.convertValue(
+//                        delegations.getData(),
+//                        new TypeReference<List<ImmediateManager>>() {
+//                        });
+                if (delegations != null && delegations.size() > 0) {
+                    delegations.forEach(u -> {
                         task.addCandidateUser(u.getLegacyCode());
                     });
                 }
@@ -369,26 +367,24 @@ public class WorkflowImpl {
         }
     }
 
-    public void taskActionByUser(UserRequestModel model, ResponseType userdata, final DelegateTask task) {
+    public void taskActionByUser(UserRequestModel model, List<ImmediateManager> userdata, final DelegateTask task) {
         ImmediateManager manager = null;
-        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
+        if (userdata != null && userdata.size() >0 ) {
             ObjectMapper mapper = new ObjectMapper();
-            manager = mapper.convertValue(
-                    userdata.getData(),
-                    new TypeReference<ImmediateManager>() {
-                    });
+            //TODO Get other chairman
+            manager = userdata.get(0);
             if (manager != null && manager.getLegacyCode() != null) {
                 task.setAssignee(manager.getImLegacyCode());
                 task.setDescription(manager.getImCnameAr());
                 if (getDelegationStatus(manager.getImLegacyCode())) {
-                    ResponseType delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode(), workflowToken);
-                    List<ImmediateManager> otherUsers = null;
-                    otherUsers = mapper.convertValue(
-                            delegations.getData(),
-                            new TypeReference<List<ImmediateManager>>() {
-                            });
-                    if (otherUsers != null && otherUsers.size() > 0) {
-                        otherUsers.forEach(item -> {
+                    List<ImmediateManager> delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode());
+//                    List<ImmediateManager> otherUsers = null;
+//                    otherUsers = mapper.convertValue(
+//                            delegations.getData(),
+//                            new TypeReference<List<ImmediateManager>>() {
+//                            });
+                    if (delegations != null && delegations.size() > 0) {
+                        delegations.forEach(item -> {
                             task.addCandidateUser(item.getLegacyCode());
                         });
                     }
@@ -432,23 +428,24 @@ public class WorkflowImpl {
         Boolean status = false;
         String errorCase = "";
         logger.info("checkUserIsManager" + model.getEmail());
-        ResponseType userdata = userProxyService.checkUserIsManager(model.getJobId(), model.getDepartmentId(), workflowToken);
-        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
-            ObjectMapper mapper = new ObjectMapper();
-            status = mapper.convertValue(
-                    userdata.getData(),
-                    new TypeReference<Boolean>() {
-                    });
-            logger.info("checkUserIsManager" + status.toString());
-            if (status) {
-                execution.setVariable("resultcheckval_manager", "yes");
-            } else {
-                execution.setVariable("resultcheckval_manager", "no");
-            }
+        Boolean userdata = userProxyService.checkUserIsManager(model.getJobId(), model.getDepartmentId());
+        if (userdata) {
+            execution.setVariable("resultcheckval_manager", "yes");
         } else {
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
-            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+            execution.setVariable("resultcheckval_manager", "no");
         }
+       // if (userdata) {
+//            ObjectMapper mapper = new ObjectMapper();
+//            status = mapper.convertValue(
+//                    userdata.getData(),
+//                    new TypeReference<Boolean>() {
+//                    });
+            logger.info("checkUserIsManager" + status.toString());
+
+//        } else {
+//            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+//            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+//        }
     }
 
 
