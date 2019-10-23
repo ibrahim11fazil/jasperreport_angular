@@ -22,7 +22,7 @@ public class Publisher {
     @Value("${training.rabbitmq.routingkey}")
     private String routingKey;
 
-    @Value("${workflow.rabbitmq.queue_user_request}")
+    @Value("${training.rabbitmq.queue_user_request}")
     private String queueUserRequest;
 
 
