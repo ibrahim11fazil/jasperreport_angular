@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.config.Publisher;
+import qa.gov.customs.workflowcamuda.entity.UserMaster;
 import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.*;
 import qa.gov.customs.workflowcamuda.service.RequestService;
@@ -43,7 +44,7 @@ public class WorkflowImpl {
     private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
   //  private final EmployeeProxyService userProxyService;
     private final EmployeeProxyOverridenController userProxyService;
-    private final UserSSOProxy userSSOProxy;
+    private final WorkflowProxyOverridenController userSSOProxy;
     private final NotificationProxyService notificationProxyService;
     private final TrainingProxyService trainingProxyService;
     @Autowired
@@ -63,7 +64,7 @@ public class WorkflowImpl {
     public WorkflowImpl(EmployeeProxyOverridenController userProxyService,
                         NotificationProxyService notificationProxyService,
                         TrainingProxyService trainingProxyService,
-                        UserSSOProxy userSSOProxy) {
+                        WorkflowProxyOverridenController userSSOProxy) {
         this.userProxyService = userProxyService;
         this.notificationProxyService = notificationProxyService;
         this.trainingProxyService = trainingProxyService;
@@ -296,7 +297,7 @@ public class WorkflowImpl {
         //        ResponseType userdata = userProxyService.getHeadOfTrainingCenterManager(workflowToken);
         //        taskActionByUser(model, userdata, task);
         //For multiple users based on Training SSO
-        ResponseType userdata = userSSOProxy.getTrainingDepartmentHeads(workflowToken);
+        List<UserMaster> userdata = userSSOProxy.getTrainingDepartmentHeads();
         taskActionByUserSSO(model, userdata, task);
     }
 
@@ -324,14 +325,14 @@ public class WorkflowImpl {
     }
 
 
-    public void taskActionByUserSSO(UserRequestModel model, ResponseType userdata, final DelegateTask task) {
-        List<UserMasterModel> managers = null;
-        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
-            ObjectMapper mapper = new ObjectMapper();
-            managers = mapper.convertValue(
-                    userdata.getData(),
-                    new TypeReference<List<UserMasterModel>>() {
-                    });
+    public void taskActionByUserSSO(UserRequestModel model,  List<UserMaster> userdata, final DelegateTask task) {
+        List<UserMaster> managers = userdata;
+        if (managers != null && managers.size()>0) {
+//            ObjectMapper mapper = new ObjectMapper();
+//            managers = mapper.convertValue(
+//                    userdata.getData(),
+//                    new TypeReference<List<UserMasterModel>>() {
+//                    });
 
             // Set fist as the main employee
             if (managers != null && managers.size() > 0) {
@@ -350,7 +351,7 @@ public class WorkflowImpl {
                 }
 
                 if (managers.size() > 1) {
-                    for (UserMasterModel oUser : managers.subList(1, managers.size())) {
+                    for (UserMaster oUser : managers.subList(1, managers.size())) {
                         task.addCandidateUser(oUser.getJobId());
                     }
 
@@ -404,23 +405,23 @@ public class WorkflowImpl {
         String errorCase = "";
         logger.info("checkTheUserIsHeadOfTraining" + model.getEmail());
         // ResponseType userdata = userProxyService.checkUserIsHeadOfTraining(model.getJobId(), workflowToken);
-        ResponseType userdata = userSSOProxy.checkUserIsHeadOfTraining(model.getJobId(), workflowToken);
-        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
-            ObjectMapper mapper = new ObjectMapper();
-            status = mapper.convertValue(
-                    userdata.getData(),
-                    new TypeReference<Boolean>() {
-                    });
-            logger.info("checkTheUserIsHeadOfTraining" + status.toString());
+        Boolean userdata = userSSOProxy.checkUserIsHeadOfTraining(model.getJobId());
+//        if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
+//            ObjectMapper mapper = new ObjectMapper();
+//            status = mapper.convertValue(
+//                    userdata.getData(),
+//                    new TypeReference<Boolean>() {
+//                    });
+            logger.info("checkTheUserIsHeadOfTraining" + userdata);
             if (status) {
                 execution.setVariable("resultcheckval", "yes");
             } else {
                 execution.setVariable("resultcheckval", "no");
             }
-        } else {
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
-            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
-        }
+//        } else {
+//            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+//            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+//        }
     }
 
 
