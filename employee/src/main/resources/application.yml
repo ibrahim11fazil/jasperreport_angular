@@ -130,3 +130,8 @@ cloud:
       - 10.0
 
 workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
+
+workflow:
+  rabbitmq:
+    notification_exchange: ${NOTIFICATION_EXCHANGE:notification_exchange_dev}
+    notification_routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}

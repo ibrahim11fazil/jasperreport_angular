@@ -21,24 +21,36 @@ public class Publisher {
     @Value("${workflow.rabbitmq.routingkey}")
     private String routingKey;
 
+    @Value("${workflow.rabbitmq.notification_exchange}")
+    private String notificationExchange;
+
+    @Value("${workflow.rabbitmq.notification_routingkey}")
+    private String notificationRoutingkey;
+
+    @Value("${workflow.rabbitmq.training_queue_workflow_status}")
+    private String trainingQueueWorkFlowStatus;
+
+    @Value("${workflow.rabbitmq.cis_queue_workflow_status}")
+    private String cisQueueWorkFlowStatus;
+
     public void produceMsg(String msg) {
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         logger.info("Send msg = " + msg);
     }
 
     public void sendNotification(NotificationModel model) {
-        amqpTemplate.convertAndSend("notification_exchange", "notification_routingkey", model);
+        amqpTemplate.convertAndSend(notificationExchange, notificationRoutingkey, model);
     }
 
     public void updateTrainingRequest(TrainingRequestStatus model) {
         //amqpTemplate.convertAndSend("training_exchange", "training_routingkey_workflow_status", model);
-        amqpTemplate.convertAndSend("training_queue_workflow_status", model);
+        amqpTemplate.convertAndSend(trainingQueueWorkFlowStatus, model);
     }
 
 
     public void updateCISTrainingRequest(TrainingRequestStatus model) {
         //amqpTemplate.convertAndSend("training_exchange", "training_routingkey_workflow_status", model);
-        amqpTemplate.convertAndSend("cis_queue_workflow_status", model);
+        amqpTemplate.convertAndSend(cisQueueWorkFlowStatus, model);
     }
 
 

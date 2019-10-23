@@ -142,8 +142,12 @@ workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
 
 workflow:
   rabbitmq:
-    queue: workflow_queue
-    queue_user_request: workflow_queue_userrequest
-    exchange: workflow_exchange
-    routingkey: workflow_routingkey
-    routingkey_user_request: workflow_routingkey_userrequest
+    queue:  ${WORKFLOW_QUE_PROD:workflow_queue_dev}
+    queue_user_request: ${WORKFLOW_QUE_USER_REQ:workflow_queue_userrequest_dev}
+    exchange: ${WORKFLOW_QUE_EXCHANGE:workflow_exchange_dev}
+    routingkey: ${WORKFLOW_ROUTING_KEY:workflow_routingkey_dev}
+    routingkey_user_request: ${WORKFLOW_ROUTING_USER_REQ:workflow_routingkey_userrequest_dev}
+    notification_exchange: ${NOTIFICATION_EXCHANGE:notification_exchange_dev}
+    notification_routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}
+    training_queue_workflow_status: ${TRAINING_QUEUE_WORKFLOWSTATUS:training_queue_workflow_status_dev}
+    cis_queue_workflow_status: ${CIS_WORKFLOW_STATUS:cis_queue_workflow_status_dev}
