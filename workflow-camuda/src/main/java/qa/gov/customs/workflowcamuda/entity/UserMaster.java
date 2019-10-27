@@ -33,7 +33,7 @@ public class UserMaster {
     private BigInteger credentialsExpired;
     @Column(name = "ACCOUNT_LOCKED")
     private BigInteger accountLocked;
-    @ManyToMany(fetch = FetchType.EAGER)
+//    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "ROLE_USER", joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
 //            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
     @Column(name = "ROLE_USER")
