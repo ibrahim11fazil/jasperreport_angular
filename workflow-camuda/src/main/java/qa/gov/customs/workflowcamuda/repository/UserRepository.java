@@ -18,6 +18,6 @@ import java.util.List;
 @Transactional
 public interface UserRepository extends PagingAndSortingRepository<UserMaster, BigInteger> {
 
-    List<UserMaster> findAllByRole(BigDecimal role);
+    List<UserMaster> findAllByRole(BigInteger role);
 
 }

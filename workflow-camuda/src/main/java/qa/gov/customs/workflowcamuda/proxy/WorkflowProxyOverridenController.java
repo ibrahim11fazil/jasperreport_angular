@@ -28,7 +28,7 @@ public class WorkflowProxyOverridenController {
 
    // @PostMapping("/check-the-user-is-head-of-training-workflow/{id}/{wtoken}")
     public Boolean checkUserIsHeadOfTraining(String id) {
-            List<UserMaster> users = userService.findAllByRole(new BigDecimal("6"));
+            List<UserMaster> users = userService.findAllByRole(new BigInteger("6"));
             if (users != null && users.size() > 0) {
                 Boolean status = false;
                 for (UserMaster user : users) {
@@ -45,7 +45,7 @@ public class WorkflowProxyOverridenController {
     //@PostMapping(value = "/get-head-of-training-and-continuing-edu-workflow/{wtoken}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMaster> getTrainingDepartmentHeads() {
         List<UserMaster> updatedUser = new ArrayList<>();
-        List<UserMaster> users = userService.findAllByRole(new BigDecimal("6"));
+        List<UserMaster> users = userService.findAllByRole(new BigInteger("6"));
         if (users != null && users.size() > 0) {
             users.forEach(item -> {
                 UserMaster user = new UserMaster();
