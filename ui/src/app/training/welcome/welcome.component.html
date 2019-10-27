@@ -20,7 +20,7 @@
    
     <ngx-datatable *ngIf="displayTable" #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
     [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows' [count]="page.totalElements"
-    [offset]="page.pageNumber">
+    [offset]="page.pageNumber" [messages]="{emptyMessage: language.noDataToDisplay}">
 
     <ngx-datatable-column min-width="50px">
       <ng-template ngx-datatable-header-template>
