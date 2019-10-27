@@ -36,8 +36,8 @@ public class UserMaster {
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "ROLE_USER", joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
 //            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
-    @Column(name = "ROLE_USER")
-    private BigInteger role;
+//    @Column(name = "ROLE_USER")
+//    private BigInteger role;
     @Column(name = "JOBID")
     private String jobId;
     @Column(name = "QID")
@@ -201,13 +201,13 @@ public class UserMaster {
         return Objects.hash(id, username, password, email, enabled, accountExpired, credentialsExpired, accountLocked);
     }
 
-    public BigInteger getRole() {
-        return role;
-    }
-
-    public void setRole(BigInteger role) {
-        this.role = role;
-    }
+//    public BigInteger getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(BigInteger role) {
+//        this.role = role;
+//    }
 
     public BigInteger getRoleId() {
         return roleId;
