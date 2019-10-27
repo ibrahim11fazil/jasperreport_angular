@@ -26,7 +26,8 @@ public class EmailService {
         });
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress("ci-test@customs.gov.qa", true));
-
+        msg.setHeader("charset", "UTF-8");
+        msg.setHeader("Content-Transfer-Encoding", "8Bit");
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("sraj@customs.gov.qa"));
         msg.setSubject("Test email");
         msg.setContent("Test email body", "text/html");
@@ -56,6 +57,8 @@ public class EmailService {
         msg.setSubject(model.getEmailSubject());
         msg.setContent(model.getEmailBody(), "text/html");
         msg.setSentDate(new Date());
+        msg.setHeader("charset", "UTF-8");
+        msg.setHeader("Content-Transfer-Encoding", "8Bit");
         Transport.send(msg);
     }
 

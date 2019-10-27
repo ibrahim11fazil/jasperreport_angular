@@ -83,7 +83,7 @@ export class CourseManagementComponent implements OnInit {
   estimatedCost: Number;
   trainingRoomDetail: Location;
   locationType: Number;
-  courseDetail: TacCourseMaster;
+  courseDetail: TacCourseMaster=new TacCourseMaster(0,null,null,0,null,null,0,null,null,null,null,0,0,null,null);
   durationValueString: String;
   tacInstructorString: String[] = [];
   tacCoordinatorString: String[] = [];
