@@ -412,7 +412,7 @@ public class WorkflowImpl {
 //                    userdata.getData(),
 //                    new TypeReference<Boolean>() {
 //                    });
-            logger.info("checkTheUserIsHeadOfTraining" + userdata);
+//            logger.info("checkTheUserIsHeadOfTraining" + userdata);
             if (status) {
                 execution.setVariable("resultcheckval", "yes");
             } else {
