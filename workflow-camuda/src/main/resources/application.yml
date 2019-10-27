@@ -90,11 +90,14 @@ camunda:
       enabled: true
     database:
       jdbc-batch-processing: false
-      schema-update: false
+      #schema-update: true
     job-execution:
-      max-jobs-per-acquisition: 30
-      queue-capacity: 40
-      max-pool-size: 50
+      max-jobs-per-acquisition: 10
+      queue-capacity: 5
+      max-pool-size: 20
+      max-wait: 600000
+      wait-time-in-millis: 50000
+    auto-deployment-enabled: true
 
 
 
