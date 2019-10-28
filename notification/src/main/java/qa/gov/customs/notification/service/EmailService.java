@@ -35,6 +35,7 @@ public class EmailService {
         Transport.send(msg);
     }
 
+    //TODO make the email and password in configuration
     public void sendmail(NotificationModel model) throws AddressException, MessagingException, IOException {
         Properties props = new Properties();
         props.put("mail.smtp.host", "HQ-MAILSERV1.cpga.net.qa");
