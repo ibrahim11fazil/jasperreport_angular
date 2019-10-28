@@ -158,6 +158,9 @@ getTask(num){
     if (card.title == this.language.myTasks) {
       this.router.navigate(["training/my-tasks"]);
     }
+    if (card.title == this.language.smartEngineSuggestion) {
+      this.router.navigate(["training/smart-profile"]);
+    }
   }
 
 
