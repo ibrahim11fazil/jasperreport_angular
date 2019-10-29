@@ -4,5 +4,5 @@ CMD ["/usr/bin/java", "-jar", "-Djava.security.egd=file:/dev/./urandom" , "-Dspr
 VOLUME /tmp
 VOLUME /logs
 VOLUME /uploads
-
+VOLUME /etc/localtime
 EXPOSE 9021

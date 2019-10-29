@@ -3,8 +3,9 @@ COPY target/authentication*.jar authentication.jar
 CMD ["/usr/bin/java", "-jar","-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=default", "authentication.jar"]
 VOLUME /tmp
 VOLUME /logs
-
+VOLUME /etc/localtime
 EXPOSE 9001
+
 
 
 #COPY entrypoint.sh /usr/local/bin/

@@ -3,5 +3,5 @@ COPY target/gateway*.jar gateway.jar
 CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=default", "gateway.jar"]
 VOLUME /tmp
 VOLUME /logs
-
+VOLUME /etc/localtime
 EXPOSE 9000

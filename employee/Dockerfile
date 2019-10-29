@@ -3,5 +3,5 @@ COPY target/employee*.jar employee.jar
 CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=default", "employee.jar"]
 VOLUME /tmp
 VOLUME /logs
-
+VOLUME /etc/localtime
 EXPOSE 9011
