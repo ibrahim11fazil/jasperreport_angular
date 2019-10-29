@@ -50,14 +50,14 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
             "           group by a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id", nativeQuery = true)
     List<Object[]> getEmpDataforAttendance(BigDecimal activationId);
 
-    @Query(value = "select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,c.attendance_flag " +
+    @Query(value = "select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,c.attendance_flag,c.attendance_date " +
             " from USER1_SAP_WS_MINI a,TAC_COURSE_ATTENDEES b,tac_course_attendence c " +
             " where a.legacycode=b.job_id " +
             " and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) " +
             " and b.activation_id=:activationId " +
             " and b.attendees_id=c.attendees_id " +
             " and to_date(c.attendance_date,'dd-MM-yy')=:courseDate" +
-            " group by a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,c.attendance_flag", nativeQuery = true)
+            " group by a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,c.attendance_flag,c.attendance_date", nativeQuery = true)
     List<Object[]> getEmpPreviousAttendance(@Param("activationId") BigDecimal activationId, @Param("courseDate") Date courseDate);
 
 

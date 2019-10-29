@@ -28,6 +28,7 @@ public class EmployeeData {
     private int percentage;
     private BigDecimal attendanceFlag;
     private boolean isChecked;
+    private Date attendanceDate;
 
     public boolean isChecked() {
         return isChecked;
@@ -203,5 +204,13 @@ public class EmployeeData {
 
     public void setAttendanceFlag(BigDecimal attendanceFlag) {
         this.attendanceFlag = attendanceFlag;
+    }
+
+    public Date getAttendanceDate() {
+        return attendanceDate;
+    }
+
+    public void setAttendanceDate(Date attendanceDate) {
+        this.attendanceDate = attendanceDate;
     }
 }
