@@ -101,7 +101,7 @@ public class WorkflowImpl {
                         //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
                         .versionTag(TYPE_2_PROCESS_VERSION) // This should be changed for new versions
                         .singleResult();
-                processInstance = processEngine.getRuntimeService().startProcessInstanceById(TYPE_2_PROCESS, vars);
+                processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(), vars);
                 //processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
 
                 //processInstance = runtimeService.startProcessInstanceByKey(TYPE_2_PROCESS, vars);
