@@ -3,5 +3,5 @@ COPY target/user*.jar user.jar
 CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=default", "user.jar"]
 VOLUME /tmp
 VOLUME /logs
-
+VOLUME /etc/localtime
 EXPOSE 9031
