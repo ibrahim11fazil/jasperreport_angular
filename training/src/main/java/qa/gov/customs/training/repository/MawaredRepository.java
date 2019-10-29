@@ -58,7 +58,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
             " and b.attendees_id=c.attendees_id " +
             " and to_date(c.attendance_date,'dd-MM-yy')=:courseDate" +
             " group by a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,c.attendance_flag,c.attendance_date", nativeQuery = true)
-    List<Object[]> getEmpPreviousAttendance(@Param("activationId") BigDecimal activationId, @Param("courseDate") Date courseDate);
+    List<Object[]> getEmpPreviousAttendance(BigDecimal activationId,Date courseDate);
 
 
 }

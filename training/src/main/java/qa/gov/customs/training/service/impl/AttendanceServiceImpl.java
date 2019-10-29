@@ -86,6 +86,10 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public TacCourseAttendence checkIfAlreadyMarked(TacCourseAttendence attendance, Date date) {
+//        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+//        String inActiveDate = null;
+//
+//            inActiveDate = format1.format(date);
         TacCourseAttendence attendancePresent = attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId(), date);
         return attendancePresent;
     }
