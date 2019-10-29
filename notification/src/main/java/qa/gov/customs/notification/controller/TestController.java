@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.notification.security.CustomPrincipal;
 
+import java.util.Date;
+
 @RestController
 public class TestController {
 
@@ -20,6 +22,16 @@ public class TestController {
     public Object getUser1(@AuthenticationPrincipal CustomPrincipal authentication) {
         try {
             return authentication.getScopes();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    @RequestMapping(value = "/current-date", method = RequestMethod.GET)
+    public Object getCurrentDate() {
+        try {
+            return new Date().toString();
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
