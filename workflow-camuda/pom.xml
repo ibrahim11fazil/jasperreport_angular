@@ -6,7 +6,7 @@
         <artifactId>app</artifactId>
         <groupId>qa.gov.customs</groupId>
 
-        <version>0.8.4</version>
+        <version>0.8.5</version>
 
     </parent>
     <modelVersion>4.0.0</modelVersion>

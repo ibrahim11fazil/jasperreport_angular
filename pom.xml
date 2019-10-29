@@ -6,7 +6,7 @@
 
     <groupId>qa.gov.customs</groupId>
     <artifactId>app</artifactId>
-    <version>0.8.4</version>
+    <version>0.8.5</version>
     <packaging>pom</packaging>
     <name>customsapp</name>
 
