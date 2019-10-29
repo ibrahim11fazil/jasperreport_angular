@@ -5,7 +5,4 @@ VOLUME /tmp
 VOLUME /logs
 VOLUME /etc/localtime
 
-RUN echo "Asia/Qatar" > /etc/timezone
-
-
 EXPOSE 9051
