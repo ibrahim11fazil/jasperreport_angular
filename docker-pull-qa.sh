@@ -61,6 +61,10 @@ TAG=$1
 #docker service create  -d --network mybridge --replicas 1 --env-file=./env_qa.txt $VOLUME -p 9000:9000 --name gateway 172.16.0.253:5000/gateway:$TAG
 
 
+#docker network create \
+#>   --driver overlay \
+#>   mybridge
+
 
 TAG=$1
 docker pull   172.16.0.253:5000/registry:$TAG

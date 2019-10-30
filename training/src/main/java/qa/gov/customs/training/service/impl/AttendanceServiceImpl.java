@@ -123,7 +123,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         List<EmployeeData> empdata = new ArrayList<>();
         List<Object[]> objects = mawaredRepo.getEmpPreviousAttendance(previousAttendance.getActivation_id(), previousAttendance.getCourse_date());
-        logger.info("CalendarDate"+previousAttendance.getCourse_date());
+        logger.info("CalendarDate"+ previousAttendance.getCourse_date());
         for (Object[] o : objects) {
 
             EmployeeData emp = new EmployeeData();
