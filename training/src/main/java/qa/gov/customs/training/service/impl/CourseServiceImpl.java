@@ -620,7 +620,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<AttendeesDetails> findAttendeesWithJobIdAndActionId(BigInteger activationId, String jobId) {
         try {
-            List<Object[]> objects = courseAttendeesRepository.findAttendeesWithJobIdAndActionId(activationId, jobId);
+            List<Object[]> objects = courseAttendeesRepository.nativefindAttendeesWithJobIdAndActionId(activationId, jobId);
             if (objects == null || objects.size() == 0) {
                 return null;
             } else {
@@ -638,6 +638,7 @@ public class CourseServiceImpl implements CourseService {
         } catch (Exception e) {
             e.printStackTrace();
             //TODO log error
+            logger.error("ERROR---> ");
             logger.error(e.toString());
             return null;
         }

@@ -140,7 +140,7 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
     @Modifying
     @Transactional
     @Query(value = "insert into  Tac_Activity_Course_Link(ACTIVITY_ID,COURSE_ID) values(:activityId,:courseId)", nativeQuery = true)
-   void updateCourseLinkTable(BigDecimal activityId,BigDecimal courseId);
+    void updateCourseLinkTable(BigDecimal activityId,BigDecimal courseId);
 
 
 }

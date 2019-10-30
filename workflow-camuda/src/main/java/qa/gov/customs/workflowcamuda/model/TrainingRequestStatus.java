@@ -1,6 +1,8 @@
 package qa.gov.customs.workflowcamuda.model;
 
-public class TrainingRequestStatus {
+import java.io.Serializable;
+
+public class TrainingRequestStatus implements Serializable {
 
     String requestId;
     String status;
