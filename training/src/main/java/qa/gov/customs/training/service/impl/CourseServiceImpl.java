@@ -603,8 +603,8 @@ public class CourseServiceImpl implements CourseService {
                 activation.setActivationId(new BigDecimal(activationId));
             }
             item.setTacCourseActivation(activation);
-            Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
-            item.setRemark(myClob);
+            //Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
+            item.setRemark(remark);
             return courseAttendeesRepository.save(item);
             //courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
             //return 1;
@@ -627,7 +627,8 @@ public class CourseServiceImpl implements CourseService {
                 List<AttendeesDetails> dates = new ArrayList<>();
                 for (Object[] o : objects) {
                     AttendeesDetails obj = new AttendeesDetails();
-                    obj.setActivationId((BigInteger) o[0]);
+                    BigDecimal item  =  (BigDecimal)o[0];
+                    obj.setActivationId( item.toBigInteger());
                     obj.setJobId((String) o[1]);
                     obj.setRemark((String) o[2]);
                     dates.add(obj);

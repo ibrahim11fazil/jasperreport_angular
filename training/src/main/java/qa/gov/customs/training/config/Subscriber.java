@@ -43,28 +43,36 @@ public class Subscriber {
 
     @RabbitListener(queues = "${training.rabbitmq.queue_workflow_status}")
     public void receivedMessageWorkFlowStatus(TrainingRequestStatus msg) {
-        logger.info("Received Message: " + msg);
-        UserRequestModel model = employeeRequestService.UpdateCourseRequest(msg);
-        if (model != null && msg.getStatus().equals(APPROVED_WORKFLOW)) {
-            //Request Id , status .
+        try {
+            logger.info("Received Message: " + msg);
+            if (msg != null) {
+                UserRequestModel model = employeeRequestService.UpdateCourseRequest(msg);
+                if (model != null && msg.getStatus().equals(APPROVED_WORKFLOW)) {
+                    //Request Id , status .
 
-            if (model.getCourseId() != null && model.getCourseActivationId() != null && model.getForUserJobId() != null) {
-                List<AttendeesDetails> items = courseService.findAttendeesWithJobIdAndActionId(new BigInteger(model.getCourseActivationId()), model.getForUserJobId());
-                if (items == null || items.size() == 0) {
-                    TacCourseAttendees attendees = courseService.insertAttendeesFromWorkflow(new BigInteger(model.getCourseActivationId()), model.getForUserJobId(), msg.getRequestId());
-                    if (attendees != null) {
-                        logger.info("Enrolled " + msg.getRequestId());
+                    if (model.getCourseId() != null && model.getCourseActivationId() != null && model.getForUserJobId() != null) {
+                        List<AttendeesDetails> items = courseService.findAttendeesWithJobIdAndActionId(new BigInteger(model.getCourseActivationId()), model.getForUserJobId());
+                        if (items == null || items.size() == 0) {
+                            TacCourseAttendees attendees = courseService.insertAttendeesFromWorkflow(new BigInteger(model.getCourseActivationId()), model.getForUserJobId(), msg.getRequestId());
+                            if (attendees != null) {
+                                logger.info("Enrolled " + msg.getRequestId());
+                            } else {
+                                logger.info("Not Enrolled DB insert error " + msg.getRequestId());
+                            }
+                        } else {
+                            logger.info("Not Enrolled already entered " + msg.getRequestId());
+                        }
                     } else {
-                        logger.info("Not Enrolled DB insert error " + msg.getRequestId());
+                        logger.info("Not Enrolled already entered input error " + msg.getRequestId());
                     }
                 } else {
-                    logger.info("Not Enrolled already entered " + msg.getRequestId());
+                    logger.info("Not Enrolled already entered, rejected " + msg.getRequestId());
                 }
             } else {
-                logger.info("Not Enrolled already entered input error " + msg.getRequestId());
+                logger.info("Null Request");
             }
-        } else {
-            logger.info("Not Enrolled already entered, rejected " + msg.getRequestId());
+        }catch (Exception e){
+            logger.error(e.toString());
         }
     }
 
