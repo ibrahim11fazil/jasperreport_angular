@@ -121,7 +121,7 @@ workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
 training:
   rabbitmq:
     queue: ${TRAINING_QUEUE:training_queue_dev}
-    queue_workflow_status: ${WORKFLOW_QUE_USER_REQ:training_queue_workflow_status_dev}
+    queue_workflow_status: ${TRAINING_QUEUE_WORKFLOWSTATUS:training_queue_workflow_status_dev}
     exchange: ${TRAINING_EXCHANGE:training_exchange_dev}
     routingkey: ${TRAINING_ROUTING:training_routingkey_dev}
     routingkey_workflowresponse: ${TRAINING_ROUTING_WORKFLOW_STATUS:training_routingkey_workflow_status_dev}
