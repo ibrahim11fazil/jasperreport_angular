@@ -21,7 +21,7 @@ public class TacCourseAttendees implements java.io.Serializable {
     private String jobId;
     private BigDecimal courseStatus;
     private BigDecimal attendancePercentage;
-    private Clob remark;
+    private String remark;
     private BigDecimal certificateSerialNo;
     private Set<TacCourseAttendence> tacCourseAttendences = new HashSet<TacCourseAttendence>(0);
 
@@ -35,7 +35,7 @@ public class TacCourseAttendees implements java.io.Serializable {
     }
 
     public TacCourseAttendees(BigDecimal attendanceId, TacCourseActivation tacCourseActivation, String jobId,
-                              BigDecimal courseStatus, BigDecimal attendancePercentage, Clob remark, BigDecimal certificateSerialNo,
+                              BigDecimal courseStatus, BigDecimal attendancePercentage, String remark, BigDecimal certificateSerialNo,
                               Set<TacCourseAttendence> tacCourseAttendences) {
         this.attendeesId = attendanceId;
         this.tacCourseActivation = tacCourseActivation;
@@ -54,6 +54,8 @@ public class TacCourseAttendees implements java.io.Serializable {
     public BigDecimal getAttendeesId() {
         return attendeesId;
     }
+
+
 
     public void setAttendeesId(BigDecimal attendeesId) {
         this.attendeesId = attendeesId;
@@ -97,11 +99,11 @@ public class TacCourseAttendees implements java.io.Serializable {
     }
 
     @Column(name = "REMARK")
-    public Clob getRemark() {
+    public String getRemark() {
         return this.remark;
     }
 
-    public void setRemark(Clob remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 

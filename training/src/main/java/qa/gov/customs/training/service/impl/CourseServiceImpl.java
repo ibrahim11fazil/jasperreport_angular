@@ -603,8 +603,8 @@ public class CourseServiceImpl implements CourseService {
                 activation.setActivationId(new BigDecimal(activationId));
             }
             item.setTacCourseActivation(activation);
-            Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
-            item.setRemark(myClob);
+            //Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
+            item.setRemark(remark);
             return courseAttendeesRepository.save(item);
             //courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
             //return 1;
@@ -620,14 +620,15 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<AttendeesDetails> findAttendeesWithJobIdAndActionId(BigInteger activationId, String jobId) {
         try {
-            List<Object[]> objects = courseAttendeesRepository.findAttendeesWithJobIdAndActionId(activationId, jobId);
+            List<Object[]> objects = courseAttendeesRepository.nativefindAttendeesWithJobIdAndActionId(activationId, jobId);
             if (objects == null || objects.size() == 0) {
                 return null;
             } else {
                 List<AttendeesDetails> dates = new ArrayList<>();
                 for (Object[] o : objects) {
                     AttendeesDetails obj = new AttendeesDetails();
-                    obj.setActivationId((BigInteger) o[0]);
+                    BigDecimal item  =  (BigDecimal)o[0];
+                    obj.setActivationId( item.toBigInteger());
                     obj.setJobId((String) o[1]);
                     obj.setRemark((String) o[2]);
                     dates.add(obj);
@@ -637,6 +638,7 @@ public class CourseServiceImpl implements CourseService {
         } catch (Exception e) {
             e.printStackTrace();
             //TODO log error
+            logger.error("ERROR---> ");
             logger.error(e.toString());
             return null;
         }

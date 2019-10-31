@@ -55,3 +55,6 @@ CIS_WORKFLOW_STATUS=cis_queue_workflow_status
 CIS_EXCHANGE=cis_exchange
 CIS_ROUTING_KEY=cis_routingkey
 CIS_ROUTING_WORKFLOW_STATUS=cis_routingkey_workflow_status
+SET_CONTAINER_TIMEZONE=true
+CONTAINER_TIMEZONE=Asia/Qatar
+LOCALTIME_PATH=/usr/share/zoneinfo/Asia/Qatar

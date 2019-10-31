@@ -14,5 +14,5 @@ public interface TacAttendanceRepository extends JpaRepository<TacCourseAttenden
 
 
     @Query(value = "select * from Tac_Course_Attendence where attendees_id=:attendeesId and to_date(ATTENDANCE_DATE,'DD-MM-YY')=:date", nativeQuery = true)
-    TacCourseAttendence findAttendance(@Param("attendeesId") BigDecimal attendeesId, @Param("date") Date date);
+    TacCourseAttendence findAttendance(BigDecimal attendeesId,Date date);
 }

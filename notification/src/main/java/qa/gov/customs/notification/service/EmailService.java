@@ -35,6 +35,7 @@ public class EmailService {
         Transport.send(msg);
     }
 
+    //TODO make the email and password in configuration
     public void sendmail(NotificationModel model) throws AddressException, MessagingException, IOException {
         Properties props = new Properties();
         props.put("mail.smtp.host", "HQ-MAILSERV1.cpga.net.qa");
@@ -55,10 +56,9 @@ public class EmailService {
         msg.setFrom(new InternetAddress("trainingsystem@customs.gov.qa", true));
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(model.getToAddress()));
         msg.setSubject(model.getEmailSubject());
-        msg.setContent(model.getEmailBody(), "text/html");
+        msg.setContent(model.getEmailBody(), "text/html; charset=utf-8");
         msg.setSentDate(new Date());
         msg.setHeader("charset", "UTF-8");
-        msg.setHeader("Content-Transfer-Encoding", "8Bit");
         Transport.send(msg);
     }
 

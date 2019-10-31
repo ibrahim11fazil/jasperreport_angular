@@ -5,7 +5,7 @@
     <parent>
         <artifactId>app</artifactId>
         <groupId>qa.gov.customs</groupId>
-        <version>0.7.6</version>
+        <version>0.9.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <description>This service is for files uploading and downloading</description>
@@ -106,6 +106,13 @@
             <artifactId>ojdbc7</artifactId>
             <version>12.1.0.1</version>
         </dependency>
+
+
+<!--        <dependency>-->
+<!--            <groupId>xml-apis</groupId>-->
+<!--            <artifactId>xml-apis</artifactId>-->
+<!--            <version>1.4.01</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
