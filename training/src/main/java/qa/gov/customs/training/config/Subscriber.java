@@ -33,13 +33,13 @@ public class Subscriber {
     @Autowired
     CourseService courseService;
 
-    @RabbitListener(queues = "${training.rabbitmq.queue}")
-    public void receivedMessage(Message msg) {
-        logger.info("Received Message: ####" + msg.toString());
-        logger.info("Received Message: ####" + msg.getBody());
-
-        // employeeRequestService.UpdateCourseRequest(msg);
-    }
+//    @RabbitListener(queues = "${training.rabbitmq.queue}")
+//    public void receivedMessage(Message msg) {
+//        logger.info("Received Message: ####" + msg.toString());
+//        logger.info("Received Message: ####" + msg.getBody());
+//
+//        // employeeRequestService.UpdateCourseRequest(msg);
+//    }
 
     @RabbitListener(queues = "${training.rabbitmq.queue_workflow_status}")
     public void receivedMessageWorkFlowStatus(TrainingRequestStatus msg) {
@@ -78,7 +78,7 @@ public class Subscriber {
 
 
 //    @RabbitListener(queues="${training.rabbitmq.queue}")
-//    public void receivedMessage(String msg) {
+//    public void receivedMessage( String msg) {
 //        logger.info("Received Message: " + msg);
 //    }
 
