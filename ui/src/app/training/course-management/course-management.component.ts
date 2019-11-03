@@ -654,6 +654,8 @@ export class CourseManagementComponent implements OnInit {
         this.certificateList = response.data
 
         this.courseCompletionData = responseList;
+        if(this.certificateList!=null || this.certificateList.length>0)
+        {
         this.certificateList.forEach(i => {
           // var certificateArray=this.courseCompletionData.filter(item=>item.jobId==i.jobId)
           // if(certificateArray[0]!=null)
@@ -662,6 +664,7 @@ export class CourseManagementComponent implements OnInit {
           this.courseCompletionData.find(item => item.jobId == i.jobId).url = GET_CERTIFICATE + i.certificateUrl
           // this.courseCompletionData = [...this.courseCompletionData];
         })
+      }
       })
   }
 

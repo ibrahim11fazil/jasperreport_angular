@@ -150,7 +150,8 @@
                                                 fxFlex.gt-md="49">
 
                                                 <mat-form-field>
-                                                      <input matInput [matDatepicker]="myDatepicker"
+                                                      <input matInput [matDatepicker]="myDatepicker" 
+                                                      [matDatepickerFilter]="dateFilter"
                                                             placeholder={{language.chooseADate}} formControlName="courseDate">
                                                       <mat-datepicker-toggle matSuffix [for]="myDatepicker">
                                                       </mat-datepicker-toggle>
