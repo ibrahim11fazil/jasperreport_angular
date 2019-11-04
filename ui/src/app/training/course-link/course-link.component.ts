@@ -40,7 +40,7 @@ export class CourseLinkComponent implements OnInit {
   param: any;
   courseDetails: TacCourseMaster;
   todaydate:Date = new Date();
-  dateFilter = (date: Date) => date.getDay()!=5 && date.getDay()!=6 && date>new Date();
+  dateFilter = (date: Date) => date.getDay()!=5 && date.getDay()!=6 && date>=new Date();
   loadedActivityId: Number = 0 // NOt required
   loadedCourseDates: CourseDate[] = [] // NOt required
   displayCourseDetails: boolean = false;
@@ -108,7 +108,7 @@ export class CourseLinkComponent implements OnInit {
       prerequisitesSelect:this.fb.array([]),
       courseSelect: [null, Validators.compose([Validators.required])],
       locationSelect: [null, Validators.compose([Validators.required])],
-      subCourseSelect: [null, Validators.compose([Validators.required])],
+      subCourseSelect: [null],
       dateOptions: this.fb.array([])
     });
   }
