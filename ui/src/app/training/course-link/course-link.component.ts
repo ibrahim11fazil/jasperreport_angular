@@ -39,7 +39,8 @@ export class CourseLinkComponent implements OnInit {
   dates: CourseDate[] = [];
   param: any;
   courseDetails: TacCourseMaster;
-
+  todaydate:Date = new Date();
+  dateFilter = (date: Date) => date.getDay()!=5 && date.getDay()!=6 && date>new Date();
   loadedActivityId: Number = 0 // NOt required
   loadedCourseDates: CourseDate[] = [] // NOt required
   displayCourseDetails: boolean = false;
