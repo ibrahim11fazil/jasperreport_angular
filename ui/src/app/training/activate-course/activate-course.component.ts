@@ -100,16 +100,16 @@ export class ActivateCourseComponent implements OnInit {
       dateSelect: [null, Validators.compose([Validators.required])],
       roomSelect: [null, Validators.compose([Validators.required])],
       instructorSelect: this.fb.array([]),
-      instructorCost: [this.tacCourseActivation.costInstructor, Validators.compose([Validators.required])],
-      buffetCost: [this.tacCourseActivation.costFood, Validators.compose([Validators.required])],
-      transportCost: [this.tacCourseActivation.costTransport, Validators.compose([Validators.required])],
-      ticketCost: [this.tacCourseActivation.costAirticket, Validators.compose([Validators.required])],
-      hospitalityCost: [this.tacCourseActivation.costHospitality, Validators.compose([Validators.required])],
-      giftCost: [this.tacCourseActivation.costGift, Validators.compose([Validators.required])],
-      reservationCost: [this.tacCourseActivation.costVenue, Validators.compose([Validators.required])],
-      bonusCost: [this.tacCourseActivation.costBonus, Validators.compose([Validators.required])],
-      translationCost: [this.tacCourseActivation.costTranslation, Validators.compose([Validators.required])],
-      belongsSelect: [null, Validators.compose([Validators.required])],
+      instructorCost: [this.tacCourseActivation.costInstructor],
+      buffetCost: [this.tacCourseActivation.costFood],
+      transportCost: [this.tacCourseActivation.costTransport],
+      ticketCost: [this.tacCourseActivation.costAirticket],
+      hospitalityCost: [this.tacCourseActivation.costHospitality],
+      giftCost: [this.tacCourseActivation.costGift],
+      reservationCost: [this.tacCourseActivation.costVenue],
+      bonusCost: [this.tacCourseActivation.costBonus],
+      translationCost: [this.tacCourseActivation.costTranslation],
+      belongsSelect: [null],
       userSelect: [null, Validators.compose([Validators.required])],
     });
 
@@ -346,8 +346,10 @@ export class ActivateCourseComponent implements OnInit {
     courseMaster.courseName = this.form.value.courseSelect.courseName;
 
     courseActivation.tacCourseMaster = courseMaster;
+    if(this.form.value.belongsSelect!=null)
+    {
     courseActivation.dependentId = this.form.value.belongsSelect.courseId;
-
+    }
     var tacCourseDate = new CourseDate(0, null);
     tacCourseDate.dateId = this.form.value.dateSelect.dateId
     courseActivation.tacCourseDate = tacCourseDate;
