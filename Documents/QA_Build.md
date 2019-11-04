@@ -1,6 +1,10 @@
 
 ## QA Build
 
+# Change the version in UI constants to the same version of backend if required
+    
+       eg: qa_0.5.9  -- its a qa version
+       
 # 1. Check the current version 
 
 ./gittag.sh 

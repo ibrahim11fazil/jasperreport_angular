@@ -7,6 +7,7 @@
 //import org.springframework.web.bind.annotation.*;
 //import qa.gov.customs.notification.model.NotificationModel;
 //import qa.gov.customs.notification.service.EmailService;
+//import qa.gov.customs.notification.service.NotificationService;
 //import qa.gov.customs.notification.service.SmsService;
 //
 //@RestController
@@ -21,17 +22,20 @@
 //    @Value("${workflowtoken}")
 //    private String training_token;
 //
-//    @PreAuthorize("hasAnyAuthority('send_notification')")
+//    @Autowired
+//    NotificationService notificationService;
+//
+//    //@PreAuthorize("hasAnyAuthority('send_notification')")
 //    @RequestMapping(method = RequestMethod.POST ,path="/send-notification")
 //    public String sendEmail(@RequestBody NotificationModel model) {
-//        sendNotification(model);
+//        notificationService.sendNotification(model);
 //        return "success";
 //    }
 //
-//    @RequestMapping(method = RequestMethod.POST ,path="/send-notification-by-workflow/{token}")
+//    //@RequestMapping(method = RequestMethod.POST ,path="/send-notification-by-workflow/{token}")
 //    public String sendEmail(@RequestBody NotificationModel model,@PathVariable("token") String token) {
 //        if(token!=null && token.equals(training_token)) {
-//            sendNotification(model);
+//            notificationService.sendNotification(model);
 //            return "success";
 //        }else{
 //            return "failure";

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_12ijnsf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
-  <bpmn:process id="Process_emp_02" isExecutable="true" camunda:versionTag="Process_emp_02_v1">
+  <bpmn:process id="Process_emp_02" isExecutable="true" camunda:versionTag="Process_emp_02_v2">
     <bpmn:startEvent id="StartEvent_1xz5da4">
       <bpmn:outgoing>SequenceFlow_0n42ep4</bpmn:outgoing>
     </bpmn:startEvent>
@@ -55,7 +55,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_16t5hwj" sourceRef="ServiceTask_11r4i3g" targetRef="EndEvent_17mz9o3" />
     <bpmn:sequenceFlow id="SequenceFlow_1ne52ss" sourceRef="UserTask_0j1rl19" targetRef="ServiceTask_1om9kks" />
-    <bpmn:serviceTask id="ServiceTask_1om9kks" name="check the user is HT &#38; C" camunda:expression="${workflowImpl.checkTheUserIsHeadOfTraining(applicant,execution)} ">
+    <bpmn:serviceTask id="ServiceTask_1om9kks" name="check the user is HT &#38; C" camunda:expression="${true} ">
       <bpmn:extensionElements>
         <camunda:executionListener expression="${workflowImpl.checkTheUserIsHeadOfTraining(applicant,execution)} " event="start" />
       </bpmn:extensionElements>

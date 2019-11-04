@@ -1,6 +1,8 @@
 package qa.gov.customs.workflowcamuda.model;
 
-public class NotificationModel {
+import java.io.Serializable;
+
+public class NotificationModel  implements Serializable {
     private static final long serialversionUID = 129348939L;
     String toAddress;
     String emailBody;

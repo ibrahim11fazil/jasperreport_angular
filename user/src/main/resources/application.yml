@@ -54,7 +54,7 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
-    time-zone: UTC
+    time-zone: Asia/Qatar
   rabbitmq:
     host: ${RABBITMQ_HOST:172.16.0.254}
     port: 5672
@@ -116,3 +116,8 @@ cloud:
       - 10.0
 
 workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
+
+workflow:
+  rabbitmq:
+    notification_exchange: ${NOTIFICATION_EXCHANGE:notification_exchange_dev}
+    notification_routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}

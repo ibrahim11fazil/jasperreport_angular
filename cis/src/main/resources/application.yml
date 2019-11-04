@@ -53,7 +53,7 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
-    time-zone: UTC
+    time-zone: Asia/Qatar
   rabbitmq:
     host: ${RABBITMQ_HOST:172.16.0.254}
     port: 5672
@@ -129,8 +129,11 @@ cloud:
       -
 cis:
   rabbitmq:
-    queue: cis_queue
-    queue_workflow_status: cis_queue_workflow_status
-    exchange: cis_exchange
-    routingkey: cis_routingkey
-    routingkey_workflowresponse: cis_routingkey_workflow_status
+    queue: ${CIS_QUEUE:cis_queue_dev}
+    queue_workflow_status: ${CIS_WORKFLOW_STATUS:cis_queue_workflow_status_dev}
+    exchange: ${CIS_EXCHANGE:cis_exchange_dev}
+    routingkey: ${CIS_ROUTING_KEY:cis_routingkey_dev}
+    routingkey_workflowresponse: ${CIS_ROUTING_WORKFLOW_STATUS:cis_routingkey_workflow_status_dev}
+
+
+

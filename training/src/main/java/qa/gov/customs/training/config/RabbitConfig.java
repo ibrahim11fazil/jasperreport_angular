@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-    @Value("${training.rabbitmq.queue}")
-    private String queueName;
+//    @Value("${training.rabbitmq.queue}")
+//    private String queueName;
 
     @Value("${training.rabbitmq.queue_workflow_status}")
     private String queueNameWorkFlowStatus;
@@ -25,13 +25,13 @@ public class RabbitConfig {
     @Value("${training.rabbitmq.routingkey}")
     private String routingKey;
 
-    @Value("${training.rabbitmq.routingkey_workflowresponse}")
-    private String routingKeyWorkFlow;
+//    @Value("${training.rabbitmq.routingkey_workflowresponse}")
+//    private String routingKeyWorkFlow;
 
-    @Bean
-    Queue queue() {
-        return new Queue(queueName, false);
-    }
+//    @Bean
+//    Queue queue() {
+//        return new Queue(queueName, false);
+//    }
 
 
     @Bean
@@ -49,10 +49,10 @@ public class RabbitConfig {
         return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
 
-    @Bean
-    public Binding declareBindingWorkFlowStatus(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeyWorkFlow);
-    }
+//    @Bean
+//    public Binding declareBindingWorkFlowStatus(Queue queue, DirectExchange exchange) {
+//        return BindingBuilder.bind(queue).to(exchange).with(routingKeyWorkFlow);
+//    }
 
     @Bean
     public MessageConverter jsonMessageConverter() {

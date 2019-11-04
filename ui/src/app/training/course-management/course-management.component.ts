@@ -83,7 +83,7 @@ export class CourseManagementComponent implements OnInit {
   estimatedCost: Number;
   trainingRoomDetail: Location;
   locationType: Number;
-  courseDetail: TacCourseMaster;
+  courseDetail: TacCourseMaster=new TacCourseMaster(0,null,null,0,null,null,0,null,null,null,null,0,0,null,null);
   durationValueString: String;
   tacInstructorString: String[] = [];
   tacCoordinatorString: String[] = [];
@@ -654,6 +654,8 @@ export class CourseManagementComponent implements OnInit {
         this.certificateList = response.data
 
         this.courseCompletionData = responseList;
+        if(this.certificateList!=null || this.certificateList.length>0)
+        {
         this.certificateList.forEach(i => {
           // var certificateArray=this.courseCompletionData.filter(item=>item.jobId==i.jobId)
           // if(certificateArray[0]!=null)
@@ -662,6 +664,7 @@ export class CourseManagementComponent implements OnInit {
           this.courseCompletionData.find(item => item.jobId == i.jobId).url = GET_CERTIFICATE + i.certificateUrl
           // this.courseCompletionData = [...this.courseCompletionData];
         })
+      }
       })
   }
 

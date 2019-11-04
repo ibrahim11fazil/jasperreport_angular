@@ -17,7 +17,7 @@ import java.util.List;
 public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttendees, BigDecimal> {
 
     @Query(value = "select ACTIVATION_ID,JOB_ID,REMARK from TAC_COURSE_ATTENDEES where ACTIVATION_ID=:activationId and  JOB_ID=:jobId", nativeQuery = true)
-    List<Object[]> findAttendeesWithJobIdAndActionId(@Param("activationId") BigInteger activationId, @Param("jobId") String jobId);
+    List<Object[]> nativefindAttendeesWithJobIdAndActionId(@Param("activationId") BigInteger activationId, @Param("jobId") String jobId);
 //
 //    @Modifying
 //    @Transactional

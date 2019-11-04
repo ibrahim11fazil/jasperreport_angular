@@ -20,6 +20,7 @@ import qa.gov.customs.workflowcamuda.model.SearchTask;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import qa.gov.customs.workflowcamuda.model.UserTaskModel;
 import qa.gov.customs.workflowcamuda.proxy.EmpModel;
+import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyOverridenController;
 import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
 import qa.gov.customs.workflowcamuda.service.RequestService;
@@ -35,7 +36,7 @@ import java.util.List;
 public class WorkFlowController {
 
     private static final Logger logger = LoggerFactory.getLogger(WorkFlowController.class);
-    private final EmployeeProxyService userProxyService;
+    private final EmployeeProxyOverridenController userProxyService;
     @Value("${workflowtoken}")
     private String training_token;
     @Autowired
@@ -44,7 +45,7 @@ public class WorkFlowController {
     private RequestService requestService;
 
     @Autowired
-    public WorkFlowController(EmployeeProxyService userProxyService) {
+    public WorkFlowController(EmployeeProxyOverridenController userProxyService) {
         this.userProxyService = userProxyService;
     }
 
@@ -76,7 +77,7 @@ public class WorkFlowController {
         try {
             logger.info("### Request started for user" + request.getJobId());
             //TODO need to change the request.getUserId() to  principal.getJid()
-            ResponseType userdata = userProxyService.getUserById(request.getForUserJobId(), training_token);
+            ResponseType userdata = userProxyService.getEmployeeById(request.getForUserJobId());
             if (userdata != null && userdata.getData() != null && userdata.isStatus()) {
                 ObjectMapper mapper = new ObjectMapper();
                 requestedEmployee = mapper.convertValue(

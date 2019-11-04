@@ -86,6 +86,10 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public TacCourseAttendence checkIfAlreadyMarked(TacCourseAttendence attendance, Date date) {
+//        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+//        String inActiveDate = null;
+//
+//            inActiveDate = format1.format(date);
         TacCourseAttendence attendancePresent = attendanceRepo.findAttendance(attendance.getTacCourseAttendees().getAttendeesId(), date);
         return attendancePresent;
     }
@@ -119,6 +123,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         List<EmployeeData> empdata = new ArrayList<>();
         List<Object[]> objects = mawaredRepo.getEmpPreviousAttendance(previousAttendance.getActivation_id(), previousAttendance.getCourse_date());
+        logger.info("CalendarDate"+ previousAttendance.getCourse_date());
         for (Object[] o : objects) {
 
             EmployeeData emp = new EmployeeData();
@@ -129,6 +134,8 @@ public class AttendanceServiceImpl implements AttendanceService {
             emp.setMobile((String) o[4]);
             emp.setAttendeesId((BigDecimal) o[6]);
             emp.setAttendanceFlag((BigDecimal) o[7]);
+            emp.setAttendanceDate((Date)o[8]);
+            logger.info("AttendanceDate"+emp.getAttendanceDate());
             if (emp.getAttendanceFlag().compareTo(new BigDecimal(1)) == 0) {
                 emp.setChecked(true);
             } else {

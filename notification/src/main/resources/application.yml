@@ -130,6 +130,6 @@ workflowtoken: ${WORKFLOW_TOKEN:TRAINING_TEST_TOKEN}
 
 notification:
   rabbitmq:
-    queue: notification_queue
-    exchange: notification_exchange
-    routingkey: notification_routingkey
+    queue: ${NOTIFICATION_QUEUE:notification_queue_dev}
+    exchange: ${NOTIFICATION_EXCHANGE:notification_exchange_dev}
+    routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}
