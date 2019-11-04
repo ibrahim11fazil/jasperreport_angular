@@ -345,9 +345,9 @@ export class CourseManagementComponent implements OnInit {
             this.trainingRoomDetail = response.data
           })
 
-        var item = this.userList.filter(item => item.id == this.activation.coordinator)
+        var item = this.userList.filter(item => item.jobId == this.activation.coordinator)
         if (item != null && item.length > 0) {
-          this.tacCoordinatorString.push(item[0].username);
+          this.tacCoordinatorString.push(item[0].cNameAr);
 
         }
 

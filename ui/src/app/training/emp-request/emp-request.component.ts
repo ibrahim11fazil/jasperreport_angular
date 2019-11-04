@@ -65,6 +65,7 @@ export class EmpRequestComponent implements OnInit {
     private modal: NgbModal,
     private trainingService: TrainingService,
     private toastr:ToastrService,
+    private userService: SystemUserService,
     private mainComponent:MainComponent,
     private authService:AuthService,
     private errorService:ErrorService)
@@ -92,6 +93,26 @@ export class EmpRequestComponent implements OnInit {
       supervisorsCtrl:null , 
     }
 
+    )
+    this.trainingService.getAllInstructor().subscribe(
+      data => {
+
+
+        var instructor = <ITacInstructorList>data
+        this.tacInstructor = instructor.data
+      })
+
+    var userObj = new SystemUser()
+    userObj.roleId = 5
+    this.userService.listUsersByRoleId(userObj).subscribe(
+      data => {
+        var response = <ISystemUserResponseList>data
+        this.userList = response.data
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
     )
    // this.searchFutureCourses()
     this.getEmployeesUnderSupervisor()
@@ -130,6 +151,7 @@ export class EmpRequestComponent implements OnInit {
     }
   
 getActivationData(row) {
+  debugger;
   this.allOk=false
   this.eventCourseDetail = row;
   console.log(this.eventCourseDetail.course_date);
@@ -192,9 +214,9 @@ getActivationData(row) {
           var response = <ResponseLocationDetail>data
           this.trainingRoomDetail = response.data
         })
-      var item = this.userList.filter(item => item.id == this.activation.coordinator)
+      var item = this.userList.filter(item => item.jobId == this.activation.coordinator)
       if (item != null && item.length>0) {
-        this.tacCoordinatorString.push(item[0].username);
+        this.tacCoordinatorString.push(item[0].cNameAr);
       }
       this.allOk=true
     },
