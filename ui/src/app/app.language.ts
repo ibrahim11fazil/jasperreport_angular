@@ -217,6 +217,7 @@ export class LanguageUtil {
   startDate: String = this.isArabic ? "تاريخ البداية" : "Start Date"
   comments: String = this.isArabic ? "التعليقات" : "Comments"
   addComment: String = this.isArabic ? "أضف تعليق" : "Add Comment"
+  requiredComment:String=  this.isArabic ? "Required Comment1" : " Required Comment"
 
 
   //History

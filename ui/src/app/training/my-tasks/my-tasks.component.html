@@ -11,10 +11,10 @@
                  
                 <ng-container matColumnDef="createdOn">  
                     <th mat-header-cell *matHeaderCellDef>{{language.createdOn}} </th>  
-                    <td mat-cell *matCellDef="let element"> {{element.userRequestModel.createdOn}} </td>  
+                    <td mat-cell *matCellDef="let element">  {{element.userRequestModel.createdOn}} </td>  
                   </ng-container> 
 
-                <ng-container matColumnDef="name">  
+                <!-- <ng-container matColumnDef="name">  
                   <th mat-header-cell *matHeaderCellDef> {{language.taskName}} </th>  
                   <td mat-cell *matCellDef="let element"> {{element.name}} </td>  
                 </ng-container>  
@@ -26,8 +26,13 @@
                 <ng-container matColumnDef="workflowType">  
                   <th mat-header-cell *matHeaderCellDef> {{language.workflowType}}</th>  
                   <td mat-cell *matCellDef="let element"> {{element.userRequestModel.workflowType}} </td>  
-                </ng-container> 
+                </ng-container>  -->
                 
+                <ng-container matColumnDef="course">  
+                    <th mat-header-cell *matHeaderCellDef>{{language.courseName}} </th>  
+                    <td mat-cell *matCellDef="let element"> {{element.userRequestModel.courseName}} </td>  
+                  </ng-container> 
+
                 <ng-container matColumnDef="jobId">  
                   <th mat-header-cell *matHeaderCellDef>{{language.jobId}} </th>  
                   <td mat-cell *matCellDef="let element"> {{element.userRequestModel.jobId}} </td>  
@@ -92,7 +97,7 @@
                   </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <h5>{{language.courseDate}}</h5>
-                     {{activation!=null && activation.courseDate!=null?activation.courseDate:""}} 
+                     {{activation!=null && activation.courseDate!=null?datepipe.transform(activation.courseDate, 'dd/MM/yyyy'):""}} 
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <h5>{{language.estimatedDuration}}</h5>
@@ -111,7 +116,9 @@
                             <td>{{item.assignee}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.deleteReason!=null?item.deleteReason:"Processing" }}</td>
-                            <td>{{item.startTime}}</td>
+                            <td>
+                             {{  datepipe.transform(item.startTime, 'dd/MM/yyyy')}}
+                            </td>
                           </tr> 
                     
                     </table>
