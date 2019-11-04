@@ -329,7 +329,7 @@ var instructor_menu =
   state: 'training',
   name: 'Instructor',
   type: 'sub',
-  icon: 'book',
+  icon: 'supervisor_account',
   children: [
     // { state: 'create-instructor', name: 'Create Instructor' },
     // { state: 'search-instructor', name: 'Manage Instructor' }
@@ -340,7 +340,7 @@ var request_menu =
   state: 'training',
   name: 'Training Requests',
   type: 'sub',
-  icon: 'book',
+  icon: 'list',
   children: [
     // { state: 'emp-request', name: 'Employee Requests' },
     // { state: 'emp-request:/head-section', name: 'Course Suggestion by head' },
@@ -354,7 +354,7 @@ var user_menu =
   state: 'training',
   name: 'Users',
   type: 'sub',
-  icon: 'book',
+  icon: 'supervised_user_circle',
   children: [
     // { state: 'user-creation', name: 'New User' },
     // { state: 'user-search', name: 'Search User' },
@@ -367,7 +367,7 @@ var jobcard_menu =
   state: 'training',
   name: 'Job Card',
   type: 'sub',
-  icon: 'book',
+  icon: 'card_membership',
   children: [
     // { state: 'job-card-management', name: 'Create Job Card' },
     // { state: 'job-card-search', name: 'Search Job Card' }
@@ -390,7 +390,7 @@ var welcome_menu =
   state: 'training',
   name: 'Dashboard',
   type: 'sub',
-  icon: 'book',
+  icon: 'home',
   children: [
     // { state: 'welcome', name: 'Welcome' }
   ]
@@ -401,7 +401,7 @@ var smart_menu =
   state: 'training',
   name: 'Smart Engine',
   type: 'sub',
-  icon: 'book',
+  icon: 'remove_red_eye',
   children: [
     // { state: 'welcome', name: 'Welcome' }
   ]
@@ -412,7 +412,7 @@ var ci_system_menu =
   state: 'training',
   name: 'CI System',
   type: 'sub',
-  icon: 'grade',
+  icon: 'pageview',
   children: [
     // { state: 'cis-system', name: 'All Employees' },
     // { state: 'cis-course-requests-i-made', name: 'Course Requests' }
