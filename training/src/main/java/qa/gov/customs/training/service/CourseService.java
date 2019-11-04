@@ -33,6 +33,7 @@ public interface CourseService {
     BigInteger disableCountCourses();
 
     TacCourseMaster findById(BigDecimal id);
+    List<TacCourseMaster> findByCourseName(String courseName);
 
     BigInteger enabledCountCourses();
 

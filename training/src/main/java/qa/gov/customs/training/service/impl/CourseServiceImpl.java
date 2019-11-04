@@ -245,6 +245,14 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<TacCourseMaster> findByCourseName(String courseName)
+    {
+        List<TacCourseMaster> courses = null;
+        courses = courseRepository.findByCourseName(courseName);
+        return courses;
+    }
+
+    @Override
     public List<Course> listCourses() {
 //		Pageable firstPageWithElements = PageRequest.of( 0,5);
 

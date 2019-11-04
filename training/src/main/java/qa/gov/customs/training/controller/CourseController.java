@@ -39,13 +39,21 @@ public class CourseController {
     public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
         logger.info("Create course starting ");
         if (course.getCourseId().equals(new BigDecimal(0))) {
-            course.setActiveFlag(new BigDecimal(1));
-            courseService.findById(course.getCourseId());
-            TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
-            //course.getTacCourseAudiences().forEach(i -> i.courseInserted);
-            ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
-                    courseInserted);
-            return response;
+           List<TacCourseMaster> existingCourse=courseService.findByCourseName(course.getCourseName());
+           if(existingCourse==null || existingCourse.size()==0) {
+               course.setActiveFlag(new BigDecimal(1));
+               TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+               //course.getTacCourseAudiences().forEach(i -> i.courseInserted);
+               ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
+                       courseInserted);
+               return response;
+           }
+           else
+           {
+               ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                       null);
+               return response;
+           }
         } else {
             TacCourseMaster courseExisting = courseService.findById(course.getCourseId());
             course.setActiveFlag(courseExisting.getActiveFlag());
