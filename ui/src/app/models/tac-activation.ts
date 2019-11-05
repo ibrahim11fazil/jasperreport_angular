@@ -24,17 +24,16 @@ export class TacActivation {
 	public  costVenue:Number;
 	public  costBonus:Number;
     public  costTranslation:Number;
-
     public courseName?:String;
     public courseId?:Number;
-	
+	public seatCapacity:Number;
 	public  status:Number;
 	//public tacCourseAttendeeses = TacCourseAttendees[];
     public tacCourseInstructors:TacInstructor[];
     
     constructor(activationId:Number,tacActivity:TacActivity,tacCourseMaster:TacCourseMaster,tacCourseRoom:TrainingRoom,tacCourseDate:CourseDate,
         dependentId:Number,coordinatorId:Number,costInstructor:Number,costFood:Number,costTransport:Number,costAirticket:Number,
-        costHospitality:Number,costGift:Number,costVenue:Number,costBonus:Number,costTranslation:Number,tacCourseInstructors:TacInstructor[],status:Number )
+        costHospitality:Number,costGift:Number,costVenue:Number,costBonus:Number,costTranslation:Number,tacCourseInstructors:TacInstructor[],status:Number,seatCapacity:Number)
         {
 
             this.activationId=activationId;
@@ -55,6 +54,7 @@ export class TacActivation {
             this.costTranslation=costTranslation;
             this.tacCourseInstructors=tacCourseInstructors;
             this.status=status;
+            this.seatCapacity=seatCapacity;
         }
 
 }

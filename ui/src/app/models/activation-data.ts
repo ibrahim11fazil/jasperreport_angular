@@ -25,13 +25,14 @@ export class ActivationData {
     costBonus: Number
     costTranslation: Number
     belongsTo: Number
+    seatCapacity:Number
 instructors:TacInstructor[]
 
 
     constructor(activationId: Number,courseId:Number,courseName:String,duration:Number,durationFlag: Number,dateId:Number,
         courseDate: Date,locationId: Number,locationName:String,roomID: Number,roomName: String,coordinator:Number,costInstructor: Number,
         costFood: Number,costTransport: Number,costAirticket: Number,costHospitality: Number,costGift: Number,
-        costVenue: Number,costBonus: Number,costTranslation: Number,belongsTo: Number)
+        costVenue: Number,costBonus: Number,costTranslation: Number,belongsTo: Number,seatCapacity:Number)
         {
             this.activationId=activationId
             this.courseId=courseId
@@ -55,6 +56,7 @@ instructors:TacInstructor[]
             this.costTranslation=costTranslation
             this.belongsTo=belongsTo
             this.dateId=dateId
+            this.seatCapacity=seatCapacity
         }
 }
 

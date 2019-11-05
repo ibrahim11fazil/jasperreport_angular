@@ -135,7 +135,7 @@ export class MyTasksHistoryComponent implements OnInit {
         this.isrequestedFor=false
       }
       this.dataStatus=true
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
       courseActivation.activationId = Number( this.data.courseActivationId)
       this.trainingService.getActivationById(courseActivation).subscribe(
         data => {

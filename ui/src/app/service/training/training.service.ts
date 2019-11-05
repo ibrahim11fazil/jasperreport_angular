@@ -108,6 +108,7 @@ export class TrainingService {
 //   return this.httpClient.get(GET_MAIN_COURSES);
 // }
   saveCourseActivation(activation:TacActivation): Observable<Object> {
+    debugger
   return this.httpClient.post(SAVE_ACTIVATION,activation);
   }
   

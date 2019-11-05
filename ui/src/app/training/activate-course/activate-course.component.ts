@@ -73,7 +73,8 @@ export class ActivateCourseComponent implements OnInit {
       costBonus: 0,
       costTranslation: 0,
       tacCourseInstructors: [],
-      status: 0
+      status: 0,
+      seatCapacity:0
     }
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
@@ -85,7 +86,7 @@ export class ActivateCourseComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitleService.setTitle("ACTIVATE COURSE")
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
     this.courseActivationDetails = courseActivation
     this.formInit()
     this.formSetup()
@@ -108,6 +109,7 @@ export class ActivateCourseComponent implements OnInit {
       giftCost: [this.tacCourseActivation.costGift],
       reservationCost: [this.tacCourseActivation.costVenue],
       bonusCost: [this.tacCourseActivation.costBonus],
+      seatCapacity:[this.tacCourseActivation.seatCapacity],
       translationCost: [this.tacCourseActivation.costTranslation],
       belongsSelect: [null],
       userSelect: [null, Validators.compose([Validators.required])],
@@ -337,9 +339,10 @@ export class ActivateCourseComponent implements OnInit {
   }
 
   activateCourse() {
+    debugger
     //if(this.form.valid){
     //console.log(this.form.value.courseSelect.courseId);
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
     var courseMaster = new TacCourseMaster(0, null, "", 0, "", 0, 0, null, null, null,null, 0, 0, null, null);
 
     courseMaster.courseId = this.form.value.courseSelect.courseId;
@@ -362,7 +365,6 @@ export class ActivateCourseComponent implements OnInit {
     this.tacCourseActivation.tacCourseInstructors = instructors;
 
     courseActivation.tacCourseInstructors = this.tacCourseActivation.tacCourseInstructors;
-    courseActivation.costInstructor = this.form.value.instructorCost;
     courseActivation.costInstructor = this.form.value.instructorCost
     courseActivation.costFood = this.form.value.buffetCost
     courseActivation.costTransport = this.form.value.transportCost
@@ -373,7 +375,8 @@ export class ActivateCourseComponent implements OnInit {
     courseActivation.costBonus = this.form.value.bonusCost
     courseActivation.costTranslation = this.form.value.translationCost
     courseActivation.coordinatorId=this.form.value.userSelect.jobId
-
+    courseActivation.seatCapacity=Number(this.form.value.seatCapacity)
+    debugger
     this.trainingService.saveCourseActivation(courseActivation).subscribe(
       data => this.successSaveActivation(data),
       error => {
@@ -404,7 +407,7 @@ export class ActivateCourseComponent implements OnInit {
       }
     });
     if (this.param != '' && this.param != undefined) {
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
       courseActivation.activationId = this.param
      
       this.trainingService.getActivationById(courseActivation).subscribe(
@@ -417,7 +420,7 @@ export class ActivateCourseComponent implements OnInit {
   
           let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, this.activationData.costInstructor, this.activationData.costFood,this.activationData.costTransport
             , this.activationData.costAirticket, this.activationData.costHospitality, this.activationData.costGift, 
-            this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0)
+            this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0,this.activationData.seatCapacity)
             this.tacCourseActivation=courseActivation;
 
             let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
@@ -447,7 +450,7 @@ export class ActivateCourseComponent implements OnInit {
     this.activationData = data.data
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, this.activationData.costInstructor, this.activationData.costFood,this.activationData.costTransport
       , this.activationData.costAirticket, this.activationData.costHospitality, this.activationData.costGift, 
-      this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0)
+      this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0,this.activationData.seatCapacity)
       this.tacCourseActivation=courseActivation;
       let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       this.trainingService.getCourseById(courseMaster).subscribe(
@@ -515,6 +518,13 @@ export class ActivateCourseComponent implements OnInit {
     )
     
   }
+
+
+  numericOnly(event): boolean {    
+    let patt = /^([0-9])$/;
+    let result = patt.test(event.key);
+    return result;
+}
  
 
 }
