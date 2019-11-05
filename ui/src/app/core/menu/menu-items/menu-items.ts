@@ -591,10 +591,10 @@ export class MenuItems {
          //   break
         }
       })
-      //user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })
-      //dynamicMenu.push(user_menu)
-    //dynamicMenu.push(report_menu);
-    //dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
+      // user_menu.children.push({ state: 'user-permissions', name: 'User Permissions' })
+      // dynamicMenu.push(user_menu)
+      // dynamicMenu.push(report_menu);
+      // dynamicMenu[0].children.push({state: 'blank', name: 'SUB MENU1'});
   }
 
   

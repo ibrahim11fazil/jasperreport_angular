@@ -219,6 +219,7 @@ export const  EMP_UNDER_SUPERVSIOR=BASE_URL+employee+"/employees_under_superviso
 //WORKFLOW validations in Employee
 export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
 export const  GET_EMPLOYEE_PROFILE=BASE_URL+employee + "/get-emp-profile";
+export const  GET_EMPLOYEE_BASIC_INFO=BASE_URL+employee +"/get-emp-profile-basic";
 
 
 //WORKFLOW

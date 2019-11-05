@@ -234,6 +234,7 @@ export class LanguageUtil {
   coursesAttendedCurrent: String = this.isArabic ? "الدورات الحالية / التي تم حضورها" : "Courses (Attended/Current)"
   smartSuggestion: String = this.isArabic ? "الاقتراح الالكتروني" : "Smart Suggestion"
   responsibilities:String=this.isArabic? "المسؤوليات" : "Responsibilities"
+  employeeName:String=  this.isArabic ? "Employee Name" : " Employee Name"
 
 
 

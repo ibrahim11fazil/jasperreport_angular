@@ -34,6 +34,16 @@ public class MawaredServiceImpl implements MawaredService {
     }
 
     @Override
+    public List<MawaredMaster> findByQid(String qid) {
+        return mawaredRepository.findByQid(qid);
+    }
+
+    @Override
+    public List<MawaredMaster> findByName(String name) {
+        return mawaredRepository.findByNameIn(name);
+    }
+
+    @Override
     public List<MawaredMaster> findByEmail(String email) {
         return mawaredRepository.findByEmail(email);
     }

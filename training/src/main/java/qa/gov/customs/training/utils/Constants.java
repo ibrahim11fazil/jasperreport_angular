@@ -99,6 +99,7 @@ public class Constants {
     public static String CREATED_WORKFLOW = "CREATED";
     public static String REJECTED_WORKFLOW = "REJECTED";
     public static String APPROVED_WORKFLOW = "APPROVED";
+    public static String APPROVED_WORKFLOW_WITH_NO_SEAT = "APPROVED_NO_SEAT";
     public static String FAILED_WORKFLOW = "FAILED";
     public static String ERROR_WORKFLOW = "ERROR";
 
