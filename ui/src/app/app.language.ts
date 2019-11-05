@@ -56,6 +56,8 @@ export class LanguageUtil {
   activationId: String = this.isArabic ? "رقم التفعيل" : "Activation ID"
   activationDate: String = this.isArabic ? "تاريخ التفعيل" : "Activation Date"
   label_update: String = this.isArabic ? "تعديل" : "Update"
+  seatCapacity:String=this.isArabic?"Seat Capacity1":"Seat Capacity"
+  trainingCoordinatorMobile=this.isArabic?"Coordinator Mobile1":"Coordinator Mobile"
 
 
   //Activate Course

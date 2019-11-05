@@ -52,6 +52,7 @@ export class EmpRequestComponent implements OnInit {
   userList: SystemUserResponseArray[] = [];
   selectedItem:TacActivation;
   tacCoordinatorString: String[] = [];
+  tacCoordinatorMobileString: String[] = [];
   public form: FormGroup;
   public formDetails:FormGroup;
   searchText: String;
@@ -104,6 +105,7 @@ export class EmpRequestComponent implements OnInit {
 
     var userObj = new SystemUser()
     userObj.roleId = 5
+    debugger;
     this.userService.listUsersByRoleId(userObj).subscribe(
       data => {
         var response = <ISystemUserResponseList>data
@@ -169,7 +171,7 @@ getActivationData(row) {
   this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
 
   console.log(this.courseEndDate)
-  let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+  let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
   courseActivation.activationId = row.activation_id
   this.selectedItem = courseActivation;
   debugger
@@ -217,6 +219,7 @@ getActivationData(row) {
       var item = this.userList.filter(item => item.jobId == this.activation.coordinator)
       if (item != null && item.length>0) {
         this.tacCoordinatorString.push(item[0].cNameAr);
+        this.tacCoordinatorMobileString.push(item[0].mobile)
       }
       this.allOk=true
     },

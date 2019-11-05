@@ -227,6 +227,7 @@ public class UserServiceImpl implements UserService {
                 user.setQid(item.getQid());
                 user.setcNameAr(item.getcNameAr());
                 user.setEmail(item.getEmail());
+                user.setMobile(item.getMobile());
                 updatedUser.add(user);
             });
             return updatedUser;
