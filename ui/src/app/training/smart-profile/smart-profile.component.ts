@@ -91,6 +91,7 @@ export class SmartProfileComponent implements OnInit {
   }
 
   getUserInformations(jobId: String, isSearch: Boolean) {
+    this.clear();
     if (!isSearch) {
       jobId = this.authService.getLegacyCode()
     }
@@ -253,7 +254,6 @@ export class SmartProfileComponent implements OnInit {
     var jobIdSelected = this.form.value.jobId
     var qid = this.form.value.qid
     var empName = this.form.value.empName
-    debugger
     if (jobIdSelected != null) {
       this.getUserInformations(jobIdSelected, true)
     } else if(qid!=null || empName!=null) {
