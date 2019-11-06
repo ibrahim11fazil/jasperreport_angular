@@ -301,6 +301,9 @@ export class SmartProfileComponent implements OnInit {
   }
 
   getEmployeeSmartProfileBasicInfoAjax(input): Observable<SmartProfileUserResponseAjax> {
+    if(input!=null && input.legacycode!=null){
+       input=""
+    }
     var item = new  SmartProfileUserRequestModel()
     item.empName=input
    return this.trainingService.getEmployeeSmartProfileBasicInfo(item)
@@ -319,10 +322,7 @@ export class SmartProfileComponent implements OnInit {
   }
 
   displayFn(user) {
-    this.getUserInformations(user.legacycode,true) 
-
-    // if (user) { 
-    //   return user.cname_AR; }
+   this.getUserInformations(user.legacycode,true) 
   }
 
   searchOnChangeForName(){
@@ -330,7 +330,7 @@ export class SmartProfileComponent implements OnInit {
     .get('empName')
     .valueChanges
     .pipe(
-      debounceTime(300),
+      debounceTime(100),
       tap(() => this.isLoading = true),
       switchMap(value => this.getEmployeeSmartProfileBasicInfoAjax(value)
       .pipe(
