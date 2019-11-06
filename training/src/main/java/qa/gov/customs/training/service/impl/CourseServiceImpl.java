@@ -58,6 +58,8 @@ public class CourseServiceImpl implements CourseService {
     CourseAttendeesRepository courseAttendeesRepository;
     @Autowired
     ActivationRepository activationRepository;
+    @Autowired
+    EmployeeRequestRepository requestRepository;
 
     @Override
     public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -713,6 +715,21 @@ public class CourseServiceImpl implements CourseService {
     public void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId)
     {
         courseRepository.updateCourseLinkTable(activityId,courseId);
+    }
+    @Override
+
+    public SeatCapacity getSeatCapacity(SeatCapacity capacity)
+    {  SeatCapacity seatCapacity=new SeatCapacity();
+        BigDecimal seatCount =requestRepository.getSeatCapacity(capacity.getActivationId());
+//        for (Object[] o : object) {
+//
+//            seatCapacity.setActivationId((BigDecimal)o[0]);
+//            seatCapacity.setCourseId((BigDecimal)o[1]);
+//            seatCapacity.setSeatCapacity((BigDecimal)o[3]);
+//        }
+        seatCapacity.setActivationId(capacity.getActivationId());
+        seatCapacity.setSeatCapacity(seatCount);
+        return seatCapacity;
     }
 
 

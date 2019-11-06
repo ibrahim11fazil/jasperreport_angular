@@ -502,6 +502,17 @@ public class CourseController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('cad')")
+    @PostMapping("/get-seat-capacity")
+    public ResponseType getCourseActivationById(@RequestBody SeatCapacity seatCapacity) {
+        SeatCapacity capacity=null;
+        capacity=courseService.getSeatCapacity(seatCapacity);
+        ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, capacity);
+        return response;
+
+    }
+
+
     @PreAuthorize("hasAnyAuthority('cal')")
     @PostMapping("/get-all-activation-list")
     public ResponseType getActivationsById(@RequestBody TacCourseActivation courseActivation) {

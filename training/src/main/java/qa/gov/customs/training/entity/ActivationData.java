@@ -54,6 +54,8 @@ public class ActivationData {
     private BigDecimal costBonus;
     @Column(name = "COST_TRANSLATION")
     private BigDecimal costTranslation;
+    @Column(name="SEAT_CAPACITY")
+    private BigDecimal seatCapacity;
 
     @Transient
     private List<TacInstructorMaster> instructors;
@@ -240,5 +242,13 @@ public class ActivationData {
 
     public void setCostTranslation(BigDecimal costTranslation) {
         this.costTranslation = costTranslation;
+    }
+
+    public BigDecimal getSeatCapacity() {
+        return seatCapacity;
+    }
+
+    public void setSeatCapacity(BigDecimal seatCapacity) {
+        this.seatCapacity = seatCapacity;
     }
 }

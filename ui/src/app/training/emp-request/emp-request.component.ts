@@ -22,6 +22,7 @@ import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { formatDate } from '@angular/common';
 import { ErrorService } from 'app/service/error/error.service';
+import { SeatCapacityResponse, SeatCapacity } from 'app/models/seat-capacity';
 
 
 
@@ -60,6 +61,7 @@ export class EmpRequestComponent implements OnInit {
   isHead=false
  language:LanguageUtil
  activationDate:String=""
+ seatCapacityMessage:String=""
   
 
   constructor(private fb: FormBuilder,
@@ -154,6 +156,7 @@ export class EmpRequestComponent implements OnInit {
   
 getActivationData(row) {
   debugger;
+  this.seatCapacityMessage="";
   this.allOk=false
   this.eventCourseDetail = row;
   console.log(this.eventCourseDetail.course_date);
@@ -221,7 +224,21 @@ getActivationData(row) {
         this.tacCoordinatorString.push(item[0].cNameAr);
         this.tacCoordinatorMobileString.push(item[0].mobile)
       }
-      this.allOk=true
+      let seatCapacity=new SeatCapacity(this.activation.activationId,0,0)
+      this.trainingService.getSeatCapacity(seatCapacity).subscribe(
+        data => {
+          debugger
+          var response = <SeatCapacityResponse>data
+          if(response.data.seatCapacity==this.activation.seatCapacity)
+          {
+          this.seatCapacityMessage=this.language.seat_full_message;
+          this.allOk=false
+          }
+          else{
+            this.allOk=true
+          }
+        })
+      //this.allOk=true
     },
     error => {
       console.log(error)

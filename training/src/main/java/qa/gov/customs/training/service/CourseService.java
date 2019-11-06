@@ -100,4 +100,5 @@ public interface CourseService {
 
     List<CourseManagement> getInstructorCourses(String jobId);
     void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId);
+    SeatCapacity getSeatCapacity(SeatCapacity capacity);
 }

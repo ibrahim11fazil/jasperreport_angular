@@ -328,6 +328,8 @@ export class LanguageUtil {
   error_request_exisit = this.isArabic ? "الطلب موجود بالفعل" : "The request alredy exisit."
   error_user_absent = this.isArabic ? "تم تسجيل غياب للمستخدم في هذا التاريخ، حاول بتاريخ آخر" : "The use is absent on the date,Try another date "
   error_date_request = this.isArabic ? "لقد قمت بطلب دورة في نفس التاريخ، اختر تاريخ آخر" : "You are alraeady requested for another course in the same time. Try some other dates"
+   seat_full_message=this.isArabic ? " Seats are full1" : "Seats are full"
+
 
   //jobcard status
   jobcard_total36hours = this.isArabic ? "الاجمالي 36 ساعة للورشة" : "Total 36 Hours of Workshop"
