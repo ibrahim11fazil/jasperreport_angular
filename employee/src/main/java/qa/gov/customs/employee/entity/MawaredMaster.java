@@ -44,8 +44,8 @@ public class MawaredMaster {
 //    String TNAME_EN;
 //    @Column(name="LNAME_EN")
 //    String LNAME_EN;
-//    @Column(name="CNAME_EN")
-//    String CNAME_EN;
+    @Column(name="CNAME_EN")
+    String CNAME_EN;
     @Column(name = "GENDER")
     String GENDER;
     @Column(name = "GENDER_DESC")
@@ -506,5 +506,13 @@ public class MawaredMaster {
 
     public void setRUN_DATE(Date RUN_DATE) {
         this.RUN_DATE = RUN_DATE;
+    }
+
+    public String getCNAME_EN() {
+        return CNAME_EN;
+    }
+
+    public void setCNAME_EN(String CNAME_EN) {
+        this.CNAME_EN = CNAME_EN;
     }
 }

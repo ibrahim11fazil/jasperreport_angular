@@ -2,9 +2,35 @@ export class SmartProfileModel {
 }
 
 export class SmartProfileUserRequestModel {
-    jobIdRequested: String;
+    jobIdRequested?: String;
+    qid?:String;
+    empName?:String;
 }
 
+
+export class SmartProfileUserResponseModelQucik {
+    constructor(legacyCode:String,cname_AR:String){
+        this.legacycode=legacyCode;
+        this.cname_AR=cname_AR;
+    }
+    legacycode: String;
+    cname_AR?: String;
+}
+
+export interface SmartProfileUserResponseModelQucik1 {
+    legacycode: String;
+    cname_AR?: String;
+}
+
+export class SmartProfileUserResponseModelAjax {
+    constructor(legacyCode:String,cname_AR:String){
+        this.legacycode=legacyCode;
+        this.cname_AR=cname_AR;
+    }
+    legacycode: String;
+    cname_AR?: String;
+    
+}
 
 export class SmartProfileUserResponseModel {
     job: String;
@@ -38,6 +64,14 @@ export class SmartProfileUserResponseModel {
     job_DESC_AR?: String;
     pslevel?: String;
     run_DATE: Date;
+}
+
+export interface SmartProfileUserResponseAjax {
+    code: number;
+    message: String;
+    status: boolean;
+    count: number;
+    data: SmartProfileUserResponseModelAjax[];
 }
 
 export interface SmartProfileUserResponse {

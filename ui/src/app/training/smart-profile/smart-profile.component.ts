@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
 import { MainComponent } from 'app/main/main.component';
 import { AuthService } from 'app/service/auth-service/auth.service';
-import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile } from 'app/models/smart-profile-model';
+import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile, SmartProfileUserResponseModelQucik, SmartProfileUserResponseModelQucik1, SmartProfileUserResponseModelAjax, SmartProfileUserResponseAjax } from 'app/models/smart-profile-model';
 import { CertificateRequest, CertificateRequestOnlyJobId, ResponseCertificateList } from 'app/models/certificate-request';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -18,6 +18,8 @@ import { LanguageUtil } from 'app/app.language';
 import { CourseManagementRes, ITacCourseManagementList } from 'app/models/tac-course-master';
 import { Page } from 'app/models/paged-data';
 import { ErrorService } from 'app/service/error/error.service';
+import { Observable } from 'rxjs';
+import { tap, debounceTime, switchMap, finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -38,7 +40,8 @@ export class SmartProfileComponent implements OnInit {
   displayCourses: boolean = false
   page = new Page();
   courseManagement:CourseManagementRes[]=[]
-
+  isLoading = false;
+  filteredUsers: SmartProfileUserResponseModelAjax[] = [];
 
   constructor(
     private authService: AuthService,
@@ -65,6 +68,7 @@ export class SmartProfileComponent implements OnInit {
     this.formInit()
     var userCode = this.authService.getLegacyCode()
     this.getUserInformations(userCode, false)
+    this.searchOnChangeForName()
 
   }
 
@@ -72,7 +76,9 @@ export class SmartProfileComponent implements OnInit {
 
   formInit() {
     this.form = this.fb.group({
-      jobId: [null, Validators.compose([Validators.required])],
+      jobId: [null],
+      qid:[null],
+      empName:[null]
     });
   }
 
@@ -85,6 +91,7 @@ export class SmartProfileComponent implements OnInit {
   }
 
   getUserInformations(jobId: String, isSearch: Boolean) {
+    this.clear();
     if (!isSearch) {
       jobId = this.authService.getLegacyCode()
     }
@@ -242,14 +249,101 @@ export class SmartProfileComponent implements OnInit {
   }
 
   onSubmit() {
+
     this.clear();
     var jobIdSelected = this.form.value.jobId
+    var qid = this.form.value.qid
+    var empName = this.form.value.empName
     if (jobIdSelected != null) {
       this.getUserInformations(jobIdSelected, true)
-    } else {
-      this.toastr.error("Invalid Jobid")
+    } else if(qid!=null || empName!=null) {
+      this.getUserInformationsAndTitle(qid, empName)
+    }else{
+      this.toastr.error("Invalid search input")
     }
 
   }
+
+
+  getUserInformationsAndTitle(qid,empName){
+     var input = new SmartProfileUserRequestModel()
+     input.qid = qid
+     input.empName=empName
+     this.trainingService.getEmployeeSmartProfileBasicInfo(input).subscribe(
+       data => {
+         var response = <SmartProfileUserResponse>data
+         if (response.status && response.data.length > 0) {
+           // TODO it it is only one issue 
+           if(response.data.length==1){
+           this.getUserInformations(response.data[0].legacycode,true) 
+           }
+           else {
+             console.log("multiple items")
+             response.data.forEach(item => {
+              console.log(item.legacycode + " " +  item.cname_AR)
+             })
+
+            
+          // this.searchUserInformationsAndTitle({cname_AR: empName},1,response)
+           }
+         }
+         else {
+           console.log(response.message)
+           this.toastr.error(response.message.toString())
+         }
+       },
+       error => {
+         console.log(error)
+         this.errorService.errorResponseHandling(error)
+       }
+     )
+
+  }
+
+  getEmployeeSmartProfileBasicInfoAjax(input): Observable<SmartProfileUserResponseAjax> {
+    if(input!=null && input.legacycode!=null){
+       input=""
+    }
+    var item = new  SmartProfileUserRequestModel()
+    item.empName=input
+   return this.trainingService.getEmployeeSmartProfileBasicInfo(item)
+    .pipe(
+      tap((response: SmartProfileUserResponseAjax) => {
+         var   dataResponse =   response.data
+          .map(user => new SmartProfileUserResponseModelAjax(user.legacycode,user.cname_AR))
+          .filter(user => user.cname_AR.includes(input))
+        return dataResponse;
+      })
+      );
+  }
+
+  displayFnUser(user: SmartProfileUserResponseModelAjax) {
+    if (user) { return user.cname_AR; }
+  }
+
+  displayFn(user) {
+   this.getUserInformations(user.legacycode,true) 
+  }
+
+  searchOnChangeForName(){
+    this.form
+    .get('empName')
+    .valueChanges
+    .pipe(
+      debounceTime(100),
+      tap(() => this.isLoading = true),
+      switchMap(value => this.getEmployeeSmartProfileBasicInfoAjax(value)
+      .pipe(
+        finalize(() => this.isLoading = false),
+        )
+      )
+    )
+    .subscribe(users => {
+      console.log(users.data)
+      this.filteredUsers = users.data
+    });
+  }
+
+ 
 
 }
