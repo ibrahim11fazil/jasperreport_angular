@@ -18,6 +18,8 @@ public interface UserProfileRepository extends JpaRepository<Dummy, String> {
             " where a.jobcard_no=b.jobcard_no " +
             " and b.course_id=c.course_id " +
             " and job_grade=(select pslevel from user_sap_ws_mini where legacycode=:jobId " +
+            " and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId)) " +
+            " and job_title =(select job from USER1_SAP_WS_MINI  where legacycode=:jobId " +
             " and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId)) ", nativeQuery = true)
         //List<UserProfileModel> listJobCardProfile(@Param("jobId") String jobId);
     List<Object[]> listJobCardProfile(@Param("jobId") String jobId);
