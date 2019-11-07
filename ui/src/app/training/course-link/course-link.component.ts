@@ -20,6 +20,8 @@ import { ResponseTacActivation, TacActivation } from 'app/models/tac-activation'
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { ErrorService } from 'app/service/error/error.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 
 
@@ -56,6 +58,7 @@ export class CourseLinkComponent implements OnInit {
   editable: true;
   existingActivity = "Empty";
   language:LanguageUtil;
+  filteredOptions: Observable<Course[]>;
 
   public form: FormGroup;
   constructor(private fb: FormBuilder,
@@ -98,6 +101,41 @@ export class CourseLinkComponent implements OnInit {
     this.formInit()
     this.formSetup()
     this.loadDataFromParam()
+    
+    this.filteredOptions = this.form
+    .get('courseSelect').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      )
+  
+    
+  }
+  private _filter(value: string): Course[] {
+
+     if(value==null || value=="")
+    {
+      var arrayCourse=  this.courseList.filter(item => item.courseName!=null)
+      return arrayCourse
+    }
+
+    else{
+    const filterValue = value.toLowerCase();
+    if(this.courseList!=null && this.courseList.length>0){
+    var arrayCourse=  this.courseList.filter(item => item.courseName!=null)
+    var courseSelectArray =arrayCourse.filter(item => item.courseName.toLowerCase().includes(filterValue));
+    return courseSelectArray
+    }
+    
+    else{
+      return []
+    }
+    }
+     
+  }
+
+   displayFnCourse(course: Course) {
+    if (course) { return course.courseName; }
   }
 
   formInit() {
@@ -106,7 +144,7 @@ export class CourseLinkComponent implements OnInit {
     this.form = this.fb.group({
       activitySelect: [null, Validators.compose([Validators.required])],
       prerequisitesSelect:this.fb.array([]),
-      courseSelect: [null, Validators.compose([Validators.required])],
+      courseSelect: [null],
       locationSelect: [null, Validators.compose([Validators.required])],
       subCourseSelect: [null],
       dateOptions: this.fb.array([])
@@ -129,6 +167,7 @@ export class CourseLinkComponent implements OnInit {
         data => {
           var response = <ITacCourseList>data
           this.courseList = response.data
+          
           console.log(response)
         },
         error => {
@@ -176,7 +215,7 @@ export class CourseLinkComponent implements OnInit {
   }
 
   getCourseDetails(course) {
-   
+   debugger;
     this.existingActivity = "";
     this.displayCourseDetails=false;
     const arrDate = <FormArray>this.form.controls.dateOptions; 
@@ -187,8 +226,8 @@ export class CourseLinkComponent implements OnInit {
    
 
   
-    let courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
-    console.log(course.value);
+    let courseMaster = new TacCourseMaster(course.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+    
     this.courseByIdList(courseMaster);
   }
  
@@ -208,6 +247,7 @@ export class CourseLinkComponent implements OnInit {
       var request = new CourseActivityDatesRequest()
       request.courseId = this.courseDetails.courseId
       request.activityId = this.loadedActivityId
+      debugger
       this.trainingService.getAllDatesForCourseAndActivity(request).subscribe(
         data => {
           var response = <ResponseDate>data
