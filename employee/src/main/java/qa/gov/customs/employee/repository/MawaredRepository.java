@@ -22,8 +22,13 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
     List<MawaredMaster> findByQid(@Param("qid") String qid);
 
 
-    @Query(value = "SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI  where CNAME_AR  like %:name_in% )", nativeQuery = true)
+    //@Query(value = "SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI  where CNAME_AR  like %:name_in% )", nativeQuery = true)
+   // List<MawaredMaster> findByNameIn(@Param("name_in") String name);
+
+    @Query(value = "SELECT * FROM USER_SAP_WS_MINI a WHERE  CNAME_AR  like %:name_in% " +
+            " and run_date=(select max(run_date) from USER_SAP_WS_MINI where legacycode=a.legacycode) ", nativeQuery = true)
     List<MawaredMaster> findByNameIn(@Param("name_in") String name);
+
 
     @Query(value = "SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI where email=:email)  and  legacycode=:jobCode", nativeQuery = true)
     List<MawaredMaster> findByEmail(@Param("email") String email);

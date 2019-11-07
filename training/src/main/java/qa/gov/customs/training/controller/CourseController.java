@@ -605,14 +605,13 @@ public class CourseController {
         List<CourseManagement> courseManagement = null;
         courseManagement = courseService.getAllFutureCourses();
         if (courseManagement != null || !courseManagement.isEmpty()) {
-
+         //ُ
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
             return response;
         } else {
             ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
             return response;
         }
-
     }
 
     @PreAuthorize("hasAnyAuthority('gc')")
