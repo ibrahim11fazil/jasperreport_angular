@@ -154,3 +154,6 @@ workflow:
     notification_routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}
     training_queue_workflow_status: ${TRAINING_QUEUE_WORKFLOWSTATUS:training_queue_workflow_status_dev}
     cis_queue_workflow_status: ${CIS_WORKFLOW_STATUS:cis_queue_workflow_status_dev}
+    exchange_seat_check: ${TRAINING_SEAT_CHECK_EXCHANGE:exchange_seat_check_dev}
+    routingkey_seat_check: ${TRAINING_ROUTING_SEAT_CHECK:routingkey_seat_check_dev}
+    seat_check_response_queue: ${TRAINING_QUEUE_RESPONSE_SEAT_CHECK:seat_check_response_queue_dev}
