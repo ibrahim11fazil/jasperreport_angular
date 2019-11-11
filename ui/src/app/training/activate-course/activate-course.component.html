@@ -13,22 +13,26 @@
             <form [formGroup]="form" (ngSubmit)="activateCourse()">
                 <div fxLayout="column">
                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                        <mat-form-field class="full-wid mrgn-b-lg">
+                        <!-- <mat-form-field class="full-wid mrgn-b-lg">
                               <mat-select (selectionChange)="getCourseDetails($event)" placeholder={{language.courseName}}  matInput formControlName="courseSelect" >
                                     
                                        <mat-option *ngFor="let item of courseList" [value]="item" >
                                           {{item.courseName}} 
                                     </mat-option>
                                  </mat-select>
-                        </mat-form-field>
-                     </div>
-<!-- 
-                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                        </mat-form-field> -->
+
                         <mat-form-field class="full-wid mrgn-b-lg">
-                             
-                    <textarea matInput placeholder="Category" [readonly]="!editable" ></textarea> 
-                        </mat-form-field>
-                     </div> -->
+                                                      <input type="text" matInput formControlName="courseSelect" [matAutocomplete]="auto" >
+                                                    </mat-form-field>
+                                                   
+                                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnCourse" (optionSelected)='getCourseDetails($event.option.value)'>
+                                                      <mat-option *ngFor="let item of filteredOptions | async " [value]="item">
+                                                                  {{item.courseName!=null?item.courseName:""}}
+                                                            </mat-option>
+                                                    </mat-autocomplete>
+                     </div>
+
 
                      <div *ngIf="displayCourseDetails" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49" class="notEditableField">
                
@@ -37,11 +41,7 @@
                         
                       
                         </div>
-                     <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                        <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder="Belongs To" >
-                        </mat-form-field>
-                     </div> -->
+
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                            <mat-form-field class="full-wid mrgn-b-lg">
                                  <mat-select  placeholder={{language.belongsTo}} matInput formControlName="belongsSelect">
@@ -140,52 +140,57 @@
                                  </mat-select>
                         </mat-form-field>
                      </div>
+                     <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+                        <mat-form-field class="full-wid mrgn-b-md">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.seatCapacity}} formControlName="seatCapacity">
+                        </mat-form-field>
+                     </div>
                      <div fxLayout="column">
                         <h4>{{language.estimatedCost}}</h4>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.instructorCost}} formControlName="instructorCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.instructorCost}} formControlName="instructorCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.buffetCost}} formControlName="buffetCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.buffetCost}} formControlName="buffetCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.internalTransportCost}} formControlName="transportCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.internalTransportCost}} formControlName="transportCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.ticketCost}} formControlName="ticketCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.ticketCost}} formControlName="ticketCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.hospitalityCost}} formControlName="hospitalityCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.hospitalityCost}} formControlName="hospitalityCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.giftCost}} formControlName="giftCost" >
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.giftCost}} formControlName="giftCost" >
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.hallReservationCost}} formControlName="reservationCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.hallReservationCost}} formControlName="reservationCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.bonusCost}} formControlName="bonusCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.bonusCost}} formControlName="bonusCost">
                         </mat-form-field>
                      </div>
                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
                         <mat-form-field class="full-wid mrgn-b-md">
-                           <input matInput placeholder={{language.translationCost}} formControlName="translationCost">
+                           <input matInput (keypress)="numericOnly($event)" placeholder={{language.translationCost}} formControlName="translationCost">
                         </mat-form-field>
                      </div>
                      <div fxLayout="row" fxLayoutAlign="start">

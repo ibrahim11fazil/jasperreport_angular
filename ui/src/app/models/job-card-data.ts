@@ -48,6 +48,8 @@ export interface IJobCardDataResponse {
 
 export class JobCardDataSearch {
     job?:String
+    jobGrade?:String
+    jobTitle?:String
     start:Number
 	limit:Number
 }

@@ -29,6 +29,13 @@ export const DURATION_FLAG_LIST = [
     { value: 3, viewValue: 'DAY' },
     // { value: 4, viewValue: 'HOUR' }
 ];
+export const SEARCH_BY=
+[
+    { value: 1, viewValue: 'JOB CARD NO' },
+    { value: 2, viewValue: 'JOB GRADE' },
+    { value: 3, viewValue: 'JOB TITLE' },
+    { value: 4, viewValue: 'SHOW ALL JOBCARD' },
+];
 export const COURSE_FILTER = [
     { value: 1, viewValue: 'NEXT YEAR' },
     { value: 2, viewValue: 'NEXT MONTH' },
@@ -82,8 +89,8 @@ export const	GENERAL_COURSE =4
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
 
- export const BASE_URL ="http://172.16.0.254:9000"
- export const BASE_URL_FILE ="http://172.16.0.254:9000"
+//  export const BASE_URL ="http://172.16.0.254:9000"
+//  export const BASE_URL_FILE ="http://172.16.0.254:9000"
 
 //  export const BASE_URL ="http://10.64.3.32:9000"
 //  export const BASE_URL_FILE ="http://10.64.3.32:9000"
@@ -95,8 +102,8 @@ export const	GENERAL_COURSE =4
 //export const BASE_URL_FILE ="http://172.16.0.254:9021"
 //export const BASE_URL_FILE ="http://172.16.0.254:7777"
 
-// export const BASE_URL ="http://localhost:9000"
-// export const BASE_URL_FILE ="http://localhost:9000"
+export const BASE_URL ="http://localhost:9000"
+export const BASE_URL_FILE ="http://localhost:9000"
 
 
 //export const BASE_URL ="http://localhost:9000"
@@ -159,6 +166,7 @@ export const GET_INSTRUCTOR_BY_ID=BASE_URL+training+"/get-instructor-by-id"
 export const GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID=BASE_URL+training+"/get-course-dates-by-id-and-activity-id"
 export const  GET_ALL_COURSE_ACTIVATION=BASE_URL+training+"/get-all-courseActivation"
 export const  GET_COURSE_ROOM_DETAIL=BASE_URL+training+"/get-course-room"
+export const  GET_SEAT_CAPACITY=BASE_URL+training+"/get-seat-capacity"
 export const  GET_COURSE_DATE_DETAIL=BASE_URL+training+"/get-course-date"
 export const  GET_ACTIVATIONS_BY_NAME=BASE_URL+training+"/list-activations-by-courseName"
 export const  GET_ACTIVATIONS_BY_ID=BASE_URL+training+"/get-all-activation-list"
@@ -219,6 +227,7 @@ export const  EMP_UNDER_SUPERVSIOR=BASE_URL+employee+"/employees_under_superviso
 //WORKFLOW validations in Employee
 export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
 export const  GET_EMPLOYEE_PROFILE=BASE_URL+employee + "/get-emp-profile";
+export const  GET_EMPLOYEE_BASIC_INFO=BASE_URL+employee +"/get-emp-profile-basic";
 
 
 //WORKFLOW

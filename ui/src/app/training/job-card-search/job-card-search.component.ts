@@ -7,12 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { SearchUser, ISystemInstructorResponseList } from 'app/models/system-user';
 import { PAGE_LIMIT } from 'app/app.constants';
-import { JobCardData, IJobCardDataListResponse, SearchJobCard, JobCardDataSearch } from 'app/models/job-card-data';
+import { JobGrades,JobTitle,JobCardData, IJobCardDataListResponse, SearchJobCard, JobCardDataSearch,JobGradesListResponse,JobTitleListResponse} from 'app/models/job-card-data';
 import { UserSearchComponent } from '../user-search/user-search.component';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { ErrorService } from 'app/service/error/error.service';
+import {SEARCH_BY} from "../../app.constants";
 
 @Component({
   selector: 'ms-job-card-search',
@@ -23,8 +24,15 @@ export class JobCardSearchComponent implements OnInit {
   form: FormGroup
   page = 0
   ds: JobCardData[] = [];
+  jobGradeList: JobGrades[] = []
+  jobTitleList: JobTitle[] = []
+  searchOption=SEARCH_BY
+  searchValue:Number=0
   language:LanguageUtil
   firstSearch=false
+  displaySearchByJobCardNo:boolean=false;
+  displaySearchByJobGrade:boolean=false;
+  displaySearchByJobTitle:boolean=false;
   displayedColumns: string[] = ['jobTitle', 'jobGrade', 'jobGroup','job','jobcardNo', 'Edit','Status','HStatus' ];
   constructor(
     private trainingService: TrainingService,
@@ -43,13 +51,52 @@ export class JobCardSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.formSetup()
     this.formInit()
   }
 
   formInit() {
     this.form = this.fb.group({
-      searchControl: [""]
+      searchControl: [""],
+      jobGradeControl:[""],
+      jobTitleControl:[""],
+      searchValueControl:[null],
     });
+  }
+  formSetup() {
+debugger
+    this.userService.getGrades().subscribe(
+      data => {
+        var response = <JobGradesListResponse>data
+        if (response.status) {
+          this.jobGradeList=response.data
+        }
+        else {
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
+        }
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
+    this.userService.getJobTitles().subscribe(
+      data => {
+        var response = <JobTitleListResponse>data
+        if (response.status) {
+          this.jobTitleList=response.data
+        }
+        else {
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
+        }
+      },
+      error => { console.log(error)
+        this.errorService.errorResponseHandling(error)}
+    )
+
+        
   }
   onSubmit() {
     this.ds = new Array<JobCardData>();
@@ -60,8 +107,37 @@ export class JobCardSearchComponent implements OnInit {
   }
 
   search() {
+    debugger;
     var searchString = new JobCardDataSearch()
-    searchString.job = this.form.value.searchControl
+    if(this.searchValue==1)
+    {
+
+      searchString.job = this.form.value.searchControl
+      searchString.jobGrade=""
+      searchString.jobTitle=""
+     
+
+    }
+     if(this.searchValue==2)
+    {
+      searchString.jobGrade = this.form.value.jobGradeControl.psLevel
+      searchString.job=""
+      searchString.jobTitle=""
+
+    }
+     if(this.searchValue==3)
+    {
+       searchString.jobTitle = this.form.value.jobTitleControl.job
+       searchString.jobGrade=""
+       searchString.job=""
+
+    }
+    if(this.searchValue==4)
+    {
+      searchString.jobTitle = ""
+       searchString.jobGrade=""
+       searchString.job=""
+    }
     searchString.limit = PAGE_LIMIT
     searchString.start = this.page
     this.trainingService.searchJobCard(searchString).subscribe(
@@ -102,5 +178,50 @@ export class JobCardSearchComponent implements OnInit {
   updateRow(row){
     this.router.navigate(["/training/job-card-management/",row.jobcardNo]);
   }
+
+  getSearchField(search)
+  {
+ 
+    debugger;
+    if(search.value.value==1)
+    {
+      
+      this.displaySearchByJobCardNo=true;
+      this.displaySearchByJobGrade=false;
+      this.displaySearchByJobTitle=false;
+      this.searchValue=1
+    }
+    else if(search.value.value== 2)
+    {
+
+      this.displaySearchByJobCardNo=false;
+      this.displaySearchByJobGrade=true;
+       this.displaySearchByJobTitle=false;
+       this.searchValue=2
+    }
+  
+  else if(search.value.value==3)
+    {
+
+      this.displaySearchByJobCardNo=false;
+      this.displaySearchByJobGrade=false;
+      this.displaySearchByJobTitle=true;
+      this.searchValue=3
+    }
+    else if(search.value.value==3)
+    {
+      this.displaySearchByJobCardNo=false;
+      this.displaySearchByJobGrade=false;
+      this.displaySearchByJobTitle=false;
+      this.searchValue=4
+    }
+  }
+
+  clear() {
+      this.form.value.searchControl=""
+      this.form.value.jobGradeControl.psLevel=""
+      this.form.value.jobTitleControl.job=""
+  }
+  
 
 }

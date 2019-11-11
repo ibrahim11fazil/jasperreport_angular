@@ -39,13 +39,21 @@ public class CourseController {
     public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
         logger.info("Create course starting ");
         if (course.getCourseId().equals(new BigDecimal(0))) {
-            course.setActiveFlag(new BigDecimal(1));
-            courseService.findById(course.getCourseId());
-            TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
-            //course.getTacCourseAudiences().forEach(i -> i.courseInserted);
-            ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
-                    courseInserted);
-            return response;
+           List<TacCourseMaster> existingCourse=courseService.findByCourseName(course.getCourseName());
+           if(existingCourse==null || existingCourse.size()==0) {
+               course.setActiveFlag(new BigDecimal(1));
+               TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+               //course.getTacCourseAudiences().forEach(i -> i.courseInserted);
+               ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
+                       courseInserted);
+               return response;
+           }
+           else
+           {
+               ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                       null);
+               return response;
+           }
         } else {
             TacCourseMaster courseExisting = courseService.findById(course.getCourseId());
             course.setActiveFlag(courseExisting.getActiveFlag());
@@ -494,6 +502,17 @@ public class CourseController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('cad')")
+    @PostMapping("/get-seat-capacity")
+    public ResponseType getCourseActivationById(@RequestBody SeatCapacity seatCapacity) {
+        SeatCapacity capacity=null;
+        capacity=courseService.getSeatCapacity(seatCapacity);
+        ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, capacity);
+        return response;
+
+    }
+
+
     @PreAuthorize("hasAnyAuthority('cal')")
     @PostMapping("/get-all-activation-list")
     public ResponseType getActivationsById(@RequestBody TacCourseActivation courseActivation) {
@@ -586,14 +605,13 @@ public class CourseController {
         List<CourseManagement> courseManagement = null;
         courseManagement = courseService.getAllFutureCourses();
         if (courseManagement != null || !courseManagement.isEmpty()) {
-
+         //ُ
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
             return response;
         } else {
             ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
             return response;
         }
-
     }
 
     @PreAuthorize("hasAnyAuthority('gc')")
@@ -616,9 +634,13 @@ public class CourseController {
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/search-future-courses")
-    public ResponseType searchFutureCourses(@RequestBody TacCourseMaster courseMaster) {
+    public ResponseType searchFutureCourses(@RequestBody TacCourseMaster courseMaster,@AuthenticationPrincipal CustomPrincipal principal) {
         List<CourseManagement> courseManagement = null;
-        courseManagement = courseService.searchAllFutureCourses(courseMaster.getCourseName());
+
+
+        courseManagement = courseService.searchAllFutureCourses(courseMaster,principal);
+
+
         if (courseManagement != null || !courseManagement.isEmpty()) {
 
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);

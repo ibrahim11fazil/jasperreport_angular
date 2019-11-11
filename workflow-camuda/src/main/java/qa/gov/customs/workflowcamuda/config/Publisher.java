@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.model.NotificationModel;
 import qa.gov.customs.workflowcamuda.model.TrainingRequestStatus;
+import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 
 @Component
 public class Publisher {
@@ -33,6 +34,16 @@ public class Publisher {
     @Value("${workflow.rabbitmq.cis_queue_workflow_status}")
     private String cisQueueWorkFlowStatus;
 
+
+
+
+
+    @Value("${workflow.rabbitmq.exchange_seat_check}")
+    private String exchangeSeatCheck;
+
+    @Value("${workflow.rabbitmq.routingkey_seat_check}")
+    private String routingKeySeatCheck;
+
     public void produceMsg(String msg) {
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         logger.info("Send msg = " + msg);
@@ -51,6 +62,10 @@ public class Publisher {
     public void updateCISTrainingRequest(TrainingRequestStatus model) {
         //amqpTemplate.convertAndSend("training_exchange", "training_routingkey_workflow_status", model);
         amqpTemplate.convertAndSend(cisQueueWorkFlowStatus, model);
+    }
+
+    public void checkSeatRequest(UserRequestModel model) {
+        amqpTemplate.convertAndSend(exchangeSeatCheck, routingKeySeatCheck, model);
     }
 
 

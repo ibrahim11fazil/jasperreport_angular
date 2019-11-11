@@ -22,6 +22,7 @@ import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { formatDate } from '@angular/common';
 import { ErrorService } from 'app/service/error/error.service';
+import { SeatCapacityResponse, SeatCapacity } from 'app/models/seat-capacity';
 
 
 
@@ -52,6 +53,7 @@ export class EmpRequestComponent implements OnInit {
   userList: SystemUserResponseArray[] = [];
   selectedItem:TacActivation;
   tacCoordinatorString: String[] = [];
+  tacCoordinatorMobileString: String[] = [];
   public form: FormGroup;
   public formDetails:FormGroup;
   searchText: String;
@@ -59,12 +61,14 @@ export class EmpRequestComponent implements OnInit {
   isHead=false
  language:LanguageUtil
  activationDate:String=""
+ seatCapacityMessage:String=""
   
 
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
     private trainingService: TrainingService,
     private toastr:ToastrService,
+    private userService: SystemUserService,
     private mainComponent:MainComponent,
     private authService:AuthService,
     private errorService:ErrorService)
@@ -83,6 +87,7 @@ export class EmpRequestComponent implements OnInit {
       {
 
       courseName: null,
+      supervisorsCtrl:null , 
     }
 
     )
@@ -93,6 +98,27 @@ export class EmpRequestComponent implements OnInit {
     }
 
     )
+    this.trainingService.getAllInstructor().subscribe(
+      data => {
+
+
+        var instructor = <ITacInstructorList>data
+        this.tacInstructor = instructor.data
+      })
+
+    var userObj = new SystemUser()
+    userObj.roleId = 5
+    debugger;
+    this.userService.listUsersByRoleId(userObj).subscribe(
+      data => {
+        var response = <ISystemUserResponseList>data
+        this.userList = response.data
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
    // this.searchFutureCourses()
     this.getEmployeesUnderSupervisor()
   }
@@ -101,9 +127,12 @@ export class EmpRequestComponent implements OnInit {
      
      var course = new TacCourseMasterSub()
      course.courseName=this.form.value.courseName
-     if (course.courseName!=null) 
+      debugger
+      if(this.isHead==true)
      {
-     this.trainingService.searchFutureCourseWithName(course).subscribe(
+      course.legacyCode=this.form.value.supervisorsCtrl.legacyCode
+     }
+      this.trainingService.searchFutureCourseWithName(course).subscribe(
       data => {
         var response = <ITacCourseManagementList>data
         this.rows = response.data
@@ -113,23 +142,38 @@ export class EmpRequestComponent implements OnInit {
         console.log(error)
         this.errorService.errorResponseHandling(error)
       })
-    }
-    else{
-      this.trainingService.getFutureCourses().subscribe(
-        data => {
-          var response = <ITacCourseManagementList>data
-          this.rows = response.data
-          console.log(this.rows)
-        },
-        error => {
-          console.log(error)
-        this.errorService.errorResponseHandling(error)
-        })
-    }
+      
+    //  if (course.courseName!=null) 
+    //  {
+    //  this.trainingService.searchFutureCourseWithName(course).subscribe(
+    //   data => {
+    //     var response = <ITacCourseManagementList>data
+    //     this.rows = response.data
+    //     console.log(this.rows)
+    //   },
+    //   error => {
+    //     console.log(error)
+    //     this.errorService.errorResponseHandling(error)
+    //   })
+    // }
+    // else{
+    //   this.trainingService.getFutureCourses().subscribe(
+    //     data => {
+    //       var response = <ITacCourseManagementList>data
+    //       this.rows = response.data
+    //       console.log(this.rows)
+    //     },
+    //     error => {
+    //       console.log(error)
+    //     this.errorService.errorResponseHandling(error)
+    //     })
+    // }
 
     }
   
 getActivationData(row) {
+  debugger;
+  this.seatCapacityMessage="";
   this.allOk=false
   this.eventCourseDetail = row;
   console.log(this.eventCourseDetail.course_date);
@@ -147,7 +191,7 @@ getActivationData(row) {
   this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
 
   console.log(this.courseEndDate)
-  let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+  let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
   courseActivation.activationId = row.activation_id
   this.selectedItem = courseActivation;
   debugger
@@ -192,11 +236,26 @@ getActivationData(row) {
           var response = <ResponseLocationDetail>data
           this.trainingRoomDetail = response.data
         })
-      var item = this.userList.filter(item => item.id == this.activation.coordinator)
+      var item = this.userList.filter(item => item.jobId == this.activation.coordinator)
       if (item != null && item.length>0) {
-        this.tacCoordinatorString.push(item[0].username);
+        this.tacCoordinatorString.push(item[0].cNameAr);
+        this.tacCoordinatorMobileString.push(item[0].mobile)
       }
-      this.allOk=true
+      let seatCapacity=new SeatCapacity(this.activation.activationId,0,0)
+      this.trainingService.getSeatCapacity(seatCapacity).subscribe(
+        data => {
+          debugger
+          var response = <SeatCapacityResponse>data
+          if(response.data.seatCapacity==this.activation.seatCapacity)
+          {
+          this.seatCapacityMessage=this.language.seat_full_message;
+          this.allOk=false
+          }
+          else{
+            this.allOk=true
+          }
+        })
+      //this.allOk=true
     },
     error => {
       console.log(error)
@@ -248,15 +307,15 @@ onSubmit(){
   empRequest.courseName= this.activation.courseName
   empRequest.courseActivationId=this.selectedItem.activationId
   if(this.isHead && 
-    this.formDetails.value.supervisorsCtrl!=null &&
-    this.formDetails.value.supervisorsCtrl.legacyCode != this.authService.getLegacyCode()
+    this.form.value.supervisorsCtrl!=null &&
+    this.form.value.supervisorsCtrl.legacyCode != this.authService.getLegacyCode()
     )
   {
     empRequest.workflowType  =  WORKFLOW_2_EMP_REQUEST
-    empRequest.forUserJobId  =  this.formDetails.value.supervisorsCtrl.legacyCode
-    empRequest.forUsercnameAr=this.formDetails.value.supervisorsCtrl.cNameAr
-    empRequest.forUserQid= this.formDetails.value.supervisorsCtrl.qid
-    empRequest.forUserjobTitle=this.formDetails.value.supervisorsCtrl.positionAr
+    empRequest.forUserJobId  =  this.form.value.supervisorsCtrl.legacyCode
+    empRequest.forUsercnameAr=this.form.value.supervisorsCtrl.cNameAr
+    empRequest.forUserQid= this.form.value.supervisorsCtrl.qid
+    empRequest.forUserjobTitle=this.form.value.supervisorsCtrl.positionAr
   }else{
     empRequest.workflowType = WORKFLOW_1_EMP_REQUEST
   }

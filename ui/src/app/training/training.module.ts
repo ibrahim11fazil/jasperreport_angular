@@ -24,7 +24,9 @@ import { MatCardModule,
   MatRadioButton,
   MatRadioModule,
   MatCheckbox,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatAutocompleteModule,
+  MatProgressSpinnerModule
   
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -139,7 +141,9 @@ import { SmartProfileComponent } from './smart-profile/smart-profile.component';
     MatSelectModule,
     MatRadioModule,
     MatCheckboxModule,
-  
+    
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     MatMenuModule,

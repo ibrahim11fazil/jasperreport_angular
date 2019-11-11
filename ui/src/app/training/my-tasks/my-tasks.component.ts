@@ -16,6 +16,7 @@ import { TacActivation } from 'app/models/tac-activation';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { ErrorService } from 'app/service/error/error.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'ms-my-tasks',
   templateUrl: './my-tasks.component.html',
@@ -36,7 +37,8 @@ export class MyTasksComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST;
   durationValueString: String;
   dataStatus = false;
-  displayedColumns: string[] = ['createdOn', 'name',  'workflowType','jobId', 'cnameAr', 'edit'];
+  //displayedColumns: string[] = ['createdOn', 'name',  'workflowType','jobId', 'cnameAr', 'edit'];
+  displayedColumns: string[] = ['createdOn','course', 'jobId', 'cnameAr', 'edit'];
   data : TaskResponseData;
   items: string[] = [];
   historyExecutions:UserTaskResponseHistory[]=[]
@@ -46,6 +48,7 @@ export class MyTasksComponent implements OnInit {
     private toastr: ToastrService,
     private workflowService:WorkflowService,
     private router:Router,
+    public datepipe: DatePipe,
     private trainingSystemService:TrainingSystemServiceService,
     private mainComponent:MainComponent,
     private trainingService: TrainingService,
@@ -94,6 +97,7 @@ export class MyTasksComponent implements OnInit {
             //   item.roles.forEach(r => {  rName = rName + " " +  r.remark})
             //   item.roleName =rName
             // }
+            debugger
             this.ds.push(item);
           })
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI
@@ -149,8 +153,12 @@ export class MyTasksComponent implements OnInit {
   }
 
   reject(){
+    if(this.commentTxt!=""){
     this.saveComment()
     this.approveOrRejectAction("rejected")
+    }else{
+      this.toastr.error("Required Comment")
+    }
   }
  
 
@@ -194,7 +202,7 @@ export class MyTasksComponent implements OnInit {
     }
     this.commentTxt=""
     this.dataStatus=true
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
       courseActivation.activationId = Number( row.userRequestModel.courseActivationId)
       this.trainingService.getActivationById(courseActivation).subscribe(
         data => {

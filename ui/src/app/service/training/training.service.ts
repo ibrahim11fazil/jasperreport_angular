@@ -3,7 +3,9 @@ import { HttpClient } from "@angular/common/http";
 import { TacActivity, ResponseTacActivity } from "../../models/tac-activity";
 import { Observable, of } from 'rxjs';
 
-import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES, SEARCH_JOB_CARD, CREATE_JOB_CARD, GET_JOB_CARD_BY_ID, GET_JOB_CARD_BYID, GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY, GET_EMPLOYEE_DATA_ATTENDANCE, MARK_INITIAL_ATTENDANCE,SEARCH_FUTURE_COURSES, WORK_FLOW_REQUEST, EMP_UNDER_SUPERVSIOR, MARK_ATTENDANCE,GET_COURSE_COMPLETION, CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES, CHECK_THE_REQUEST_IS_VALID, CHECK_THE_REQUEST_IS_OVERRIDING, GET_ACTIVATION_DATES_BY_ACTIVATIONID, GENERATE_CERTIFICATE, LIST_CERTIFICATE, FUTURE_COURSE_FILTER, PREVIOUS_ATTENDANCE, PREVIOUS_ATTENDED_COURSES, ONGOING_COURSES, APPROVED_COURSES, GET_EMPLOYEE_PROFILE, GET_JOB_CARD_USER_PROFILE, GET_USER_COURSE_ATTENDED, LIST_CERTIFICATE_BYJOBID, TASK_COUNT, COORDINATOR_COURSES, INSTRUCTOR_COURSES, GET_ACTIVITY_COURSE } from "../../app.constants";
+
+import { CREATE_ACTIVITY, LIST_ACTIVITY, DELETE_ACTIVITY, CREATE_COURSE, SEARCH_COURSE, DELETE_COURSE, GET_ALL_COURSE_CATEGORIES, GET_ALL_COURSE_TARGET, GET_ALL_ACTIVITIES, GET_ALL_COURSES, ENABLE_COURSE, GET_COURSE_BY_ID, GET_LOCATION, GET_PREREQUISITES, LINK_COURSE, SAVE_INSTRUCTOR, GET_TRAINING_ROOM, UPLOAD_FILE, GET_INSTRUCTORS, GET_MAIN_COURSES, GET_CIS_USERS, GET_ALL_SUBJECTS, GET_ALL_QUALIFICATIONS, GET_INSTRUCTORS_BY_NAME, GET_INSTRUCTOR_BY_ID, SAVE_ACTIVATION, GET_ALL_DATES_FOR_COURSES_BY_ACTIVITY_ID, DOWNLOAD_FILE, GET_ALL_COURSE_ACTIVATION, GET_ALL_CIS_COURSES_I_REQUESTED, GET_COURSE_DATE_DETAIL, GET_COURSE_ROOM_DETAIL, GET_ACTIVATIONS_BY_NAME, GET_ACTIVATIONS_BY_ID, GET_CURRENT_COURSES, GET_PREVIOUS_COURSES, GET_FUTURE_COURSES, SEARCH_JOB_CARD, CREATE_JOB_CARD, GET_JOB_CARD_BY_ID, GET_JOB_CARD_BYID, GET_ALL_COURSES_WITH_HOUR_AND_CATEGORY, GET_EMPLOYEE_DATA_ATTENDANCE, MARK_INITIAL_ATTENDANCE,SEARCH_FUTURE_COURSES, WORK_FLOW_REQUEST, EMP_UNDER_SUPERVSIOR, MARK_ATTENDANCE,GET_COURSE_COMPLETION, CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES, CHECK_THE_REQUEST_IS_VALID, CHECK_THE_REQUEST_IS_OVERRIDING, GET_ACTIVATION_DATES_BY_ACTIVATIONID, GENERATE_CERTIFICATE, LIST_CERTIFICATE, FUTURE_COURSE_FILTER, PREVIOUS_ATTENDANCE, PREVIOUS_ATTENDED_COURSES, ONGOING_COURSES, APPROVED_COURSES, GET_EMPLOYEE_PROFILE, GET_JOB_CARD_USER_PROFILE, GET_USER_COURSE_ATTENDED, LIST_CERTIFICATE_BYJOBID, TASK_COUNT, COORDINATOR_COURSES, INSTRUCTOR_COURSES, GET_ACTIVITY_COURSE, GET_SEAT_CAPACITY, GET_EMPLOYEE_BASIC_INFO } from "../../app.constants";
+
 import { Location,ResponseLocation, ResponseLocationDetail } from 'app/models/location';
 
 import { BehaviorSubject } from 'rxjs';
@@ -23,6 +25,7 @@ import { FindAttendance } from 'app/models/find-attendance';
 import { ActivationDateRequest } from 'app/models/course-request';
 import { CertificateRequest, CertificateRequestOnlyJobId } from 'app/models/certificate-request';
 import { SmartProfileUserRequestModel } from 'app/models/smart-profile-model';
+import { SeatCapacity } from 'app/models/seat-capacity';
 
 
 @Injectable({
@@ -108,6 +111,7 @@ export class TrainingService {
 //   return this.httpClient.get(GET_MAIN_COURSES);
 // }
   saveCourseActivation(activation:TacActivation): Observable<Object> {
+    debugger
   return this.httpClient.post(SAVE_ACTIVATION,activation);
   }
   
@@ -179,6 +183,9 @@ export class TrainingService {
   getCourseRoomDetail(location:Location): Observable<Object> {
     return this.httpClient.post(GET_COURSE_ROOM_DETAIL, location);
   }
+  getSeatCapacity(seatCapacity:SeatCapacity): Observable<Object> {
+    return this.httpClient.post(GET_SEAT_CAPACITY, seatCapacity);
+  }
 
   getAllActivationsByName(course:SearchCourse): Observable<Object> {
     return this.httpClient.post(GET_ACTIVATIONS_BY_NAME,course);
@@ -200,6 +207,7 @@ export class TrainingService {
   }
 
   searchJobCard(search:JobCardDataSearch):Observable<Object> {
+    debugger
     return this.httpClient.post(SEARCH_JOB_CARD,search);
   }
 
@@ -299,6 +307,16 @@ export class TrainingService {
     return this.httpClient.post(GET_EMPLOYEE_PROFILE,input);
   }
 
+  getEmployeeSmartProfileBasicInfo(input:SmartProfileUserRequestModel){
+    return this.httpClient.post(GET_EMPLOYEE_BASIC_INFO,input);
+  }
+
+  // getEmployeeSmartProfileBasicInfoAjax(input:String):{
+  //   var item = new  SmartProfileUserRequestModel()
+  //   item.empName=input
+  //   return this.httpClient.post(GET_EMPLOYEE_BASIC_INFO,item);
+  // }
+
   getEmployeeJobCardForSmartProfile(input:SmartProfileUserRequestModel){
     return this.httpClient.post(GET_JOB_CARD_USER_PROFILE,input);
   }
@@ -306,6 +324,8 @@ export class TrainingService {
   getEmployeeCourseAttendedForSmartProfile(input:SmartProfileUserRequestModel){
     return this.httpClient.post(GET_USER_COURSE_ATTENDED,input);
   }
+
+
 
   getCoordinatorCourses():Observable<Object>{
     return this.httpClient.post(COORDINATOR_COURSES,null);

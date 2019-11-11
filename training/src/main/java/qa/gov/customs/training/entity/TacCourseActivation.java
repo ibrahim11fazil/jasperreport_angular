@@ -42,6 +42,7 @@ public class TacCourseActivation implements java.io.Serializable {
     private String userModified;
     private Date dateModified;
     private BigDecimal status;
+    private BigDecimal seatCapacity;
     private Set<TacCourseAttendees> tacCourseAttendeeses = new HashSet<TacCourseAttendees>(0);
     //private Set<TacCourseInstructor> tacCourseInstructors = new HashSet<TacCourseInstructor>(0);
     private Set<TacInstructorMaster> tacCourseInstructors = new HashSet<TacInstructorMaster>(0);
@@ -62,7 +63,7 @@ public class TacCourseActivation implements java.io.Serializable {
                                BigDecimal costAirticket, BigDecimal costHospitality, BigDecimal costGift, BigDecimal costVenue,
                                BigDecimal costBonus, BigDecimal costTranslation, String userCreated, Date dateCreated, String userModified,
                                Date dateModified, BigDecimal status, Set<TacCourseAttendees> tacCourseAttendeeses,
-                               Set<TacInstructorMaster> tacCourseInstructors, BigDecimal cordinatorJobcode) {
+                               Set<TacInstructorMaster> tacCourseInstructors, BigDecimal cordinatorJobcode,BigDecimal seatCapacity) {
         this.activationId = activationId;
 
         this.tacCourseMaster = tacCourseMaster;
@@ -88,6 +89,7 @@ public class TacCourseActivation implements java.io.Serializable {
         this.tacCourseAttendeeses = tacCourseAttendeeses;
         this.tacCourseInstructors = tacCourseInstructors;
         this.cordinatorJobcode = cordinatorJobcode;
+        this.seatCapacity=seatCapacity;
     }
 
     @Id
@@ -322,5 +324,12 @@ public class TacCourseActivation implements java.io.Serializable {
         this.cordinatorJobcode = cordinatorJobcode;
     }
 
+    @Column(name = "SEAT_CAPACITY", precision = 22, scale = 0)
+    public BigDecimal getSeatCapacity() {
+        return seatCapacity;
+    }
 
+    public void setSeatCapacity(BigDecimal seatCapacity) {
+        this.seatCapacity = seatCapacity;
+    }
 }

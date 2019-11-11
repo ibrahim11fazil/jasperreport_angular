@@ -1,12 +1,18 @@
 package qa.gov.customs.workflowcamuda.config;
 
+import org.camunda.bpm.engine.ProcessEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.controller.WorkFlowController;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
+import org.springframework.transaction.annotation.Transactional;
+import qa.gov.customs.workflowcamuda.service.workflow.WorkflowConstants;
 
 @Component
 public class Subscriber {
@@ -15,6 +21,17 @@ public class Subscriber {
     private static final Logger logger = LoggerFactory.getLogger(Subscriber.class);
     @Autowired
     WorkFlowController workFlowController;
+
+
+    @Autowired
+    private ProcessEngine camunda;
+
+    public Subscriber() {
+    }
+
+    public Subscriber(ProcessEngine camunda) {
+        this.camunda = camunda;
+    }
 
     @RabbitListener(queues = "${workflow.rabbitmq.queue}")
     public void receivedMessage(String msg) {
@@ -31,6 +48,29 @@ public class Subscriber {
             logger.info("Failed ###");
         }
     }
+
+
+
+
+    @RabbitListener(queues = "${workflow.rabbitmq.seat_check_response_queue}")
+    @Transactional
+    public void seatCheckResponse(UserRequestModel request) {
+        if(request.getTrainingRequestId()!=null){
+            seatCheckResponseEvent(request);
+        }
+        else{
+            logger.error("getTrainingRequestId Not found: ");
+        }
+    }
+
+    public void seatCheckResponseEvent(UserRequestModel requestModel) {
+        camunda.getRuntimeService().createMessageCorrelation(WorkflowConstants.MSG_NAME_SeatsAvailable) //
+                .processInstanceVariableEquals(WorkflowConstants.WORKFLOW_REQUEST_UUID, requestModel.getTrainingRequestId()) //
+                .setVariable(WorkflowConstants.MSG_VARIABLE_SeatsAvailable, requestModel.getActiveFlag()) //
+                .correlateWithResult();
+    }
+
+
 
 
 //    @RabbitListener(queues="${workflow.rabbitmq.queue_user_request}")

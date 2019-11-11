@@ -300,7 +300,7 @@ export class CourseManagementComponent implements OnInit {
     //   this.courseCompletion = true;
     // }
     console.log(this.courseEndDate)
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
     courseActivation.activationId = row.activation_id
     this.trainingService.getActivationById(courseActivation).subscribe(
       data => {
@@ -345,9 +345,9 @@ export class CourseManagementComponent implements OnInit {
             this.trainingRoomDetail = response.data
           })
 
-        var item = this.userList.filter(item => item.id == this.activation.coordinator)
+        var item = this.userList.filter(item => item.jobId == this.activation.coordinator)
         if (item != null && item.length > 0) {
-          this.tacCoordinatorString.push(item[0].username);
+          this.tacCoordinatorString.push(item[0].cNameAr);
 
         }
 
@@ -432,7 +432,7 @@ export class CourseManagementComponent implements OnInit {
         if (this.empRows == null || this.empRows.length == 0) {
          
          
-          let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+          let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
           courseActivation.activationId = this.eventCourseDetail.activation_id;
           this.trainingService.getEmpData(courseActivation).subscribe(
             data => {
@@ -495,7 +495,7 @@ export class CourseManagementComponent implements OnInit {
     debugger;
     this.displayAttendance = true;
     this.modalData = { event, action };
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
     courseActivation.activationId = this.eventCourseDetail.activation_id;
     this.trainingService.getEmpData(courseActivation).subscribe(
       data => {
@@ -618,7 +618,7 @@ export class CourseManagementComponent implements OnInit {
     const monthEnd = Number(strENd[0]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
 
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
     courseActivation.activationId = row.activation_id
     this.trainingService.getActivationById(courseActivation).subscribe(
       data => {

@@ -5,15 +5,45 @@
               <h4>{{language.title_smartProfile}}</h4>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-          <mat-form-field class="full-wid mrgn-b-lg">
-             <input matInput placeholder={{language.jobId}}  formControlName="jobId" required >
+     
+          
+          <div fxLayout=" row wrap" fxLayoutAlign="space-between center"> 
+               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"> 
+         <mat-form-field class="full-wid mrgn-b-md">
+             <input matInput placeholder={{language.jobId}}  formControlName="jobId"  >
           </mat-form-field>  
+          </div>
+          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+          <mat-form-field class="full-wid mrgn-b-md">
+               <input matInput placeholder={{language.qid}}  formControlName="qid"  >
+          </mat-form-field>  
+          </div>
+          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+          <mat-form-field class="full-wid mrgn-b-md">
+               <input matInput placeholder={{language.employeeName}}  formControlName="empName" [matAutocomplete]="auto"  >
+          </mat-form-field>  
+          </div>
+ 
+          
+             <!-- <span>Your choice is: {{form.get('empName').value | json}}</span> -->
+           
+             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnUser"  (optionSelected)='displayFn($event.option.value)' >
+               <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+               <ng-container *ngIf="!isLoading">
+                 <mat-option *ngFor="let user of filteredUsers" [value]="user">
+                   <span>{{ user.cname_AR }}</span>
+                   <small> |  {{user.legacycode}}</small>
+                 </mat-option>
+               </ng-container>
+             </mat-autocomplete>
+
+          </div>
+
           <div fxLayout="row" fxLayoutAlign="start">
               <button mat-raised-button color="primary"   type="submit">{{language.btn_search}}
           </button> 
           </div>
-       </div>
+       
 </form>
 </mat-card></div></div></div>
 
@@ -82,8 +112,10 @@
                 <mat-list>
                    <mat-list-item *ngFor="let item of jobCardProfile">
                         <div class="card-title mrgn-b-md"> 
-                           {{item.category}} - Hours: {{item.noOfHours}}  
+                           {{item.category}} - Hours: {{item.noOfHours}}  -  Course: {{item.courseName}}
                         </div>
+
+
                    </mat-list-item>
                 </mat-list>
 					</div>

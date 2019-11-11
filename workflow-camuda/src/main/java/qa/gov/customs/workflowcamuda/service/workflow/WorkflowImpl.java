@@ -13,6 +13,7 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
+import org.camunda.bpm.engine.variable.Variables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,9 @@ import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static qa.gov.customs.workflowcamuda.service.workflow.WorkflowConstants.*;
 import static qa.gov.customs.workflowcamuda.utils.MessageUtil.*;
 import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 
@@ -41,8 +40,9 @@ import static qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants.*;
 @Qualifier("workflowImpl")
 public class WorkflowImpl {
 
+
+
     private static final Logger logger = LoggerFactory.getLogger(WorkflowImpl.class);
-  //  private final EmployeeProxyService userProxyService;
     private final EmployeeProxyOverridenController userProxyService;
     private final WorkflowProxyOverridenController userSSOProxy;
     private final NotificationProxyService notificationProxyService;
@@ -76,7 +76,10 @@ public class WorkflowImpl {
     public boolean startProcessWFType1(UserRequestModel model, String type) {
         try {
             model.setCreatedOn(new Date().toString());
-            Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", model);
+           // Map<String, Object> vars = Collections.<String, Object>singletonMap(WORKFLOW_APPLICANT_VARIABLE, model);
+           final  Map<String, Object> vars = new HashMap<>();
+           vars.put(WORKFLOW_APPLICANT_VARIABLE, model);
+           vars.put(WORKFLOW_REQUEST_UUID,model.getTrainingRequestId());
             ProcessInstance processInstance = null;
             ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
             if (type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)) {
@@ -87,7 +90,10 @@ public class WorkflowImpl {
                         //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
                         .versionTag(TYPE_1_PROCESS_VERSION) // This should be changed for new versions
                         .singleResult();
-                processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(), vars);
+               processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(), vars);
+
+//                processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(),
+//                        Variables.putValue(WORKFLOW_APPLICANT_VARIABLE,model).put(WORKFLOW_REQUEST_UUID,model.getTrainingRequestId()));
 
                 //processInstance = runtimeService.startProcessInstanceById(TYPE_1_PROCESS,vars);
 
@@ -134,6 +140,10 @@ public class WorkflowImpl {
 
     public List<Task> getTasks(String assignee) {
         return taskService.createTaskQuery().taskAssignee(assignee).list();
+    }
+
+    public List<Task> getTaskById(String taskId) {
+        return taskService.createTaskQuery().taskId(taskId).list();
     }
 
     public List<Task> getTasksPagenated(String assignee, int firstResult, int maxResult) {
@@ -183,6 +193,7 @@ public class WorkflowImpl {
                 taskService.createComment(taskId, processInstanceId, message);
             logger.info("Task ### " + taskId);
             taskService.complete(taskId, null);
+            //TODO get the task
             return true;
         } catch (Exception e) {
             logger.error(e.toString());
@@ -190,6 +201,22 @@ public class WorkflowImpl {
             return false;
         }
 
+    }
+
+
+    public String getTaskMessages(String taskId){
+        List<Task>  tasks =   getTaskById(taskId);
+        if(taskId!=null && tasks.size()>0){
+            for (Task item : tasks) {
+                if (item.getName().equals("Head Of Training Approval")) {
+                    return MESSAGE_TASK_HEAD_APPROVED;
+                }
+            }
+
+        }else {
+            return null;
+        }
+         return null;
     }
 
     public List<HistoricDetail> getUserTaskByProcessId(String processId) {

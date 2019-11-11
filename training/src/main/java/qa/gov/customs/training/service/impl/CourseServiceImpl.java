@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.repository.*;
+import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.CourseService;
 
 import javax.transaction.Transactional;
@@ -58,6 +59,8 @@ public class CourseServiceImpl implements CourseService {
     CourseAttendeesRepository courseAttendeesRepository;
     @Autowired
     ActivationRepository activationRepository;
+    @Autowired
+    EmployeeRequestRepository requestRepository;
 
     @Override
     public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -241,6 +244,14 @@ public class CourseServiceImpl implements CourseService {
     public TacCourseMaster findById(BigDecimal id) {
         TacCourseMaster courses = null;
         courses = courseRepository.findByCourseId(id);
+        return courses;
+    }
+
+    @Override
+    public List<TacCourseMaster> findByCourseName(String courseName)
+    {
+        List<TacCourseMaster> courses = null;
+        courses = courseRepository.findByCourseName(courseName);
         return courses;
     }
 
@@ -541,14 +552,45 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseManagement> searchAllFutureCourses(String courseName) {
+    public List<CourseManagement> searchAllFutureCourses(TacCourseMaster courseMaster, CustomPrincipal principal) {
         try {
             int page = 0;
+            String LegacyCode="";
+            String courseName="";
+            if(courseMaster.getLegacyCode()!=null) {
+                 LegacyCode = courseMaster.getLegacyCode();
+            }
+            if(courseMaster.getCourseName()!=null) {
+                 courseName = courseMaster.getCourseName();
+            }
+            List<Object[] >objects=null;
             int limit = 20;
             Pageable pageable =
                     PageRequest.of(
                             page, limit, Sort.by("course_Id"));
-            List<Object[]> objects = courseRepository.searchAllFutureCourses(courseName, pageable);
+            if((courseMaster.getLegacyCode()==null || LegacyCode.equalsIgnoreCase("")) &&
+                    (courseMaster.getCourseName()==null || courseName.equalsIgnoreCase("")))
+            {
+                objects = courseRepository.searchAllFutureCourses(principal.getJid(), pageable);
+            }
+            else if((courseMaster.getLegacyCode()!=null || !LegacyCode.equalsIgnoreCase("")) &&
+                    (courseMaster.getCourseName()!=null || !courseName.equalsIgnoreCase("")))
+            {
+                objects = courseRepository.searchAllFutureCoursesWithCourseNameAndJid(courseMaster.getCourseName(),courseMaster.getLegacyCode(), pageable);
+            }
+            else if((courseMaster.getLegacyCode()!=null || !LegacyCode.equalsIgnoreCase("")) &&
+                    (courseMaster.getCourseName()==null || courseName.equalsIgnoreCase("")))
+            {
+              objects = courseRepository.searchAllFutureCourses(courseMaster.getLegacyCode(), pageable);
+            }
+
+
+            else if((courseMaster.getLegacyCode()==null || LegacyCode.equalsIgnoreCase("")) &&
+                    (courseMaster.getCourseName()!=null || !courseName.equalsIgnoreCase("")))
+            {
+                objects = courseRepository.searchAllFutureCoursesWithCourseNameAndJid(courseMaster.getCourseName(),principal.getJid(), pageable);
+            }
+
             List<CourseManagement> courseList = new ArrayList<>();
             for (Object[] o : objects) {
                 CourseManagement course = new CourseManagement();
@@ -705,6 +747,21 @@ public class CourseServiceImpl implements CourseService {
     public void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId)
     {
         courseRepository.updateCourseLinkTable(activityId,courseId);
+    }
+    @Override
+
+    public SeatCapacity getSeatCapacity(SeatCapacity capacity)
+    {  SeatCapacity seatCapacity=new SeatCapacity();
+        BigDecimal seatCount =requestRepository.getSeatCapacity(capacity.getActivationId());
+//        for (Object[] o : object) {
+//
+//            seatCapacity.setActivationId((BigDecimal)o[0]);
+//            seatCapacity.setCourseId((BigDecimal)o[1]);
+//            seatCapacity.setSeatCapacity((BigDecimal)o[3]);
+//        }
+        seatCapacity.setActivationId(capacity.getActivationId());
+        seatCapacity.setSeatCapacity(seatCount);
+        return seatCapacity;
     }
 
 

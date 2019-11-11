@@ -56,7 +56,8 @@ public class JobCardController {
     @PostMapping("/list-job-card-by-job")
     public ResponseType listJobCards(@RequestBody TacJobcard jobcard) {
         List<TacJobcard> jobcardList = null;
-        jobcardList = jobcardService.listJobcards(jobcard.getJob(), jobcard.getStart(), jobcard.getLimit());
+
+        jobcardList = jobcardService.listJobcards(jobcard, jobcard.getStart(), jobcard.getLimit());
 
         if (jobcardList != null) {
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, jobcardList);

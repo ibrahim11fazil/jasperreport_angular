@@ -17,6 +17,8 @@ import { ActivationData, ResponseActivationData } from 'app/models/activation-da
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { ErrorService } from 'app/service/error/error.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 
 @Component({
@@ -47,6 +49,7 @@ export class ActivateCourseComponent implements OnInit {
   editable: true;
   language:LanguageUtil;
   public form: FormGroup;
+  filteredOptions: Observable<Course[]>;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private userService: SystemUserService,
@@ -73,7 +76,8 @@ export class ActivateCourseComponent implements OnInit {
       costBonus: 0,
       costTranslation: 0,
       tacCourseInstructors: [],
-      status: 0
+      status: 0,
+      seatCapacity:0
     }
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
   }
@@ -85,17 +89,50 @@ export class ActivateCourseComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitleService.setTitle("ACTIVATE COURSE")
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
     this.courseActivationDetails = courseActivation
     this.formInit()
     this.formSetup()
     this.loadDataFromParam()
+ this.filteredOptions = this.form
+    .get('courseSelect').valueChanges
+      .pipe(
+        startWith(null),
+        map(value => this._filter(value))
+      )
+  
+    
+  }
+  private _filter(value: string): Course[] {
+debugger
+     if(value==null || value=="")
+    {
+      var arrayCourse=  this.courseList.filter(item => item.courseName!=null)
+      return arrayCourse
+    }
+
+    else{
+    const filterValue = value.toLowerCase();
+    if(this.courseList!=null && this.courseList.length>0){
+    var arrayCourse=  this.courseList.filter(item => item.courseName!=null)
+    var courseSelectArray =arrayCourse.filter(item => item.courseName.toLowerCase().includes(filterValue));
+    return courseSelectArray
+    }
+    
+    else{
+      return []
+    }
+    }    
+  }
+
+   displayFnCourse(course: Course) {
+    if (course) { return course.courseName; }
   }
 
   formInit() {
     //var dates= this.fb.array([])
     this.form = this.fb.group({
-      courseSelect: [null, Validators.compose([Validators.required])],
+      courseSelect: [null],
       locationSelect: [null, Validators.compose([Validators.required])],
       dateSelect: [null, Validators.compose([Validators.required])],
       roomSelect: [null, Validators.compose([Validators.required])],
@@ -108,11 +145,11 @@ export class ActivateCourseComponent implements OnInit {
       giftCost: [this.tacCourseActivation.costGift],
       reservationCost: [this.tacCourseActivation.costVenue],
       bonusCost: [this.tacCourseActivation.costBonus],
+      seatCapacity:[this.tacCourseActivation.seatCapacity],
       translationCost: [this.tacCourseActivation.costTranslation],
       belongsSelect: [null],
       userSelect: [null, Validators.compose([Validators.required])],
     });
-
   }
 
   formSetup() {
@@ -179,8 +216,6 @@ export class ActivateCourseComponent implements OnInit {
         this.errorService.errorResponseHandling(error)
       }
     )
-
-
   }
 
   patch() {
@@ -221,10 +256,6 @@ export class ActivateCourseComponent implements OnInit {
       )
     }
 
-    
-
-  
-
   }
 
   patchCourse()
@@ -258,7 +289,7 @@ export class ActivateCourseComponent implements OnInit {
     this.form.reset();
     let courseMaster = null
    debugger
-      courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+      courseMaster = new TacCourseMaster(course.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     
 
     //this.courseByIdList(courseMaster);
@@ -337,9 +368,10 @@ export class ActivateCourseComponent implements OnInit {
   }
 
   activateCourse() {
+    debugger
     //if(this.form.valid){
     //console.log(this.form.value.courseSelect.courseId);
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
     var courseMaster = new TacCourseMaster(0, null, "", 0, "", 0, 0, null, null, null,null, 0, 0, null, null);
 
     courseMaster.courseId = this.form.value.courseSelect.courseId;
@@ -362,7 +394,6 @@ export class ActivateCourseComponent implements OnInit {
     this.tacCourseActivation.tacCourseInstructors = instructors;
 
     courseActivation.tacCourseInstructors = this.tacCourseActivation.tacCourseInstructors;
-    courseActivation.costInstructor = this.form.value.instructorCost;
     courseActivation.costInstructor = this.form.value.instructorCost
     courseActivation.costFood = this.form.value.buffetCost
     courseActivation.costTransport = this.form.value.transportCost
@@ -373,7 +404,8 @@ export class ActivateCourseComponent implements OnInit {
     courseActivation.costBonus = this.form.value.bonusCost
     courseActivation.costTranslation = this.form.value.translationCost
     courseActivation.coordinatorId=this.form.value.userSelect.jobId
-
+    courseActivation.seatCapacity=Number(this.form.value.seatCapacity)
+    debugger
     this.trainingService.saveCourseActivation(courseActivation).subscribe(
       data => this.successSaveActivation(data),
       error => {
@@ -404,7 +436,7 @@ export class ActivateCourseComponent implements OnInit {
       }
     });
     if (this.param != '' && this.param != undefined) {
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0)
+      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
       courseActivation.activationId = this.param
      
       this.trainingService.getActivationById(courseActivation).subscribe(
@@ -417,7 +449,7 @@ export class ActivateCourseComponent implements OnInit {
   
           let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, this.activationData.costInstructor, this.activationData.costFood,this.activationData.costTransport
             , this.activationData.costAirticket, this.activationData.costHospitality, this.activationData.costGift, 
-            this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0)
+            this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0,this.activationData.seatCapacity)
             this.tacCourseActivation=courseActivation;
 
             let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
@@ -447,7 +479,7 @@ export class ActivateCourseComponent implements OnInit {
     this.activationData = data.data
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, this.activationData.costInstructor, this.activationData.costFood,this.activationData.costTransport
       , this.activationData.costAirticket, this.activationData.costHospitality, this.activationData.costGift, 
-      this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0)
+      this.activationData.costVenue, this.activationData.costBonus, this.activationData.costTranslation, null, 0,this.activationData.seatCapacity)
       this.tacCourseActivation=courseActivation;
       let courseMaster = new TacCourseMaster(this.activationData.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
       this.trainingService.getCourseById(courseMaster).subscribe(
@@ -515,6 +547,13 @@ export class ActivateCourseComponent implements OnInit {
     )
     
   }
+
+
+  numericOnly(event): boolean {    
+    let patt = /^([0-9])$/;
+    let result = patt.test(event.key);
+    return result;
+}
  
 
 }

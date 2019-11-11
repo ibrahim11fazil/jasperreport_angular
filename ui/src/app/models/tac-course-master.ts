@@ -62,6 +62,7 @@ export class TacCourseMaster {
 
     export class TacCourseMasterSub{
         public courseName?:String
+        public legacyCode?:String
     }
     
     

@@ -40,6 +40,8 @@ export interface SystemUserResponseArray{
     id:Number
     enabled?:Number
     username?:String
+    cNameAr?:String
+    mobile?:String
     fullName?:String
     roles?:UserRole[]
     roleName?:String

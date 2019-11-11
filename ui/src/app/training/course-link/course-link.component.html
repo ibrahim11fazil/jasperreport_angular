@@ -13,14 +13,25 @@
                   <form [formGroup]="form" (ngSubmit)="linkCourseWithActivity()">
                         <div fxLayout="column">
                               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                                    <mat-form-field class="full-wid mrgn-b-lg">
+
+                                          <mat-form-field class="full-wid mrgn-b-lg">
+                                                      <input type="text" matInput formControlName="courseSelect" [matAutocomplete]="auto">
+                                                    </mat-form-field>
+                                                   
+                                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnCourse" (optionSelected)='getCourseDetails($event.option.value)'>
+                                                      <!-- <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option> -->
+                                                      <mat-option *ngFor="let item of filteredOptions | async " [value]="item">
+                                                                  {{item.courseName!=null?item.courseName:""}}
+                                                            </mat-option>
+                                                    </mat-autocomplete>
+                                    <!-- <mat-form-field class="full-wid mrgn-b-lg">
                                           <mat-select (selectionChange)="getCourseDetails($event)" placeholder={{language.courses}}
                                                 matInput formControlName="courseSelect">
                                                 <mat-option *ngFor="let item of courseList" [value]="item">
                                                       {{item.courseName}}
                                                 </mat-option>
                                           </mat-select>
-                                    </mat-form-field>
+                                    </mat-form-field> -->
                               </div>
                               <div *ngIf="displayCourseDetails" fxLayout="row wrap" fxLayoutAlign="space-between center"
                                     class="notEditableField">
