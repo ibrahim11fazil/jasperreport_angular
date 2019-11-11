@@ -132,7 +132,12 @@ debugger
        searchString.job=""
 
     }
-    
+    if(this.searchValue==4)
+    {
+      searchString.jobTitle = ""
+       searchString.jobGrade=""
+       searchString.job=""
+    }
     searchString.limit = PAGE_LIMIT
     searchString.start = this.page
     this.trainingService.searchJobCard(searchString).subscribe(
@@ -202,6 +207,13 @@ debugger
       this.displaySearchByJobGrade=false;
       this.displaySearchByJobTitle=true;
       this.searchValue=3
+    }
+    else if(search.value.value==3)
+    {
+      this.displaySearchByJobCardNo=false;
+      this.displaySearchByJobGrade=false;
+      this.displaySearchByJobTitle=false;
+      this.searchValue=4
     }
   }
 

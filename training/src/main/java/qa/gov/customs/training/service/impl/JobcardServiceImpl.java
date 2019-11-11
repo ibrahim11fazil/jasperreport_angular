@@ -94,7 +94,7 @@ public class JobcardServiceImpl implements JobcardService {
             Page<TacJobcard> pages = jobcardRepository.findAll(pageable);
             pages.forEach(item -> {
                 List<Object> jobTitle=jobcardRepository.findJobTitleForJobCard(item.getJobTitle());
-                if(jobTitle!=null) {
+                if(jobTitle.size()>0) {
                     item.setJobTitle(jobTitle.get(0).toString());
                 }
                 List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(item.getJobcardNo());

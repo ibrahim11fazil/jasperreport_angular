@@ -34,6 +34,7 @@ export const SEARCH_BY=
     { value: 1, viewValue: 'JOB CARD NO' },
     { value: 2, viewValue: 'JOB GRADE' },
     { value: 3, viewValue: 'JOB TITLE' },
+    { value: 4, viewValue: 'SHOW ALL JOBCARD' },
 ];
 export const COURSE_FILTER = [
     { value: 1, viewValue: 'NEXT YEAR' },
