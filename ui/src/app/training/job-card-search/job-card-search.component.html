@@ -22,7 +22,7 @@
                     </mat-option>
                  </mat-select> -->
  
-                        <mat-select (selectionChange)="getSearchField($event)" placeholder={{language.search}} matInput formControlName="searchValueControl"
+                        <mat-select (selectionChange)="getSearchField($event)" placeholder={{language.jobNumber}} matInput formControlName="searchValueControl"
                            >
                            <mat-option *ngFor="let item of searchOption" [value]="item">
                               {{item.viewValue}}
