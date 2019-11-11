@@ -17,6 +17,8 @@ import { ActivationData, ResponseActivationData } from 'app/models/activation-da
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { ErrorService } from 'app/service/error/error.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 
 @Component({
@@ -47,6 +49,7 @@ export class ActivateCourseComponent implements OnInit {
   editable: true;
   language:LanguageUtil;
   public form: FormGroup;
+  filteredOptions: Observable<Course[]>;
   constructor(private fb: FormBuilder,
     private trainingService: TrainingService,
     private userService: SystemUserService,
@@ -91,12 +94,45 @@ export class ActivateCourseComponent implements OnInit {
     this.formInit()
     this.formSetup()
     this.loadDataFromParam()
+ this.filteredOptions = this.form
+    .get('courseSelect').valueChanges
+      .pipe(
+        startWith(null),
+        map(value => this._filter(value))
+      )
+  
+    
+  }
+  private _filter(value: string): Course[] {
+debugger
+     if(value==null || value=="")
+    {
+      var arrayCourse=  this.courseList.filter(item => item.courseName!=null)
+      return arrayCourse
+    }
+
+    else{
+    const filterValue = value.toLowerCase();
+    if(this.courseList!=null && this.courseList.length>0){
+    var arrayCourse=  this.courseList.filter(item => item.courseName!=null)
+    var courseSelectArray =arrayCourse.filter(item => item.courseName.toLowerCase().includes(filterValue));
+    return courseSelectArray
+    }
+    
+    else{
+      return []
+    }
+    }    
+  }
+
+   displayFnCourse(course: Course) {
+    if (course) { return course.courseName; }
   }
 
   formInit() {
     //var dates= this.fb.array([])
     this.form = this.fb.group({
-      courseSelect: [null, Validators.compose([Validators.required])],
+      courseSelect: [null],
       locationSelect: [null, Validators.compose([Validators.required])],
       dateSelect: [null, Validators.compose([Validators.required])],
       roomSelect: [null, Validators.compose([Validators.required])],
@@ -114,7 +150,6 @@ export class ActivateCourseComponent implements OnInit {
       belongsSelect: [null],
       userSelect: [null, Validators.compose([Validators.required])],
     });
-
   }
 
   formSetup() {
@@ -181,8 +216,6 @@ export class ActivateCourseComponent implements OnInit {
         this.errorService.errorResponseHandling(error)
       }
     )
-
-
   }
 
   patch() {
@@ -223,10 +256,6 @@ export class ActivateCourseComponent implements OnInit {
       )
     }
 
-    
-
-  
-
   }
 
   patchCourse()
@@ -260,7 +289,7 @@ export class ActivateCourseComponent implements OnInit {
     this.form.reset();
     let courseMaster = null
    debugger
-      courseMaster = new TacCourseMaster(course.value.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
+      courseMaster = new TacCourseMaster(course.courseId, null, "", 0, null, 0, 0, null, null, null, null, 0, 0, null, null)
     
 
     //this.courseByIdList(courseMaster);

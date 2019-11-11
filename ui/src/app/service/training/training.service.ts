@@ -207,6 +207,7 @@ export class TrainingService {
   }
 
   searchJobCard(search:JobCardDataSearch):Observable<Object> {
+    debugger
     return this.httpClient.post(SEARCH_JOB_CARD,search);
   }
 

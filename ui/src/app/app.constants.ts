@@ -29,6 +29,12 @@ export const DURATION_FLAG_LIST = [
     { value: 3, viewValue: 'DAY' },
     // { value: 4, viewValue: 'HOUR' }
 ];
+export const SEARCH_BY=
+[
+    { value: 1, viewValue: 'JOB CARD NO' },
+    { value: 2, viewValue: 'JOB GRADE' },
+    { value: 3, viewValue: 'JOB TITLE' },
+];
 export const COURSE_FILTER = [
     { value: 1, viewValue: 'NEXT YEAR' },
     { value: 2, viewValue: 'NEXT MONTH' },

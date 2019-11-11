@@ -84,27 +84,75 @@ public class JobcardServiceImpl implements JobcardService {
     }
 
     @Override
-    public List<TacJobcard> listJobcards(String job, int page, int limit) {
+    public List<TacJobcard> listJobcards(TacJobcard jobcard, int page, int limit) {
         List<TacJobcard> jobcards = new ArrayList<>();
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("job"));
-        if (job == null || job.equals("")) {
+        if ((jobcard.getJob()==null || jobcard.getJob()=="") && (jobcard.getJobGrade()==null || jobcard.getJobGrade()=="")
+                && (jobcard.getJobTitle()==null || jobcard.getJobTitle()=="")) {
             Page<TacJobcard> pages = jobcardRepository.findAll(pageable);
             pages.forEach(item -> {
+                List<Object> jobTitle=jobcardRepository.findJobTitleForJobCard(item.getJobTitle());
+                if(jobTitle!=null) {
+                    item.setJobTitle(jobTitle.get(0).toString());
+                }
                 List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(item.getJobcardNo());
                 item.setJobCardCourseLinkModelList(list);
                 jobcards.add(item);
             });
             return jobcards;
-        } else {
-            List<TacJobcard> jobcardsSelected = jobcardRepository.findByJob(job, pageable);
+        }
+
+        else if((jobcard.getJob()!=null && jobcard.getJob()!="") && (jobcard.getJobGrade()==null || jobcard.getJobGrade()=="")
+                && (jobcard.getJobTitle()==null || jobcard.getJobTitle()=="")){
+            List<TacJobcard> jobcardsSelected = jobcardRepository.findByJob(jobcard.getJob(), pageable);
             for (TacJobcard tacJobcard : jobcardsSelected) {
+                List<Object> jobTitle=jobcardRepository.findJobTitleForJobCard(tacJobcard.getJobTitle());
+                if(jobTitle!=null) {
+                    tacJobcard.setJobTitle(jobTitle.get(0).toString());
+                }
                 List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(tacJobcard.getJobcardNo());
                 tacJobcard.setJobCardCourseLinkModelList(list);
                 jobcards.add(tacJobcard);
             }
             return jobcards;
+        }
+
+        else if((jobcard.getJob()==null || jobcard.getJob()=="") && (jobcard.getJobGrade()!=null && jobcard.getJobGrade()!="")
+                && (jobcard.getJobTitle()==null || jobcard.getJobTitle()=="") )
+        {
+            List<TacJobcard> jobcardsSelected = jobcardRepository.findByJobGrade(jobcard.getJobGrade(), pageable);
+            for (TacJobcard tacJobcard : jobcardsSelected) {
+                List<Object> jobTitle=jobcardRepository.findJobTitleForJobCard(tacJobcard.getJobTitle());
+                if(jobTitle!=null) {
+                    tacJobcard.setJobTitle(jobTitle.get(0).toString());
+                }
+                List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(tacJobcard.getJobcardNo());
+                tacJobcard.setJobCardCourseLinkModelList(list);
+                jobcards.add(tacJobcard);
+            }
+            return jobcards;
+        }
+        else if((jobcard.getJob()==null || jobcard.getJob()=="") && (jobcard.getJobGrade()!=null || jobcard.getJobGrade()!="")
+                && (jobcard.getJobTitle()!=null && jobcard.getJobTitle()!="") )
+        {
+            List<TacJobcard> jobcardsSelected = jobcardRepository.findByJobTitle(jobcard.getJobTitle(), pageable);
+            for (TacJobcard tacJobcard : jobcardsSelected) {
+                List<Object> jobTitle=jobcardRepository.findJobTitleForJobCard(tacJobcard.getJobTitle());
+                if(jobTitle!=null) {
+                    tacJobcard.setJobTitle(jobTitle.get(0).toString());
+                }
+                List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(tacJobcard.getJobcardNo());
+                tacJobcard.setJobCardCourseLinkModelList(list);
+                jobcards.add(tacJobcard);
+            }
+            return jobcards;
+        }
+
+        else
+        {
+            return null;
         }
     }
 

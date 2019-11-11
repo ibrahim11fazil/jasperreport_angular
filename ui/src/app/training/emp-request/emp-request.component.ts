@@ -87,6 +87,7 @@ export class EmpRequestComponent implements OnInit {
       {
 
       courseName: null,
+      supervisorsCtrl:null , 
     }
 
     )
@@ -126,9 +127,12 @@ export class EmpRequestComponent implements OnInit {
      
      var course = new TacCourseMasterSub()
      course.courseName=this.form.value.courseName
-     if (course.courseName!=null) 
+debugger
+      if(this.isHead==true)
      {
-     this.trainingService.searchFutureCourseWithName(course).subscribe(
+      course.legacyCode=this.form.value.supervisorsCtrl.legacyCode
+     }
+      this.trainingService.searchFutureCourseWithName(course).subscribe(
       data => {
         var response = <ITacCourseManagementList>data
         this.rows = response.data
@@ -138,19 +142,32 @@ export class EmpRequestComponent implements OnInit {
         console.log(error)
         this.errorService.errorResponseHandling(error)
       })
-    }
-    else{
-      this.trainingService.getFutureCourses().subscribe(
-        data => {
-          var response = <ITacCourseManagementList>data
-          this.rows = response.data
-          console.log(this.rows)
-        },
-        error => {
-          console.log(error)
-        this.errorService.errorResponseHandling(error)
-        })
-    }
+      
+    //  if (course.courseName!=null) 
+    //  {
+    //  this.trainingService.searchFutureCourseWithName(course).subscribe(
+    //   data => {
+    //     var response = <ITacCourseManagementList>data
+    //     this.rows = response.data
+    //     console.log(this.rows)
+    //   },
+    //   error => {
+    //     console.log(error)
+    //     this.errorService.errorResponseHandling(error)
+    //   })
+    // }
+    // else{
+    //   this.trainingService.getFutureCourses().subscribe(
+    //     data => {
+    //       var response = <ITacCourseManagementList>data
+    //       this.rows = response.data
+    //       console.log(this.rows)
+    //     },
+    //     error => {
+    //       console.log(error)
+    //     this.errorService.errorResponseHandling(error)
+    //     })
+    // }
 
     }
   
@@ -290,15 +307,15 @@ onSubmit(){
   empRequest.courseName= this.activation.courseName
   empRequest.courseActivationId=this.selectedItem.activationId
   if(this.isHead && 
-    this.formDetails.value.supervisorsCtrl!=null &&
-    this.formDetails.value.supervisorsCtrl.legacyCode != this.authService.getLegacyCode()
+    this.form.value.supervisorsCtrl!=null &&
+    this.form.value.supervisorsCtrl.legacyCode != this.authService.getLegacyCode()
     )
   {
     empRequest.workflowType  =  WORKFLOW_2_EMP_REQUEST
-    empRequest.forUserJobId  =  this.formDetails.value.supervisorsCtrl.legacyCode
-    empRequest.forUsercnameAr=this.formDetails.value.supervisorsCtrl.cNameAr
-    empRequest.forUserQid= this.formDetails.value.supervisorsCtrl.qid
-    empRequest.forUserjobTitle=this.formDetails.value.supervisorsCtrl.positionAr
+    empRequest.forUserJobId  =  this.form.value.supervisorsCtrl.legacyCode
+    empRequest.forUsercnameAr=this.form.value.supervisorsCtrl.cNameAr
+    empRequest.forUserQid= this.form.value.supervisorsCtrl.qid
+    empRequest.forUserjobTitle=this.form.value.supervisorsCtrl.positionAr
   }else{
     empRequest.workflowType = WORKFLOW_1_EMP_REQUEST
   }

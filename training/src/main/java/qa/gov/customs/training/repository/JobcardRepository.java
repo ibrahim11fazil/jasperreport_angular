@@ -14,6 +14,8 @@ public interface JobcardRepository extends PagingAndSortingRepository<TacJobcard
 
     //@Query(value="from TacJobcard where job = :job")
     List<TacJobcard> findByJob(String job, Pageable pageable);
+    List<TacJobcard> findByJobGrade(String jobGrade,Pageable pageable);
+    List<TacJobcard> findByJobTitle(String jobTitle,Pageable pageable);
 
     TacJobcard findByJobcardNo(BigDecimal jobcardNo);
 
@@ -23,6 +25,10 @@ public interface JobcardRepository extends PagingAndSortingRepository<TacJobcard
 
     @Query(value = "select * from TAC_JOBCARD_COURSE_LINK where JOBCARD_NO=:jobCardNumber ", nativeQuery = true)
     List<Object[]> findAllCoursesForJobCard(BigDecimal jobCardNumber);
+
+    @Query(value = "select JOB_DESC_AR from MAWARED_JOB_TITLES where JOB=:jobTitle ", nativeQuery = true)
+    List<Object> findJobTitleForJobCard(String jobTitle);
+
 
     @Modifying
     @Query(value = "delete from TAC_JOBCARD_COURSE_LINK where JOBCARD_NO=:jobCardNumber AND COURSE_ID=:courseId", nativeQuery = true)

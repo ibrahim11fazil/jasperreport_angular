@@ -14,7 +14,7 @@ public interface JobcardService {
     TacJobcard createJobcard(TacJobcard jobcard);
 
     //	 List<TacJobcard> searchJobcard(TacJobcard jobcard);
-    List<TacJobcard> listJobcards(String job, int page, int limit);
+    List<TacJobcard> listJobcards(TacJobcard jobcard, int page, int limit);
 
     List<TacJobcard> listJobcards();
 
