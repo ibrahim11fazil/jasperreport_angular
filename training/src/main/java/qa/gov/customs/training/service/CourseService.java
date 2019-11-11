@@ -4,6 +4,7 @@ package qa.gov.customs.training.service;
 import org.springframework.data.domain.Pageable;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.*;
+import qa.gov.customs.training.security.CustomPrincipal;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -86,7 +87,7 @@ public interface CourseService {
 
     List<CourseManagement> getAllPreviousCourses();
 
-    List<CourseManagement> searchAllFutureCourses(String courseName);
+    List<CourseManagement> searchAllFutureCourses(TacCourseMaster courseName, CustomPrincipal principal);
 
     void setStatusOfDate(TacCourseDate courseDate);
 

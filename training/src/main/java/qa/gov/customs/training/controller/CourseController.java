@@ -634,9 +634,13 @@ public class CourseController {
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/search-future-courses")
-    public ResponseType searchFutureCourses(@RequestBody TacCourseMaster courseMaster) {
+    public ResponseType searchFutureCourses(@RequestBody TacCourseMaster courseMaster,@AuthenticationPrincipal CustomPrincipal principal) {
         List<CourseManagement> courseManagement = null;
-        courseManagement = courseService.searchAllFutureCourses(courseMaster.getCourseName());
+
+
+        courseManagement = courseService.searchAllFutureCourses(courseMaster,principal);
+
+
         if (courseManagement != null || !courseManagement.isEmpty()) {
 
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
