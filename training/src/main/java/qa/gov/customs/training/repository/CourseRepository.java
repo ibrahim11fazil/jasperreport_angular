@@ -96,18 +96,18 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
 //            " and lower(a.course_name) LIKE %:courseName%", nativeQuery = true)
 
     @Query(value = "select a.course_name,c.course_date,c.end_date,b.activation_id "+
-   "from tac_course_master a,tac_course_activation b, tac_course_date c "+
-    "where a.course_id=b.course_id "+
-    "and b.course_id=c.course_id "+
-    "and b.date_id=c.date_id "+
-    "and c.status=1 "+
-    "and c.course_date>to_date(sysdate,'DD-MM-YY') "+
-    "and a.course_id in (select course_id from tac_jobcard tjob,tac_jobcard_course_link jlink where tjob.jobcard_no=jlink.jobcard_no "+
+            "from tac_course_master a,tac_course_activation b, tac_course_date c "+
+            "where a.course_id=b.course_id "+
+            "and b.course_id=c.course_id "+
+            "and b.date_id=c.date_id "+
+            "and c.status=1 "+
+            "and c.course_date>to_date(sysdate,'DD-MM-YY') "+
+            "and a.course_id in (select course_id from tac_jobcard tjob,tac_jobcard_course_link jlink where tjob.jobcard_no=jlink.jobcard_no "+
             "and jlink.course_id=a.course_id "+
             "and job_grade=(select pslevel from user_sap_ws_mini where legacycode=:jobId "+
             "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId)) "+
-    "and job_title =(select job from USER1_SAP_WS_MINI  where legacycode=:jobId "+
-    "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId))) ", nativeQuery = true)
+            "and job_title =(select job from USER1_SAP_WS_MINI  where legacycode=:jobId "+
+            "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId))) ", nativeQuery = true)
     List<Object[]> searchAllFutureCourses(String jobId, Pageable pageable);
 
     @Query(value = "select a.course_name,c.course_date,c.end_date,b.activation_id "+

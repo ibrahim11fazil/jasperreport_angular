@@ -69,7 +69,6 @@ export class SmartProfileComponent implements OnInit {
     var userCode = this.authService.getLegacyCode()
     this.getUserInformations(userCode, false)
     this.searchOnChangeForName()
-
   }
 
 
@@ -104,7 +103,6 @@ export class SmartProfileComponent implements OnInit {
     this.getInstructorCourses(jobId,isSearch)
     this.smartSuggession()
   }
-
 
   getCertificates(jobId: String, isSearch: Boolean) {
     var input = new CertificateRequestOnlyJobId()
@@ -153,9 +151,6 @@ export class SmartProfileComponent implements OnInit {
       }
     )
   }
-
-
-
   getUserJobCard(jobId: String, isSearch: Boolean) {
     var input = new SmartProfileUserRequestModel()
     input.jobIdRequested = jobId
