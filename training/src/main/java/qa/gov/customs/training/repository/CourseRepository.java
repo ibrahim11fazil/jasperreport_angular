@@ -89,12 +89,42 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
             "where to_date(sysdate,'DD-MM-YY')>b.end_date and b.status=1 and a.course_id=b.course_id", nativeQuery = true)
     List<Object[]> getAllPreviousCourses(Pageable pageable);
 
-    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
-            " (SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1) " +
-            " join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
-            " where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id " +
-            " and lower(a.course_name) LIKE %:courseName%", nativeQuery = true)
-    List<Object[]> searchAllFutureCourses(String courseName, String jobId, Pageable pageable);
+//    @Query(value = "select a.course_name,b.course_date,b.end_date,c.activation_id from tac_course_master a join tac_course_date b on a.course_id in " +
+//            " (SELECT b.course_id FROM Tac_course_date b WHERE to_date(sysdate,'DD-MM-YY')<b.course_date and status=1) " +
+//            " join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
+//            " where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id " +
+//            " and lower(a.course_name) LIKE %:courseName%", nativeQuery = true)
+
+    @Query(value = "select a.course_name,c.course_date,c.end_date,b.activation_id "+
+            "from tac_course_master a,tac_course_activation b, tac_course_date c "+
+            "where a.course_id=b.course_id "+
+            "and b.course_id=c.course_id "+
+            "and b.date_id=c.date_id "+
+            "and c.status=1 "+
+            "and c.course_date>to_date(sysdate,'DD-MM-YY') "+
+            "and a.course_id in (select course_id from tac_jobcard tjob,tac_jobcard_course_link jlink where tjob.jobcard_no=jlink.jobcard_no "+
+            "and jlink.course_id=a.course_id "+
+            "and job_grade=(select pslevel from user_sap_ws_mini where legacycode=:jobId "+
+            "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId)) "+
+            "and job_title =(select job from USER1_SAP_WS_MINI  where legacycode=:jobId "+
+            "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId))) ", nativeQuery = true)
+    List<Object[]> searchAllFutureCourses(String jobId, Pageable pageable);
+
+    @Query(value = "select a.course_name,c.course_date,c.end_date,b.activation_id "+
+            "from tac_course_master a,tac_course_activation b, tac_course_date c "+
+            "where a.course_id=b.course_id "+
+            "and b.course_id=c.course_id "+
+            "and b.date_id=c.date_id "+
+            "and c.status=1 "+
+            "and c.course_date>to_date(sysdate,'DD-MM-YY') "+
+            " and a.course_name like %:courseName% " +
+            "and a.course_id in (select course_id from tac_jobcard tjob,tac_jobcard_course_link jlink where tjob.jobcard_no=jlink.jobcard_no "+
+            "and jlink.course_id=a.course_id "+
+            "and job_grade=(select pslevel from user_sap_ws_mini where legacycode=:jobId "+
+            "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId)) "+
+            "and job_title =(select job from USER1_SAP_WS_MINI  where legacycode=:jobId "+
+            "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId))) ", nativeQuery = true)
+    List<Object[]>  searchAllFutureCoursesWithCourseNameAndJid(String courseName,String jobId,Pageable pageable);
 
 
     @Query(value = "select b.course_date,b.end_date from tac_course_activation a  RIGHT JOIN tac_course_date b on a.date_id=b.date_id where a.activation_id=:activationId", nativeQuery = true)

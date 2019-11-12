@@ -23,6 +23,9 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
     int start;
     @Transient
     int limit;
+    @Transient
+    String legacyCode;
+
     private BigDecimal courseId;
     private TacCourseCategory tacCourseCategory;
     private String courseName;
@@ -358,5 +361,13 @@ public class TacCourseMaster extends Auditable<String> implements java.io.Serial
 
     public void setLimit(int limit) {
         this.limit = limit;
+    }
+    @Transient
+    public String getLegacyCode() {
+        return legacyCode;
+    }
+
+    public void setLegacyCode(String legacyCode) {
+        this.legacyCode = legacyCode;
     }
 }

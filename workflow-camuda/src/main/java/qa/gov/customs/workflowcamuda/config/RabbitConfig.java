@@ -19,6 +19,9 @@ public class RabbitConfig {
     @Value("${workflow.rabbitmq.queue_user_request}")
     private String queueUserRequest;
 
+    @Value("${workflow.rabbitmq.seat_check_response_queue}")
+    private String seatCheckResponse;
+
     @Value("${workflow.rabbitmq.exchange}")
     private String exchange;
 
@@ -34,6 +37,11 @@ public class RabbitConfig {
     @Bean
     Queue queueUserRequest() {
         return new Queue(queueUserRequest, false);
+    }
+
+    @Bean
+    Queue queueSeatCheckResponse() {
+        return new Queue(seatCheckResponse, false);
     }
 
     @Bean

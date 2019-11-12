@@ -13,8 +13,44 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-            <mat-form-field class="full-wid mrgn-b-md">
-              <input matInput placeholder={{language.jobCardNumber}} formControlName="searchControl">
+          <mat-form-field  class="full-wid mrgn-b-md">
+              <!-- <input matInput placeholder={{language.jobTitle}} formControlName="jobTitleControl"> -->
+              <!-- <mat-select placeholder={{language.jobTitle}} matInput formControlName="jobTitleControl">
+                    <option [ngValue]="null">{{language.search}}</option>
+                    <mat-option *ngFor="let obj of searchOption" [value]="obj">
+                       {{obj.view}}
+                    </mat-option>
+                 </mat-select> -->
+ 
+                        <mat-select (selectionChange)="getSearchField($event)" placeholder={{language.search}} matInput formControlName="searchValueControl"
+                           >
+                           <mat-option *ngFor="let item of searchOption" [value]="item">
+                              {{item.viewValue}}
+                           </mat-option>
+                        </mat-select>
+
+            </mat-form-field>
+            <mat-form-field *ngIf="displaySearchByJobCardNo" class="full-wid mrgn-b-md">
+              <input  matInput placeholder={{language.jobCardNumber}} formControlName="searchControl">
+            </mat-form-field>
+             <mat-form-field *ngIf="displaySearchByJobGrade" class="full-wid mrgn-b-md">
+              <!-- <input matInput placeholder={{language.jobGrade}} formControlName="jobGradeControl"> -->
+               <mat-select placeholder={{language.jobGrade}} matInput formControlName="jobGradeControl" >
+                         <option [ngValue]="null">{{language.selectJobGrade}}</option>
+                         <mat-option *ngFor="let obj of jobGradeList"
+                          [value]="obj">
+                            {{obj.psLevel}}
+                         </mat-option>
+                         </mat-select>
+            </mat-form-field>
+             <mat-form-field *ngIf="displaySearchByJobTitle" class="full-wid mrgn-b-md">
+              <!-- <input matInput placeholder={{language.jobTitle}} formControlName="jobTitleControl"> -->
+              <mat-select placeholder={{language.jobTitle}} matInput formControlName="jobTitleControl">
+                    <option [ngValue]="null">{{language.selectJobTitles}}</option>
+                    <mat-option *ngFor="let obj of jobTitleList" [value]="obj">
+                       {{obj.jobDesc}}
+                    </mat-option>
+                 </mat-select>
             </mat-form-field>
        <!-- <small class="gene-block" *ngIf="form.controls['searchControl'].hasError('required') && form.controls['searchControl'].touched"
                    class="warn-text">

@@ -28,5 +28,6 @@ public class MessageUtil {
     public static String COURSE_REJECTED= "تم رفض طلب التدريب لدورة: ";
     public static String COURSE_APPROVED= "تم قبول طلب التدريب لدورة: ";
     public static String EMAIL_SUBJECT="تنبيهات نظام التدريب";
+    public static String MESSAGE_TASK_HEAD_APPROVED="Final Processing will take time,We will start processing when head Of Training approved.";
 
 }

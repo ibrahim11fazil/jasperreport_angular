@@ -19,6 +19,18 @@
 						</mat-form-field>
 						
 					  </div>
+
+					  <div *ngIf="isHead" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+					<mat-form-field class="full-wid mrgn-b-md">
+					   <mat-select placeholder={{language.courseSuggession}} matInput formControlName="supervisorsCtrl">
+						  <option [ngValue]="null">Select Employee</option>
+						  <mat-option *ngFor="let obj of employeesUnderSupervisor"
+						   [value]="obj">
+							 {{obj.legacyCode}} -  {{obj.cNameAr}} 
+						  </mat-option>
+					   </mat-select>
+					</mat-form-field>
+				 </div>
 					</div>
 			
 					<div class="pad-wrap">
@@ -153,7 +165,7 @@
 			</div>
 			
 
-			  <div *ngIf="isHead" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+			  <!-- <div *ngIf="isHead" fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
 					<mat-form-field class="full-wid mrgn-b-md">
 					   <mat-select placeholder={{language.courseSuggession}} matInput formControlName="supervisorsCtrl">
 						  <option [ngValue]="null">Select Employee</option>
@@ -163,7 +175,7 @@
 						  </mat-option>
 					   </mat-select>
 					</mat-form-field>
-				 </div>
+				 </div> -->
 
 		</mat-card>
 
