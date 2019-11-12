@@ -85,7 +85,7 @@ export class CreateInstructorComponent implements OnInit {
       instructorName: [ this.tacInstructor.name, Validators.compose([Validators.required])],
       organization:[this.tacInstructor.companyName, Validators.compose([Validators.required])],
       qid: [this.tacInstructor.qid, Validators.compose([Validators.required,Validators.minLength(11),Validators.maxLength(11)])],
-      passportNo: [this.tacInstructor.passportNo, Validators.compose([Validators.required])],
+      passportNo: [this.tacInstructor.passportNo],
       ibanNo:[this.tacInstructor.ibanNo, Validators.compose([Validators.required])],
       email: [this.tacInstructor.email, Validators.compose([Validators.required,Validators.email])],
       department:[this.tacInstructor.department, Validators.compose([Validators.required])],
@@ -316,6 +316,7 @@ export class CreateInstructorComponent implements OnInit {
       email:response.email,
       ibanNo:response.iban,
       qid:response.qid,
+      phone:response.mobile,
       passportNo:"",
       companyName:"Customs",
       tacCommSubjects:[],
@@ -323,7 +324,7 @@ export class CreateInstructorComponent implements OnInit {
       typeFlag:1,
       priority:null,
       photo:"",
-      phone:"",
+      //phone:"",
       jobTitle:response.jobTitle,
       qualification:response.qualification
     }

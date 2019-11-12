@@ -94,7 +94,7 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
             " join tac_course_activation c on c.date_id=b.date_id and c.course_id=b.course_id " +
             " where to_date(sysdate,'DD-MM-YY')<b.course_date and b.status=1 and a.course_id=b.course_id " +
             " and lower(a.course_name) LIKE %:courseName%", nativeQuery = true)
-    List<Object[]> searchAllFutureCourses(String courseName, Pageable pageable);
+    List<Object[]> searchAllFutureCourses(String courseName, String jobId, Pageable pageable);
 
 
     @Query(value = "select b.course_date,b.end_date from tac_course_activation a  RIGHT JOIN tac_course_date b on a.date_id=b.date_id where a.activation_id=:activationId", nativeQuery = true)

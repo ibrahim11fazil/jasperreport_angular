@@ -72,7 +72,6 @@ export const ROLE_DEPT_MGR="dept_mgr"
 export const ROLE_DEPT_HEAD="dept_head"
 export const ROLE_EMPLOYEE="employee"
 
-
 export const	ADMINISTRATIVE_COURSE= 1
 export const	SPECIALISED_COURSE= 2
 export const	WORKSHOP_COURSE=3

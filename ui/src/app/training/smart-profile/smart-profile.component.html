@@ -68,8 +68,12 @@
                             <a class="gene-block">: {{userProfile.qid}}</a>
                          </li>
                          <li>
+                           <div class="contact-list"> <strong>{{language.jobId}}</strong></div>
+                           <span>: {{userProfile.legacycode}}</span>
+                        </li>
+                         <li>
                               <div class="contact-list"><strong>{{language.position}}</strong></div>
-                              <span>: {{userProfile.position_DESC_AR}} </span>
+                              <span>: {{userProfile.job_DESC_AR}} </span>
                         </li>
                          <li>
                             <div class="contact-list"> <strong>{{language.department}}</strong></div>
@@ -79,6 +83,10 @@
                             <div class="contact-list"> <strong> {{language.jobGrade}}</strong></div>
                             <span class="gene-block">: {{userProfile.pslevel}} </span>
                          </li>
+                         <li>
+                           <div class="contact-list"> <strong>{{language.mobile}}</strong></div>
+                           <span>: {{userProfile.mobile}}</span>
+                        </li>
                       </ul>
                       <ul>
                           <li>
