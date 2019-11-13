@@ -134,6 +134,7 @@ export class SmartProfileComponent implements OnInit {
     this.trainingService.getEmployeeSmartProfile(input).subscribe(
       data => {
         var response = <SmartProfileUserResponse>data
+        //debugger;
         if (response.status && response.data.length > 0) {
           this.userProfile = response.data[0]
           // if(jobId.trim()==this.userProfile.legacycode.trim()){

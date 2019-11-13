@@ -64,6 +64,8 @@ export class SmartProfileUserResponseModel {
     job_DESC_AR?: String;
     pslevel?: String;
     run_DATE: Date;
+    current_Grade_Date:Date;
+    next_Grade_date:Date;
 }
 
 export interface SmartProfileUserResponseAjax {
