@@ -24,9 +24,23 @@
                        {{obj.jobDescAr}}
                     </mat-option>
                  </mat-select>
-              </mat-form-field>
-           </div>
+              </mat-form-field> 
+                          </div>
 
+                       <!-- <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+ 
+
+                        <mat-form-field class="full-wid mrgn-b-lg">
+                                                      <input type="text" matInput formControlName="jobTitle" [matAutocomplete]="auto" >
+                                                    </mat-form-field>
+                                                   
+                                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnJobCard">
+                                                      <mat-option *ngFor="let item of filteredOptions" [value]="item">
+                                                                  {{item.jobDescAr!=null?item.jobDescAr:""}}
+                                                            </mat-option>
+                                                    </mat-autocomplete>
+                        </div> -->
+                                
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                  <mat-form-field class="full-wid mrgn-b-lg">
                     <input matInput placeholder={{language.jobNumber}} formControlName="job" required readonly="{{hrSelectDisable}}"   >

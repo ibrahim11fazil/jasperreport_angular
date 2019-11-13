@@ -14,6 +14,8 @@ import { AuthService } from 'app/service/auth-service/auth.service';
 import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { ErrorService } from 'app/service/error/error.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'ms-job-card',
@@ -36,6 +38,8 @@ export class JobCardComponent implements OnInit {
   //textReadonly="readonly=true"
   itemStatus: JobGradeStatus[] = []
   jobId: String = ""
+  filteredOptions: Observable<any>;
+
   constructor(
     private userService: SystemUserService,
     private trainingService: TrainingService,
@@ -90,6 +94,41 @@ export class JobCardComponent implements OnInit {
     this.formSetup()
     this.formInit()
     this.loadDataFromParam()
+   
+   this.filteredOptions = this.form
+    .get('jobTitle').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      )
+  
+    
+  }
+  private _filter(value: string): JobTitle[] {
+debugger
+console.log("inside filter"+this.jobTitles)
+     if(value==null || value=="")
+    {
+console.log("inside value null"+this.jobTitles)
+      var arrayJob=  this.jobTitles.filter(item => item.jobDescAr!=null)
+      return arrayJob
+      console.log("return array"+arrayJob)
+    }
+
+    else{
+      console.log("else")
+    const filterValue = value.toLowerCase();
+    if(this.jobTitles!=null && this.jobTitles.length>0){
+    var arrayJob=  this.jobTitles.filter(item => item.jobDescAr!=null)
+    var selectArray =arrayJob.filter(item => item.jobDescAr.toLowerCase().includes(filterValue));
+    return selectArray
+    }
+    
+    else{
+      return []
+    }
+    }
+     
   }
 
   formInit() {
@@ -103,7 +142,7 @@ export class JobCardComponent implements OnInit {
       jobSkillsOptions: this.fb.array([]),
       courseOptions: this.fb.array([]),
       job: [this.jobCard.job, Validators.compose([Validators.required])],
-      jobTitle: [jobTitlesSelected, Validators.compose([Validators.required])],
+      jobTitle: [null],
       jobGrade: [jobGradeSelected, Validators.compose([Validators.required])],
       jobFamily: [jobFamilySelected, Validators.compose([Validators.required])],
       functionalArea: [jobFunctionalAreaSelected, Validators.compose([Validators.required])]
@@ -173,22 +212,7 @@ export class JobCardComponent implements OnInit {
       }
     )
 
-    this.userService.getJobTitles().subscribe(
-      data => {
-        var response = <JobTitleListResponse>data
-        if (response.status) {
-          this.jobTitles = response.data
-          this.formInit()
-          this.patch()
-        }
-        else {
-          console.log(response.message)
-          this.toastr.error(response.message.toString())
-        }
-      },
-      error => { console.log(error)
-        this.errorService.errorResponseHandling(error)}
-    )
+  
 
 
     this.userService.getFunctionalArea().subscribe(
@@ -220,6 +244,23 @@ export class JobCardComponent implements OnInit {
         console.log(error)
         this.errorService.errorResponseHandling(error)
       }
+    )
+      this.userService.getJobTitles().subscribe(
+      data => {
+        var response = <JobTitleListResponse>data
+        if (response.status) {
+          this.jobTitles = response.data
+          this.formInit()
+          this.patch()
+          //console.log(this.jobTitles)
+        }
+        else {
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
+        }
+      },
+      error => { console.log(error)
+        this.errorService.errorResponseHandling(error)}
     )
 
   }
@@ -485,6 +526,10 @@ export class JobCardComponent implements OnInit {
       })
     })
     return hours
+  }
+
+   displayFnJobCard(jobTitle: JobTitle) {
+    if (jobTitle) { return jobTitle.jobDescAr }
   }
 
 }
