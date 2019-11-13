@@ -283,7 +283,7 @@ export class LanguageUtil {
   menu_course: String = this.isArabic ? "الدورة التدريبية" : "Course"
   menu_courseManagement: String = this.isArabic ? "إدارة الدورة التدريبية" : "Course Management"
   menu_ci_system: String = this.isArabic ? "نظام التحقيقات والقضايا" : "CI System"
-  menu_smart_engine: String = this.isArabic ? "محرك التدريب الذكي" : "Smart Engine"
+  menu_smart_engine: String = this.isArabic ? " ملف الموظف " : "Smart Engine"
   menu_reports: String = this.isArabic ? "التقارير" : "Reports"
   menu_jobCard: String = this.isArabic ? "بطاقة الوصف الوظيفي والتدريبي" : "Job Card"
   menu_user: String = this.isArabic ? "المستخدمين" : "Users"
