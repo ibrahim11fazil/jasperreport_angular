@@ -230,7 +230,9 @@ export class LanguageUtil {
 
   //title_searchWithJobId:String=this.isArabic ? "البحث برقم الوظيفة" : "Search With jobId"
   title_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"
-  position: String = this.isArabic ? "المنصب" : "Position"
+  //position: String = this.isArabic ? "المنصب" : "Position"
+  
+  position: String = this.isArabic ? " المسمى الوظيفي":"Position"
   trainingCertificate: String = this.isArabic ? "شهادة التدريب" : "Training Certificate"
   jobCardDetails: String = this.isArabic ? "تفاضيل بطاقة الوصف الوظيفي والتدريبي" : "Job Card Details"
   coursesAttendedCurrent: String = this.isArabic ? "الدورات الحالية / التي تم حضورها" : "Courses (Attended/Current)"
