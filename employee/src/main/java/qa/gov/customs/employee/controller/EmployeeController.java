@@ -129,14 +129,21 @@ public class EmployeeController {
 
             if (jobCardProfileRequest.getJobIdRequested() != null) {
                 String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
-                Boolean statusResponse = employeesUnderSupervisorCheck(jobId, jobIdRequested);
-                if (statusResponse) {
+                if(jobId.equalsIgnoreCase(jobIdRequested))
+                {
                     List<MawaredMaster> submittedRequest = mawaredService.findByLegacyCode(jobIdRequested);
                     return genericResponse(submittedRequest);
-                } else {
-                    ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
-                            null);
-                    return response;
+                }
+                else {
+                    Boolean statusResponse = employeesUnderSupervisorCheck(jobId, jobIdRequested);
+                    if (statusResponse) {
+                        List<MawaredMaster> submittedRequest = mawaredService.findByLegacyCode(jobIdRequested);
+                        return genericResponse(submittedRequest);
+                    } else {
+                        ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                                null);
+                        return response;
+                    }
                 }
             } else {
                 List<MawaredMaster> submittedRequest = mawaredService.findByLegacyCode(jobId);

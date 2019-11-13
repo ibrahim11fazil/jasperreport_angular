@@ -91,6 +91,7 @@ export class SmartProfileComponent implements OnInit {
 
   getUserInformations(jobId: String, isSearch: Boolean) {
     this.clear();
+    debugger;
     if (!isSearch) {
       jobId = this.authService.getLegacyCode()
     }
@@ -129,6 +130,7 @@ export class SmartProfileComponent implements OnInit {
   }
 
   getUserProfile(jobId: String, isSearch: Boolean) {
+    debugger
     var input = new SmartProfileUserRequestModel()
     input.jobIdRequested = jobId
     this.trainingService.getEmployeeSmartProfile(input).subscribe(

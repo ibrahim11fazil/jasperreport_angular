@@ -17,6 +17,8 @@ public interface JobcardRepository extends PagingAndSortingRepository<TacJobcard
     List<TacJobcard> findByJobGrade(String jobGrade,Pageable pageable);
     List<TacJobcard> findByJobTitle(String jobTitle,Pageable pageable);
 
+    List<TacJobcard>findByJobGradeAndJobTitle(String jobGrade,String jobTitle);
+
     TacJobcard findByJobcardNo(BigDecimal jobcardNo);
 
 

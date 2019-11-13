@@ -198,10 +198,10 @@ public class MawaredMaster {
 
     @Column(name = "RUN_DATE")
     Date RUN_DATE;
-    @Transient "CURRENT_GRADE_DATE")
-    Date CURRENT_GRADE_DATE;
-    @Transient(name = "NEXT_GRADE_DATE")
-    Date NEXT_GRADE_DATE;
+//    @Transient
+//    Date CURRENT_GRADE_DATE;
+//    @Transient
+//    Date NEXT_GRADE_DATE;
 
 //    @Column(name="PER_STATUS")
 //    String PER_STATUS	;
