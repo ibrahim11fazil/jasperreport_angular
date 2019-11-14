@@ -41,6 +41,7 @@ export class SmartProfileComponent implements OnInit {
   page = new Page();
   courseManagement:CourseManagementRes[]=[]
   isLoading = false;
+  isHead:Boolean=false;
   filteredUsers: SmartProfileUserResponseModelAjax[] = [];
 
   constructor(
@@ -66,9 +67,11 @@ export class SmartProfileComponent implements OnInit {
   ngOnInit() {
     this.clear()
     this.formInit()
+    this.getEmployeesUnderSupervisor()
     var userCode = this.authService.getLegacyCode()
     this.getUserInformations(userCode, false)
     this.searchOnChangeForName()
+    
   }
 
 
@@ -342,6 +345,24 @@ export class SmartProfileComponent implements OnInit {
     });
   }
 
- 
+  getEmployeesUnderSupervisor(){
+    this.trainingService.employeeUnderSupervisor().subscribe(
+      data=>{
+        //this.toastr.info("Valid User")
+        debugger
+        var response = <SupervisorResponse>data
+        if(response.data!=null && response.data.length>0){  
+          this.isHead=true
+         
+        }else{
+          this.isHead=false
+        }
+      },
+      error=>{
+        console.log(error.message)
+        //this.form.value.legacyCode= "Invalid Employee"
+      }
+    )
+  }
 
 }
