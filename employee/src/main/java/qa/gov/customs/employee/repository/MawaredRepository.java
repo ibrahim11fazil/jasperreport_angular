@@ -21,7 +21,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
                      " where a.run_date=(select max(run_date) from user_sap_ws_mini where legacycode=:jobId) " +
                      " and legacycode=:jobId) ", nativeQuery = true)
 
-    List<MawaredMaster> LegacyCodeWithGradeDate(@Param("jobId") String jobId);
+    List<Object[]> LegacyCodeWithGradeDate(@Param("jobId") String jobId);
 
 
 
