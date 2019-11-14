@@ -31,32 +31,95 @@ public class MawaredServiceImpl implements MawaredService {
     @Override
     public List<MawaredMaster> findByLegacyCode(String jobCode) {
         List<MawaredMaster> masterDetails=mawaredRepository.findByLegacyCode(jobCode);
+        List<MawaredMaster>mawaredMaster=new ArrayList<MawaredMaster>();
 
         List<Object[]> objects=mawaredRepository.LegacyCodeWithGradeDate(jobCode);
         for(Object[] obj:objects)
         {
             for(MawaredMaster master:masterDetails)
             {
-                if(master.getLEGACYCODE().equalsIgnoreCase((String)obj[2]))
+                if(master.getEMPNO().equalsIgnoreCase((String)obj[2]))
                 {
                 master.setCurrentGradeDate((Date)obj[0]);
                 master.setNextGradeDate((Date)obj[1]);
+                    mawaredMaster.add(master);
+
                 }
             }
 
         }
+        if(mawaredMaster.size()>0)
+        {
+            return mawaredMaster;
+        }
+        else
+        {
+            return masterDetails;
+        }
 
-        return masterDetails;
+
     }
 
     @Override
     public List<MawaredMaster> findByQid(String qid) {
-        return mawaredRepository.findByQid(qid);
+        List<MawaredMaster>masterDetails= mawaredRepository.findByQid(qid);
+        List<MawaredMaster>mawaredMaster=new ArrayList<MawaredMaster>();
+        for(MawaredMaster master:masterDetails)
+        {
+        List<Object[]> objects=mawaredRepository.LegacyCodeWithGradeDate(master.getLEGACYCODE());
+        for(Object[] obj:objects)
+        {
+
+                if(master.getEMPNO().equalsIgnoreCase((String)obj[2]))
+                {
+                    master.setCurrentGradeDate((Date)obj[0]);
+                    master.setNextGradeDate((Date)obj[1]);
+                    mawaredMaster.add(master);
+
+                }
+            }
+
+        }
+        if(mawaredMaster.size()>0)
+        {
+            return mawaredMaster;
+        }
+        else
+        {
+            return masterDetails;
+        }
     }
 
     @Override
     public List<MawaredMaster> findByName(String name) {
-        return mawaredRepository.findByNameIn(name);
+        List<MawaredMaster>masterDetails= mawaredRepository.findByNameIn(name);
+        List<MawaredMaster>mawaredMaster=new ArrayList<MawaredMaster>();
+        for(MawaredMaster master:masterDetails)
+        {
+        List<Object[]> objects=mawaredRepository.LegacyCodeWithGradeDate(master.getLEGACYCODE());
+        for(Object[] obj:objects)
+        {
+
+                if(master.getEMPNO().equalsIgnoreCase((String)obj[2]))
+                {
+                    master.setCurrentGradeDate((Date)obj[0]);
+                    master.setNextGradeDate((Date)obj[1]);
+                    mawaredMaster.add(master);
+
+                }
+            }
+
+        }
+        if(mawaredMaster.size()>0)
+        {
+            return mawaredMaster;
+        }
+        else
+        {
+            return masterDetails;
+        }
+
+
     }
 
     @Override

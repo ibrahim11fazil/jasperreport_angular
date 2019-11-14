@@ -90,13 +90,14 @@
                            <span>: {{userProfile.mobile}}</span>
                         </li>
                         <li>
-                                 <div class="contact-list"> <strong>{{language.currentGradedate}}</strong></div>
-                                 <span>: {{userProfile.currentGradedate}}</span>
+                                 <div class="contact-list"> <strong>{{language.currentGradeDate}}</strong></div>
+                                 <span>: {{datepipe.transform(userProfile.currentGradeDate, 'dd/MM/yyyy')}}</span>
+                                 
 
                         </li>
                         <li>
                         <div class="contact-list"> <strong>{{language.nextGradeDate}}</strong></div>
-                                 <span>: {{userProfile.nextGradeDate}}</span>
+                                 <span>: {{datepipe.transform(userProfile.nextGradeDate, 'dd/MM/yyyy')}}</span>
                         </li>
                       </ul>
                       <ul>

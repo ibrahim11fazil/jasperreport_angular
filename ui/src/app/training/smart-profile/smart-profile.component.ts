@@ -13,7 +13,7 @@ import { AuthService } from 'app/service/auth-service/auth.service';
 import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile, SmartProfileUserResponseModelQucik, SmartProfileUserResponseModelQucik1, SmartProfileUserResponseModelAjax, SmartProfileUserResponseAjax } from 'app/models/smart-profile-model';
 import { CertificateRequest, CertificateRequestOnlyJobId, ResponseCertificateList } from 'app/models/certificate-request';
 import { TranslateService } from '@ngx-translate/core';
-
+import { DatePipe } from '@angular/common';
 import { LanguageUtil } from 'app/app.language';
 import { CourseManagementRes, ITacCourseManagementList } from 'app/models/tac-course-master';
 import { Page } from 'app/models/paged-data';
@@ -50,6 +50,7 @@ export class SmartProfileComponent implements OnInit {
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
     private toastr: ToastrService,
+    public datepipe: DatePipe,
     private mainComponent: MainComponent,
     //private translate:TranslateService,
     private activatedRoute: ActivatedRoute,

@@ -56,8 +56,8 @@ export class LanguageUtil {
   activationId: String = this.isArabic ? "رقم التفعيل" : "Activation ID"
   activationDate: String = this.isArabic ? "تاريخ التفعيل" : "Activation Date"
   label_update: String = this.isArabic ? "تعديل" : "Update"
-  seatCapacity:String=this.isArabic?"Seat Capacity1":"Seat Capacity"
-  trainingCoordinatorMobile=this.isArabic?"Coordinator Mobile1":"Coordinator Mobile"
+  seatCapacity:String=this.isArabic?"الطاقة الاستيعابية":"Seat Capacity"
+  trainingCoordinatorMobile=this.isArabic?"رقم جوال مشرف الدورة التدريبية":"Coordinator Mobile1"
 
 
   //Activate Course
@@ -219,7 +219,7 @@ export class LanguageUtil {
   startDate: String = this.isArabic ? "تاريخ البداية" : "Start Date"
   comments: String = this.isArabic ? "التعليقات" : "Comments"
   addComment: String = this.isArabic ? "أضف تعليق" : "Add Comment"
-  requiredComment:String=  this.isArabic ? "Required Comment1" : " Required Comment"
+  requiredComment:String=  this.isArabic ? "التعليق مطلوب" : " Required Comment"
 
 
   //History
@@ -238,7 +238,10 @@ export class LanguageUtil {
   coursesAttendedCurrent: String = this.isArabic ? "الدورات الحالية / التي تم حضورها" : "Courses (Attended/Current)"
   smartSuggestion: String = this.isArabic ? "الاقتراح الالكتروني" : "Smart Suggestion"
   responsibilities:String=this.isArabic? "المسؤوليات" : "Responsibilities"
-  employeeName:String=  this.isArabic ? "Employee Name" : " Employee Name"
+  employeeName:String=  this.isArabic ? " اسم الموظف" :"Employee Name"
+currentGradeDate:String=this.isArabic?"تاريخ الدرجة الحالية":"CurrentGradeDate1"
+nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"NextGradeDate1"
+
 
 
 
@@ -331,7 +334,7 @@ export class LanguageUtil {
   error_request_exisit = this.isArabic ? "الطلب موجود بالفعل" : "The request alredy exisit."
   error_user_absent = this.isArabic ? "تم تسجيل غياب للمستخدم في هذا التاريخ، حاول بتاريخ آخر" : "The use is absent on the date,Try another date "
   error_date_request = this.isArabic ? "لقد قمت بطلب دورة في نفس التاريخ، اختر تاريخ آخر" : "You are alraeady requested for another course in the same time. Try some other dates"
-   seat_full_message=this.isArabic ? " Seats are full1" : "Seats are full"
+   seat_full_message=this.isArabic ? " Seats are full1" : "تم اكتمال العدد"
 
 
   //jobcard status

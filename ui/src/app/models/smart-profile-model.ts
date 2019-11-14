@@ -64,7 +64,7 @@ export class SmartProfileUserResponseModel {
     job_DESC_AR?: String;
     pslevel?: String;
     run_DATE: Date;
-    currentGradedate:Date;
+    currentGradeDate:Date;
     nextGradeDate:Date;
     
 }
