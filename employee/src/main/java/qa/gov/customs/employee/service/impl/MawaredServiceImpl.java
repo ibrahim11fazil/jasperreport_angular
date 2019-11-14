@@ -46,7 +46,6 @@ public class MawaredServiceImpl implements MawaredService {
 
         }
 
-
         return masterDetails;
     }
 
