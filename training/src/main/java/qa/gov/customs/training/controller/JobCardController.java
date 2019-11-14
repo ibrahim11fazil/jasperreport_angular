@@ -27,12 +27,13 @@ public class JobCardController {
     public ResponseType createJobCard(@Valid @RequestBody TacJobcard jobcard) {
         TacJobcard newJobcard = null;
         ResponseType response = null;
+
         if (jobcard != null) {
             newJobcard = jobcardService.createJobcard(jobcard);
             if (newJobcard != null) {
                 response = new ResponseType(201, MessageUtil.JOBCARD_CREATED, true, newJobcard);
             } else {
-                response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.BAD_REQUEST, false, null);
+                response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.DATA_ALREADY_EXISTS, false, null);
             }
         }
         return response;
