@@ -20,7 +20,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
     @Query(value = " select * from tac_jobcard_grade a where emp_no in (select empno from user_sap_ws_mini a " +
                      " where a.run_date=(select max(run_date) from user_sap_ws_mini where legacycode=:jobId) " +
                      " and legacycode=:jobId) ", nativeQuery = true)
-    List<MawaredMaster> LegacyCodeWithGradeDate(@Param("jobCode") String jobCode);
+    List<MawaredMaster> LegacyCodeWithGradeDate(@Param("jobId") String jobId);
 
 
     @Query(value = "SELECT * FROM USER_SAP_WS_MINI a WHERE a.run_DATE = ( SELECT MAX(run_DATE) FROM USER_SAP_WS_MINI where QID=:qid) and  QID=:qid", nativeQuery = true)
@@ -44,14 +44,20 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
     @Query(value = "SELECT distinct PSLEVEL FROM USER_SAP_WS_MINI  where PSLEVEL is not null order by PSLEVEL", nativeQuery = true)
     List<Object[]> listFullGrades();
 
+     @Query(value = " select distinct job_family,job_family_short,job_family_text from job_family_view order by JOB_FAMILY ", nativeQuery = true)
+     List<Object[]> listFullJobFamily();
+
+
    // @Query(value = "SELECT distinct JOB_FAMILY,JOB_FAMILY_SHORT,JOB_FAMILY_TEXT FROM USER_SAP_MASTERDETAILS where JOB_FAMILY is not null order by JOB_FAMILY", nativeQuery = true)
   //  List<Object[]> listFullJobFamily();
-   @Query(value = "SELECT distinct a.JOB_FAMILY,a.JOB_FAMILY_SHORT,b.object_text JOB_FAMILY_TEXT FROM USER_SAP_MASTERDETAILS a,SAP_ORG_DETAILS  b" +
-                  " where a.JOB_FAMILY is not null " +
-                  " and a.job_family=b.objid " +
-                  " and b.lang='A' " +
-                  " order by a.JOB_FAMILY ", nativeQuery = true)
-   List<Object[]> listFullJobFamily();
+
+    // modified query
+//   @Query(value = "SELECT distinct a.JOB_FAMILY,a.JOB_FAMILY_SHORT,b.object_text JOB_FAMILY_TEXT FROM USER_SAP_MASTERDETAILS a,SAP_ORG_DETAILS  b" +
+//                  " where a.JOB_FAMILY is not null " +
+//                  " and a.job_family=b.objid " +
+//                  " and b.lang='A' " +
+//                  " order by a.JOB_FAMILY ", nativeQuery = true)
+//   List<Object[]> listFullJobFamily();
 
 
     @Query(value = "select * from SAP_ORG_DETAILS where OTYPE='FN' and LANG='A'", nativeQuery = true)
