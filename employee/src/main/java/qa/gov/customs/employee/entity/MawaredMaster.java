@@ -1,10 +1,7 @@
 package qa.gov.customs.employee.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -250,7 +247,27 @@ public class MawaredMaster {
 //    long CREATED_BY	;
 //    @Column(name="CREATION_DATE")
 //    Date CREATION_DATE	;
+@Transient
+public Date currentGradeDate;
+@Transient
+public Date nextGradeDate;
 
+    @Transient
+    public Date getCurrentGradeDate() {
+        return currentGradeDate;
+    }
+
+    public void setCurrentGradeDate(Date currentGradeDate) {
+        this.currentGradeDate = currentGradeDate;
+    }
+    @Transient
+    public Date getNextGradeDate() {
+        return nextGradeDate;
+    }
+
+    public void setNextGradeDate(Date nextGradeDate) {
+        this.nextGradeDate = nextGradeDate;
+    }
 
     public String getCERTF_T() {
         return CERTF_T;

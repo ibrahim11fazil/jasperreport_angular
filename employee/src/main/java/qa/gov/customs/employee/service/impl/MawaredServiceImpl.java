@@ -30,7 +30,24 @@ public class MawaredServiceImpl implements MawaredService {
 
     @Override
     public List<MawaredMaster> findByLegacyCode(String jobCode) {
-        return mawaredRepository.findByLegacyCode(jobCode);
+        List<MawaredMaster> masterDetails=mawaredRepository.findByLegacyCode(jobCode);
+
+        List<Object[]> objects=mawaredRepository.LegacyCodeWithGradeDate(jobCode);
+        for(Object[] obj:objects)
+        {
+            for(MawaredMaster master:masterDetails)
+            {
+                if(master.getLEGACYCODE().equalsIgnoreCase((String)obj[2]))
+                {
+                master.setCurrentGradeDate((Date)obj[0]);
+                master.setNextGradeDate((Date)obj[1]);
+                }
+            }
+
+        }
+
+
+        return masterDetails;
     }
 
     @Override
