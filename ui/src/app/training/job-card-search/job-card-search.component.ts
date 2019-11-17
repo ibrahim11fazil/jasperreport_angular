@@ -33,7 +33,7 @@ export class JobCardSearchComponent implements OnInit {
   displaySearchByJobCardNo:boolean=false;
   displaySearchByJobGrade:boolean=false;
   displaySearchByJobTitle:boolean=false;
-  displayedColumns: string[] = ['jobTitle', 'jobGrade', 'jobGroup','job','jobcardNo', 'Edit','Status','HStatus' ];
+  displayedColumns: string[] = ['jobTitle', 'jobGrade', 'jobGroup','job','jobcardNo', 'Edit','Status' ];
   constructor(
     private trainingService: TrainingService,
     private userService:SystemUserService,
