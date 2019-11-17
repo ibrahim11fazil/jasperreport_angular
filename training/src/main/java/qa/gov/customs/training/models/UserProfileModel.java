@@ -1,6 +1,13 @@
 package qa.gov.customs.training.models;
 
+import qa.gov.customs.training.entity.TacJobcardConditions;
+import qa.gov.customs.training.entity.TacJobcardCourseLink;
+import qa.gov.customs.training.entity.TacJobcardDuties;
+import qa.gov.customs.training.entity.TacJobcardSkills;
+
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserProfileModel {
 
@@ -16,6 +23,42 @@ public class UserProfileModel {
     String category;
     BigDecimal statusFlag;
     BigDecimal mandatoryFlag;
+//     Set<TacJobcardConditions> tacJobcardConditions = new HashSet<TacJobcardConditions>(0);
+//     Set<TacJobcardDuties> tacJobcardDuties = new HashSet<TacJobcardDuties>(0);
+//     Set<TacJobcardSkills> tacJobcardSkills = new HashSet<TacJobcardSkills>(0);
+//     String job_desc_Ar;
+//
+//    public String getJob_desc_Ar() {
+//        return job_desc_Ar;
+//    }
+//
+//    public void setJob_desc_Ar(String job_desc_Ar) {
+//        this.job_desc_Ar = job_desc_Ar;
+//    }
+//
+//    public Set<TacJobcardConditions> getTacJobcardConditions() {
+//        return tacJobcardConditions;
+//    }
+//
+//    public void setTacJobcardConditions(Set<TacJobcardConditions> tacJobcardConditions) {
+//        this.tacJobcardConditions = tacJobcardConditions;
+//    }
+//
+//    public Set<TacJobcardDuties> getTacJobcardDuties() {
+//        return tacJobcardDuties;
+//    }
+//
+//    public void setTacJobcardDuties(Set<TacJobcardDuties> tacJobcardDuties) {
+//        this.tacJobcardDuties = tacJobcardDuties;
+//    }
+//
+//    public Set<TacJobcardSkills> getTacJobcardSkills() {
+//        return tacJobcardSkills;
+//    }
+//
+//    public void setTacJobcardSkills(Set<TacJobcardSkills> tacJobcardSkills) {
+//        this.tacJobcardSkills = tacJobcardSkills;
+//    }
 
     public BigDecimal getJobCardNo() {
         return jobCardNo;

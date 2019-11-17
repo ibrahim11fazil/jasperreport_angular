@@ -85,20 +85,21 @@
                             <div class="contact-list"> <strong> {{language.jobGrade}}</strong></div>
                             <span class="gene-block">: {{userProfile.pslevel}} </span>
                          </li>
+                          <li>
+                        <div class="contact-list"> <strong>{{language.nextGradeDate}}</strong></div>
+                                 <span>: {{datepipe.transform(userProfile.nextGradeDate, 'dd/MM/yyyy')}}</span>
+                        </li>
                          <li>
                            <div class="contact-list"> <strong>{{language.mobile}}</strong></div>
                            <span>: {{userProfile.mobile}}</span>
                         </li>
-                        <li>
+                        <!-- <li>
                                  <div class="contact-list"> <strong>{{language.currentGradeDate}}</strong></div>
                                  <span>: {{datepipe.transform(userProfile.currentGradeDate, 'dd/MM/yyyy')}}</span>
                                  
 
-                        </li>
-                        <li>
-                        <div class="contact-list"> <strong>{{language.nextGradeDate}}</strong></div>
-                                 <span>: {{datepipe.transform(userProfile.nextGradeDate, 'dd/MM/yyyy')}}</span>
-                        </li>
+                        </li> -->
+                       
                       </ul>
                       <ul>
                           <li>

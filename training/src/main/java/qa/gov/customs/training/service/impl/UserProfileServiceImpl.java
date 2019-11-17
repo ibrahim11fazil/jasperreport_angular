@@ -2,6 +2,9 @@ package qa.gov.customs.training.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.training.entity.TacJobcardConditions;
+import qa.gov.customs.training.entity.TacJobcardDuties;
+import qa.gov.customs.training.entity.TacJobcardSkills;
 import qa.gov.customs.training.models.UserCoursesAttended;
 import qa.gov.customs.training.models.UserProfileModel;
 import qa.gov.customs.training.repository.UserProfileRepository;
@@ -10,6 +13,7 @@ import qa.gov.customs.training.service.UserProfileService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -21,6 +25,10 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public List<UserProfileModel> listJobCardProfile(String id) {
         List<Object[]> userObjects = userprofilerepository.listJobCardProfile(id);
+
+//        Set<TacJobcardConditions> conditions= userprofilerepository.getUserJobCardConditions(String id);
+//        Set<TacJobcardDuties> duties=userprofilerepository.getUserJobCardDuties(String id);
+//        Set<TacJobcardSkills> skills=userprofilerepository.getUserJobCardSkills(String id);
         if (userObjects != null && userObjects.size() > 0) {
             return processlistJobCardProfile(userObjects);
         } else
@@ -29,6 +37,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     List<UserProfileModel> processlistJobCardProfile(List<Object[]> objects) {
         List<UserProfileModel> fAreas = new ArrayList<>();
+
         for (Object[] o : objects) {
             UserProfileModel fArea = new UserProfileModel();
             fArea.setJobCardNo((BigDecimal) o[0]);
@@ -42,7 +51,10 @@ public class UserProfileServiceImpl implements UserProfileService {
             fArea.setCategory((String) o[8]);
             fArea.setStatusFlag((BigDecimal) o[9]);
             fArea.setMandatoryFlag((BigDecimal) o[10]);
+//            fArea.setJob_desc_Ar((String) o[11]);
             fAreas.add(fArea);
+
+
         }
         return fAreas;
     }

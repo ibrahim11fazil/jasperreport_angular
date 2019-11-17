@@ -142,7 +142,7 @@ console.log("inside value null"+this.jobTitles)
       jobSkillsOptions: this.fb.array([]),
       courseOptions: this.fb.array([]),
       job: [this.jobCard.job, Validators.compose([Validators.required])],
-      jobTitle: [null],
+      jobTitle: [jobTitlesSelected],
       jobGrade: [jobGradeSelected, Validators.compose([Validators.required])],
       jobFamily: [jobFamilySelected, Validators.compose([Validators.required])],
       functionalArea: [jobFunctionalAreaSelected, Validators.compose([Validators.required])]

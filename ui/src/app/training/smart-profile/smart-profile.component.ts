@@ -160,6 +160,7 @@ export class SmartProfileComponent implements OnInit {
   getUserJobCard(jobId: String, isSearch: Boolean) {
     var input = new SmartProfileUserRequestModel()
     input.jobIdRequested = jobId
+    debugger
     this.trainingService.getEmployeeJobCardForSmartProfile(input).subscribe(
       data => {
         var response = <JobCardProfileRequest>data
