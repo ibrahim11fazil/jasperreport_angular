@@ -369,7 +369,7 @@ export class CourseManagementComponent implements OnInit {
   */
   dayClicked({ date, events }: { date: Date, events: CalendarEvent[] }): void {
     debugger;
-    this.empRows = null;
+    this.empRows = [];
     this.checkboxList=[];
     this.courseCompletion = false;
     this.displayAttendance = true;
@@ -461,6 +461,7 @@ export class CourseManagementComponent implements OnInit {
         }
         else
         {
+          debugger;
           this.empRows.forEach(emp => {
             if(emp.attendanceFlag==1)
             {
