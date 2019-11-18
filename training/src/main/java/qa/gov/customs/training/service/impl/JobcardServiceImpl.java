@@ -32,39 +32,72 @@ public class JobcardServiceImpl implements JobcardService {
     @Override
     public TacJobcard createJobcard(TacJobcard jobcard) {
 
-
-        List<TacJobcard> existingJobCard=jobcardRepository.findByJobGradeAndJobTitle(jobcard.getJobGrade(),jobcard.getJobTitle());
-        if(existingJobCard==null || existingJobCard.size()==0||jobcard.getJob()!=null) {
-
-
-            TacJobcard insertedJobCardUpdated = jobcardRepository.save(jobcard);
-            Optional<TacJobcard> inserted = jobcardRepository.findById(insertedJobCardUpdated.getJobcardNo());
-            Set<TacJobcardCourseLink> links = new HashSet<>();
-            if (jobcard.getJobcardNo() != new BigDecimal(0)) {
-                List<JobCardCourseLinkModel> updatedCourseList = jobcard.getJobCardCourseLinkModelList();
-                removeCourseList(updatedCourseList, jobcard.getJobcardNo());
-            }
-            if (jobcard.getJobCardCourseLinkModelList() != null &&
-                    jobcard.getJobCardCourseLinkModelList().size() > 0) {
-                jobcard.getJobCardCourseLinkModelList().forEach(item -> {
-                    Optional<TacCourseMaster> courseMaster = courseRepository.findById(item.getCourseId());
-                    TacJobcardCourseLink jobCourse = new TacJobcardCourseLink();
-                    jobCourse.setTacJobcardTransiant(inserted.get());
-                    jobCourse.setTacCourseMasterTransiant(courseMaster.get());
-                    jobCourse.setMandatoryFlag(item.getMandatoryFlag());
-                    links.add(jobCourse);
-                    inserted.get().setTacJobcardCourseLink(links);
-                });
-            }
-            TacJobcard insertedJobCardUpdated1 = jobcardRepository.save(inserted.get());
-            List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(insertedJobCardUpdated.getJobcardNo());
-            insertedJobCardUpdated1.setJobCardCourseLinkModelList(list);
-            return insertedJobCardUpdated1;
-        }
-        else
+       if(jobcard.getJobcardNo().compareTo(new BigDecimal(0))==0)
         {
-            return null;
+            List<TacJobcard> existingJobCard=jobcardRepository.findByJobGradeAndJobTitle(jobcard.getJobGrade(),jobcard.getJobTitle());
+            if(existingJobCard==null || existingJobCard.size()==0) {
+
+
+
+                TacJobcard insertedJobCardUpdated = jobcardRepository.save(jobcard);
+                Optional<TacJobcard> inserted = jobcardRepository.findById(insertedJobCardUpdated.getJobcardNo());
+                Set<TacJobcardCourseLink> links = new HashSet<>();
+                if (jobcard.getJobcardNo() != new BigDecimal(0)) {
+                    List<JobCardCourseLinkModel> updatedCourseList = jobcard.getJobCardCourseLinkModelList();
+                    removeCourseList(updatedCourseList, jobcard.getJobcardNo());
+                }
+                if (jobcard.getJobCardCourseLinkModelList() != null &&
+                        jobcard.getJobCardCourseLinkModelList().size() > 0) {
+                    jobcard.getJobCardCourseLinkModelList().forEach(item -> {
+                        Optional<TacCourseMaster> courseMaster = courseRepository.findById(item.getCourseId());
+                        TacJobcardCourseLink jobCourse = new TacJobcardCourseLink();
+                        jobCourse.setTacJobcardTransiant(inserted.get());
+                        jobCourse.setTacCourseMasterTransiant(courseMaster.get());
+                        jobCourse.setMandatoryFlag(item.getMandatoryFlag());
+                        links.add(jobCourse);
+                        inserted.get().setTacJobcardCourseLink(links);
+                    });
+                }
+                TacJobcard insertedJobCardUpdated1 = jobcardRepository.save(inserted.get());
+                List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(insertedJobCardUpdated.getJobcardNo());
+                insertedJobCardUpdated1.setJobCardCourseLinkModelList(list);
+                return insertedJobCardUpdated1;
+            }
+            else
+            {
+                return null;
+            }
         }
+
+        else
+       {
+           TacJobcard insertedJobCardUpdated = jobcardRepository.save(jobcard);
+           Optional<TacJobcard> inserted = jobcardRepository.findById(insertedJobCardUpdated.getJobcardNo());
+           Set<TacJobcardCourseLink> links = new HashSet<>();
+           if (jobcard.getJobcardNo() != new BigDecimal(0)) {
+               List<JobCardCourseLinkModel> updatedCourseList = jobcard.getJobCardCourseLinkModelList();
+               removeCourseList(updatedCourseList, jobcard.getJobcardNo());
+           }
+           if (jobcard.getJobCardCourseLinkModelList() != null &&
+                   jobcard.getJobCardCourseLinkModelList().size() > 0) {
+               jobcard.getJobCardCourseLinkModelList().forEach(item -> {
+                   Optional<TacCourseMaster> courseMaster = courseRepository.findById(item.getCourseId());
+                   TacJobcardCourseLink jobCourse = new TacJobcardCourseLink();
+                   jobCourse.setTacJobcardTransiant(inserted.get());
+                   jobCourse.setTacCourseMasterTransiant(courseMaster.get());
+                   jobCourse.setMandatoryFlag(item.getMandatoryFlag());
+                   links.add(jobCourse);
+                   inserted.get().setTacJobcardCourseLink(links);
+               });
+           }
+           TacJobcard insertedJobCardUpdated1 = jobcardRepository.save(inserted.get());
+           List<JobCardCourseLinkModel> list = findAllCoursesForJobCard(insertedJobCardUpdated.getJobcardNo());
+           insertedJobCardUpdated1.setJobCardCourseLinkModelList(list);
+           return insertedJobCardUpdated1;
+       }
+
+
+
     }
 
     public void removeCourseList(List<JobCardCourseLinkModel> listOfCourses, BigDecimal jobCardNo) {
