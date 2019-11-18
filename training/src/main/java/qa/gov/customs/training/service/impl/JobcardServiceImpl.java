@@ -32,8 +32,9 @@ public class JobcardServiceImpl implements JobcardService {
     @Override
     public TacJobcard createJobcard(TacJobcard jobcard) {
 
+
         List<TacJobcard> existingJobCard=jobcardRepository.findByJobGradeAndJobTitle(jobcard.getJobGrade(),jobcard.getJobTitle());
-        if(existingJobCard==null || existingJobCard.size()==0) {
+        if(existingJobCard==null || existingJobCard.size()==0||jobcard.getJob()!=null) {
 
 
             TacJobcard insertedJobCardUpdated = jobcardRepository.save(jobcard);

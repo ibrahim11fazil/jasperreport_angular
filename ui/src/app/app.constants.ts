@@ -107,7 +107,7 @@ export const	GENERAL_COURSE =4
 
 //export const BASE_URL ="http://localhost:9000"
 
-export const VERSION_UI ="qa_0.10.3"
+export const VERSION_UI ="qa_0.10.4"
 
 //Disable if gateway is down -- for development
 var gateway = true
