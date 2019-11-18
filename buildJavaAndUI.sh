@@ -39,12 +39,12 @@ mvn clean install -f cis
 [ $? -eq 0 ] || exit 1
 
 #npm install -g @angular/cli
-#[ $? -eq 0 ] || exit 1
+#[ qa? -eq 0 ] || exit 1
 
 #npm install --prefix ./ui
-#[ $? -eq 0 ] || exit 1
+#[ qa? -eq 0 ] || exit 1
 
 pushd ui
 node --max_old_space_size=8192  node_modules/@angular/cli/bin/ng build --prod
-[ $? -eq 0 ] || exit 1
+[ qa? -eq 0 ] || exit 1
 popd
