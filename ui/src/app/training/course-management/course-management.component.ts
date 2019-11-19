@@ -111,7 +111,7 @@ export class CourseManagementComponent implements OnInit {
   previousCourse: boolean = false;
   Follow_list: any;
   courseAttendanceList: TacCourseAttendance[] = [];
-  courseCompletionData: EmpData[];
+  courseCompletionData: EmpData[]=[];
   employeeData: EmpData;
   certificateDetails: CertificateRequest;
   certificateList: CertificateRequest[];
@@ -608,15 +608,15 @@ export class CourseManagementComponent implements OnInit {
     this.eventCourseDetail = row;
     const str = this.eventCourseDetail.course_date.split('-');
     const year = Number(str[2]);
-    const date = Number(str[1]);
-    const month = Number(str[0]) - 1;
+    const date = Number(str[0]);
+    const month = Number(str[1]) - 1;
     this.courseStartDate = new Date(year, month, date);
 
 
     const strENd = this.eventCourseDetail.end_date.split('-');
     const yearEnd = Number(strENd[2]);
-    const dateEnd = Number(strENd[1]);
-    const monthEnd = Number(strENd[0]) - 1;
+    const dateEnd = Number(strENd[0]);
+    const monthEnd = Number(strENd[1]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
 
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0,0)
@@ -683,15 +683,15 @@ export class CourseManagementComponent implements OnInit {
     course.activation_id = this.eventCourseDetail.activation_id;
     const str = this.eventCourseDetail.course_date.split('-');
     const year = Number(str[2]);
-    const date = Number(str[1]);
-    const month = Number(str[0]) - 1;
+    const date = Number(str[0]);
+    const month = Number(str[1]) - 1;
     this.courseStartDate = new Date(year, month, date);
 
 
     const strENd = this.eventCourseDetail.end_date.split('-');
     const yearEnd = Number(strENd[2]);
-    const dateEnd = Number(strENd[1]);
-    const monthEnd = Number(strENd[0]) - 1;
+    const dateEnd = Number(strENd[0]);
+    const monthEnd = Number(strENd[1]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
     course.course_date = this.courseStartDate;
     course.end_date = this.courseEndDate;
