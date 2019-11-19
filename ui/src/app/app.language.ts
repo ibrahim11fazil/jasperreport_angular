@@ -256,6 +256,7 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   btn_certificate: String = this.isArabic ? "الشهادة" : "Certificate"
   btn_markAttendance: String = this.isArabic ? "تعيين الحضور" : "Mark Attendance"
   btn_updateAttendance: String = this.isArabic ? "تعديل الحضور" : "Update Attendance"
+  btn_addParticipants:String=this.isArabic ? "Add Participants 1" :"Add Participants"
   btn_add: String = this.isArabic ? "اضافة" : "Add"
   btn_request: String = this.isArabic ? "طلب" : "Request"
   btn_details: String = this.isArabic ? "التفاصيل" : "Details"
