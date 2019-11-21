@@ -264,6 +264,9 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   btn_approve: String = this.isArabic ? "موافقة" : "Approve "
   btn_reject: String = this.isArabic ? "رفض" : "Reject "
   noDataToDisplay=this.isArabic? "لايوجد بيانات":"No Data to Display"
+  btn_cancelCourse:String=this.isArabic ? "Cancel Course 1" :"Cancel Course"
+  cancelCourse: String = this.isArabic ? "Cancel Course 1" : "Cancel Course"
+  
 
 
 
@@ -360,6 +363,8 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
 
   selectCourseOrActivitytoviewdate=this.isArabic?"اختر نشاط أو دورة تدريبية لعرض التاريخ" :"Select Course or Activity to view date"
   attendanceMarkedSuccessfully=this.isArabic? "تم تسجيل الحضور بنجاح": "Attendance Marked Successfully"
+  courseCancelSuccessfull=this.isArabic? "Successfully Cancelled Course 1": "Successfully Cancelled Course"
+  couldNotMarkFutureAttendance=this.isArabic? "Could not mark attendance for future dates 1":"Could not mark attendance for future dates"
 
 
 

@@ -119,6 +119,14 @@ export class TacCourseMaster {
         data: Number;
         count:number;
     }
+
+    export interface courseCancellation {
+        status: Boolean;
+        code:number;
+        message:String;
+        data: Number;
+        count:number;
+    }
     
     
 

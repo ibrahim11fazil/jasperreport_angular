@@ -83,6 +83,20 @@
 				</ng-template>
 			</ngx-datatable-column>
 
+
+			<ngx-datatable-column *ngIf="displayManage" min-width="50px">
+				<ng-template ngx-datatable-header-template>
+					<span>{{language.cancelCourse}}</span>
+				</ng-template>
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					<button mat-raised-button color="accent" class="m-1" type="button"
+					(click)=cancelCourse(row)
+						>{{language.btn_cancelCourse}}</button>
+				</ng-template>
+			</ngx-datatable-column>
+
+
+
 			<ngx-datatable-column *ngIf="previousCourse" min-width="50px">
 				<ng-template ngx-datatable-header-template>
 					<span>{{language.status}}</span>
@@ -202,7 +216,7 @@
 
 
 			<div class="pad-wrap left">
-					<button mat-raised-button color="primary" (click)="addparticipants()" type="submit">{{language.btn_addParticipants}}</button>
+					<button mat-raised-button color="primary" (click)="addParticipants()" type="submit">{{language.btn_addParticipants}}</button>
 			</div>
 		</mat-card>
 	</div>
@@ -417,7 +431,7 @@
 				</ng-template>
 				<ng-template let-row="row" ngx-datatable-cell-template>
 
-					{{ row.percentage==100?"Pass":"Fail"}}
+					{{ row.percentage>=80?"Pass":"Fail"}}
 				</ng-template>
 			</ngx-datatable-column>
 

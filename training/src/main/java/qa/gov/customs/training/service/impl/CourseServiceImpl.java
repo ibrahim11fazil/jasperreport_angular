@@ -764,6 +764,22 @@ public class CourseServiceImpl implements CourseService {
         return seatCapacity;
     }
 
+    @Override
+    public TacCourseDate cancelCourse(TacCourseActivation activation)
+    {
+        TacCourseDate course=new TacCourseDate();
+        BigDecimal activationData=activationRepo.getDateByActivationId(activation.getActivationId());
+        if(activationData!=null)
+        {
+            TacCourseDate date=new TacCourseDate();
+            date.setDateId(activationData);
+            date.setStatus(new BigDecimal(0));
+             course=tacCourseDateRepository.save(date);
+        }
+
+return course;
+    }
+
 
 }
 

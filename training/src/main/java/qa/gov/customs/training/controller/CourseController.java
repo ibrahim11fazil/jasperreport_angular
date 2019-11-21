@@ -651,6 +651,24 @@ public class CourseController {
         }
 
     }
+    @PreAuthorize("hasAnyAuthority('sfc')")
+    @PostMapping("/cancel-course")
+
+    public ResponseType cancelCourse(@RequestBody TacCourseActivation activation) {
+        if (activation != null && activation.getActivationId() != null) {
+            TacCourseDate course = courseService.cancelCourse(activation);
+            if (course != null) {
+
+                ResponseType response = new ResponseType(Constants.SUCCESS, "", true, 1);
+                return response;
+            } else {
+                ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+                return response;
+            }
+        }
+        ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+        return response;
+    }
 
     @PreAuthorize("hasAnyAuthority('cba')")
     @PostMapping("/course-date-by-activation")

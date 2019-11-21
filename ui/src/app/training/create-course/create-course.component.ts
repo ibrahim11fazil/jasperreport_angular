@@ -81,7 +81,7 @@ export class CreateCourseComponent implements OnInit {
 
   formInit(){
     this.form = this.fb.group({
-      courseName: [this.tacCourseMaster.courseName, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(25)])],
+      courseName: [this.tacCourseMaster.courseName, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
       durationFlagControl:[null, Validators.compose([Validators.required])],
       duration: [this.tacCourseMaster.duration, Validators.compose([Validators.required])],
       objective:[this.tacCourseMaster.objective, Validators.compose([Validators.required,Validators.minLength(5), Validators.maxLength(25)])],

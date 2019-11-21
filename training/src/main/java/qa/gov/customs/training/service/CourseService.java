@@ -89,6 +89,8 @@ public interface CourseService {
 
     List<CourseManagement> searchAllFutureCourses(TacCourseMaster courseName, CustomPrincipal principal);
 
+    TacCourseDate cancelCourse(TacCourseActivation activation);
+
     void setStatusOfDate(TacCourseDate courseDate);
 
     ActivationDate getDatesForActivation(BigDecimal activationId);
@@ -100,6 +102,8 @@ public interface CourseService {
     List<CourseManagement> getCoordinatorCourses(String jobId);
 
     List<CourseManagement> getInstructorCourses(String jobId);
+
     void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId);
+
     SeatCapacity getSeatCapacity(SeatCapacity capacity);
 }

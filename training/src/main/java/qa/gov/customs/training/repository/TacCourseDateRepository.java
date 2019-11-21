@@ -13,4 +13,6 @@ public interface TacCourseDateRepository extends JpaRepository<TacCourseDate, Bi
     List<Object[]> findAllDatesByCourseIdAndActivityId(BigDecimal courseId, BigDecimal activityId);
 
     TacCourseDate findByDateId(BigDecimal courseId);
+
+
 }

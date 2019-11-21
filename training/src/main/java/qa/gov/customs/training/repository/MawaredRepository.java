@@ -61,5 +61,16 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
     List<Object[]> getEmpPreviousAttendance(BigDecimal activationId,Date courseDate);
 
 
+
+    @Query(value = "select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date from USER1_SAP_WS_MINI a,Tac_jobcard b, "+
+    " Tac_jobcard_course_link c,Tac_course_activation d "+
+    " where d.activation_id=:act_id and c.course_id=d.course_id "+
+    " and b.jobcard_no=c.jobcard_no "+
+    " and a.job=b.job_title "+
+    " and a.pslevel=b.job_grade "+
+    " and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) ", nativeQuery = true)
+    List<Object[]> getDirectEnrollEmployees(BigDecimal act_id);
+
+
 }
 

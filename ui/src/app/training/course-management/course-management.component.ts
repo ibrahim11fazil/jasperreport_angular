@@ -4,7 +4,7 @@ import { TrainingService } from 'app/service/training/training.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
-import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster } from 'app/models/tac-course-master';
+import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster, courseCancellation } from 'app/models/tac-course-master';
 import { Page } from 'app/models/paged-data';
 import { TacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
@@ -72,6 +72,7 @@ export class CourseManagementComponent implements OnInit {
   rows: CourseManagementRes[];
   courseData: CourseManagementRes[];
   empRows: EmpData[];
+  participantRows : EmpData[];
   previousAttendance: EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
@@ -79,6 +80,7 @@ export class CourseManagementComponent implements OnInit {
   displayCourseDetails: boolean = false;
   customEvent: CalendarEvent;
   activation: ActivationData;
+  statusCardSelected:any;
   page = new Page();
   estimatedCost: Number;
   trainingRoomDetail: Location;
@@ -92,6 +94,7 @@ export class CourseManagementComponent implements OnInit {
   courseFilter = COURSE_FILTER;
   displayManage: boolean = false;
   eventCourseDetail: CourseManagementRes;
+  cancelSelectCourse: CourseManagementRes;
   courseStartDate: Date;
   courseDateValidation:Date;
   courseEndDate: Date;
@@ -204,6 +207,7 @@ export class CourseManagementComponent implements OnInit {
     debugger;
     this.displayManage = false;
     this.courseCompletion = false;
+    this.statusCardSelected=card;
     if (card.title == this.language.previousCourse) {
       this.displayCalendar = false;
       this.displayAttendance = false;
@@ -326,6 +330,7 @@ export class CourseManagementComponent implements OnInit {
         this.tacInstructorResult.forEach(i => {
           var item = this.tacInstructor.filter(item => item.instructorId == i.instructorId)
           if (item[0] != null) {
+            
             this.tacInstructorString.push(item[0].name)
 
           }
@@ -399,7 +404,7 @@ export class CourseManagementComponent implements OnInit {
     if (date >= dateFuture) {
       this.updateAttendance = false;
       this.displayAttendance = false;
-      this.toastr.error("Could not mark attendance for future dates")
+      this.toastr.error(this.language.couldNotMarkFutureAttendance)
     }
     else if (date <= dateCheck) {
       this.empRows = []
@@ -761,6 +766,47 @@ export class CourseManagementComponent implements OnInit {
         this.rows = response.data
         this.courseData = this.rows
         console.log(this.rows)
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      })
+  }
+
+
+  addParticipants()
+  {
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
+        courseActivation.activationId = this.eventCourseDetail.activation_id;
+        this.trainingService.getParticipantData(courseActivation).subscribe(
+          data => {
+            var response = <ResponseEmpData>data
+            this.participantRows = response.data
+          },
+          error => {
+            console.log(error)
+            this.errorService.errorResponseHandling(error)
+          })
+  }
+
+
+  cancelCourse(row)
+
+  {
+    debugger;
+    this.cancelSelectCourse=row
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
+        courseActivation.activationId = this.cancelSelectCourse.activation_id;
+    this.trainingService.cancelCourse(courseActivation)
+
+    .subscribe(
+      data => {
+        var response = <courseCancellation>data
+        if(response.status==true)
+        {
+          this.toastr.success(this.language.courseCancelSuccessfull)
+          this.getCourseManagement(this.statusCardSelected)
+        }
       },
       error => {
         console.log(error)
