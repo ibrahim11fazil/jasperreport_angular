@@ -724,10 +724,10 @@ public class CourseController {
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/get-mawared-data")
-    public ResponseType getMawaredData(MawaredMaster mawared)
+    public ResponseType getMawaredData(EmployeeData mawared)
     {
 
-        List<MawaredMaster> mawaredData=courseService.getMawaredData(mawared);
+        List<EmployeeData> mawaredData=courseService.getMawaredData(mawared);
         if(mawaredData!=null || mawaredData.size()>0)
         {
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, mawaredData);

@@ -102,7 +102,7 @@ public interface CourseService {
     List<CourseManagement> getCoordinatorCourses(String jobId);
 
     List<CourseManagement> getInstructorCourses(String jobId);
-    List<MawaredMaster> getMawaredData(MawaredMaster mawared);
+    List<EmployeeData> getMawaredData(EmployeeData mawared);
 
     void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId);
 

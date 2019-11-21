@@ -781,9 +781,10 @@ return course;
     }
 
     @Override
-    public List<MawaredMaster> getMawaredData(MawaredMaster mawared)
+    public List<EmployeeData> getMawaredData(EmployeeData mawared)
     {
-       return null;
+
+return null;
     }
 
 
