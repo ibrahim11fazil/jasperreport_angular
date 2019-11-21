@@ -780,6 +780,12 @@ public class CourseServiceImpl implements CourseService {
 return course;
     }
 
+    @Override
+    public List<MawaredMaster> getMawaredData(MawaredMaster mawared)
+    {
+       return null;
+    }
+
 
 }
 

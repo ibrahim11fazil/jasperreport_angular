@@ -220,6 +220,134 @@
 			</div>
 		</mat-card>
 	</div>
+
+	<div *ngIf="displayParticipantSelection" fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard" fxFlex="100%">
+			<mat-card fxFlex="100%">
+			  <div class="gene-card-title">
+				<div fxLayout="row" fxLayoutAlign="start center">
+				  <div fxLayout="column">
+					<h4>{{language.btn_addParticipants}}</h4>
+				  </div> <span fxFlex></span>
+				</div>
+				<mat-divider></mat-divider>
+			  </div>
+			  <div class="gene-card-content">
+				<form [formGroup]="form" (ngSubmit)="searchParticipants()">
+				  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+					<div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
+					   <mat-form-field  class="full-wid mrgn-b-md">
+						<!-- <input matInput placeholder={{language.jobGrade}} formControlName="jobGradeControl"> -->
+						 <mat-select placeholder={{language.jobGrade}} matInput formControlName="jobGradeControl" >
+								   <option [ngValue]="null">{{language.selectJobGrade}}</option>
+								   <mat-option *ngFor="let obj of jobGradeList"
+									[value]="obj">
+									  {{obj.psLevel}}
+								   </mat-option>
+								   </mat-select>
+					  </mat-form-field>
+					   <mat-form-field  class="full-wid mrgn-b-md">
+						<!-- <input matInput placeholder={{language.jobTitle}} formControlName="jobTitleControl"> -->
+						<mat-select placeholder={{language.jobTitle}} matInput formControlName="jobTitleControl">
+							  <option [ngValue]="null">{{language.selectJobTitles}}</option>
+							  <mat-option *ngFor="let obj of jobTitleList" [value]="obj">
+								 {{obj.jobDesc}}
+							  </mat-option>
+						   </mat-select>
+					  </mat-form-field>
+				 <!-- <small class="gene-block" *ngIf="form.controls['searchControl'].hasError('required') && form.controls['searchControl'].touched"
+							 class="warn-text">
+						Enter jobid or Qid for searching
+					  </small> -->
+					</div>
+				  </div>
+		  
+				  <div class="pad-wrap">
+					<div fxLayout="row" fxLayoutAlign="start">
+					  <button mat-raised-button color="secondary"  type="submit">{{language.btn_search}}</button>
+				  </div>
+				  </div>
+				</form>
+			  </div>
+			</mat-card>
+		  </div>
+		  <div *ngIf="displayParticipantSelection" fxFlex="100" class="gene-card-content">
+				<mat-card class="mat-pad-none gene-calender">
+		
+					<ngx-datatable #table class='material mrgn-all-md' [columnMode]="'force'" [headerHeight]="50"
+						[footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='mawaredDataInfo' [count]="page.totalElements"
+						[offset]="page.pageNumber" [messages]="{emptyMessage: language.noDataToDisplay}">
+		
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>{{language.jobId}}</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.jobId}}
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>{{language.empName}}</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.cnameAr}}
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>{{language.department}}</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.department}}
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>{{language.jobTitle}}</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.jobTitle}}
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>{{language.mobile}}</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								{{row.mobile}}
+							</ng-template>
+						</ngx-datatable-column>
+				
+
+					<ngx-datatable-column  min-width="50px">
+							<ng-template ngx-datatable-header-template>
+								<span>{{language.btn_addParticipants}}</span>
+							</ng-template>
+							<ng-template let-row="row" ngx-datatable-cell-template>
+								<button mat-raised-button color="accent" class="m-1" type="button"
+									>{{language.btn_add}}</button>
+							</ng-template>
+						</ngx-datatable-column>
+
+						<ngx-datatable-column min-width="50px">
+								<ng-template ngx-datatable-header-template>
+									<span>{{language.label_delete}}</span>
+								</ng-template>
+								<ng-template let-row="row" ngx-datatable-cell-template>
+									<button mat-raised-button color="accent" class="m-1" type="button"
+										>{{language.btn_delete}}</button>
+								</ng-template>
+							</ngx-datatable-column>
+						</ngx-datatable>
+		
+		
+					<div class="pad-wrap left">
+							<button mat-raised-button color="primary" (click)="addParticipants()" type="submit">{{language.btn_done}}</button>
+					</div>
+				</mat-card>
+			</div>
+		  
+  
 	<div *ngIf="displayCalendar" fxFlex="100" class="gene-card-content">
 		<mat-card class="mat-pad-none gene-calender">
 			<ng-template ngbModalContainer></ng-template>

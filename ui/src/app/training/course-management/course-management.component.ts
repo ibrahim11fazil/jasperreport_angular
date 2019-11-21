@@ -11,7 +11,7 @@ import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/l
 import { DURATION_FLAG_LIST, GET_CERTIFICATE, COURSE_FILTER } from 'app/app.constants';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
 import { TrainingRoom } from 'app/models/training-room';
-import { SystemUser, ISystemUserResponseList, SystemUserResponseArray } from 'app/models/system-user';
+import { SystemUser, ISystemUserResponseList, SystemUserResponseArray, MawaredUserInfo, MawaredUserResponse, MawaredUserInfoResponse } from 'app/models/system-user';
 import { SystemUserService } from 'app/service/user/system-user.service';
 import { Subject } from 'rxjs';
 import {
@@ -43,6 +43,7 @@ import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
 import { formatDate } from '@angular/common';
 import { ErrorService } from 'app/service/error/error.service';
+import { JobGradesListResponse, JobTitleListResponse, JobGrades, JobTitle } from 'app/models/job-card-data';
 
 
 
@@ -72,7 +73,8 @@ export class CourseManagementComponent implements OnInit {
   rows: CourseManagementRes[];
   courseData: CourseManagementRes[];
   empRows: EmpData[];
-  participantRows : EmpData[];
+  participantRows: EmpData[];
+  mawaredDataInfo:MawaredUserInfo[];
   previousAttendance: EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
@@ -80,7 +82,9 @@ export class CourseManagementComponent implements OnInit {
   displayCourseDetails: boolean = false;
   customEvent: CalendarEvent;
   activation: ActivationData;
-  statusCardSelected:any;
+  statusCardSelected: any;
+  jobGradeList: JobGrades[] = []
+  jobTitleList: JobTitle[] = []
   page = new Page();
   estimatedCost: Number;
   trainingRoomDetail: Location;
@@ -96,7 +100,7 @@ export class CourseManagementComponent implements OnInit {
   eventCourseDetail: CourseManagementRes;
   cancelSelectCourse: CourseManagementRes;
   courseStartDate: Date;
-  courseDateValidation:Date;
+  courseDateValidation: Date;
   courseEndDate: Date;
   displayCalendar: boolean = false;
   displayButton: boolean = false
@@ -124,6 +128,7 @@ export class CourseManagementComponent implements OnInit {
   updateAttendance: boolean = false;
   dateClicked: Date = new Date();
   activationDate: String = ""
+  displayParticipantSelection: boolean = false
 
 
 
@@ -176,6 +181,7 @@ export class CourseManagementComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitleService.setTitle("COURSE MANAGEMENT")
+    this.formInit();
     this.trainingService.getAllInstructor().subscribe(
       data => {
 
@@ -201,13 +207,21 @@ export class CourseManagementComponent implements OnInit {
   }
   statsCard: any[] = [
   ]
+  formInit() {
+    this.form = this.fb.group({
+
+      jobGradeControl: [""],
+      jobTitleControl: [""],
+
+    });
+  }
 
 
   getCourseManagement(card) {
     debugger;
     this.displayManage = false;
     this.courseCompletion = false;
-    this.statusCardSelected=card;
+    this.statusCardSelected = card;
     if (card.title == this.language.previousCourse) {
       this.displayCalendar = false;
       this.displayAttendance = false;
@@ -295,7 +309,7 @@ export class CourseManagementComponent implements OnInit {
     const date = Number(str[1]);
     const month = Number(str[0]) - 1;
     this.courseStartDate = new Date(year, month, date);
-    this.courseDateValidation= new Date(year, month, date);
+    this.courseDateValidation = new Date(year, month, date);
     console.log(this.courseStartDate)
 
     const strENd = this.eventCourseDetail.end_date.split('-');
@@ -330,7 +344,7 @@ export class CourseManagementComponent implements OnInit {
         this.tacInstructorResult.forEach(i => {
           var item = this.tacInstructor.filter(item => item.instructorId == i.instructorId)
           if (item[0] != null) {
-            
+
             this.tacInstructorString.push(item[0].name)
 
           }
@@ -359,8 +373,8 @@ export class CourseManagementComponent implements OnInit {
 
         }
 
-        
-//for adding participants directly
+
+        //for adding participants directly
         let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
         courseActivation.activationId = this.eventCourseDetail.activation_id;
         this.trainingService.getEmpData(courseActivation).subscribe(
@@ -372,7 +386,7 @@ export class CourseManagementComponent implements OnInit {
             console.log(error)
             this.errorService.errorResponseHandling(error)
           })
-          this.addEvent();
+        this.addEvent();
 
       },
 
@@ -554,13 +568,11 @@ export class CourseManagementComponent implements OnInit {
     }
     this.refresh.next();
     debugger
-    if(this.courseDateValidation>new Date())
-    {
+    if (this.courseDateValidation > new Date()) {
       this.displayCalendar = false;
     }
-    else
-    {
-    this.displayCalendar = true;
+    else {
+      this.displayCalendar = true;
     }
   }
 
@@ -774,45 +786,94 @@ export class CourseManagementComponent implements OnInit {
   }
 
 
-  addParticipants()
-  {
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
-        courseActivation.activationId = this.eventCourseDetail.activation_id;
-        this.trainingService.getParticipantData(courseActivation).subscribe(
-          data => {
-            var response = <ResponseEmpData>data
-            this.participantRows = response.data
-          },
-          error => {
-            console.log(error)
-            this.errorService.errorResponseHandling(error)
-          })
-  }
-
-
-  cancelCourse(row)
-
-  {
-    debugger;
-    this.cancelSelectCourse=row
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
-        courseActivation.activationId = this.cancelSelectCourse.activation_id;
-    this.trainingService.cancelCourse(courseActivation)
-
-    .subscribe(
+  addParticipants() {
+    // let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
+    //     courseActivation.activationId = this.eventCourseDetail.activation_id;
+    //     this.trainingService.getParticipantData(courseActivation).subscribe(
+    //       data => {
+    //         var response = <ResponseEmpData>data
+    //         this.participantRows = response.data
+    //       },
+    //       error => {
+    //         console.log(error)
+    //         this.errorService.errorResponseHandling(error)
+    //       })
+    this.userService.getGrades().subscribe(
       data => {
-        var response = <courseCancellation>data
-        if(response.status==true)
-        {
-          this.toastr.success(this.language.courseCancelSuccessfull)
-          this.getCourseManagement(this.statusCardSelected)
+        var response = <JobGradesListResponse>data
+        if (response.status) {
+          this.jobGradeList = response.data
+        }
+        else {
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
         }
       },
       error => {
         console.log(error)
         this.errorService.errorResponseHandling(error)
-      })
+      }
+    )
+    this.userService.getJobTitles().subscribe(
+      data => {
+        var response = <JobTitleListResponse>data
+        if (response.status) {
+          this.jobTitleList = response.data
+        }
+        else {
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
+        }
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
+
+
+    this.displayParticipantSelection = true
+    this.displayCourseDetails = false
+    this.displayCalendar = false
   }
+
+
+  cancelCourse(row) {
+    debugger;
+    this.cancelSelectCourse = row
+    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
+    courseActivation.activationId = this.cancelSelectCourse.activation_id;
+    this.trainingService.cancelCourse(courseActivation)
+
+      .subscribe(
+        data => {
+          var response = <courseCancellation>data
+          if (response.status == true) {
+            this.toastr.success(this.language.courseCancelSuccessfull)
+            this.getCourseManagement(this.statusCardSelected)
+          }
+        },
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        })
+  }
+  searchParticipants() {
+    let mawaredData = new MawaredUserInfo()
+    mawaredData.jobTitle = this.form.value.jobTitleControl.job
+    mawaredData.psLevel = this.form.value.jobGradeControl.psLevel 
+    this.trainingService.getMawaredData(mawaredData)
+    .subscribe(
+      data=>
+      {
+        var response=<MawaredUserInfoResponse>data
+        this.mawaredDataInfo=response.data
+
+      }
+    )
+
+  }
+
 
 
 }

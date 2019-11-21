@@ -718,6 +718,24 @@ public class CourseController {
             return response;
         }
 
+
+
+    }
+
+    @PreAuthorize("hasAnyAuthority('sfc')")
+    @PostMapping("/get-mawared-data")
+    public ResponseType getMawaredData(MawaredMaster mawared)
+    {
+
+        List<MawaredMaster> mawaredData=courseService.getMawaredData(mawared);
+        if(mawaredData!=null || mawaredData.size()>0)
+        {
+            ResponseType response = new ResponseType(Constants.SUCCESS, "", true, mawaredData);
+        return response;
+    } else {
+        ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+        return response;
+    }
     }
 
 

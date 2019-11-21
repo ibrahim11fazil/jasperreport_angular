@@ -109,6 +109,34 @@ export interface MawaredUserResponse {
     data:MawaredUser;
 }
 
+export class MawaredUserInfo{
+    jobId:String;
+    jobTitle:String;
+    pernr:String;
+    cnameAr:String;
+    cnameEn:String;
+    qid:String;
+    mobile:String;
+    email:String;
+    activeFlag:String;
+    positionId:String;
+    secionCode:String;
+    gender:String;
+    dateofbirth:String;
+    department:String;
+    departmentId:String;
+    passport:String;
+    iban:String;
+    qualification:String;
+    psLevel:String;
+}
+export interface MawaredUserInfoResponse {
+    status: Boolean;
+    code:number;
+    message:String;
+    data:MawaredUserInfo[];
+}
+
 export interface LoginResponseObj {
     access_token: string;
     token_type: string;
