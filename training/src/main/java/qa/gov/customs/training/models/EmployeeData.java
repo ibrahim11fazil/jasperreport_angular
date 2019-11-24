@@ -29,15 +29,7 @@ public class EmployeeData {
     private BigDecimal attendanceFlag;
     private boolean isChecked;
     private Date attendanceDate;
-    private String psLevel;
 
-    public String getPsLevel() {
-        return psLevel;
-    }
-
-    public void setPsLevel(String psLevel) {
-        this.psLevel = psLevel;
-    }
 
     public boolean isChecked() {
         return isChecked;

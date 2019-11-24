@@ -860,8 +860,14 @@ export class CourseManagementComponent implements OnInit {
   }
   searchParticipants() {
     let mawaredData = new MawaredUserInfo()
+    if(this.form.value.jobTitleControl!=null)
+    {
     mawaredData.jobTitle = this.form.value.jobTitleControl.job
+    }
+    if(this.form.value.jobGradeControl!=null)
+    {
     mawaredData.psLevel = this.form.value.jobGradeControl.psLevel 
+    }
     this.trainingService.getMawaredData(mawaredData)
     .subscribe(
       data=>

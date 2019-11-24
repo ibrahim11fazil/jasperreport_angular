@@ -1,5 +1,6 @@
 package qa.gov.customs.training.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -70,6 +71,12 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
     " and a.pslevel=b.job_grade "+
     " and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) ", nativeQuery = true)
     List<Object[]> getDirectEnrollEmployees(BigDecimal act_id);
+
+
+    @Query(value="select a.legacycode,a.cname_Ar,a.mobile,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.run_date from USER1_SAP_WS_MINI a " +
+            "where run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) ", nativeQuery = true)
+
+    List<Object[]> findAllEmployee();
 
 
 }

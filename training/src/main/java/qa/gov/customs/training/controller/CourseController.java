@@ -39,21 +39,19 @@ public class CourseController {
     public ResponseType createUpdateCourse(@RequestBody TacCourseMaster course) {
         logger.info("Create course starting ");
         if (course.getCourseId().equals(new BigDecimal(0))) {
-           List<TacCourseMaster> existingCourse=courseService.findByCourseName(course.getCourseName());
-           if(existingCourse==null || existingCourse.size()==0) {
-               course.setActiveFlag(new BigDecimal(1));
-               TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
-               //course.getTacCourseAudiences().forEach(i -> i.courseInserted);
-               ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
-                       courseInserted);
-               return response;
-           }
-           else
-           {
-               ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
-                       null);
-               return response;
-           }
+            List<TacCourseMaster> existingCourse = courseService.findByCourseName(course.getCourseName());
+            if (existingCourse == null || existingCourse.size() == 0) {
+                course.setActiveFlag(new BigDecimal(1));
+                TacCourseMaster courseInserted = courseService.createAndUpdateCourse(course);
+                //course.getTacCourseAudiences().forEach(i -> i.courseInserted);
+                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.COURSE_CREATED, true,
+                        courseInserted);
+                return response;
+            } else {
+                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                        null);
+                return response;
+            }
         } else {
             TacCourseMaster courseExisting = courseService.findById(course.getCourseId());
             course.setActiveFlag(courseExisting.getActiveFlag());
@@ -228,21 +226,19 @@ public class CourseController {
                     }
                 }
                 if (activities.size() > 0) {
-                   // linkCourse.setTacActivities(activities);
+                    // linkCourse.setTacActivities(activities);
                     courselink = courseService.linkCourseWithActivity(linkCourse);
 
 
                     for (TacActivity activity : course.getTacActivities()) {
-                        if(linkCourse.getTacActivities().size()==0 || linkCourse.getTacActivities()==null)
-                        {
-                            courseService.updateCourseActivityLink(activity.getActivityId(),course.getCourseId());
-                        }
-                        else {
+                        if (linkCourse.getTacActivities().size() == 0 || linkCourse.getTacActivities() == null) {
+                            courseService.updateCourseActivityLink(activity.getActivityId(), course.getCourseId());
+                        } else {
 
 
                             for (TacActivity activity1 : linkCourse.getTacActivities()) {
                                 if (activity1.getActivityId() != activity.getActivityId()) {
-                                    courseService.updateCourseActivityLink(activity.getActivityId(),course.getCourseId());
+                                    courseService.updateCourseActivityLink(activity.getActivityId(), course.getCourseId());
 
                                 }
 
@@ -505,8 +501,8 @@ public class CourseController {
     @PreAuthorize("hasAnyAuthority('cad')")
     @PostMapping("/get-seat-capacity")
     public ResponseType getCourseActivationById(@RequestBody SeatCapacity seatCapacity) {
-        SeatCapacity capacity=null;
-        capacity=courseService.getSeatCapacity(seatCapacity);
+        SeatCapacity capacity = null;
+        capacity = courseService.getSeatCapacity(seatCapacity);
         ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, capacity);
         return response;
 
@@ -605,7 +601,7 @@ public class CourseController {
         List<CourseManagement> courseManagement = null;
         courseManagement = courseService.getAllFutureCourses();
         if (courseManagement != null || !courseManagement.isEmpty()) {
-         //ُ
+            //ُ
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, courseManagement);
             return response;
         } else {
@@ -634,11 +630,11 @@ public class CourseController {
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/search-future-courses")
-    public ResponseType searchFutureCourses(@RequestBody TacCourseMaster courseMaster,@AuthenticationPrincipal CustomPrincipal principal) {
+    public ResponseType searchFutureCourses(@RequestBody TacCourseMaster courseMaster, @AuthenticationPrincipal CustomPrincipal principal) {
         List<CourseManagement> courseManagement = null;
 
 
-        courseManagement = courseService.searchAllFutureCourses(courseMaster,principal);
+        courseManagement = courseService.searchAllFutureCourses(courseMaster, principal);
 
 
         if (courseManagement != null || !courseManagement.isEmpty()) {
@@ -651,6 +647,7 @@ public class CourseController {
         }
 
     }
+
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/cancel-course")
 
@@ -718,24 +715,21 @@ public class CourseController {
             return response;
         }
 
-
-
     }
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/get-mawared-data")
-    public ResponseType getMawaredData(EmployeeData mawared)
-    {
+    public ResponseType getMawaredData(EmployeeData mawared) {
 
-        List<EmployeeData> mawaredData=courseService.getMawaredData(mawared);
-        if(mawaredData!=null || mawaredData.size()>0)
-        {
+        List<EmployeeData> mawaredData = courseService.getMawaredData(mawared);
+
+        if (mawaredData != null || mawaredData.size() > 0) {
             ResponseType response = new ResponseType(Constants.SUCCESS, "", true, mawaredData);
-        return response;
-    } else {
-        ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
-        return response;
-    }
+            return response;
+        } else {
+            ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
+            return response;
+        }
     }
 
 

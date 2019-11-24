@@ -61,6 +61,8 @@ public class CourseServiceImpl implements CourseService {
     ActivationRepository activationRepository;
     @Autowired
     EmployeeRequestRepository requestRepository;
+    @Autowired
+    MawaredRepository mawaredRepo;
 
     @Override
     public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -777,14 +779,38 @@ public class CourseServiceImpl implements CourseService {
              course=tacCourseDateRepository.save(date);
         }
 
-return course;
+         return course;
     }
 
     @Override
     public List<EmployeeData> getMawaredData(EmployeeData mawared)
     {
+        int page = 0;
+        int limit = 20;
+        List<CourseManagement> courseList = new ArrayList<>();
+        Pageable pageable =
+                PageRequest.of(
+                        page, limit, Sort.by("rec_id"));
+if(mawared.getJobTitle()==null || mawared.getJobId()==null)
+{
+   List<Object[]> objects= mawaredRepo.findAllEmployee();
 
-return null;
+
+    List<EmployeeData> emp = new ArrayList<>();
+    for (Object[] o : objects) {
+        EmployeeData emp1 = new EmployeeData();
+        emp1.setJobId((String) o[0]);
+        emp1.setCnameAr((String) o[1]);
+        emp1.setMobile((String) o[2]);
+        emp1.setJobTitle((String) o[3]);
+        emp1.setDepartment((String) o[4]);
+        emp.add(emp1);
+
+    }
+    return emp;
+
+}
+        return null;
     }
 
 
