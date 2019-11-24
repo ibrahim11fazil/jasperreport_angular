@@ -39,8 +39,8 @@ public class WorkFlowCamudaApplication {
     public static void main(String... args) {
         SpringApplication.run(WorkFlowCamudaApplication.class, args);
         // do default setup of platform
-        ProcessEngine engine = BpmPlatform.getDefaultProcessEngine();
-        createDefaultUser(engine);
+        //ProcessEngine engine = BpmPlatform.getDefaultProcessEngine();
+        //createDefaultUser(engine);
         //setCamundaEELicenseKey(engine);
     }
 

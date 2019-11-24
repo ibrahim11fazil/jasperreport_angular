@@ -34,4 +34,8 @@ public interface ActivationRepository extends JpaRepository<TacCourseActivation,
 
 //    select * from ( select row_.*, rownum rownum_ from (Select * from Tac_Course_Activation where course_Id in (select course_id from Tac_Course_Master where lower(course_Name) LIKE %:name% ) order by activation_Id desc)row_ where rownum <= ?) where rownum_ > ?
 
+    //TODO total seat capacity
+    @Query(value="select seat_capacity from Tac_Course_Activation where activation_id=:activationId", nativeQuery = true)
+    BigDecimal getSeatCapacityByActivationId(BigDecimal activationId);
+
 }

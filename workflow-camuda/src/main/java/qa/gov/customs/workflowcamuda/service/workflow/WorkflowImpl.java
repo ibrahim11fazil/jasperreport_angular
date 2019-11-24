@@ -85,7 +85,7 @@ public class WorkflowImpl {
             if (type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)) {
 
                 ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
-                        .processDefinitionKey(TYPE_1_PROCESS)
+                        .processDefinitionKey(TYPE_1_PROCESS_v2)
                         .latestVersion() //now 46
                         //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
                         .versionTag(TYPE_1_PROCESS_VERSION) // This should be changed for new versions
