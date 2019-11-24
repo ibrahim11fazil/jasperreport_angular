@@ -802,12 +802,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<EmployeeData> getMawaredData(EmployeeData mawared)
     {
-        int page = 0;
-        int limit = 20;
-        List<CourseManagement> courseList = new ArrayList<>();
-        Pageable pageable =
-                PageRequest.of(
-                        page, limit, Sort.by("rec_id"));
 if(mawared.getJobTitle()==null || mawared.getJobId()==null)
 {
    List<Object[]> objects= mawaredRepo.findAllEmployee();
