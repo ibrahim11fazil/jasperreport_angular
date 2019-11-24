@@ -750,8 +750,10 @@ public class CourseServiceImpl implements CourseService {
     }
     @Override
 
+    //TODO total applied
     public SeatCapacity getSeatCapacity(SeatCapacity capacity)
-    {  SeatCapacity seatCapacity=new SeatCapacity();
+    {
+        SeatCapacity seatCapacity=new SeatCapacity();
         BigDecimal seatCount =requestRepository.getSeatCapacity(capacity.getActivationId());
 //        for (Object[] o : object) {
 //
@@ -761,6 +763,21 @@ public class CourseServiceImpl implements CourseService {
 //        }
         seatCapacity.setActivationId(capacity.getActivationId());
         seatCapacity.setSeatCapacity(seatCount);
+        return seatCapacity;
+    }
+
+    @Override
+    public SeatCapacity remainingSeatCapacity(SeatCapacity capacity) {
+        SeatCapacity seatCapacity=new SeatCapacity();
+        //Applied seat capacity
+        BigDecimal seatCount =requestRepository.getSeatCapacity(capacity.getActivationId());
+        BigDecimal totalSeatCount=   activationRepository.getSeatCapacityByActivationId(capacity.getActivationId());
+        BigDecimal remainingSeats=  totalSeatCount.subtract(seatCount);
+        if(remainingSeats.intValue()> 0 )
+            seatCapacity.setSeatCapacity(remainingSeats);
+        else
+            seatCapacity.setSeatCapacity(new BigDecimal("0"));
+        seatCapacity.setActivationId(capacity.getActivationId());
         return seatCapacity;
     }
 

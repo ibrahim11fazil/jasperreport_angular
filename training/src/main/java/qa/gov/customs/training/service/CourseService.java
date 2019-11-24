@@ -107,4 +107,6 @@ public interface CourseService {
     void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId);
 
     SeatCapacity getSeatCapacity(SeatCapacity capacity);
+
+    SeatCapacity remainingSeatCapacity(SeatCapacity capacity);
 }
