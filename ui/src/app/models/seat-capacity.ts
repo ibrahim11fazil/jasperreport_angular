@@ -16,3 +16,10 @@ export interface SeatCapacityResponse{
     message:String;
     data: SeatCapacity;
 }
+
+export class SeatCapacityCheck{
+    activationId:Number
+    constructor(activationId:Number) {
+        this.activationId=activationId;
+    }
+}

@@ -17,6 +17,7 @@ import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
 import { ErrorService } from 'app/service/error/error.service';
 import { DatePipe } from '@angular/common';
+import { SeatCapacity, SeatCapacityCheck, SeatCapacityResponse } from 'app/models/seat-capacity';
 @Component({
   selector: 'ms-my-tasks',
   templateUrl: './my-tasks.component.html',
@@ -148,8 +149,25 @@ export class MyTasksComponent implements OnInit {
     }
   }
   approve(){
-     this.saveComment()
-     this.approveOrRejectAction("approved")
+    const activationId= Number(this.data.userRequestModel.courseActivationId);
+    let capacity =  new SeatCapacityCheck(activationId)
+    this.trainingService.checkforSeats(capacity).subscribe(
+      data =>{
+        var response = <SeatCapacityResponse>data
+        if(response.status)   {
+          this.saveComment()
+          this.approveOrRejectAction("approved")
+        } else{
+             this.toastr.error(this.language.noSeatMessage)
+             this.commentTxt!=this.language.noSeatComment
+        }  
+      },
+      error=>{
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
+   
   }
 
   reject(){
@@ -157,7 +175,7 @@ export class MyTasksComponent implements OnInit {
     this.saveComment()
     this.approveOrRejectAction("rejected")
     }else{
-      this.toastr.error("Required Comment")
+      this.toastr.error(this.language.requiredComment.toString())
     }
   }
  

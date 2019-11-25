@@ -96,16 +96,15 @@ public class EmployeeRequestController {
 
     @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/check-for-seats")
-    public ResponseType checkforSeats(
-            @Valid @RequestBody UserRequestModel request,
+    public ResponseType checkForSeats(
+            @Valid @RequestBody SeatCapacity capacity,
             @AuthenticationPrincipal CustomPrincipal principal) {
-        if (request != null && request.getCourseActivationId()!=null) {
-            SeatCapacity capacity =  courseService.remainingSeatCapacity(new BigDecimal(request.getCourseActivationId()));
-
+        if (capacity != null && capacity.getActivationId()!=null) {
+            SeatCapacity capacityOut =  courseService.remainingSeatCapacity(capacity.getActivationId());
             if(capacity.getSeatCapacity().intValue()>0)
-                return get(200, MessageUtil.SUCCESS, true, capacity);
+                return get(200, MessageUtil.SUCCESS, true, capacityOut);
             else
-                return get(200, MessageUtil.FAILED, false, capacity);
+                return get(200, MessageUtil.FAILED, false, capacityOut);
         } else {
             return get(Constants.BAD_REQUEST, MessageUtil.FAILED, false, null);
         }

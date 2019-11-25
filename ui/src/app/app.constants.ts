@@ -247,6 +247,7 @@ export const  PROCESS_HISTORY_BY_PROCESS_ID=BASE_URL+workflow+"/process-history"
 //WORKFLOW VALIDATIONS IN TRAINING
 export const  CHECK_THE_REQUEST_IS_OVERRIDING=BASE_URL+training +"/check-the-request-is-overriding"
 export const  CHECK_THE_REQUEST_IS_VALID=BASE_URL+training +"/check-the-user-is-already-applied-with-activation-id"
+export const  CHECK_FOR_SEATS=BASE_URL+training +"/check-for-seats"
 //export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
 
 
