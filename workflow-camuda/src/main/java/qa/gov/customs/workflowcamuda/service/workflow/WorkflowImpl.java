@@ -29,6 +29,7 @@ import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.util.*;
 
 import static qa.gov.customs.workflowcamuda.service.workflow.WorkflowConstants.*;
@@ -310,9 +311,25 @@ public class WorkflowImpl {
     }
 
 
-    //Find the Training Head
+    //Find the Training Head also add the training admin
     public void findHeadofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
         List<ImmediateManager>  userdata = userProxyService.getHeadOfTrainingAndContinuingEducation();
+        List<UserMaster> trainingAdmin = userSSOProxy.getUserByRole(new BigInteger("1"));
+        if(trainingAdmin!=null && trainingAdmin.size()>0) {
+            List<ImmediateManager> trainingAdminList = new ArrayList<>();
+            trainingAdmin.forEach(item ->{
+                ImmediateManager m = new ImmediateManager();
+                m.setLegacyCode(item.getJobId());
+                m.setImLegacyCode(item.getJobId());
+                m.setTrainingAdmin(true);
+                trainingAdminList.add(m);
+            });
+            if(userdata!=null){
+                userdata.addAll(trainingAdminList)  ;
+            }else{
+                userdata = trainingAdminList;
+            }
+        }
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
     }
@@ -324,7 +341,7 @@ public class WorkflowImpl {
         //        ResponseType userdata = userProxyService.getHeadOfTrainingCenterManager(workflowToken);
         //        taskActionByUser(model, userdata, task);
         //For multiple users based on Training SSO
-        List<UserMaster> userdata = userSSOProxy.getTrainingDepartmentHeads();
+        List<UserMaster> userdata = userSSOProxy.getUserByRole(new BigInteger("6"));
         taskActionByUserSSO(model, userdata, task);
     }
 
@@ -400,8 +417,8 @@ public class WorkflowImpl {
         if (userdata != null && userdata.size() >0 ) {
             ObjectMapper mapper = new ObjectMapper();
             //TODO Get other chairman
-            manager = userdata.get(0);
-            if (manager != null && manager.getLegacyCode() != null) {
+             manager = userdata.get(0);
+            if (manager.getLegacyCode() != null) {
                 task.setAssignee(manager.getImLegacyCode());
                 task.setDescription(manager.getImCnameAr());
                 if (getDelegationStatus(manager.getImLegacyCode())) {
@@ -417,10 +434,17 @@ public class WorkflowImpl {
                         });
                     }
                 }
-            } else {
+            }
+            else {
                 requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                 trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
             }
+            //Set special delegation to admin done
+            userdata.forEach(item ->{
+                if(item.getTrainingAdmin()){
+                    task.addCandidateUser(item.getLegacyCode());
+                }
+            });
         } else {
             requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
             trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);

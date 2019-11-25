@@ -58,9 +58,9 @@ public class WorkflowProxyOverridenController {
     }
 
     //@PostMapping(value = "/get-head-of-training-and-continuing-edu-workflow/{wtoken}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserMaster> getTrainingDepartmentHeads() {
+    public List<UserMaster> getUserByRole(BigInteger roleId) {
         List<UserMaster> updatedUser = new ArrayList<>();
-        List<RoleUser> roleUsers = roleUserRepository.findAllByRoleId(new BigInteger("6"));
+        List<RoleUser> roleUsers = roleUserRepository.findAllByRoleId(roleId);
         if(roleUsers!=null && roleUsers.size()>0) {
             List<BigInteger> ids = new ArrayList<>();
             roleUsers.forEach(item -> {
@@ -83,6 +83,8 @@ public class WorkflowProxyOverridenController {
         }
         else{return null;}
     }
+
+
 
 
 }
