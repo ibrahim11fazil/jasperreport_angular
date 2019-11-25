@@ -10,15 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.config.Publisher;
+import qa.gov.customs.training.models.SeatCapacity;
 import qa.gov.customs.training.models.UserRequestModel;
 import qa.gov.customs.training.proxy.WorkFlowProxyService;
 import qa.gov.customs.training.security.CustomPrincipal;
+import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.service.EmployeeRequestService;
 import qa.gov.customs.training.utils.Constants;
 import qa.gov.customs.training.utils.MessageUtil;
 import qa.gov.customs.training.utils.models.ResponseType;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @RestController
 public class EmployeeRequestController {
@@ -29,6 +32,9 @@ public class EmployeeRequestController {
     Publisher publisher;
     @Autowired
     EmployeeRequestService requestService;
+
+    @Autowired
+    CourseService courseService;
 
     @Autowired
     public EmployeeRequestController(WorkFlowProxyService workFlowProxyService) {
@@ -84,6 +90,24 @@ public class EmployeeRequestController {
             return get(201, MessageUtil.REQUEST_CREATED, true, false);
         } else {
             return get(Constants.BAD_REQUEST, MessageUtil.REQUEST_CREATION_FAILED, false, null);
+        }
+    }
+
+
+    @PreAuthorize("hasAnyAuthority('workflow_validations')")
+    @PostMapping("/check-for-seats")
+    public ResponseType checkforSeats(
+            @Valid @RequestBody UserRequestModel request,
+            @AuthenticationPrincipal CustomPrincipal principal) {
+        if (request != null && request.getCourseActivationId()!=null) {
+            SeatCapacity capacity =  courseService.remainingSeatCapacity(new BigDecimal(request.getCourseActivationId()));
+
+            if(capacity.getSeatCapacity().intValue()>0)
+                return get(200, MessageUtil.SUCCESS, true, capacity);
+            else
+                return get(200, MessageUtil.FAILED, false, capacity);
+        } else {
+            return get(Constants.BAD_REQUEST, MessageUtil.FAILED, false, null);
         }
     }
 

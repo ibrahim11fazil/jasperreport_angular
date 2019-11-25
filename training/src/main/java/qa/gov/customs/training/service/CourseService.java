@@ -108,5 +108,5 @@ public interface CourseService {
 
     SeatCapacity getSeatCapacity(SeatCapacity capacity);
 
-    SeatCapacity remainingSeatCapacity(SeatCapacity capacity);
+    SeatCapacity remainingSeatCapacity(BigDecimal activationId);
 }
