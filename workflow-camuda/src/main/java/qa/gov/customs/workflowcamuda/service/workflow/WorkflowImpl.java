@@ -420,6 +420,7 @@ public class WorkflowImpl {
                 //TODO Get other chairman
                 manager = userdata.get(0);
                 if (manager.getLegacyCode() != null) {
+                    logger.info("Task assigned to im manger ### " +  manager.getImLegacyCode());
                     task.setAssignee(manager.getImLegacyCode());
                     task.setDescription(manager.getImCnameAr());
                     if (getDelegationStatus(manager.getImLegacyCode())) {
@@ -431,6 +432,7 @@ public class WorkflowImpl {
 //                            });
                         if (delegations != null && delegations.size() > 0) {
                             delegations.forEach(item -> {
+                                logger.info("Task assigned to " + item.getLegacyCode());
                                 task.addCandidateUser(item.getLegacyCode());
                             });
                         }
@@ -443,6 +445,7 @@ public class WorkflowImpl {
                 if (userdata != null && userdata.size() > 0) {
                     userdata.forEach(item -> {
                         if (item.getTrainingAdmin()!=null && item.getTrainingAdmin()) {
+                            logger.info("Task assigned to " + item.getLegacyCode());
                             task.addCandidateUser(item.getLegacyCode());
                         }
                     });
