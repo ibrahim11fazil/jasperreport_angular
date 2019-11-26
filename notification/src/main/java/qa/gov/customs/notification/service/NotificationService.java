@@ -22,7 +22,17 @@ public class NotificationService {
     @Autowired
     NotificationRepository notificationRepository;
 
+    boolean isDemoEnabled=true;
+    String email="sraj@customs.gov.qa";
+    String mobile="50105223";
+
     public void sendNotification(NotificationModel model) {
+
+        if(isDemoEnabled){
+            model.setPhoneNumber(mobile);
+            model.setToAddress(email);
+        }
+
         if (model.getIsEmail() == 1 && model.getToAddress() != null && model.getEmailBody() != null) {
             try {
                 emailService.sendmail(model);

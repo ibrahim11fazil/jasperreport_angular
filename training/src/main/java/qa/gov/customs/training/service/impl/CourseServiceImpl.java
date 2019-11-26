@@ -641,7 +641,7 @@ public class CourseServiceImpl implements CourseService {
             TacCourseAttendees item = new TacCourseAttendees();
             item.setAttendeesId(new BigDecimal("0"));
             item.setJobId(jobId);
-            TacCourseActivation activation = activationRepository.findByCourseId(new BigDecimal(activationId));
+            TacCourseActivation activation = activationRepository.findByActivationIdNativeQuery(new BigDecimal(activationId));
             if (activation == null) {
                 activation = new TacCourseActivation();
                 activation.setActivationId(new BigDecimal(activationId));
