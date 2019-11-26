@@ -413,41 +413,47 @@ public class WorkflowImpl {
     }
 
     public void taskActionByUser(UserRequestModel model, List<ImmediateManager> userdata, final DelegateTask task) {
-        ImmediateManager manager = null;
-        if (userdata != null && userdata.size() >0 ) {
-            ObjectMapper mapper = new ObjectMapper();
-            //TODO Get other chairman
-             manager = userdata.get(0);
-            if (manager.getLegacyCode() != null) {
-                task.setAssignee(manager.getImLegacyCode());
-                task.setDescription(manager.getImCnameAr());
-                if (getDelegationStatus(manager.getImLegacyCode())) {
-                    List<ImmediateManager> delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode());
+        try {
+            ImmediateManager manager = null;
+            if (userdata != null && userdata.size() > 0) {
+                ObjectMapper mapper = new ObjectMapper();
+                //TODO Get other chairman
+                manager = userdata.get(0);
+                if (manager.getLegacyCode() != null) {
+                    task.setAssignee(manager.getImLegacyCode());
+                    task.setDescription(manager.getImCnameAr());
+                    if (getDelegationStatus(manager.getImLegacyCode())) {
+                        List<ImmediateManager> delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode());
 //                    List<ImmediateManager> otherUsers = null;
 //                    otherUsers = mapper.convertValue(
 //                            delegations.getData(),
 //                            new TypeReference<List<ImmediateManager>>() {
 //                            });
-                    if (delegations != null && delegations.size() > 0) {
-                        delegations.forEach(item -> {
-                            task.addCandidateUser(item.getLegacyCode());
-                        });
+                        if (delegations != null && delegations.size() > 0) {
+                            delegations.forEach(item -> {
+                                task.addCandidateUser(item.getLegacyCode());
+                            });
+                        }
                     }
+                } else {
+                    requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+                    trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
                 }
-            }
-            else {
+                //Set special delegation to admin done
+                if (userdata != null && userdata.size() > 0) {
+                    userdata.forEach(item -> {
+                        if (item.getTrainingAdmin()!=null && item.getTrainingAdmin()) {
+                            task.addCandidateUser(item.getLegacyCode());
+                        }
+                    });
+                }
+            } else {
                 requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                 trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
             }
-            //Set special delegation to admin done
-            userdata.forEach(item ->{
-                if(item.getTrainingAdmin()){
-                    task.addCandidateUser(item.getLegacyCode());
-                }
-            });
-        } else {
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
-            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+        }catch (Exception e){
+            e.printStackTrace();
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
         }
     }
 
