@@ -159,9 +159,9 @@ export class MyTasksComponent implements OnInit {
           this.approveOrRejectAction("approved")
         } else{
              this.toastr.error(this.language.noSeatMessage)
-             this.commentTxt!=this.language.noSeatComment
+             this.commentTxt=this.language.noSeatComment.toString()
         }  
-      },
+      },  
       error=>{
         console.log(error)
         this.errorService.errorResponseHandling(error)

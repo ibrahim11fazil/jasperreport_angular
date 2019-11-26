@@ -414,6 +414,7 @@ public class WorkflowImpl {
 
     public void taskActionByUser(UserRequestModel model, List<ImmediateManager> userdata, final DelegateTask task) {
         try {
+            Collection<String> delegationsJobId = new HashSet<>();
             ImmediateManager manager = null;
             if (userdata != null && userdata.size() > 0) {
                 ObjectMapper mapper = new ObjectMapper();
@@ -432,8 +433,9 @@ public class WorkflowImpl {
 //                            });
                         if (delegations != null && delegations.size() > 0) {
                             delegations.forEach(item -> {
-                                logger.info("Task assigned to " + item.getLegacyCode());
-                                task.addCandidateUser(item.getLegacyCode());
+                                logger.info("Task assigned to delegations  " + item.getLegacyCode());
+                                //task.addCandidateUser(item.getLegacyCode());
+                                delegationsJobId.add(item.getLegacyCode());
                             });
                         }
                     }
@@ -445,10 +447,15 @@ public class WorkflowImpl {
                 if (userdata != null && userdata.size() > 0) {
                     userdata.forEach(item -> {
                         if (item.getTrainingAdmin()!=null && item.getTrainingAdmin()) {
-                            logger.info("Task assigned to " + item.getLegacyCode());
-                            task.addCandidateUser(item.getLegacyCode());
+                            logger.info("Task assigned to training admin " + item.getLegacyCode());
+                           // task.addCandidateUser(item.getLegacyCode());
+                            delegationsJobId.add(item.getLegacyCode());
                         }
                     });
+                }
+
+                if(delegationsJobId!=null && delegationsJobId.size()>0){
+                    task.addCandidateUsers(delegationsJobId);
                 }
             } else {
                 requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
