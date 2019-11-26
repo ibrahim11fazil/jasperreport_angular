@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import qa.gov.customs.training.models.NotificationModel;
 import qa.gov.customs.training.models.UserRequestModel;
 
 @Component
@@ -26,6 +27,13 @@ public class Publisher {
     private String queueUserRequest;
 
 
+    @Value("${training.rabbitmq.notification_exchange}")
+    private String notificationExchange;
+
+    @Value("${training.rabbitmq.notification_routingkey}")
+    private String notificationRoutingkey;
+
+
     public void produceMsg(String msg) {
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         logger.info("Send msg = " + msg);
@@ -38,5 +46,9 @@ public class Publisher {
         }catch (Exception e){
             logger.info("Error workflow user request send" + e);
         }
+    }
+
+    public void sendNotification(NotificationModel model) {
+        amqpTemplate.convertAndSend(notificationExchange, notificationRoutingkey, model);
     }
 }
