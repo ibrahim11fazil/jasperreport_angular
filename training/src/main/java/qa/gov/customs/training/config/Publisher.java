@@ -48,7 +48,17 @@ public class Publisher {
         }
     }
 
-    public void sendNotification(NotificationModel model) {
-        amqpTemplate.convertAndSend(notificationExchange, notificationRoutingkey, model);
+    public void sendNotification(NotificationModel notificationModel) {
+        if (notificationModel.getToAddress() != null) {
+            notificationModel.setIsEmail(1);
+        } else {
+            notificationModel.setIsEmail(0);
+        }
+        if (notificationModel.getPhoneNumber() != null) {
+            notificationModel.setIsSMS(1);
+        } else {
+            notificationModel.setIsSMS(0);
+        }
+        amqpTemplate.convertAndSend(notificationExchange, notificationRoutingkey, notificationModel);
     }
 }
