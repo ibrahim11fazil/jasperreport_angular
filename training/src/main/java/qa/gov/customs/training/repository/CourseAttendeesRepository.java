@@ -28,4 +28,10 @@ public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttend
     @Transactional
     @Query(value = "update  TAC_COURSE_ATTENDEES set course_status=:courseStatus where attendees_id=:attendeesId", nativeQuery = true)
     void updateCourseStatus(BigDecimal attendeesId, BigDecimal courseStatus);
+
+
+    @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where activation_Id=:activationId", nativeQuery = true)
+    BigDecimal getcountPartticipant(BigDecimal activationId);
+
+     Object[] findByJobId(String JobId);
 }

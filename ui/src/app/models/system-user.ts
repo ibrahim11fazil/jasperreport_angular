@@ -129,6 +129,13 @@ export class MawaredUserInfo{
     iban:String;
     qualification:String;
     psLevel:String;
+
+    constructor(jobTitle:String,psLevel:String)
+        {
+
+            this.jobTitle=jobTitle
+            this.psLevel=psLevel
+        }
 }
 export interface MawaredUserInfoResponse {
     status: Boolean;

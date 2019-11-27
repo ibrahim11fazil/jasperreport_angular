@@ -9,6 +9,16 @@ public class CourseManagement {
     private String end_date;
     private BigDecimal activation_id;
     private BigDecimal courseStatus;
+    private BigDecimal seatCapacity;
+
+
+    public BigDecimal getSeatCapacity() {
+        return seatCapacity;
+    }
+
+    public void setSeatCapacity(BigDecimal seatCapacity) {
+        this.seatCapacity = seatCapacity;
+    }
 
     public BigDecimal getActivation_id() {
         return activation_id;

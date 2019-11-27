@@ -169,7 +169,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             emp.setPercentage(percentageAttendance.intValue());
             empdata.add(emp);
-            if (percentageAttendance == 100) {
+            if (percentageAttendance >= 80) {
                 BigDecimal courseStatus = new BigDecimal(1);
                 try {
                     attendeesRepo.updateCourseStatus(emp.getAttendeesId(), courseStatus);
@@ -250,6 +250,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             Date courseDate = ((Date) o[1]);
             Date endDate = ((Date) o[2]);
             course.setActivation_id((BigDecimal) o[3]);
+            course.setSeatCapacity((BigDecimal) o[4]);
             course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
             courseList.add(course);

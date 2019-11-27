@@ -103,10 +103,14 @@ public interface CourseService {
 
     List<CourseManagement> getInstructorCourses(String jobId);
     List<EmployeeData> getMawaredData(EmployeeData mawared);
+    EmployeeData enrollParticipant(EmployeeData participantData);
+
 
     void updateCourseActivityLink(BigDecimal activityId,BigDecimal courseId);
 
     SeatCapacity getSeatCapacity(SeatCapacity capacity);
 
     SeatCapacity remainingSeatCapacity(SeatCapacity capacity);
+    BigDecimal getcountParticipant(EmployeeData participantData);
+    Boolean getExistingEmp(EmployeeData participantData);
 }

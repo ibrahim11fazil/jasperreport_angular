@@ -703,7 +703,7 @@ public class CourseController {
     }
 
     @PreAuthorize("hasAnyAuthority('ic')")
-    @PostMapping("/Instructor-courses")
+    @PostMapping("/instructor-courses")
     public ResponseType instructorCourses(@AuthenticationPrincipal CustomPrincipal principal) {
         List<CourseManagement> instructorCourses = courseService.getInstructorCourses(principal.getJid());
         if (instructorCourses != null) {
@@ -719,7 +719,7 @@ public class CourseController {
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/get-mawared-data")
-    public ResponseType getMawaredData(EmployeeData mawared) {
+    public ResponseType getMawaredData(@RequestBody EmployeeData mawared) {
 
         List<EmployeeData> mawaredData = courseService.getMawaredData(mawared);
 
@@ -730,6 +730,39 @@ public class CourseController {
             ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
             return response;
         }
+    }
+
+
+
+    @PreAuthorize("hasAnyAuthority('sfc')")
+    @PostMapping("/direct-enroll-participant")
+    public ResponseType enrollParticipant(@RequestBody EmployeeData participantData){
+
+        BigDecimal countSeatCapacity=courseService.getcountParticipant(participantData);
+        //check if seatCapacity is full
+        if(countSeatCapacity==participantData.getSeatCapacity())
+        {
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST,MessageUtil.SEATS_ARE_FULL, false, null);
+            return response;
+        }
+        else {
+            //check if emp already present in the attendees table
+            Boolean existingEmp=courseService.getExistingEmp(participantData);
+
+                if(existingEmp==true)
+                {
+
+                    EmployeeData directParticipant = courseService.enrollParticipant(participantData);
+
+                }
+                else
+                {
+                    ResponseType response = new ResponseType(Constants.BAD_REQUEST,MessageUtil.EXISTING_EMPLOYEE, false, null);
+                    return response;
+                }
+        }
+
+        return null;
     }
 
 

@@ -78,6 +78,22 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
 
     List<Object[]> findAllEmployee();
 
+    @Query(value="select a.legacycode,a.cname_Ar,a.mobile,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.run_date from USER1_SAP_WS_MINI a " +
+            "where run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) " +
+            "and a.job=:jobTitle and a.psLevel=:jobGrade", nativeQuery = true)
+    List<Object[]>   fingEmpWithjobTitleandJobGrade(String jobTitle,String jobGrade);
+
+
+    @Query(value="select a.legacycode,a.cname_Ar,a.mobile,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.run_date from USER1_SAP_WS_MINI a " +
+            "where run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) " +
+            "and a.job=:jobTitle ", nativeQuery = true)
+    List<Object[]>   fingEmpWithjobTitle(String jobTitle);
+
+    @Query(value="select a.legacycode,a.cname_Ar,a.mobile,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.run_date from USER1_SAP_WS_MINI a " +
+            "where run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) " +
+            "and a.psLevel=:jobGrade", nativeQuery = true)
+    List<Object[]>   fingEmpWithjobGrade(String jobGrade);
+
 
 }
 

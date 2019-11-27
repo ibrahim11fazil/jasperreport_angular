@@ -29,7 +29,42 @@ public class EmployeeData {
     private BigDecimal attendanceFlag;
     private boolean isChecked;
     private Date attendanceDate;
+    private String psLevel;
+    private BigDecimal activationId;
+    private BigDecimal seatCapacity;
+    private boolean notInJobCard;
 
+    public boolean isNotInJobCard() {
+        return notInJobCard;
+    }
+
+    public void setNotInJobCard(boolean notInJobCard) {
+        this.notInJobCard = notInJobCard;
+    }
+
+    public BigDecimal getActivationId() {
+        return activationId;
+    }
+
+    public void setActivationId(BigDecimal activationId) {
+        this.activationId = activationId;
+    }
+
+    public BigDecimal getSeatCapacity() {
+        return seatCapacity;
+    }
+
+    public void setSeatCapacity(BigDecimal seatCapacity) {
+        this.seatCapacity = seatCapacity;
+    }
+
+    public String getPsLevel() {
+        return psLevel;
+    }
+
+    public void setPsLevel(String psLevel) {
+        this.psLevel = psLevel;
+    }
 
     public boolean isChecked() {
         return isChecked;
