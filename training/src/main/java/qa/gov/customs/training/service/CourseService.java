@@ -110,11 +110,10 @@ public interface CourseService {
 
     SeatCapacity getSeatCapacity(SeatCapacity capacity);
 
-<<<<<<< HEAD
-    SeatCapacity remainingSeatCapacity(SeatCapacity capacity);
+   // SeatCapacity remainingSeatCapacity(SeatCapacity capacity);
     BigDecimal getcountParticipant(EmployeeData participantData);
     Boolean getExistingEmp(EmployeeData participantData);
-=======
+
     SeatCapacity remainingSeatCapacity(BigDecimal activationId);
->>>>>>> b1fe847361749fa4b9d5bd3c8408c68eb2042f23
+
 }
