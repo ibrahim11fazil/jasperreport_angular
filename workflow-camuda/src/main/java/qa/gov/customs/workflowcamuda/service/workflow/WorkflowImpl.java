@@ -29,6 +29,7 @@ import qa.gov.customs.workflowcamuda.utils.WorkFlowRequestConstants;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.util.*;
 
 import static qa.gov.customs.workflowcamuda.service.workflow.WorkflowConstants.*;
@@ -85,10 +86,10 @@ public class WorkflowImpl {
             if (type.equals(WorkFlowRequestConstants.TYPE_1_EMPLOYEE_REQUEST)) {
 
                 ProcessDefinition pd = processEngine.getRepositoryService().createProcessDefinitionQuery()
-                        .processDefinitionKey(TYPE_1_PROCESS_v2)
+                        .processDefinitionKey(TYPE_1_PROCESS)
                         .latestVersion() //now 46
                         //.processDefinitionVersion(46) // This version is available in DB when changing the process diagram
-                        .versionTag(TYPE_1_PROCESS_VERSION) // This should be changed for new versions
+                        .versionTag(TYPE_1_PROCESS_VERSION_2) // This should be changed for new versions
                         .singleResult();
                processInstance = processEngine.getRuntimeService().startProcessInstanceById(pd.getId(), vars);
 
@@ -310,9 +311,25 @@ public class WorkflowImpl {
     }
 
 
-    //Find the Training Head
+    //Find the Training Head also add the training admin
     public void findHeadofTrainingAndContinousEducation(UserRequestModel model, final DelegateTask task) {
         List<ImmediateManager>  userdata = userProxyService.getHeadOfTrainingAndContinuingEducation();
+        List<UserMaster> trainingAdmin = userSSOProxy.getUserByRole(new BigInteger("1"));
+        if(trainingAdmin!=null && trainingAdmin.size()>0) {
+            List<ImmediateManager> trainingAdminList = new ArrayList<>();
+            trainingAdmin.forEach(item ->{
+                ImmediateManager m = new ImmediateManager();
+                m.setLegacyCode(item.getJobId());
+                m.setImLegacyCode(item.getJobId());
+                m.setTrainingAdmin(true);
+                trainingAdminList.add(m);
+            });
+            if(userdata!=null){
+                userdata.addAll(trainingAdminList)  ;
+            }else{
+                userdata = trainingAdminList;
+            }
+        }
         taskActionByUser(model, userdata, task);
         //return "Jijo-3";
     }
@@ -324,7 +341,7 @@ public class WorkflowImpl {
         //        ResponseType userdata = userProxyService.getHeadOfTrainingCenterManager(workflowToken);
         //        taskActionByUser(model, userdata, task);
         //For multiple users based on Training SSO
-        List<UserMaster> userdata = userSSOProxy.getTrainingDepartmentHeads();
+        List<UserMaster> userdata = userSSOProxy.getUserByRole(new BigInteger("6"));
         taskActionByUserSSO(model, userdata, task);
     }
 
@@ -396,34 +413,57 @@ public class WorkflowImpl {
     }
 
     public void taskActionByUser(UserRequestModel model, List<ImmediateManager> userdata, final DelegateTask task) {
-        ImmediateManager manager = null;
-        if (userdata != null && userdata.size() >0 ) {
-            ObjectMapper mapper = new ObjectMapper();
-            //TODO Get other chairman
-            manager = userdata.get(0);
-            if (manager != null && manager.getLegacyCode() != null) {
-                task.setAssignee(manager.getImLegacyCode());
-                task.setDescription(manager.getImCnameAr());
-                if (getDelegationStatus(manager.getImLegacyCode())) {
-                    List<ImmediateManager> delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode());
+        try {
+            Collection<String> delegationsJobId = new HashSet<>();
+            ImmediateManager manager = null;
+            if (userdata != null && userdata.size() > 0) {
+                ObjectMapper mapper = new ObjectMapper();
+                //TODO Get other chairman
+                manager = userdata.get(0);
+                if (manager.getLegacyCode() != null) {
+                    logger.info("Task assigned to im manger ### " +  manager.getImLegacyCode());
+                    task.setAssignee(manager.getImLegacyCode());
+                    task.setDescription(manager.getImCnameAr());
+                    if (getDelegationStatus(manager.getImLegacyCode())) {
+                        List<ImmediateManager> delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode());
 //                    List<ImmediateManager> otherUsers = null;
 //                    otherUsers = mapper.convertValue(
 //                            delegations.getData(),
 //                            new TypeReference<List<ImmediateManager>>() {
 //                            });
-                    if (delegations != null && delegations.size() > 0) {
-                        delegations.forEach(item -> {
-                            task.addCandidateUser(item.getLegacyCode());
-                        });
+                        if (delegations != null && delegations.size() > 0) {
+                            delegations.forEach(item -> {
+                                logger.info("Task assigned to delegations  " + item.getLegacyCode());
+                                //task.addCandidateUser(item.getLegacyCode());
+                                delegationsJobId.add(item.getLegacyCode());
+                            });
+                        }
                     }
+                } else {
+                    requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
+                    trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+                }
+                //Set special delegation to admin done
+                if (userdata != null && userdata.size() > 0) {
+                    userdata.forEach(item -> {
+                        if (item.getTrainingAdmin()!=null && item.getTrainingAdmin()) {
+                            logger.info("Task assigned to training admin " + item.getLegacyCode());
+                           // task.addCandidateUser(item.getLegacyCode());
+                            delegationsJobId.add(item.getLegacyCode());
+                        }
+                    });
+                }
+
+                if(delegationsJobId!=null && delegationsJobId.size()>0){
+                    task.addCandidateUsers(delegationsJobId);
                 }
             } else {
                 requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                 trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
             }
-        } else {
-            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
-            trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
+        }catch (Exception e){
+            e.printStackTrace();
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.FAILED);
         }
     }
 

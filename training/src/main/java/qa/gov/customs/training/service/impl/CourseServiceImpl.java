@@ -644,7 +644,7 @@ public class CourseServiceImpl implements CourseService {
             TacCourseAttendees item = new TacCourseAttendees();
             item.setAttendeesId(new BigDecimal("0"));
             item.setJobId(jobId);
-            TacCourseActivation activation = activationRepository.findByCourseId(new BigDecimal(activationId));
+            TacCourseActivation activation = activationRepository.findByActivationIdNativeQuery(new BigDecimal(activationId));
             if (activation == null) {
                 activation = new TacCourseActivation();
                 activation.setActivationId(new BigDecimal(activationId));
@@ -772,17 +772,17 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public SeatCapacity remainingSeatCapacity(SeatCapacity capacity) {
+    public SeatCapacity remainingSeatCapacity(BigDecimal activationId) {
         SeatCapacity seatCapacity=new SeatCapacity();
         //Applied seat capacity
-        BigDecimal seatCount =requestRepository.getSeatCapacity(capacity.getActivationId());
-        BigDecimal totalSeatCount=   activationRepository.getSeatCapacityByActivationId(capacity.getActivationId());
+        BigDecimal seatCount =requestRepository.getSeatCapacity(activationId);
+        BigDecimal totalSeatCount=   activationRepository.getSeatCapacityByActivationId(activationId);
         BigDecimal remainingSeats=  totalSeatCount.subtract(seatCount);
         if(remainingSeats.intValue()> 0 )
             seatCapacity.setSeatCapacity(remainingSeats);
         else
             seatCapacity.setSeatCapacity(new BigDecimal("0"));
-        seatCapacity.setActivationId(capacity.getActivationId());
+        seatCapacity.setActivationId(activationId);
         return seatCapacity;
     }
 

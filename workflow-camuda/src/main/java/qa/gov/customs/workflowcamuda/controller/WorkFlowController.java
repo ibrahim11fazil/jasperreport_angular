@@ -116,6 +116,14 @@ public class WorkFlowController {
     @RequestMapping(value = "/my-tasks", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseType getTasks(@RequestBody SearchTask searchTask, @AuthenticationPrincipal CustomPrincipal principal) {
         List<Task> tasks = workflowServiceEmp.getCandidateTasksPagenated(principal.getJid(), searchTask.getStart(), searchTask.getLimit());
+        List<Task> tasksDelegated = workflowServiceEmp.getCandidateTasks(principal.getJid());
+        if(tasksDelegated!=null && tasksDelegated.size()>0){
+            if(tasks!=null) tasks.addAll(tasksDelegated);
+            else{
+                tasks = new ArrayList<>();
+                tasks.addAll(tasksDelegated);
+            }
+        }
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
             TaskRepresentation taskRepresentation = new TaskRepresentation(
@@ -141,6 +149,14 @@ public class WorkFlowController {
     @RequestMapping(value = "/my-tasks-count", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseType getTasksCounnt(@AuthenticationPrincipal CustomPrincipal principal) {
         List<Task> tasks = workflowServiceEmp.getTasks(principal.getJid());
+        List<Task> tasksDelegated = workflowServiceEmp.getCandidateTasks(principal.getJid());
+        if(tasksDelegated!=null && tasksDelegated.size()>0){
+            if(tasks!=null) tasks.addAll(tasksDelegated);
+            else{
+                tasks = new ArrayList<>();
+                tasks.addAll(tasksDelegated);
+            }
+        }
         if (tasks != null && tasks.size() > 0) {
             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
                     tasks.size());
@@ -156,6 +172,15 @@ public class WorkFlowController {
     public ResponseType getTasksDelegations(@RequestBody SearchTask searchTask, @AuthenticationPrincipal CustomPrincipal principal) {
         List<Task> tasks = workflowServiceEmp.getTasksPagenated(principal.getJid(),
                 searchTask.getStart(), searchTask.getLimit());
+        List<Task> tasksDelegated = workflowServiceEmp.getCandidateTasks(principal.getJid());
+        if(tasksDelegated!=null && tasksDelegated.size()>0){
+            if(tasks!=null) tasks.addAll(tasksDelegated);
+            else{
+                tasks = new ArrayList<>();
+                tasks.addAll(tasksDelegated);
+            }
+        }
+
         List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
         for (Task task : tasks) {
             TaskRepresentation taskRepresentation = new TaskRepresentation(

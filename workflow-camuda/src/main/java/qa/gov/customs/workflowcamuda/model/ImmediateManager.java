@@ -32,6 +32,16 @@ public class ImmediateManager {
 
     private String legacyCode;
 
+    private Boolean isTrainingAdmin;
+
+    public Boolean getTrainingAdmin() {
+        return isTrainingAdmin;
+    }
+
+    public void setTrainingAdmin(Boolean trainingAdmin) {
+        isTrainingAdmin = trainingAdmin;
+    }
+
     private List<ImmediateManager> delegations;
 
     public List<ImmediateManager> getDelegations() {

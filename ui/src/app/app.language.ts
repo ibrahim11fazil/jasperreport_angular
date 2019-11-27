@@ -220,6 +220,8 @@ export class LanguageUtil {
   comments: String = this.isArabic ? "التعليقات" : "Comments"
   addComment: String = this.isArabic ? "أضف تعليق" : "Add Comment"
   requiredComment:String=  this.isArabic ? "التعليق مطلوب" : " Required Comment"
+  noSeatComment: String = this.isArabic?"No Seats available, Rejected":"No Seats available, Rejected"
+  noSeatMessage: string = this.isArabic?"No Seats available, Kindly reject":"No Seats available, Kindly reject"
 
 
   //History

@@ -22,7 +22,6 @@ public class TacWorkflowReference {
     @Column(name = "RESPONSE_STATUS")
     String responseStatus;
 
-
     @Column(name = "COURSE_STATUS")
     String courseStatus;
 
@@ -33,7 +32,6 @@ public class TacWorkflowReference {
     @Temporal(TemporalType.DATE)
     @Column(name = "UPDATED_ON")
     Date updatedOn;
-
 
     @Column(name = "FROM_USER")
     String fromUser;
@@ -46,6 +44,40 @@ public class TacWorkflowReference {
 
     @Column(name = "COURSE_ID")
     BigInteger courseId;
+
+    @Column(name = "CANCELLED_FLAG")
+    BigInteger cancelledFalg;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "CANCELLED_ON")
+    Date cancelledOn;
+
+    @Column(name = "CANCELLED_BY")
+    String cancelledBy;
+
+    public BigInteger getCancelledFalg() {
+        return cancelledFalg;
+    }
+
+    public void setCancelledFalg(BigInteger cancelledFalg) {
+        this.cancelledFalg = cancelledFalg;
+    }
+
+    public Date getCancelledOn() {
+        return cancelledOn;
+    }
+
+    public void setCancelledOn(Date cancelledOn) {
+        this.cancelledOn = cancelledOn;
+    }
+
+    public String getCancelledBy() {
+        return cancelledBy;
+    }
+
+    public void setCancelledBy(String cancelledBy) {
+        this.cancelledBy = cancelledBy;
+    }
 
 
 //    @Temporal(TemporalType.DATE)

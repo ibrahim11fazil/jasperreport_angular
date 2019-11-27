@@ -13,6 +13,9 @@ public interface ActivationRepository extends JpaRepository<TacCourseActivation,
     @Query(value = "select * from Tac_Course_Activation where course_id=:courseId", nativeQuery = true)
     TacCourseActivation findByCourseId(BigDecimal courseId);
 
+    @Query(value = "select * from Tac_Course_Activation where activation_id=:activation_id", nativeQuery = true)
+    TacCourseActivation findByActivationIdNativeQuery(BigDecimal activation_id);
+
     @Query(value = "select date_id from Tac_Course_Activation where course_id=:courseId", nativeQuery = true)
     BigDecimal findDateId(BigDecimal courseId);
 
