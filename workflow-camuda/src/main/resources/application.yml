@@ -157,3 +157,6 @@ workflow:
     exchange_seat_check: ${TRAINING_SEAT_CHECK_EXCHANGE:exchange_seat_check_dev}
     routingkey_seat_check: ${TRAINING_ROUTING_SEAT_CHECK:routingkey_seat_check_dev}
     seat_check_response_queue: ${TRAINING_QUEUE_RESPONSE_SEAT_CHECK:seat_check_response_queue_dev}
+    req_cancellation_queue: ${REQ_CANCEL_QUE:req_cancellation_queue_dev}
+    req_cancellation_exchange: ${REQ_CANCEL_EXCHANGE:req_cancellation_exchange_dev}
+    req_cancellation_routingkey: ${REQ_ROUTING_ROUTING_KEY:req_cancellation_routingkey_dev}

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.config.Publisher;
+import qa.gov.customs.training.entity.TacWorkflowReference;
+import qa.gov.customs.training.models.CancelRequestStatus;
 import qa.gov.customs.training.models.SeatCapacity;
 import qa.gov.customs.training.models.UserRequestModel;
 import qa.gov.customs.training.proxy.WorkFlowProxyService;
@@ -22,6 +24,7 @@ import qa.gov.customs.training.utils.models.ResponseType;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 public class EmployeeRequestController {
@@ -77,6 +80,43 @@ public class EmployeeRequestController {
         }
     }
 
+
+    @PreAuthorize("hasAnyAuthority('workflow_validations')")
+    @PostMapping("/cancel-request-list")
+    public ResponseType getCancelRequestList(
+            @Valid @RequestBody CancelRequestStatus request,
+            @AuthenticationPrincipal CustomPrincipal principal) {
+        if (request != null) {
+            request.setJobId(principal.getJid());
+            List<TacWorkflowReference> list = requestService.findByToUser(principal.getJid());
+            if(list!=null) {
+                return get(200, MessageUtil.SUCCESS, true, list);
+            }else{
+                return get(200, MessageUtil.FAILED, false, list);
+            }
+        } else {
+            return get(Constants.BAD_REQUEST, MessageUtil.REQUEST_CREATION_FAILED, false, null);
+        }
+    }
+
+
+    @PreAuthorize("hasAnyAuthority('workflow_validations')")
+    @PostMapping("/cancel-request")
+    public ResponseType cancelRequest(
+            @Valid @RequestBody CancelRequestStatus request,
+            @AuthenticationPrincipal CustomPrincipal principal) {
+        if (request != null) {
+            request.setJobId(principal.getJid());
+            CancelRequestStatus status = requestService.cancelRequest(request.getRequestId(),principal.getJid());
+            if(status.getStatus()) {
+                return get(200, MessageUtil.SUCCESS, true, status);
+            }else{
+                return get(200, MessageUtil.FAILED, false, status);
+            }
+        } else {
+            return get(Constants.BAD_REQUEST, MessageUtil.REQUEST_CREATION_FAILED, false, null);
+        }
+    }
 
     @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/check-the-request-is-overriding")

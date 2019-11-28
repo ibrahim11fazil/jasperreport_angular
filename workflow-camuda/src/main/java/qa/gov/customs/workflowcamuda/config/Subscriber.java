@@ -10,6 +10,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.controller.WorkFlowController;
+import qa.gov.customs.workflowcamuda.model.CancelRequestStatus;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import org.springframework.transaction.annotation.Transactional;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowConstants;
@@ -68,6 +69,13 @@ public class Subscriber {
                 .processInstanceVariableEquals(WorkflowConstants.WORKFLOW_REQUEST_UUID, requestModel.getTrainingRequestId()) //
                 .setVariable(WorkflowConstants.MSG_VARIABLE_SeatsAvailable, requestModel.getActiveFlag()) //
                 .correlateWithResult();
+    }
+
+
+    @RabbitListener(queues = "${workflow.rabbitmq.req_cancellation_queue}")
+    public void receivedCancelRequest(CancelRequestStatus request) {
+         logger.info("Received Message: " + request);
+        // TODO here to insert the cancel request
     }
 
 

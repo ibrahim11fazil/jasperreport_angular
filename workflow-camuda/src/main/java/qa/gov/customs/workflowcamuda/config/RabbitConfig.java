@@ -28,6 +28,9 @@ public class RabbitConfig {
     @Value("${workflow.rabbitmq.routingkey}")
     private String routingKey;
 
+    @Value("${workflow.rabbitmq.req_cancellation_queue}")
+    private String queueCancelRequest;
+
 
     @Bean
     Queue queue() {
@@ -38,6 +41,12 @@ public class RabbitConfig {
     Queue queueUserRequest() {
         return new Queue(queueUserRequest, false);
     }
+
+    @Bean
+    Queue queueCancelRequest() {
+        return new Queue(queueCancelRequest, false);
+    }
+
 
     @Bean
     Queue queueSeatCheckResponse() {

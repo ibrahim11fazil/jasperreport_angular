@@ -55,11 +55,12 @@ CIS_WORKFLOW_STATUS=cis_queue_workflow_status
 CIS_EXCHANGE=cis_exchange
 CIS_ROUTING_KEY=cis_routingkey
 CIS_ROUTING_WORKFLOW_STATUS=cis_routingkey_workflow_status
-
 TRAINING_SEAT_CHECK_EXCHANGE=exchange_seat_check
 TRAINING_ROUTING_SEAT_CHECK=routingkey_seat_check
 TRAINING_QUEUE_RESPONSE_SEAT_CHECK=seat_check_response_queue
-
 SET_CONTAINER_TIMEZONE=true
 CONTAINER_TIMEZONE=Asia/Qatar
 LOCALTIME_PATH=/usr/share/zoneinfo/Asia/Qatar
+REQ_CANCEL_QUE=req_cancellation_queue
+REQ_CANCEL_EXCHANGE=req_cancellation_exchange
+REQ_ROUTING_ROUTING_KEY=req_cancellation_routingkey

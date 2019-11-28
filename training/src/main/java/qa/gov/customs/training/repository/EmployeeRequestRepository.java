@@ -1,6 +1,7 @@
 package qa.gov.customs.training.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import qa.gov.customs.training.entity.TacWorkflowReference;
@@ -15,6 +16,14 @@ public interface EmployeeRequestRepository extends JpaRepository<TacWorkflowRefe
     //@Query(value = "select  count(*) from count_tac_workflow_reference WHERE activation_id=:activationId", nativeQuery = true)
     @Query(value = "select  count(*) from tac_course_attendees WHERE activation_id=:activationId", nativeQuery = true)
     BigDecimal getSeatCapacity(BigDecimal activationId);
+
+    List<TacWorkflowReference> findByToUser(String toUser);
+
+
+
+
+
+
 }
 
 

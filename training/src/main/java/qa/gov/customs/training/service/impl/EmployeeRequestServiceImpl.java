@@ -1,18 +1,27 @@
 package qa.gov.customs.training.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.training.config.Publisher;
+import qa.gov.customs.training.entity.TacCourseDate;
 import qa.gov.customs.training.entity.TacWorkflowReference;
+import qa.gov.customs.training.models.CancelRequestStatus;
 import qa.gov.customs.training.models.TrainingRequestStatus;
 import qa.gov.customs.training.models.UserRequestModel;
+import qa.gov.customs.training.repository.ActivationRepository;
 import qa.gov.customs.training.repository.EmployeeRequestRepository;
+import qa.gov.customs.training.service.CourseService;
 import qa.gov.customs.training.service.EmployeeRequestService;
 import qa.gov.customs.training.utils.SystemUtil;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +32,15 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeRequestServiceImpl.class);
     @Autowired
     EmployeeRequestRepository requestRepository;
+
+    @Autowired
+    ActivationRepository activationRepository;
+    @Autowired
+    CourseService courseService;
+
+    @Autowired
+    Publisher publisher;
+
 
     @Override
     public UserRequestModel saveRequest(UserRequestModel requestModel) {
@@ -102,6 +120,68 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public List<TacWorkflowReference> findByToUser(String toUser) {
+        return requestRepository.findByToUser(toUser);
+
+    }
+
+    @Override
+    public CancelRequestStatus cancelRequest(String requestId, String jobId) {
+        Optional<TacWorkflowReference> optional =   requestRepository.findById(requestId);
+        if(optional.isPresent()){
+            if(optional.get().getActivationId()!=null){
+                BigDecimal activationDateId =    activationRepository.getDateByActivationId(new BigDecimal(optional.get().getActivationId()));
+                if(activationDateId!=null){
+                   TacCourseDate dates=  courseService.findStartAndEndDateById(activationDateId);
+                   if(dates!=null){
+                       DateTime fromDate =new DateTime();
+                       DateTime toDate =new DateTime(dates.getCourseDate().getTime());
+                       if(Days.daysBetween(fromDate,toDate).getDays()>3){
+                           TacWorkflowReference reference = optional.get();
+                           reference.setCancelledFalg(new BigInteger("1"));
+                           reference.setCancelledOn(new Date());
+                           reference.setCancelledBy(jobId);
+                           TacWorkflowReference updated =  requestRepository.save(reference);
+                           if(updated!=null){
+                               String message =  String.format("cancelRequest: %s Success",requestId);
+                               logger.info(message);
+                               CancelRequestStatus request= new CancelRequestStatus(message,true,requestId);
+                               //TODO here to send a message to the workflow to cancel the notification
+                               publisher.sendCancelRequest(request);
+                               return  request;
+                           }else{
+                               String message =  String.format("cancelRequest: %s Cancellation failed, Contact Administrator",requestId);
+                               logger.info(message);
+                               return  new CancelRequestStatus(message,false);
+                           }
+                       } else {
+                           String message =  String.format("cancelRequest: %s Less than 3 days ,you can't cancel",requestId);
+                           logger.info(message);
+                           return  new CancelRequestStatus(message,false);
+                       }
+                   }else{
+                       String message =  String.format("cancelRequest: %s Dates Not found in the Data Base, Contact Administrator ",requestId);
+                       logger.info(message);
+                       return  new CancelRequestStatus(message,false);
+                   }
+                }else{
+                    String message =  String.format("cancelRequest: %s  Activation Date Id Not found, Contact Administrator ",requestId);
+                    logger.info(message);
+                    return  new CancelRequestStatus(message,false);
+                }
+            }else{
+                String message =  String.format("cancelRequest: %s  ActivationId Not found, Contact Administrator  ",requestId);
+                logger.info(message);
+                return  new CancelRequestStatus(message,false);
+            }
+        }else{
+            String message =  String.format("cancelRequest: %s  RequestId Not found,Contact Administrator   ",requestId);
+            logger.info(message);
+            return  new CancelRequestStatus(message,false);
         }
     }
 

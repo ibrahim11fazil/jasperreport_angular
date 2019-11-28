@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import qa.gov.customs.training.models.CancelRequestStatus;
 import qa.gov.customs.training.models.NotificationModel;
 import qa.gov.customs.training.models.UserRequestModel;
 
@@ -32,6 +33,12 @@ public class Publisher {
 
     @Value("${training.rabbitmq.notification_routingkey}")
     private String notificationRoutingkey;
+
+
+    @Value("${training.rabbitmq.req_cancellation_exchange}")
+    private String cancelRequestExchange;
+    @Value("${training.rabbitmq.req_cancellation_routingkey}")
+    private String cancelRequestRoutingKey;
 
 
     public void produceMsg(String msg) {
@@ -60,5 +67,10 @@ public class Publisher {
             notificationModel.setIsSMS(0);
         }
         amqpTemplate.convertAndSend(notificationExchange, notificationRoutingkey, notificationModel);
+    }
+
+
+    public void sendCancelRequest(CancelRequestStatus requestStatus) {
+        amqpTemplate.convertAndSend(cancelRequestExchange, cancelRequestRoutingKey, requestStatus);
     }
 }
