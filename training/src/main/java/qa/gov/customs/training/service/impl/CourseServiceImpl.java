@@ -16,8 +16,7 @@ import qa.gov.customs.training.service.CourseService;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.Clob;
+import java.math.BigInteger;;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -501,6 +500,7 @@ public class CourseServiceImpl implements CourseService {
             Date courseDate = ((Date) o[1]);
             Date endDate = ((Date) o[2]);
             course.setActivation_id((BigDecimal) o[3]);
+            course.setSeatCapacity((BigDecimal) o[4]);
             course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
             courseList.add(course);
@@ -524,6 +524,7 @@ public class CourseServiceImpl implements CourseService {
             Date courseDate = ((Date) o[1]);
             Date endDate = ((Date) o[2]);
             course.setActivation_id((BigDecimal) o[3]);
+            course.setSeatCapacity((BigDecimal) o[4]);
             course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
             courseList.add(course);
@@ -546,6 +547,7 @@ public class CourseServiceImpl implements CourseService {
             Date courseDate = ((Date) o[1]);
             Date endDate = ((Date) o[2]);
             course.setActivation_id((BigDecimal) o[3]);
+            course.setSeatCapacity((BigDecimal) o[4]);
             course.setCourse_date(new SimpleDateFormat("dd-MM-yyyy").format(courseDate));
             course.setEnd_date(new SimpleDateFormat("dd-MM-yyyy").format(endDate));
             courseList.add(course);
@@ -600,6 +602,7 @@ public class CourseServiceImpl implements CourseService {
                 Date courseDate = ((Date) o[1]);
                 Date endDate = ((Date) o[2]);
                 course.setActivation_id((BigDecimal) o[3]);
+
                 course.setCourse_date(new SimpleDateFormat("dd-MM-yyyy").format(courseDate));
                 course.setEnd_date(new SimpleDateFormat("dd-MM-yyyy").format(endDate));
                 courseList.add(course);
@@ -824,13 +827,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<EmployeeData> getMawaredData(EmployeeData mawared)
     {
-        int page = 0;
-        int limit = 20;
-        List<CourseManagement> courseList = new ArrayList<>();
-        Pageable pageable =
-                PageRequest.of(
-                        page, limit, Sort.by("rec_id"));
-if(mawared.getJobTitle()==null || mawared.getJobId()==null)
+if(mawared.getJobTitle()==null && mawared.getPsLevel()==null)
 {
    List<Object[]> objects= mawaredRepo.findAllEmployee();
 
@@ -849,10 +846,101 @@ if(mawared.getJobTitle()==null || mawared.getJobId()==null)
     return emp;
 
 }
+
+else if(mawared.getJobTitle()!=null && mawared.getPsLevel()!=null)
+{
+    List<Object[]> objects= mawaredRepo.fingEmpWithjobTitleandJobGrade(mawared.getJobTitle(),mawared.getPsLevel());
+
+
+    List<EmployeeData> emp = new ArrayList<>();
+    for (Object[] o : objects) {
+        EmployeeData emp1 = new EmployeeData();
+        emp1.setJobId((String) o[0]);
+        emp1.setCnameAr((String) o[1]);
+        emp1.setMobile((String) o[2]);
+        emp1.setJobTitle((String) o[3]);
+        emp1.setDepartment((String) o[4]);
+        emp.add(emp1);
+
+    }
+    return emp;
+}
+      else  if(mawared.getJobTitle()!=null && mawared.getPsLevel()==null)
+        {
+            List<Object[]> objects= mawaredRepo.fingEmpWithjobTitle(mawared.getJobTitle());
+
+
+            List<EmployeeData> emp = new ArrayList<>();
+            for (Object[] o : objects) {
+                EmployeeData emp1 = new EmployeeData();
+                emp1.setJobId((String) o[0]);
+                emp1.setCnameAr((String) o[1]);
+                emp1.setMobile((String) o[2]);
+                emp1.setJobTitle((String) o[3]);
+                emp1.setDepartment((String) o[4]);
+                emp.add(emp1);
+
+            }
+            return emp;
+        }
+else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
+{
+    List<Object[]> objects= mawaredRepo.fingEmpWithjobGrade(mawared.getPsLevel());
+
+
+    List<EmployeeData> emp = new ArrayList<>();
+    for (Object[] o : objects) {
+        EmployeeData emp1 = new EmployeeData();
+        emp1.setJobId((String) o[0]);
+        emp1.setCnameAr((String) o[1]);
+        emp1.setMobile((String) o[2]);
+        emp1.setJobTitle((String) o[3]);
+        emp1.setDepartment((String) o[4]);
+        emp.add(emp1);
+
+    }
+    return emp;
+}
         return null;
     }
+    @Override
+    public  BigDecimal getcountParticipant(EmployeeData participantData)
+    {
+        BigDecimal countSeat=courseAttendeesRepository.getcountPartticipant(participantData.getActivationId());
+        return countSeat;
+    }
+
+    @Override
+    public Boolean getExistingEmp(EmployeeData participantData)
+    {
+        BigDecimal attendeeCount=courseAttendeesRepository.getByJobIdAndActivationId(participantData.getJobId(),participantData.getActivationId());
+
+       if((attendeeCount.compareTo(new BigDecimal(1)))==0)
+       {
+           return true;
+       }
+       else
+       {
+           return false;
+       }
+    }
+
+    @Override
+    public TacCourseAttendees enrollParticipant(EmployeeData participantData)
+
+    {
+
+        TacCourseActivation activation=new TacCourseActivation();
+            activation.setActivationId(participantData.getActivationId());
+        TacCourseAttendees attendees=new TacCourseAttendees();
+            attendees.setJobId(participantData.getJobId());
+            attendees.setTacCourseActivation(activation);
+            attendees.setRemark("Direct Enrollment");
+        TacCourseAttendees directAttendees=courseAttendeesRepository.save(attendees);
 
 
+        return directAttendees;
+    }
 }
 
 

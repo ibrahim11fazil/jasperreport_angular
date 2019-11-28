@@ -703,7 +703,7 @@ public class CourseController {
     }
 
     @PreAuthorize("hasAnyAuthority('ic')")
-    @PostMapping("/Instructor-courses")
+    @PostMapping("/instructor-courses")
     public ResponseType instructorCourses(@AuthenticationPrincipal CustomPrincipal principal) {
         List<CourseManagement> instructorCourses = courseService.getInstructorCourses(principal.getJid());
         if (instructorCourses != null) {
@@ -719,7 +719,7 @@ public class CourseController {
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/get-mawared-data")
-    public ResponseType getMawaredData(EmployeeData mawared) {
+    public ResponseType getMawaredData(@RequestBody EmployeeData mawared) {
 
         List<EmployeeData> mawaredData = courseService.getMawaredData(mawared);
 
@@ -730,6 +730,62 @@ public class CourseController {
             ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, "", false, null);
             return response;
         }
+    }
+
+
+
+    @PreAuthorize("hasAnyAuthority('sfc')")
+    @PostMapping("/direct-enroll-participant")
+    public ResponseType enrollParticipant(@RequestBody EmployeeData participantData,@AuthenticationPrincipal CustomPrincipal principal){
+
+        TacCourseMaster courseMaster=new TacCourseMaster();
+        courseMaster.setLegacyCode(participantData.getJobId());
+        Boolean jobCardCourse=false;
+
+        BigDecimal countSeatCapacity=courseService.getcountParticipant(participantData);
+        //check if seatCapacity is full
+        if(countSeatCapacity==participantData.getSeatCapacity())
+        {
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST,MessageUtil.SEATS_ARE_FULL, false, null);
+            return response;
+        }
+        else {
+            //check if emp already present in the attendees table
+            Boolean existingEmp=courseService.getExistingEmp(participantData);
+
+                if(existingEmp==false)
+                {
+
+                    TacCourseAttendees directParticipant = courseService.enrollParticipant(participantData);
+
+                    List<CourseManagement> courses=courseService.searchAllFutureCourses(courseMaster, principal);
+
+
+                        if(courses.stream().anyMatch(ti -> (ti.getActivation_id().compareTo(participantData.getActivationId())==0)))
+                        {
+                            jobCardCourse=true;
+                        }
+
+                    if(jobCardCourse==false)
+                    {
+                        ResponseType response = new ResponseType(Constants.SUCCESS,MessageUtil.COURSE_NOT_IN_EMPJOBCARD, false, directParticipant);
+                        return response;
+                    }
+                    else
+                    {
+                        ResponseType response = new ResponseType(Constants.SUCCESS,MessageUtil.ENROLLED_FOR_COURSE, true, directParticipant);
+                        return response;
+                    }
+
+                }
+                else
+                {
+                    ResponseType response = new ResponseType(Constants.BAD_REQUEST,MessageUtil.EXISTING_EMPLOYEE, false, null);
+                    return response;
+                }
+        }
+
+
     }
 
 

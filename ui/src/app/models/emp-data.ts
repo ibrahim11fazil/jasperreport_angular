@@ -11,7 +11,10 @@ export class EmpData {
    percentage:Number
    generated:Boolean
    url:String
-   constructor(attendeesId:Number,jobId:String,jobTitle:String,cnameAr:String,mobile:String,department:String,count:Number,percentage:Number) {
+   psLevel:String
+   activationId:Number
+   seatCapacity:Number
+   constructor(attendeesId:Number,jobId:String,jobTitle:String,cnameAr:String,mobile:String,department:String,count:Number,percentage:Number,psLevel:String,activationId:Number,seatCapacity:Number){
     this.attendeesId=attendeesId;
     this.jobId=jobId;
     this.jobTitle=jobTitle;
@@ -20,6 +23,9 @@ export class EmpData {
     this.department=department;
     this.count=count;
     this.percentage=percentage;
+    this.psLevel=psLevel;
+    this.activationId=activationId
+    this.seatCapacity=seatCapacity
   
 }
 }
@@ -29,5 +35,11 @@ export interface ResponseEmpData {
     code:number;
     message:String;
     data: EmpData[];
+}
+export interface ResponseEmpDataDetail {
+    status: Boolean;
+    code:number;
+    message:String;
+    data: EmpData;
 }
 

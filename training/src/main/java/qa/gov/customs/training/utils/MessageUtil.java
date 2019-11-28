@@ -30,6 +30,11 @@ public class MessageUtil {
     public static String JOBCARDDUTIES_CREATED = "JOBCARD DUTIES CREATED";
     public static  String REQUEST_CREATED=" تم انشاء الطلب";
     public static String  REQUEST_CREATION_FAILED = "لا يمكن انشاء الطلب";
+    public static String SEATS_ARE_FULL="Seats are full";
+    public static String EXISTING_EMPLOYEE="Employee already enrolled for the course";
+    public static String COURSE_NOT_IN_EMPJOBCARD="This is course is not linked with Employee JobCard";
+    public static String ENROLLED_FOR_COURSE="Employee Successfully Enrolled For Course";
+
 
 
 

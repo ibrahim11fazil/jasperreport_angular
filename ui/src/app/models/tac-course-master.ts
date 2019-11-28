@@ -104,6 +104,7 @@ export class TacCourseMaster {
         public end_date:String
         public activation_id:Number
         public courseStatus:Number
+        public seatCapacity:Number
     }
     export interface ITacCourseManagementList {
         status: Boolean;

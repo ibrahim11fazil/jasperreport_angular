@@ -180,6 +180,7 @@ export const  GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data
 //export const  GET_PARTICIPANT_DATA=BASE_URL+training+"/get-participant-data"
 export const CANCEL_COURSE=BASE_URL+training+"/cancel-course"
 export const  GET_MAWARED_DATA=BASE_URL+training+"/get-mawared-data"
+export const  DIRECT_ENROLL_PARTICIPANT=BASE_URL+training+"/direct-enroll-participant"
 export const  MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
 export const  MARK_ATTENDANCE=BASE_URL+training+"/mark-attendance"
 export const  GET_COURSE_COMPLETION=BASE_URL+training+"/get-course-completion"
@@ -191,7 +192,7 @@ export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
 export const  GET_JOB_CARD_USER_PROFILE=BASE_URL+training+"/jobcard_user_profile";
 export const  GET_USER_COURSE_ATTENDED=BASE_URL+training+"/user_courses_attended";
 export const  COORDINATOR_COURSES=BASE_URL+training+"/coordinator-courses";
-export const  INSTRUCTOR_COURSES=BASE_URL+training+"/Instructor-courses";
+export const  INSTRUCTOR_COURSES=BASE_URL+training+"/instructor-courses";
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"

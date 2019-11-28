@@ -11,14 +11,16 @@ export class CertificateRequest {
    objective:String
    certificateUid:String
     activationId:Number
+    endDate:String
 
-   constructor(activationId:Number,jobId:String,userName:String,courseName:String,courseDate:String)
+   constructor(activationId:Number,jobId:String,userName:String,courseName:String,courseDate:String,endDate:String)
 {
     this.activationId=activationId
     this.jobId=jobId
     this.userName=userName
     this.courseName=courseName
     this.courseDate=courseDate
+    this.endDate=endDate
 }
 }
 

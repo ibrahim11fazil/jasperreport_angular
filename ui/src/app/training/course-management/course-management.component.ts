@@ -32,7 +32,7 @@ import {
   isSameMonth,
   addHours
 } from 'date-fns';
-import { ResponseEmpData, EmpData } from 'app/models/emp-data';
+import { ResponseEmpData, EmpData, ResponseEmpDataDetail } from 'app/models/emp-data';
 import { TacCourseAttendance, ITacCourseAttendance } from 'app/models/tac-course-attendance';
 import { TacCourseAttendees } from 'app/models/tac-course-attendees';
 import { ResponseActivationData, ActivationData } from 'app/models/activation-data';
@@ -74,7 +74,8 @@ export class CourseManagementComponent implements OnInit {
   courseData: CourseManagementRes[];
   empRows: EmpData[];
   participantRows: EmpData[];
-  mawaredDataInfo:MawaredUserInfo[];
+  directEnrollParticipant:EmpData;
+  mawaredDataInfo:EmpData[];
   previousAttendance: EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
@@ -679,7 +680,7 @@ export class CourseManagementComponent implements OnInit {
   }
 
   getCertificates(activationId, responseList) {
-    let certificateRequest = new CertificateRequest(0, null, null, null, null)
+    let certificateRequest = new CertificateRequest(0, null, null, null, null,null)
     certificateRequest.activationId = activationId;
     this.trainingService.getCertificateList(certificateRequest).subscribe(
       data => {
@@ -738,12 +739,13 @@ export class CourseManagementComponent implements OnInit {
   GenerateCertificate(row) {
     debugger;
     this.employeeData = row
-    let certificateRequest = new CertificateRequest(0, null, null, null, null)
+    let certificateRequest = new CertificateRequest(0, null, null, null, null,null)
     certificateRequest.activationId = this.eventCourseDetail.activation_id;
     certificateRequest.courseName = this.eventCourseDetail.courseName;
     certificateRequest.jobId = this.employeeData.jobId
     certificateRequest.userName = this.employeeData.cnameAr
-    certificateRequest.courseDate = this.eventCourseDetail.end_date
+    certificateRequest.courseDate = this.eventCourseDetail.course_date
+    certificateRequest.endDate=this.eventCourseDetail.end_date
 
     this.trainingService.generateCertificate(certificateRequest).subscribe(
       data => {
@@ -835,6 +837,10 @@ export class CourseManagementComponent implements OnInit {
     this.displayParticipantSelection = true
     this.displayCourseDetails = false
     this.displayCalendar = false
+    this.mawaredDataInfo=null
+    this.formInit()
+
+
   }
 
 
@@ -859,7 +865,8 @@ export class CourseManagementComponent implements OnInit {
         })
   }
   searchParticipants() {
-    let mawaredData = new MawaredUserInfo()
+    debugger;
+    let mawaredData = new EmpData(0,"","","","","",0,0,"",0,0)
     if(this.form.value.jobTitleControl!=null)
     {
     mawaredData.jobTitle = this.form.value.jobTitleControl.job
@@ -872,11 +879,43 @@ export class CourseManagementComponent implements OnInit {
     .subscribe(
       data=>
       {
-        var response=<MawaredUserInfoResponse>data
+        var response=<ResponseEmpData>data
         this.mawaredDataInfo=response.data
 
       }
     )
+
+  }
+
+  directEnrollParticipants(row)
+  {
+debugger
+this.directEnrollParticipant=row
+
+let enrollParticipant=new EmpData(0,"","","","","",0,0,"",0,0)
+
+enrollParticipant.activationId=this.eventCourseDetail.activation_id;
+enrollParticipant.seatCapacity=this.eventCourseDetail.seatCapacity
+enrollParticipant.jobId=row.jobId;
+
+this.trainingService.enrollParticipantForCourse(enrollParticipant)
+
+      .subscribe(
+        data => {
+          var response = <ResponseEmpDataDetail>data
+          if (response.status == true) {
+            this.toastr.success(response.message.toString())
+            //this.getCourseManagement(this.statusCardSelected)
+          }
+          else
+          {
+            this.toastr.warning(response.message.toString())
+          }
+        },
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        })
 
   }
 
