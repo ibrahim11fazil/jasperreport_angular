@@ -891,25 +891,33 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
     @Override
     public Boolean getExistingEmp(EmployeeData participantData)
     {
-        Object[] obj=courseAttendeesRepository.findByJobId(participantData.getJobId());
+        BigDecimal attendeeCount=courseAttendeesRepository.getByJobIdAndActivationId(participantData.getJobId(),participantData.getActivationId());
 
-       if(obj.length>0)
+       if((attendeeCount.compareTo(new BigDecimal(1)))==0)
        {
-           return false;
+           return true;
        }
        else
        {
-           return true;
+           return false;
        }
     }
 
     @Override
-    public EmployeeData enrollParticipant(EmployeeData participantData)
+    public TacCourseAttendees enrollParticipant(EmployeeData participantData)
+
     {
-        
+
+        TacCourseActivation activation=new TacCourseActivation();
+            activation.setActivationId(participantData.getActivationId());
+        TacCourseAttendees attendees=new TacCourseAttendees();
+            attendees.setJobId(participantData.getJobId());
+            attendees.setTacCourseActivation(activation);
+            attendees.setRemark("Direct Enrollment");
+        TacCourseAttendees directAttendees=courseAttendeesRepository.save(attendees);
 
 
-        return null;
+        return directAttendees;
     }
 }
 

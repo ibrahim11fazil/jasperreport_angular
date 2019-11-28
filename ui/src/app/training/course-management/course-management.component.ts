@@ -680,7 +680,7 @@ export class CourseManagementComponent implements OnInit {
   }
 
   getCertificates(activationId, responseList) {
-    let certificateRequest = new CertificateRequest(0, null, null, null, null)
+    let certificateRequest = new CertificateRequest(0, null, null, null, null,null)
     certificateRequest.activationId = activationId;
     this.trainingService.getCertificateList(certificateRequest).subscribe(
       data => {
@@ -739,12 +739,13 @@ export class CourseManagementComponent implements OnInit {
   GenerateCertificate(row) {
     debugger;
     this.employeeData = row
-    let certificateRequest = new CertificateRequest(0, null, null, null, null)
+    let certificateRequest = new CertificateRequest(0, null, null, null, null,null)
     certificateRequest.activationId = this.eventCourseDetail.activation_id;
     certificateRequest.courseName = this.eventCourseDetail.courseName;
     certificateRequest.jobId = this.employeeData.jobId
     certificateRequest.userName = this.employeeData.cnameAr
-    certificateRequest.courseDate = this.eventCourseDetail.end_date
+    certificateRequest.courseDate = this.eventCourseDetail.course_date
+    certificateRequest.endDate=this.eventCourseDetail.end_date
 
     this.trainingService.generateCertificate(certificateRequest).subscribe(
       data => {

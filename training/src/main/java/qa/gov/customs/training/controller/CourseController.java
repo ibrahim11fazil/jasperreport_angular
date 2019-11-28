@@ -736,7 +736,11 @@ public class CourseController {
 
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/direct-enroll-participant")
-    public ResponseType enrollParticipant(@RequestBody EmployeeData participantData){
+    public ResponseType enrollParticipant(@RequestBody EmployeeData participantData,@AuthenticationPrincipal CustomPrincipal principal){
+
+        TacCourseMaster courseMaster=new TacCourseMaster();
+        courseMaster.setLegacyCode(participantData.getJobId());
+        Boolean jobCardCourse=false;
 
         BigDecimal countSeatCapacity=courseService.getcountParticipant(participantData);
         //check if seatCapacity is full
@@ -749,10 +753,36 @@ public class CourseController {
             //check if emp already present in the attendees table
             Boolean existingEmp=courseService.getExistingEmp(participantData);
 
-                if(existingEmp==true)
+                if(existingEmp==false)
                 {
 
-                    EmployeeData directParticipant = courseService.enrollParticipant(participantData);
+                    TacCourseAttendees directParticipant = courseService.enrollParticipant(participantData);
+
+                    List<CourseManagement> courses=courseService.searchAllFutureCourses(courseMaster, principal);
+                   // participantData.getActivationId().
+                    for(CourseManagement courseCheck:courses)
+                    {
+//                       while((courseCheck.getActivation_id().compareTo(participantData.getActivationId()))==0)
+//                       {
+//                           jobCardCourse=true;
+//                       }
+
+                        if(courses.stream().anyMatch(ti -> (ti.getActivation_id().compareTo(participantData.getActivationId())==0)))
+                        {
+                            jobCardCourse=true;
+                        }
+
+                    }
+                    if(jobCardCourse==false)
+                    {
+                        ResponseType response = new ResponseType(Constants.SUCCESS,MessageUtil.COURSE_NOT_IN_EMPJOBCARD, false, directParticipant);
+                        return response;
+                    }
+                    else
+                    {
+                        ResponseType response = new ResponseType(Constants.SUCCESS,MessageUtil.ENROLLED_FOR_COURSE, true, directParticipant);
+                        return response;
+                    }
 
                 }
                 else
@@ -762,7 +792,7 @@ public class CourseController {
                 }
         }
 
-        return null;
+
     }
 
 

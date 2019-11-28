@@ -32,6 +32,6 @@ public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttend
 
     @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where activation_Id=:activationId", nativeQuery = true)
     BigDecimal getcountPartticipant(BigDecimal activationId);
-
-     Object[] findByJobId(String JobId);
+    @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where job_id=:jobId and activation_Id=:activationId", nativeQuery = true)
+    BigDecimal getByJobIdAndActivationId(String jobId,BigDecimal activationId);
 }
