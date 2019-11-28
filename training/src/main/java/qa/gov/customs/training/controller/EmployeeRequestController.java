@@ -118,7 +118,7 @@ public class EmployeeRequestController {
     @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/cancel-request")
     public ResponseType cancelRequest(
-            @Valid @RequestBody CancelRequestStatus request,
+            @RequestBody CancelRequestStatus request,
             @AuthenticationPrincipal CustomPrincipal principal) {
         if (request != null) {
             request.setJobId(principal.getJid());

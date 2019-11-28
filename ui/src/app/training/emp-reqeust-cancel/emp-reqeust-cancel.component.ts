@@ -9,7 +9,7 @@ import { SystemUserService } from 'app/service/user/system-user.service';
 import { MainComponent } from 'app/main/main.component';
 import { AuthService } from 'app/service/auth-service/auth.service';
 import { ErrorService } from 'app/service/error/error.service';
-import { CancelResponseList, TaskResponseData, cancelListItem, UserRequestModel } from 'app/models/workflow';
+import { CancelResponseList, TaskResponseData, cancelListItem, UserRequestModel, CancelRequest, CancelRequestResponse } from 'app/models/workflow';
 
 @Component({
   selector: 'ms-emp-reqeust-cancel',
@@ -22,7 +22,7 @@ export class EmpReqeustCancelComponent implements OnInit {
   page = 0
   commentTxt=""
   ds: cancelListItem[] = [];
-  displayedColumns: string[] = ['createdOn','course', 'jobId', 'status'];
+  displayedColumns: string[] = ['createdOn','course', 'jobId', 'status','action'];
   data : cancelListItem;
   firstSearch=false
 
@@ -63,6 +63,27 @@ export class EmpReqeustCancelComponent implements OnInit {
           this.ds = [...this.ds]; 
         }else{
           this.toastr.info("No items found")
+        }
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
+  }
+
+  cancelRow(row){
+    var item = <cancelListItem>row
+    const request =  new CancelRequest()
+    request.requestId=item.workflowId
+    this.trainingService.cancelRequest(request).subscribe(
+      data => {
+      var response = <CancelRequestResponse>data
+        if (response.status) {
+          this.toastr.info(response.message.toString())
+          this.formInit()
+        }else{
+          this.toastr.error(response.message.toString())
         }
       },
       error => {

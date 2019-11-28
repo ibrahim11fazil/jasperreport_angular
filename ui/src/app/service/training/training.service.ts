@@ -19,7 +19,7 @@ import { CiSystemUsersRequest, CiCourseRequestedUsers } from 'app/models/ci-syst
 import { SearchUser, MawaredUserInfo } from 'app/models/system-user';
 import { SearchJobCard, JobCardData, JobCardDataSearch } from 'app/models/job-card-data';
 import { TacCourseAttendance } from 'app/models/tac-course-attendance';
-import { EmployeeCourseRequest } from 'app/models/workflow';
+import { EmployeeCourseRequest, CancelRequest } from 'app/models/workflow';
 import { AbsentInfo } from 'app/models/employee-data';
 import { FindAttendance } from 'app/models/find-attendance';
 import { ActivationDateRequest } from 'app/models/course-request';
@@ -366,8 +366,8 @@ export class TrainingService {
     return this.httpClient.post(GET_LIST_FOR_CANCELLATION,null);
   }
 
-  cancelRequest():Observable<Object>{
-    return this.httpClient.post(CANCEL_REQUEST,null);
+  cancelRequest(request:CancelRequest):Observable<Object>{
+    return this.httpClient.post(CANCEL_REQUEST,request);
   }
 
 
