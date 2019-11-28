@@ -10,14 +10,33 @@
     <parameter name="nameField" class="java.lang.String"/>
     <parameter name="courseName" class="java.lang.String"/>
     <parameter name="logo" class="java.io.InputStream"/>
+    <parameter name="certificate" class="java.io.InputStream"/>
     <parameter name="courseDate" class="java.lang.String"/>
     <parameter name="certificateId" class="java.lang.String"/>
     <queryString>
         <![CDATA[]]>
     </queryString>
+
+<!--    <background>-->
+<!--        <band height="500" splitType="Stretch">-->
+<!--            <staticText>-->
+<!--                <reportElement mode="Opaque" x="0" y="0" width="842" height="500" backcolor="#FFFF00"/>-->
+<!--                <textElement/>-->
+<!--                <text><![CDATA[]]></text>-->
+<!--            </staticText>-->
+<!--        </band>-->
+<!--    </background>-->
+
     <background>
-        <band splitType="Stretch"/>
+        <band height="500" splitType="Stretch">
+            <image>
+                <reportElement   mode="Opaque"  x="0" y="0" width="842" height="500"  />
+                <imageExpression><![CDATA[$P{certificate}]]>  </imageExpression>
+            </image>
+        </band>
     </background>
+
+
     <title>
         <band height="9" splitType="Stretch"/>
     </title>

@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class NotificationModel implements Serializable {
     private static final long serialversionUID = 129348939L;
-    String toAddress;
-    String emailBody;
-    String emailSubject;
-    String smsBody;
-    String phoneNumber;
+    String toAddress; // email address
+    String emailBody;  // email body
+    String emailSubject; // email subject
+    String smsBody;     //sms body
+    String phoneNumber; //phone
     int isSMS;
     int isEmail;
 

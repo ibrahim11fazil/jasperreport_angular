@@ -56,7 +56,6 @@ export class MyTasksComponent implements OnInit {
     private errorService:ErrorService) {
     this.pageTitleService.setTitle("User Tasks")
     this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
-   
   }
 
   ngDoCheck(): void {
@@ -98,7 +97,7 @@ export class MyTasksComponent implements OnInit {
             //   item.roles.forEach(r => {  rName = rName + " " +  r.remark})
             //   item.roleName =rName
             // }
-            debugger
+           // debugger
             this.ds.push(item);
           })
           this.ds = [...this.ds]; // this.ds is conided as varaible , this will update the variable in UI

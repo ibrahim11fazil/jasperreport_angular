@@ -22,7 +22,7 @@ public class NotificationService {
     @Autowired
     NotificationRepository notificationRepository;
 
-    boolean isDemoEnabled=true;
+    boolean isDemoEnabled=false;
     String email="sraj@customs.gov.qa";
     String mobile="50105223";
 

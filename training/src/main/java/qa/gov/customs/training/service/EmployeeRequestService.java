@@ -2,8 +2,12 @@ package qa.gov.customs.training.service;
 
 
 import qa.gov.customs.training.entity.TacWorkflowReference;
+import qa.gov.customs.training.models.CancelRequestStatus;
 import qa.gov.customs.training.models.TrainingRequestStatus;
 import qa.gov.customs.training.models.UserRequestModel;
+import qa.gov.customs.training.repository.TacCourseDateRepository;
+
+import java.util.List;
 
 public interface EmployeeRequestService {
 
@@ -16,5 +20,9 @@ public interface EmployeeRequestService {
     UserRequestModel UpdateCourseRequest(TrainingRequestStatus status);
 
     Boolean checkTheEmployeeAlreadyAppliedWithActivationId(UserRequestModel request);
+
+    List<TacWorkflowReference> findByToUser(String toUser);
+
+    CancelRequestStatus cancelRequest(String requestId, String jobId);
 
 }

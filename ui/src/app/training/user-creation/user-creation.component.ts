@@ -146,11 +146,10 @@ export class UserCreationComponent implements OnInit {
     });
     
     // this.form.controls['jobId'].patchValue(this.systemUser.id)
-     //this.form.controls['userRole'].patchValue(roleSelected)
-     //this.form.controls['enabledUser'].patchValue(this.systemUser.enabled.toString())
+    // this.form.controls['userRole'].patchValue(roleSelected)
+    // this.form.controls['enabledUser'].patchValue(this.systemUser.enabled.toString())
     // this.form.controls['password'].validator=null
-     this.blankPassword=this.language.provideBlank
-   
+    this.blankPassword=this.language.provideBlank
   }
 
   onJobIdChange(event){
@@ -168,7 +167,6 @@ export class UserCreationComponent implements OnInit {
         }else{
           this.cNameAr= this.language.invalidUser
         }
-
       },
       error=>{
         console.log(error.message)

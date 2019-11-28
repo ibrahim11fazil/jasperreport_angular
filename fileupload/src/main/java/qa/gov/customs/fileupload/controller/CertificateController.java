@@ -24,7 +24,7 @@ public class CertificateController {
     @Autowired
     FileService fileService;
 
-    @PreAuthorize("hasAnyAuthority('generate_certificate')")
+    //@PreAuthorize("hasAnyAuthority('generate_certificate')")
     @PostMapping("/generate-certificate")
     ResponseType generateCertificate(@RequestBody CertificateRequest certificateRequest) {
         try {

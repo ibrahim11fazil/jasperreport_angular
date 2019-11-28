@@ -128,5 +128,7 @@ training:
     queue_user_request: ${WORKFLOW_QUE_USER_REQ:workflow_queue_userrequest_dev}
     notification_exchange: ${NOTIFICATION_EXCHANGE:notification_exchange_dev}
     notification_routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}
+    req_cancellation_exchange: ${REQ_CANCEL_EXCHANGE:req_cancellation_exchange_dev}
+    req_cancellation_routingkey: ${REQ_ROUTING_ROUTING_KEY:req_cancellation_routingkey_dev}
 
 

@@ -787,6 +787,28 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public TacCourseDate findStartAndEndDateById(BigDecimal dateId) {
+       // return tacCourseDateRepository.findStartDateAndEndDateById(dateId);
+      try {
+          Object[] o = tacCourseDateRepository.findStartDateAndEndDateById(dateId);
+          if (o != null) {
+              TacCourseDate course = new TacCourseDate();
+              course.setDateId((BigDecimal) o[0]);
+              Date courseDate = ((Date) o[1]);
+              Date endDate = ((Date) o[2]);
+              course.setCourseDate(courseDate);
+              course.setEndDate(endDate);
+              return course;
+          } else {
+              return null;
+          }
+      }catch (Exception e){
+          logger.error("ERROR" + e.toString());
+          return null;
+      }
+    }
+
+    @Override
     public TacCourseDate cancelCourse(TacCourseActivation activation)
     {
         TacCourseDate course=new TacCourseDate();

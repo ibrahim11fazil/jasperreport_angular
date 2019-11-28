@@ -4,6 +4,7 @@ package qa.gov.customs.training.service;
 import org.springframework.data.domain.Pageable;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.*;
+import qa.gov.customs.training.repository.TacCourseDateRepository;
 import qa.gov.customs.training.security.CustomPrincipal;
 
 import java.math.BigDecimal;
@@ -115,5 +116,7 @@ public interface CourseService {
     Boolean getExistingEmp(EmployeeData participantData);
 
     SeatCapacity remainingSeatCapacity(BigDecimal activationId);
+
+    TacCourseDate findStartAndEndDateById(BigDecimal dateId);
 
 }
