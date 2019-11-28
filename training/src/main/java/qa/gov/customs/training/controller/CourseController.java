@@ -759,20 +759,13 @@ public class CourseController {
                     TacCourseAttendees directParticipant = courseService.enrollParticipant(participantData);
 
                     List<CourseManagement> courses=courseService.searchAllFutureCourses(courseMaster, principal);
-                   // participantData.getActivationId().
-                    for(CourseManagement courseCheck:courses)
-                    {
-//                       while((courseCheck.getActivation_id().compareTo(participantData.getActivationId()))==0)
-//                       {
-//                           jobCardCourse=true;
-//                       }
+
 
                         if(courses.stream().anyMatch(ti -> (ti.getActivation_id().compareTo(participantData.getActivationId())==0)))
                         {
                             jobCardCourse=true;
                         }
 
-                    }
                     if(jobCardCourse==false)
                     {
                         ResponseType response = new ResponseType(Constants.SUCCESS,MessageUtil.COURSE_NOT_IN_EMPJOBCARD, false, directParticipant);
