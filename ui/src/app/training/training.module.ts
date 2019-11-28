@@ -76,6 +76,7 @@ import { ViewTaskDetailsComponent } from './popup/view-task-details/view-task-de
 import { MyTasksHistoryComponent } from './my-tasks-history/my-tasks-history.component';
 import { UserPermissionsComponent } from './user-permissions/user-permissions.component';
 import { SmartProfileComponent } from './smart-profile/smart-profile.component';
+import { EmpReqeustCancelComponent } from './emp-reqeust-cancel/emp-reqeust-cancel.component';
 
 
 
@@ -104,7 +105,8 @@ import { SmartProfileComponent } from './smart-profile/smart-profile.component';
      MyTasksComponent,
      MyTasksHistoryComponent,
      UserPermissionsComponent,
-     SmartProfileComponent
+     SmartProfileComponent,
+     EmpReqeustCancelComponent
      ],
   imports: [
     InfiniteScrollModule,

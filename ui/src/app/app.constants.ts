@@ -193,6 +193,10 @@ export const  GET_JOB_CARD_USER_PROFILE=BASE_URL+training+"/jobcard_user_profile
 export const  GET_USER_COURSE_ATTENDED=BASE_URL+training+"/user_courses_attended";
 export const  COORDINATOR_COURSES=BASE_URL+training+"/coordinator-courses";
 export const  INSTRUCTOR_COURSES=BASE_URL+training+"/instructor-courses";
+export const  GET_LIST_FOR_CANCELLATION=BASE_URL+training+"/cancel-request-list";
+export const  CANCEL_REQUEST=BASE_URL+training+"/cancel-request";
+
+
 //USER MANAGEMENT
 export const  GET_ALL_SYSTEM_ROLES=BASE_URL+user+"/all-system-roles"
 export const  SAVE_SYSTEM_USER=BASE_URL+user+"/create-system-user"

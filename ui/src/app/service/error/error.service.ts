@@ -29,6 +29,7 @@ export class ErrorService {
   }
     
   errorResponseHandling(error){
+    console.log(error)
     console.error("Error --> " + error)
     var errorMsg = <ResponseError> error
     this.errorSystemTranslation(errorMsg)

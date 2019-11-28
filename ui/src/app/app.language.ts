@@ -323,6 +323,7 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   menu_allEmployees: String = this.isArabic ? "جميع الموظفين" : "All Employees"
   menu_courseRequests: String = this.isArabic ? "طلبات الدورات التدريبية" : "Course Requests"
   menu_employeeRequests: String = this.isArabic ? "توصيات الموظفين" : "Employee Requests"
+  menu_employeeRequestsCancel: String = this.isArabic ? "توصيات الموظفين" : "Cancel My Requests"
   menu_myTasks: String = this.isArabic ? "مهامي" : "My Tasks"
   menu_history: String = this.isArabic ? "معلومات سابقة" : "History"
   menu_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"

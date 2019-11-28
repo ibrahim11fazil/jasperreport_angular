@@ -21,6 +21,7 @@ import { MyTasksComponent } from './my-tasks/my-tasks.component';
 import { MyTasksHistoryComponent } from './my-tasks-history/my-tasks-history.component';
 import { UserPermissionsComponent } from './user-permissions/user-permissions.component';
 import { SmartProfileComponent } from './smart-profile/smart-profile.component';
+import { EmpReqeustCancelComponent } from './emp-reqeust-cancel/emp-reqeust-cancel.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -127,6 +128,9 @@ export const TrainingRoutes: Routes = [
             {
                 path: 'emp-request',
                 component:EmpRequestComponent
+            },{
+                path: 'emp-reqeust-cancel',
+                component:EmpReqeustCancelComponent
             },
             {
 

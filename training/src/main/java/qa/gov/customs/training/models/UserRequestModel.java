@@ -53,6 +53,43 @@ public class UserRequestModel implements Serializable {
     public UserRequestModel() {
     }
 
+    public UserRequestModel(String workflowType, String fullName, String userId, String email, String mobile, String department, String departmentId, String courseId, String courseName, String processId, String processKey, String createdOn, String trainingRequestId, String jobId, String jobTitle, String pernr, String cnameAr, String cnameEn, String qid, String activeFlag, String positionId, String secionCode, String gender, Date dateofbirth, String passport, String iban, String courseActivationId, String forUserJobId, String forUserjobTitle, String forUsercnameAr, String forUserQid, String fromUserJobId, String fromUserCnameAr, String investigationId) {
+        this.workflowType = workflowType;
+        this.fullName = fullName;
+        this.userId = userId;
+        this.email = email;
+        this.mobile = mobile;
+        this.department = department;
+        this.departmentId = departmentId;
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.processId = processId;
+        this.processKey = processKey;
+        this.createdOn = createdOn;
+        this.trainingRequestId = trainingRequestId;
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.pernr = pernr;
+        this.cnameAr = cnameAr;
+        this.cnameEn = cnameEn;
+        this.qid = qid;
+        this.activeFlag = activeFlag;
+        this.positionId = positionId;
+        this.secionCode = secionCode;
+        this.gender = gender;
+        this.dateofbirth = dateofbirth;
+        this.passport = passport;
+        this.iban = iban;
+        this.courseActivationId = courseActivationId;
+        this.forUserJobId = forUserJobId;
+        this.forUserjobTitle = forUserjobTitle;
+        this.forUsercnameAr = forUsercnameAr;
+        this.forUserQid = forUserQid;
+        this.fromUserJobId = fromUserJobId;
+        this.fromUserCnameAr = fromUserCnameAr;
+        this.investigationId = investigationId;
+    }
+
     public String getInvestigationId() {
         return investigationId;
     }

@@ -1,6 +1,8 @@
 package qa.gov.customs.training.entity;
 
 
+import qa.gov.customs.training.models.UserRequestModel;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
@@ -54,6 +56,17 @@ public class TacWorkflowReference {
 
     @Column(name = "CANCELLED_BY")
     String cancelledBy;
+
+    @Transient
+    UserRequestModel dataProcessed;
+
+    public UserRequestModel getDataProcessed() {
+        return dataProcessed;
+    }
+
+    public void setDataProcessed(UserRequestModel dataProcessed) {
+        this.dataProcessed = dataProcessed;
+    }
 
     public BigInteger getCancelledFalg() {
         return cancelledFalg;
