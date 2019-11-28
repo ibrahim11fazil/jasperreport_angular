@@ -32,6 +32,16 @@ public class EmployeeData {
     private String psLevel;
     private BigDecimal activationId;
     private BigDecimal seatCapacity;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     private boolean notInJobCard;
 
     public boolean isNotInJobCard() {

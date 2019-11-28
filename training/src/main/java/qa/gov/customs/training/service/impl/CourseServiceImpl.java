@@ -935,7 +935,7 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
         TacCourseAttendees attendees=new TacCourseAttendees();
             attendees.setJobId(participantData.getJobId());
             attendees.setTacCourseActivation(activation);
-            attendees.setRemark("Direct Enrollment");
+            attendees.setRemark(participantData.getRemark());
         TacCourseAttendees directAttendees=courseAttendeesRepository.save(attendees);
 
 

@@ -67,6 +67,7 @@ export class SmartProfileUserResponseModel {
     currentGradeDate:Date;
     nextGradeDate:Date;
     
+    
 }
 
 export interface SmartProfileUserResponseAjax {
@@ -84,6 +85,8 @@ export interface SmartProfileUserResponse {
     count: number;
     data: SmartProfileUserResponseModel[];
 }
+
+
 
 export interface UserCourseResponseProfile {
     jobId: String;
