@@ -195,6 +195,41 @@ public class EmployeeController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('emp_profile')")
+    @PostMapping("/get-directEnroll-profile-basic")
+    public ResponseType getdirectEnrollEmployeeByIdProfileByNameOrQid(@RequestBody JobCardProfileRequest jobCardProfileRequest,
+                                                          @AuthenticationPrincipal CustomPrincipal principal
+    ) {
+        if(jobCardProfileRequest.getQid()!=null && jobCardProfileRequest.getQid()!="") {
+            List<MawaredMaster> submittedRequest = mawaredService.findByQid(jobCardProfileRequest.getQid());
+            if(submittedRequest!=null && submittedRequest.size()>0) {
+                ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+                        submittedRequest);
+                return response;
+            }else{
+                ResponseType response = new ResponseType(Constants.RESOURCE_NOT_FOUND, MessageUtil.NO_DATA_FOUND, false,
+                        submittedRequest);
+                return response;
+            }
+        }else if(jobCardProfileRequest.getEmpName()!=null && jobCardProfileRequest.getEmpName()!=""){
+            List<MawaredMaster> submittedRequest = mawaredService.findByName(jobCardProfileRequest.getEmpName());
+            if(submittedRequest!=null && submittedRequest.size()>0) {
+                ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+                        submittedRequest);
+                return response;
+            }else{
+                ResponseType response = new ResponseType(RESOURCE_NOT_FOUND, MessageUtil.NO_DATA_FOUND, false,
+                        submittedRequest);
+                return response;
+            }
+        }else{
+            ResponseType response = new ResponseType(BAD_REQUEST, MessageUtil.BAD_REQUEST, false,
+                    null);
+            return response;
+        }
+    }
+
+
     List<MawaredMaster> getBasicInforList(List<MawaredMaster> input){
         List<MawaredMaster> basicInfoList = new ArrayList<>();
         input.forEach( item -> {

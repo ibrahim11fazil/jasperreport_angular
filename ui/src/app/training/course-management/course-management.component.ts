@@ -44,6 +44,7 @@ import { MainComponent } from 'app/main/main.component';
 import { formatDate } from '@angular/common';
 import { ErrorService } from 'app/service/error/error.service';
 import { JobGradesListResponse, JobTitleListResponse, JobGrades, JobTitle } from 'app/models/job-card-data';
+import { SmartProfileUserRequestModel, SmartProfileUserResponse, SmartProfileUserResponseModel } from 'app/models/smart-profile-model';
 
 
 
@@ -74,8 +75,8 @@ export class CourseManagementComponent implements OnInit {
   courseData: CourseManagementRes[];
   empRows: EmpData[];
   participantRows: EmpData[];
-  directEnrollParticipant:EmpData;
-  mawaredDataInfo:EmpData[];
+  directEnrollParticipant: EmpData;
+  mawaredDataInfo: SmartProfileUserResponseModel[];
   previousAttendance: EmpData[];
   tacInstructor: TacInstructor[] = [];
   tacInstructorResult: TacInstructor[] = [];
@@ -88,6 +89,8 @@ export class CourseManagementComponent implements OnInit {
   jobTitleList: JobTitle[] = []
   page = new Page();
   estimatedCost: Number;
+  commentTxt = "";
+  remarkTxt="";
   trainingRoomDetail: Location;
   locationType: Number;
   courseDetail: TacCourseMaster = new TacCourseMaster(0, null, null, 0, null, null, 0, null, null, null, null, 0, 0, null, null);
@@ -210,10 +213,9 @@ export class CourseManagementComponent implements OnInit {
   ]
   formInit() {
     this.form = this.fb.group({
-
-      jobGradeControl: [""],
-      jobTitleControl: [""],
-
+      jobId: [null],
+      qid:[null],
+      empName:[null]
     });
   }
 
@@ -680,7 +682,7 @@ export class CourseManagementComponent implements OnInit {
   }
 
   getCertificates(activationId, responseList) {
-    let certificateRequest = new CertificateRequest(0, null, null, null, null,null)
+    let certificateRequest = new CertificateRequest(0, null, null, null, null, null)
     certificateRequest.activationId = activationId;
     this.trainingService.getCertificateList(certificateRequest).subscribe(
       data => {
@@ -739,13 +741,13 @@ export class CourseManagementComponent implements OnInit {
   GenerateCertificate(row) {
     debugger;
     this.employeeData = row
-    let certificateRequest = new CertificateRequest(0, null, null, null, null,null)
+    let certificateRequest = new CertificateRequest(0, null, null, null, null, null)
     certificateRequest.activationId = this.eventCourseDetail.activation_id;
     certificateRequest.courseName = this.eventCourseDetail.courseName;
     certificateRequest.jobId = this.employeeData.jobId
     certificateRequest.userName = this.employeeData.cnameAr
     certificateRequest.courseDate = this.eventCourseDetail.course_date
-    certificateRequest.endDate=this.eventCourseDetail.end_date
+    certificateRequest.endDate = this.eventCourseDetail.end_date
 
     this.trainingService.generateCertificate(certificateRequest).subscribe(
       data => {
@@ -800,123 +802,174 @@ export class CourseManagementComponent implements OnInit {
     //         console.log(error)
     //         this.errorService.errorResponseHandling(error)
     //       })
-    this.userService.getGrades().subscribe(
-      data => {
-        var response = <JobGradesListResponse>data
-        if (response.status) {
-          this.jobGradeList = response.data
-        }
-        else {
-          console.log(response.message)
-          this.toastr.error(response.message.toString())
-        }
-      },
-      error => {
-        console.log(error)
-        this.errorService.errorResponseHandling(error)
-      }
-    )
-    this.userService.getJobTitles().subscribe(
-      data => {
-        var response = <JobTitleListResponse>data
-        if (response.status) {
-          this.jobTitleList = response.data
-        }
-        else {
-          console.log(response.message)
-          this.toastr.error(response.message.toString())
-        }
-      },
-      error => {
-        console.log(error)
-        this.errorService.errorResponseHandling(error)
-      }
-    )
-
+    // this.userService.getGrades().subscribe(
+    //   data => {
+    //     var response = <JobGradesListResponse>data
+    //     if (response.status) {
+    //       this.jobGradeList = response.data
+    //     }
+    //     else {
+    //       console.log(response.message)
+    //       this.toastr.error(response.message.toString())
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error)
+    //     this.errorService.errorResponseHandling(error)
+    //   }
+    // )
+    // this.userService.getJobTitles().subscribe(
+    //   data => {
+    //     var response = <JobTitleListResponse>data
+    //     if (response.status) {
+    //       this.jobTitleList = response.data
+    //     }
+    //     else {
+    //       console.log(response.message)
+    //       this.toastr.error(response.message.toString())
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error)
+    //     this.errorService.errorResponseHandling(error)
+    //   }
+    // )
+   
 
     this.displayParticipantSelection = true
     this.displayCourseDetails = false
     this.displayCalendar = false
-    this.mawaredDataInfo=null
+    this.mawaredDataInfo = null
+    this.displayCourseCompletionForm=false
+    this.displayAttendance=false
     this.formInit()
 
 
   }
 
 
-  cancelCourse(row) {
-    debugger;
-    this.cancelSelectCourse = row
-    let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
-    courseActivation.activationId = this.cancelSelectCourse.activation_id;
-    this.trainingService.cancelCourse(courseActivation)
+  cancelCourse() {
+    if (this.commentTxt != "") {
+      debugger;
+      this.cancelSelectCourse = this.eventCourseDetail
+      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
+      courseActivation.activationId = this.cancelSelectCourse.activation_id;
+      this.trainingService.cancelCourse(courseActivation)
 
-      .subscribe(
-        data => {
-          var response = <courseCancellation>data
-          if (response.status == true) {
-            this.toastr.success(this.language.courseCancelSuccessfull)
-            this.getCourseManagement(this.statusCardSelected)
-          }
-        },
-        error => {
-          console.log(error)
-          this.errorService.errorResponseHandling(error)
-        })
+        .subscribe(
+          data => {
+            var response = <courseCancellation>data
+            if (response.status == true) {
+              this.toastr.success(this.language.courseCancelSuccessfull)
+              this.getCourseManagement(this.statusCardSelected)
+            }
+          },
+          error => {
+            console.log(error)
+            this.errorService.errorResponseHandling(error)
+          })
+    } else {
+      this.toastr.error(this.language.requiredComment.toString())
+    }
+
+
   }
   searchParticipants() {
     debugger;
-    let mawaredData = new EmpData(0,"","","","","",0,0,"",0,0)
-    if(this.form.value.jobTitleControl!=null)
-    {
-    mawaredData.jobTitle = this.form.value.jobTitleControl.job
-    }
-    if(this.form.value.jobGradeControl!=null)
-    {
-    mawaredData.psLevel = this.form.value.jobGradeControl.psLevel 
-    }
-    this.trainingService.getMawaredData(mawaredData)
-    .subscribe(
-      data=>
-      {
-        var response=<ResponseEmpData>data
-        this.mawaredDataInfo=response.data
+    var jobIdSelected = this.form.value.jobId
+    var qid = this.form.value.qid
+    var empName = this.form.value.empName
+    if (jobIdSelected != null && jobIdSelected != "") {
+      //this.getUserInformations(jobIdSelected, true)
+      var input = new SmartProfileUserRequestModel()
+    input.jobIdRequested = jobIdSelected
+    this.trainingService.getEmployeeSmartProfile(input).subscribe(
+      data => {
+        var response = <SmartProfileUserResponse>data
+        this.mawaredDataInfo=response.data;
+      })
+    } else if((qid!=null && qid!="")|| (empName!="" && empName!=null)) {
+      //this.getUserInformationsAndTitle(qid, empName)
+      var input = new SmartProfileUserRequestModel()
+     input.qid = qid
+     input.empName=empName
+     this.trainingService.getdirectEnrollEmployeeSmartProfileBasicInfo(input).subscribe(
+       data => {
+         var response = <SmartProfileUserResponse>data
+         this.mawaredDataInfo=response.data;
 
-      }
-    )
+       })
+    }else{
+      this.toastr.error("Invalid search input")
+    }
+
+    
+    // let mawaredData = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"")
+    // if (this.form.value.jobTitleControl != null) {
+    //   mawaredData.jobTitle = this.form.value.jobTitleControl.job
+    // }
+    // if (this.form.value.jobGradeControl != null) {
+    //   mawaredData.psLevel = this.form.value.jobGradeControl.psLevel
+    // }
+    // this.trainingService.getMawaredData(mawaredData)
+    //   .subscribe(
+    //     data => {
+    //       var response = <ResponseEmpData>data
+    //       this.mawaredDataInfo = response.data
+
+    //     }
+    //   )
 
   }
 
-  directEnrollParticipants(row)
-  {
-debugger
-this.directEnrollParticipant=row
+  directEnrollParticipants(row) {
+    debugger
+    if(row.remark!="")
+    {
+    this.directEnrollParticipant = row
 
-let enrollParticipant=new EmpData(0,"","","","","",0,0,"",0,0)
+    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"")
 
-enrollParticipant.activationId=this.eventCourseDetail.activation_id;
-enrollParticipant.seatCapacity=this.eventCourseDetail.seatCapacity
-enrollParticipant.jobId=row.jobId;
+    enrollParticipant.activationId = this.eventCourseDetail.activation_id;
+    enrollParticipant.seatCapacity = this.eventCourseDetail.seatCapacity
+    enrollParticipant.jobId = row.legacycode;
+    enrollParticipant.remark=row.remark;
 
-this.trainingService.enrollParticipantForCourse(enrollParticipant)
+    this.trainingService.enrollParticipantForCourse(enrollParticipant)
 
       .subscribe(
         data => {
+          debugger
           var response = <ResponseEmpDataDetail>data
-          if (response.status == true) {
+          if (response.status == true && response.data!=null) {
             this.toastr.success(response.message.toString())
             //this.getCourseManagement(this.statusCardSelected)
           }
-          else
-          {
+          else if (response.status == false && response.data!=null){
             this.toastr.warning(response.message.toString())
+          }
+          else{
+            this.toastr.error(response.message.toString())
           }
         },
         error => {
           console.log(error)
           this.errorService.errorResponseHandling(error)
         })
+      }
+      else {
+        this.toastr.error(this.language.requiredComment.toString())
+      }
 
+
+  }
+
+  doneAddParticipant() {
+    this.getActivationData(this.eventCourseDetail)
+
+    this.displayCourseDetails = true
+    this.displayCalendar = true
+    this.displayParticipantSelection = false
   }
 
 
