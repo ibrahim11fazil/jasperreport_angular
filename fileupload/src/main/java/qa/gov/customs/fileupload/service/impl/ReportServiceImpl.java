@@ -27,7 +27,7 @@ public class ReportServiceImpl implements ReportService {
     private static final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
     private static final String logo_path = "/images/logo-sign.png";
     private static final String cert_path = "/images/certificate.png";
-    private final String certificateTemplateUrl = "/reports/Blank_A4_Landscape_certificate_customs.jrxml";
+    private final String certificateTemplateUrl = "/reports/Blank_A4_Landscape_certificate_v1.jrxml";
     @Value("${file.upload-dir}")
     private String pdfFolderLocation;
 
@@ -72,13 +72,16 @@ public class ReportServiceImpl implements ReportService {
         final Map<String, Object> parameters = new HashMap<>();
         try {
 //            String name = new String(certificateRequest.getUserName().getBytes("UTF-8"), "ISO-8859-1");
-            parameters.put("logo", getClass().getResourceAsStream(logo_path));
-            parameters.put("certificate", getClass().getResourceAsStream(cert_path));
+            //parameters.put("logo", getClass().getResourceAsStream(logo_path));
+            //parameters.put("certificate", getClass().getResourceAsStream(cert_path));
+            String name = certificateRequest.getUserName() +"بأن السيد/ ";
+            String courseName= certificateRequest.getCourseName() + "قد شارك في دورة / ";
+            String courseDate= certificateRequest.getEndDate() + " إلى " + certificateRequest.getCourseDate() + " المنعقدة خلال الفترة من ";
+            parameters.put("nameField", name);
+            parameters.put("courseName", courseName);
+            parameters.put("courseDate", courseDate);
 
-            parameters.put("nameField", certificateRequest.getUserName());
-            parameters.put("courseName", certificateRequest.getCourseName());
-            parameters.put("courseDate", certificateRequest.getCourseDate());
-            parameters.put("certificateId", certificateRequest.getCertificateUid());
+           // parameters.put("certificateId", certificateRequest.getCertificateUid());
             return parameters;
         } catch (Exception e) {
             e.printStackTrace();

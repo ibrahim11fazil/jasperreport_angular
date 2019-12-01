@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_certificate" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="336e0720-45a3-4f28-aa8f-923d9700f9af">
+	<parameter name="nameField" class="java.lang.String"/>
+	<parameter name="courseName" class="java.lang.String"/>
+	<parameter name="courseDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="435" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="100" width="800" height="34" uuid="243ff772-5c97-4685-a14b-e30cf205d894"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H" />
+				</textElement>
+				<text><![CDATA[تشـهد الهيئـة العـامـة للجمـارك]]></text>
+			</staticText>
+			<textField pattern="M/d/yy">
+				<reportElement x="500" y="320" width="152" height="30" uuid="5d093193-2b71-404a-ab42-8e4cbdc7eb9f"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="12" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="148" width="800" height="40" uuid="780afa3b-f9b4-4c53-ac20-7d0877bca086"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nameField}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="198" width="800" height="40" uuid="70e3c007-3239-4a84-bcb6-a86a6efd5e88"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="248" width="800" height="40" uuid="a329293d-40ca-495d-aec9-5d21a766db47"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="1" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="1" splitType="Stretch"/>
+	</summary>
+</jasperReport>

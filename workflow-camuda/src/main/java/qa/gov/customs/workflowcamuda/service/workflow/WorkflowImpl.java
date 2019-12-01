@@ -536,7 +536,7 @@ public class WorkflowImpl {
         Optional<RequestActions>  ref = requestService.findById(model);
         if(ref.isPresent() && ref.get().getCancelledFlag().equals("1")){
             //Message is not send
-            String message = COURSE_APPROVED + model.getCourseName();
+            //String message = COURSE_APPROVED + model.getCourseName();
             requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
             publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(), WorkflowStatus.APPROVED));
         }else {

@@ -8,6 +8,7 @@ public class CertificateRequest {
     BigDecimal certificateId;
     String certificateUrl;
     String courseDate;
+    String endDate;
     String courseName;
     String userName;
     String jobId;
@@ -16,6 +17,14 @@ public class CertificateRequest {
     String objective;
     String certificateUid;
     BigDecimal activationId;
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
     public BigDecimal getActivationId() {
         return activationId;
