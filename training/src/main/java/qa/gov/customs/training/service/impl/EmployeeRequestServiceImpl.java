@@ -26,6 +26,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static qa.gov.customs.training.utils.MessageUtil.*;
+
 @Service
 public class EmployeeRequestServiceImpl implements EmployeeRequestService {
 
@@ -147,7 +149,7 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
                            reference.setCancelledBy(jobId);
                            TacWorkflowReference updated =  requestRepository.save(reference);
                            if(updated!=null){
-                               String message =  String.format("cancelRequest: %s Success",requestId);
+                               String message =  String.format(CANCEL_REQUEST_SUCESS,requestId);
                                logger.info(message);
                                CancelRequestStatus request= new CancelRequestStatus(message,true,requestId);
                                //TODO here to send a message to the workflow to cancel the notification
@@ -156,32 +158,32 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
                                courseService.deleteAttendees(reference.getActivationId(),reference.getToUser(),reference.getWorkflowId());
                                return  request;
                            }else{
-                               String message =  String.format("cancelRequest: %s Cancellation failed, Contact Administrator",requestId);
+                               String message =  String.format(CANCEL_FAILED_REQUEST,requestId);
                                logger.info(message);
                                return  new CancelRequestStatus(message,false);
                            }
                        } else {
-                           String message =  String.format("cancelRequest: %s Less than 3 days ,you can't cancel",requestId);
+                           String message =  String.format(CANCEL_REQUEST_ISSUE,requestId);
                            logger.info(message);
                            return  new CancelRequestStatus(message,false);
                        }
                    }else{
-                       String message =  String.format("cancelRequest: %s Dates Not found in the Data Base, Contact Administrator ",requestId);
+                       String message =  String.format(CANCEL_REQUEST_DATE_INVALID_ISSUE,requestId);
                        logger.info(message);
                        return  new CancelRequestStatus(message,false);
                    }
                 }else{
-                    String message =  String.format("cancelRequest: %s  Activation Date Id Not found, Contact Administrator ",requestId);
+                    String message =  String.format(CANCEL_REQUEST_DATE_ISSUE,requestId);
                     logger.info(message);
                     return  new CancelRequestStatus(message,false);
                 }
             }else{
-                String message =  String.format("cancelRequest: %s  ActivationId Not found, Contact Administrator  ",requestId);
+                String message =  String.format(CANCEL_REQUEST_ACTIVATION_ID_ISSUE,requestId);
                 logger.info(message);
                 return  new CancelRequestStatus(message,false);
             }
         }else{
-            String message =  String.format("cancelRequest: %s  RequestId Not found,Contact Administrator   ",requestId);
+            String message =  String.format(CANCEL_REQUEST_REQUEST_ID_ISSUE,requestId);
             logger.info(message);
             return  new CancelRequestStatus(message,false);
         }
