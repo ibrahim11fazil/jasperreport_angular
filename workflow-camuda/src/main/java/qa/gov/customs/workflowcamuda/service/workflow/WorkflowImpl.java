@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import qa.gov.customs.workflowcamuda.config.Publisher;
+import qa.gov.customs.workflowcamuda.entity.RequestActions;
 import qa.gov.customs.workflowcamuda.entity.UserMaster;
 import qa.gov.customs.workflowcamuda.model.*;
 import qa.gov.customs.workflowcamuda.proxy.*;
@@ -532,12 +533,20 @@ public class WorkflowImpl {
     public void acceptAction(UserRequestModel model) {
         //TODO accept based on workflow
         logger.info("Accepted" + model.getEmail());
-        String message = COURSE_APPROVED + model.getCourseName();
-        requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
-        //notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
-        //trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.APPROVED, workflowToken);
-        publisher.sendNotification(createNotification(model, message));
-        publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(), WorkflowStatus.APPROVED));
+        Optional<RequestActions>  ref = requestService.findById(model);
+        if(ref.isPresent() && ref.get().getCancelledFlag().equals("1")){
+            //Message is not send
+            String message = COURSE_APPROVED + model.getCourseName();
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
+            publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(), WorkflowStatus.APPROVED));
+        }else {
+            String message = COURSE_APPROVED + model.getCourseName();
+            requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);
+            //notificationProxyService.sendNotification(createNotification(model, message), workflowToken);
+            //trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.APPROVED, workflowToken);
+            publisher.sendNotification(createNotification(model, message));
+            publisher.updateTrainingRequest(new TrainingRequestStatus(model.getTrainingRequestId(), WorkflowStatus.APPROVED));
+        }
     }
 
     NotificationModel createNotification(UserRequestModel model, String message) {
@@ -547,6 +556,8 @@ public class WorkflowImpl {
         notificationModel.setToAddress(model.getEmail());
         notificationModel.setEmailSubject(EMAIL_SUBJECT);
         notificationModel.setPhoneNumber(model.getMobile());
+        notificationModel.setRequestId(model.getTrainingRequestId());
+
         if (model.getEmail() != null) {
             notificationModel.setIsEmail(1);
         } else {

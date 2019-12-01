@@ -50,6 +50,7 @@ public class Publisher {
     }
 
     public void sendNotification(NotificationModel model) {
+
         amqpTemplate.convertAndSend(notificationExchange, notificationRoutingkey, model);
     }
 

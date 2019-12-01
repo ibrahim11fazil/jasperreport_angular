@@ -13,6 +13,7 @@ import qa.gov.customs.workflowcamuda.controller.WorkFlowController;
 import qa.gov.customs.workflowcamuda.model.CancelRequestStatus;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
 import org.springframework.transaction.annotation.Transactional;
+import qa.gov.customs.workflowcamuda.service.RequestService;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowConstants;
 
 @Component
@@ -22,6 +23,9 @@ public class Subscriber {
     private static final Logger logger = LoggerFactory.getLogger(Subscriber.class);
     @Autowired
     WorkFlowController workFlowController;
+
+    @Autowired
+    RequestService requestService;
 
 
     @Autowired
@@ -75,7 +79,13 @@ public class Subscriber {
     @RabbitListener(queues = "${workflow.rabbitmq.req_cancellation_queue}")
     public void receivedCancelRequest(CancelRequestStatus request) {
          logger.info("Received Message: " + request);
-        // TODO here to insert the cancel request
+        if(request!=null && request.getRequestId()!=null) {
+            requestService.deleteRequest(request.getRequestId());
+        }else{
+            logger.error("receivedCancelRequest error null value ");
+        }
+
+
     }
 
 
