@@ -25,4 +25,7 @@ public interface EmployeeRequestService {
 
     CancelRequestStatus cancelRequest(String requestId, String jobId);
 
+
+    Boolean findCancelledStatusById(String id);
+
 }

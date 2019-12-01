@@ -152,6 +152,8 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
                                CancelRequestStatus request= new CancelRequestStatus(message,true,requestId);
                                //TODO here to send a message to the workflow to cancel the notification
                                publisher.sendCancelRequest(request);
+                               //Todo remove from attendees
+                               courseService.deleteAttendees(reference.getActivationId(),reference.getToUser(),reference.getWorkflowId());
                                return  request;
                            }else{
                                String message =  String.format("cancelRequest: %s Cancellation failed, Contact Administrator",requestId);
@@ -182,6 +184,22 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
             String message =  String.format("cancelRequest: %s  RequestId Not found,Contact Administrator   ",requestId);
             logger.info(message);
             return  new CancelRequestStatus(message,false);
+        }
+    }
+
+    @Override
+    public Boolean findCancelledStatusById(String id) {
+        Optional<TacWorkflowReference> workflowReference = requestRepository.findById(id);
+        if(workflowReference.isPresent()){
+
+            if(workflowReference.get().getCancelledFalg().equals("1")){
+                return true;
+            }else{
+                return  false;
+            }
+
+        }else{
+            return false;
         }
     }
 

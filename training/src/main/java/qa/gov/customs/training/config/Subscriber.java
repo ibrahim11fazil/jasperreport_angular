@@ -53,12 +53,17 @@ public class Subscriber {
                     if (model.getCourseId() != null && model.getCourseActivationId() != null && model.getForUserJobId() != null) {
                         List<AttendeesDetails> items = courseService.findAttendeesWithJobIdAndActionId(new BigInteger(model.getCourseActivationId()), model.getForUserJobId());
                         if (items == null || items.size() == 0) {
-                            TacCourseAttendees attendees = courseService.insertAttendeesFromWorkflow(new BigInteger(model.getCourseActivationId()), model.getForUserJobId(), msg.getRequestId());
-                            if (attendees != null) {
-                                logger.info("Enrolled " + msg.getRequestId());
-                            } else {
-                                logger.info("Not Enrolled DB insert error " + msg.getRequestId());
-                            }
+                               //check the user is cancelled for workflow
+                              if(employeeRequestService.findCancelledStatusById(msg.getRequestId())){
+                                  //cancelled
+                                  logger.info("Enrolled Cancelled" + msg.getRequestId());
+                              }else {
+                                  TacCourseAttendees attendees = courseService.insertAttendeesFromWorkflow(new BigInteger(model.getCourseActivationId()), model.getForUserJobId(), msg.getRequestId());
+                                  if (attendees != null) {
+                                      logger.info("Enrolled " + msg.getRequestId());
+                                  } else {
+                                      logger.info("Not Enrolled DB insert error " + msg.getRequestId());
+                                  } }
                         } else {
                             logger.info("Not Enrolled already entered " + msg.getRequestId());
                         }
