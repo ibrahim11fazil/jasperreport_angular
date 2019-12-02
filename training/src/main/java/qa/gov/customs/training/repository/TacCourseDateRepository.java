@@ -15,7 +15,7 @@ public interface TacCourseDateRepository extends JpaRepository<TacCourseDate, Bi
     TacCourseDate findByDateId(BigDecimal dateId);
 
     @Query(value = "select DATE_ID,COURSE_DATE,END_DATE from TAC_COURSE_DATE where DATE_ID=:dateId ", nativeQuery = true)
-    Object[] findStartDateAndEndDateById(BigDecimal dateId);
+    List<Object[]> findStartDateAndEndDateById(BigDecimal dateId);
 
 
 }

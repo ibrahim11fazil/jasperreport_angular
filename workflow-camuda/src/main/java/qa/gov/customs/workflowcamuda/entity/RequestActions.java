@@ -1,6 +1,7 @@
 package qa.gov.customs.workflowcamuda.entity;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
@@ -23,6 +24,17 @@ public class RequestActions implements java.io.Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "R_UPDATED_ON")
     Date rUpdatedOn;
+
+    @Column(name = "CANCELLED_FLAG")
+    BigInteger cancelledFlag;
+
+    public BigInteger getCancelledFlag() {
+        return cancelledFlag;
+    }
+
+    public void setCancelledFlag(BigInteger cancelledFlag) {
+        this.cancelledFlag = cancelledFlag;
+    }
 
     public Date getrUpdatedOn() {
         return rUpdatedOn;

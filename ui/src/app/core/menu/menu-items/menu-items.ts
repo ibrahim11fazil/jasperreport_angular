@@ -530,6 +530,7 @@ export class MenuItems {
           //EMPLOYEE  
           case "mre":
             request_menu.children.push({ state: 'emp-request', name: language.menu_employeeRequests })
+            request_menu.children.push({ state: 'emp-reqeust-cancel', name: language.menu_employeeRequestsCancel })
             break
           case "mrem":
             request_menu.children.push({ state: 'my-tasks', name: language.menu_myTasks })

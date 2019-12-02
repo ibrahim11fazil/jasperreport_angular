@@ -11,6 +11,15 @@ public class NotificationModel  implements Serializable {
     String phoneNumber;
     int isSMS;
     int isEmail;
+    String requestId;
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
     public NotificationModel() {
     }

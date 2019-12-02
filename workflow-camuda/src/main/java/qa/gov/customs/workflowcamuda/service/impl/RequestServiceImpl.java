@@ -51,6 +51,21 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    @Override
+    public void deleteRequest(String requestId) {
+        try{
+            requestRepository.deleteRequest(requestId);
+        }catch (Exception e){
+            logger.error("ERROR " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Optional<RequestActions>  findById(UserRequestModel request) {
+        return requestRepository.findById(request.getTrainingRequestId());
+    }
+
     String jsonProcessing(UserRequestModel request) {
         try {
             ObjectMapper mapper = new ObjectMapper();

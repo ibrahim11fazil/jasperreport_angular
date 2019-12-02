@@ -98,6 +98,9 @@ public interface CourseService {
 
     TacCourseAttendees insertAttendeesFromWorkflow(BigInteger activationId, String jobId, String remark);
 
+    void deleteAttendees(BigInteger activationId, String jobId, String remark);
+
+
     List<AttendeesDetails> findAttendeesWithJobIdAndActionId(BigInteger activationId, String jobId);
 
     List<CourseManagement> getCoordinatorCourses(String jobId);

@@ -657,10 +657,21 @@ public class CourseServiceImpl implements CourseService {
             //return 1;
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO log error
+            //TODO report to reporting server ....
             logger.info("Error while enrolling workflowId:" + remark + " activationId: " + activationId + " jobid: " + jobId);
             logger.error(e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public void deleteAttendees(BigInteger activationId, String jobId, String remark) {
+        try {
+            courseAttendeesRepository.deleteAttendeeByJobIdAndActivationId(jobId, activationId);
+        }catch (Exception e){
+            //TODO report to reporting server ....
+            logger.error("ERROR while deleting  --activationId: "+ activationId + " -- jobId:"+ jobId);
+            e.printStackTrace();
         }
     }
 
@@ -684,7 +695,7 @@ public class CourseServiceImpl implements CourseService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO log error
+            //TODO report to reporting server ....
             logger.error("ERROR---> ");
             logger.error(e.toString());
             return null;
@@ -715,6 +726,7 @@ public class CourseServiceImpl implements CourseService {
             return courseList;
         } catch (Exception e) {
             e.printStackTrace();
+            //TODO report to reporting server ....
             logger.error(e.toString());
             return null;
         }
@@ -744,6 +756,7 @@ public class CourseServiceImpl implements CourseService {
             return courseList;
         } catch (Exception e) {
             e.printStackTrace();
+            //TODO report to reporting server ....
             logger.error(e.toString());
             return null;
         }
@@ -790,19 +803,22 @@ public class CourseServiceImpl implements CourseService {
     public TacCourseDate findStartAndEndDateById(BigDecimal dateId) {
        // return tacCourseDateRepository.findStartDateAndEndDateById(dateId);
       try {
-          Object[] o = tacCourseDateRepository.findStartDateAndEndDateById(dateId);
-          if (o != null) {
+          List<Object[]> objects = tacCourseDateRepository.findStartDateAndEndDateById(dateId);
+          if (objects != null) {
               TacCourseDate course = new TacCourseDate();
-              course.setDateId((BigDecimal) o[0]);
-              Date courseDate = ((Date) o[1]);
-              Date endDate = ((Date) o[2]);
-              course.setCourseDate(courseDate);
-              course.setEndDate(endDate);
+              for(Object[] o: objects ){
+                  course.setDateId( (BigDecimal)o[0]);
+                  Date courseDate = ((Date) o[1]);
+                  Date endDate = ((Date) o[2]);
+                  course.setCourseDate(courseDate);
+                  course.setEndDate(endDate);
+              }
               return course;
           } else {
               return null;
           }
       }catch (Exception e){
+          //TODO report to reporting server ....
           logger.error("ERROR" + e.toString());
           return null;
       }

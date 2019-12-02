@@ -451,3 +451,45 @@ export interface EmployeeWorkflowValidationResponse{
     message:String;
     data:Boolean
 }
+
+
+export class CancelRequest {
+     message:String; 
+     status:Boolean;  
+     requestId:String;
+     jobId:String;
+}
+
+
+export class CancelRequestResponse {
+    status: Boolean;
+    code:number;
+    message:String;
+    data:CancelRequest
+}
+
+
+export class CancelResponseList {
+    status: Boolean;
+    code:number;
+    message:String;
+    data:cancelListItem[]
+}
+
+
+export class cancelListItem{
+     workflowId:String
+     type:String
+     dataProcessed:UserRequestModel;
+     responseStatus:String;
+     courseStatus:String;
+     createdOn:Date;
+     updatedOn:Date;
+     fromUser:Date
+     toUser:String;
+     activationId:Number;
+     courseId:Number
+     cancelledFalg:Number;
+     cancelledOn:Date;
+     cancelledBy:String;
+}

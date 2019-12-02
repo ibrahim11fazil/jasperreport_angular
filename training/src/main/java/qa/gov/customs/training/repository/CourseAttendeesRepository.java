@@ -31,8 +31,18 @@ public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttend
     void updateCourseStatus(BigDecimal attendeesId, BigDecimal courseStatus);
 
 
+
+
+
+    @Modifying
+    @Query(value = "delete from TAC_COURSE_ATTENDEES where JOB_ID=:jobId AND ACTIVATION_ID=:activationId", nativeQuery = true)
+    void deleteAttendeeByJobIdAndActivationId(String jobId,BigInteger activationId);
+
+
     @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where activation_Id=:activationId and status=1", nativeQuery = true)
     BigDecimal getcountPartticipant(BigDecimal activationId);
     @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where job_id=:jobId and activation_Id=:activationId and status=1", nativeQuery = true)
     BigDecimal getByJobIdAndActivationId(String jobId,BigDecimal activationId);
+
+
 }

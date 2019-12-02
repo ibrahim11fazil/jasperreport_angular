@@ -1,5 +1,8 @@
 package qa.gov.customs.training.controller;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import qa.gov.customs.training.utils.models.ResponseType;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -84,26 +88,37 @@ public class EmployeeRequestController {
     @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/cancel-request-list")
     public ResponseType getCancelRequestList(
-            @Valid @RequestBody CancelRequestStatus request,
             @AuthenticationPrincipal CustomPrincipal principal) {
-        if (request != null) {
-            request.setJobId(principal.getJid());
+            List<TacWorkflowReference> listUpdated =new ArrayList<>();
             List<TacWorkflowReference> list = requestService.findByToUser(principal.getJid());
-            if(list!=null) {
-                return get(200, MessageUtil.SUCCESS, true, list);
+            list.forEach(item -> {
+                if(item.getData()!=null){
+                    try {
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        UserRequestModel emp = objectMapper.readValue(item.getData(), UserRequestModel.class);
+                        item.setData(null);
+                        item.setDataProcessed(emp);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    listUpdated.add(item);
+                }
+            });
+
+            if(listUpdated!=null) {
+                return get(200, MessageUtil.SUCCESS, true, listUpdated);
             }else{
                 return get(200, MessageUtil.FAILED, false, list);
             }
-        } else {
-            return get(Constants.BAD_REQUEST, MessageUtil.REQUEST_CREATION_FAILED, false, null);
-        }
+
     }
 
 
     @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/cancel-request")
     public ResponseType cancelRequest(
-            @Valid @RequestBody CancelRequestStatus request,
+            @RequestBody CancelRequestStatus request,
             @AuthenticationPrincipal CustomPrincipal principal) {
         if (request != null) {
             request.setJobId(principal.getJid());
