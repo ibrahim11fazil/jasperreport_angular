@@ -24,6 +24,7 @@ public class TacCourseAttendees implements java.io.Serializable {
     private String remark;
     private BigDecimal certificateSerialNo;
     private Set<TacCourseAttendence> tacCourseAttendences = new HashSet<TacCourseAttendence>(0);
+    private BigDecimal status;
 
     public TacCourseAttendees() {
     }
@@ -36,7 +37,7 @@ public class TacCourseAttendees implements java.io.Serializable {
 
     public TacCourseAttendees(BigDecimal attendanceId, TacCourseActivation tacCourseActivation, String jobId,
                               BigDecimal courseStatus, BigDecimal attendancePercentage, String remark, BigDecimal certificateSerialNo,
-                              Set<TacCourseAttendence> tacCourseAttendences) {
+                              Set<TacCourseAttendence> tacCourseAttendences,BigDecimal status) {
         this.attendeesId = attendanceId;
         this.tacCourseActivation = tacCourseActivation;
         this.jobId = jobId;
@@ -45,6 +46,7 @@ public class TacCourseAttendees implements java.io.Serializable {
         this.remark = remark;
         this.certificateSerialNo = certificateSerialNo;
         this.tacCourseAttendences = tacCourseAttendences;
+        this.status=status;
     }
 
     @Id
@@ -126,5 +128,13 @@ public class TacCourseAttendees implements java.io.Serializable {
         this.tacCourseAttendences = tacCourseAttendences;
     }
 
+    @Column(name = "STATUS",length = 20)
 
+    public BigDecimal getStatus() {
+        return status;
+    }
+
+    public void setStatus(BigDecimal status) {
+        this.status = status;
+    }
 }

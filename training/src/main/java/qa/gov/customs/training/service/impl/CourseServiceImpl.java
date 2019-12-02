@@ -932,10 +932,11 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
 
         TacCourseActivation activation=new TacCourseActivation();
             activation.setActivationId(participantData.getActivationId());
-        TacCourseAttendees attendees=new TacCourseAttendees();
+            TacCourseAttendees attendees=new TacCourseAttendees();
             attendees.setJobId(participantData.getJobId());
             attendees.setTacCourseActivation(activation);
             attendees.setRemark(participantData.getRemark());
+            attendees.setStatus(new BigDecimal(1));
         TacCourseAttendees directAttendees=courseAttendeesRepository.save(attendees);
 
 

@@ -36,7 +36,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
 
     @Query(value = "select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id" +
             " from USER1_SAP_WS_MINI a join TAC_COURSE_ATTENDEES b on a.LEGACYCODE in" +
-            "(select job_id from TAC_COURSE_ATTENDEES where activation_id=:activationId)" +
+            "(select job_id from TAC_COURSE_ATTENDEES where activation_id=:activationId and status=1)" +
             "and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode)" +
             " and b.job_id=a.legacycode and b.activation_id=:activationId", nativeQuery = true)
     List<Object[]> getEmpData(BigDecimal activationId);
@@ -47,6 +47,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
             "            and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode)\n" +
             "           and b.activation_id=:activationId\n" +
             "           and b.attendees_id=c.attendees_id\n" +
+            "            and b.status=1 " +
             "           --and b.attendees_id=2\n" +
             "           group by a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id", nativeQuery = true)
     List<Object[]> getEmpDataforAttendance(BigDecimal activationId);
@@ -57,6 +58,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
             " and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode) " +
             " and b.activation_id=:activationId " +
             " and b.attendees_id=c.attendees_id " +
+            "and b.status=1 " +
             " and to_date(c.attendance_date,'dd-MM-yy')=:courseDate " +
             " group by a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,c.attendance_flag,c.attendance_date", nativeQuery = true)
     List<Object[]> getEmpPreviousAttendance(BigDecimal activationId,Date courseDate);
