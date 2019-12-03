@@ -91,6 +91,7 @@ export class CourseManagementComponent implements OnInit {
   estimatedCost: Number;
   commentTxt = "";
   remarkTxt="";
+  currentCourse:Boolean=false
   trainingRoomDetail: Location;
   locationType: Number;
   courseDetail: TacCourseMaster = new TacCourseMaster(0, null, null, 0, null, null, 0, null, null, null, null, 0, 0, null, null);
@@ -233,6 +234,7 @@ export class CourseManagementComponent implements OnInit {
       this.previousCourse = true;
       this.displayCourseCompletionForm = false;
       this.futureFilter = false;
+      this.currentCourse=false
       this.trainingService.getPreviousCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -252,6 +254,7 @@ export class CourseManagementComponent implements OnInit {
       this.previousCourse = false;
       this.displayCourseCompletionForm = false;
       this.futureFilter = false;
+      this.currentCourse=true;
       this.trainingService.getCurrentCourses().subscribe(
         data => {
           var response = <ITacCourseManagementList>data
@@ -272,6 +275,7 @@ export class CourseManagementComponent implements OnInit {
       this.displayCourseDetails = false;
       this.futureFilter = true;
       this.previousCourse = false;
+      this.currentCourse=false
       this.displayCourseCompletionForm = false;
       this.trainingService.getFutureCourses().subscribe(
         data => {
@@ -865,6 +869,7 @@ export class CourseManagementComponent implements OnInit {
               this.toastr.success(this.language.courseCancelSuccessfull)
               this.commentTxt = ""
               this.getCourseManagement(this.statusCardSelected)
+              this.displayCalendar=false
             }
           },
           error => {

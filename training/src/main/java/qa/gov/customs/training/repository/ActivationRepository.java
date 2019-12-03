@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import qa.gov.customs.training.entity.TacCourseActivation;
+import qa.gov.customs.training.entity.TacCourseAttendees;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -41,6 +42,8 @@ public interface ActivationRepository extends JpaRepository<TacCourseActivation,
     //TODO total seat capacity
     @Query(value="select seat_capacity from Tac_Course_Activation where activation_id=:activationId", nativeQuery = true)
     BigDecimal getSeatCapacityByActivationId(BigDecimal activationId);
+
+
 
 
 

@@ -97,5 +97,17 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
     List<Object[]>   fingEmpWithjobGrade(String jobGrade);
 
 
+
+    @Query(value= "select DISTINCT m2.LEGACYCODE as IM_LEGACYCODE "+
+       " ,m2.cname_ar as IM_CNAME_AR ,m2.mobile as IM_MOBILE,m2.email as IM_EMAIL, M1.cname_ar as CNAME_AR ,m1.LEGACYCODE as LEGACYCODE "+
+    "from XXGDC_SAP_WS_MINI M1,XXGDC_SAP_MASTERDETAILS D1 ,XXGDC_SAP_WS_MINI m2 "+
+    "where m1.LEGACYCODE=:jobId "+
+    "and D1.PERNR=M1.EMPNO "+
+    "and D1.SUPERVISOR=M2.EMPNO "+
+   " and m1.run_date=(select max(run_date) from XXGDC_SAP_WS_MINI where legacycode=m1.legacycode) "+
+    "and d1.run_date=(select max(run_date) from XXGDC_SAP_MASTERDETAILS where pernr=m1.empno)", nativeQuery = true)
+    List<Object[]>   findSupervisor(String jobId);
+
+
 }
 
