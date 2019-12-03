@@ -16,7 +16,8 @@ import java.util.List;
 @Repository
 public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttendees, BigDecimal> {
 
-    @Query(value = "select ACTIVATION_ID,JOB_ID,REMARK from TAC_COURSE_ATTENDEES where ACTIVATION_ID=:activationId and  JOB_ID=:jobId", nativeQuery = true)
+    @Query(value = "select ACTIVATION_ID,JOB_ID,REMARK from TAC_COURSE_ATTENDEES where ACTIVATION_ID=:activationId and  JOB_ID=:jobId " +
+            "and status=1", nativeQuery = true)
     List<Object[]> nativefindAttendeesWithJobIdAndActionId(@Param("activationId") BigInteger activationId, @Param("jobId") String jobId);
 //
 //    @Modifying
@@ -30,14 +31,17 @@ public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttend
     void updateCourseStatus(BigDecimal attendeesId, BigDecimal courseStatus);
 
 
+
+
+
     @Modifying
     @Query(value = "delete from TAC_COURSE_ATTENDEES where JOB_ID=:jobId AND ACTIVATION_ID=:activationId", nativeQuery = true)
     void deleteAttendeeByJobIdAndActivationId(String jobId,BigInteger activationId);
 
 
-    @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where activation_Id=:activationId", nativeQuery = true)
+    @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where activation_Id=:activationId and status=1", nativeQuery = true)
     BigDecimal getcountPartticipant(BigDecimal activationId);
-    @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where job_id=:jobId and activation_Id=:activationId", nativeQuery = true)
+    @Query(value = "select count(*) from TAC_COURSE_ATTENDEES where job_id=:jobId and activation_Id=:activationId and status=1", nativeQuery = true)
     BigDecimal getByJobIdAndActivationId(String jobId,BigDecimal activationId);
 
 
