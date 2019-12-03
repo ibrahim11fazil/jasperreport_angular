@@ -36,6 +36,7 @@ public class MessageUtil {
     public static String ENROLLED_FOR_COURSE="Employee Successfully Enrolled For Course";
     public static String REMOVE_PARTICIPANT="Employee Successfully Removed From Course";
     public static String REMOVE_PARTICIPANT_FAILED="Removing Employee from the course Failed";
+    public static String CANCEL_SUCCESSFULL="Successfully Cancelled the course";
 
     //TODO don't remove %s in arabic
     public static String CANCEL_REQUEST_SUCESS="Cancel Request:  %s Success";

@@ -841,6 +841,8 @@ public class CourseServiceImpl implements CourseService {
 //             course=tacCourseDateRepository.save(date);
 
             tacCourseDateRepository.cancelCourse(activationData,activation.getRemark());
+            TacCourseAttendees attendees=courseAttendeesRepository.findByActivationId(activation.getActivationId());
+
         }
 
 
@@ -952,6 +954,7 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
 
     {
 
+
         TacCourseActivation activation=new TacCourseActivation();
             activation.setActivationId(participantData.getActivationId());
             TacCourseAttendees attendees=new TacCourseAttendees();
@@ -966,14 +969,32 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
             String courseName=courseRepository.getCourseByActivationId(participantData.getActivationId());
             NotificationModel model=new NotificationModel();
             model.setToAddress(participantData.getEmail());
-            model.setEmailBody(participantData.getRemark());
-            model.setEmailSubject("Enrolled For "+ courseName);
-            model.setSmsBody("Enrolled For "+ courseName + participantData.getRemark());
+            model.setPhoneNumber(participantData.getMobile());
+            model.setEmailBody("Enrolled For "+ courseName + " "+participantData.getRemark());
+            model.setEmailSubject("Enrolled For "+courseName);
+            model.setSmsBody("Enrolled For "+ courseName + " "+participantData.getRemark());
 
 
             model.setPhoneNumber(participantData.getMobile());
 
             publisher.sendNotification(model);
+
+            List<Object[]> objects =mawaredRepo.findSupervisor(participantData.getJobId());
+            for(Object[] obj:objects)
+            {
+                NotificationModel model1 = new NotificationModel();
+                model1.setToAddress((String) obj[4]);
+                model.setPhoneNumber((String) obj[3]);
+                model1.setEmailBody(participantData.getRemark());
+                model1.setEmailSubject(participantData.getJobId() +"is  enrolled for " + courseName);
+                model1.setSmsBody(participantData.getJobId() +"is  enrolled for " + courseName +"for reason"+ participantData.getRemark());
+
+
+                model.setPhoneNumber(participantData.getMobile());
+
+                publisher.sendNotification(model);
+
+            }
 
 
         }
@@ -985,8 +1006,44 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
     @Override
     public void deleteParticipant(EmployeeData participantData)
     {
+        try {
 
-        courseAttendeesRepository.disableAttendee(participantData.getJobId(),participantData.getActivationId(),participantData.getRemark());
+            courseAttendeesRepository.disableAttendee(participantData.getJobId(), participantData.getActivationId(), participantData.getRemark());
+            String courseName = courseRepository.getCourseByActivationId(participantData.getActivationId());
+            NotificationModel model = new NotificationModel();
+            model.setToAddress(participantData.getEmail());
+            model.setPhoneNumber(participantData.getMobile());
+            model.setEmailBody(participantData.getRemark());
+            model.setEmailSubject("You are removed from " + courseName);
+            model.setSmsBody("You are removed from " + courseName + "for reason"+participantData.getRemark());
+
+
+            model.setPhoneNumber(participantData.getMobile());
+
+            publisher.sendNotification(model);
+
+            List<Object[]> objects =mawaredRepo.findSupervisor(participantData.getJobId());
+            for(Object[] obj:objects)
+            {
+                NotificationModel model1 = new NotificationModel();
+                model1.setToAddress((String) obj[4]);
+                model.setPhoneNumber((String) obj[3]);
+                model1.setEmailBody(participantData.getRemark());
+                model1.setEmailSubject(participantData.getJobId() +"is  removed from " + courseName);
+                model1.setSmsBody(participantData.getJobId() +"is  removed from " + courseName +"for reason"+ participantData.getRemark());
+
+
+                model.setPhoneNumber(participantData.getMobile());
+
+                publisher.sendNotification(model);
+
+            }
+
+        }
+        catch(Exception e)
+        {
+            logger.error(e.toString());
+        }
 
 
     }

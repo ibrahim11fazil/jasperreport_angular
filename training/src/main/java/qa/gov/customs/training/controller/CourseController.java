@@ -656,15 +656,17 @@ public class CourseController {
             courseService.cancelCourse(activation);
 //            if (course != null) {
 
-                ResponseType response = new ResponseType(Constants.SUCCESS, "", true, 1);
-//                return response;
+                ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.CANCEL_SUCCESSFULL, true, 1);
+                return response;
 //            } else {
 //                ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
 //                return response;
             }
+        else {
 
-        ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
-        return response;
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+            return response;
+        }
     }
 
     @PreAuthorize("hasAnyAuthority('cba')")
