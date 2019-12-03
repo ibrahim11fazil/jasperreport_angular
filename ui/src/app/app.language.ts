@@ -222,7 +222,8 @@ export class LanguageUtil {
   requiredComment:String=  this.isArabic ? "التعليق مطلوب" : " Required Comment"
   noSeatComment: String = this.isArabic?"No Seats available, Rejected":"No Seats available, Rejected"
   noSeatMessage: string = this.isArabic?"No Seats available, Kindly reject":"No Seats available, Kindly reject"
-
+  chooseStartDate: String = this.isArabic ? "Choose Start Date" : "Choose Start Date"
+  chooseEndDate: String = this.isArabic ? "Choose Start Date" : "Choose Start Date"
 
   //History
 
@@ -233,7 +234,7 @@ export class LanguageUtil {
   //title_searchWithJobId:String=this.isArabic ? "البحث برقم الوظيفة" : "Search With jobId"
   title_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"
   //position: String = this.isArabic ? "المنصب" : "Position"
-  
+  title_delegation: String = this.isArabic ? "Delegations" : "Delegations"
   position: String = this.isArabic ? " المسمى الوظيفي":"Position"
   trainingCertificate: String = this.isArabic ? "شهادة التدريب" : "Training Certificate"
   jobCardDetails: String = this.isArabic ? "تفاضيل بطاقة الوصف الوظيفي والتدريبي" : "Job Card Details"
@@ -323,7 +324,8 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   menu_allEmployees: String = this.isArabic ? "جميع الموظفين" : "All Employees"
   menu_courseRequests: String = this.isArabic ? "طلبات الدورات التدريبية" : "Course Requests"
   menu_employeeRequests: String = this.isArabic ? "توصيات الموظفين" : "Employee Requests"
-  menu_employeeRequestsCancel: String = this.isArabic ? "توصيات الموظفين" : "Cancel My Requests"
+  menu_employeeRequestsCancel: String = this.isArabic ? "Cancel My Requests" : "Cancel My Requests"
+  menu_employeeDelegation: String = this.isArabic ? "Delegation" : "Delegation"
   menu_myTasks: String = this.isArabic ? "مهامي" : "My Tasks"
   menu_history: String = this.isArabic ? "معلومات سابقة" : "History"
   menu_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"

@@ -1,0 +1,57 @@
+<div fxLayout="row wrap" fxLayoutAlign="start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+       <div class="user-content">
+          <mat-card>
+              <h4>{{language.title_delegation}}</h4>
+              <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <div fxLayout="column">
+                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                          <mat-form-field class="full-wid mrgn-b-lg" >
+                               <input matInput placeholder={{language.employeeName}}  formControlName="empName" [matAutocomplete]="auto"  >
+                          </mat-form-field>  
+                    
+
+                          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnUser"  (optionSelected)='displayFn($event.option.value)' >
+                              <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+                              <ng-container *ngIf="!isLoading">
+                                <mat-option *ngFor="let user of filteredUsers" [value]="user">
+                                  <span>{{ user.cname_AR }}</span>
+                                  <small> |  {{user.legacycode}}</small>
+                                </mat-option>
+                              </ng-container>
+                          </mat-autocomplete> 
+
+                      </div>
+                      <div   fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                          <mat-form-field  class="date_margin"  >
+                              <input matInput [matDatepicker]="myDatepicker" 
+                              [matDatepickerFilter]="dateFilter"
+                              
+                                    placeholder={{language.chooseStartDate}} formControlName="startDate">
+                              <mat-datepicker-toggle matSuffix [for]="myDatepicker">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #myDatepicker></mat-datepicker>
+                          </mat-form-field>
+                          <mat-form-field  >
+                              <input matInput [matDatepicker]="myDatepicker1" 
+                              [matDatepickerFilter]="dateFilter"
+                              
+                                    placeholder={{language.chooseEndDate}} formControlName="endDate">
+                              <mat-datepicker-toggle matSuffix [for]="myDatepicker1">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #myDatepicker1></mat-datepicker>
+                          </mat-form-field>
+
+                       </div>
+                          
+                      <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                              <button mat-raised-button color="primary" type="submit">{{language.btn_save}}
+                                </button> 
+                       </div> 
+                       </div>        
+              </form>
+          </mat-card>
+        </div>
+      </div>
+</div>
+
