@@ -34,6 +34,8 @@ public class MessageUtil {
     public static String EXISTING_EMPLOYEE="Employee already enrolled for the course";
     public static String COURSE_NOT_IN_EMPJOBCARD="This is course is not linked with Employee JobCard";
     public static String ENROLLED_FOR_COURSE="Employee Successfully Enrolled For Course";
+    public static String REMOVE_PARTICIPANT="Employee Successfully Removed From Course";
+    public static String REMOVE_PARTICIPANT_FAILED="Removing Employee from the course Failed";
 
     //TODO don't remove %s in arabic
     public static String CANCEL_REQUEST_SUCESS="Cancel Request:  %s Success";
@@ -43,6 +45,8 @@ public class MessageUtil {
     public static String CANCEL_REQUEST_DATE_ISSUE="Cancel Request: %s  Activation Date Id Not found, Contact Administrator.";
     public static String CANCEL_REQUEST_ACTIVATION_ID_ISSUE="Cancel Request: %s  ActivationId Not found, Contact Administrator.";
     public static String CANCEL_REQUEST_REQUEST_ID_ISSUE="Cancel Request: %s  RequestId Not found,Contact Administrator.";
+
+
 
 
 

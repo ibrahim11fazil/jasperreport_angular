@@ -90,7 +90,7 @@ public interface CourseService {
 
     List<CourseManagement> searchAllFutureCourses(TacCourseMaster courseName, CustomPrincipal principal);
 
-    TacCourseDate cancelCourse(TacCourseActivation activation);
+    void cancelCourse(CancelCourse activation);
 
     void setStatusOfDate(TacCourseDate courseDate);
 
@@ -121,5 +121,7 @@ public interface CourseService {
     SeatCapacity remainingSeatCapacity(BigDecimal activationId);
 
     TacCourseDate findStartAndEndDateById(BigDecimal dateId);
+
+    void deleteParticipant(EmployeeData participantData);
 
 }

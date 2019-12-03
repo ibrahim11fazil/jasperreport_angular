@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { CourseManagementRes, ITacCourseManagementList, TacCourseMaster, ResponseTacCourseMaster, courseCancellation } from 'app/models/tac-course-master';
 import { Page } from 'app/models/paged-data';
-import { TacActivation, ResponseActivationDetail } from 'app/models/tac-activation';
+import { TacActivation, ResponseActivationDetail, CancelCourse } from 'app/models/tac-activation';
 import { Location, ResponseLocation, ResponseLocationDetail } from 'app/models/location';
 import { DURATION_FLAG_LIST, GET_CERTIFICATE, COURSE_FILTER } from 'app/app.constants';
 import { TacInstructor, ITacInstructorList } from 'app/models/tac-instructor';
@@ -849,11 +849,13 @@ export class CourseManagementComponent implements OnInit {
 
 
   cancelCourse() {
+
     if (this.commentTxt != "") {
       debugger;
       this.cancelSelectCourse = this.eventCourseDetail
-      let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
+      let courseActivation = new CancelCourse(0,"")
       courseActivation.activationId = this.cancelSelectCourse.activation_id;
+      courseActivation.remark=this.commentTxt
       this.trainingService.cancelCourse(courseActivation)
 
         .subscribe(
@@ -861,6 +863,7 @@ export class CourseManagementComponent implements OnInit {
             var response = <courseCancellation>data
             if (response.status == true) {
               this.toastr.success(this.language.courseCancelSuccessfull)
+              this.commentTxt = ""
               this.getCourseManagement(this.statusCardSelected)
             }
           },
@@ -924,15 +927,17 @@ export class CourseManagementComponent implements OnInit {
 
   directEnrollParticipants(row) {
     debugger
-    if(row.remark!="")
+    if(row.remark!="" && row.remark!=null)
     {
     this.directEnrollParticipant = row
 
-    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"")
+    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"","")
 
     enrollParticipant.activationId = this.eventCourseDetail.activation_id;
     enrollParticipant.seatCapacity = this.eventCourseDetail.seatCapacity
     enrollParticipant.jobId = row.legacycode;
+    enrollParticipant.mobile=row.mobile
+    enrollParticipant.email=row.email
     enrollParticipant.remark=row.remark;
 
     this.trainingService.enrollParticipantForCourse(enrollParticipant)
@@ -971,6 +976,50 @@ export class CourseManagementComponent implements OnInit {
     this.displayCalendar = true
     this.displayParticipantSelection = false
   }
+
+  deleteParticipants(row)
+{
+  debugger
+  if (row.remark!="" && row.remark!=null)
+  {
+    this.directEnrollParticipant = row
+
+    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"","")
+
+    enrollParticipant.activationId = this.eventCourseDetail.activation_id;
+    enrollParticipant.seatCapacity = this.eventCourseDetail.seatCapacity
+    enrollParticipant.jobId = row.jobId;
+    enrollParticipant.mobile=row.mobile
+    enrollParticipant.email=row.email
+    enrollParticipant.remark=row.remark;
+
+    this.trainingService.deleteParticipantForCourse(enrollParticipant)
+
+      .subscribe(
+        data => {
+          debugger
+          var response = <ResponseEmpDataDetail>data
+          if (response.status == true ) {
+            this.toastr.success(response.message.toString())
+            //this.getCourseManagement(this.statusCardSelected)
+            this.getActivationData(this.eventCourseDetail)
+          }
+         
+          else{
+            this.toastr.error(response.message.toString())
+          }
+        },
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        })
+      }
+      else {
+        this.toastr.error(this.language.requiredComment.toString())
+    }
+  }
+  
+    
 
 
 

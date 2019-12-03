@@ -651,18 +651,18 @@ public class CourseController {
     @PreAuthorize("hasAnyAuthority('sfc')")
     @PostMapping("/cancel-course")
 
-    public ResponseType cancelCourse(@RequestBody TacCourseActivation activation) {
+    public ResponseType cancelCourse(@RequestBody CancelCourse activation) {
         if (activation != null && activation.getActivationId() != null) {
-            TacCourseDate course = courseService.cancelCourse(activation);
-            if (course != null) {
+            courseService.cancelCourse(activation);
+//            if (course != null) {
 
                 ResponseType response = new ResponseType(Constants.SUCCESS, "", true, 1);
-                return response;
-            } else {
-                ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
-                return response;
+//                return response;
+//            } else {
+//                ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
+//                return response;
             }
-        }
+
         ResponseType response = new ResponseType(Constants.BAD_REQUEST, "", false, null);
         return response;
     }
@@ -783,6 +783,27 @@ public class CourseController {
                     ResponseType response = new ResponseType(Constants.BAD_REQUEST,MessageUtil.EXISTING_EMPLOYEE, false, null);
                     return response;
                 }
+        }
+
+
+    }
+
+
+    @PreAuthorize("hasAnyAuthority('sfc')")
+    @PostMapping("/delete-participant")
+    public ResponseType deleteParticipant(@RequestBody EmployeeData participantData)
+    {
+        try
+        {
+            courseService.deleteParticipant(participantData);
+
+            ResponseType response = new ResponseType(Constants.SUCCESS,MessageUtil.REMOVE_PARTICIPANT, true, null);
+            return response;
+        }
+        catch (Exception e)
+        {
+            ResponseType response = new ResponseType(Constants.SUCCESS,MessageUtil.REMOVE_PARTICIPANT_FAILED, false, null);
+            return response;
         }
 
 

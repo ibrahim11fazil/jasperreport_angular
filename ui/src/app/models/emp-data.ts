@@ -15,8 +15,9 @@ export class EmpData {
    activationId:Number
    seatCapacity:Number
    remark:String
+   email:String
    constructor(attendeesId:Number,jobId:String,jobTitle:String,cnameAr:String,mobile:String,
-    department:String,count:Number,percentage:Number,psLevel:String,activationId:Number,seatCapacity:Number,remark:String){
+    department:String,count:Number,percentage:Number,psLevel:String,activationId:Number,seatCapacity:Number,remark:String,email:String){
     this.attendeesId=attendeesId;
     this.jobId=jobId;
     this.jobTitle=jobTitle;
@@ -29,6 +30,7 @@ export class EmpData {
     this.activationId=activationId
     this.seatCapacity=seatCapacity
     this.remark=remark
+    this.email=email
   
 }
 }

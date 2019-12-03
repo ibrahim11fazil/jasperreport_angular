@@ -215,16 +215,33 @@
 					<ng-template let-row="row" ngx-datatable-cell-template>
 						{{row.mobile}}
 					</ng-template>
-				</ngx-datatable-column>s
+				</ngx-datatable-column>
+				<ngx-datatable-column min-width="50px">
+						<ng-template ngx-datatable-header-template>
+						 <span>{{language.addComment}}</span>
+						 </ng-template>
+						 <ng-template let-row="row" ngx-datatable-cell-template>
+								 <input  matInput placeholder="Comment" [(ngModel)]=row.remark >
+						 </ng-template>
+					 </ngx-datatable-column>
+				<ngx-datatable-column min-width="50px">
+						<ng-template ngx-datatable-header-template>
+							<span>{{language.deleteParticipants}}</span>
+						</ng-template>
+						<ng-template let-row="row" ngx-datatable-cell-template>
+							<button mat-raised-button color="accent" class="m-1" type="button"
+								(click)="deleteParticipants(row)">{{language.btn_delete}}</button>
+						</ng-template>
+					</ngx-datatable-column>
 			</ngx-datatable>
 
 
 			<div class="pad-wrap left">
 				<button mat-raised-button color="primary" (click)="addParticipants()"
 					type="submit">{{language.btn_addParticipants}}</button>
-			</div>
-		</mat-card>
-	</div>
+			 </div>
+		    </mat-card>
+	     </div>
 
 	<div *ngIf="displayParticipantSelection" fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard"
 		fxFlex="100%">
@@ -237,6 +254,8 @@
 				</div>
 				<mat-divider></mat-divider>
 			</div>
+
+			
 			<div class="gene-card-content">
 				<form [formGroup]="form" (ngSubmit)="searchParticipants()">
 					<!-- <div fxLayout="row wrap" fxLayoutAlign="space-between center">
@@ -366,6 +385,7 @@
 							(click)="directEnrollParticipants(row)">{{language.btn_add}}</button>
 					</ng-template>
 				</ngx-datatable-column>
+				
 				<!-- 
 						<ngx-datatable-column min-width="50px">
 								<ng-template ngx-datatable-header-template>
@@ -501,7 +521,7 @@
 				</ngx-datatable-column>
 
 
-
+<!-- //Present -->
 				<ngx-datatable-column min-width="50px">
 					<ng-template ngx-datatable-header-template>
 						<span>{{language.attendance}}</span>

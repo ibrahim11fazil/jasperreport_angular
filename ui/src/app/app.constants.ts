@@ -181,6 +181,7 @@ export const  GET_EMPLOYEE_DATA_ATTENDANCE=BASE_URL+training+"/get-employee-data
 export const CANCEL_COURSE=BASE_URL+training+"/cancel-course"
 export const  GET_MAWARED_DATA=BASE_URL+training+"/get-mawared-data"
 export const  DIRECT_ENROLL_PARTICIPANT=BASE_URL+training+"/direct-enroll-participant"
+export const  DELETE_PARTICIPANT=BASE_URL+training+"/delete-participant"
 export const  MARK_INITIAL_ATTENDANCE=BASE_URL+training+"/mark-initial-attendance"
 export const  MARK_ATTENDANCE=BASE_URL+training+"/mark-attendance"
 export const  GET_COURSE_COMPLETION=BASE_URL+training+"/get-course-completion"

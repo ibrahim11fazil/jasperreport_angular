@@ -31,6 +31,7 @@ export class TacActivation {
 	//public tacCourseAttendeeses = TacCourseAttendees[];
     public tacCourseInstructors:TacInstructor[];
     
+    
     constructor(activationId:Number,tacActivity:TacActivity,tacCourseMaster:TacCourseMaster,tacCourseRoom:TrainingRoom,tacCourseDate:CourseDate,
         dependentId:Number,coordinatorId:Number,costInstructor:Number,costFood:Number,costTransport:Number,costAirticket:Number,
         costHospitality:Number,costGift:Number,costVenue:Number,costBonus:Number,costTranslation:Number,tacCourseInstructors:TacInstructor[],status:Number,seatCapacity:Number)
@@ -55,6 +56,7 @@ export class TacActivation {
             this.tacCourseInstructors=tacCourseInstructors;
             this.status=status;
             this.seatCapacity=seatCapacity;
+           
         }
 
 }
@@ -94,4 +96,14 @@ export interface IActivationList {
    message:String;
    data: ActivationList[];
    count:number;
+}
+export class CancelCourse
+{
+    public activationId:Number
+    public remark:String
+    constructor(activationId:Number,remark:String)
+    {
+        this.activationId=activationId
+        this.remark=remark
+    }
 }

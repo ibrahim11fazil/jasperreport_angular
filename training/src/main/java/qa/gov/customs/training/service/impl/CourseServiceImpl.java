@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.training.config.Publisher;
 import qa.gov.customs.training.entity.*;
 import qa.gov.customs.training.models.*;
 import qa.gov.customs.training.repository.*;
@@ -62,6 +63,9 @@ public class CourseServiceImpl implements CourseService {
     EmployeeRequestRepository requestRepository;
     @Autowired
     MawaredRepository mawaredRepo;
+
+    @Autowired
+    Publisher publisher;
 
     @Override
     public TacCourseMaster createAndUpdateCourse(TacCourseMaster course) {
@@ -825,19 +829,21 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public TacCourseDate cancelCourse(TacCourseActivation activation)
+    public void cancelCourse(CancelCourse activation)
     {
         TacCourseDate course=new TacCourseDate();
         BigDecimal activationData=activationRepo.getDateByActivationId(activation.getActivationId());
         if(activationData!=null)
         {
-            TacCourseDate date=new TacCourseDate();
-            date.setDateId(activationData);
-            date.setStatus(new BigDecimal(0));
-             course=tacCourseDateRepository.save(date);
+//            TacCourseDate date=new TacCourseDate();
+//            date.setDateId(activationData);
+//            date.setStatus(new BigDecimal(0));
+//             course=tacCourseDateRepository.save(date);
+
+            tacCourseDateRepository.cancelCourse(activationData,activation.getRemark());
         }
 
-         return course;
+
     }
 
     @Override
@@ -955,8 +961,34 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
             attendees.setStatus(new BigDecimal(1));
         TacCourseAttendees directAttendees=courseAttendeesRepository.save(attendees);
 
+        if(directAttendees!=null)
+        {
+            String courseName=courseRepository.getCourseByActivationId(participantData.getActivationId());
+            NotificationModel model=new NotificationModel();
+            model.setToAddress(participantData.getEmail());
+            model.setEmailBody(participantData.getRemark());
+            model.setEmailSubject("Enrolled For "+ courseName);
+            model.setSmsBody("Enrolled For "+ courseName + participantData.getRemark());
+
+
+            model.setPhoneNumber(participantData.getMobile());
+
+            publisher.sendNotification(model);
+
+
+        }
+
 
         return directAttendees;
+    }
+
+    @Override
+    public void deleteParticipant(EmployeeData participantData)
+    {
+
+        courseAttendeesRepository.disableAttendee(participantData.getJobId(),participantData.getActivationId(),participantData.getRemark());
+
+
     }
 }
 

@@ -25,6 +25,7 @@ public class TacCourseDate implements java.io.Serializable {
     private BigDecimal status;
     private Set<TacCourseActivation> tacCourseActivations = new HashSet<TacCourseActivation>(0);
 
+
     public TacCourseDate() {
     }
 
