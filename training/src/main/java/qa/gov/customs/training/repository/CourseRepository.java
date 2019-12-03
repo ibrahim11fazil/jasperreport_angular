@@ -19,6 +19,10 @@ public interface CourseRepository extends PagingAndSortingRepository<TacCourseMa
 
     TacCourseMaster findByCourseId(BigDecimal courseId);
 
+    @Query(value = "select COURSE_NAME from Tac_Course_Master where course_id = " +
+            "(select course_id from Tac_Course_Activation where activation_id=:activationId) ", nativeQuery = true)
+    String getCourseByActivationId(BigDecimal activationId);
+
     @Query(value = "select COURSE_ID,COURSE_NAME,ACTIVE_FLAG from Tac_Course_Master where SUBCOURSE_FLAG=1", nativeQuery = true)
     List<Object[]> findCourseBySubcourseFlag();
 
