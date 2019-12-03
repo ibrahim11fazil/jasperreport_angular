@@ -426,12 +426,8 @@ public class WorkflowImpl {
                     task.setAssignee(manager.getImLegacyCode());
                     task.setDescription(manager.getImCnameAr());
                     if (getDelegationStatus(manager.getImLegacyCode())) {
+                        //Absent Delegation area
                         List<ImmediateManager> delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode());
-//                    List<ImmediateManager> otherUsers = null;
-//                    otherUsers = mapper.convertValue(
-//                            delegations.getData(),
-//                            new TypeReference<List<ImmediateManager>>() {
-//                            });
                         if (delegations != null && delegations.size() > 0) {
                             delegations.forEach(item -> {
                                 logger.info("Task assigned to delegations  " + item.getLegacyCode());
@@ -440,6 +436,17 @@ public class WorkflowImpl {
                             });
                         }
                     }
+
+                    //TODO extra delegation area for the user
+                    List<ImmediateManager> delegationsByWork = userProxyService.getDelegationForEmployeeBasedOnWork(manager.getImLegacyCode());
+                    if (delegationsByWork != null && delegationsByWork.size() > 0) {
+                        delegationsByWork.forEach(item -> {
+                            logger.info("Task assigned to delegations  " + item.getLegacyCode());
+                            //task.addCandidateUser(item.getLegacyCode());
+                            delegationsJobId.add(item.getLegacyCode());
+                        });
+                    }
+
                 } else {
                     requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                     trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);

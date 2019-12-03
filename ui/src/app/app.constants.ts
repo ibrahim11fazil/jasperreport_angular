@@ -249,7 +249,9 @@ export const  GET_COMMENTS=BASE_URL+workflow+"/task-comments"
 export const  PROCESS_HISTORY_BY_EXECUTION_ID=BASE_URL+workflow+"/process-history-task-details"
 export const  PROCESS_HISTORY_BY_USER=BASE_URL+workflow+"/process-history-by-user-id"
 export const  PROCESS_HISTORY_BY_PROCESS_ID=BASE_URL+workflow+"/process-history"
-
+export const  SAVE_USER_DELEGATION=BASE_URL+workflow+"/save-user-delegation"
+export const  GET_MY_DELEGATION=BASE_URL+workflow+"/get-user-delegation"
+export const  DELETE_MY_DELEGATION=BASE_URL+workflow+"/delete-user-delegation"
 
 //WORKFLOW VALIDATIONS IN TRAINING
 export const  CHECK_THE_REQUEST_IS_OVERRIDING=BASE_URL+training +"/check-the-request-is-overriding"

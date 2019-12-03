@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.workflowcamuda.entity.MawaredMaster;
+import qa.gov.customs.workflowcamuda.entity.UserDelegation;
 import qa.gov.customs.workflowcamuda.model.ImmediateManager;
 import qa.gov.customs.workflowcamuda.service.MawaredService;
+import qa.gov.customs.workflowcamuda.service.UserDelegationService;
 import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
@@ -26,6 +28,9 @@ public class EmployeeProxyOverridenController {
 
     @Autowired
     MawaredService mawaredService;
+
+    @Autowired
+    UserDelegationService userDelegationService;
 
    // @Value("${workflowtoken}")
    // private String training_token;
@@ -153,23 +158,51 @@ public class EmployeeProxyOverridenController {
 
    // @PostMapping("/check-the-user-is-absent/{id}/{token}")
     public Boolean checkTheUserIsAbsent( String id) {
-
             logger.info("Received ### request received");
             Boolean status = mawaredService.findByQidInDateIn(id, new Date());
             return status;
-
     }
 
 
     //@PostMapping("/get-delegation-for-employee/{id}/{token}")
     public List<ImmediateManager> getDelegationForEmployee( String id) {
+           final  List<ImmediateManager>  managers = new ArrayList<>();
+            List<UserDelegation>  userDelegations =  userDelegationService.findUserByAssignedUser(id);
+            if( userDelegations!=null){
+                   userDelegations.forEach(item ->{
+                   ImmediateManager m = new ImmediateManager();
+                   m.setLegacyCode(item.getToUser());
+                  managers.add(m);
+           });
+           return managers;
+       }else{
+           return null;
+       }
+            // TODO if no delegation ,add admin also for future delegations , no need training admin in all delegations
+    }
 
-            logger.info("Received ### request received");
+    //@PostMapping("/get-delegation-for-employee/{id}/{token}")
+    public List<ImmediateManager> getDelegationForEmployeeBasedOnWork( String id) {
 
-
-            // TODO if no delegation ,add admin also for future delegations
-
+        logger.info("Received ### request received");
+        final  List<ImmediateManager>  managers = new ArrayList<>();
+        List<UserDelegation>  userDelegations =  userDelegationService.findUserByAssignedUser(id);
+        if( userDelegations!=null){
+            userDelegations.forEach(item -> {
+                if(
+                new Date().after(item.getStartDate()) &&
+                new Date().before(item.getEndDate())
+                ){
+                    ImmediateManager m = new ImmediateManager();
+                    m.setLegacyCode(item.getToUser());
+                    managers.add(m);
+                }
+            });
+            return managers;
+        }else{
             return null;
+        }
+        // TODO if no delegation ,add admin also for future delegations , no need training admin in all delegations
     }
 
 
