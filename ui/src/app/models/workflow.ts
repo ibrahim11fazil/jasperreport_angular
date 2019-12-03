@@ -493,3 +493,30 @@ export class cancelListItem{
      cancelledOn:Date;
      cancelledBy:String;
 }
+
+
+export class UserDelegation{
+     id:Number;
+     fromUser:String
+     toUser:String
+     priority:Number
+     startDate:Date
+     endDate:Date
+}
+
+
+export class UserDelegationResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:UserDelegation
+
+}
+
+export class UserDelegationResponseList{
+    status: Boolean;
+    code:number;
+    message:String;
+    data:UserDelegation[]
+
+}
