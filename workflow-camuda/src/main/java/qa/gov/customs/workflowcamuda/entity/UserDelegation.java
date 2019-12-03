@@ -18,8 +18,10 @@ public class UserDelegation {
 
     @Column(name = "FROM_USER_JOBID")
     String fromUser;
+
     @Column(name = "TO_USER_JOBID")
     String toUser;
+
     @Column(name = "PRIORITY")
     BigInteger priority;
 
@@ -29,15 +31,15 @@ public class UserDelegation {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "END_DATE")
-    Date END_DATE;
+    Date endDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "CREATED_ON")
-    Date CREATED_ON;
+    Date createdOn;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "UPDATED_ON")
-    Date UPDATED_ON;
+    Date updatedOn;
 
     @Column(name = "CREATED_BY")
     String createdBy;
@@ -85,28 +87,28 @@ public class UserDelegation {
         this.startDate = startDate;
     }
 
-    public Date getEND_DATE() {
-        return END_DATE;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEND_DATE(Date END_DATE) {
-        this.END_DATE = END_DATE;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public Date getCREATED_ON() {
-        return CREATED_ON;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCREATED_ON(Date CREATED_ON) {
-        this.CREATED_ON = CREATED_ON;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public Date getUPDATED_ON() {
-        return UPDATED_ON;
+    public Date getUpdatedOn() {
+        return updatedOn;
     }
 
-    public void setUPDATED_ON(Date UPDATED_ON) {
-        this.UPDATED_ON = UPDATED_ON;
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
     public String getCreatedBy() {

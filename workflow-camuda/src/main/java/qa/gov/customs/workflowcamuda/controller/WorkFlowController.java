@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import qa.gov.customs.workflowcamuda.entity.UserDelegation;
 import qa.gov.customs.workflowcamuda.model.ResponseType;
 import qa.gov.customs.workflowcamuda.model.SearchTask;
 import qa.gov.customs.workflowcamuda.model.UserRequestModel;
@@ -24,12 +25,14 @@ import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyOverridenController;
 import qa.gov.customs.workflowcamuda.proxy.EmployeeProxyService;
 import qa.gov.customs.workflowcamuda.security.CustomPrincipal;
 import qa.gov.customs.workflowcamuda.service.RequestService;
+import qa.gov.customs.workflowcamuda.service.UserDelegationService;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -43,6 +46,8 @@ public class WorkFlowController {
     private WorkflowImpl workflowServiceEmp;
     @Autowired
     private RequestService requestService;
+    @Autowired
+    private UserDelegationService userDelegationService;
 
     @Autowired
     public WorkFlowController(EmployeeProxyOverridenController userProxyService) {
@@ -289,6 +294,30 @@ public class WorkFlowController {
         }
     }
 
+//    @PreAuthorize("hasAnyAuthority('execute_task')")
+//    @RequestMapping(value = "/execute-task", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseType getTasks(@RequestBody UserTaskModel assignee, @AuthenticationPrincipal CustomPrincipal principal) {
+//        try {
+//            boolean tasks = workflowServiceEmp.processTask(
+//                    assignee.getTaskId(),
+//                    assignee.getAssigne() != null ? assignee.getAssigne() : null,
+//                    assignee.getProcessId(),
+//                    assignee.getRole(),
+//                    assignee.getAction(), assignee.getExecutionId(),
+//                    assignee.getProcessInstanceId() != null ? assignee.getProcessInstanceId() : null,
+//                    assignee.getCommandMessage() != null ? assignee.getCommandMessage() : null);
+//            assignee.setStatus(tasks);
+//            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+//                    assignee);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            //TODO log error...
+//            return get(Constants.SERVER_ERROR, MessageUtil.FAILED, false,
+//                    assignee);
+//        }
+//    }
+
+
     //TODO get the history ---> part 1
     @PreAuthorize("hasAnyAuthority('workflow_history')")
     @RequestMapping(value = "/process-history-by-user-id", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -333,6 +362,63 @@ public class WorkFlowController {
                     null);
         }
     }
+
+
+
+
+    @PreAuthorize("hasAnyAuthority('execute_task')")
+    @RequestMapping(value = "/save-user-delegation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType saveDelegation(@RequestBody UserDelegation delegation, @AuthenticationPrincipal CustomPrincipal principal) {
+        delegation.setCreatedBy(principal.getJid());
+        delegation.setCreatedOn(new Date());
+        delegation.setFromUser(principal.getJid());
+        UserDelegation saved =   userDelegationService.saveDelegationFromUser(delegation);
+        if(saved!=null){
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    saved);
+        }else{
+            return get(Constants.SERVER_ERROR, MessageUtil.FAILED, false,
+                    null);
+        }
+
+    }
+
+    @PreAuthorize("hasAnyAuthority('execute_task')")
+    @RequestMapping(value = "/get-user-delegation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getMyDelegatedUsers( @AuthenticationPrincipal CustomPrincipal principal) {
+        List<UserDelegation> list =   userDelegationService.findUserByAssignedUser(principal.getJid());
+        if(list!=null){
+            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                    list);
+        }else{
+            return get(Constants.RESOURCE_NOT_FOUND, MessageUtil.NO_DATA_FOUND, false,
+                    null);
+        }
+
+    }
+
+    @PreAuthorize("hasAnyAuthority('execute_task')")
+    @RequestMapping(value = "/delete-user-delegation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseType getMyDelegatedUsers(@RequestBody UserDelegation delegation, @AuthenticationPrincipal CustomPrincipal principal) {
+     UserDelegation delegationSelected =   userDelegationService.findById(delegation.getId());
+     if(delegation.getFromUser().equals(principal.getJid())){
+         Boolean item =   userDelegationService.deleteDelegation(delegation.getId());
+         if(item){
+             return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                     null);
+         }else{
+             return get(Constants.SERVER_ERROR, MessageUtil.FAILED, false,
+                     null);
+         }
+     }else{
+         return get(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                 null);
+     }
+    }
+
+
+
+
 
     ResponseType get(int code, String message, boolean status, Object data) {
         ResponseType response = new ResponseType(code, message, status,
