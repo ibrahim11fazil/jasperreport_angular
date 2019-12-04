@@ -6,6 +6,15 @@ import java.util.Date;
 public class CancelCourse {
     BigDecimal activationId;
      String Remark;
+     String courseName;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public BigDecimal getActivationId() {
         return activationId;

@@ -857,8 +857,9 @@ export class CourseManagementComponent implements OnInit {
     if (this.commentTxt != "") {
       debugger;
       this.cancelSelectCourse = this.eventCourseDetail
-      let courseActivation = new CancelCourse(0,"")
+      let courseActivation = new CancelCourse(0,"","")
       courseActivation.activationId = this.cancelSelectCourse.activation_id;
+      courseActivation.courseName = this.cancelSelectCourse.courseName;
       courseActivation.remark=this.commentTxt
       this.trainingService.cancelCourse(courseActivation)
 

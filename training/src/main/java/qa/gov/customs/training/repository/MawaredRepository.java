@@ -34,7 +34,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
 //    @Query(value="select * from SAP_ORG_DETAILS where OTYPE='FN' and LANG='A'",nativeQuery = true)
 //    List<Object[]> listFunctionalArea();
 
-    @Query(value = "select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id" +
+    @Query(value = "select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,a.email" +
             " from USER1_SAP_WS_MINI a join TAC_COURSE_ATTENDEES b on a.LEGACYCODE in" +
             "(select job_id from TAC_COURSE_ATTENDEES where activation_id=:activationId and status=1)" +
             "and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode)" +
