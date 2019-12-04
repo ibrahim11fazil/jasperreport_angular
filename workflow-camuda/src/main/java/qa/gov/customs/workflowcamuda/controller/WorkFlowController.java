@@ -31,6 +31,7 @@ import qa.gov.customs.workflowcamuda.utils.Constants;
 import qa.gov.customs.workflowcamuda.utils.MessageUtil;
 import qa.gov.customs.workflowcamuda.utils.WorkflowStatus;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -368,19 +369,38 @@ public class WorkFlowController {
 
     @PreAuthorize("hasAnyAuthority('execute_task')")
     @RequestMapping(value = "/save-user-delegation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseType saveDelegation(@RequestBody UserDelegation delegation, @AuthenticationPrincipal CustomPrincipal principal) {
-        delegation.setCreatedBy(principal.getJid());
-        delegation.setCreatedOn(new Date());
-        delegation.setFromUser(principal.getJid());
-        UserDelegation saved =   userDelegationService.saveDelegationFromUser(delegation);
-        if(saved!=null){
-            return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
-                    saved);
+    public ResponseType saveDelegation(
+            @RequestBody UserDelegation delegation,
+            @AuthenticationPrincipal CustomPrincipal principal)
+    {
+        if(delegation.getToUser()!=null) {
+            delegation.setCreatedBy(principal.getJid());
+            delegation.setCreatedOn(new Date());
+            delegation.setFromUser(principal.getJid());
+            delegation.setStatus(new BigInteger("1"));
+            if (delegation.getToUser().equals(principal.getJid())) {
+                return get(Constants.BAD_REQUEST, MessageUtil.FAILED_SAME_USER, false,
+                        null);
+            } else {
+
+                if (!userDelegationService.checkAlreadyInserted(principal.getJid(), delegation.getToUser(), new BigInteger("1"))) {
+                    UserDelegation saved = userDelegationService.saveDelegationFromUser(delegation);
+                    if (saved != null) {
+                        return get(Constants.SUCCESS, MessageUtil.SUCCESS, true,
+                                saved);
+                    } else {
+                        return get(Constants.SERVER_ERROR, MessageUtil.FAILED, false,
+                                null);
+                    }
+                } else {
+                    return get(Constants.BAD_REQUEST, MessageUtil.FAILED_ALREADY_INSERTED, false,
+                            null);
+                }
+            }
         }else{
-            return get(Constants.SERVER_ERROR, MessageUtil.FAILED, false,
+            return get(Constants.BAD_REQUEST, MessageUtil.FAILED_INVALID_JOBID, false,
                     null);
         }
-
     }
 
     @PreAuthorize("hasAnyAuthority('execute_task')")

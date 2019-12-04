@@ -13,8 +13,10 @@ import { CourseManagementRes, ITacCourseManagementList } from 'app/models/tac-co
 import { Page } from 'app/models/paged-data';
 import { Observable } from 'rxjs';
 import { tap, debounceTime, switchMap, finalize } from 'rxjs/operators';
-import { SmartProfileUserResponseAjax, SmartProfileUserRequestModel, SmartProfileUserResponseModelAjax } from 'app/models/smart-profile-model';
+import { SmartProfileUserResponseAjax, SmartProfileUserRequestModel, SmartProfileUserResponseModelAjax, SmartProfileUserResponse, SmartProfileUserResponseModel } from 'app/models/smart-profile-model';
 import { WorkflowService } from 'app/service/training/workflow.service';
+import { SystemUserService } from 'app/service/user/system-user.service';
+import { MawaredUserResponse } from 'app/models/system-user';
 @Component({
   selector: 'ms-emp-delegation',
   templateUrl: './emp-delegation.component.html',
@@ -25,15 +27,18 @@ export class EmpDelegationComponent implements OnInit {
   public form: FormGroup;
   userDelegationModel:UserDelegation
   isLoading = false;
-  selectedLegacyCode=null
+  selectedLegacyCode:String=null
   page = 0
-  commentTxt=""
   ds: UserDelegation[] = [];
   displayedColumns: string[] = ['id','fromUser', 'toUser', 'startDate','endDate','delete'];
   data : UserDelegation;
   firstSearch=false
+  cNameStatus:String=""
   filteredUsers: SmartProfileUserResponseModelAjax[] = [];
-  constructor(private fb: FormBuilder,
+  userProfile   :SmartProfileUserResponseModel
+  constructor(
+    private userService:SystemUserService,
+    private fb: FormBuilder,
     private trainingService: TrainingService,
     private toastr: ToastrService,
     private workflowService:WorkflowService,
@@ -42,6 +47,11 @@ export class EmpDelegationComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private errorService:ErrorService) {}
 
+  clear(){
+  this.cNameStatus=""
+  this.selectedLegacyCode=null
+  this.ngOnInit()
+    }
 
   ngDoCheck(): void
   {
@@ -117,58 +127,62 @@ export class EmpDelegationComponent implements OnInit {
   }
 
   displayFn(user) {
-    console.log(user.legacycode)
-    this.selectedLegacyCode=user.legacycode
-   //this.getUserInformations(user.legacycode,true) 
+    this.selectedLegacyCode=user.legacycode.toString()
+    this.cNameStatus=""
+    this.form.patchValue({
+      jobId: user.legacycode, 
+    });
   }
 
 
   onSubmit(){
 
-    let legacyS=null
+    var legacyS=null
+    debugger
     if(this.selectedLegacyCode!=null)
         legacyS = this.selectedLegacyCode
     else
         legacyS =this.form.value.jobId
+
     if(this.form.valid){
     if(legacyS!=null && this.form.value.startDate!=null && 
       this.form.value.endDate!=null){
-        console.log(this.form.value.startDate.getTime())
-        console.log(this.form.value.endDate.getTime())
         if(this.form.value.startDate.getTime()<=this.form.value.endDate.getTime()){
-          this.toastr.info("All valid")
+         
           const delegation = new UserDelegation()
           delegation.priority=1
           delegation.endDate=this.form.value.endDate
           delegation.startDate=this.form.value.startDate
           delegation.toUser=legacyS
-
-          this.workflowService.saveDelegation(delegation).subscribe(
-            data => {
-              var response = <UserDelegationResponse>data
-                if (response.status) {
-                  this.toastr.info(response.message.toString())
-                  this.loadDelegations()
-                }else{
-                  this.toastr.error(response.message.toString())
-                }
-              },
-              error => {
-                console.log(error)
-                this.errorService.errorResponseHandling(error)
-              }
-          )
+          this.getUserProfile(delegation)
+          
         }else{
-          this.toastr.info("Dates are not valid, end date is same or after the start date")
+          this.toastr.info(this.language.datesValidationInDelgation.toString()) 
         }
-
-
     }else{
       this.toastr.info(this.language.validationDelegation.toString())
     }
   }else{
     this.toastr.info(this.language.validationDelegation.toString())
   }
+  }
+
+  saveDate(delegation){
+    this.workflowService.saveDelegation(delegation).subscribe(
+      data => {
+        var response = <UserDelegationResponse>data
+          if (response.status) {
+            this.toastr.info(response.message.toString())
+            this.clear()
+          }else{
+            this.toastr.error(response.message.toString())
+          }
+        },
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        }
+    )
   }
 
   
@@ -181,12 +195,80 @@ export class EmpDelegationComponent implements OnInit {
           this.ds=response.data 
           this.ds = [...this.ds]; 
         }else{
-          this.toastr.info("No items found")
+          this.toastr.info(this.language.delegationsNotFound.toString())
         }
       },
       error => {
         console.log(error)
         this.errorService.errorResponseHandling(error)
+      }
+    )
+  }
+
+  cancelRow(element:UserDelegation){
+    this.workflowService.deleteUserDelegation(element).subscribe(
+      data => {
+        var response = <UserDelegationResponse>data
+          if (response.status) {
+            this.toastr.info(response.message.toString())
+            this.loadDelegations()
+          }else{
+            this.toastr.error(response.message.toString())
+          }
+        },
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        }
+    )
+  }
+
+  getUserProfile(delegation: UserDelegation) {
+    var input = new SmartProfileUserRequestModel()
+    input.jobIdRequested = delegation.toUser
+    this.trainingService.getEmployeeSmartProfile(input).subscribe(
+      data => {
+        var response = <SmartProfileUserResponse>data
+        if (response.status && response.data.length > 0) {
+          this.userProfile = response.data[0]
+          if(this.userProfile!=null){
+            this.saveDate(delegation)
+            }
+          }
+        else {
+          console.log(response.message)
+          this.toastr.error(response.message.toString())
+        }
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
+  }
+
+  onJobIdChange(event){
+    if( this.form.value.jobId!=null && this.form.value.jobId!="" ){
+      this.getUserById(this.form.value.jobId)
+    }
+  }
+
+  getUserById(jobId){
+    this.userService.getUserById(jobId).subscribe(
+      data=>{
+        var response = <MawaredUserResponse>data
+        if(response.data!=null){
+        this.cNameStatus=""
+        this.form.patchValue({
+          empName:response.data.cnameAr
+        });
+        }else{
+          this.cNameStatus= this.language.invalidUser.toString()
+        }
+      },
+      error=>{
+        console.log(error.message)
+        this.cNameStatus= this.language.invalidUser.toString()
       }
     )
   }

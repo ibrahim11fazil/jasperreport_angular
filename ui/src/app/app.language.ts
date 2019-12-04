@@ -14,6 +14,8 @@ export class LanguageUtil {
   activity_message: String = this.isArabic ? "يجب عليك إدخال عنوان النشاط التادريبي" : "You must enter the activity Name"
   label_Id: String = this.isArabic ? " رقم النشاط" : "Id"
   label_delete: String = this.isArabic ? "حذف" : "Delete"
+  validation_activity_length_5:String= this.isArabic?"activity name must be at least 5 characters long.":"activity name must be at least 5 characters long."
+  valifation_activity_length_max_25:String=this.isArabic?"  activity name cannot exceed 25 characters.":"  activity name cannot exceed 25 characters."
 
   //Course Creation
   title_courseDefinition: String = this.isArabic ? "تعريف دورة تدريبية" : "Course Definition"
@@ -225,6 +227,8 @@ export class LanguageUtil {
   chooseStartDate: String = this.isArabic ? "Choose Start Date" : "Choose Start Date"
   chooseEndDate: String = this.isArabic ? "Choose End Date" : "Choose End Date"
   validationDelegation:String = this.isArabic?"JobId,start Date and End Date  is required":"JobId,start Date and End Date  is required"
+  datesValidationInDelgation:String= this.isArabic?"Dates are not valid, end date is same or after the start date":"Dates are not valid, end date is same or after the start date"
+  delegationsNotFound:String=this.isArabic?"No items found":"No items found"
   //History
 
   requestedTime: String = this.isArabic ? "الوقت المطلوب" : "Requested Time"
@@ -270,7 +274,7 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   cancelCourse: String = this.isArabic ? "Cancel Course 1" : "Cancel Course"
   btn_done:String=this.isArabic? "Done1":"Done"
   btn_addParticipants:String=this.isArabic ? "Add Participants 1" :"Add Participants"
- 
+  btn_clear: String = this.isArabic ? "Clear" : "Clear"
   
 
 
