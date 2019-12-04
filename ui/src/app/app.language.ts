@@ -223,8 +223,8 @@ export class LanguageUtil {
   noSeatComment: String = this.isArabic?"No Seats available, Rejected":"No Seats available, Rejected"
   noSeatMessage: string = this.isArabic?"No Seats available, Kindly reject":"No Seats available, Kindly reject"
   chooseStartDate: String = this.isArabic ? "Choose Start Date" : "Choose Start Date"
-  chooseEndDate: String = this.isArabic ? "Choose Start Date" : "Choose Start Date"
-
+  chooseEndDate: String = this.isArabic ? "Choose End Date" : "Choose End Date"
+  validationDelegation:String = this.isArabic?"JobId,start Date and End Date  is required":"JobId,start Date and End Date  is required"
   //History
 
   requestedTime: String = this.isArabic ? "الوقت المطلوب" : "Requested Time"

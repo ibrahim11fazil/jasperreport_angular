@@ -39,7 +39,6 @@ public class EmployeeProxyOverridenController {
     public List<ImmediateManager>  getEmployeeHeadOfSection(String id) {
         logger.info("Recieved ### " + id);
             if (id != null) {
-
                     List<ImmediateManager> immediateManagers = mawaredService.getImmediateManager(id);
                     // TODO here to check the immediate manager is on vacation
                     // TODO  Get Delegation too and set to the Request
