@@ -10,6 +10,7 @@ import qa.gov.customs.workflowcamuda.service.UserDelegationService;
 import qa.gov.customs.workflowcamuda.service.workflow.WorkflowImpl;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class UserDelegationServiceImpl implements UserDelegationService {
 
     @Override
     public List<UserDelegation> findUserByAssignedUser(String jobId) {
-        return userDelegationRepository.findByFromUser(jobId);
+        return userDelegationRepository.findByFromUserAndStatus(jobId, new BigInteger("1"));
     }
 
     @Override
@@ -54,4 +55,29 @@ public class UserDelegationServiceImpl implements UserDelegationService {
             return item.get();
         else return null;
     }
+
+    @Override
+    public List<UserDelegation> findByFromUserAndToUserAndStatus(String fromUser, String toUser, BigInteger status) {
+        return userDelegationRepository.findByFromUserAndToUserAndStatus(fromUser,toUser, new BigInteger("1"));
+    }
+
+    @Override
+    public Boolean checkAlreadyInserted(String fromUser, String toUser, BigInteger status) {
+        List<UserDelegation>   delegations = findByFromUserAndToUserAndStatus(fromUser,toUser, new BigInteger("1"));
+        if(delegations!=null && delegations.size()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+//    @Override
+//    Boolean checkAlreadyInsterted(String fromUser, String toUser, BigInteger status){
+//        List<UserDelegation>   delegations = findByFromUserAndToUserAndStatus(fromUser,toUser, new BigInteger("1"));
+//        if(delegations!=null && delegations.size()>0){
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
 }

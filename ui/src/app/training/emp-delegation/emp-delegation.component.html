@@ -8,12 +8,17 @@
                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                           <div  class="date_margin"  fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100"> 
                               <mat-form-field class="full-wid mrgn-b-md">
-                                  <input matInput placeholder={{language.jobId}}  formControlName="jobId"  >
-                               </mat-form-field>  
-                               </div>
+                                  <input matInput placeholder={{language.jobId}}  formControlName="jobId" required (change)="onJobIdChange($event)" >
+                               </mat-form-field> 
+                               <small class="gene-block" class="warn-text">
+                                  {{cNameStatus}}
+                                   </small>
+                          </div>
+
+                              
 
                           <mat-form-field class="full-wid mrgn-b-lg" >
-                               <input matInput placeholder={{language.employeeName}}  formControlName="empName" [matAutocomplete]="auto"  >
+                               <input matInput placeholder={{language.employeeName}}  formControlName="empName" [matAutocomplete]="auto"   >
                           </mat-form-field>  
                     
 
@@ -51,8 +56,10 @@
                        </div>
                           
                       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-                              <button mat-raised-button color="primary" type="submit">{{language.btn_save}}
+                              <button mat-raised-button class="date_margin"   color="primary" type="submit">{{language.btn_save}}
                                 </button> 
+                                <button mat-raised-button color="primary" (click)="clear()"  type="button">{{language.btn_clear}}
+                                  </button>
                        </div> 
                        </div>        
               </form>

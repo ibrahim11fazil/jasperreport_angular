@@ -47,6 +47,17 @@ public class UserDelegation {
     @Column(name = "UPDATED_BY")
     String updatedBy;
 
+    @Column(name = "STATUS")
+    BigInteger status;
+
+    public BigInteger getStatus() {
+        return status;
+    }
+
+    public void setStatus(BigInteger status) {
+        this.status = status;
+    }
+
     public BigDecimal getId() {
         return id;
     }

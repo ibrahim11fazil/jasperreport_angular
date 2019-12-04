@@ -22,11 +22,11 @@
             
                   <small class="gene-block" *ngIf="form.controls['activityName'].hasError('minlength') && form.controls['activityName'].touched"
                      class="warn-text">
-                     activity name must be at least 5 characters long.
+                     {{language.validation_activity_length_5}}
                   </small>
                   <small class="gene-block" *ngIf="form.controls['activityName'].hasError('maxlength') && form.controls['activityName'].touched"
                      class="warn-text">
-                     activity name cannot exceed 25 characters.
+                   {{language.valifation_activity_length_max_25}}
                   </small>
           </div>
         </div>
