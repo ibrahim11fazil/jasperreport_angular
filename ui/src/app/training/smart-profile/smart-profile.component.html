@@ -169,6 +169,30 @@
       </div>
     </div>
 
+    <div fxLayout="row wrap">
+         <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+           <div>
+             <mat-card class="mrgn-b-lg">
+               <div>
+                 <div class="card-title mrgn-b-md"> 
+                  <span class="label primary-bg border-rad-base"> {{language.courseHistory}} </span>
+               </div>
+                 <mat-list>
+                      <mat-list-item *ngFor="let item of userCourseHistoryProfile">
+                        
+   
+                          <div class="card-title mrgn-b-md"> 
+                               {{item.courseName}} -- {{item.courseDate}} --  {{item.endDate}} -- {{item.status}}
+                           </div>
+   
+                      </mat-list-item>
+                 </mat-list>   
+               </div>
+             </mat-card>
+           </div>
+         </div>
+       </div>
+
       <div fxLayout="row wrap">
         <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
           <div>

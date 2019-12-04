@@ -7,6 +7,15 @@ public class CancelCourse {
     BigDecimal activationId;
      String Remark;
      String courseName;
+     String courseDate;
+
+    public String getCourseDate() {
+        return courseDate;
+    }
+
+    public void setCourseDate(String courseDate) {
+        this.courseDate = courseDate;
+    }
 
     public String getCourseName() {
         return courseName;

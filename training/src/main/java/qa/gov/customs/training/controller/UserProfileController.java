@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import qa.gov.customs.training.models.JobCardProfileRequest;
 import qa.gov.customs.training.models.UserCoursesAttended;
 import qa.gov.customs.training.models.UserProfileModel;
+import qa.gov.customs.training.models.UserHistoricalData;
 import qa.gov.customs.training.proxy.EmployeeProxyService;
 import qa.gov.customs.training.security.CustomPrincipal;
 import qa.gov.customs.training.service.UserProfileService;
@@ -152,6 +153,61 @@ public class UserProfileController {
                 return genericResponse(submittedRequest);
             }
         }
+    }
+
+
+    @PreAuthorize("hasAnyAuthority('user_courses_attended')")
+    @PostMapping("/get-historical-course-data")
+    public ResponseType userHistoricalData(@RequestBody JobCardProfileRequest jobCardProfileRequest,
+                                            @AuthenticationPrincipal CustomPrincipal principal,
+                                            @RequestHeader(name = "Authorization") String token) {
+        String jobId = principal.getJid();
+        if (principal.getScopes().contains(ROLE_EMPLOYEE)) {
+            List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(principal.getJid());
+            ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+                    submittedRequest);
+            return response;
+        } else if (principal.getScopes().contains(ROLE_DEPT_HEAD) ||
+                principal.getScopes().contains(ROLE_DEPT_MGR)) {
+
+            if (jobCardProfileRequest.getJobIdRequested() != null) {
+                String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
+                ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
+                if (type.isStatus()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    Boolean data = mapper.convertValue(
+                            type.getData(),
+                            new TypeReference<Boolean>() {
+                            });
+                    if (data) {
+
+                        List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobIdRequested);
+                        return genericResponse(submittedRequest);
+                    } else {
+                        ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                                null);
+                        return response;
+                    }
+                } else {
+                    ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                            null);
+                    return response;
+                }
+            } else {
+                List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobId);
+                return genericResponse(submittedRequest);
+            }
+        } else {
+            if (jobCardProfileRequest.getJobIdRequested() != null) {
+                String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
+                List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobIdRequested);
+                return genericResponse(submittedRequest);
+            } else {
+                List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobId);
+                return genericResponse(submittedRequest);
+            }
+        }
+
     }
 
 }

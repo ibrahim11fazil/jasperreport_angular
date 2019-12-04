@@ -38,6 +38,13 @@ public interface UserProfileRepository extends JpaRepository<Dummy, String> {
     List<Object[]> coursesAttendedWithStatus(@Param("jobId") String jobId);
 
 
+    @Query(value = " select course_name,start_date,end_date,status from training_historical_courses a,USER1_SAP_WS_MINI b "+
+    "where a.qid=b.qid "+
+    "and b.legacycode=:jobId "+
+    "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId)", nativeQuery = true)
+    List<Object[]> historicalCoursesAttended(@Param("jobId") String jobId);
+
+
 
 //    Set<TacJobcardConditions> getUserJobCardConditions(@Param("jobId") String jobId)
 //    Set<TacJobcardDuties>  getUserJobCardDuties(@Param("jobId") String jobId)

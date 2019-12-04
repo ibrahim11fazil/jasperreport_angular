@@ -129,3 +129,21 @@ export interface JobCardProfileRequest {
     count: number;
     data: JobCardProfile[];
 }
+
+export interface UserCourseHistoryProfile {
+    jobId: String;
+    activationId: number;
+    courseId: number;
+    courseName: String;
+    courseDate:Date;
+    endDate:Date;
+    status:String;
+  
+}
+export interface UserCourseHistoryProfileResponse {
+    code: number;
+    message: String;
+    status: boolean;
+    count: number;
+    data: UserCourseHistoryProfile[];
+}

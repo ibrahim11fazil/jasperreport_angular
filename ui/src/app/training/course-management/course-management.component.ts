@@ -857,9 +857,10 @@ export class CourseManagementComponent implements OnInit {
     if (this.commentTxt != "") {
       debugger;
       this.cancelSelectCourse = this.eventCourseDetail
-      let courseActivation = new CancelCourse(0,"","")
+      let courseActivation = new CancelCourse(0,"","","")
       courseActivation.activationId = this.cancelSelectCourse.activation_id;
       courseActivation.courseName = this.cancelSelectCourse.courseName;
+      courseActivation.courseDate=this.cancelSelectCourse.course_date;
       courseActivation.remark=this.commentTxt
       this.trainingService.cancelCourse(courseActivation)
 
@@ -937,14 +938,16 @@ export class CourseManagementComponent implements OnInit {
     {
     this.directEnrollParticipant = row
 
-    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"","")
+    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"","","")
 
     enrollParticipant.activationId = this.eventCourseDetail.activation_id;
     enrollParticipant.seatCapacity = this.eventCourseDetail.seatCapacity
+    enrollParticipant.courseDate=this.eventCourseDetail.course_date
     enrollParticipant.jobId = row.legacycode;
     enrollParticipant.mobile=row.mobile
     enrollParticipant.email=row.email
     enrollParticipant.remark=row.remark;
+    enrollParticipant.cnameAr=row.cname_AR;
 
     this.trainingService.enrollParticipantForCourse(enrollParticipant)
 
@@ -990,14 +993,16 @@ export class CourseManagementComponent implements OnInit {
   {
     this.directEnrollParticipant = row
 
-    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"","")
+    let enrollParticipant = new EmpData(0, "", "", "", "", "", 0, 0, "", 0, 0,"","","")
 
     enrollParticipant.activationId = this.eventCourseDetail.activation_id;
     enrollParticipant.seatCapacity = this.eventCourseDetail.seatCapacity
+    enrollParticipant.courseDate=this.eventCourseDetail.course_date
     enrollParticipant.jobId = row.jobId;
     enrollParticipant.mobile=row.mobile
     enrollParticipant.email=row.email
     enrollParticipant.remark=row.remark;
+    enrollParticipant.cnameAr=row.cnameAr;
 
     this.trainingService.deleteParticipantForCourse(enrollParticipant)
 

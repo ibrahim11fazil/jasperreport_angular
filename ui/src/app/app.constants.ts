@@ -192,6 +192,7 @@ export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-da
 export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
 export const  GET_JOB_CARD_USER_PROFILE=BASE_URL+training+"/jobcard_user_profile";
 export const  GET_USER_COURSE_ATTENDED=BASE_URL+training+"/user_courses_attended";
+export const  GET_EMP_COURSE_HISTORICALDATA=BASE_URL+training+"/get-historical-course-data";
 export const  COORDINATOR_COURSES=BASE_URL+training+"/coordinator-courses";
 export const  INSTRUCTOR_COURSES=BASE_URL+training+"/instructor-courses";
 export const  GET_LIST_FOR_CANCELLATION=BASE_URL+training+"/cancel-request-list";

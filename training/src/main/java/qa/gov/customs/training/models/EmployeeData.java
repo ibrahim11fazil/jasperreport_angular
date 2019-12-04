@@ -33,6 +33,15 @@ public class EmployeeData {
     private BigDecimal activationId;
     private BigDecimal seatCapacity;
     private String remark;
+    private String courseDate;
+
+    public String getCourseDate() {
+        return courseDate;
+    }
+
+    public void setCourseDate(String courseDate) {
+        this.courseDate = courseDate;
+    }
 
     public String getRemark() {
         return remark;

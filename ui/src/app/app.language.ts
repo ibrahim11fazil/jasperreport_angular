@@ -373,6 +373,7 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   courseCancelSuccessfull=this.isArabic? "Successfully Cancelled Course 1": "Successfully Cancelled Course"
   couldNotMarkFutureAttendance=this.isArabic? "Could not mark attendance for future dates 1":"Could not mark attendance for future dates"
   deleteParticipants=this.isArabic?"Delete Participants1":"Delete Participants"
+  courseHistory=this.isArabic?"Course History 1" :"Course History"
 
 
 

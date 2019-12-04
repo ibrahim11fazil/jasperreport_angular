@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
 import { MainComponent } from 'app/main/main.component';
 import { AuthService } from 'app/service/auth-service/auth.service';
-import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile, SmartProfileUserResponseModelQucik, SmartProfileUserResponseModelQucik1, SmartProfileUserResponseModelAjax, SmartProfileUserResponseAjax } from 'app/models/smart-profile-model';
+import { SmartProfileUserRequestModel, SmartProfileUserResponseModel, SmartProfileUserResponse, JobCardProfileRequest, UserCourseRequestedResponse, JobCardProfile, UserCourseResponseProfile, SmartProfileUserResponseModelQucik, SmartProfileUserResponseModelQucik1, SmartProfileUserResponseModelAjax, SmartProfileUserResponseAjax, UserCourseHistoryProfileResponse, UserCourseHistoryProfile } from 'app/models/smart-profile-model';
 import { CertificateRequest, CertificateRequestOnlyJobId, ResponseCertificateList } from 'app/models/certificate-request';
 import { TranslateService } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
@@ -37,6 +37,7 @@ export class SmartProfileComponent implements OnInit {
    jobCardProfile:JobCardProfile[]=[]
    jobCardProfileSuggession:JobCardProfile[]=[]
    userCourseResponseProfile:UserCourseResponseProfile[]=[]
+   userCourseHistoryProfile:UserCourseHistoryProfile[]=[]
   displayCourses: boolean = false
   page = new Page();
   courseManagement:CourseManagementRes[]=[]
@@ -105,6 +106,7 @@ export class SmartProfileComponent implements OnInit {
     this.getUserCoursesAttended(jobId, isSearch)
     this.getCoordinatorCourses(jobId,isSearch)
     this.getInstructorCourses(jobId,isSearch)
+    this.getCourseHistory(jobId,isSearch)
     this.smartSuggession()
   }
 
@@ -131,6 +133,9 @@ export class SmartProfileComponent implements OnInit {
         )
 
   }
+
+
+ 
 
   getUserProfile(jobId: String, isSearch: Boolean) {
     debugger
@@ -203,6 +208,29 @@ export class SmartProfileComponent implements OnInit {
       }
     )
   }
+
+  getCourseHistory(jobId: String, isSearch: Boolean) {
+    var input = new SmartProfileUserRequestModel()
+    input.jobIdRequested = jobId
+    this.trainingService.GetEmpCourseHistoricalData(input).subscribe(
+      data => {
+        var response = <UserCourseHistoryProfileResponse>data
+        if (response.status && response.data.length) {
+          this.userCourseHistoryProfile = response.data
+          
+        }
+        else {
+          console.log(response.message)
+          //this.toastr.info("No Course attended")
+        }
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
+  }
+
 
   smartSuggession() {
     this.jobCardProfileSuggession = []

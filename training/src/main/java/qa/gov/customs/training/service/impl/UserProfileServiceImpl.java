@@ -6,11 +6,13 @@ import qa.gov.customs.training.entity.TacJobcardConditions;
 import qa.gov.customs.training.entity.TacJobcardDuties;
 import qa.gov.customs.training.entity.TacJobcardSkills;
 import qa.gov.customs.training.models.UserCoursesAttended;
+import qa.gov.customs.training.models.UserHistoricalData;
 import qa.gov.customs.training.models.UserProfileModel;
 import qa.gov.customs.training.repository.UserProfileRepository;
 import qa.gov.customs.training.service.UserProfileService;
 
 import java.math.BigDecimal;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -83,6 +85,30 @@ public class UserProfileServiceImpl implements UserProfileService {
             fAreas.add(fArea);
         }
         return fAreas;
+    }
+
+
+    @Override
+    public List<UserHistoricalData> historicalCoursesAttended(String id) {
+        List<Object[]> userHistoricalData = userprofilerepository.historicalCoursesAttended(id);
+        List<UserHistoricalData> userHistory=new ArrayList<>();
+        if (userHistoricalData != null && userHistoricalData.size() > 0) {
+
+            for (Object[] o : userHistoricalData) {
+                UserHistoricalData data=new UserHistoricalData();
+                data.setCourseName((String) o[0]);
+                data.setCourseDate((Date) o[1]);
+                data.setEndDate((Date) o[2]);
+                data.setStatus((String) o[3]);
+
+                userHistory.add(data);
+
+            }
+            return userHistory;
+
+        } else
+            return null;
+
     }
 
 }

@@ -102,10 +102,12 @@ export class CancelCourse
     public activationId:Number
     public remark:String
     public courseName:String
-    constructor(activationId:Number,remark:String,courseName:String)
+    public courseDate:String
+    constructor(activationId:Number,remark:String,courseName:String,courseDate:String)
     {
         this.activationId=activationId
         this.remark=remark
         this.courseName=courseName
+        this.courseDate=courseDate
     }
 }
