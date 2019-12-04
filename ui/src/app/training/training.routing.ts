@@ -22,6 +22,7 @@ import { MyTasksHistoryComponent } from './my-tasks-history/my-tasks-history.com
 import { UserPermissionsComponent } from './user-permissions/user-permissions.component';
 import { SmartProfileComponent } from './smart-profile/smart-profile.component';
 import { EmpReqeustCancelComponent } from './emp-reqeust-cancel/emp-reqeust-cancel.component';
+import { EmpDelegationComponent } from './emp-delegation/emp-delegation.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -131,6 +132,10 @@ export const TrainingRoutes: Routes = [
             },{
                 path: 'emp-reqeust-cancel',
                 component:EmpReqeustCancelComponent
+            },
+            {
+                path: 'emp-delegation',
+                component:EmpDelegationComponent
             },
             {
 
