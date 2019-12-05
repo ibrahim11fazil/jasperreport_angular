@@ -8,7 +8,7 @@ import { Page } from "../../models/paged-data";
 import { PAGE_LIMIT, DURATION_FLAG_LIST, WORKFLOW_2_EMP_REQUEST } from 'app/app.constants';
 import { Router } from '@angular/router';
 import { WorkflowService } from 'app/service/training/workflow.service';
-import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse } from 'app/models/workflow';
+import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse, CancelRequest, CancelRequestResponse } from 'app/models/workflow';
 import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
 import { TrainingService } from 'app/service/training/training.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
@@ -30,6 +30,7 @@ export class MyTasksComponent implements OnInit {
   language:LanguageUtil;
   page = 0
   commentTxt=""
+  cancelledTask:Boolean=false
   ds: TaskResponseData[] = [];
   firstSearch=false
   isrequestedFor=false
@@ -242,8 +243,29 @@ export class MyTasksComponent implements OnInit {
       )
       this.getComment();
       this.getHistoryTasks();
+      this.getCancelledStatus();
   }
 
+  getCancelledStatus(){
+    if(this.data!=null && this.data.userRequestModel.trainingRequestId!=null){
+    const input = new CancelRequest()
+    input.requestId= this.data.userRequestModel.trainingRequestId
+    this.trainingService.cancelRequestStatus(input).subscribe(
+      data=> {
+        var response = <CancelRequestResponse>data
+        if(response.status && response.data.status){
+         this.cancelledTask = true
+        }else{
+          this.cancelledTask = false
+        }
+        
+      }
+      
+    )
+    }else{
+      this.cancelledTask=false
+    }
+  }
 
   getComment(){
     if(this.data.id!=null){

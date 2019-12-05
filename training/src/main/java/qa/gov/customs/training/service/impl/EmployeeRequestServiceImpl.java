@@ -191,6 +191,19 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
     }
 
     @Override
+    public CancelRequestStatus cancelRequestStatus(String requestId) {
+        Optional<TacWorkflowReference> cancel =  requestRepository.findById(requestId);
+        CancelRequestStatus item =new CancelRequestStatus();
+        item.setRequestId(requestId);
+        if(cancel.isPresent() && cancel.get().getCancelledFalg().equals(new BigInteger("1"))){
+            item.setStatus(true);
+        }else{
+            item.setStatus(false);
+        }
+        return item;
+    }
+
+    @Override
     public Boolean findCancelledStatusById(String id) {
         Optional<TacWorkflowReference> workflowReference = requestRepository.findById(id);
         if(workflowReference.isPresent()){

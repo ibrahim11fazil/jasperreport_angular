@@ -8,7 +8,7 @@ import { Page } from "../../models/paged-data";
 import { PAGE_LIMIT, DURATION_FLAG_LIST, WORKFLOW_2_EMP_REQUEST } from 'app/app.constants';
 import { Router } from '@angular/router';
 import { WorkflowService } from 'app/service/training/workflow.service';
-import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse, HistoryUserRequest, HistoryUserResponse, HistoryUserResponseByUser, HistoryProcessResponse, HistoryUserResponseByProcess, UserRequestModel } from 'app/models/workflow';
+import { TaskResponse, TaskResponseData, CommentsForTask, CommentsForTaskResponse, UserTaskHistoryExecutionsDetailsRequest, UserTaskHistoryResponse, UserTaskResponseHistory, CommentSaveModel, CommentSaveResponse, UserTaskExecuteRequest, UserTaskExecuteResponseModel, UserTaskExecuteResponse, HistoryUserRequest, HistoryUserResponse, HistoryUserResponseByUser, HistoryProcessResponse, HistoryUserResponseByProcess, UserRequestModel, CancelRequest, CancelRequestResponse } from 'app/models/workflow';
 import { TrainingSystemServiceService } from 'app/service/training/training-system-service.service';
 import { TrainingService } from 'app/service/training/training.service';
 import { ActivationData, ResponseActivationData } from 'app/models/activation-data';
@@ -42,6 +42,7 @@ export class MyTasksHistoryComponent implements OnInit {
   historyExecutions:HistoryUserResponseByProcess[]=[]
   historyExecutionsApprovals:UserTaskResponseHistory[]=[]
   isrequestedFor=false
+  cancelledTask:Boolean=false
   constructor(
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
@@ -156,8 +157,35 @@ export class MyTasksHistoryComponent implements OnInit {
           this.errorService.errorResponseHandling(error)
         }
       )
+      this.getCancelledStatus();
       //this.getComment();
       //this.getHistoryTasks();
+  }
+
+  getCancelledStatus(){
+    debugger
+    if(this.data!=null && this.data.trainingRequestId!=null){
+    const input = new CancelRequest()
+    input.requestId= this.data.trainingRequestId
+    this.trainingService.cancelRequestStatus(input).subscribe(
+      data=> {
+        var response = <CancelRequestResponse>data
+        if(response.status && response.data.status){
+         this.cancelledTask = true
+        }else{
+          this.cancelledTask = false
+        }
+        
+      }
+      ,
+        error => {
+          console.log(error)
+          this.errorService.errorResponseHandling(error)
+        }
+    )
+    }else{
+      this.cancelledTask=false
+    }
   }
 
 

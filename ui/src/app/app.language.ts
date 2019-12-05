@@ -229,6 +229,7 @@ export class LanguageUtil {
   validationDelegation:String = this.isArabic?"JobId,start Date and End Date  is required":"JobId,start Date and End Date  is required"
   datesValidationInDelgation:String= this.isArabic?"Dates are not valid, end date is same or after the start date":"Dates are not valid, end date is same or after the start date"
   delegationsNotFound:String=this.isArabic?"No items found":"No items found"
+  
   //History
 
   requestedTime: String = this.isArabic ? "الوقت المطلوب" : "Requested Time"
@@ -378,6 +379,8 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   couldNotMarkFutureAttendance=this.isArabic? "Could not mark attendance for future dates 1":"Could not mark attendance for future dates"
   deleteParticipants=this.isArabic?"Delete Participants1":"Delete Participants"
   courseHistory=this.isArabic?"Course History 1" :"Course History"
+  cancelRequest=this.isArabic?"This request is cancelled by user":"This request is cancelled by user"
+
 
 
 

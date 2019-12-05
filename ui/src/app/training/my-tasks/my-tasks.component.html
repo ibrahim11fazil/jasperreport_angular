@@ -129,12 +129,20 @@
                               {{item}}
                         </mat-list-item>
                 </div>
+                
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                       <h5>{{language.addComment}}</h5>
                       <mat-form-field class="full-wid mrgn-b-md">
                               <input  matInput placeholder="Comment" [(ngModel)]="commentTxt" >
                       </mat-form-field>
                 </div>
+
+                <div  *ngIf="cancelledTask" color="warn"  fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                    <mat-chip-list>
+                        <mat-chip color="warn" selected> {{language.cancelRequest}}</mat-chip>
+                     </mat-chip-list> 
+               </div>
+
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <button mat-raised-button  color="primary" (click)="approve()"  color="accent">{{language.btn_approve}}</button>
                     <button mat-raised-button  color="primary" (click)="reject()" color="warn">{{language.btn_reject}}</button>
