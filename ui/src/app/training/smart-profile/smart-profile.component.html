@@ -131,21 +131,21 @@
                       <span class="label primary-bg border-rad-base"> {{language.jobCardDetails}}  </span>
                       </div>
                 <mat-list>
-                     <h4>JobCard Conditions</h4>
+                     <h4>{{language.conditionTogetJob}}</h4>
                      <mat-list-item *ngFor="let item of jobcardData">
-                           <div class="card-title mrgn-b-md" *ngFor="let conditions of item.tacJobcardConditions"> 
-                                <ul><li>
-                                    <div class="card-title mrgn-b-md"> 
+                           <div class="card-title mrgn-b-md" > 
+                                <ul><li *ngFor="let conditions of item.tacJobcardConditions">
+                                    <div class="card-title mrgn-b-md" > 
                                           {{conditions.jobConditions}}
                                        </div>
 
                                 </li></ul>             
                         </div>
                      </mat-list-item>
-                     <h4>JobCard Duties</h4>
+                     <h4>{{language.jobDuties}}</h4>
                         <mat-list-item *ngFor="let item of jobcardData">
-                        <div class="card-title mrgn-b-md" *ngFor="let duties of item.tacJobcardDuties"> 
-                              <ul><li>
+                        <div class="card-title mrgn-b-md" > 
+                              <ul><li *ngFor="let duties of item.tacJobcardDuties">
                                   <div class="card-title mrgn-b-md"> 
                                         {{duties.dutyDescription}}
                                      </div>
@@ -153,23 +153,19 @@
                               </li></ul>             
                       </div>
                       </mat-list-item>
-                  <h4>JobCard Skills</h4>
+                  <h4>{{language.jobSkills}}</h4>
                   <mat-list-item *ngFor="let item of jobcardData">
-                      <div class="card-title mrgn-b-md" *ngFor="let skills of item.tacJobcardSkills"> 
-                           <ul><li>
+                      <div class="card-title mrgn-b-md" > 
+                           <ul><li *ngFor="let skills of item.tacJobcardSkills">
                                <div class="card-title mrgn-b-md"> 
                                      {{skills.jobSkills}}
                                   </div>
 
                            </li></ul>             
                    </div>
-                   </mat-list-item>
-
-
-
-                                       
+                   </mat-list-item>                                    
                      
-                      <h4>JobCard Courses</h4>
+                      <h4>{{language.trainingCourses}}</h4>
                    <mat-list-item *ngFor="let item of jobCardProfile">
                        
                         <div class="card-title mrgn-b-md"> 
