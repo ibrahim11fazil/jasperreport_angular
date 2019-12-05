@@ -197,6 +197,7 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
         item.setRequestId(requestId);
         if(cancel.isPresent() && cancel.get().getCancelledFalg().equals(new BigInteger("1"))){
             item.setStatus(true);
+            item.setCancelledDate(cancel.get().getCancelledOn());
         }else{
             item.setStatus(false);
         }

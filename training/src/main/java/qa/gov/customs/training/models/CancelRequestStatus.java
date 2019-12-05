@@ -1,12 +1,22 @@
 package qa.gov.customs.training.models;
 
+import java.util.Date;
+
 public class CancelRequestStatus {
 
     String message; // email address
     Boolean status ;  // email body
     String requestId;
     String jobId;
+    Date cancelledDate;
 
+    public Date getCancelledDate() {
+        return cancelledDate;
+    }
+
+    public void setCancelledDate(Date cancelledDate) {
+        this.cancelledDate = cancelledDate;
+    }
 
     public String getJobId() {
         return jobId;

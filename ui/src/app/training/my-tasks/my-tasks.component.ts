@@ -39,6 +39,7 @@ export class MyTasksComponent implements OnInit {
   durationFlagList = DURATION_FLAG_LIST;
   durationValueString: String;
   dataStatus = false;
+  cancelledTaskDate:Date
   //displayedColumns: string[] = ['createdOn', 'name',  'workflowType','jobId', 'cnameAr', 'edit'];
   displayedColumns: string[] = ['createdOn','course', 'jobId', 'cnameAr', 'edit'];
   data : TaskResponseData;
@@ -255,8 +256,10 @@ export class MyTasksComponent implements OnInit {
         var response = <CancelRequestResponse>data
         if(response.status && response.data.status){
          this.cancelledTask = true
+         this.cancelledTaskDate=response.data.cancelledDate
         }else{
           this.cancelledTask = false
+          this.cancelledTaskDate=null
         }
         
       }

@@ -43,6 +43,7 @@ export class MyTasksHistoryComponent implements OnInit {
   historyExecutionsApprovals:UserTaskResponseHistory[]=[]
   isrequestedFor=false
   cancelledTask:Boolean=false
+  cancelledTaskDate:Date
   constructor(
     private fb: FormBuilder,
     private pageTitleService: PageTitleService,
@@ -172,15 +173,17 @@ export class MyTasksHistoryComponent implements OnInit {
         var response = <CancelRequestResponse>data
         if(response.status && response.data.status){
          this.cancelledTask = true
+         this.cancelledTaskDate=response.data.cancelledDate
         }else{
           this.cancelledTask = false
+          this.cancelledTaskDate=null
         }
         
       }
       ,
         error => {
           console.log(error)
-          this.errorService.errorResponseHandling(error)
+          //this.errorService.errorResponseHandling(error)
         }
     )
     }else{
