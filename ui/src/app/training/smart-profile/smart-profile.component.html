@@ -180,9 +180,9 @@
                  <mat-list>
                       <mat-list-item *ngFor="let item of userCourseHistoryProfile">
                         
-   
+                           
                           <div class="card-title mrgn-b-md"> 
-                               {{item.courseName}} -- {{item.courseDate}} --  {{item.endDate}} -- {{item.status}}
+                               {{item.courseName}} -- ({{datepipe.transform(item.courseDate, 'dd/MM/yyyy')}}-{{datepipe.transform(item.endDate, 'dd/MM/yyyy')}}) -- {{item.status}}
                            </div>
    
                       </mat-list-item>

@@ -4,10 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import qa.gov.customs.training.entity.Dummy;
-import qa.gov.customs.training.entity.TacJobcardConditions;
-import qa.gov.customs.training.entity.TacJobcardDuties;
-import qa.gov.customs.training.entity.TacJobcardSkills;
+import qa.gov.customs.training.entity.*;
 
 import java.util.List;
 import java.util.Set;
@@ -49,6 +46,9 @@ public interface UserProfileRepository extends JpaRepository<Dummy, String> {
 //    Set<TacJobcardConditions> getUserJobCardConditions(@Param("jobId") String jobId)
 //    Set<TacJobcardDuties>  getUserJobCardDuties(@Param("jobId") String jobId)
 //    Set<TacJobcardSkills> getUserJobCardSkills(@Param("jobId") String jobId)
+
+
+
 
 
 }

@@ -191,6 +191,7 @@ export const  WORK_FLOW_REQUEST=BASE_URL+training+"/save-request"
 export const  GET_ACTIVATION_DATES_BY_ACTIVATIONID=BASE_URL+training+"/course-date-by-activation"
 export const  PREVIOUS_ATTENDANCE=BASE_URL+training+"/get-previous-attendance"
 export const  GET_JOB_CARD_USER_PROFILE=BASE_URL+training+"/jobcard_user_profile";
+export const  GET_FULL_JOBCARD=BASE_URL+training+"/jobcard_data";
 export const  GET_USER_COURSE_ATTENDED=BASE_URL+training+"/user_courses_attended";
 export const  GET_EMP_COURSE_HISTORICALDATA=BASE_URL+training+"/get-historical-course-data";
 export const  COORDINATOR_COURSES=BASE_URL+training+"/coordinator-courses";

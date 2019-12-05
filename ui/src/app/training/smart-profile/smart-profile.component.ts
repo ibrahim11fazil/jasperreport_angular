@@ -20,6 +20,7 @@ import { Page } from 'app/models/paged-data';
 import { ErrorService } from 'app/service/error/error.service';
 import { Observable } from 'rxjs';
 import { tap, debounceTime, switchMap, finalize } from 'rxjs/operators';
+import { JobCardData } from 'app/models/job-card-data';
 
 
 @Component({
@@ -91,6 +92,8 @@ export class SmartProfileComponent implements OnInit {
     this.jobCardProfile = []
     this.jobCardProfileSuggession = []
     this.userCourseResponseProfile = []
+    this.userCourseHistoryProfile=[]
+    
   }
 
   getUserInformations(jobId: String, isSearch: Boolean) {
@@ -104,6 +107,7 @@ export class SmartProfileComponent implements OnInit {
     this.getCertificates(jobId, isSearch)
     this.getUserJobCard(jobId, isSearch)
     this.getUserCoursesAttended(jobId, isSearch)
+    this.getUSerFullJobCard(jobId, isSearch)
     this.getCoordinatorCourses(jobId,isSearch)
     this.getInstructorCourses(jobId,isSearch)
     this.getCourseHistory(jobId,isSearch)
@@ -177,6 +181,30 @@ export class SmartProfileComponent implements OnInit {
           console.log(response.message)
           this.toastr.info("No Job Card Found")
         }
+      },
+      error => {
+        console.log(error)
+        this.errorService.errorResponseHandling(error)
+      }
+    )
+  }
+
+  getUSerFullJobCard(jobId:String,isSearch: Boolean)
+  {
+    var input = new SmartProfileUserRequestModel()
+    input.jobIdRequested = jobId
+    debugger
+    this.trainingService.getfullJobCard(input).subscribe(
+      data => {
+        var response = <JobCardData>data
+        // if (response.status && response.data.length > 0) {
+        //   this.jobCardProfile = response.data
+        //   this.smartSuggession()
+        // }
+        // else {
+        //   console.log(response.message)
+        //   this.toastr.info("No Job Card Found")
+        // }
       },
       error => {
         console.log(error)

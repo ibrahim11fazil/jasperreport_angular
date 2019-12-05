@@ -2,6 +2,7 @@ package qa.gov.customs.training.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qa.gov.customs.training.entity.TacJobcard;
 import qa.gov.customs.training.entity.TacJobcardConditions;
 import qa.gov.customs.training.entity.TacJobcardDuties;
 import qa.gov.customs.training.entity.TacJobcardSkills;
@@ -9,13 +10,14 @@ import qa.gov.customs.training.models.UserCoursesAttended;
 import qa.gov.customs.training.models.UserHistoricalData;
 import qa.gov.customs.training.models.UserProfileModel;
 import qa.gov.customs.training.repository.UserProfileRepository;
+import qa.gov.customs.training.repository.JobcardRepository;
 import qa.gov.customs.training.service.UserProfileService;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Service
@@ -23,6 +25,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Autowired
     UserProfileRepository userprofilerepository;
+
+    @Autowired
+     JobcardRepository jobCardRepository;
 
     @Override
     public List<UserProfileModel> listJobCardProfile(String id) {
@@ -35,6 +40,12 @@ public class UserProfileServiceImpl implements UserProfileService {
             return processlistJobCardProfile(userObjects);
         } else
             return null;
+    }
+    @Override
+    public List<TacJobcard> getJobCard(String id)
+    {
+     List<TacJobcard> jobcard=jobCardRepository.findFullJobCard(id);
+     return jobcard;
     }
 
     List<UserProfileModel> processlistJobCardProfile(List<Object[]> objects) {

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import qa.gov.customs.training.entity.TacJobcard;
 import qa.gov.customs.training.models.JobCardProfileRequest;
 import qa.gov.customs.training.models.UserCoursesAttended;
 import qa.gov.customs.training.models.UserProfileModel;
@@ -51,25 +52,33 @@ public class UserProfileController {
 
             if (jobCardProfileRequest.getJobIdRequested() != null) {
                 String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
-                ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
-                if (type.isStatus()) {
-                    ObjectMapper mapper = new ObjectMapper();
-                    Boolean data = mapper.convertValue(
-                            type.getData(),
-                            new TypeReference<Boolean>() {
-                            });
-                    if (data) {
-                        List<UserProfileModel> submittedRequest = userProfileService.listJobCardProfile(jobIdRequested);
-                        return genericResponse(submittedRequest);
+
+                if(jobId.equalsIgnoreCase(jobIdRequested))
+                {
+                    List<UserProfileModel>  submittedRequest = userProfileService.listJobCardProfile(jobIdRequested);
+                    return genericResponse(submittedRequest);
+                }
+                else {
+                    ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
+                    if (type.isStatus()) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        Boolean data = mapper.convertValue(
+                                type.getData(),
+                                new TypeReference<Boolean>() {
+                                });
+                        if (data) {
+                            List<UserProfileModel> submittedRequest = userProfileService.listJobCardProfile(jobIdRequested);
+                            return genericResponse(submittedRequest);
+                        } else {
+                            ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                                    null);
+                            return response;
+                        }
                     } else {
                         ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
                                 null);
                         return response;
                     }
-                } else {
-                    ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
-                            null);
-                    return response;
                 }
             } else {
                 List<UserProfileModel> submittedRequest = userProfileService.listJobCardProfile(jobId);
@@ -82,6 +91,68 @@ public class UserProfileController {
                 return genericResponse(submittedRequest);
             } else {
                 List<UserProfileModel> submittedRequest = userProfileService.listJobCardProfile(jobId);
+                return genericResponse(submittedRequest);
+            }
+        }
+    }
+
+
+
+    @PreAuthorize("hasAnyAuthority('jobcard_user_profile')")
+    @PostMapping("/jobcard_data")
+
+        public ResponseType jobCardData(@RequestBody JobCardProfileRequest jobCardProfileRequest,
+            @AuthenticationPrincipal CustomPrincipal principal,
+            @RequestHeader(name = "Authorization") String token) {
+
+        String jobId = principal.getJid();
+        if (principal.getScopes().contains(ROLE_EMPLOYEE)) {
+            List<TacJobcard> submittedRequest = userProfileService.getJobCard(jobId);
+            ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true,
+                    submittedRequest);
+            return response;
+        } else if (principal.getScopes().contains(ROLE_DEPT_HEAD) || principal.getScopes().contains(ROLE_DEPT_MGR)) {
+
+            if (jobCardProfileRequest.getJobIdRequested() != null) {
+                String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
+                if(jobId.equalsIgnoreCase(jobIdRequested))
+                {
+                    List<TacJobcard>  submittedRequest = userProfileService.getJobCard(jobIdRequested);
+                    return genericResponse(submittedRequest);
+                }
+                else {
+                    ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
+                    if (type.isStatus()) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        Boolean data = mapper.convertValue(
+                                type.getData(),
+                                new TypeReference<Boolean>() {
+                                });
+                        if (data) {
+                            List<TacJobcard> submittedRequest = userProfileService.getJobCard(jobIdRequested);
+                            return genericResponse(submittedRequest);
+                        } else {
+                            ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                                    null);
+                            return response;
+                        }
+                    } else {
+                        ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                                null);
+                        return response;
+                    }
+                }
+            } else {
+                List<TacJobcard> submittedRequest = userProfileService.getJobCard(jobId);
+                return genericResponse(submittedRequest);
+            }
+        } else {
+            if (jobCardProfileRequest.getJobIdRequested() != null) {
+                String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
+                List<TacJobcard> submittedRequest = userProfileService.getJobCard(jobIdRequested);
+                return genericResponse(submittedRequest);
+            } else {
+                List<TacJobcard> submittedRequest = userProfileService.getJobCard(jobId);
                 return genericResponse(submittedRequest);
             }
         }
@@ -118,26 +189,33 @@ public class UserProfileController {
 
             if (jobCardProfileRequest.getJobIdRequested() != null) {
                 String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
-                ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
-                if (type.isStatus()) {
-                    ObjectMapper mapper = new ObjectMapper();
-                    Boolean data = mapper.convertValue(
-                            type.getData(),
-                            new TypeReference<Boolean>() {
-                            });
-                    if (data) {
+                if(jobId.equalsIgnoreCase(jobIdRequested))
+                {
+                    List<UserCoursesAttended> submittedRequest = userProfileService.coursesAttendedWithStatus(jobIdRequested);
+                    return genericResponse(submittedRequest);
+                }
+                else {
+                    ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
+                    if (type.isStatus()) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        Boolean data = mapper.convertValue(
+                                type.getData(),
+                                new TypeReference<Boolean>() {
+                                });
+                        if (data) {
 
-                        List<UserCoursesAttended> submittedRequest = userProfileService.coursesAttendedWithStatus(jobIdRequested);
-                        return genericResponse(submittedRequest);
+                            List<UserCoursesAttended> submittedRequest = userProfileService.coursesAttendedWithStatus(jobIdRequested);
+                            return genericResponse(submittedRequest);
+                        } else {
+                            ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                                    null);
+                            return response;
+                        }
                     } else {
                         ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
                                 null);
                         return response;
                     }
-                } else {
-                    ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
-                            null);
-                    return response;
                 }
             } else {
                 List<UserCoursesAttended> submittedRequest = userProfileService.coursesAttendedWithStatus(jobId);
@@ -172,26 +250,33 @@ public class UserProfileController {
 
             if (jobCardProfileRequest.getJobIdRequested() != null) {
                 String jobIdRequested = jobCardProfileRequest.getJobIdRequested();
-                ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
-                if (type.isStatus()) {
-                    ObjectMapper mapper = new ObjectMapper();
-                    Boolean data = mapper.convertValue(
-                            type.getData(),
-                            new TypeReference<Boolean>() {
-                            });
-                    if (data) {
+                if(jobId.equalsIgnoreCase(jobIdRequested))
+                {
+                    List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobIdRequested);
+                    return genericResponse(submittedRequest);
+                }
+                else {
+                    ResponseType type = employeeProxyService.employeesUnderSupervisorCheck(jobIdRequested, token);
+                    if (type.isStatus()) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        Boolean data = mapper.convertValue(
+                                type.getData(),
+                                new TypeReference<Boolean>() {
+                                });
+                        if (data) {
 
-                        List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobIdRequested);
-                        return genericResponse(submittedRequest);
+                            List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobIdRequested);
+                            return genericResponse(submittedRequest);
+                        } else {
+                            ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
+                                    null);
+                            return response;
+                        }
                     } else {
                         ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
                                 null);
                         return response;
                     }
-                } else {
-                    ResponseType response = new ResponseType(UNAUTHORIZED, MessageUtil.FAILED, false,
-                            null);
-                    return response;
                 }
             } else {
                 List<UserHistoricalData> submittedRequest = userProfileService.historicalCoursesAttended(jobId);
@@ -209,6 +294,12 @@ public class UserProfileController {
         }
 
     }
+
+
+
+
+
+
 
 }
 

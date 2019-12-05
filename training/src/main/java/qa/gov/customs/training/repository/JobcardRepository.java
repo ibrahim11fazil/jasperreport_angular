@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import qa.gov.customs.training.entity.TacJobcard;
 
 import java.math.BigDecimal;
@@ -35,5 +36,12 @@ public interface JobcardRepository extends PagingAndSortingRepository<TacJobcard
     @Modifying
     @Query(value = "delete from TAC_JOBCARD_COURSE_LINK where JOBCARD_NO=:jobCardNumber AND COURSE_ID=:courseId", nativeQuery = true)
     void deleteJobCardByJobCardNumberAndCourseId(BigDecimal jobCardNumber, BigDecimal courseId);
+
+    @Query(value = "select * from tac_jobcard where "+
+            "job_grade=(select pslevel from user_sap_ws_mini where legacycode=:jobId "+
+            "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId)) "+
+            "and job_title =(select job from USER1_SAP_WS_MINI  where legacycode=:jobId "+
+            "and run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=:jobId))",nativeQuery = true)
+    List<TacJobcard> findFullJobCard(@Param("jobId") String jobId);
 
 }
