@@ -102,6 +102,11 @@
                               {{item}}
                         </mat-list-item>
                 </div>
+                <div  *ngIf="cancelledTask" color="warn"  fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                    <mat-chip-list>
+                        <mat-chip color="warn" selected> {{language.cancelRequest}} :  {{ cancelledTaskDate!=null? datepipe.transform(cancelledTaskDate, 'dd/MM/yyyy'):""}}   </mat-chip>
+                     </mat-chip-list> 
+               </div>
               </div>   
       </mat-card>
   </div>

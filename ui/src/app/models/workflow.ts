@@ -458,6 +458,7 @@ export class CancelRequest {
      status:Boolean;  
      requestId:String;
      jobId:String;
+     cancelledDate?:Date
 }
 
 

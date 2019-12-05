@@ -198,6 +198,7 @@ export const  COORDINATOR_COURSES=BASE_URL+training+"/coordinator-courses";
 export const  INSTRUCTOR_COURSES=BASE_URL+training+"/instructor-courses";
 export const  GET_LIST_FOR_CANCELLATION=BASE_URL+training+"/cancel-request-list";
 export const  CANCEL_REQUEST=BASE_URL+training+"/cancel-request";
+export const  CANCEL_REQUEST_STATUS=BASE_URL+training+"/cancel-request-status";
 
 
 //USER MANAGEMENT

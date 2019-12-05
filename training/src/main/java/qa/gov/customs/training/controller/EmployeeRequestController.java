@@ -134,6 +134,24 @@ public class EmployeeRequestController {
     }
 
     @PreAuthorize("hasAnyAuthority('workflow_validations')")
+    @PostMapping("/cancel-request-status")
+    public ResponseType getCancelRequestStatus(
+            @RequestBody CancelRequestStatus request,
+            @AuthenticationPrincipal CustomPrincipal principal) {
+        if (request != null) {
+            request.setJobId(principal.getJid());
+            CancelRequestStatus status = requestService.cancelRequestStatus(request.getRequestId());
+            if(status.getStatus()) {
+                return get(200, MessageUtil.SUCCESS, true, status);
+            }else{
+                return get(200, MessageUtil.FAILED, false, status);
+            }
+        } else {
+            return get(Constants.BAD_REQUEST, MessageUtil.REQUEST_CREATION_FAILED, false, null);
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('workflow_validations')")
     @PostMapping("/check-the-request-is-overriding")
     public ResponseType checkTheRequestIsOverriding(
             @Valid @RequestBody UserRequestModel request,

@@ -421,10 +421,12 @@ public class WorkflowImpl {
                 ObjectMapper mapper = new ObjectMapper();
                 //TODO Get other chairman
                 manager = userdata.get(0);
+
                 if (manager.getLegacyCode() != null) {
                     logger.info("Task assigned to im manger ### " +  manager.getImLegacyCode());
                     task.setAssignee(manager.getImLegacyCode());
                     task.setDescription(manager.getImCnameAr());
+                    //TODO absent case
                     if (getDelegationStatus(manager.getImLegacyCode())) {
                         //Absent Delegation area
                         List<ImmediateManager> delegations = userProxyService.getDelegationForEmployee(manager.getImLegacyCode());
@@ -451,7 +453,7 @@ public class WorkflowImpl {
                     requestService.saveOrUpdateWorkflow(model, WorkflowStatus.ERROR);
                     trainingProxyService.updateWorkFlow(model.getTrainingRequestId(), WorkflowStatus.ERROR, workflowToken);
                 }
-                //Set special delegation to admin done
+                //TODO Set special delegation to admin done
                 if (userdata != null && userdata.size() > 0) {
                     userdata.forEach(item -> {
                         if (item.getTrainingAdmin()!=null && item.getTrainingAdmin()) {
