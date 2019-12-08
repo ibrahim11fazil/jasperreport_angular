@@ -22,7 +22,6 @@ public class MessageUtil {
     public static String INSTRUCTOR_CREATION_FAILED="لا يمكن انشاء المحاضر";
     public static String COURSE_ACTIVATE="تم تفعيل الدورة التدريبية";
     public static String COURSE_ACTIVATE_FAIL="لا يمكن تفعيل الدورة التدريبية";
-    public static String SYSTEM_USER_CREATED = "User Created";
     public static String  FAILED="فشل العملية";
     public static String  SUCCESS="تمت العملية بنجاح";
     public static String  JOBCARD_CREATED="تم انشاء بطاقة الوصف الوظيفي";
@@ -39,14 +38,23 @@ public class MessageUtil {
     public static String CANCEL_SUCCESSFULL="Successfully Cancelled the course";
 
     //TODO don't remove %s in arabic
-    public static String CANCEL_REQUEST_SUCESS="Cancel Request:  %s Success";
-    public static String CANCEL_FAILED_REQUEST="Cancel Request: %s Cancellation failed, Contact Administrator.";
-    public static String CANCEL_REQUEST_ISSUE="Cancel Request: %s Less than 3 days ,you can't cancel";
-    public static String CANCEL_REQUEST_DATE_INVALID_ISSUE="Cancel Request: %s Dates Not found in the Data Base, Contact Administrator.";
-    public static String CANCEL_REQUEST_DATE_ISSUE="Cancel Request: %s  Activation Date Id Not found, Contact Administrator.";
-    public static String CANCEL_REQUEST_ACTIVATION_ID_ISSUE="Cancel Request: %s  ActivationId Not found, Contact Administrator.";
-    public static String CANCEL_REQUEST_REQUEST_ID_ISSUE="Cancel Request: %s  RequestId Not found,Contact Administrator.";
+//    public static String CANCEL_REQUEST_SUCESS="Cancel Request:  %s Success";
+//    public static String CANCEL_FAILED_REQUEST="Cancel Request: %s Cancellation failed, Contact Administrator.";
+//    public static String CANCEL_REQUEST_ISSUE="Cancel Request: %s Less than 3 days ,you can't cancel";
+//    public static String CANCEL_REQUEST_DATE_INVALID_ISSUE="Cancel Request: %s Dates Not found in the Data Base, Contact Administrator.";
+//    public static String CANCEL_REQUEST_DATE_ISSUE="Cancel Request: %s  Activation Date Id Not found, Contact Administrator.";
+//    public static String CANCEL_REQUEST_ACTIVATION_ID_ISSUE="Cancel Request: %s  ActivationId Not found, Contact Administrator.";
+//    public static String CANCEL_REQUEST_REQUEST_ID_ISSUE="Cancel Request: %s  RequestId Not found,Contact Administrator.";
 
+    //TODO don't remove %s in arabic
+    public static String CANCEL_REQUEST_SUCESS="الغاء الطلب:  s%   بنجاح";
+    public static String CANCEL_FAILED_REQUEST="الغاء الطلب:  s%  لم نتمكن من, الاتصال بمسئول النظام.";
+    public static String CANCEL_REQUEST_ISSUE="الغاء الطلب:  s%  متبقي علي الدورة التدريبية اقل من 3 ايام ,لا يمكن الالغاء";
+    public static String CANCEL_REQUEST_DATE_INVALID_ISSUE="الغاء الطلب:  s%  لا يمكن إيجاد التاريخ, تواصل مع مسئول النظام.";
+    public static String CANCEL_REQUEST_DATE_ISSUE="الغاء الطلب:  s%   تاريخ التفعيل غير متاح, رجاء الاتصال بمسئول النظام.";
+    public static String CANCEL_REQUEST_ACTIVATION_ID_ISSUE="الغاء الطلب:  s%   التفعيل غير متاح, رجاء التواصل مع مسئول النظام.";
+    public static String CANCEL_REQUEST_REQUEST_ID_ISSUE="الغاء الطلب:  s%   لا يمكن العثور علي الطلب رجاء التواصل مع مسئول النظام.";
+    public static String SYSTEM_USER_CREATED = "تم انشاء المستخدم";
 
 
 
