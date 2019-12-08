@@ -189,7 +189,6 @@ public class EmployeeProxyOverridenController {
         List<UserDelegation>  userDelegations =  userDelegationService.findUserByAssignedUser(id);
         if( userDelegations!=null){
             userDelegations.forEach(item -> {
-
                 DateTime midnightToday = DateTime.now().withTimeAtStartOfDay();
                 DateTime myWorkStartDate = new DateTime(item.getStartDate().getTime());
                 DateTime myWorkEndDate = new DateTime(item.getEndDate().getTime());
@@ -197,8 +196,14 @@ public class EmployeeProxyOverridenController {
                     ImmediateManager m = new ImmediateManager();
                     m.setLegacyCode(item.getToUser());
                     managers.add(m);
-                }
+                }else if(myWorkStartDate.withTimeAtStartOfDay().isEqual(midnightToday) ||
+                        myWorkEndDate.withTimeAtStartOfDay().isEqual(midnightToday)
 
+                ){
+                    ImmediateManager m = new ImmediateManager();
+                    m.setLegacyCode(item.getToUser());
+                    managers.add(m);
+                }
             });
             return managers;
         }else{
