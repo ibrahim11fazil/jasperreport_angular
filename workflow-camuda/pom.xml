@@ -95,6 +95,12 @@
             <version>1.2.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.5</version>
+        </dependency>
+
         <!--<dependency>-->
         <!--<groupId>org.camunda.bpm.springboot</groupId>-->
         <!--<artifactId>camunda-bpm-spring-boot-starter</artifactId>-->

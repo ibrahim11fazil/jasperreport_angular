@@ -1,5 +1,6 @@
 package qa.gov.customs.workflowcamuda.proxy;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -188,14 +189,16 @@ public class EmployeeProxyOverridenController {
         List<UserDelegation>  userDelegations =  userDelegationService.findUserByAssignedUser(id);
         if( userDelegations!=null){
             userDelegations.forEach(item -> {
-                if(
-                new Date().after(item.getStartDate()) &&
-                new Date().before(item.getEndDate())
-                ){
+
+                DateTime midnightToday = DateTime.now().withTimeAtStartOfDay();
+                DateTime myWorkStartDate = new DateTime(item.getStartDate().getTime());
+                DateTime myWorkEndDate = new DateTime(item.getEndDate().getTime());
+                if(midnightToday.isAfter(myWorkStartDate) &&  midnightToday.isBefore(myWorkEndDate)   ){
                     ImmediateManager m = new ImmediateManager();
                     m.setLegacyCode(item.getToUser());
                     managers.add(m);
                 }
+
             });
             return managers;
         }else{
