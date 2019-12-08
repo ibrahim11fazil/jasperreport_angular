@@ -31,7 +31,7 @@ public class DashboardServiceImpl implements DashboardService {
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        List<Object[]> object = courseRepository.getPreviousAttendedCourses(jobId, pageable);
+        List<Object[]> object = courseRepository.getPreviousAttendedCourses(jobId);
         for (Object[] o : object) {
             CourseManagement course = new CourseManagement();
             course.setCourseName((String) o[0]);
@@ -58,7 +58,7 @@ public class DashboardServiceImpl implements DashboardService {
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        List<Object[]> object = courseRepository.getCurrentlyAttendingCourses(jobId, pageable);
+        List<Object[]> object = courseRepository.getCurrentlyAttendingCourses(jobId);
         for (Object[] o : object) {
             CourseManagement course = new CourseManagement();
             course.setCourseName((String) o[0]);
@@ -83,7 +83,7 @@ public class DashboardServiceImpl implements DashboardService {
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        List<Object[]> object = courseRepository.getApprovedCourse(jobId, pageable);
+        List<Object[]> object = courseRepository.getApprovedCourse(jobId);
         for (Object[] o : object) {
             CourseManagement course = new CourseManagement();
             course.setCourseName((String) o[0]);

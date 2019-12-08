@@ -206,7 +206,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             Date coursePeriod = c.getTime();
 
-            objects = courseRepository.getCourseForNextYear(coursePeriod, pageable);
+            objects = courseRepository.getCourseForNextYear(coursePeriod);
         } else if (courseTime.compareTo(new BigDecimal(2)) == 0) {
 
             Calendar c = Calendar.getInstance();
@@ -218,7 +218,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             c1.add(Calendar.MONTH, 2);
             c1.set(Calendar.DAY_OF_MONTH, 1);//
             Date lastMnth = c1.getTime();
-            objects = courseRepository.getCourseForMonth(NextMnth, lastMnth, pageable);
+            objects = courseRepository.getCourseForMonth(NextMnth, lastMnth);
 
         } else if (courseTime.compareTo(new BigDecimal(3)) == 0) {
             Calendar c = Calendar.getInstance();
@@ -238,9 +238,9 @@ public class AttendanceServiceImpl implements AttendanceService {
             Date nextweek = c.getTime();
             logger.info(df.format(c.getTime()));
             //logger.info();
-            objects = courseRepository.getCourseForNextWeek(weekend, nextweek, pageable);
+            objects = courseRepository.getCourseForNextWeek(weekend, nextweek);
         } else if (courseTime.compareTo(new BigDecimal(4)) == 0) {
-            objects = courseRepository.getAllFutureCourses(pageable);
+            objects = courseRepository.getAllFutureCourses();
         }
 
         List<CourseManagement> courseList = new ArrayList<>();

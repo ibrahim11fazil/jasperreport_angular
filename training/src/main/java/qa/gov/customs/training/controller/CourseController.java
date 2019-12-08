@@ -271,7 +271,7 @@ public class CourseController {
         Pageable firstPageWithElements = PageRequest.of(0, 20);
         List<Course> courses = null;
 
-        courses = courseService.searchCourses(course, firstPageWithElements);
+        courses = courseService.searchCourses(course);
         if (courses != null && !courses.isEmpty()) {
 
             ResponseType response = new ResponseType(Constants.SUCCESS, MessageUtil.FOUND, true, courses);

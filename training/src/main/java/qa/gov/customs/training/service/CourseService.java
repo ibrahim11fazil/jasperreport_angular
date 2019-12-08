@@ -28,7 +28,7 @@ public interface CourseService {
 
     //List<TacCourseMaster> listCourses(Pageable firstPageWithElements);
     //List<TacCourseMaster> searchCourses(TacCourseMaster searchCriteria,Pageable firstPageWithElements);
-    List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements);
+    List<Course> searchCourses(TacCourseMaster searchCriteria);
 
     long countCourses();
 
