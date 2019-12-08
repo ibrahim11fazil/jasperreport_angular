@@ -36,6 +36,7 @@ export class EmpDelegationComponent implements OnInit {
   cNameStatus:String=""
   filteredUsers: SmartProfileUserResponseModelAjax[] = [];
   userProfile   :SmartProfileUserResponseModel
+  dateFilter = (date: Date) => date.getDay()!=5 && date.getDay()!=6 && date>=new Date();
   constructor(
     private userService:SystemUserService,
     private fb: FormBuilder,
@@ -180,6 +181,13 @@ export class EmpDelegationComponent implements OnInit {
           this.errorService.errorResponseHandling(error)
         }
     )
+  }
+
+
+  onScroll() {
+    // this.page = this.page + 1;
+    // this.firstSearch=false
+    // this.formSetup();
   }
 
   

@@ -25,7 +25,7 @@ export class EmpReqeustCancelComponent implements OnInit {
   displayedColumns: string[] = ['createdOn','course', 'jobId', 'status','action'];
   data : cancelListItem;
   firstSearch=false
-
+  dateFilter = (date: Date) => date.getDay()!=5 && date.getDay()!=6 && date>=new Date();
   constructor(private fb: FormBuilder,
     private modal: NgbModal,
     private trainingService: TrainingService,
@@ -91,6 +91,12 @@ export class EmpReqeustCancelComponent implements OnInit {
         this.errorService.errorResponseHandling(error)
       }
     )
+  }
+
+  onScroll() {
+    // this.page = this.page + 1;
+    // this.firstSearch=false
+    // this.formSetup();
   }
 
 }
