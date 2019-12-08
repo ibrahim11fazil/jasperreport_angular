@@ -74,9 +74,11 @@ public class ReportServiceImpl implements ReportService {
 //            String name = new String(certificateRequest.getUserName().getBytes("UTF-8"), "ISO-8859-1");
             //parameters.put("logo", getClass().getResourceAsStream(logo_path));
             //parameters.put("certificate", getClass().getResourceAsStream(cert_path));
-            String name = certificateRequest.getUserName() +"بأن السيد/ ";
-            String courseName= certificateRequest.getCourseName() + "قد شارك في دورة / ";
-            String courseDate= certificateRequest.getEndDate() + " إلى " + certificateRequest.getCourseDate() + " المنعقدة خلال الفترة من ";
+
+            String name =   "بأن السيد  "  +" / " + certificateRequest.getUserName();
+            String courseName=    "قد شارك في دورة  " + " / " + certificateRequest.getCourseName()  ;
+            //String courseDate= certificateRequest.getEndDate() + " إلى " + certificateRequest.getCourseDate() + " المنعقدة خلال الفترة من ";
+            String courseDate=   " المنعقدة خلال الفترة من " + certificateRequest.getCourseDate()  + " إلى " + certificateRequest.getEndDate();
             parameters.put("nameField", name);
             parameters.put("courseName", courseName);
             parameters.put("courseDate", courseDate);
