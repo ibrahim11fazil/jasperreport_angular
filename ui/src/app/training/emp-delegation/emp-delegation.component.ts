@@ -30,7 +30,7 @@ export class EmpDelegationComponent implements OnInit {
   selectedLegacyCode:String=null
   page = 0
   ds: UserDelegation[] = [];
-  displayedColumns: string[] = ['id','fromUser', 'toUser', 'startDate','endDate','delete'];
+  displayedColumns: string[] = ['fromUser', 'toUser', 'startDate','endDate','delete'];
   data : UserDelegation;
   firstSearch=false
   cNameStatus:String=""
