@@ -58,8 +58,8 @@ export class EmpReqeustCancelComponent implements OnInit {
       data => {
       var response = <CancelResponseList>data
         if (response.status) {
-         
-          this.ds=response.data 
+         let res=  response.data.filter( i =>  i.responseStatus!='REJECTED')
+          this.ds=res 
           this.ds = [...this.ds]; 
         }else{
           this.toastr.info("No items found")

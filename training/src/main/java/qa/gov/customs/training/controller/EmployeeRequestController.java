@@ -55,6 +55,7 @@ public class EmployeeRequestController {
                                     @RequestHeader(name = "Authorization") String token,
                                     @AuthenticationPrincipal CustomPrincipal principal) {
         UserRequestModel submitedRequest = null;
+
         submitedRequest = requestService.saveRequest(request);
         if (submitedRequest != null) {
             logger.info("Course request Created");

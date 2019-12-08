@@ -543,7 +543,7 @@ public class WorkflowImpl {
         //TODO accept based on workflow
         logger.info("Accepted" + model.getEmail());
         Optional<RequestActions>  ref = requestService.findById(model);
-        if(ref.isPresent() && ref.get().getCancelledFlag().equals("1")){
+        if(ref.isPresent() && ref.get().getCancelledFlag()!=null &&  ref.get().getCancelledFlag().equals("1")){
             //Message is not send
             //String message = COURSE_APPROVED + model.getCourseName();
             requestService.saveOrUpdateWorkflow(model, WorkflowStatus.APPROVED);

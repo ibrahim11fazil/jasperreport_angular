@@ -21,10 +21,7 @@ import qa.gov.customs.training.utils.SystemUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static qa.gov.customs.training.utils.MessageUtil.*;
 
@@ -54,6 +51,7 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
         tacWorkflowReference.setWorkflowId(idGenerated);
         tacWorkflowReference.setData(jsonProcessing(requestModel));
         tacWorkflowReference.setFromUser(requestModel.getJobId());
+        tacWorkflowReference.setCancelledFalg(new BigInteger("0"));
         if (requestModel.getForUserJobId() != null) {
             tacWorkflowReference.setToUser(requestModel.getForUserJobId());
         } else {
@@ -119,7 +117,19 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
         }
         List<TacWorkflowReference> items =
                 requestRepository.findByToUserAndActivationId(userId, activationId);
+
         if (items != null && items.size() > 0) {
+            List<Boolean> isApplied =new ArrayList<>();
+           for(TacWorkflowReference i :items) {
+                 if(i.getCancelledFalg()==null || i.getCancelledFalg()==new BigInteger("0")){
+                     isApplied.add(false);
+                 }else{
+                     isApplied.add(true);
+                 }
+            }
+             if(isApplied.contains(true))
+            return false;
+             else
             return true;
         } else {
             return false;
@@ -143,7 +153,7 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
                    if(dates!=null){
                        DateTime fromDate =new DateTime();
                        DateTime toDate =new DateTime(dates.getCourseDate().getTime());
-                       if(Days.daysBetween(fromDate,toDate).getDays()>3){
+                       if(Days.daysBetween(fromDate,toDate).getDays()>=3){
                            TacWorkflowReference reference = optional.get();
                            reference.setCancelledFalg(new BigInteger("1"));
                            reference.setCancelledOn(new Date());
@@ -195,7 +205,7 @@ public class EmployeeRequestServiceImpl implements EmployeeRequestService {
         Optional<TacWorkflowReference> cancel =  requestRepository.findById(requestId);
         CancelRequestStatus item =new CancelRequestStatus();
         item.setRequestId(requestId);
-        if(cancel.isPresent() && cancel.get().getCancelledFalg().equals(new BigInteger("1"))){
+        if(cancel.isPresent() && cancel.get().getCancelledFalg()!=null &&  cancel.get().getCancelledFalg().equals(new BigInteger("1"))){
             item.setStatus(true);
             item.setCancelledDate(cancel.get().getCancelledOn());
         }else{
