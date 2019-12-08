@@ -14,8 +14,8 @@ export class LanguageUtil {
   activity_message: String = this.isArabic ? "يجب عليك إدخال عنوان النشاط التادريبي" : "You must enter the activity Name"
   label_Id: String = this.isArabic ? " رقم النشاط" : "Id"
   label_delete: String = this.isArabic ? "حذف" : "Delete"
-  validation_activity_length_5:String= this.isArabic?"activity name must be at least 5 characters long.":"activity name must be at least 5 characters long."
-  valifation_activity_length_max_25:String=this.isArabic?"  activity name cannot exceed 25 characters.":"  activity name cannot exceed 25 characters."
+  validation_activity_length_5:String= this.isArabic?"اسم النشاط التدريبي يجب ان يكون أكبر من 5 حروف.":"activity name must be at least 5 characters long."
+  valifation_activity_length_max_25:String=this.isArabic?" لا يمكن ان يتجاوز اسم النشاط التدريبي 25 حرف.":"  activity name cannot exceed 25 characters."
 
   //Course Creation
   title_courseDefinition: String = this.isArabic ? "تعريف دورة تدريبية" : "Course Definition"
@@ -222,13 +222,13 @@ export class LanguageUtil {
   comments: String = this.isArabic ? "التعليقات" : "Comments"
   addComment: String = this.isArabic ? "أضف تعليق" : "Add Comment"
   requiredComment:String=  this.isArabic ? "التعليق مطلوب" : " Required Comment"
-  noSeatComment: String = this.isArabic?"No Seats available, Rejected":"No Seats available, Rejected"
-  noSeatMessage: string = this.isArabic?"No Seats available, Kindly reject":"No Seats available, Kindly reject"
-  chooseStartDate: String = this.isArabic ? "Choose Start Date" : "Choose Start Date"
-  chooseEndDate: String = this.isArabic ? "Choose End Date" : "Choose End Date"
-  validationDelegation:String = this.isArabic?"JobId,start Date and End Date  is required":"JobId,start Date and End Date  is required"
-  datesValidationInDelgation:String= this.isArabic?"Dates are not valid, end date is same or after the start date":"Dates are not valid, end date is same or after the start date"
-  delegationsNotFound:String=this.isArabic?"No items found":"No items found"
+  noSeatComment: String = this.isArabic?"عفوا لا توجد مقاعد متاحة, تم":"No Seats available, Rejected"
+  noSeatMessage: string = this.isArabic?"لا توجد مقاعد متاحة, رجاء الرفض":"No Seats available, Kindly reject"
+  chooseStartDate: String = this.isArabic ? "اختر تاريخ البداية" : "Choose Start Date"
+  chooseEndDate: String = this.isArabic ? "اختر تاريخ النهاية" : "Choose End Date"
+  validationDelegation:String = this.isArabic?"تاريخ البداية مطلوب":"JobId,start Date and End Date  is required"
+  datesValidationInDelgation:String= this.isArabic?"التواريخ غير صالحة, تاريخ النهاية قبل تاريخ البداية او":"Dates are not valid, end date is same or after the start date"
+  delegationsNotFound:String=this.isArabic?"لم يتم العثور علي العناصر":"No items found"
   
   //History
 
@@ -271,11 +271,11 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   btn_approve: String = this.isArabic ? "موافقة" : "Approve "
   btn_reject: String = this.isArabic ? "رفض" : "Reject "
   noDataToDisplay=this.isArabic? "لايوجد بيانات":"No Data to Display"
-  btn_cancelCourse:String=this.isArabic ? "Cancel Course 1" :"Cancel Course"
-  cancelCourse: String = this.isArabic ? "Cancel Course 1" : "Cancel Course"
-  btn_done:String=this.isArabic? "Done1":"Done"
-  btn_addParticipants:String=this.isArabic ? "Add Participants 1" :"Add Participants"
-  btn_clear: String = this.isArabic ? "Clear" : "Clear"
+  btn_cancelCourse:String=this.isArabic ? "الغاء دورة تدريبية" :"Cancel Course"
+  cancelCourse: String = this.isArabic ? "الغاء دورة تدريبية" : "Cancel Course"
+  btn_done:String=this.isArabic? "تم":"Done"
+  btn_addParticipants:String=this.isArabic ? "إضافة مشاركين" :"Add Participants"
+  btn_clear: String = this.isArabic ? "مسح" : "Clear"
   
 
 
@@ -350,7 +350,7 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   error_request_exisit = this.isArabic ? "الطلب موجود بالفعل" : "The request alredy exisit."
   error_user_absent = this.isArabic ? "تم تسجيل غياب للمستخدم في هذا التاريخ، حاول بتاريخ آخر" : "The use is absent on the date,Try another date "
   error_date_request = this.isArabic ? "لقد قمت بطلب دورة في نفس التاريخ، اختر تاريخ آخر" : "You are alraeady requested for another course in the same time. Try some other dates"
-   seat_full_message=this.isArabic ? " Seats are full1" : "تم اكتمال العدد"
+   seat_full_message=this.isArabic ? "تم اكتمال العدد":" Seats are full1" 
 
 
   //jobcard status
@@ -375,34 +375,34 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
 
   selectCourseOrActivitytoviewdate=this.isArabic?"اختر نشاط أو دورة تدريبية لعرض التاريخ" :"Select Course or Activity to view date"
   attendanceMarkedSuccessfully=this.isArabic? "تم تسجيل الحضور بنجاح": "Attendance Marked Successfully"
-  courseCancelSuccessfull=this.isArabic? "Successfully Cancelled Course 1": "Successfully Cancelled Course"
-  couldNotMarkFutureAttendance=this.isArabic? "Could not mark attendance for future dates 1":"Could not mark attendance for future dates"
-  deleteParticipants=this.isArabic?"Delete Participants1":"Delete Participants"
-  courseHistory=this.isArabic?"Course History 1" :"Course History"
-  jobcardNotFound=this.isArabic?"No Job Card Found":"No Job Card Found"
-  cancelRequest=this.isArabic?"This request is cancelled by user":"This request is cancelled by user"
+  courseCancelSuccessfull=this.isArabic? "تم الغاء الدورة التدريبية": "Successfully Cancelled Course"
+  couldNotMarkFutureAttendance=this.isArabic? "لا يمكن تعيين الحضور في المستقبل":"Could not mark attendance for future dates"
+  deleteParticipants=this.isArabic?"حذف المشاركين":"Delete Participants"
+  courseHistory=this.isArabic?"تاريخ الدورات التدريبية" :"Course History"
+  jobcardNotFound=this.isArabic?"لم يتم العثور علي بطاقة وظيفية او تدريبية":"No Job Card Found"
+  cancelRequest=this.isArabic?"هذا الطلب تم الغاءه بواسطة المستخدم":"This request is cancelled by user"
 
 
 
   //REquest cancel page
-  cancelRequestTitle=this.isArabic?"Cancel Course Request":"Cancel Course Request"
-  cancelRequestCreatedOn=this.isArabic?"Created On":"Created On"
-  cancelRequestcourse=this.isArabic?"Course":"Course"
-  cancelRequestjobId=this.isArabic?"Job Number":"Job Number"
-  cancelRequestStatus=this.isArabic?"Status":"Status"
-  cancelRequestProcessing=this.isArabic?"Processing":"Processing"
-  cancelRequestCancelled=this.isArabic?"Cancelled":"Cancelled"
-  cancelRequestAction=this.isArabic?"Action":"Action"
-  cancelRequestCancelRequest=this.isArabic?"Cancel":"Cancel"
+  cancelRequestTitle=this.isArabic?"طلب الغاء دورة تدريبية":"Cancel Course Request"
+  cancelRequestCreatedOn=this.isArabic?"تم الانشاء في":"Created On"
+  cancelRequestcourse=this.isArabic?"دورة تدريبية":"Course"
+  cancelRequestjobId=this.isArabic?"الرقم الوظيفي":"Job Number"
+  cancelRequestStatus=this.isArabic?"الحالة":"Status"
+  cancelRequestProcessing=this.isArabic?"المعالجة":"Processing"
+  cancelRequestCancelled=this.isArabic?"تم الالغاء":"Cancelled"
+  cancelRequestAction=this.isArabic?"اجراء":"Action"
+  cancelRequestCancelRequest=this.isArabic?"الغاء":"Cancel"
 
   //delegation
-  delegation_fromUser=this.isArabic?"Assigned From":"Assigned From"
-  delegation_toUser=this.isArabic?"Assigned To":"Assigned To"
-  delegation_startDate=this.isArabic?"Start Date":"Start Date"
-  delegation_endDate=this.isArabic?"End Date":"End Date"
-  delegation_action=this.isArabic?"Action":"Action"
-  delegation_action_delete=this.isArabic?"Action":"Action"
-  delegation_action_delete_btn=this.isArabic?"Delete":"Delete"
+  delegation_fromUser=this.isArabic?"تم التعيين من":"Assigned From"
+  delegation_toUser=this.isArabic?"تم التعيين الي":"Assigned To"
+  delegation_startDate=this.isArabic?"تاريخ البداية":"Start Date"
+  delegation_endDate=this.isArabic?"تاريخ النهاية":"End Date"
+  delegation_action=this.isArabic?"الاجراء":"Action"
+  delegation_action_delete=this.isArabic?"الاجراء":"Action"
+  delegation_action_delete_btn=this.isArabic?"حذف":"Delete"
 
   
   
