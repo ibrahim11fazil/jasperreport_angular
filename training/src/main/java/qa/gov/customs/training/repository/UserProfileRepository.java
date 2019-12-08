@@ -31,6 +31,7 @@ public interface UserProfileRepository extends JpaRepository<Dummy, String> {
             " b.attendees_Id,b.course_status from tac_course_activation a,TAC_COURSE_ATTENDEES b,tac_course_master c  " +
             " where a.activation_id=b.activation_id " +
             " and b.job_id=:jobId " +
+            " and b.status=1 " +
             " and a.course_id=c.course_id ", nativeQuery = true)
     List<Object[]> coursesAttendedWithStatus(@Param("jobId") String jobId);
 
