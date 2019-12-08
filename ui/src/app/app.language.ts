@@ -379,6 +379,7 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   couldNotMarkFutureAttendance=this.isArabic? "Could not mark attendance for future dates 1":"Could not mark attendance for future dates"
   deleteParticipants=this.isArabic?"Delete Participants1":"Delete Participants"
   courseHistory=this.isArabic?"Course History 1" :"Course History"
+  jobcardNotFound=this.isArabic?"No Job Card Found":"No Job Card Found"
   cancelRequest=this.isArabic?"This request is cancelled by user":"This request is cancelled by user"
 
 

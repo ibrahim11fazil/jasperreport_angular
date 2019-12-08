@@ -20,7 +20,7 @@ import { Page } from 'app/models/paged-data';
 import { ErrorService } from 'app/service/error/error.service';
 import { Observable } from 'rxjs';
 import { tap, debounceTime, switchMap, finalize } from 'rxjs/operators';
-import { JobCardData } from 'app/models/job-card-data';
+import { JobCardData, IJobCardDataListResponse, TacJobcardDuty, TacJobcardCondition, TacJobcardSkill } from 'app/models/job-card-data';
 
 
 @Component({
@@ -40,9 +40,13 @@ export class SmartProfileComponent implements OnInit {
    userCourseResponseProfile:UserCourseResponseProfile[]=[]
    userCourseHistoryProfile:UserCourseHistoryProfile[]=[]
   displayCourses: boolean = false
+  jobcardData:JobCardData[];
   page = new Page();
   courseManagement:CourseManagementRes[]=[]
   isLoading = false;
+  jobcardDutiesString:String[]=[]
+  jobcardConditionsString:String[]=[]
+  jobcardSkillsString:String[]=[]
  
   filteredUsers: SmartProfileUserResponseModelAjax[] = [];
 
@@ -98,7 +102,7 @@ export class SmartProfileComponent implements OnInit {
 
   getUserInformations(jobId: String, isSearch: Boolean) {
     this.clear();
-    debugger;
+    //debugger;
     if (!isSearch) {
       jobId = this.authService.getLegacyCode()
     }
@@ -142,7 +146,7 @@ export class SmartProfileComponent implements OnInit {
  
 
   getUserProfile(jobId: String, isSearch: Boolean) {
-    debugger
+    //debugger
     var input = new SmartProfileUserRequestModel()
     input.jobIdRequested = jobId
     this.trainingService.getEmployeeSmartProfile(input).subscribe(
@@ -169,7 +173,7 @@ export class SmartProfileComponent implements OnInit {
   getUserJobCard(jobId: String, isSearch: Boolean) {
     var input = new SmartProfileUserRequestModel()
     input.jobIdRequested = jobId
-    debugger
+    //debugger
     this.trainingService.getEmployeeJobCardForSmartProfile(input).subscribe(
       data => {
         var response = <JobCardProfileRequest>data
@@ -179,7 +183,7 @@ export class SmartProfileComponent implements OnInit {
         }
         else {
           console.log(response.message)
-          this.toastr.info("No Job Card Found")
+          this.toastr.info(this.language.jobcardNotFound)
         }
       },
       error => {
@@ -196,15 +200,14 @@ export class SmartProfileComponent implements OnInit {
     debugger
     this.trainingService.getfullJobCard(input).subscribe(
       data => {
-        var response = <JobCardData>data
-        // if (response.status && response.data.length > 0) {
-        //   this.jobCardProfile = response.data
-        //   this.smartSuggession()
-        // }
-        // else {
-        //   console.log(response.message)
-        //   this.toastr.info("No Job Card Found")
-        // }
+        var response = <IJobCardDataListResponse>data
+        
+        if (response.status && response.data.length > 0) {
+          this.jobcardData = response.data
+         
+         
+        }
+       
       },
       error => {
         console.log(error)

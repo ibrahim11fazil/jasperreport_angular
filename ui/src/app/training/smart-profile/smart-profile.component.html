@@ -131,8 +131,45 @@
                       <span class="label primary-bg border-rad-base"> {{language.jobCardDetails}}  </span>
                       </div>
                 <mat-list>
+                     <h4>{{language.conditionTogetJob}}</h4>
+                     <mat-list-item *ngFor="let item of jobcardData">
+                           <div class="card-title mrgn-b-md" > 
+                                <ul><li *ngFor="let conditions of item.tacJobcardConditions">
+                                    <div class="card-title mrgn-b-md" > 
+                                          {{conditions.jobConditions}}
+                                       </div>
+
+                                </li></ul>             
+                        </div>
+                     </mat-list-item>
+                     <h4>{{language.jobDuties}}</h4>
+                        <mat-list-item *ngFor="let item of jobcardData">
+                        <div class="card-title mrgn-b-md" > 
+                              <ul><li *ngFor="let duties of item.tacJobcardDuties">
+                                  <div class="card-title mrgn-b-md"> 
+                                        {{duties.dutyDescription}}
+                                     </div>
+
+                              </li></ul>             
+                      </div>
+                      </mat-list-item>
+                  <h4>{{language.jobSkills}}</h4>
+                  <mat-list-item *ngFor="let item of jobcardData">
+                      <div class="card-title mrgn-b-md" > 
+                           <ul><li *ngFor="let skills of item.tacJobcardSkills">
+                               <div class="card-title mrgn-b-md"> 
+                                     {{skills.jobSkills}}
+                                  </div>
+
+                           </li></ul>             
+                   </div>
+                   </mat-list-item>                                    
+                     
+                      <h4>{{language.trainingCourses}}</h4>
                    <mat-list-item *ngFor="let item of jobCardProfile">
+                       
                         <div class="card-title mrgn-b-md"> 
+                           
                            {{item.category}} - Hours: {{item.noOfHours}}  -  Course: {{item.courseName}}
                         </div>
 
