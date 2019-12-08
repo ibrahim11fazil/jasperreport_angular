@@ -324,9 +324,9 @@ export class CourseManagementComponent implements OnInit {
     const dateEnd = Number(strENd[1]);
     const monthEnd = Number(strENd[0]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
-    // if (this.courseEndDate = new Date()) {
-    //   this.courseCompletion = true;
-    // }
+    if (this.courseEndDate <= new Date()) {
+      this.courseCompletion = true;
+    }
     console.log(this.courseEndDate)
     let courseActivation = new TacActivation(0, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0, 0)
     courseActivation.activationId = row.activation_id
@@ -736,7 +736,7 @@ export class CourseManagementComponent implements OnInit {
     this.trainingService.courseCompletionDetails(course).subscribe(
       data => {
         var response = <ResponseEmpData>data
-        //this.courseCompletionData = Response.data;
+        this.courseCompletionData = response.data;
         this.getCertificates(this.eventCourseDetail.activation_id, response.data)
 
       })

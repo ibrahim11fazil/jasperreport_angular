@@ -38,7 +38,7 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
             " from USER1_SAP_WS_MINI a join TAC_COURSE_ATTENDEES b on a.LEGACYCODE in" +
             "(select job_id from TAC_COURSE_ATTENDEES where activation_id=:activationId and status=1)" +
             "and a.run_date=(select max(run_date) from USER1_SAP_WS_MINI where legacycode=a.legacycode)" +
-            " and b.job_id=a.legacycode and b.activation_id=:activationId", nativeQuery = true)
+            " and b.job_id=a.legacycode and b.activation_id=:activationId and b.status=1 ", nativeQuery = true)
     List<Object[]> getEmpData(BigDecimal activationId);
 
     @Query(value = "select a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id,count(case when attendance_flag=1 then 1 end)\n" +
@@ -48,7 +48,6 @@ public interface MawaredRepository extends JpaRepository<MawaredMaster, Long> {
             "           and b.activation_id=:activationId\n" +
             "           and b.attendees_id=c.attendees_id\n" +
             "            and b.status=1 " +
-            "           --and b.attendees_id=2\n" +
             "           group by a.LEGACYCODE,a.CNAME_AR,a.ORGUNIT_DESC_AR,a.position_DESC_AR,a.MOBILE,a.run_date,b.attendees_Id", nativeQuery = true)
     List<Object[]> getEmpDataforAttendance(BigDecimal activationId);
 
