@@ -29,7 +29,7 @@
                       <th mat-header-cell *matHeaderCellDef> {{language.cancelRequestStatus}} </th>  
                       <td mat-cell *matCellDef="let element">
                           <mat-chip-list>
-                              <mat-chip color="{{element.cancelledFalg==0?'primary':'warn'}}" selected> {{element.cancelledFalg==0?language.cancelRequestProcessing:language.cancelRequestCancelled}} </mat-chip>
+                              <mat-chip color="{{element.cancelledFalg==0?'primary':'warn'}}" selected> {{element.cancelledFalg==0 || element.cancelledFalg==null ?language.cancelRequestProcessing:language.cancelRequestCancelled}} </mat-chip>
                            </mat-chip-list> 
                         
                         </td>  
@@ -39,9 +39,8 @@
                         <th mat-header-cell *matHeaderCellDef> {{language.cancelRequestAction}} </th>  
                         <td mat-cell *matCellDef="let element">  
 
-                            <button mat-raised-button color="warn" *ngIf="element.cancelledFalg==0"  class="m-1" (click)="cancelRow(element)">{{language.cancelRequestCancelRequest}}</button>
-                               
-                  
+                            <button mat-raised-button color="warn" *ngIf="element.cancelledFalg==0 || element.cancelledFalg==null"  class="m-1" (click)="cancelRow(element)">{{language.cancelRequestCancelRequest}}</button>
+
                           </td>  
                       </ng-container> 
     

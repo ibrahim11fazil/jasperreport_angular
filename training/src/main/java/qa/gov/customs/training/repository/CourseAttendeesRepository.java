@@ -35,6 +35,7 @@ public interface CourseAttendeesRepository extends JpaRepository<TacCourseAttend
 
 
     @Modifying
+    @Transactional
     @Query(value = "delete from TAC_COURSE_ATTENDEES where JOB_ID=:jobId AND ACTIVATION_ID=:activationId", nativeQuery = true)
     void deleteAttendeeByJobIdAndActivationId(String jobId,BigInteger activationId);
 

@@ -136,14 +136,11 @@ export class EmpDelegationComponent implements OnInit {
 
 
   onSubmit(){
-
     var legacyS=null
-    debugger
     if(this.selectedLegacyCode!=null)
         legacyS = this.selectedLegacyCode
     else
         legacyS =this.form.value.jobId
-
     if(this.form.valid){
     if(legacyS!=null && this.form.value.startDate!=null && 
       this.form.value.endDate!=null){
