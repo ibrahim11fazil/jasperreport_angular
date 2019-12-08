@@ -384,6 +384,29 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
 
 
 
+  //REquest cancel page
+  cancelRequestTitle=this.isArabic?"Cancel Course Request":"Cancel Course Request"
+  cancelRequestCreatedOn=this.isArabic?"Created On":"Created On"
+  cancelRequestcourse=this.isArabic?"Course":"Course"
+  cancelRequestjobId=this.isArabic?"Job Number":"Job Number"
+  cancelRequestStatus=this.isArabic?"Status":"Status"
+  cancelRequestProcessing=this.isArabic?"Processing":"Processing"
+  cancelRequestCancelled=this.isArabic?"Cancelled":"Cancelled"
+  cancelRequestAction=this.isArabic?"Action":"Action"
+  cancelRequestCancelRequest=this.isArabic?"Cancel":"Cancel"
+
+  //delegation
+  delegation_fromUser=this.isArabic?"Assigned From":"Assigned From"
+  delegation_toUser=this.isArabic?"Assigned To":"Assigned To"
+  delegation_startDate=this.isArabic?"Start Date":"Start Date"
+  delegation_endDate=this.isArabic?"End Date":"End Date"
+  delegation_action=this.isArabic?"Action":"Action"
+  delegation_action_delete=this.isArabic?"Action":"Action"
+  delegation_action_delete_btn=this.isArabic?"Delete":"Delete"
+
+  
+  
+  
 
 }
 

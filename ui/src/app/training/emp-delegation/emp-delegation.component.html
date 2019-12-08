@@ -82,31 +82,31 @@
                 </ng-container>   -->
                 
                 <ng-container matColumnDef="fromUser">  
-                  <th mat-header-cell *matHeaderCellDef> fromUser</th>  
+                  <th mat-header-cell *matHeaderCellDef> {{language.delegation_fromUser}}</th>  
                   <td mat-cell *matCellDef="let element"> {{element.fromUser}}  </td>  
                 </ng-container>  
                 <ng-container matColumnDef="toUser">  
-                    <th mat-header-cell *matHeaderCellDef>toUser </th>  
+                    <th mat-header-cell *matHeaderCellDef>{{language.delegation_toUser}} </th>  
                     <td mat-cell *matCellDef="let element"> {{element.toUser}}  </td>  
                   </ng-container> 
 
                   <ng-container matColumnDef="startDate">  
-                      <th mat-header-cell *matHeaderCellDef>startDate </th>  
+                      <th mat-header-cell *matHeaderCellDef>{{language.delegation_startDate}} </th>  
                       <td mat-cell *matCellDef="let element"> {{element.startDate}}  </td>  
                     </ng-container> 
 
                     <ng-container matColumnDef="endDate">  
-                        <th mat-header-cell *matHeaderCellDef>endDate </th>  
+                        <th mat-header-cell *matHeaderCellDef>{{language.delegation_endDate}} </th>  
                         <td mat-cell *matCellDef="let element"> {{element.endDate}}  </td>  
                       </ng-container> 
                  
                 
             
                 <ng-container matColumnDef="delete">  
-                    <th mat-header-cell *matHeaderCellDef>delete</th>  
+                    <th mat-header-cell *matHeaderCellDef>{{language.delegation_action}}</th>  
                     <td mat-cell *matCellDef="let element">  
 
-                        <button mat-raised-button color="warn"  class="m-1" (click)="cancelRow(element)">delete</button>
+                        <button mat-raised-button color="warn"  class="m-1" (click)="cancelRow(element)">{{language.delegation_action_delete_btn}}</button>
                            
               
                       </td>  
