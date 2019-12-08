@@ -28,8 +28,9 @@ public class MessageUtil {
     public static String COURSE_REJECTED= "تم رفض طلب التدريب لدورة: ";
     public static String COURSE_APPROVED= "تم قبول طلب التدريب لدورة: ";
     public static String EMAIL_SUBJECT="تنبيهات نظام التدريب";
-    public static String MESSAGE_TASK_HEAD_APPROVED="Final Processing will take time,We will start processing when head Of Training approved.";
-    public static String  FAILED_SAME_USER="User and Delegated user is same.";
-    public static String  FAILED_ALREADY_INSERTED="Already inserted";
-    public static String  FAILED_INVALID_JOBID="Not a valid JobId";
+
+    public static String MESSAGE_TASK_HEAD_APPROVED="سيتم التفعيل فور الانتهاء من الاعتمادات المطلوبة.";
+    public static String  FAILED_SAME_USER="الشخص المفوض هو نفسه الشخص الرئيسي.";
+    public static String  FAILED_ALREADY_INSERTED="تم الادراج مسبقا";
+    public static String  FAILED_INVALID_JOBID="رقم وظيفة غير صالح";
 }

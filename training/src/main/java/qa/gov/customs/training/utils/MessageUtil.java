@@ -29,13 +29,13 @@ public class MessageUtil {
     public static String JOBCARDDUTIES_CREATED = "JOBCARD DUTIES CREATED";
     public static  String REQUEST_CREATED=" تم انشاء الطلب";
     public static String  REQUEST_CREATION_FAILED = "لا يمكن انشاء الطلب";
-    public static String SEATS_ARE_FULL="Seats are full";
-    public static String EXISTING_EMPLOYEE="Employee already enrolled for the course";
-    public static String COURSE_NOT_IN_EMPJOBCARD="This is course is not linked with Employee JobCard";
-    public static String ENROLLED_FOR_COURSE="Employee Successfully Enrolled For Course";
-    public static String REMOVE_PARTICIPANT="Employee Successfully Removed From Course";
-    public static String REMOVE_PARTICIPANT_FAILED="Removing Employee from the course Failed";
-    public static String CANCEL_SUCCESSFULL="Successfully Cancelled the course";
+    public static String SEATS_ARE_FULL="عفوا تم اكتمال العدد";
+    public static String EXISTING_EMPLOYEE="الموظف مسجل بالفعل";
+    public static String COURSE_NOT_IN_EMPJOBCARD="يرجي الانتباه ان الدورة التدريبية غير مدرجة ضمن البطاقة التدريبية للموظف";
+    public static String ENROLLED_FOR_COURSE="تم ادراج الموظف للدورة التدريبية بنجاح";
+    public static String REMOVE_PARTICIPANT="تم حذف الموظف من الدورة التدريبية بنجاح";
+    public static String REMOVE_PARTICIPANT_FAILED="عفوا لم نتمكن من حذف الموظف من الدورة التدريبية";
+    public static String CANCEL_SUCCESSFULL="تم الغاء الدورة التدريبية";
 
     //TODO don't remove %s in arabic
 //    public static String CANCEL_REQUEST_SUCESS="Cancel Request:  %s Success";
@@ -56,7 +56,15 @@ public class MessageUtil {
     public static String CANCEL_REQUEST_REQUEST_ID_ISSUE="الغاء الطلب:  s%   لا يمكن العثور علي الطلب رجاء التواصل مع مسئول النظام.";
     public static String SYSTEM_USER_CREATED = "تم انشاء المستخدم";
 
-
+    //TODO don't remove %s in arabic
+//    public static String CANCEL_REQUEST_SUCESS="الغاء الطلب:  %s بنجاح";
+//    public static String CANCEL_FAILED_REQUEST="الغاء الطلب: %s لم نتمكن من, الاتصال بمسئول النظام.";
+//    public static String CANCEL_REQUEST_ISSUE="الغاء الطلب: %s متبقي علي الدورة التدريبية اقل من 3 ايام ,لا يمكن الالغاء";
+//    public static String CANCEL_REQUEST_DATE_INVALID_ISSUE="الغاء الطلب: %s لا يمكن إيجاد التاريخ, تواصل مع مسئول النظام.";
+//    public static String CANCEL_REQUEST_DATE_ISSUE="الغاء الطلب: %s  تاريخ التفعيل غير متاح, رجاء الاتصال بمسئول النظام.";
+//    public static String CANCEL_REQUEST_ACTIVATION_ID_ISSUE="الغاء الطلب: %s  التفعيل غير متاح, رجاء التواصل مع مسئول النظام.";
+//    public static String CANCEL_REQUEST_REQUEST_ID_ISSUE="الغاء الطلب: %s  لا يمكن العثور علي الطلب رجاء التواصل مع مسئول النظام.";
+//    public static String SYSTEM_USER_CREATED = "تم انشاء المستخدم";
 
 
 

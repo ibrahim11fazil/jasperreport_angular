@@ -179,7 +179,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> searchCourses(TacCourseMaster searchCriteria, Pageable firstPageWithElements) {
+    public List<Course> searchCourses(TacCourseMaster searchCriteria) {
         //activity and course name not present
         if ((searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals(""))
                 && (searchCriteria.getTacActivities() == null || searchCriteria.getTacActivities().size() == 0)) {
@@ -188,7 +188,7 @@ public class CourseServiceImpl implements CourseService {
         //only course name present
         else if ((searchCriteria.getCourseName() != null)
                 && (searchCriteria.getTacActivities() == null || searchCriteria.getTacActivities().size() == 0)) {
-            List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName(), firstPageWithElements);
+            List<Object[]> objects = courseRepository.findIdAndNameByCourseName(searchCriteria.getCourseName());
             List<Course> courses = new ArrayList<>();
             for (Object[] o : objects) {
                 Course course = new Course();
@@ -206,7 +206,7 @@ public class CourseServiceImpl implements CourseService {
                 if ((searchCriteria.getCourseName() == null || searchCriteria.getCourseName().equals(""))
                         && (activity.getActivityName() != null)) {
 
-                    List<Object[]> objects = courseRepository.findCourseUnderActivity(activity.getActivityName(), firstPageWithElements);
+                    List<Object[]> objects = courseRepository.findCourseUnderActivity(activity.getActivityName());
                     List<Course> courses = new ArrayList<>();
                     for (Object[] o : objects) {
                         Course course = new Course();
@@ -221,7 +221,7 @@ public class CourseServiceImpl implements CourseService {
 
                 //activity and course name present
                 else {
-                    List<Object[]> objects = courseRepository.findIdAndNameByCourseNameAndActivityName(searchCriteria.getCourseName(), activity.getActivityName(), firstPageWithElements);
+                    List<Object[]> objects = courseRepository.findIdAndNameByCourseNameAndActivityName(searchCriteria.getCourseName(), activity.getActivityName());
                     List<Course> courses = new ArrayList<>();
                     for (Object[] o : objects) {
                         Course course = new Course();
@@ -496,7 +496,7 @@ public class CourseServiceImpl implements CourseService {
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
 
-        List<Object[]> objects = courseRepository.getAllCurrentCourses(pageable);
+        List<Object[]> objects = courseRepository.getAllCurrentCourses();
         List<CourseManagement> courseList = new ArrayList<>();
         for (Object[] o : objects) {
             CourseManagement course = new CourseManagement();
@@ -520,7 +520,7 @@ public class CourseServiceImpl implements CourseService {
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        List<Object[]> objects = courseRepository.getAllFutureCourses(pageable);
+        List<Object[]> objects = courseRepository.getAllFutureCourses();
         List<CourseManagement> courseList = new ArrayList<>();
         for (Object[] o : objects) {
             CourseManagement course = new CourseManagement();
@@ -543,7 +543,7 @@ public class CourseServiceImpl implements CourseService {
         Pageable pageable =
                 PageRequest.of(
                         page, limit, Sort.by("course_Id"));
-        List<Object[]> objects = courseRepository.getAllPreviousCourses(pageable);
+        List<Object[]> objects = courseRepository.getAllPreviousCourses();
         List<CourseManagement> courseList = new ArrayList<>();
         for (Object[] o : objects) {
             CourseManagement course = new CourseManagement();
@@ -579,24 +579,24 @@ public class CourseServiceImpl implements CourseService {
             if((courseMaster.getLegacyCode()==null || LegacyCode.equalsIgnoreCase("")) &&
                     (courseMaster.getCourseName()==null || courseName.equalsIgnoreCase("")))
             {
-                objects = courseRepository.searchAllFutureCourses(principal.getJid(), pageable);
+                objects = courseRepository.searchAllFutureCourses(principal.getJid());
             }
             else if((courseMaster.getLegacyCode()!=null || !LegacyCode.equalsIgnoreCase("")) &&
                     (courseMaster.getCourseName()!=null || !courseName.equalsIgnoreCase("")))
             {
-                objects = courseRepository.searchAllFutureCoursesWithCourseNameAndJid(courseMaster.getCourseName(),courseMaster.getLegacyCode(), pageable);
+                objects = courseRepository.searchAllFutureCoursesWithCourseNameAndJid(courseMaster.getCourseName(),courseMaster.getLegacyCode());
             }
             else if((courseMaster.getLegacyCode()!=null || !LegacyCode.equalsIgnoreCase("")) &&
                     (courseMaster.getCourseName()==null || courseName.equalsIgnoreCase("")))
             {
-              objects = courseRepository.searchAllFutureCourses(courseMaster.getLegacyCode(), pageable);
+              objects = courseRepository.searchAllFutureCourses(courseMaster.getLegacyCode());
             }
 
 
             else if((courseMaster.getLegacyCode()==null || LegacyCode.equalsIgnoreCase("")) &&
                     (courseMaster.getCourseName()!=null || !courseName.equalsIgnoreCase("")))
             {
-                objects = courseRepository.searchAllFutureCoursesWithCourseNameAndJid(courseMaster.getCourseName(),principal.getJid(), pageable);
+                objects = courseRepository.searchAllFutureCoursesWithCourseNameAndJid(courseMaster.getCourseName(),principal.getJid());
             }
 
             List<CourseManagement> courseList = new ArrayList<>();
@@ -715,7 +715,7 @@ public class CourseServiceImpl implements CourseService {
             Pageable pageable =
                     PageRequest.of(
                             page, limit, Sort.by("course_Id"));
-            List<Object[]> object = courseRepository.getCoursesForCoordinator(jobId, pageable);
+            List<Object[]> object = courseRepository.getCoursesForCoordinator(jobId);
             for (Object[] o : object) {
                 CourseManagement course = new CourseManagement();
                 course.setCourseName((String) o[0]);
@@ -745,7 +745,7 @@ public class CourseServiceImpl implements CourseService {
             Pageable pageable =
                     PageRequest.of(
                             page, limit, Sort.by("course_Id"));
-            List<Object[]> object = courseRepository.getInstructorCourses(jobId, pageable);
+            List<Object[]> object = courseRepository.getInstructorCourses(jobId);
             for (Object[] o : object) {
                 CourseManagement course = new CourseManagement();
                 course.setCourseName((String) o[0]);
