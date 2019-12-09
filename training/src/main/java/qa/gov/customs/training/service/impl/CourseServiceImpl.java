@@ -505,8 +505,8 @@ public class CourseServiceImpl implements CourseService {
             Date endDate = ((Date) o[2]);
             course.setActivation_id((BigDecimal) o[3]);
             course.setSeatCapacity((BigDecimal) o[4]);
-            course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
-            course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+            course.setCourse_date(new SimpleDateFormat("dd-MM-yyyy").format(courseDate));
+            course.setEnd_date(new SimpleDateFormat("dd-MM-yyyy").format(endDate));
             courseList.add(course);
 
         }
@@ -529,8 +529,8 @@ public class CourseServiceImpl implements CourseService {
             Date endDate = ((Date) o[2]);
             course.setActivation_id((BigDecimal) o[3]);
             course.setSeatCapacity((BigDecimal) o[4]);
-            course.setCourse_date(new SimpleDateFormat("MM-dd-yyyy").format(courseDate));
-            course.setEnd_date(new SimpleDateFormat("MM-dd-yyyy").format(endDate));
+            course.setCourse_date(new SimpleDateFormat("dd-MM-yyyy").format(courseDate));
+            course.setEnd_date(new SimpleDateFormat("dd-MM-yyyy").format(endDate));
             courseList.add(course);
         }
         return courseList;

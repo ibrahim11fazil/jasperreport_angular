@@ -313,16 +313,16 @@ export class CourseManagementComponent implements OnInit {
     console.log(this.eventCourseDetail.course_date);
     const str = this.eventCourseDetail.course_date.split('-');
     const year = Number(str[2]);
-    const date = Number(str[1]);
-    const month = Number(str[0]) - 1;
+    const date = Number(str[0]);
+    const month = Number(str[1]) - 1;
     this.courseStartDate = new Date(year, month, date);
     this.courseDateValidation = new Date(year, month, date);
     console.log(this.courseStartDate)
 
     const strENd = this.eventCourseDetail.end_date.split('-');
     const yearEnd = Number(strENd[2]);
-    const dateEnd = Number(strENd[1]);
-    const monthEnd = Number(strENd[0]) - 1;
+    const dateEnd = Number(strENd[0]);
+    const monthEnd = Number(strENd[1]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
     if (this.courseEndDate <= new Date()) {
       this.courseCompletion = true;
