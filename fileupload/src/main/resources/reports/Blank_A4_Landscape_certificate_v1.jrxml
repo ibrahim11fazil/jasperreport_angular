@@ -24,35 +24,35 @@
 			<staticText>
 				<reportElement x="0" y="100" width="800" height="34" uuid="243ff772-5c97-4685-a14b-e30cf205d894"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H" />
+					<font fontName="Arial" size="26"  pdfFontName="Arial"   pdfEncoding="Identity-H" isPdfEmbedded="true" />
 				</textElement>
 				<text><![CDATA[تشـهد الهيئـة العـامـة للجمـارك]]></text>
 			</staticText>
 			<textField pattern="M/d/yy">
 				<reportElement x="500" y="320" width="152" height="30" uuid="5d093193-2b71-404a-ab42-8e4cbdc7eb9f"/>
 				<textElement>
-					<font fontName="DejaVu Sans" size="12" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+					<font fontName="Arial" size="12"   pdfFontName="Arial"   pdfEncoding="Identity-H" isPdfEmbedded="true" />
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="148" width="800" height="40" uuid="780afa3b-f9b4-4c53-ac20-7d0877bca086"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+					<font fontName="Arial" size="26"  pdfFontName="Arial"    pdfEncoding="Identity-H"  isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nameField}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="198" width="800" height="40" uuid="70e3c007-3239-4a84-bcb6-a86a6efd5e88"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+					<font fontName="Arial" size="26"    pdfFontName="Arial"  pdfEncoding="Identity-H" isPdfEmbedded="true" />
 				</textElement>
 				<textFieldExpression><![CDATA[$P{courseName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="248" width="800" height="40" uuid="a329293d-40ca-495d-aec9-5d21a766db47"/>
 				<textElement textAlignment="Center">
-					<font fontName="DejaVu Sans" size="26" isPdfEmbedded="true" pdfEncoding="Identity-H"/>
+					<font fontName="Arial" size="26" pdfFontName="Arial"     pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{courseDate}]]></textFieldExpression>
 			</textField>
