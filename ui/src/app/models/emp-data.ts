@@ -17,6 +17,7 @@ export class EmpData {
    remark:String
    email:String
    courseDate:String
+   endDate:String
    constructor(attendeesId:Number,jobId:String,jobTitle:String,cnameAr:String,mobile:String,
     department:String,count:Number,percentage:Number,psLevel:String,activationId:Number,seatCapacity:Number,remark:String,email:String,courseDate:String){
     this.attendeesId=attendeesId;

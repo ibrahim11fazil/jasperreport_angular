@@ -8,6 +8,15 @@ public class CancelCourse {
      String Remark;
      String courseName;
      String courseDate;
+     String endDate;
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
     public String getCourseDate() {
         return courseDate;
