@@ -88,8 +88,8 @@ export const	GENERAL_COURSE =4
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
 
-//  export const BASE_URL ="http://172.16.0.254:9000"
-//  export const BASE_URL_FILE ="http://172.16.0.254:9000"
+ export const BASE_URL ="http://172.16.0.254:9000"
+ export const BASE_URL_FILE ="http://172.16.0.254:9000"
 
 //  export const BASE_URL ="http://10.64.3.32:9000"
 //  export const BASE_URL_FILE ="http://10.64.3.32:9000"
@@ -101,13 +101,13 @@ export const	GENERAL_COURSE =4
 //export const BASE_URL_FILE ="http://172.16.0.254:9021"
 //export const BASE_URL_FILE ="http://172.16.0.254:7777"
 
-export const BASE_URL ="http://localhost:9000"
-export const BASE_URL_FILE ="http://localhost:9000"
+// export const BASE_URL ="http://localhost:9000"
+// export const BASE_URL_FILE ="http://localhost:9000"
 
 
 //export const BASE_URL ="http://localhost:9000"
 
-export const VERSION_UI ="qa_0.10.5"
+export const VERSION_UI ="qa_0.10.7"
 
 //Disable if gateway is down -- for development
 var gateway = true
