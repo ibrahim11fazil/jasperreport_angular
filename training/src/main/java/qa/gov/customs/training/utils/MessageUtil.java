@@ -67,5 +67,8 @@ public class MessageUtil {
 //    public static String SYSTEM_USER_CREATED = "تم انشاء المستخدم";
 
 
+    // TODO SMS format
+
+    public static String SAMPLE_DATE = "“تم قبول طلب الاشتراك في الدورة التدريبية (course name) والتي تبدأ بتاريخy) وتنتهي  بتاريخ %s";
 
 }

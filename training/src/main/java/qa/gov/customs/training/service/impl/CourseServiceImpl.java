@@ -657,6 +657,7 @@ public class CourseServiceImpl implements CourseService {
             //Clob myClob = new javax.sql.rowset.serial.SerialClob(remark.toCharArray());
             item.setRemark(remark);
             item.setStatus(new BigDecimal(1));
+
             return courseAttendeesRepository.save(item);
             //courseAttendeesRepository.insertAttendeesFromWorkflow(activationId, jobId, remark);
             //return 1;
