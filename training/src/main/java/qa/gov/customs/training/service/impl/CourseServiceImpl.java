@@ -847,9 +847,14 @@ public class CourseServiceImpl implements CourseService {
                     NotificationModel model = new NotificationModel();
                     model.setToAddress((String) obj[7]);
                     model.setPhoneNumber((String) obj[4]);
-                    model.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                   // model.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
                     model.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " is cancelled ");
-                    model.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                    //model.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                    model.setSmsBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
+                    model.setEmailBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
+
+
+
 
                     publisher.sendNotification(model);
 
@@ -858,9 +863,12 @@ public class CourseServiceImpl implements CourseService {
                         NotificationModel modelHead = new NotificationModel();
                         modelHead.setToAddress((String) objHead[3]);
                         modelHead.setPhoneNumber((String) objHead[2]);
-                        modelHead.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                        //modelHead.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
                         modelHead.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " is cancelled ");
-                        modelHead.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                        //modelHead.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+
+                        modelHead.setSmsBody("تم اسبتعاد الموظف "+((String) obj[0])+" رقم وظيفي "+((String) obj[1])+" في الدورة التدريبية "+activation.getCourseName()+" والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب "+activation.getRemark());
+                        modelHead.setEmailBody("تم اسبتعاد الموظف "+((String) obj[0])+" رقم وظيفي "+((String) obj[1])+" في الدورة التدريبية "+activation.getCourseName()+" والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب "+activation.getRemark());
 
 
                         publisher.sendNotification(modelHead);
@@ -1018,9 +1026,15 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
             NotificationModel model=new NotificationModel();
             model.setToAddress(participantData.getEmail());
             model.setPhoneNumber(participantData.getMobile());
-            model.setEmailBody("Enrolled For "+ courseName + participantData.getCourseDate() + "reason "+participantData.getRemark());
+            //model.setEmailBody("Enrolled For "+ courseName + participantData.getCourseDate() + "reason "+participantData.getRemark());
             model.setEmailSubject("Enrolled For "+courseName + participantData.getCourseDate());
-            model.setSmsBody("Enrolled For "+ courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
+            //model.setSmsBody("Enrolled For "+ courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
+            model.setSmsBody(" تم ترشيحكم في الدورة التدريبية "+ courseName+" والتي تبدأ بتاريخ "+ participantData.getCourseDate()+" وتنتهي بتاريخ "+participantData.getEndDate()
+
+                    +" للتكرم بالحضور" );
+            model.setEmailBody(" تم ترشيحكم في الدورة التدريبية "+ courseName+" والتي تبدأ بتاريخ "+ participantData.getCourseDate()+" وتنتهي بتاريخ "+participantData.getEndDate()
+
+                    +" للتكرم بالحضور" );
 
 
             model.setPhoneNumber(participantData.getMobile());
@@ -1033,10 +1047,15 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
                 NotificationModel model1 = new NotificationModel();
                 model1.setToAddress((String) obj[3]);
                 model1.setPhoneNumber((String) obj[2]);
-                model1.setEmailBody(participantData.getCnameAr()+participantData.getJobId() +"is  enrolled for " + courseName + participantData.getCourseDate() +" reason "+ participantData.getRemark());
+                //model1.setEmailBody(participantData.getCnameAr()+participantData.getJobId() +"is  enrolled for " + courseName + participantData.getCourseDate() +" reason "+ participantData.getRemark());
                 model1.setEmailSubject(participantData.getCnameAr()+participantData.getJobId() +"is  enrolled for " + courseName + participantData.getCourseDate());
-                model1.setSmsBody(participantData.getCnameAr()+ participantData.getJobId() +"is  enrolled for " + courseName +" reason "+ participantData.getRemark());
+               // model1.setSmsBody(participantData.getCnameAr()+ participantData.getJobId() +"is  enrolled for " + courseName +" reason "+ participantData.getRemark());
+                model1.setSmsBody("تم ترشيح الموظف"+ participantData.getCnameAr()+" رقم وظيفي "+participantData.getJobId()+" في الدورة التدريبية "+courseName+" والتي تبدأ بتاريخ "+participantData.getCourseDate()
 
+                        +" وتنتهي بتاريخ "+participantData.getEndDate());
+                model1.setEmailBody("تم ترشيح الموظف"+ participantData.getCnameAr()+" رقم وظيفي "+participantData.getJobId()+" في الدورة التدريبية "+courseName+" والتي تبدأ بتاريخ "+participantData.getCourseDate()
+
+                        +" وتنتهي بتاريخ "+participantData.getEndDate());
 
                 publisher.sendNotification(model1);
 
@@ -1061,8 +1080,14 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
             model.setPhoneNumber(participantData.getMobile());
 
             model.setEmailSubject ("You are removed for " + courseName + participantData.getCourseDate());
-            model.setEmailBody("You are removed for " + courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
-            model.setSmsBody("You are removed for " + courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
+           // model.setEmailBody("You are removed for " + courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
+            //model.setSmsBody("You are removed for " + courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
+            model.setSmsBody("تم استبعادكم من الدورة التدريبية" +courseName+" والتي تبدأ بتاريخ "+participantData.getCourseDate ()
+
+                    +" وتنتهي بتاريخ " +participantData.getCourseDate()+ " والسبب " +participantData.getRemark ());
+            model.setEmailBody("تم استبعادكم من الدورة التدريبية" +courseName+" والتي تبدأ بتاريخ "+participantData.getCourseDate ()
+
+                    +" وتنتهي بتاريخ " +participantData.getEndDate()+ " والسبب " +participantData.getRemark ());
 
 
             model.setPhoneNumber(participantData.getMobile());
@@ -1075,10 +1100,13 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
                 NotificationModel model1 = new NotificationModel();
                 model1.setToAddress((String) obj[3]);
                 model1.setPhoneNumber((String) obj[2]);
-                model1.setEmailBody(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName + participantData.getCourseDate());
+               // model1.setEmailBody(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName + participantData.getCourseDate());
+                model1.setEmailBody("تم اسبتعاد الموظف"+ participantData.getCnameAr()+" رقم وظيفي"+ participantData.getJobId()+ " في الدورة التدريبية " + courseName +" والتي تبدأ بتاريخ " +participantData.getCourseDate() + " وتنتهي بتاريخ "+
+                        participantData.getEndDate() +" والسبب" +participantData.getRemark());
                 model1.setEmailSubject(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName);
-                model1.setSmsBody(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName + participantData.getCourseDate()+" reason "+ participantData.getRemark());
-
+               // model1.setSmsBody(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName + participantData.getCourseDate()+" reason "+ participantData.getRemark());
+                model1.setSmsBody(" تم اسبتعاد الموظف "+ participantData.getCnameAr()+" رقم وظيفي "+ participantData.getJobId()+ " في الدورة التدريبية " + courseName +"والتي تبدأ بتاريخ " +participantData.getCourseDate() + " وتنتهي بتاريخ "+
+                        participantData.getEndDate() +" والسبب " +participantData.getRemark());
 
                 publisher.sendNotification(model1);
 

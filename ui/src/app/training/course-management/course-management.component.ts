@@ -313,16 +313,16 @@ export class CourseManagementComponent implements OnInit {
     console.log(this.eventCourseDetail.course_date);
     const str = this.eventCourseDetail.course_date.split('-');
     const year = Number(str[2]);
-    const date = Number(str[1]);
-    const month = Number(str[0]) - 1;
+    const date = Number(str[0]);
+    const month = Number(str[1]) - 1;
     this.courseStartDate = new Date(year, month, date);
     this.courseDateValidation = new Date(year, month, date);
     console.log(this.courseStartDate)
 
     const strENd = this.eventCourseDetail.end_date.split('-');
     const yearEnd = Number(strENd[2]);
-    const dateEnd = Number(strENd[1]);
-    const monthEnd = Number(strENd[0]) - 1;
+    const dateEnd = Number(strENd[0]);
+    const monthEnd = Number(strENd[1]) - 1;
     this.courseEndDate = new Date(yearEnd, monthEnd, dateEnd);
     if (this.courseEndDate <= new Date()) {
       this.courseCompletion = true;
@@ -857,10 +857,11 @@ export class CourseManagementComponent implements OnInit {
     if (this.commentTxt != "") {
       debugger;
       this.cancelSelectCourse = this.eventCourseDetail
-      let courseActivation = new CancelCourse(0,"","","")
+      let courseActivation = new CancelCourse(0,"","","","")
       courseActivation.activationId = this.cancelSelectCourse.activation_id;
       courseActivation.courseName = this.cancelSelectCourse.courseName;
       courseActivation.courseDate=this.cancelSelectCourse.course_date;
+      courseActivation.endDate=this.cancelSelectCourse.end_date;
       courseActivation.remark=this.commentTxt
       this.trainingService.cancelCourse(courseActivation)
 
@@ -943,6 +944,7 @@ export class CourseManagementComponent implements OnInit {
     enrollParticipant.activationId = this.eventCourseDetail.activation_id;
     enrollParticipant.seatCapacity = this.eventCourseDetail.seatCapacity
     enrollParticipant.courseDate=this.eventCourseDetail.course_date
+    enrollParticipant.endDate=this.eventCourseDetail.end_date
     enrollParticipant.jobId = row.legacycode;
     enrollParticipant.mobile=row.mobile
     enrollParticipant.email=row.email
@@ -998,6 +1000,7 @@ export class CourseManagementComponent implements OnInit {
     enrollParticipant.activationId = this.eventCourseDetail.activation_id;
     enrollParticipant.seatCapacity = this.eventCourseDetail.seatCapacity
     enrollParticipant.courseDate=this.eventCourseDetail.course_date
+    enrollParticipant.endDate=this.eventCourseDetail.end_date
     enrollParticipant.jobId = row.jobId;
     enrollParticipant.mobile=row.mobile
     enrollParticipant.email=row.email
