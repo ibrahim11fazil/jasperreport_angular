@@ -26,8 +26,11 @@ public class NotificationService {
 //    String email="sraj@customs.gov.qa";
 //    String mobile="50105223";
 
-    String email="jayasree@customs.gov.qa";
-    String mobile="50683222";
+//    String email="jayasree@customs.gov.qa";
+//    String mobile="50683222";
+
+    String email="sherif@customs.gov.qa";
+    String mobile="55396980";
 
     public void sendNotification(NotificationModel model) {
 
