@@ -3,7 +3,7 @@ set -a
 TAG=dev_$(git describe --abbrev=0)
 if [ "$1" = "prod" ]
     then
-        TAG=$(git describe --abbrev=0)
+        TAG=prod_$(git describe --abbrev=0)
         docker push 172.16.0.253:5000/ui:$TAG
         docker push 172.16.0.253:5000/workflow:$TAG
         docker push 172.16.0.253:5000/notification:$TAG
