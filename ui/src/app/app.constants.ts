@@ -24,9 +24,9 @@ export const WF_CANCELLED="CANCELLED"
 
 
 export const DURATION_FLAG_LIST = [
-    { value: 1, viewValue: 'YEAR' },
-    { value: 2, viewValue: 'MONTH' },
-    { value: 3, viewValue: 'DAY' },
+    { value: 1, viewValue: 'سنة' },//year
+    { value: 2, viewValue: 'شهر' },//month
+    { value: 3, viewValue: 'يوم' },//day
     // { value: 4, viewValue: 'HOUR' }
 ];
 export const SEARCH_BY=
