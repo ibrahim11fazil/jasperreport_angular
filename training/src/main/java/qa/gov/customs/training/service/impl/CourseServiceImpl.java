@@ -883,15 +883,18 @@ public class CourseServiceImpl implements CourseService {
 
                 List<TacInstructorMaster> listInstructor = instructorRepo.listInstructorForActivation(activation.getActivationId());
                 for (TacInstructorMaster instructor : listInstructor) {
-                    NotificationModel modelHead = new NotificationModel();
-                    modelHead.setToAddress(instructor.getEmail());
-                    modelHead.setPhoneNumber(instructor.getPhone());
-                    modelHead.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
-                    modelHead.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " is cancelled ");
-                    modelHead.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                    NotificationModel modelInstruct = new NotificationModel();
+                    modelInstruct.setToAddress(instructor.getEmail());
+                    modelInstruct.setPhoneNumber(instructor.getPhone());
+                    //modelHead.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                    modelInstruct.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " is cancelled ");
+                   // modelHead.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
+                    modelInstruct.setSmsBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
+                    modelInstruct.setEmailBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
 
 
-                    publisher.sendNotification(modelHead);
+
+                    publisher.sendNotification(modelInstruct);
 
                 }
 
