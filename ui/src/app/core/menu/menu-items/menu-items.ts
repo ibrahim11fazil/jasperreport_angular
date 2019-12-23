@@ -471,21 +471,23 @@ export class MenuItems {
           case "mcc":
             training_menu.children.push({ state: 'create-course', name: language.menu_createCourses })
             break
-          case "mcm":
+            case "mcl":
+              training_menu.children.push({ state: 'course-link', name: language.menu_linkCourse })
+              break
+              case "mcac":
+                training_menu.children.push({ state: 'activate-course', name: language.menu_activateCourse })
+                break
+            case "mcm":
             training_menu.children.push({ state: 'search-course', name: language.menu_manageCourses })
             break
-          case "mcl":
-            training_menu.children.push({ state: 'course-link', name: language.menu_linkCourse })
-            break
-          case "mca":
+         
+           case "mca":
             training_menu.children.push({ state: 'activity', name: language.menu_activity })
             break
-          case "mcma":
+           case "mcma":
             training_menu.children.push({ state: 'activations', name: language.menu_manageActivations })
             break
-          case "mcac":
-            training_menu.children.push({ state: 'activate-course', name: language.menu_activateCourse })
-            break
+        
 
           //Manage course
           case "mncrs":
