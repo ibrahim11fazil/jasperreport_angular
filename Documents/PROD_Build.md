@@ -21,14 +21,21 @@ Current version is  0.5.8
 
    eg: set the new version 
     
-    ./gittag.sh 0.5.9
+    ./gittag_prod.sh 0.5.9
 
 
 The above command will clean ,build ,docker package and push to server
 
 #3 go to the server pull and update the application
 
-    ./docker_pull_only.sh   qa_0.5.9   
+## 4 create the services or update the services ( depends )
+
+      ./docker-pull-prod.sh <version>
+      
+
+##   update the application only 
+    
+        ./docker_pull_only.sh   <version>  
          
          
 #4 Check all services are running in docker 
@@ -67,6 +74,7 @@ The above command will clean ,build ,docker package and push to server
  #4 Check all applications  are running in eureka registry
  
  
- http://172.16.0.254:8761/
+ http://172.16.0.137:8761/
+  http://172.16.0.137/
  
          

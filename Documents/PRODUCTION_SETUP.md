@@ -35,12 +35,12 @@
 
        docker network create --driver overlay mybridge
 
-# Setup the registry location
+# Setup the registry location in all nodes
 
 To add an insecure docker registry, add the file /etc/docker/daemon.json with the following content:
 
     {
-    "insecure-registries" : [ "hostname.cloudapp.net:5000" ]
+    "insecure-registries" : [ "172.16.0.253:5000" ]
     }
 
     sudo service docker restart
@@ -82,3 +82,17 @@ To add an insecure docker registry, add the file /etc/docker/daemon.json with th
 ##   update the application only 
     
         ./docker_pull_only.sh   <version>  
+
+
+
+## Docker logs  
+ 
+ 
+ sudo journalctl -fu docker.service
+ 
+ 
+## Application logs 
+
+/swarm/volumes/data/logs 
+
+
