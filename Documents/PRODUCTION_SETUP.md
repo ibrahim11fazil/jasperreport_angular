@@ -88,6 +88,7 @@ To add an insecure docker registry, add the file /etc/docker/daemon.json with th
 ## Docker logs  
  
  
+ 
  sudo journalctl -fu docker.service
  
  
