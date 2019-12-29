@@ -81,6 +81,7 @@ public class ReportServiceImpl implements ReportService {
             String courseDate=   " المنعقدة خلال الفترة من " + certificateRequest.getCourseDate()  + " إلى " + certificateRequest.getEndDate();
             parameters.put("nameField", name);
             parameters.put("courseName", courseName);
+            parameters.put("currentDate",getDateInString());
             parameters.put("courseDate", courseDate);
 
            // parameters.put("certificateId", certificateRequest.getCertificateUid());

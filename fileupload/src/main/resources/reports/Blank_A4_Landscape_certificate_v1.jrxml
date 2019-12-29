@@ -4,6 +4,7 @@
 	<parameter name="nameField" class="java.lang.String"/>
 	<parameter name="courseName" class="java.lang.String"/>
 	<parameter name="courseDate" class="java.lang.String"/>
+	<parameter name="currentDate" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -33,7 +34,7 @@
 				<textElement>
 					<font fontName="Arial" size="12"   pdfFontName="Arial"   pdfEncoding="Identity-H" isPdfEmbedded="true" />
 				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{currentDate}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="148" width="800" height="40" uuid="780afa3b-f9b4-4c53-ac20-7d0877bca086"/>

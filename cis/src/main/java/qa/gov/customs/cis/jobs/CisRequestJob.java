@@ -36,22 +36,24 @@ public class CisRequestJob {
         logger.info("cron job expression started: " + strDate);
         List<CisCourseRequest> courseRequestList = cisService.findAllByStatusFlagEquals(new BigInteger(
                 WorkFlowRequestConstants.REQUESTED_CIS));
-        courseRequestList.forEach(item -> {
-            UserRequestModel model = new UserRequestModel();
-            model.setCourseId(item.getCourseNumber().toString());
-            model.setCourseName(item.getRemark());
-            model.setCnameAr(item.getToUserCname());
-            model.setJobId(item.getToUser());
-            model.setFromUserJobId(item.getFromUser());
-            model.setFromUserCnameAr(item.getFromUserCname());
-            model.setInvestigationId(item.getInvestigationId().toString());
-            model.setWorkflowType(WorkFlowRequestConstants.TYPE_4_CIS_COURSE_REQUEST);
-            String idGenerated = SystemUtil.getUUID();
-            model.setTrainingRequestId(idGenerated);
-            publisher.produceWorkFlowRequest(model);
-            item.setWorkFlowUid(idGenerated);
-            item.setStatusFlag(new BigInteger(WorkFlowRequestConstants.PROCESSED_CIS));
-            cisService.saveAndUpdate(item);
-        });
+        if(courseRequestList!=null && courseRequestList.size()>0 ) {
+            courseRequestList.forEach(item -> {
+                UserRequestModel model = new UserRequestModel();
+                model.setCourseId(item.getCourseNumber().toString());
+                model.setCourseName(item.getRemark());
+                model.setCnameAr(item.getToUserCname());
+                model.setJobId(item.getToUser());
+                model.setFromUserJobId(item.getFromUser());
+                model.setFromUserCnameAr(item.getFromUserCname());
+                model.setInvestigationId(item.getInvestigationId().toString());
+                model.setWorkflowType(WorkFlowRequestConstants.TYPE_4_CIS_COURSE_REQUEST);
+                String idGenerated = SystemUtil.getUUID();
+                model.setTrainingRequestId(idGenerated);
+                publisher.produceWorkFlowRequest(model);
+                item.setWorkFlowUid(idGenerated);
+                item.setStatusFlag(new BigInteger(WorkFlowRequestConstants.PROCESSED_CIS));
+                cisService.saveAndUpdate(item);
+            });
+        }
     }
 }

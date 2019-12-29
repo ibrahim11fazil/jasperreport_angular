@@ -85,11 +85,18 @@ export const	WORKSHOP_COURSE=3
 export const	GENERAL_COURSE =4
 
 
+//LOCAL
 //export const BASE_URL = "http://localhost:9001"
 //export const BASE_URL = "http://localhost:9000"
 
- export const BASE_URL ="http://172.16.0.254:9000"
- export const BASE_URL_FILE ="http://172.16.0.254:9000"
+//QA
+ // export const BASE_URL ="http://172.16.0.254:9000"
+ // export const BASE_URL_FILE ="http://172.16.0.254:9000"
+
+//PROD
+export const BASE_URL ="http://172.16.0.137:9000"
+export const BASE_URL_FILE ="http://172.16.0.137:9000"
+
 
 //  export const BASE_URL ="http://10.64.3.32:9000"
 //  export const BASE_URL_FILE ="http://10.64.3.32:9000"
@@ -107,7 +114,7 @@ export const	GENERAL_COURSE =4
 
 //export const BASE_URL ="http://localhost:9000"
 
-export const VERSION_UI ="qa_0.10.8"
+export const VERSION_UI ="prod_0.10.9"
 
 //Disable if gateway is down -- for development
 var gateway = true
