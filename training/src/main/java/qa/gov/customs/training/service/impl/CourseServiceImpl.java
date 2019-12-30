@@ -850,7 +850,7 @@ public class CourseServiceImpl implements CourseService {
                     model.setToAddress((String) obj[7]);
                     model.setPhoneNumber((String) obj[4]);
                    // model.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
-                    model.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " is cancelled ");
+                    model.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " تم الغاء الدورة التدريبية ");
                     //model.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
                     model.setSmsBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
                     model.setEmailBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
@@ -866,7 +866,7 @@ public class CourseServiceImpl implements CourseService {
                         modelHead.setToAddress((String) objHead[3]);
                         modelHead.setPhoneNumber((String) objHead[2]);
                         //modelHead.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
-                        modelHead.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " is cancelled ");
+                        modelHead.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " تم الغاء الدورة التدريبية ");
                         //modelHead.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
 
                         modelHead.setSmsBody("تم اسبتعاد الموظف "+((String) obj[0])+" رقم وظيفي "+((String) obj[1])+" في الدورة التدريبية "+activation.getCourseName()+" والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب "+activation.getRemark());
@@ -887,7 +887,7 @@ public class CourseServiceImpl implements CourseService {
                     modelInstruct.setToAddress(instructor.getEmail());
                     modelInstruct.setPhoneNumber(instructor.getPhone());
                     //modelHead.setEmailBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
-                    modelInstruct.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " is cancelled ");
+                    modelInstruct.setEmailSubject(activation.getCourseName() + activation.getCourseDate() + " تم الغاء الدورة التدريبية ");
                    // modelHead.setSmsBody(activation.getCourseName() + activation.getCourseDate() + " is cancelled due to " + activation.getRemark());
                     modelInstruct.setSmsBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
                     modelInstruct.setEmailBody("تم الغاء الدورة التدريبية "+ activation.getCourseName() + "والتي تبدأ بتاريخ "+activation.getCourseDate()+" وتنتهي بتاريخ "+activation.getEndDate()+" والسبب " +activation.getRemark());
@@ -1032,7 +1032,7 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
             model.setToAddress(participantData.getEmail());
             model.setPhoneNumber(participantData.getMobile());
             //model.setEmailBody("Enrolled For "+ courseName + participantData.getCourseDate() + "reason "+participantData.getRemark());
-            model.setEmailSubject("Enrolled For "+courseName + participantData.getCourseDate());
+            model.setEmailSubject("تم ترشيحكم في الدورة التدريبية "+courseName + participantData.getCourseDate());
             //model.setSmsBody("Enrolled For "+ courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
             model.setSmsBody(" تم ترشيحكم في الدورة التدريبية "+ courseName+" والتي تبدأ بتاريخ "+ participantData.getCourseDate()+" وتنتهي بتاريخ "+participantData.getEndDate()
 
@@ -1053,7 +1053,7 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
                 model1.setToAddress((String) obj[3]);
                 model1.setPhoneNumber((String) obj[2]);
                 //model1.setEmailBody(participantData.getCnameAr()+participantData.getJobId() +"is  enrolled for " + courseName + participantData.getCourseDate() +" reason "+ participantData.getRemark());
-                model1.setEmailSubject(participantData.getCnameAr()+participantData.getJobId() +"is  enrolled for " + courseName + participantData.getCourseDate());
+                model1.setEmailSubject(participantData.getCnameAr()+participantData.getJobId() +" تم ترشيح الموظف " + courseName + participantData.getCourseDate());
                // model1.setSmsBody(participantData.getCnameAr()+ participantData.getJobId() +"is  enrolled for " + courseName +" reason "+ participantData.getRemark());
                 model1.setSmsBody(" تم ترشيح الموظف "+ participantData.getCnameAr()+" رقم وظيفي "+participantData.getJobId()+"  في الدورة التدريبية "+courseName+"  والتي تبدأ بتاريخ "+participantData.getCourseDate()
 
@@ -1084,7 +1084,7 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
             model.setToAddress(participantData.getEmail());
             model.setPhoneNumber(participantData.getMobile());
 
-            model.setEmailSubject ("You are removed for " + courseName + participantData.getCourseDate());
+            model.setEmailSubject (" تم استبعادكم من الدورة التدريبية " + courseName + participantData.getCourseDate());
            // model.setEmailBody("You are removed for " + courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
             //model.setSmsBody("You are removed for " + courseName + participantData.getCourseDate() + " reason "+participantData.getRemark());
             model.setSmsBody(" تم استبعادكم من الدورة التدريبية " +courseName+" والتي تبدأ بتاريخ "+participantData.getCourseDate ()
@@ -1108,7 +1108,7 @@ else  if(mawared.getJobTitle()==null && mawared.getPsLevel()!=null)
                // model1.setEmailBody(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName + participantData.getCourseDate());
                 model1.setEmailBody(" تم اسبتعاد الموظف "+ participantData.getCnameAr()+" رقم وظيفي "+ participantData.getJobId()+ " في الدورة التدريبية " + courseName +" والتي تبدأ بتاريخ " +participantData.getCourseDate() + " وتنتهي بتاريخ "+
                         participantData.getEndDate() +" والسبب" +participantData.getRemark());
-                model1.setEmailSubject(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName);
+                model1.setEmailSubject(participantData.getCnameAr()+participantData.getJobId() +" تم اسبتعاد الموظف " + courseName);
                // model1.setSmsBody(participantData.getCnameAr()+participantData.getJobId() +"is  removed from " + courseName + participantData.getCourseDate()+" reason "+ participantData.getRemark());
                 model1.setSmsBody("  تم اسبتعاد الموظف  "+ participantData.getCnameAr()+" رقم وظيفي "+ participantData.getJobId()+ " في الدورة التدريبية " + courseName +" والتي تبدأ بتاريخ " +participantData.getCourseDate() + " وتنتهي بتاريخ "+
                         participantData.getEndDate() +" والسبب  " +participantData.getRemark());
