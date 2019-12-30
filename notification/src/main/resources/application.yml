@@ -133,3 +133,8 @@ notification:
     queue: ${NOTIFICATION_QUEUE:notification_queue_dev}
     exchange: ${NOTIFICATION_EXCHANGE:notification_exchange_dev}
     routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}
+
+demo:
+  status: true
+  email: sraj@customs.gov.qa
+  mobile: 50105223

@@ -3,6 +3,7 @@ package qa.gov.customs.notification.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import qa.gov.customs.notification.entities.NotificationEntity;
 import qa.gov.customs.notification.model.NotificationModel;
@@ -22,9 +23,19 @@ public class NotificationService {
     @Autowired
     NotificationRepository notificationRepository;
 
-    boolean isDemoEnabled=true;
-    String email="sraj@customs.gov.qa";
-    String mobile="50105223";
+   // boolean isDemoEnabled=true;
+    //String email="sraj@customs.gov.qa";
+    //String mobile="50105223";
+
+
+    @Value("${demo.email}")
+    private String email;
+
+    @Value("${demo.mobile}")
+    private String mobile;
+
+    @Value("${demo.status}")
+    boolean isDemoEnabled;
 
 //    String email="jayasree@customs.gov.qa";
 //    String mobile="50683222";
