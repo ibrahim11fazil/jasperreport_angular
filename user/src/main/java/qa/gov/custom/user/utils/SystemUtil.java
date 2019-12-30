@@ -29,7 +29,7 @@ public class SystemUtil {
         notificationModel.setToAddress(email);
         notificationModel.setEmailSubject(emailSubject);
         notificationModel.setPhoneNumber(mobileNumber);
-        if (emailSubject != null) {
+        if (email != null) {
             notificationModel.setIsEmail(1);
         } else {
             notificationModel.setIsEmail(0);
