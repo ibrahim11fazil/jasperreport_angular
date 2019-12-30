@@ -135,6 +135,6 @@ notification:
     routingkey: ${NOTIFICATION_ROUTING_KEY:notification_routingkey_dev}
 
 demo:
-  status: true
-  email: sraj@customs.gov.qa
-  mobile: 50105223
+  status: ${DEMO_STATUS:true}
+  email: ${DEMO_EMAIL:sraj@customs.gov.qa}
+  mobile: ${DEMO_MOBILE:50105223}

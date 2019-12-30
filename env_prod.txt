@@ -64,3 +64,6 @@ LOCALTIME_PATH=/usr/share/zoneinfo/Asia/Qatar
 REQ_CANCEL_QUE=req_cancellation_queue
 REQ_CANCEL_EXCHANGE=req_cancellation_exchange
 REQ_ROUTING_ROUTING_KEY=req_cancellation_routingkey
+DEMO_STATUS=true
+DEMO_EMAIL=sraj@customs.gov.qa
+DEMO_MOBILE=50105223
