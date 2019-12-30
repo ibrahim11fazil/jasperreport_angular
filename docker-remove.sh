@@ -26,3 +26,5 @@ else
         echo "Stoping and removing done"
 fi
 set +a
+
+# docker service rm authentication cis config employee fileupload gateway notification registry training ui user workflow gateway

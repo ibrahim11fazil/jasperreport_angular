@@ -11,6 +11,7 @@ import qa.gov.custom.user.config.Publisher;
 import qa.gov.custom.user.entity.Role;
 import qa.gov.custom.user.entity.UserMaster;
 import qa.gov.custom.user.models.NotificationModel;
+import qa.gov.custom.user.models.PasswordRequestModel;
 import qa.gov.custom.user.proxy.UserProxyService;
 import qa.gov.custom.user.repository.UserRepository;
 import qa.gov.custom.user.security.CustomPrincipal;
@@ -81,6 +82,45 @@ public class UserController {
 //							"Training application password updated : " + password,
 //							"50105223");
 
+
+
+    @PreAuthorize("hasAnyAuthority('emp_profile')")
+    @RequestMapping(method = RequestMethod.POST, value = "update-password")
+    public ResponseType updateAllUserPassword(@RequestBody PasswordRequestModel passwordRequestModel, @AuthenticationPrincipal CustomPrincipal principal) {
+        if(passwordRequestModel!=null && passwordRequestModel.getPassword()!=null){
+            String password =  passwordRequestModel.getPassword();
+            if(password.length()>=8){
+                String encryptPassword = "{bcrypt}" + UserUtils.getPasswordBCrypt(password);
+                userRepository.updatePassword(new BigInteger(principal.getJid()), encryptPassword);
+                UserMaster item =  userRepository.findUserMasterByUsername(principal.getQid());
+                if(item!=null) {
+                    String message = PASSWORD_UPDATE + password + " " + USERNAME_DETAILS + principal.getJid();
+                    String phone = item.getMobile() != null ? item.getMobile() : null;
+                    NotificationModel object = SystemUtil.createNotification(
+                            null,
+                            null,
+                            message,
+                            phone
+                    );
+                    publisher.sendNotification(object);
+                }
+                ResponseType response = new ResponseType(Constants.CREATED, MessageUtil.SUCCESS, true,
+                        null);
+                return response;
+
+            }else{
+                ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED_PASSWORD_LENGTH, false,
+                        null);
+                return response;
+            }
+        }else{
+            ResponseType response = new ResponseType(Constants.BAD_REQUEST, MessageUtil.FAILED, false,
+                    null);
+            return response;
+        }
+
+    }
+
     @PreAuthorize("hasAnyAuthority('create_system_user')")
     @RequestMapping(method = RequestMethod.POST, value = "update-password-all")
     public ResponseType updateAllUserPassword() {
@@ -97,11 +137,12 @@ public class UserController {
                     String message = PASSWORD_UPDATE + password + " " + USERNAME_DETAILS + item.getQid();
                     String phone = item.getMobile() != null ? item.getMobile() : null;
                     NotificationModel object = SystemUtil.createNotification(
-                            email,
-                            emailSubject,
+                            null,
+                            null,
                             message,
                             phone
                     );
+                    //String message = PASSWORD_UPDATE + password + " " + USERNAME_DETAILS + item.getQid();
                     publisher.sendNotification(object);
                 } else {
                     logger.error("###### ERROR NO JOB ID FOR PASSWORD RESET: " + item.getId());
