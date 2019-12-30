@@ -114,7 +114,7 @@ export const BASE_URL_FILE ="http://172.16.0.137:9000"
 
 //export const BASE_URL ="http://localhost:9000"
 
-export const VERSION_UI ="prod_0.10.9"
+export const VERSION_UI ="prod_1.0.0"
 
 //Disable if gateway is down -- for development
 var gateway = true
@@ -255,6 +255,7 @@ export const  GET_MY_WITH_DELEGATIONS=BASE_URL+workflow+"/my-tasks-delegation"
 export const  EXECUTE_TASK=BASE_URL+workflow+"/execute-task"
 export const  SAVE_COMMENT=BASE_URL+workflow+"/save-comment"
 export const  GET_COMMENTS=BASE_URL+workflow+"/task-comments"
+
 //export const  PROCESS_TASK_DETAILS=BASE_URL+workflow+"/process-history-task-details"
 export const  PROCESS_HISTORY_BY_EXECUTION_ID=BASE_URL+workflow+"/process-history-task-details"
 export const  PROCESS_HISTORY_BY_USER=BASE_URL+workflow+"/process-history-by-user-id"
@@ -269,12 +270,8 @@ export const  CHECK_THE_REQUEST_IS_VALID=BASE_URL+training +"/check-the-user-is-
 export const  CHECK_FOR_SEATS=BASE_URL+training +"/check-for-seats"
 //export const  CHECK_THE_USER_IS_ABSENT_BETWEEN_DATES=BASE_URL+employee + "/check-the-user-is-absent-between-dates";
 
-
 //Dashboard
 export const   PREVIOUS_ATTENDED_COURSES=BASE_URL+training+"/get-attended-courses"
 export const   ONGOING_COURSES=BASE_URL+training+"/currently-attending-courses"
 export const   APPROVED_COURSES=BASE_URL+training+"/get-approved-courses"
 export const   TASK_COUNT=BASE_URL+workflow+"/my-tasks-count"
-
-
-

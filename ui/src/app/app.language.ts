@@ -247,8 +247,8 @@ export class LanguageUtil {
   smartSuggestion: String = this.isArabic ? "الاقتراح الالكتروني" : "Smart Suggestion"
   responsibilities:String=this.isArabic? "المسؤوليات" : "Responsibilities"
   employeeName:String=  this.isArabic ? " اسم الموظف" :"Employee Name"
-currentGradeDate:String=this.isArabic?"تاريخ الدرجة الحالية":"CurrentGradeDate1"
-nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"NextGradeDate1"
+  currentGradeDate:String=this.isArabic?"تاريخ الدرجة الحالية":"CurrentGradeDate1"
+  nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"NextGradeDate1"
 
 
 
@@ -404,9 +404,6 @@ nextGradeDate:String=this.isArabic?"تاريخ الترقية القادمة":"N
   delegation_action_delete=this.isArabic?"الاجراء":"Action"
   delegation_action_delete_btn=this.isArabic?"حذف":"Delete"
 
-  
-  
-  
 
 }
 
