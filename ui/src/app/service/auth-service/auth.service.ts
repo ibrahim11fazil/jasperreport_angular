@@ -77,7 +77,8 @@ export class AuthService {
       body.set('password', value.password)
       //body.set('grant_type', 'password')
       body.set('', '')
-      this.http.post(LOGIN_URL,body.toString(),options)
+      let url =LOGIN_URL
+      this.http.post(url,body.toString(),options)
           .subscribe(
               response => {
                //console.log(response); 

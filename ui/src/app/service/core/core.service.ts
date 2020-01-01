@@ -12,6 +12,7 @@ import { VideoPlayerComponent } from '../../widget-component/pop-up/video-player
 import { PaymentMessageComponent } from '../../widget-component/pop-up/payment-message/payment-message.component';
 import { AddNewClientComponent } from '../../widget-component/pop-up/add-new-client/add-new-client.component';
 import { EditNewClientComponent } from '../../widget-component/pop-up/edit-new-client/edit-new-client.component';
+import { ChangePasswordComponent } from 'app/pop-up/change-password/change-password.component';
 
 @Injectable({
 	providedIn: 'root'
@@ -149,4 +150,12 @@ export class CoreService {
 	getExchangeStatisticsContent(){
 		return this.http.get('assets/data/exchange_statistics.json').map(response => response);
 	}
+
+
+	changePasswordDlg(){
+		let dialogRef : MatDialogRef<ChangePasswordComponent>;
+		  dialogRef = this.matDialog.open(ChangePasswordComponent);
+		  
+		  return dialogRef.afterClosed();
+	 }
 }

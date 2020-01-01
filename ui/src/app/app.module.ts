@@ -47,6 +47,7 @@ import { HorizontalLayoutComponent } from './horizontal-layout/horizontal-layout
 import { PagesModule } from './pages/pages.module';
 import {HttpInterceptorJwtauthService} from "./service/http/http-interceptor-jwtauth.service";
 import { LanguageUtil } from './app.language';
+import { ChangePasswordComponent } from './pop-up/change-password/change-password.component';
 //import { EmpRequestComponent } from './triaing/emp-request/emp-request.component';
 
 
@@ -127,10 +128,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		LoadingBarRouterModule,
 		
 	],
+	entryComponents:[
+		ChangePasswordComponent
+	],
 	declarations: [
 		GeneAppComponent, 
 		MainComponent, 
-		HorizontalLayoutComponent
+		HorizontalLayoutComponent, ChangePasswordComponent
 	],
 	bootstrap: [GeneAppComponent],
 	providers: [

@@ -476,10 +476,11 @@
             <mat-icon>fingerprint</mat-icon>
             <span>{{qid}}</span>
       </button>
-      <!-- <button mat-menu-item>
+      <button (click)="changePasswordDlg()" mat-menu-item>
          <mat-icon>settings</mat-icon>
-         <span>{{'Settings'|translate}}</span>
+         <span>{{language.changepassword}}</span>
       </button>
+      <!--
       <button mat-menu-item>
          <mat-icon>help</mat-icon>
          <span>{{'Help'|translate}}</span>

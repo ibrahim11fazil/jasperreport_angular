@@ -616,6 +616,19 @@ export class MainComponent implements OnInit, OnDestroy{
          this.coreService.horizontalSizeStatue = true;
       }
    }
+
+   popUpNewUserResponse:any
+   changePasswordDlg(){
+      this.coreService.changePasswordDlg().
+      subscribe( res => {this.popUpNewUserResponse = res},
+                 err => console.log(err),
+                 ()  => this.changePasswordRespose(this.popUpNewUserResponse))
+
+      
+   }
+   changePasswordRespose(response){
+
+   }
 }
 
 

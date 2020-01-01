@@ -194,5 +194,16 @@ export class SystemPermissionByRoleRequest{
 }
 
 
+export class PasswordRequest{
+    password:String
+}
+
+export class PasswordResponse{
+    status: Boolean;
+    code:number;
+    message:String;
+}
+
+
 
 

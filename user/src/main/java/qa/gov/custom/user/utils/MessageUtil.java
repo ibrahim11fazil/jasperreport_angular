@@ -29,6 +29,6 @@ public class MessageUtil {
     public static String PASSWORD_UPDATE="تم تعديل كلمة سر نظام التدريب إلى  :";
     public static String USERNAME_DETAILS="المستخدم :";
     public static String PASSWORD_SUBJECT_EMAIL="تم تعديل كلمة السر";
-    public static String  FAILED_PASSWORD_LENGTH=" يجب أن تتكون كلمة المرور من 8 رموز أو أكثر ";
+    public static String  FAILED_PASSWORD_LENGTH= "كلمة السر يجب ان لا تقل عن 8 أحرف";
 
 }

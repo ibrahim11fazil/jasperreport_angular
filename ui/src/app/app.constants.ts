@@ -86,16 +86,16 @@ export const	GENERAL_COURSE =4
 
 
 //LOCAL
-//export const BASE_URL = "http://localhost:9001"
-//export const BASE_URL = "http://localhost:9000"
+export const BASE_URL = "http://localhost:9000"
+//export const BASE_URL_FILE = "http://localhost:9000"
 
 //QA
  // export const BASE_URL ="http://172.16.0.254:9000"
  // export const BASE_URL_FILE ="http://172.16.0.254:9000"
 
 //PROD
-export const BASE_URL ="http://172.16.0.137:9000"
-export const BASE_URL_FILE ="http://172.16.0.137:9000"
+// export const BASE_URL ="http://172.16.0.137:9000"
+// export const BASE_URL_FILE ="http://172.16.0.137:9000"
 
 
 //  export const BASE_URL ="http://10.64.3.32:9000"
@@ -220,14 +220,15 @@ export const  GET_ALL_USERS_BY_ROLE_ID=BASE_URL+user+"/find-all-system-users-by-
 export const  GET_ALL_PERMISSIONS = BASE_URL+user+"/find-all-system-permissions"
 export const  GET_ALL_PERMISSIONS_FOR_ROLE = BASE_URL+user+"/find-all-system-permissions-for-role"
 export const  UPDATE_ROLE_AND_PERMISSION = BASE_URL+ user + "/update-role-and-permission"
+export const UPDATE_PASSWORD = BASE_URL+ user + "/update-password"
 
-//FILE UPLOADING
-export const  UPLOAD_FILE   =     BASE_URL_FILE+fileUploading+"/uploadFile"
-export const  DOWNLOAD_FILE =     BASE_URL_FILE+fileUploading+"/downloadFile"
-export const GET_CERTIFICATE=     BASE_URL_FILE+fileUploading+"/downloadFile/certificate/"
-export const GENERATE_CERTIFICATE = BASE_URL_FILE+fileUploading+"/generate-certificate"
-export const LIST_CERTIFICATE = BASE_URL_FILE+fileUploading+"/list-certificates"
-export const LIST_CERTIFICATE_BYJOBID=BASE_URL_FILE+fileUploading+"/list-certificates-byjobid"
+//FILE UPLOADING  -- > BASE_URL_FILE
+export const  UPLOAD_FILE   =     BASE_URL+fileUploading+"/uploadFile"
+export const  DOWNLOAD_FILE =     BASE_URL+fileUploading+"/downloadFile"
+export const GET_CERTIFICATE=     BASE_URL+fileUploading+"/downloadFile/certificate/"
+export const GENERATE_CERTIFICATE = BASE_URL+fileUploading+"/generate-certificate"
+export const LIST_CERTIFICATE = BASE_URL+fileUploading+"/list-certificates"
+export const LIST_CERTIFICATE_BYJOBID=BASE_URL+fileUploading+"/list-certificates-byjobid"
 
 //CIS Actions
 export const GET_CIS_USERS=BASE_URL+cis+"/find-all-users-cases-for-cis"

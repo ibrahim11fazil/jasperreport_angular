@@ -404,6 +404,16 @@ export class LanguageUtil {
   delegation_action_delete=this.isArabic?"الاجراء":"Action"
   delegation_action_delete_btn=this.isArabic?"حذف":"Delete"
 
+  change_password_title= this.isArabic?"كلمة السر":"Password"
+  confirm_change_password_title= this.isArabic?"تأكيد كلمة السر ":"Confirm Password "
+  changepassword= this.isArabic?"تغيير كلمة السر":"Change Password"
+  changepassword_success = this.isArabic?"تم تغيير كلمة السر بنجاح.":"Password Updated Successfully."
+  changepassword_failed = this.isArabic?"لم يتم تغيير كلمة السر , يمكن التواصل مع الدعم للمساعدة.":"Password Updation Failed, Contact Administrator."
+  changepassword_lenth_8= this.isArabic?"كلمة السر يجب ان لا تقل عن 8 أحرف":"Enter a valid password of length greater than 8"
+  changepassword_notmatch= this.isArabic?"كلمة السر غير متطابقة":"Password is not matching"
+ 
 
+
+  
 }
 
