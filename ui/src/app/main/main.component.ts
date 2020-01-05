@@ -627,7 +627,8 @@ export class MainComponent implements OnInit, OnDestroy{
       
    }
    changePasswordRespose(response){
-
+      if(response)
+       this.authService.logOut();
    }
 }
 

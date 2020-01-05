@@ -8,6 +8,7 @@ import { PasswordRequest } from 'app/models/system-user';
 import { ToastrService } from 'ngx-toastr';
 import { LanguageUtil } from 'app/app.language';
 import { MainComponent } from 'app/main/main.component';
+import { AuthService } from 'app/service/auth-service/auth.service';
 
 @Component({
   selector: 'ms-change-password',
@@ -22,7 +23,8 @@ export class ChangePasswordComponent implements OnInit {
                public dialogRef    : MatDialogRef<ChangePasswordComponent>,
                private errorService:ErrorService,
                private service:SystemUserService, 
-               private toastr : ToastrService) {
+               private toastr : ToastrService
+              ) {
                  //TODO Need to change this in future 
                 this.language = new LanguageUtil(true);
                }
@@ -55,7 +57,7 @@ export class ChangePasswordComponent implements OnInit {
   passwordUpdated(data){
          if(data.status){
            this.toastr.success(this.language.changepassword_success)
-           this.dialogRef.close(this.form.value);
+           this.dialogRef.close(true);
          }else{
           this.toastr.success(this.language.changepassword_failed)
          }
