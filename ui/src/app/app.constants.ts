@@ -114,7 +114,7 @@ export const BASE_URL = "http://localhost:9000"
 
 //export const BASE_URL ="http://localhost:9000"
 
-export const VERSION_UI ="prod_1.0.1"
+export const VERSION_UI ="prod_1.0.3"
 
 //Disable if gateway is down -- for development
 var gateway = true
