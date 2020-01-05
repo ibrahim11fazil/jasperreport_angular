@@ -86,11 +86,11 @@ export const	GENERAL_COURSE =4
 
 
 //LOCAL
-export const BASE_URL = "http://localhost:9000"
+//export const BASE_URL = "http://localhost:9000"
 //export const BASE_URL_FILE = "http://localhost:9000"
 
 //QA
- // export const BASE_URL ="http://172.16.0.254:9000"
+export const BASE_URL ="http://172.16.0.254:9000"
  // export const BASE_URL_FILE ="http://172.16.0.254:9000"
 
 //PROD
