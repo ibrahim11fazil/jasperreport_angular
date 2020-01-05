@@ -97,3 +97,8 @@ To add an insecure docker registry, add the file /etc/docker/daemon.json with th
 /swarm/volumes/data/logs 
 
 
+## SWARM PIT 
+
+   
+
+

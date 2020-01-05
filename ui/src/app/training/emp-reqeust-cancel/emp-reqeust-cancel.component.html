@@ -15,11 +15,11 @@
                     
                     <ng-container matColumnDef="course">  
                       <th mat-header-cell *matHeaderCellDef> {{language.cancelRequestcourse}} </th>  
-                      <td mat-cell *matCellDef="let element"> {{element.dataProcessed.courseName}}  </td>  
+                      <td mat-cell *matCellDef="let element"> {{element.dataProcessed!=null && element.dataProcessed.courseName!=null ?element.dataProcessed.courseName:""}}  </td>  
                     </ng-container>  
                     <ng-container matColumnDef="jobId">  
                         <th mat-header-cell *matHeaderCellDef>{{language.cancelRequestjobId}}  </th>  
-                        <td mat-cell *matCellDef="let element"> {{element.dataProcessed.forUserJobId}}  </td>  
+                        <td mat-cell *matCellDef="let element"> {{element.dataProcessed!=null && element.dataProcessed.forUserJobId!=null?element.dataProcessed.forUserJobId:""}}  </td>  
                       </ng-container> 
                      
                     
