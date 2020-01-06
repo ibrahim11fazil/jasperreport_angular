@@ -229,6 +229,7 @@ export class LanguageUtil {
   validationDelegation:String = this.isArabic?"تاريخ البداية مطلوب":"JobId,start Date and End Date  is required"
   datesValidationInDelgation:String= this.isArabic?"التواريخ غير صالحة, تاريخ النهاية قبل تاريخ البداية او":"Dates are not valid, end date is same or after the start date"
   delegationsNotFound:String=this.isArabic?"لم يتم العثور علي العناصر":"No items found"
+  invalidSearchInput:String=this.isArabic?" معيار بحث غير صالح":"Invalid Search"
   
   //History
 

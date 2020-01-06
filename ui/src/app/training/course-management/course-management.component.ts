@@ -911,7 +911,7 @@ export class CourseManagementComponent implements OnInit {
 
        })
     }else{
-      this.toastr.error("Invalid search input")
+      this.toastr.error(this.language.invalidSearchInput.toString())
     }
 
     
