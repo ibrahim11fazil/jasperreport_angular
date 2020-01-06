@@ -293,8 +293,9 @@ export class LanguageUtil {
   darkMode: String = this.isArabic ? "الوضع الداكن" : "Dark Mode"
   sidebarFilters: String = this.isArabic ? "تصفية الشريط الجانبي" : "Sidebar Filters "
   headerFilters: String = this.isArabic ? "تصفية العناوين" : "Header Filters "
-
-
+  login_success:String = this.isArabic?" تم تسجيل الدخول بنجاح":"Successfully Logged In!"
+  login_expire:String = this.isArabic?" تم انهاء جلسة العمل ":"Session Expired"
+  logout_sucess:String = this.isArabic?"تم تسجيل الخروج " : "Successfully logged out!"
   //Main Menu
 
   menu_dashboard: String = this.isArabic ? "لوحة العمل" : "Dashboard"
@@ -412,7 +413,7 @@ export class LanguageUtil {
   changepassword_lenth_8= this.isArabic?"كلمة السر يجب ان لا تقل عن 8 أحرف":"Enter a valid password of length greater than 8"
   changepassword_notmatch= this.isArabic?"كلمة السر غير متطابقة":"Password is not matching"
  
-
+   
 
   
 }

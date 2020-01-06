@@ -10,6 +10,7 @@ import { LoginResponseObj } from 'app/models/system-user';
 import { isNgTemplate } from '@angular/compiler';
 import {  ResponseError } from 'app/models/ci-system-user';
 import { ErrorService } from '../error/error.service';
+import { LanguageUtil } from 'app/app.language';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,13 @@ export class AuthService {
 	//user 		  : Observable<firebase.User>;
 	 userData   : any;
     isLoggedIn = false;
-
+    language:LanguageUtil;
    constructor(//private firebaseAuth : AngularFireAuth,
                private http:HttpClient,
                private router : Router,
                private toastr : ToastrService,
                private errorService:ErrorService) { 
+               this.language = new LanguageUtil(true);
    //	this.user = firebaseAuth.authState;
    }
 
@@ -83,7 +85,7 @@ export class AuthService {
               response => {
                //console.log(response); 
                this.setLocalUserProfile(response);
-               this.toastr.success('Successfully Logged In!');
+               this.toastr.success(this.language.login_success.toString());
                this.router.navigate(['/']);
             },
             error => {
@@ -159,7 +161,7 @@ export class AuthService {
    logOut() {
         localStorage.clear()
         localStorage.removeItem("userProfile");
-        this.toastr.success("Successfully logged out!");
+        this.toastr.success(this.language.logout_sucess.toString());
         this.router.navigate(['/session/loginV2']);
    }   
    
@@ -167,7 +169,7 @@ export class AuthService {
    logOutExpire() {
       localStorage.clear()
       localStorage.removeItem("userProfile");
-      this.toastr.success("Session Expired");
+      this.toastr.success(this.language.login_expire.toString());
       this.router.navigate(['/session/loginV2']);
    }   
 
