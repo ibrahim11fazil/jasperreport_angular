@@ -24,9 +24,18 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 
 import javax.sql.DataSource;
 
+// 2 ) Enable the Authorization Server
+
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    @Qualifier("authenticationManagerBean")
+    private AuthenticationManager authenticationManager;
 
     @Value("${check-user-scopes}")
     private Boolean checkUserScopes;
@@ -35,17 +44,10 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
     private ClientDetailsService clientDetailsService;
-
-    @Autowired
-    @Qualifier("authenticationManagerBean")
-    private AuthenticationManager authenticationManager;
 
     @Bean
     public OAuth2RequestFactory requestFactory() {
@@ -67,6 +69,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
         return converter;
     }
 
+    // store client data and add a client to it:
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
@@ -82,6 +85,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
         oauthserver.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
 
+    //Inject the authenticationManager to enable the password authenticator
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtAccessTokenConverter())
@@ -91,9 +95,4 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
     }
 
-//    @Override
-//    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception
-//    {
-//        endpoints.exceptionTranslator(getWebResponseExceptionTranslator());
-//    }
 }

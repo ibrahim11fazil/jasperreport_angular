@@ -37,7 +37,7 @@ public class CustomOAuth2RequestFactory extends DefaultOAuth2RequestFactory {
                     new UsernamePasswordAuthenticationToken(authentication.getName(), null,
                             userDetailsService.loadUserByUsername(authentication.getName()).getAuthorities()));
         }
-
         return super.createTokenRequest(requestParameters, authenticatedClient);
     }
+
 }

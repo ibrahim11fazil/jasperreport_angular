@@ -12,3 +12,5 @@ VOLUME /tmp
 VOLUME /logs
 VOLUME /uploads
 EXPOSE 9021
+
+
