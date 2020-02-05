@@ -455,6 +455,7 @@ export class MenuItems {
     ci_system_menu.children=[]
     request_menu.children=[]
     smart_menu.children=[]
+    report_menu.children=[]
 
     if (permissions.length > 0) {
 
@@ -543,7 +544,16 @@ export class MenuItems {
           case "mreh":
             request_menu.children.push({ state: 'my-tasks-history', name: language.menu_history })
             break
-
+            //REPORT
+            case "mcc":
+            training_menu.children.push({ state: 'course-data-report', name: language.menu_courseDataReport })
+            break
+            case "mcc":
+              training_menu.children.push({ state: 'course-status-report', name: language.menu_courseStatusReport })
+              break
+              case "mcc":
+                training_menu.children.push({ state: 'instructor-subject-report', name: language.menu_instructorSubjectReport })
+                break
           //SMART MENU
           case "msep":
               smart_menu.children.push({ state: 'smart-profile', name: language.menu_smartProfile })

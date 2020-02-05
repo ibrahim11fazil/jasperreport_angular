@@ -78,6 +78,9 @@ import { UserPermissionsComponent } from './user-permissions/user-permissions.co
 import { SmartProfileComponent } from './smart-profile/smart-profile.component';
 import { EmpReqeustCancelComponent } from './emp-reqeust-cancel/emp-reqeust-cancel.component';
 import { EmpDelegationComponent } from './emp-delegation/emp-delegation.component';
+import { CourseDataReportComponent } from './course-data-report/course-data-report.component';
+import { CourseStatusReportComponent } from './course-status-report/course-status-report.component';
+import { InstructorSubjectReportComponent } from './instructor-subject-report/instructor-subject-report.component';
 
 
 
@@ -108,7 +111,11 @@ import { EmpDelegationComponent } from './emp-delegation/emp-delegation.componen
      UserPermissionsComponent,
      SmartProfileComponent,
      EmpReqeustCancelComponent,
-     EmpDelegationComponent
+     EmpDelegationComponent,
+     TrainingReportComponent,
+     CourseDataReportComponent,
+     CourseStatusReportComponent,
+     InstructorSubjectReportComponent
      ],
   imports: [
     InfiniteScrollModule,

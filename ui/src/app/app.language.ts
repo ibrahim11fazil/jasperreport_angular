@@ -337,6 +337,9 @@ export class LanguageUtil {
   menu_history: String = this.isArabic ? "معلومات سابقة" : "History"
   menu_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"
   menu_manageAttendance: String = this.isArabic ? "ادارة الحضور " : "Manage Attendance"
+  menu_courseDataReport: String = this.isArabic ? "Course Data Report" : "Course Data Report"
+  menu_courseStatusReport: String = this.isArabic ? "Course Status Report" : "Course Status Report"
+  menu_instructorSubjectReport: String = this.isArabic ? "Instructor Subjects Report" : "Instructor Subjects Report"
 
 
   //system error 

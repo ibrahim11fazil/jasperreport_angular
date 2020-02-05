@@ -1,0 +1,131 @@
+<!-- <form (ngSubmit)="onSubmit()" #reportForm="ngForm"> -->
+    <!-- <form #reportForm="ngForm" (ngSubmit)="generateReport($event)"> -->
+      <form #reportForm="ngForm"   (ngSubmit)="onSubmit($event)"> 
+        <h1 class="heading">Instructor Subject Details</h1>
+       
+          <div class="form-group"> 
+           
+             <div>
+              <mat-form-field class="example-full-width" > 
+              <input matInput  placeholder="Name "  name="name"   [(ngModel)]="instructSubjReport.name"  >
+            </mat-form-field>
+             <!-- </div>
+             <div>   -->
+            <mat-form-field class="example-full-width" > 
+              <input matInput  placeholder="Type" name="type"    [(ngModel)]="instructSubjReport.type"  >
+            </mat-form-field>
+          </div>  
+  
+  
+          <div>  
+            <mat-form-field class="example-full-width" > 
+              <input matInput  placeholder="Course Name"   name="courseName"   [(ngModel)]="instructSubjReport.courseName"  >
+            </mat-form-field>
+          <!-- </div>  
+          <div>   -->
+            <mat-form-field class="example-full-width" > 
+              <input matInput  placeholder="Organisation" name="organisation"    [(ngModel)]="instructSubjReport.organisation"  >
+            </mat-form-field>
+          </div>  
+  
+  
+          <div>
+            <mat-form-field class="example-full-width" > 
+              <input matInput  placeholder="Job Title" name="jobTitle"    [(ngModel)]="instructSubjReport.jobTitle"  >
+            </mat-form-field>
+          <!-- </div>  
+          <div> -->
+            <mat-form-field class="example-full-width" > 
+              <input matInput  placeholder="Company Name" name="companyName"    [(ngModel)]="instructSubjReport.companyName"  >
+            </mat-form-field>
+          </div> 
+          <div>
+            <mat-form-field class="example-full-width" > 
+              <input matInput  placeholder="QID" name="qid"    [(ngModel)]="instructSubjReport.qid"  >
+            </mat-form-field>
+          </div> 
+        
+            <div>
+              <mat-form-field class="example-full-width" > 
+                <input matInput  placeholder="Course" name="course"    [(ngModel)]="instructSubjReport.course"  >
+              </mat-form-field>
+            <!-- </div> 
+            <div> -->
+              <mat-form-field class="example-full-width" > 
+                <input matInput  placeholder="Priority" name="priority"    [(ngModel)]="instructSubjReport.priority"  >
+              </mat-form-field>
+            </div> 
+            
+            
+           
+       
+           <!-- <div> 
+              <input      [matDatepicker]="picker1" placeholder="Start date" name="fromDate"  [(ngModel)]="courseDataReport.fromDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              
+              <input       [matDatepicker]="picker2" placeholder="End date" name="toDate"  [(ngModel)]="courseDataReport.toDate">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker> 
+            </div> -->
+            
+        <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !instructSubjReportType}">
+          <mat-radio-group  name="instructSubjReportType"   [(ngModel)]="instructSubjReportType" required>
+              <mat-radio-button  value="pdf">PDF</mat-radio-button>
+              <mat-radio-button value="xls">Excel</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      
+       <!-- {{courseReportType}} -->
+      
+       <div class="submit-button">
+        <button mat-flat-button (click)="onNextClick()" color="primary" type="submit">Generate Report</button>
+        <button mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button>
+       </div>
+  
+      {{generatedReportStatus}} 
+      
+      </div>
+      <!-- </form> -->
+      <!-- <div *ngFor="let course of courses"> 
+          {{course.courseName}}  
+      
+      </div> -->
+      <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+       
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>   Name </th>
+          <td mat-cell *matCellDef="let element">  {{element.name}} </td>
+        </ng-container>
+       
+          <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+      
+         
+        <ng-container matColumnDef="courseName">
+          <th mat-header-cell *matHeaderCellDef> Course Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.courseName}} </td>
+        </ng-container>
+      
+       
+        <ng-container matColumnDef="organisation">
+          <th mat-header-cell *matHeaderCellDef> Organisation </th>
+          <td mat-cell *matCellDef="let element"> {{element.organisation}} </td>
+        </ng-container> 
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="selection.toggle(row)">
+        </tr>
+       
+      </table> -->
+      <!-- <mat-paginator [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator> -->
+      
+      
+      </form>
+  
