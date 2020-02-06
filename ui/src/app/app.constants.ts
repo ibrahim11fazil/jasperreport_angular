@@ -86,11 +86,11 @@ export const	GENERAL_COURSE =4
 
 
 //LOCAL
-export const BASE_URL = "http://localhost:9000"
+// export const BASE_URL = "http://localhost:9000"
 //export const BASE_URL_FILE = "http://localhost:9000"
 
 //QA
-//export const BASE_URL ="http://172.16.0.254:9000"
+export const BASE_URL ="http://172.16.0.254:9000"
  // export const BASE_URL_FILE ="http://172.16.0.254:9000"
 
 //PROD
@@ -114,7 +114,13 @@ export const BASE_URL = "http://localhost:9000"
 
 //export const BASE_URL ="http://localhost:9000"
 
-export const VERSION_UI ="qa_1.0.5"
+var BASE_URL_REPORT = "http://localhost:9085"
+var isReportLocal = true
+
+
+
+
+export const VERSION_UI ="qa_1.0.7"
 
 //Disable if gateway is down -- for development
 var gateway = true
@@ -138,6 +144,15 @@ if(gateway){
     workflow="/workflow"
     treport="/treport"
 }
+
+if(!isReportLocal){
+   BASE_URL_REPORT = BASE_URL
+}
+
+
+
+
+
 
 //http://localhost:9000/authentication/oauth/token
 //AUTHENTICATION
@@ -281,8 +296,8 @@ export const   TASK_COUNT=BASE_URL+workflow+"/my-tasks-count"
 
 
 //Reports
-export const GET_ALL_COURSE_REPORT=BASE_URL+treport+"/report"
-export const PDF_REPORT_DOWNLOAD=BASE_URL+treport+"/pdfReportDownload"
-export const EXCEL_REPORT_DOWNLOAD=BASE_URL+treport+"/excelReportDownload"
-export const GET_COURSE_STATUS_REPORT=BASE_URL+treport+"/courseStatusReport"
-export const GET_INSTRUCTOR_SUBJECT=BASE_URL+treport+"/instructSubjReport"
+export const GET_ALL_COURSE_REPORT=BASE_URL_REPORT+treport+"/report"
+export const PDF_REPORT_DOWNLOAD=BASE_URL_REPORT+treport+"/pdfReportDownload"
+export const EXCEL_REPORT_DOWNLOAD=BASE_URL_REPORT+treport+"/excelReportDownload"
+export const GET_COURSE_STATUS_REPORT=BASE_URL_REPORT+treport+"/courseStatusReport"
+export const GET_INSTRUCTOR_SUBJECT=BASE_URL_REPORT+treport+"/instructSubjReport"
