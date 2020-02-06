@@ -29,7 +29,8 @@ export class InstructorSubjectReportComponent implements OnInit {
   displayedColumns: string[] = ['name', 'type', 'courseName', 'organisation'];
   // dataSource = this.courses; 
   dataSource =new MatTableDataSource<InstructorSubjectReport>(); 
-  displayMessage:boolean;
+  displayMessage = false;
+  matSpinnerStatus = false;
   constructor( private route: ActivatedRoute, 
     private router: Router, private instructorSubjectReportService: InstructorSubjectReportService,
     public datepipe: DatePipe,private _snackBar: MatSnackBar) {
@@ -62,6 +63,7 @@ export class InstructorSubjectReportComponent implements OnInit {
     this.displayMessage=false;
     if(this.nextClicked) {
       if(this.MyForm.valid){
+        this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
             this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
@@ -93,6 +95,7 @@ export class InstructorSubjectReportComponent implements OnInit {
     this.instructorSubjectReportService.generateReport(this.instructSubjReportType, this.instructSubjReport).subscribe(result => {
       this.generatedReportStatus=result;
       this.displayMessage=true;
+      this.matSpinnerStatus=false;
       // alert("HERER WE ARE");
       // alert("generated rport startus is "+this.generatedReportStatus);
     });

@@ -1,18 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'ms-course-data-report',
-//   templateUrl: './course-data-report.component.html',
-//   styleUrls: ['./course-data-report.component.scss']
-// })
-// export class CourseDataReportComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
 import { Component, OnInit, ViewChild } from '@angular/core';
 // import { Component, OnInit, } from '@angular/core';
 import { CourseDataReportService } from '../../service/course-data-report.service';
@@ -21,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource,MatPaginator  } from '@angular/material'; 
 import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar'; 
 import * as fileSaver from 'file-saver'; 
 
  
@@ -41,6 +26,8 @@ export class CourseDataReportComponent implements OnInit {
   fileSystemName: string;
   nextClicked = false; 
   classpathFileName: string;
+  displayMessage = false;
+  matSpinnerStatus = false;
 //  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['courseName', 'duration', 'startDate', 'endDate'];
   // dataSource = this.courses; 
@@ -56,10 +43,9 @@ export class CourseDataReportComponent implements OnInit {
       // this.dataSource.paginator = this.paginator;
      }
   
-  ngOnInit() {
+  ngOnInit() { 
     console.log("im here ngonInit");
-    this.courseDataReportService.getAll().subscribe(data => {
-      
+    this.courseDataReportService.getAll().subscribe(data => { 
       console.log("getting data");
       // this.courses = data;
       this.dataSource.data = data as CourseDataReport[];
@@ -75,17 +61,19 @@ export class CourseDataReportComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    this.displayMessage=false;
     if(this.nextClicked) {
-      if(this.MyForm.valid){
+      if(this.MyForm.valid){  
+        this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
             this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
         }
       
     }else {
-      if(this.MyForm.valid){
+      if(this.MyForm.valid){  
         this.downloadFileSystem();
-      }else{ 
+      }else{  
             this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
         }
     }
@@ -106,6 +94,8 @@ export class CourseDataReportComponent implements OnInit {
     // this.courseDataReportService.generateReport(this.courseReportType, from_date, to_date).subscribe(result => this.consolecheck());
     this.courseDataReportService.generateReport(this.courseReportType, this.courseDataReport).subscribe(result => {
       this.generatedReportStatus=result;
+      this.displayMessage=true;
+      this.matSpinnerStatus=false;
       // alert("HERER WE ARE");
       // alert("generated rport startus is "+this.generatedReportStatus);
     });
@@ -174,4 +164,3 @@ export class CourseDataReportComponent implements OnInit {
 
 
 }
-

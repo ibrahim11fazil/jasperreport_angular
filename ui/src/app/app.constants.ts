@@ -126,7 +126,7 @@ var fileUploading=""
 var cis=""
 var employee=""
 var workflow=""
-var report=""
+var treport=""
 if(gateway){
     authentication="/authentication"
     authenticationrefresh="/authrefresh"
@@ -136,7 +136,7 @@ if(gateway){
     cis="/cis"
     employee="/employee"
     workflow="/workflow"
-    report="/report"
+    treport="/treport"
 }
 
 //http://localhost:9000/authentication/oauth/token
@@ -281,8 +281,8 @@ export const   TASK_COUNT=BASE_URL+workflow+"/my-tasks-count"
 
 
 //Reports
-export const GET_ALL_COURSE_REPORT=BASE_URL+report+"/report"
-export const PDF_REPORT_DOWNLOAD=BASE_URL+report+"/pdfReportDownload"
-export const EXCEL_REPORT_DOWNLOAD=BASE_URL+report+"/excelReportDownload"
-export const GET_COURSE_STATUS_REPORT=BASE_URL+report+"/courseStatusReport"
-export const GET_INSTRUCTOR_SUBJECT=BASE_URL+report+"/instructSubjReport"
+export const GET_ALL_COURSE_REPORT=BASE_URL+treport+"/report"
+export const PDF_REPORT_DOWNLOAD=BASE_URL+treport+"/pdfReportDownload"
+export const EXCEL_REPORT_DOWNLOAD=BASE_URL+treport+"/excelReportDownload"
+export const GET_COURSE_STATUS_REPORT=BASE_URL+treport+"/courseStatusReport"
+export const GET_INSTRUCTOR_SUBJECT=BASE_URL+treport+"/instructSubjReport"

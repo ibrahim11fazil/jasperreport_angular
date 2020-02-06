@@ -91,10 +91,14 @@
   
    <div class="submit-button">
     <button mat-flat-button (click)="onNextClick()" color="primary" type="submit">Generate Report</button>
-    <button mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button>
+   </div> 
+   <div>
+    <!-- <mat-spinner  strokeWidth="3" [diameter]="50" *ngIf="!displayMessage  && matSpinnerStatus "></mat-spinner> -->
+    <mat-spinner  strokeWidth="3" [diameter]="50" *ngIf="matSpinnerStatus "></mat-spinner>
    </div>
-  
-   {{generatedReportStatus}}
+   <!-- _forceAnimations="true"  -->
+    
+   <p *ngIf="displayMessage">{{generatedReportStatus}} <button  mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button></p>
    <!-- <div class="submit-button">
     <button mat-flat-button color="primary" type="submit">Generate Report</button>
   </div> -->

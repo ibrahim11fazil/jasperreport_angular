@@ -29,12 +29,14 @@ export class CourseStatusReportComponent implements OnInit {
   displayedColumns: string[] = ['courseName', 'duration', 'startDate', 'endDate'];
   // dataSource = this.courses; 
   dataSource =new MatTableDataSource<CourseStatusReport>(); 
-  displayMessage:boolean;
+  displayMessage = false;
+  matSpinnerStatus=false;
   constructor( private route: ActivatedRoute, 
     private router: Router, private courseStatusReportService: CourseStatusReportService,
     public datepipe: DatePipe,private _snackBar: MatSnackBar) {
       this.courseStatusReportType="" ;
       this.courseStatusReport=new CourseStatusReport
+      
      }
      ngAfterViewInit(): void {
       // this.dataSource.paginator = this.paginator;
@@ -62,6 +64,7 @@ export class CourseStatusReportComponent implements OnInit {
     this.displayMessage=false;
     if(this.nextClicked) {
       if(this.MyForm.valid){
+        this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
             this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
@@ -92,6 +95,7 @@ export class CourseStatusReportComponent implements OnInit {
     this.courseStatusReportService.generateReport(this.courseStatusReportType, this.courseStatusReport).subscribe(result => {
       this.generatedReportStatus=result;
       this.displayMessage=true;
+      this.matSpinnerStatus=false;
       // this.dataSource.data = result as Array<CourseStatusReport> ;
       // alert("HERER WE ARE");
       // alert("generated rport startus is "+result);
@@ -102,18 +106,18 @@ export class CourseStatusReportComponent implements OnInit {
     
   }
 
-public dateInputValidator(event:any){
-   // console.log("***event value"+event.target.value);
-    // const pattern = /^[a-zA-Z0-9]*$/;
-    const pattern = /^[0-9]*$/;   
+public toDateInputValidator(event:any){
+   console.log("***event value"+event.target.value); 
+    // const pattern = /^[0-9]*$/;   
     //let inputChar = String.fromCharCode(event.charCode)
-    if (!pattern.test(event.target.value)) {
+    // if (event.target.value >) {
       // event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
-      event.target.value = event.target.value.replace(/[^0-9]/g, "");
+      // event.target.value = event.target.value.replace(/[^0-9]/g, "");
       // invalid character, prevent input
-      this._snackBar.open("Only Digits Allowed","",{duration:1500});
+      // this._snackBar.open("Only Digits Allowed","",{duration:1500});
 
-}
+// }
+
 }
   public inputValidator(event: any) {
     // console.log("***event value"+event.target.value);
@@ -161,12 +165,12 @@ public dateInputValidator(event:any){
  
   saveFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
-      fileSaver.saveAs(blob, "CourseStatus.pdf"); 
+      fileSaver.saveAs(blob, "CourseStatusReport.pdf"); 
   }
 
   saveFile2(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-      fileSaver.saveAs(blob, "CourseStatus.xlsx");
+      fileSaver.saveAs(blob, "CourseStatusReport.xlsx");
     
   }
 

@@ -1,4 +1,4 @@
- <!-- <form (ngSubmit)="onSubmit()" #reportForm="ngForm"> -->
+<!-- <form (ngSubmit)="onSubmit()" #reportForm="ngForm"> -->
     <!-- <form #reportForm="ngForm" (ngSubmit)="generateReport($event)"> -->
       <form #reportForm="ngForm"   (ngSubmit)="onSubmit($event)">
         <h1 class="heading">Course Status Details</h1>
@@ -82,8 +82,8 @@
               <input      [matDatepicker]="picker1" placeholder="Start date" name="startDate"    [(ngModel)]="courseStatusReport.startDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
-              
-              <input       [matDatepicker]="picker2" placeholder="End date" name="endDate"  [(ngModel)]="courseStatusReport.endDate">
+              <!-- (input)="toDateInputValidator($event)"  -->
+              <input      [matDatepicker]="picker2" placeholder="End date" name="endDate"  [(ngModel)]="courseStatusReport.endDate">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker> 
             </div>
@@ -109,10 +109,14 @@
       
        <div class="submit-button">
         <button mat-flat-button (click)="onNextClick()" color="primary" type="submit">Generate Report</button>
-        <button mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button>
+        <!--  <button mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button> -->  
        </div>
   
-      {{generatedReportStatus}}
+       <div>
+        <mat-spinner  strokeWidth="3" [diameter]="50" *ngIf="matSpinnerStatus"></mat-spinner>
+       </div>
+       <!-- !displayMessage  && -->
+       <p *ngIf="displayMessage">{{generatedReportStatus}} <button  mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button></p>
         
        
    
