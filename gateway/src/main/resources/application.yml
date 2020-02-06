@@ -139,8 +139,8 @@ zuul:
       sensitiveHeaders:
 
     report:
-      path: /report/**
-      serviceId: report
+      path: /treport/**
+      serviceId: treport
       stripPrefix: true
       sensitiveHeaders:
 
