@@ -16,7 +16,8 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./course-data-report.component.css']
 })
 export class CourseDataReportComponent implements OnInit {
-  @ViewChild('reportForm',{static:false}) public MyForm: NgForm;
+  @ViewChild('reportForm') 
+  public MyForm: NgForm;
   courses: Array<CourseDataReport>;
   courseReportType: string;
   fromDate = new Date();
