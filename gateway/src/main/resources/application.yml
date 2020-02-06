@@ -138,6 +138,12 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
 
+    report:
+      path: /report/**
+      serviceId: report
+      stripPrefix: true
+      sensitiveHeaders:
+
 #hystrix:
 #  command:
 #    training:
