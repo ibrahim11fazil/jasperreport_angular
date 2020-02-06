@@ -13,7 +13,7 @@ import * as fileSaver from 'file-saver';
 @Component({
   selector: 'app-course-data-report',
   templateUrl: './course-data-report.component.html',
-  styleUrls: ['./course-data-report.component.css']
+  styleUrls: ['./course-data-report.component.scss']
 })
 export class CourseDataReportComponent implements OnInit {
   @ViewChild('reportForm') 
@@ -45,12 +45,12 @@ export class CourseDataReportComponent implements OnInit {
      }
   
   ngOnInit() { 
-    console.log("im here ngonInit");
-    this.courseDataReportService.getAll().subscribe(data => { 
-      console.log("getting data");
-      // this.courses = data;
-      this.dataSource.data = data as CourseDataReport[];
-    });
+    //console.log("im here ngonInit");
+    // this.courseDataReportService.getAll().subscribe(data => { 
+    //   console.log("getting data");
+    //   // this.courses = data;
+    //   this.dataSource.data = data as CourseDataReport[];
+    // });
   }
 
   public onNextClick(): void {

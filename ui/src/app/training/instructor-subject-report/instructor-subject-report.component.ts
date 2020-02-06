@@ -12,7 +12,7 @@ import * as fileSaver from 'file-saver';
 @Component({
   selector: 'app-instructor-subject-report',
   templateUrl: './instructor-subject-report.component.html',
-  styleUrls: ['./instructor-subject-report.component.css']
+  styleUrls: ['./instructor-subject-report.component.scss']
 })
 export class InstructorSubjectReportComponent implements OnInit {
   @ViewChild('reportForm') 

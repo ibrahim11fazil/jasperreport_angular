@@ -506,6 +506,10 @@ export class MenuItems {
           //User management
           case "muc":
             user_menu.children.push({ state: 'user-creation', name: language.menu_newUser })
+            report_menu.children.push({ state: 'course-data-report', name: language.menu_courseDataReport })
+            report_menu.children.push({ state: 'course-status-report', name: language.menu_courseStatusReport })
+            report_menu.children.push({ state: 'instructor-subject-report', name: language.menu_instructorSubjectReport })
+         
             break
           case "mus":
             user_menu.children.push({ state: 'user-search', name: language.menu_searchUser })
@@ -544,16 +548,10 @@ export class MenuItems {
           case "mreh":
             request_menu.children.push({ state: 'my-tasks-history', name: language.menu_history })
             break
-            //REPORT
-            case "mcc":
-            training_menu.children.push({ state: 'course-data-report', name: language.menu_courseDataReport })
-            break
-            case "mcc":
-              training_menu.children.push({ state: 'course-status-report', name: language.menu_courseStatusReport })
-              break
-              case "mcc":
-                training_menu.children.push({ state: 'instructor-subject-report', name: language.menu_instructorSubjectReport })
-                break
+            //REPORT -- TODO need to change the permission muc to mrepo
+           
+             
+              
           //SMART MENU
           case "msep":
               smart_menu.children.push({ state: 'smart-profile', name: language.menu_smartProfile })
@@ -571,6 +569,7 @@ export class MenuItems {
       jobcard_menu.name=language.menu_jobCard.toString();
       user_menu.name=language.menu_user.toString();
       request_menu.name=language.menu_requests.toString();
+      
 
     }
    // this.updatePermission(permissions)
@@ -595,6 +594,7 @@ export class MenuItems {
             break
           case "muma":
             dynamicMenu.push(user_menu)
+            dynamicMenu.push(report_menu)
             break
           case "mrma":
             dynamicMenu.push(request_menu)

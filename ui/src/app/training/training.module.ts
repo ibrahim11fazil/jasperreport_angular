@@ -112,7 +112,6 @@ import { InstructorSubjectReportComponent } from './instructor-subject-report/in
      SmartProfileComponent,
      EmpReqeustCancelComponent,
      EmpDelegationComponent,
-     TrainingReportComponent,
      CourseDataReportComponent,
      CourseStatusReportComponent,
      InstructorSubjectReportComponent
