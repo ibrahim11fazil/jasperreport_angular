@@ -13,3 +13,36 @@ th.mat-header-cell {
 .heading{ 
     padding-left:600px;
  }
+ html, body { height: 100%; }
+ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+ 
+ .mat-form-field-invalid .mat-radio-label-content{
+     color:#f44336;
+ }
+ .mat-form-field-invalid .mat-radio-outer-circle{
+     border-color:#f44336!important;
+ }
+ 
+ 
+ .full-width-field {
+     padding-right:100px;
+      padding-bottom:10px; 
+  }
+  .example-full-width{
+     padding-right:100px;
+     padding-bottom:10px;
+  }
+ 
+  .form-group {
+     padding-top:20px;
+     padding-left:500px;
+  }
+ 
+  .submit-button{
+     padding-top:30px;
+     padding-bottom:30px; 
+  }
+  .active-list-item {
+     color: #f44336 !important; /* Note: You could also use a custom theme */
+   }
+ 
