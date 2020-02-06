@@ -15,6 +15,7 @@
    | 10 | training  | 9051  |   |   |
    | 11 | workflow-camuda  | 9061  |   |   |
    | 12 | gateway-cloud  | 7777  |   |   |
+   | 13 | report  | 9071  |   |   |
    
 
 ## Kafka and Zoo keeper ports 
