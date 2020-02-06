@@ -115,10 +115,7 @@ export const BASE_URL ="http://172.16.0.254:9000"
 //export const BASE_URL ="http://localhost:9000"
 
 var BASE_URL_REPORT = "http://localhost:9085"
-var isReportLocal = true
-
-
-
+var isReportLocal = false
 
 export const VERSION_UI ="qa_1.0.7"
 
@@ -146,7 +143,10 @@ if(gateway){
 }
 
 if(!isReportLocal){
+   
    BASE_URL_REPORT = BASE_URL
+}else{
+    treport=""
 }
 
 
