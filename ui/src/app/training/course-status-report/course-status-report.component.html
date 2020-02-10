@@ -9,13 +9,13 @@
             <div fxLayout="row wrap" fxLayoutAlign="space-between center">
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                <mat-form-field class="full-wid mrgn-b-md" > 
-              <input matInput  placeholder="Employee "  name="employee"   [(ngModel)]="courseStatusReport.employee"  >
+              <input matInput  placeholder={{language.employeeName}} name="employee"   [(ngModel)]="courseStatusReport.employee"  >
             </mat-form-field></div>
              <!-- </div>
              <div>   -->
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                 <mat-form-field class="full-wid mrgn-b-md" > 
-              <input matInput  placeholder="Job No" name="jobNo"    [(ngModel)]="courseStatusReport.jobNo"  >
+              <input matInput  placeholder={{language.jobNumber}} name="jobNo"    [(ngModel)]="courseStatusReport.jobNo"  >
             </mat-form-field>
           </div>  </div>
   
@@ -23,7 +23,7 @@
           <div fxLayout="row wrap" fxLayoutAlign="space-between center">
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
              <mat-form-field class="full-wid mrgn-b-md" >  
-              <input matInput  placeholder="Course Name"   name="courseName"   [(ngModel)]="courseStatusReport.courseName"  >
+              <input matInput  placeholder={{language.courseName}}  name="courseName"   [(ngModel)]="courseStatusReport.courseName"  >
             </mat-form-field></div>
           <!-- </div>   -->
           <!-- <div>  
@@ -41,7 +41,7 @@
              
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               <mat-form-field class="full-wid mrgn-b-md" >  
-              <input matInput  placeholder="Duration" name="duration" (input)="inputValidator($event)" [(ngModel)]="courseStatusReport.duration"  >
+              <input matInput  placeholder={{language.coursePeriod}} name="duration" (input)="inputValidator($event)" [(ngModel)]="courseStatusReport.duration"  >
             </mat-form-field>
           </div> </div>
           
@@ -56,7 +56,7 @@
           <div> -->
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               <mat-form-field class="full-wid mrgn-b-md" > 
-              <input matInput  placeholder="Job Title" name="jobTitle"    [(ngModel)]="courseStatusReport.jobTitle"  >
+              <input matInput  placeholder={{language.jobTitle}} name="jobTitle"    [(ngModel)]="courseStatusReport.jobTitle"  >
             </mat-form-field>
           </div> </div>
   
@@ -65,13 +65,13 @@
           <div fxLayout="row wrap" fxLayoutAlign="space-between center">
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
              <mat-form-field class="full-wid mrgn-b-md" >
-              <input matInput  placeholder="Department" name="department"    [(ngModel)]="courseStatusReport.department"  >
+              <input matInput  placeholder={{language.department}} name="department"    [(ngModel)]="courseStatusReport.department"  >
             </mat-form-field></div>
           <!-- </div>  
             <div> -->
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                 <mat-form-field class="full-wid mrgn-b-md" > 
-                <input matInput  placeholder="Job card No" name="jobCardNo" (input)="inputValidator($event)"   [(ngModel)]="courseStatusReport.jobCardNo"  >
+                <input matInput  placeholder={{language.jobCardNumber}} name="jobCardNo" (input)="inputValidator($event)"   [(ngModel)]="courseStatusReport.jobCardNo"  >
               </mat-form-field>
             </div> </div>
   
@@ -90,17 +90,17 @@
             </div> </div>
          
             
-            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-              <input      [matDatepicker]="picker1" placeholder="Start date" name="startDate"    [(ngModel)]="courseStatusReport.startDate">
+            <div fxLayout="row wrap" >
+              
+              <input      [matDatepicker]="picker1" placeholder={{language.startDate}}  name="startDate"    [(ngModel)]="courseStatusReport.startDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker></div>
+              <mat-datepicker #picker1></mat-datepicker>
               <!-- (input)="toDateInputValidator($event)"  -->
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-              <input      [matDatepicker]="picker2" placeholder="End date" name="endDate"  [(ngModel)]="courseStatusReport.endDate">
+              
+              <input      [matDatepicker]="picker2" placeholder={{language.delegation_endDate}} name="endDate"  [(ngModel)]="courseStatusReport.endDate">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker> 
-            </div></div>
+            </div>
             <!-- (input)="dateInputValidator($event)"  -->
            <!-- <div> 
               <input      [matDatepicker]="picker1" placeholder="Start date" name="fromDate"  [(ngModel)]="courseDataReport.fromDate">
@@ -114,8 +114,8 @@
             
         <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !courseStatusReportType}">
           <mat-radio-group  name="courseStatusReportType"   [(ngModel)]="courseStatusReportType" required>
-            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"><mat-radio-button  value="pdf">PDF</mat-radio-button></div>
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"><mat-radio-button value="xls">Excel</mat-radio-button></div>
+          <mat-radio-button  value="pdf">PDF</mat-radio-button>
+              <mat-radio-button value="xls">Excel</mat-radio-button>
           </mat-radio-group>
         </div>
       

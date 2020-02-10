@@ -11,21 +11,21 @@
         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
            <mat-form-field class="full-wid mrgn-b-md" > 
-          <input matInput  placeholder="Course Name "  name="courseName"   [(ngModel)]="courseDataReport.courseName"  >
+          <input matInput  placeholder={{language.courseName}}  name="courseName"   [(ngModel)]="courseDataReport.courseName"  >
         </mat-form-field>
          <!-- </div>
          <div>   -->
            </div>
            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
         <mat-form-field class="full-wid mrgn-b-md" > 
-          <input matInput  placeholder="Duration" name="duration"   (input)="inputValidator($event)"  [(ngModel)]="courseDataReport.duration"  >
+          <input matInput  placeholder={{language.coursePeriod}} name="duration"   (input)="inputValidator($event)"  [(ngModel)]="courseDataReport.duration"  >
         </mat-form-field> 
       </div>  </div>
       <div fxLayout="row wrap" fxLayoutAlign="space-between center">
         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
          <mat-form-field class="full-wid mrgn-b-md" >  
         
-          <input matInput  placeholder="Activation Id"   name="activationId"  (input)="inputValidator($event)"   [(ngModel)]="courseDataReport.activationId"  >
+          <input matInput  placeholder={{language.activationId}}   name="activationId"  (input)="inputValidator($event)"   [(ngModel)]="courseDataReport.activationId"  >
         </mat-form-field></div>
       <!-- </div>  
         <div>  
@@ -42,7 +42,7 @@
        <div>   -->
         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
           <mat-form-field class="full-wid mrgn-b-md" >  
-          <input matInput  placeholder="Category" name="category"    [(ngModel)]="courseDataReport.category"  >
+          <input matInput  placeholder={{language.courseCategories}} name="category"    [(ngModel)]="courseDataReport.category"  >
         </mat-form-field>
         </div>  </div>
   
@@ -50,33 +50,32 @@
         <div fxLayout="row wrap" fxLayoutAlign="space-between center">
           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
            <mat-form-field class="full-wid mrgn-b-md" >  
-          <input matInput  placeholder="Hall" name="hall"    [(ngModel)]="courseDataReport.hall"  >
+          <input matInput  placeholder={{language.trainingHall}} name="hall"    [(ngModel)]="courseDataReport.hall"  >
         </mat-form-field></div>
       <!-- </div>  
       <div> -->
         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
           <mat-form-field class="full-wid mrgn-b-md" > 
-          <input matInput  placeholder="Location Name" name="locationName"    [(ngModel)]="courseDataReport.locationName"  >
+          <input matInput  placeholder={{language.locationName}} name="locationName"    [(ngModel)]="courseDataReport.locationName"  >
         </mat-form-field>
        </div> </div>
   
   
        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
         <mat-form-field class="full-wid mrgn-b-md" >  
-          <input matInput  placeholder="Instructor" name="instructor"    [(ngModel)]="courseDataReport.instructor"  >
+          <input matInput  placeholder={{language.instructorName}} name="instructor"    [(ngModel)]="courseDataReport.instructor"  >
         </mat-form-field>
       </div> 
      
-      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-        <input      [matDatepicker]="picker1" placeholder="Start date" name="startDate"  [(ngModel)]="courseDataReport.startDate">
+      <div fxLayout="row wrap" >
+        
+        <input      [matDatepicker]="picker1" placeholder={{language.startDate}}  name="startDate"  [(ngModel)]="courseDataReport.startDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker></div>
-        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
-        <input       [matDatepicker]="picker2" placeholder="End date" name="endDate"  [(ngModel)]="courseDataReport.endDate">
+        <mat-datepicker #picker1></mat-datepicker>
+        <input       [matDatepicker]="picker2" placeholder={{language.delegation_endDate}}  name="endDate"  [(ngModel)]="courseDataReport.endDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker> 
-      </div></div>
+      </div>
        
    
        <!-- <div> 
@@ -89,10 +88,10 @@
           <mat-datepicker #picker2></mat-datepicker> 
         </div> -->
         
-    <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !courseReportType}">
+    <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !courseReportType}" >
       <mat-radio-group class="full-width-field " name="courseReportType"   [(ngModel)]="courseReportType" required>
-        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"> <mat-radio-button  value="pdf">PDF</mat-radio-button></div>
-          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"> <mat-radio-button value="xls">Excel</mat-radio-button></div>
+        <mat-radio-button  value="pdf">PDF</mat-radio-button>
+         <mat-radio-button value="xls">Excel</mat-radio-button>
       </mat-radio-group>
     </div>
   

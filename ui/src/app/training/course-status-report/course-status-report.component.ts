@@ -8,6 +8,8 @@ import { MatTableDataSource,MatPaginator  } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import * as fileSaver from 'file-saver'; 
+import { MainComponent } from 'app/main/main.component';
+import { LanguageUtil } from 'app/app.language';
 
 @Component({
   selector: 'app-course-status-report',
@@ -26,6 +28,7 @@ export class CourseStatusReportComponent implements OnInit {
   fileSystemName: string;
   classpathFileName: string;
   nextClicked = false;  
+  language:LanguageUtil;
 //  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['courseName', 'duration', 'startDate', 'endDate'];
   // dataSource = this.courses; 
@@ -33,11 +36,17 @@ export class CourseStatusReportComponent implements OnInit {
   displayMessage = false;
   matSpinnerStatus=false;
   constructor( private route: ActivatedRoute, 
-    private router: Router, private courseStatusReportService: CourseStatusReportService,
+    private router: Router,
+    private mainComponent:MainComponent, private courseStatusReportService: CourseStatusReportService,
     public datepipe: DatePipe,private _snackBar: MatSnackBar) {
       this.courseStatusReportType="" ;
       this.courseStatusReport=new CourseStatusReport
       
+      this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
+     }
+     ngDoCheck(): void
+     {
+      this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
      }
      ngAfterViewInit(): void {
       // this.dataSource.paginator = this.paginator;

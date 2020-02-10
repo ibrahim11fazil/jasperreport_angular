@@ -12,7 +12,7 @@
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                <mat-form-field class="full-wid mrgn-b-md" > 
              
-              <input matInput  placeholder="Name "  name="name"   [(ngModel)]="instructSubjReport.name"  >
+              <input matInput  placeholder={{language.instructorName}} name="name"   [(ngModel)]="instructSubjReport.name"  >
             </mat-form-field></div>
              <!-- </div>
              <div>   -->
@@ -27,13 +27,13 @@
           <div fxLayout="row wrap" fxLayoutAlign="space-between center">
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
              <mat-form-field class="full-wid mrgn-b-md" > 
-              <input matInput  placeholder="Course Name"   name="courseName"   [(ngModel)]="instructSubjReport.courseName"  >
+              <input matInput  placeholder={{language.courseName}}   name="courseName"   [(ngModel)]="instructSubjReport.courseName"  >
             </mat-form-field></div>
           <!-- </div>  
           <div>   -->
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               <mat-form-field class="full-wid mrgn-b-md" > 
-              <input matInput  placeholder="Organisation" name="organisation"    [(ngModel)]="instructSubjReport.organisation"  >
+              <input matInput  placeholder={{language.organization}} name="organisation"    [(ngModel)]="instructSubjReport.organisation"  >
             </mat-form-field>
           </div>  </div>
   
@@ -41,7 +41,7 @@
           <div fxLayout="row wrap" fxLayoutAlign="space-between center">
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
              <mat-form-field class="full-wid mrgn-b-md" >
-              <input matInput  placeholder="Job Title" name="jobTitle"    [(ngModel)]="instructSubjReport.jobTitle"  >
+              <input matInput  placeholder={{language.jobTitle}} name="jobTitle"    [(ngModel)]="instructSubjReport.jobTitle"  >
             </mat-form-field></div>
           <!-- </div>  
           <div> -->
@@ -52,7 +52,7 @@
           </div> </div>
           <div>
             <mat-form-field class="full-wid mrgn-b-md" > 
-              <input matInput  placeholder="QID" name="qid"    [(ngModel)]="instructSubjReport.qid"  >
+              <input matInput  placeholder={{language.qid}} name="qid"    [(ngModel)]="instructSubjReport.qid"  >
             </mat-form-field>
           </div> 
         
@@ -65,7 +65,7 @@
             <div> -->
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                 <mat-form-field class="full-wid mrgn-b-md" > 
-                <input matInput  placeholder="Priority" name="priority"    [(ngModel)]="instructSubjReport.priority"  >
+                <input matInput  placeholder={{language.priority}} name="priority"    [(ngModel)]="instructSubjReport.priority"  >
               </mat-form-field></div>
             </div> 
             
@@ -84,8 +84,8 @@
             
         <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !instructSubjReportType}">
           <mat-radio-group  name="instructSubjReportType"   [(ngModel)]="instructSubjReportType" required>
-            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"><mat-radio-button  value="pdf">PDF</mat-radio-button></div>
-              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"><mat-radio-button value="xls">Excel</mat-radio-button></div>
+            <mat-radio-button  value="pdf">PDF</mat-radio-button>
+              <mat-radio-button value="xls">Excel</mat-radio-button>
           </mat-radio-group>
         </div>
       
