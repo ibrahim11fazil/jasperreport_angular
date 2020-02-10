@@ -1,25 +1,32 @@
+
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+  <mat-card fxFlex="100%"><div class="gene-card-content">
 <!-- <form (ngSubmit)="onSubmit()" #reportForm="ngForm"> -->
    <!-- <form #reportForm="ngForm" (ngSubmit)="generateReport($event)"> -->
-    <form #reportForm="ngForm"   (ngSubmit)="onSubmit()">
+    <form #reportForm="ngForm"   (ngSubmit)="onSubmit()"><div fxLayout="column">
       <h1 class="heading">Course Details</h1>
-  
-      <div class="form-group"> 
+      
+      
         
-         <div> 
-           <mat-form-field class="full-width-field" > 
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+           <mat-form-field class="full-wid mrgn-b-md" > 
           <input matInput  placeholder="Course Name "  name="courseName"   [(ngModel)]="courseDataReport.courseName"  >
         </mat-form-field>
          <!-- </div>
          <div>   -->
-           
-        <mat-form-field class="full-width-field" > 
+           </div>
+           <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+        <mat-form-field class="full-wid mrgn-b-md" > 
           <input matInput  placeholder="Duration" name="duration"   (input)="inputValidator($event)"  [(ngModel)]="courseDataReport.duration"  >
         </mat-form-field> 
-      </div>  
-      <div>  
-        <mat-form-field class="full-width-field" > 
+      </div>  </div>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+         <mat-form-field class="full-wid mrgn-b-md" >  
+        
           <input matInput  placeholder="Activation Id"   name="activationId"  (input)="inputValidator($event)"   [(ngModel)]="courseDataReport.activationId"  >
-        </mat-form-field>
+        </mat-form-field></div>
       <!-- </div>  
         <div>  
         <mat-form-field class="example-full-width" > 
@@ -32,42 +39,44 @@
         </mat-form-field>
       </div>  
       <div>   
-       
-  
-      <div>   -->
-        <mat-form-field class="full-width-field" > 
+       <div>   -->
+        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+          <mat-form-field class="full-wid mrgn-b-md" >  
           <input matInput  placeholder="Category" name="category"    [(ngModel)]="courseDataReport.category"  >
         </mat-form-field>
-        </div>  
+        </div>  </div>
   
   
-      <div> 
-        <mat-form-field class="full-width-field" > 
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+           <mat-form-field class="full-wid mrgn-b-md" >  
           <input matInput  placeholder="Hall" name="hall"    [(ngModel)]="courseDataReport.hall"  >
-        </mat-form-field>
+        </mat-form-field></div>
       <!-- </div>  
       <div> -->
-        <mat-form-field class="full-width-field" > 
+        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+          <mat-form-field class="full-wid mrgn-b-md" > 
           <input matInput  placeholder="Location Name" name="locationName"    [(ngModel)]="courseDataReport.locationName"  >
         </mat-form-field>
-       </div> 
+       </div> </div>
   
   
-      <div>  
-        <mat-form-field class="full-width-field " > 
+       <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+        <mat-form-field class="full-wid mrgn-b-md" >  
           <input matInput  placeholder="Instructor" name="instructor"    [(ngModel)]="courseDataReport.instructor"  >
         </mat-form-field>
       </div> 
      
-      <div class="full-width-field ">
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
         <input      [matDatepicker]="picker1" placeholder="Start date" name="startDate"  [(ngModel)]="courseDataReport.startDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-        
+        <mat-datepicker #picker1></mat-datepicker></div>
+        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
         <input       [matDatepicker]="picker2" placeholder="End date" name="endDate"  [(ngModel)]="courseDataReport.endDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker> 
-      </div>
+      </div></div>
        
    
        <!-- <div> 
@@ -82,8 +91,8 @@
         
     <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !courseReportType}">
       <mat-radio-group class="full-width-field " name="courseReportType"   [(ngModel)]="courseReportType" required>
-          <mat-radio-button  value="pdf">PDF</mat-radio-button>
-          <mat-radio-button value="xls">Excel</mat-radio-button>
+        <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"> <mat-radio-button  value="pdf">PDF</mat-radio-button></div>
+          <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"> <mat-radio-button value="xls">Excel</mat-radio-button></div>
       </mat-radio-group>
     </div>
   
@@ -103,7 +112,6 @@
     <button mat-flat-button color="primary" type="submit">Generate Report</button>
   </div> -->
    
-      </div>
   <!-- </form> -->
   <!-- <div *ngFor="let course of courses"> 
       {{course.courseName}}  
@@ -144,7 +152,8 @@
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 25, 100]">
   </mat-paginator> -->
+</div>
   
-  
-  </form>
+  </form></div>
+  </mat-card></div>
   

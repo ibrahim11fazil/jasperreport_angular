@@ -1,59 +1,72 @@
-<!-- <form (ngSubmit)="onSubmit()" #reportForm="ngForm"> -->
+<div fxLayout="row wrap" fxLayoutAlign=" start" class="gene-form-wizard">
+  <mat-card fxFlex="100%"><div class="gene-card-content">
+    <!-- <form (ngSubmit)="onSubmit()" #reportForm="ngForm"> -->
     <!-- <form #reportForm="ngForm" (ngSubmit)="generateReport($event)"> -->
       <form #reportForm="ngForm"   (ngSubmit)="onSubmit()"> 
         <h1 class="heading">Instructor Subject Details</h1>
        
-          <div class="form-group"> 
+          
            
-             <div>
-              <mat-form-field class="example-full-width" > 
+             
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+               <mat-form-field class="full-wid mrgn-b-md" > 
+             
               <input matInput  placeholder="Name "  name="name"   [(ngModel)]="instructSubjReport.name"  >
-            </mat-form-field>
+            </mat-form-field></div>
              <!-- </div>
              <div>   -->
-            <mat-form-field class="example-full-width" > 
+              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                <mat-form-field class="full-wid mrgn-b-md" > 
               <input matInput  placeholder="Type" name="type"    [(ngModel)]="instructSubjReport.type"  >
             </mat-form-field>
-          </div>  
+          </div>  </div>
   
   
-          <div>  
-            <mat-form-field class="example-full-width" > 
+          
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+             <mat-form-field class="full-wid mrgn-b-md" > 
               <input matInput  placeholder="Course Name"   name="courseName"   [(ngModel)]="instructSubjReport.courseName"  >
-            </mat-form-field>
+            </mat-form-field></div>
           <!-- </div>  
           <div>   -->
-            <mat-form-field class="example-full-width" > 
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+              <mat-form-field class="full-wid mrgn-b-md" > 
               <input matInput  placeholder="Organisation" name="organisation"    [(ngModel)]="instructSubjReport.organisation"  >
             </mat-form-field>
-          </div>  
+          </div>  </div>
   
   
-          <div>
-            <mat-form-field class="example-full-width" > 
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+             <mat-form-field class="full-wid mrgn-b-md" >
               <input matInput  placeholder="Job Title" name="jobTitle"    [(ngModel)]="instructSubjReport.jobTitle"  >
-            </mat-form-field>
+            </mat-form-field></div>
           <!-- </div>  
           <div> -->
-            <mat-form-field class="example-full-width" > 
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+              <mat-form-field class="full-wid mrgn-b-md" >
               <input matInput  placeholder="Company Name" name="companyName"    [(ngModel)]="instructSubjReport.companyName"  >
             </mat-form-field>
-          </div> 
+          </div> </div>
           <div>
-            <mat-form-field class="example-full-width" > 
+            <mat-form-field class="full-wid mrgn-b-md" > 
               <input matInput  placeholder="QID" name="qid"    [(ngModel)]="instructSubjReport.qid"  >
             </mat-form-field>
           </div> 
         
-            <div>
-              <mat-form-field class="example-full-width" > 
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+             <mat-form-field class="full-wid mrgn-b-md" > 
                 <input matInput  placeholder="Course" name="course"    [(ngModel)]="instructSubjReport.course"  >
-              </mat-form-field>
+              </mat-form-field></div>
             <!-- </div> 
             <div> -->
-              <mat-form-field class="example-full-width" > 
+              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
+                <mat-form-field class="full-wid mrgn-b-md" > 
                 <input matInput  placeholder="Priority" name="priority"    [(ngModel)]="instructSubjReport.priority"  >
-              </mat-form-field>
+              </mat-form-field></div>
             </div> 
             
             
@@ -71,8 +84,8 @@
             
         <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !instructSubjReportType}">
           <mat-radio-group  name="instructSubjReportType"   [(ngModel)]="instructSubjReportType" required>
-              <mat-radio-button  value="pdf">PDF</mat-radio-button>
-              <mat-radio-button value="xls">Excel</mat-radio-button>
+            <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"><mat-radio-button  value="pdf">PDF</mat-radio-button></div>
+              <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49"><mat-radio-button value="xls">Excel</mat-radio-button></div>
           </mat-radio-group>
         </div>
       
@@ -89,7 +102,7 @@
   
        <p *ngIf="displayMessage">{{generatedReportStatus}} <button  mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button></p>
       
-      </div>
+      
       <!-- </form> -->
       <!-- <div *ngFor="let course of courses"> 
           {{course.courseName}}  
@@ -131,7 +144,7 @@
       </mat-paginator> -->
       
       
-      </form>
+      </form></div></mat-card></div>
       
       
   
