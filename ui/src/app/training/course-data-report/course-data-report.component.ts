@@ -176,12 +176,12 @@ export class CourseDataReportComponent implements OnInit {
  
   saveFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
-      fileSaver.saveAs(blob, "CourseDetailsReport.pdf"); 
+      fileSaver.saveAs(blob,this.language.menu_courseDataReport+".pdf"); 
   }
 
   saveFile2(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-      fileSaver.saveAs(blob, "CourseDetailsReport.xlsx");
+      fileSaver.saveAs(blob, this.language.menu_courseDataReport+".xlsx");
     
   }
 

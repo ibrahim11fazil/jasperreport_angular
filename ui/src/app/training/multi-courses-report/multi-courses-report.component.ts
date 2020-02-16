@@ -154,12 +154,14 @@ export class MultiCoursesReportComponent implements OnInit {
  
   saveFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
-      fileSaver.saveAs(blob, "MultiCoursesReport.pdf"); 
+      // fileSaver.saveAs(blob, "MultiCoursesReport.pdf"); 
+      fileSaver.saveAs(blob, this.language.menu_multiCoursesReport+".pdf");
   }
 
   saveFile2(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-      fileSaver.saveAs(blob, "MultiCoursesReport.xlsx");
+      // fileSaver.saveAs(blob, "MultiCoursesReport.xlsx");
+      fileSaver.saveAs(blob, this.language.menu_multiCoursesReport+".xlsx");
     
   }
 

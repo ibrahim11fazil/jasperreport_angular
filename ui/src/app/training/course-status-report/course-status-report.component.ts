@@ -186,12 +186,13 @@ public toDateInputValidator(event:any){
  
   saveFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
-      fileSaver.saveAs(blob, "CourseStatusReport.pdf"); 
+      // fileSaver.saveAs(blob, "CourseStatusReport.pdf"); 
+      fileSaver.saveAs(blob, this.language.menu_courseStatusReport+".pdf"); 
   }
 
   saveFile2(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-      fileSaver.saveAs(blob, "CourseStatusReport.xlsx");
+      fileSaver.saveAs(blob,this.language.menu_courseStatusReport+".xlsx");
     
   }
 
