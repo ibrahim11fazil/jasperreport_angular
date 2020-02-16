@@ -278,6 +278,7 @@ export class LanguageUtil {
   btn_addParticipants:String=this.isArabic ? "إضافة مشاركين" :"Add Participants"
   btn_clear: String = this.isArabic ? "مسح" : "Clear"
   
+  
 
 
 
@@ -337,10 +338,21 @@ export class LanguageUtil {
   menu_history: String = this.isArabic ? "معلومات سابقة" : "History"
   menu_smartProfile: String = this.isArabic ? "الملف الشخصي " : "Smart Profile"
   menu_manageAttendance: String = this.isArabic ? "ادارة الحضور " : "Manage Attendance"
-  menu_courseDataReport: String = this.isArabic ? "Course Data Report" : "Course Data Report"
-  menu_courseStatusReport: String = this.isArabic ? "Course Status Report" : "Course Status Report"
-  menu_instructorSubjectReport: String = this.isArabic ? "Instructor Subjects Report" : "Instructor Subjects Report"
-
+  menu_courseDataReport: String = this.isArabic ? "تقرير تفاصيل الدورات التدريبية" : "Course Details Report"
+  menu_courseStatusReport: String = this.isArabic ? "تقرير حالة الدورات التدريبية" : "Course Status Report"
+  menu_instructorSubjectReport: String = this.isArabic ? "تقرير المحاضرين" : "Instructor Subjects Report"
+  menu_multiCoursesReport  = this.isArabic?"تقرير الدورات التدريبية":"Multi Courses Report"
+  
+  error_select_report_type =this.isArabic ? "يرجي اختيار نوع التقرير ":"Please select report type : PDF/Excel" 
+  label_report_status_success =this.isArabic ? "تم انشاء التقرير بنجاح":"Report generated Successfully" 
+  btn_report_generate =this.isArabic ? "انشاء التقرير":"Generate Report" 
+  btn_report_download =this.isArabic ? "تحميل التقرير":"Download Report" 
+  label_report_status_noDataFound =this.isArabic ? "انشاء التقرير":"Generate Report" 
+  requestStatus =this.isArabic ? "حالة الطلب":"Request Status" 
+  coursesStatus =this.isArabic ? "حالة الدورة التدريبية":"Course Status" 
+  courseCoordinator = this.isArabic?"منسق الدورات التدريبية":"course Coordinator"
+  error_only_digits_allowed = this.isArabic?"الأرقام فقط مسموح بها":"Only Digits Allowed"
+   
 
   //system error 
   error_resource_not_found = this.isArabic ? "لم يتم العثور على بيانات" : "Resource Not found"
@@ -356,6 +368,7 @@ export class LanguageUtil {
   error_user_absent = this.isArabic ? "تم تسجيل غياب للمستخدم في هذا التاريخ، حاول بتاريخ آخر" : "The use is absent on the date,Try another date "
   error_date_request = this.isArabic ? "لقد قمت بطلب دورة في نفس التاريخ، اختر تاريخ آخر" : "You are alraeady requested for another course in the same time. Try some other dates"
    seat_full_message=this.isArabic ? "تم اكتمال العدد":" Seats are full1" 
+  
 
 
   //jobcard status

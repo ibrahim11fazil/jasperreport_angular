@@ -81,6 +81,7 @@ import { EmpDelegationComponent } from './emp-delegation/emp-delegation.componen
 import { CourseDataReportComponent } from './course-data-report/course-data-report.component';
 import { CourseStatusReportComponent } from './course-status-report/course-status-report.component';
 import { InstructorSubjectReportComponent } from './instructor-subject-report/instructor-subject-report.component';
+import { MultiCoursesReportComponent } from './multi-courses-report/multi-courses-report.component';
 
 
 
@@ -114,7 +115,8 @@ import { InstructorSubjectReportComponent } from './instructor-subject-report/in
      EmpDelegationComponent,
      CourseDataReportComponent,
      CourseStatusReportComponent,
-     InstructorSubjectReportComponent
+     InstructorSubjectReportComponent,
+     MultiCoursesReportComponent
      ],
   imports: [
     InfiniteScrollModule,

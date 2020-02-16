@@ -27,6 +27,7 @@ import { CourseStatusReport } from 'app/models/course-status-report';
 import { InstructorSubjectReportComponent } from './instructor-subject-report/instructor-subject-report.component';
 import { CourseDataReportComponent } from './course-data-report/course-data-report.component';
 import { CourseStatusReportComponent } from './course-status-report/course-status-report.component';
+import { MultiCoursesReportComponent } from './multi-courses-report/multi-courses-report.component';
 
 
 export const TrainingRoutes: Routes = [
@@ -169,6 +170,10 @@ export const TrainingRoutes: Routes = [
             {
                 path:'course-data-report',
                 component:CourseDataReportComponent
+            },
+            {
+                path:'multi-courses-report',
+                component:MultiCoursesReportComponent
             }
 
         ]

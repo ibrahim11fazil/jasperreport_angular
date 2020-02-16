@@ -1,5 +1,6 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+// import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { PageTitleService } from '../../core/page-title/page-title.service';
 import {fadeInAnimation} from "../../core/route-animation/route.animation";
 import { TranslateService } from '@ngx-translate/core';

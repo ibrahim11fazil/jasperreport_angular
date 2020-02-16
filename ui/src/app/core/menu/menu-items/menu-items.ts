@@ -509,6 +509,7 @@ export class MenuItems {
             report_menu.children.push({ state: 'course-data-report', name: language.menu_courseDataReport })
             report_menu.children.push({ state: 'course-status-report', name: language.menu_courseStatusReport })
             report_menu.children.push({ state: 'instructor-subject-report', name: language.menu_instructorSubjectReport })
+            report_menu.children.push({ state: 'multi-courses-report', name: language.menu_multiCoursesReport })
          
             break
           case "mus":

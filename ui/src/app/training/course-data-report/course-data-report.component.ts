@@ -32,6 +32,7 @@ export class CourseDataReportComponent implements OnInit {
   displayMessage = false;
   matSpinnerStatus = false;
   language:LanguageUtil;
+  displayDownloadButton=false;
 //  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['courseName', 'duration', 'startDate', 'endDate'];
   // dataSource = this.courses; 
@@ -73,19 +74,20 @@ export class CourseDataReportComponent implements OnInit {
 
   public onSubmit(): void {
     this.displayMessage=false;
+    this.displayDownloadButton=false;
     if(this.nextClicked) {
       if(this.MyForm.valid){  
         this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
-            this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
         }
       
     }else {
       if(this.MyForm.valid){  
         this.downloadFileSystem();
       }else{  
-            this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
         }
     }
 
@@ -105,6 +107,15 @@ export class CourseDataReportComponent implements OnInit {
     // this.courseDataReportService.generateReport(this.courseReportType, from_date, to_date).subscribe(result => this.consolecheck());
     this.courseDataReportService.generateReport(this.courseReportType, this.courseDataReport).subscribe(result => {
       this.generatedReportStatus=result;
+
+      if(this.generatedReportStatus==="No Data Found"){
+        this.displayDownloadButton=false; 
+        this.generatedReportStatus= this.language.label_report_status_noDataFound;
+      }else{
+        this.displayDownloadButton=true; 
+        this.generatedReportStatus= this.language.label_report_status_success;
+      }
+      
       this.displayMessage=true;
       this.matSpinnerStatus=false;
       // alert("HERER WE ARE");
@@ -126,8 +137,9 @@ export class CourseDataReportComponent implements OnInit {
     if (!pattern.test(event.target.value)) {
       // event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
       event.target.value = event.target.value.replace(/[^0-9]/g, "");
-      // invalid character, prevent input
-      this._snackBar.open("Only Digits Allowed","",{duration:1500});
+      // invalid character, prevent input 
+      // this._snackBar.open("Only Digits Allowed","",{duration:1500});
+      this._snackBar.open(this.language.error_only_digits_allowed,"",{duration:1500});
 
     }
   }

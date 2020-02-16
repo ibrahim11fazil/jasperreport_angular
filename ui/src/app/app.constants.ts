@@ -115,7 +115,7 @@ export const BASE_URL ="http://172.16.0.254:9000"
 //export const BASE_URL ="http://localhost:9000"
 
  var BASE_URL_REPORT = "http://localhost:9085"
-var isReportLocal = false
+var isReportLocal = true
 
 export const VERSION_UI ="qa_1.0.7"
 
@@ -301,3 +301,4 @@ export const PDF_REPORT_DOWNLOAD=BASE_URL_REPORT+treport+"/pdfReportDownload"
 export const EXCEL_REPORT_DOWNLOAD=BASE_URL_REPORT+treport+"/excelReportDownload"
 export const GET_COURSE_STATUS_REPORT=BASE_URL_REPORT+treport+"/courseStatusReport"
 export const GET_INSTRUCTOR_SUBJECT=BASE_URL_REPORT+treport+"/instructSubjReport"
+export const GET_MULTI_COURSES_REPORT=BASE_URL_REPORT+treport+"/multiCoursesReport"

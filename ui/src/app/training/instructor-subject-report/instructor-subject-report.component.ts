@@ -29,6 +29,7 @@ export class InstructorSubjectReportComponent implements OnInit {
   classpathFileName: string;
   nextClicked = false;  
   language:LanguageUtil;
+  displayDownloadButton=false;
 //  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'type', 'courseName', 'organisation'];
   // dataSource = this.courses; 
@@ -71,19 +72,20 @@ export class InstructorSubjectReportComponent implements OnInit {
 
   public onSubmit(): void {
     this.displayMessage=false;
+    this.displayDownloadButton=false;
     if(this.nextClicked) {
       if(this.MyForm.valid){
         this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
-            this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
         }
       
     }else {
       if(this.MyForm.valid){
         this.downloadFileSystem();
       }else{ 
-            this._snackBar.open("Please Select Report Type : PDF/Excel","",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
         }
     }
 
@@ -104,6 +106,15 @@ export class InstructorSubjectReportComponent implements OnInit {
     // this.courseDataReportService.generateReport(this.courseReportType, from_date, to_date).subscribe(result => this.consolecheck());
     this.instructorSubjectReportService.generateReport(this.instructSubjReportType, this.instructSubjReport).subscribe(result => {
       this.generatedReportStatus=result;
+
+      if(this.generatedReportStatus==="No Data Found"){
+        this.displayDownloadButton=false; 
+        this.generatedReportStatus= this.language.label_report_status_noDataFound;
+      }else{
+        this.displayDownloadButton=true; 
+        this.generatedReportStatus= this.language.label_report_status_success;
+      }
+      
       this.displayMessage=true;
       this.matSpinnerStatus=false;
       // alert("HERER WE ARE");

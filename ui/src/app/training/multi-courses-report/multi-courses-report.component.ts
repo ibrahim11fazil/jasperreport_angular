@@ -1,48 +1,51 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 // import { Component, OnInit, } from '@angular/core';
-import { CourseStatusReportService } from '../../service/course-status-report.service';
-import {CourseStatusReport} from '../../models/course-status-report';
+import { MultiCoursesReportService } from '../../service/multi-courses-report.service';
+import {MultiCoursesReport} from '../../models/multi-courses-report'
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource,MatPaginator  } from '@angular/material'; 
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import * as fileSaver from 'file-saver'; 
-import { MainComponent } from 'app/main/main.component';
 import { LanguageUtil } from 'app/app.language';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
-  selector: 'app-course-status-report',
-  templateUrl: './course-status-report.component.html',
-  styleUrls: ['./course-status-report.component.scss']
+  selector: 'ms-multi-courses-report',
+  templateUrl: './multi-courses-report.component.html',
+  styleUrls: ['./multi-courses-report.component.scss']
 })
-export class CourseStatusReportComponent implements OnInit { 
+export class MultiCoursesReportComponent implements OnInit {
+
+  
   @ViewChild('reportForm') 
   public MyForm: NgForm;
-  courses: Array<CourseStatusReport>;
-  courseStatusReportType: string;
+  courses: Array<MultiCoursesReport>;
+  multiCoursesReportType: string;
   fromDate = new Date();
   toDate = new Date();
-  courseStatusReport: CourseStatusReport;
+  multiCoursesReport: MultiCoursesReport;
   generatedReportStatus :string;
   fileSystemName: string;
+  nextClicked = false; 
   classpathFileName: string;
-  nextClicked = false;  
+  displayMessage = false;
+  matSpinnerStatus = false;
   language:LanguageUtil;
+  displayDownloadButton=false;
 //  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['courseName', 'duration', 'startDate', 'endDate'];
   // dataSource = this.courses; 
-  dataSource =new MatTableDataSource<CourseStatusReport>(); 
-  displayMessage = false;
-  matSpinnerStatus=false;
-  displayDownloadButton=false;
+  dataSource =new MatTableDataSource<MultiCoursesReport>(); 
+  
   constructor( private route: ActivatedRoute, 
-    private router: Router,
-    private mainComponent:MainComponent, private courseStatusReportService: CourseStatusReportService,
+    private mainComponent:MainComponent,
+    private router: Router, private multiCoursesReportService: MultiCoursesReportService,
     public datepipe: DatePipe,private _snackBar: MatSnackBar) {
-      this.courseStatusReportType="" ;
-      this.courseStatusReport=new CourseStatusReport
+      this.multiCoursesReportType="" ;
       
+      this.multiCoursesReport=new MultiCoursesReport
       this.language = new LanguageUtil(this.mainComponent.layoutIsRTL());
      }
      ngDoCheck(): void
@@ -53,14 +56,7 @@ export class CourseStatusReportComponent implements OnInit {
       // this.dataSource.paginator = this.paginator;
      }
   
-  ngOnInit() { 
-    // console.log("im here ngonInit");
-    // this.courseStatusReportService.getAll().subscribe(data => {
-      
-    //   console.log("getting data");
-    //   // this.courses = data;
-    //   this.dataSource.data = data as CourseStatusReport[];
-    // });
+  ngOnInit() {  
   }
 
   public onNextClick(): void {
@@ -75,7 +71,7 @@ export class CourseStatusReportComponent implements OnInit {
     this.displayMessage=false;
     this.displayDownloadButton=false;
     if(this.nextClicked) {
-      if(this.MyForm.valid){
+      if(this.MyForm.valid){  
         this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
@@ -83,9 +79,9 @@ export class CourseStatusReportComponent implements OnInit {
         }
       
     }else {
-      if(this.MyForm.valid){
+      if(this.MyForm.valid){  
         this.downloadFileSystem();
-      }else{ 
+      }else{  
             this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
         }
     }
@@ -93,19 +89,10 @@ export class CourseStatusReportComponent implements OnInit {
   }
 
   generateReport(){ 
-    // if(this.MyForm.valid){
-    console.log("im here ger");
-    // alert("id value is "+this.courseReportType);
-    
-    // let from_date =this.datepipe.transform(this.courseDataReport.fromDate, 'dd-MMM-yy');
-    // let to_date =this.datepipe.transform(this.courseDataReport.toDate, 'dd-MMM-yy');
-    
-    // this.courseDataReport.fromDate=from_date;
-    // this.courseDataReport.toDate=to_date; 
-    // alert("fromDate toDate  is "+this.courseStatusReport.startDate);
-    // this.courseDataReportService.generateReport(this.courseReportType, from_date, to_date).subscribe(result => this.consolecheck());
-    this.courseStatusReportService.generateReport(this.courseStatusReportType, this.courseStatusReport).subscribe(result => {
+      
+      this.multiCoursesReportService.generateReport(this.multiCoursesReportType, this.multiCoursesReport).subscribe(result => {
       this.generatedReportStatus=result;
+
       if(this.generatedReportStatus==="No Data Found"){
         this.displayDownloadButton=false; 
         this.generatedReportStatus= this.language.label_report_status_noDataFound;
@@ -116,29 +103,10 @@ export class CourseStatusReportComponent implements OnInit {
       
       this.displayMessage=true;
       this.matSpinnerStatus=false;
-      // this.dataSource.data = result as Array<CourseStatusReport> ;
-      // alert("HERER WE ARE");
-      // alert("generated rport startus is "+result);
-    });
-  // }else{ 
-  //     this._snackBar.open("Please fill all fields","",{duration:1000});
-  // }
-    
+     }); 
   }
 
-public toDateInputValidator(event:any){
-   console.log("***event value"+event.target.value); 
-    // const pattern = /^[0-9]*$/;   
-    //let inputChar = String.fromCharCode(event.charCode)
-    // if (event.target.value >) {
-      // event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
-      // event.target.value = event.target.value.replace(/[^0-9]/g, "");
-      // invalid character, prevent input
-      // this._snackBar.open("Only Digits Allowed","",{duration:1500});
 
-// }
-
-}
   public inputValidator(event: any) {
     // console.log("***event value"+event.target.value);
     // const pattern = /^[a-zA-Z0-9]*$/;
@@ -154,20 +122,20 @@ public toDateInputValidator(event:any){
     }
   }
   consolecheck(){
-    alert("id 3 value is "+this.courseStatusReport);
+    alert("id 3 value is "+this.multiCoursesReportType);
   }
  
-//using file system
+  //using file system
   downloadFileSystem() {
     // this.courseStatusReportService.downloadFileSystem(this.fileSystemName)
-    if(this,this.courseStatusReportType==="pdf"){
-            this.courseStatusReportService.downloadPDFFileSystem(this.fileSystemName)
+    if(this,this.multiCoursesReportType==="pdf"){
+            this.multiCoursesReportService.downloadPDFFileSystem(this.fileSystemName)
               .subscribe(response => {
                 const filename = response.headers.get('filename'); 
                 this.saveFile(response.body, filename);
               });
     }else{
-      this.courseStatusReportService.downloadExcelFileSystem(this.fileSystemName)
+      this.multiCoursesReportService.downloadExcelFileSystem(this.fileSystemName)
       .subscribe(response => {
         const filename = response.headers.get('filename'); 
         this.saveFile2(response.body, filename);
@@ -177,7 +145,7 @@ public toDateInputValidator(event:any){
   }
  
   downloadClasspathFile() {
-    this.courseStatusReportService.downloadClasspathFile(this.classpathFileName)
+    this.multiCoursesReportService.downloadClasspathFile(this.classpathFileName)
       .subscribe(response => {
         const filename = response.headers.get('filename'); 
         this.saveFile(response.body, filename);
@@ -186,12 +154,12 @@ public toDateInputValidator(event:any){
  
   saveFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
-      fileSaver.saveAs(blob, "CourseStatusReport.pdf"); 
+      fileSaver.saveAs(blob, "MultiCoursesReport.pdf"); 
   }
 
   saveFile2(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-      fileSaver.saveAs(blob, "CourseStatusReport.xlsx");
+      fileSaver.saveAs(blob, "MultiCoursesReport.xlsx");
     
   }
 

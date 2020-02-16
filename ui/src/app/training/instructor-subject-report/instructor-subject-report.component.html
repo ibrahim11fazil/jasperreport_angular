@@ -3,7 +3,7 @@
     <!-- <form (ngSubmit)="onSubmit()" #reportForm="ngForm"> -->
     <!-- <form #reportForm="ngForm" (ngSubmit)="generateReport($event)"> -->
       <form #reportForm="ngForm"   (ngSubmit)="onSubmit()"> 
-        <h1 class="heading">Instructor Subject Details</h1>
+        <h1 class="heading">{{language.menu_instructorSubjectReport}}</h1>
        
           
            
@@ -18,7 +18,7 @@
              <div>   -->
               <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
                 <mat-form-field class="full-wid mrgn-b-md" > 
-              <input matInput  placeholder="Type" name="type"    [(ngModel)]="instructSubjReport.type"  >
+              <input matInput  placeholder={{language.instructorType}} name="type"    [(ngModel)]="instructSubjReport.type"  >
             </mat-form-field>
           </div>  </div>
   
@@ -47,7 +47,7 @@
           <div> -->
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
               <mat-form-field class="full-wid mrgn-b-md" >
-              <input matInput  placeholder="Company Name" name="companyName"    [(ngModel)]="instructSubjReport.companyName"  >
+              <input matInput  placeholder={{language.organization}} name="companyName"    [(ngModel)]="instructSubjReport.companyName"  >
             </mat-form-field>
           </div> </div>
           <div>
@@ -59,7 +59,7 @@
           <div fxLayout="row wrap" fxLayoutAlign="space-between center">
             <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100" fxFlex.gt-md="49">
              <mat-form-field class="full-wid mrgn-b-md" > 
-                <input matInput  placeholder="Course" name="course"    [(ngModel)]="instructSubjReport.course"  >
+                <input matInput  placeholder={{language.menu_course}} name="course"    [(ngModel)]="instructSubjReport.course"  >
               </mat-form-field></div>
             <!-- </div> 
             <div> -->
@@ -82,7 +82,7 @@
               <mat-datepicker #picker2></mat-datepicker> 
             </div> -->
             
-        <div [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !instructSubjReportType}">
+        <div class="full-wid mrgn-b-md" [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !instructSubjReportType}">
           <mat-radio-group  name="instructSubjReportType"   [(ngModel)]="instructSubjReportType" required>
             <mat-radio-button  value="pdf">PDF</mat-radio-button>
               <mat-radio-button value="xls">Excel</mat-radio-button>
@@ -91,8 +91,8 @@
       
        <!-- {{courseReportType}} -->
       
-       <div class="submit-button">
-        <button mat-flat-button (click)="onNextClick()" color="primary" type="submit">Generate Report</button>
+       <div  class="full-wid mrgn-b-md" >
+        <button mat-flat-button (click)="onNextClick()" color="primary" type="submit">{{language.btn_report_generate}}</button>
         <!--   <button mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button> -->  
        </div>
   
@@ -100,7 +100,7 @@
         <mat-spinner  strokeWidth="3" [diameter]="50" *ngIf="matSpinnerStatus"></mat-spinner>
        </div>
   
-       <p *ngIf="displayMessage">{{generatedReportStatus}} <button  mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">Download Report</button></p>
+       <p *ngIf="displayMessage">{{generatedReportStatus}} <button *ngIf="displayDownloadButton"  mat-flat-button (click)="onPreviousClick()" color="primary" style="margin-left: 1cm;" type="submit">{{language.btn_report_download}}</button></p>
       
       
       <!-- </form> -->

@@ -11,7 +11,8 @@ import { MatInputModule,
 			MatRadioModule,
 			MatProgressBarModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
+// import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { TreeModule } from 'angular-tree-component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
