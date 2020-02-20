@@ -52,14 +52,10 @@ export class InstructorSubjectReportComponent implements OnInit {
       // this.dataSource.paginator = this.paginator;
      }
   
-  ngOnInit() { 
-    console.log("im here ngonInit");
-    this.instructorSubjectReportService.getAll().subscribe(data => {
-      
-      console.log("getting data");
-      // this.courses = data;
-      this.dataSource.data = data as InstructorSubjectReport[];
-    });
+  ngOnInit() {  
+    // this.instructorSubjectReportService.getAll().subscribe(data => { 
+    //   this.dataSource.data = data as InstructorSubjectReport[];
+    // });
   }
 
   public onNextClick(): void {
@@ -78,14 +74,14 @@ export class InstructorSubjectReportComponent implements OnInit {
         this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
-            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:1500});
         }
       
     }else {
       if(this.MyForm.valid){
         this.downloadFileSystem();
       }else{ 
-            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:1500});
         }
     }
 
@@ -94,7 +90,7 @@ export class InstructorSubjectReportComponent implements OnInit {
 
   generateReport(){
     if(this.MyForm.valid){
-    console.log("im here ger");
+    console.log("instuct subj Name: "+this.instructSubjReport.name);
     // alert("id value is "+this.courseReportType);
     
     // let from_date =this.datepipe.transform(this.courseDataReport.fromDate, 'dd-MMM-yy');
@@ -109,7 +105,7 @@ export class InstructorSubjectReportComponent implements OnInit {
 
       if(this.generatedReportStatus==="No Data Found"){
         this.displayDownloadButton=false; 
-        this.generatedReportStatus= this.language.label_report_status_noDataFound;
+        this.generatedReportStatus= this.language.delegationsNotFound.toString();
       }else{
         this.displayDownloadButton=true; 
         this.generatedReportStatus= this.language.label_report_status_success;
@@ -138,33 +134,33 @@ export class InstructorSubjectReportComponent implements OnInit {
             this.instructorSubjectReportService.downloadPDFFileSystem(this.fileSystemName)
               .subscribe(response => {
                 const filename = response.headers.get('filename'); 
-                this.saveFile(response.body, filename);
+                this.savePDFFile(response.body, filename);
               });
     }else{
       this.instructorSubjectReportService.downloadExcelFileSystem(this.fileSystemName)
       .subscribe(response => {
         const filename = response.headers.get('filename'); 
-        this.saveFile2(response.body, filename);
+        this.saveExcelFile(response.body, filename);
       });
 
     }
   }
  
-  downloadClasspathFile() {
-    this.instructorSubjectReportService.downloadClasspathFile(this.classpathFileName)
-      .subscribe(response => {
-        const filename = response.headers.get('filename'); 
-        this.saveFile(response.body, filename);
-      });
-  }
+  // downloadClasspathFile() {
+  //   this.instructorSubjectReportService.downloadClasspathFile(this.classpathFileName)
+  //     .subscribe(response => {
+  //       const filename = response.headers.get('filename'); 
+  //       this.saveFile(response.body, filename);
+  //     });
+  // }
  
-  saveFile(data: any, filename?: string) { 
+  savePDFFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
       // fileSaver.saveAs(blob, "InstructorSubjectReport.pdf");
       fileSaver.saveAs(blob, this.language.menu_instructorSubjectReport+".pdf"); 
   }
 
-  saveFile2(data: any, filename?: string) { 
+  saveExcelFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       // fileSaver.saveAs(blob, "InstructorSubjectReport.xlsx");
       fileSaver.saveAs(blob, this.language.menu_instructorSubjectReport+".pdf");

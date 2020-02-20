@@ -47,11 +47,11 @@
             
             <div fxLayout="row wrap"  class="full-wid mrgn-b-md" >
               
-              <input      [matDatepicker]="picker1" placeholder={{language.startDate}}  name="startDate"    [(ngModel)]="multiCoursesReport.startDate">
+              <input      [matDatepicker]="picker1" placeholder={{language.startDate}} (dateChange)="dateValidator($event)"  name="startDate"    [(ngModel)]="multiCoursesReport.startDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
                
-              <input      [matDatepicker]="picker2" placeholder={{language.delegation_endDate}} name="endDate"  [(ngModel)]="multiCoursesReport.endDate">
+              <input      [matDatepicker]="picker2" placeholder={{language.delegation_endDate}} (dateChange)="dateValidator($event)"  name="endDate"  [(ngModel)]="multiCoursesReport.endDate">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker> 
             </div>
@@ -59,8 +59,8 @@
             
         <div  class="full-wid mrgn-b-md" [ngClass]="{'mat-form-field-invalid':reportForm.submitted && !multiCoursesReportType}">
           <mat-radio-group  name="multiCoursesReportType"   [(ngModel)]="multiCoursesReportType" required>
-          <mat-radio-button  value="pdf">PDF</mat-radio-button>
-          <mat-radio-button value="xls">Excel</mat-radio-button>
+              <mat-radio-button  value="pdf">PDF</mat-radio-button>
+              <mat-radio-button value="xls">Excel</mat-radio-button>
           </mat-radio-group>
         </div>
        

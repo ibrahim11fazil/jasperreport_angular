@@ -347,7 +347,7 @@ export class LanguageUtil {
   label_report_status_success =this.isArabic ? "تم انشاء التقرير بنجاح":"Report generated Successfully" 
   btn_report_generate =this.isArabic ? "انشاء التقرير":"Generate Report" 
   btn_report_download =this.isArabic ? "تحميل التقرير":"Download Report" 
-  label_report_status_noDataFound =this.isArabic ? "انشاء التقرير":"Generate Report" 
+  // label_report_status_noDataFound =this.isArabic ? "انشاء التقرير":"Generate Report" 
   requestStatus =this.isArabic ? "حالة الطلب":"Request Status" 
   coursesStatus =this.isArabic ? "حالة الدورة التدريبية":"Course Status" 
   courseCoordinator = this.isArabic?"منسق الدورات التدريبية":"course Coordinator"

@@ -33,6 +33,8 @@ export class CourseDataReportComponent implements OnInit {
   matSpinnerStatus = false;
   language:LanguageUtil;
   displayDownloadButton=false;
+  startDate:string;
+  endDate:string;
 //  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['courseName', 'duration', 'startDate', 'endDate'];
   // dataSource = this.courses; 
@@ -80,14 +82,14 @@ export class CourseDataReportComponent implements OnInit {
         this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
-            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
-        }
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:1500});
+      }
       
     }else {
       if(this.MyForm.valid){  
         this.downloadFileSystem();
       }else{  
-            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:1500});
         }
     }
 
@@ -110,7 +112,7 @@ export class CourseDataReportComponent implements OnInit {
 
       if(this.generatedReportStatus==="No Data Found"){
         this.displayDownloadButton=false; 
-        this.generatedReportStatus= this.language.label_report_status_noDataFound;
+        this.generatedReportStatus= this.language.delegationsNotFound.toString();
       }else{
         this.displayDownloadButton=true; 
         this.generatedReportStatus= this.language.label_report_status_success;
@@ -143,6 +145,53 @@ export class CourseDataReportComponent implements OnInit {
 
     }
   }
+
+ public dateValidator(event:any){
+    console.log(event);
+    console.log("***event value "+event.targetElement.name);  
+      
+      // added to avoid null values during validation process
+      if(event.targetElement.name==="startDate" && event.target.value===null) {
+        this.courseDataReport.startDate=undefined
+        event.target.value===undefined;
+     }
+     if(event.targetElement.name==="endDate" && event.target.value===null){
+       this.courseDataReport.endDate=undefined
+       event.target.value===undefined;
+     }
+
+     // added for validating end date should not be less than start date
+      if((this.courseDataReport!=null && 
+          this.courseDataReport.startDate != null && this.courseDataReport.endDate !=null))
+      {
+        this.startDate = this.datepipe.transform(this.courseDataReport.startDate,"dd-MM-yyyy");
+        this.endDate = this.datepipe.transform(this.courseDataReport.endDate,"dd-MM-yyyy"); 
+         
+        if(this.endDate < this.startDate)
+        {
+          if(event.targetElement.name==="startDate") 
+            this.courseDataReport.startDate=undefined
+          if(event.targetElement.name==="endDate")
+            this.courseDataReport.endDate=undefined
+          event.target.value ="";
+          this._snackBar.open(this.language.datesValidationInDelgation.toString(),"",{duration:1500});
+        } 
+      }
+      console.log("***startDate value "+ this.courseDataReport.startDate);  
+      console.log("***endDate value "+this.courseDataReport.endDate);  
+    }
+  // public endDateInputValidator(event:any){
+  //   console.log(event);
+  //   console.log("***event value"+event.target.value);  
+  //      this.startDate = this.datepipe.transform(this.courseDataReport.startDate,"dd-MM-yyyy");
+  //      this.endDate = this.datepipe.transform(this.courseDataReport.endDate,"dd-MM-yyyy");  
+  //     if((this.startDate != null && this.endDate !=null) && (this.endDate) < (this.startDate)){
+  //       event.target.value ="";
+  //       this._snackBar.open("Only Digits Allowed","",{duration:1500});
+  //     }  
+  // }
+
+
   consolecheck(){
     alert("id 3 value is "+this.courseReportType);
   }
@@ -154,32 +203,32 @@ export class CourseDataReportComponent implements OnInit {
             this.courseDataReportService.downloadPDFFileSystem(this.fileSystemName)
               .subscribe(response => {
                 const filename = response.headers.get('filename'); 
-                this.saveFile(response.body, filename);
+                this.savePDFFile(response.body, filename);
               });
     }else{
       this.courseDataReportService.downloadExcelFileSystem(this.fileSystemName)
       .subscribe(response => {
         const filename = response.headers.get('filename'); 
-        this.saveFile2(response.body, filename);
+        this.saveExcelFile(response.body, filename);
       });
 
     }
   }
  
-  downloadClasspathFile() {
-    this.courseDataReportService.downloadClasspathFile(this.classpathFileName)
-      .subscribe(response => {
-        const filename = response.headers.get('filename'); 
-        this.saveFile(response.body, filename);
-      });
-  }
+  // downloadClasspathFile() {
+  //   this.courseDataReportService.downloadClasspathFile(this.classpathFileName)
+  //     .subscribe(response => {
+  //       const filename = response.headers.get('filename'); 
+  //       this.saveFile(response.body, filename);
+  //     });
+  // }
  
-  saveFile(data: any, filename?: string) { 
+  savePDFFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
       fileSaver.saveAs(blob,this.language.menu_courseDataReport+".pdf"); 
   }
 
-  saveFile2(data: any, filename?: string) { 
+  saveExcelFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       fileSaver.saveAs(blob, this.language.menu_courseDataReport+".xlsx");
     

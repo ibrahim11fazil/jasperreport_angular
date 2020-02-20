@@ -29,6 +29,8 @@ export class CourseStatusReportComponent implements OnInit {
   classpathFileName: string;
   nextClicked = false;  
   language:LanguageUtil;
+  startDate:string;
+  endDate:string;
 //  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['courseName', 'duration', 'startDate', 'endDate'];
   // dataSource = this.courses; 
@@ -72,6 +74,7 @@ export class CourseStatusReportComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    console.log("*** courseStatusReport **date :  "+this.courseStatusReport.startDate);
     this.displayMessage=false;
     this.displayDownloadButton=false;
     if(this.nextClicked) {
@@ -79,22 +82,22 @@ export class CourseStatusReportComponent implements OnInit {
         this.matSpinnerStatus=true; 
         this.generateReport();
       }else{ 
-            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
-        }
-      
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:1500});
+            // this._snackBar.open("EROOORRR","",{duration:1500});
+        } 
     }else {
       if(this.MyForm.valid){
         this.downloadFileSystem();
       }else{ 
-            this._snackBar.open(this.language.error_select_report_type,"",{duration:3000});
+            this._snackBar.open(this.language.error_select_report_type,"",{duration:1500});
+            // this._snackBar.open("EROOORRR","",{duration:1500});
         }
     }
 
   }
 
   generateReport(){ 
-    // if(this.MyForm.valid){
-    console.log("im here ger");
+    // if(this.MyForm.valid){ 
     // alert("id value is "+this.courseReportType);
     
     // let from_date =this.datepipe.transform(this.courseDataReport.fromDate, 'dd-MMM-yy');
@@ -108,7 +111,7 @@ export class CourseStatusReportComponent implements OnInit {
       this.generatedReportStatus=result;
       if(this.generatedReportStatus==="No Data Found"){
         this.displayDownloadButton=false; 
-        this.generatedReportStatus= this.language.label_report_status_noDataFound;
+        this.generatedReportStatus= this.language.delegationsNotFound.toString();
       }else{
         this.displayDownloadButton=true; 
         this.generatedReportStatus= this.language.label_report_status_success;
@@ -126,19 +129,40 @@ export class CourseStatusReportComponent implements OnInit {
     
   }
 
-public toDateInputValidator(event:any){
-   console.log("***event value"+event.target.value); 
-    // const pattern = /^[0-9]*$/;   
-    //let inputChar = String.fromCharCode(event.charCode)
-    // if (event.target.value >) {
-      // event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
-      // event.target.value = event.target.value.replace(/[^0-9]/g, "");
-      // invalid character, prevent input
-      // this._snackBar.open("Only Digits Allowed","",{duration:1500});
+  public dateValidator(event:any){
+    console.log(event);
+    console.log("***event value "+event.target.value);  
+     
+      // added to avoid null values during validation process
+      if(event.targetElement.name==="startDate" && event.target.value===null) {
+         this.courseStatusReport.startDate=undefined
+         event.target.value===undefined;
+      }
+      if(event.targetElement.name==="endDate" && event.target.value===null){
+        this.courseStatusReport.endDate=undefined
+        event.target.value===undefined;
+      }
 
-// }
-
-}
+      // added for validating end date should not be less than start date
+      if((this.courseStatusReport!=null && 
+          this.courseStatusReport.startDate != null && this.courseStatusReport.endDate !=null))
+      {
+        this.startDate = this.datepipe.transform(this.courseStatusReport.startDate,"dd-MM-yyyy");
+        this.endDate = this.datepipe.transform(this.courseStatusReport.endDate,"dd-MM-yyyy"); 
+         
+        if(this.endDate < this.startDate)
+        {
+          if(event.targetElement.name==="startDate") 
+            this.courseStatusReport.startDate=undefined
+          if(event.targetElement.name==="endDate")
+            this.courseStatusReport.endDate=undefined
+          event.target.value =undefined;
+          this._snackBar.open(this.language.datesValidationInDelgation.toString(),"",{duration:1500});
+        } 
+      }
+      console.log("***startDate value "+ this.courseStatusReport.startDate);  
+      console.log("***endDate value "+this.courseStatusReport.endDate);  
+    }
   public inputValidator(event: any) {
     // console.log("***event value"+event.target.value);
     // const pattern = /^[a-zA-Z0-9]*$/;
@@ -164,33 +188,33 @@ public toDateInputValidator(event:any){
             this.courseStatusReportService.downloadPDFFileSystem(this.fileSystemName)
               .subscribe(response => {
                 const filename = response.headers.get('filename'); 
-                this.saveFile(response.body, filename);
+                this.savePDFFile(response.body, filename);
               });
     }else{
       this.courseStatusReportService.downloadExcelFileSystem(this.fileSystemName)
       .subscribe(response => {
         const filename = response.headers.get('filename'); 
-        this.saveFile2(response.body, filename);
+        this.saveExcelFile(response.body, filename);
       });
 
     }
   }
  
-  downloadClasspathFile() {
-    this.courseStatusReportService.downloadClasspathFile(this.classpathFileName)
-      .subscribe(response => {
-        const filename = response.headers.get('filename'); 
-        this.saveFile(response.body, filename);
-      });
-  }
+  // downloadClasspathFile() {
+  //   this.courseStatusReportService.downloadClasspathFile(this.classpathFileName)
+  //     .subscribe(response => {
+  //       const filename = response.headers.get('filename'); 
+  //       this.saveFile(response.body, filename);
+  //     });
+  // }
  
-  saveFile(data: any, filename?: string) { 
+  savePDFFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/pdf'});
       // fileSaver.saveAs(blob, "CourseStatusReport.pdf"); 
       fileSaver.saveAs(blob, this.language.menu_courseStatusReport+".pdf"); 
   }
 
-  saveFile2(data: any, filename?: string) { 
+  saveExcelFile(data: any, filename?: string) { 
       const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       fileSaver.saveAs(blob,this.language.menu_courseStatusReport+".xlsx");
     

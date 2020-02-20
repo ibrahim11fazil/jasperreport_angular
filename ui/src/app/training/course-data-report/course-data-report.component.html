@@ -68,10 +68,10 @@
       </div> 
      
       <div class="full-wid mrgn-b-md" fxLayout="row wrap" > 
-        <input      [matDatepicker]="picker1" placeholder={{language.startDate}}  name="startDate"  [(ngModel)]="courseDataReport.startDate">
+        <input      [matDatepicker]="picker1" placeholder={{language.startDate}} (dateChange)="dateValidator($event)"  name="startDate"  [(ngModel)]="courseDataReport.startDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
-        <input       [matDatepicker]="picker2" placeholder={{language.delegation_endDate}}  name="endDate"  [(ngModel)]="courseDataReport.endDate">
+        <input       [matDatepicker]="picker2" placeholder={{language.delegation_endDate}} (dateChange)="dateValidator($event)"  name="endDate"  [(ngModel)]="courseDataReport.endDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker> 
       </div>
