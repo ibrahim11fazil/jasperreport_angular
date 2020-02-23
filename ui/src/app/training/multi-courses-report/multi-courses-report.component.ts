@@ -124,8 +124,8 @@ export class MultiCoursesReportComponent implements OnInit {
       if((this.multiCoursesReport!=null && 
           this.multiCoursesReport.startDate != null && this.multiCoursesReport.endDate !=null))
       {
-        this.startDate = this.datepipe.transform(this.multiCoursesReport.startDate,"dd-MM-yyyy");
-        this.endDate = this.datepipe.transform(this.multiCoursesReport.endDate,"dd-MM-yyyy"); 
+        this.startDate = this.datepipe.transform(this.multiCoursesReport.startDate,"yyyy-MM-dd");
+        this.endDate = this.datepipe.transform(this.multiCoursesReport.endDate,"yyyy-MM-dd"); 
          
         if(this.endDate < this.startDate)
         {

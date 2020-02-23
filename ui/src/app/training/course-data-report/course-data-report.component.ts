@@ -164,9 +164,10 @@ export class CourseDataReportComponent implements OnInit {
       if((this.courseDataReport!=null && 
           this.courseDataReport.startDate != null && this.courseDataReport.endDate !=null))
       {
-        this.startDate = this.datepipe.transform(this.courseDataReport.startDate,"dd-MM-yyyy");
-        this.endDate = this.datepipe.transform(this.courseDataReport.endDate,"dd-MM-yyyy"); 
-         
+        this.startDate = this.datepipe.transform(this.courseDataReport.startDate,"yyyy-MM-dd");
+        this.endDate = this.datepipe.transform(this.courseDataReport.endDate,"yyyy-MM-dd"); 
+        console.log("***startDate value "+ this.startDate);  
+        console.log("***endDate value "+this.endDate); 
         if(this.endDate < this.startDate)
         {
           if(event.targetElement.name==="startDate") 
@@ -177,8 +178,8 @@ export class CourseDataReportComponent implements OnInit {
           this._snackBar.open(this.language.datesValidationInDelgation.toString(),"",{duration:1500});
         } 
       }
-      console.log("***startDate value "+ this.courseDataReport.startDate);  
-      console.log("***endDate value "+this.courseDataReport.endDate);  
+      console.log("***Course startDate value "+ this.courseDataReport.startDate);  
+      console.log("***Course endDate value "+this.courseDataReport.endDate);  
     }
   // public endDateInputValidator(event:any){
   //   console.log(event);

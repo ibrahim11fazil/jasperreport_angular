@@ -147,8 +147,8 @@ export class CourseStatusReportComponent implements OnInit {
       if((this.courseStatusReport!=null && 
           this.courseStatusReport.startDate != null && this.courseStatusReport.endDate !=null))
       {
-        this.startDate = this.datepipe.transform(this.courseStatusReport.startDate,"dd-MM-yyyy");
-        this.endDate = this.datepipe.transform(this.courseStatusReport.endDate,"dd-MM-yyyy"); 
+        this.startDate = this.datepipe.transform(this.courseStatusReport.startDate,"yyyy-MM-dd");
+        this.endDate = this.datepipe.transform(this.courseStatusReport.endDate,"yyyy-MM-dd"); 
          
         if(this.endDate < this.startDate)
         {
